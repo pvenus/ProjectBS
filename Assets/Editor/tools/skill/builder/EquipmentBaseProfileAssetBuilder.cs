@@ -150,7 +150,12 @@ namespace ResourceTools.Skill
                 isValid = false;
             }
 
-            if (json.projectileCount < 1)
+            bool isMobility = string.Equals(
+                json.skillComponentType,
+                nameof(SkillComponentType.Mobility),
+                StringComparison.OrdinalIgnoreCase);
+
+            if (!isMobility && json.projectileCount < 1)
             {
                 LogValidationError(baseProfileId, $"projectileCount must be >= 1. value={json.projectileCount}");
                 isValid = false;
@@ -162,13 +167,13 @@ namespace ResourceTools.Skill
                 isValid = false;
             }
 
-            if (json.projectileColliderRadius <= 0f)
+            if (!isMobility && json.projectileColliderRadius <= 0f)
             {
                 LogValidationError(baseProfileId, $"projectileColliderRadius must be > 0. value={json.projectileColliderRadius}");
                 isValid = false;
             }
 
-            if (json.projectileLifetime <= 0f)
+            if (!isMobility && json.projectileLifetime <= 0f)
             {
                 LogValidationError(baseProfileId, $"projectileLifetime must be > 0. value={json.projectileLifetime}");
                 isValid = false;

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Character;
 using Stat;
 using Skill;
+using Npc.Service;
 
 public class SkillExecutorMono : MonoBehaviour, ISkillExecutor
 {
@@ -146,6 +147,39 @@ public class SkillExecutorMono : MonoBehaviour, ISkillExecutor
         return _hasPendingRequest;
     }
 
+    /// <summary>
+    /// Non-consuming enemy AI snapshot. It never clears, submits, or executes a request.
+    /// </summary>
+    public EnemyOffensiveRecoverySignal GetEnemyOffensiveRecoverySignal(
+        Transform caster,
+        Transform target)
+    {
+        ScriptableObject basic = GetBasicAttackSkill();
+        if (basic == null || caster == null || !isActiveAndEnabled || IsCasterSkillBlocked(caster))
+            return new EnemyOffensiveRecoverySignal(EnemyOffensiveRecoveryState.Disabled, false, 0f);
+
+        bool inRange = target != null && IsInSkillRange(basic, caster, target);
+        float remaining = GetRemainingCooldown(basic);
+        bool pendingBasic = _hasPendingRequest && _pendingRequest.Skill == basic && _pendingRequest.Caster == caster;
+        bool playingAttack = _animationMono != null && _animationMono.IsPlayingAttack();
+
+        if (playingAttack)
+        {
+            return new EnemyOffensiveRecoverySignal(
+                pendingBasic && remaining <= 0f
+                    ? EnemyOffensiveRecoveryState.Windup
+                    : EnemyOffensiveRecoveryState.Recovery,
+                inRange,
+                remaining);
+        }
+
+        if (pendingBasic && remaining <= 0f)
+            return new EnemyOffensiveRecoverySignal(EnemyOffensiveRecoveryState.Windup, inRange, remaining);
+        if (remaining > 0f)
+            return new EnemyOffensiveRecoverySignal(EnemyOffensiveRecoveryState.Cooldown, inRange, remaining);
+        return new EnemyOffensiveRecoverySignal(EnemyOffensiveRecoveryState.Ready, inRange, 0f);
+    }
+
     public bool TryExecutePending()
     {
         if (!_hasPendingRequest)
@@ -208,6 +242,19 @@ public class SkillExecutorMono : MonoBehaviour, ISkillExecutor
 
         if (IsCasterSkillBlocked(request.Caster))
             return false;
+
+        if (skill is EquipmentSkillSO castEquipment &&
+            castEquipment.CastSo != null &&
+            CharacterSkillManager.NormalizeCastTime(castEquipment.CastSo.CastTime) > 0f)
+        {
+            // This legacy executor owns a separate cooldown/projectile pipeline and
+            // cannot provide atomic cast cancellation. Never silently treat a positive
+            // cast time as instant; generated character content uses CharacterSkillManager.
+            Debug.LogError(
+                $"[SkillExecutor] Positive castTime requires CharacterSkillManager. " +
+                $"skill={skill.name} castTime={castEquipment.CastSo.CastTime:0.###}");
+            return false;
+        }
 
         if (IsBasicAttackSkill(skill) && !HasValidBasicAttackTargetInRange(skill, request))
         {

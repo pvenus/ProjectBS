@@ -38,6 +38,15 @@ namespace ResourceTools.Skill
             0.09f,
             0.07f
         };
+        private static readonly float[] SwiftStepDurations =
+        {
+            0.08f,
+            0.05f,
+            0.07f,
+            0.08f,
+            0.08f,
+            0.06f
+        };
         private static readonly float[] FourFrameLoopDurations =
         {
             0.12f,
@@ -115,7 +124,8 @@ namespace ResourceTools.Skill
             SkillSortingRelation sortingRelation = ResolveSortingRelation(json.sortingRelation);
             AnimationClipEntry[] animationClips;
 
-            if (generateAnimation)
+            bool intentionalNone = projectileVisualType == ProjectileVisualType.None;
+            if (generateAnimation && !intentionalNone)
             {
                 animationClips = CreateAnimationClipEntries(
                     json.visualId);
@@ -133,6 +143,12 @@ namespace ResourceTools.Skill
                 projectileVisualType,
                 sortingRelation,
                 animationClips);
+            if (intentionalNone)
+            {
+                // None is an authored policy, not a missing-asset condition. Clear
+                // stale clip/profile references so regeneration stays idempotent.
+                visualSo.DisableProjectilePresentationEditor();
+            }
         }
 
         private static SkillSortingRelation ResolveSortingRelation(string value)
@@ -273,11 +289,15 @@ namespace ResourceTools.Skill
             string clipPath = Path.Combine(SkillAnimationClipFolder, clipName + ".anim")
                 .Replace("\\", "/");
 
-            IReadOnlyList<float> frameDurations = sprites.Length == FourFrameLoopDurations.Length
+            bool isSwiftStep = skillId.EndsWith(".active_4.swift_step", StringComparison.Ordinal);
+            IReadOnlyList<float> frameDurations = isSwiftStep
+                ? SwiftStepDurations
+                : sprites.Length == FourFrameLoopDurations.Length
                 ? FourFrameLoopDurations
                 : sprites.Length == SixFrameEmphasisDurations.Length
                     ? SixFrameEmphasisDurations
                     : null;
+            bool loopTime = !isSwiftStep;
 
             AnimationClip clip = frameDurations != null
                 ? AnimationClipAssetHelper.CreateOrUpdateSpriteAnimationClipWithDurations(
@@ -285,15 +305,25 @@ namespace ResourceTools.Skill
                     sprites,
                     frameDurations,
                     SkillAnimationFrameRate,
-                    true)
+                    loopTime)
                 : AnimationClipAssetHelper.CreateOrUpdateSpriteAnimationClip(
                     clipPath,
                     sprites,
                     SkillAnimationFrameRate,
-                    true);
+                    loopTime);
 
             if (clip != null)
             {
+                if (isSwiftStep)
+                {
+                    AnimationClipSettings settings = AnimationUtility.GetAnimationClipSettings(clip);
+                    settings.startTime = 0f;
+                    settings.stopTime = 0.42f;
+                    settings.loopTime = false;
+                    AnimationUtility.SetAnimationClipSettings(clip, settings);
+                    EditorUtility.SetDirty(clip);
+                }
+
                 Debug.Log(
                     $"[SkillBaseVisualAssetBuilder] Created or updated animation clip: " +
                     $"{clipPath} / Frames: {sprites.Length} / Source: {frameFolder} / " +

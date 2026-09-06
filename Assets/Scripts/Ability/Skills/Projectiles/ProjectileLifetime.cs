@@ -59,7 +59,14 @@ public class ProjectileLifetime : MonoBehaviour
         elapsedTime += Time.deltaTime;
         if (elapsedTime >= lifetime)
         {
-            owner.Despawn();
+            if (runtimeData.minimumVisualLifetime > lifetime)
+            {
+                owner.CompleteCollisionAndDespawnAfterVisual();
+            }
+            else
+            {
+                owner.Despawn();
+            }
         }
     }
 

@@ -24,6 +24,22 @@ MonoBehaviour:
     moveType: 1
     distance: 2
     duration: 0.25
+    anticipation: 0
+    wallSkin: 0.1
+    targetClearance: 0.35
+    minSuccessDistance: 0.4
+    stopOnWall: 1
   selfEffects:
   - {fileID: 11400000, guid: 06e86519f472a41e88e23a9a6c13b973, type: 2}
+  postMoveSelfEffects: []
+  mobilityVfxClip: {fileID: 0}
+  mobilityBodyPresentation:
+    profileId:
+    grade: 1
+    reducedMotion: 0
+    disablePresentation: 0
+  bodyActionClip: {fileID: 7400000, guid: 1d2917a1254840994c1570c1e47556cb, type: 2}
+  bodyActionPlayback:
+    contactTime: 0
+    duration: 0.32
   skipAttackAnimation: 0

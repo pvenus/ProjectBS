@@ -42,6 +42,14 @@ public class BaseVisualSO : ScriptableObject
         this.sortingRelation = sortingRelation;
         this.animationClips = animationClips;
     }
+
+    public void DisableProjectilePresentationEditor()
+    {
+        projectileVisualType = ProjectileVisualType.None;
+        animationClips = System.Array.Empty<AnimationClipEntry>();
+        animationVfxProfile = null;
+        animationVfxPalette = default;
+    }
 #endif
 }
 

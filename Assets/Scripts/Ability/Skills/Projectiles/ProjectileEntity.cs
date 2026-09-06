@@ -22,6 +22,7 @@ public class ProjectileEntity : MonoBehaviour
     [SerializeField] private bool waitingForVisualCompletion;
 
     private ProjectileRuntimeData runtimeData;
+    private float initializedAtTime;
 
     public bool IsInitialized => initialized;
     public ProjectileRuntimeData RuntimeData => runtimeData;
@@ -90,6 +91,7 @@ public class ProjectileEntity : MonoBehaviour
         runtimeData = data;
         initialized = true;
         waitingForVisualCompletion = false;
+        initializedAtTime = Time.time;
 
         transform.position = data.spawnPosition;
 
@@ -178,12 +180,24 @@ public class ProjectileEntity : MonoBehaviour
             ? visual.GetRemainingCurrentClipPlaybackTime()
             : 0f;
 
+        // A playable may transiently report zero remaining time before its
+        // first rendered evaluation. Keep the detached visual alive for the
+        // authored spawn-to-stop duration regardless of graph timing.
+        float elapsedSinceInitialize = Mathf.Max(0f, Time.time - initializedAtTime);
+        float remainingMinimumTime = runtimeData != null
+            ? Mathf.Max(0f, runtimeData.minimumVisualLifetime - elapsedSinceInitialize)
+            : 0f;
+        remainingVisualTime = Mathf.Max(remainingVisualTime, remainingMinimumTime);
+
         if (remainingVisualTime <= 0f)
         {
             Despawn();
             return;
         }
 
+        // minimumVisualLifetime is authored to include the terminal frame's
+        // dwell. Adding another rendered-frame grace period here makes only
+        // the final sprite linger longer than the preceding samples.
         Destroy(gameObject, remainingVisualTime);
     }
 

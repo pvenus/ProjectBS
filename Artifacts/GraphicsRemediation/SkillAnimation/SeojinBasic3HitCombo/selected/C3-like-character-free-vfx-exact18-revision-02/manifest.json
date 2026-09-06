@@ -1,0 +1,355 @@
+{
+  "status": "SEMANTIC_REJECT_PROVENANCE_ONLY",
+  "reject_reason": "direction_and_topology_incoherence_plus_radial_contact_bursts",
+  "attempt": 2,
+  "method": "independent_native_rgba_fixed_composition_prompts",
+  "physical_frames": 18,
+  "review_dimensions": [
+    768,
+    512
+  ],
+  "runtime_dimensions": [
+    256,
+    256
+  ],
+  "runtime_padding": 10,
+  "duration_ms": 1800,
+  "delays_ms": [
+    80,
+    80,
+    80,
+    80,
+    120,
+    80,
+    80,
+    80,
+    80,
+    80,
+    120,
+    80,
+    80,
+    80,
+    80,
+    80,
+    120,
+    320
+  ],
+  "segments": {
+    "hit1": [
+      0,
+      6
+    ],
+    "hit2": [
+      6,
+      12
+    ],
+    "hit3": [
+      12,
+      18
+    ]
+  },
+  "contacts": [
+    4,
+    10,
+    16
+  ],
+  "frames": [
+    {
+      "frame": 0,
+      "source_sha256": "4e2ebc00001e56c9607fc7993959a2f7b347a7bdf373a8bdc55ee940ee587e22",
+      "review_sha256": "aeef6ff417c00891580511905137323ec09b10df60f90814edaab1385d737fec",
+      "runtime_sha256": "046789c557d3baf3e2fc426b1fb205d6bdbc74aeaeef11bcb989b18611c49669",
+      "runtime_alpha_bbox": [
+        158,
+        113,
+        241,
+        139
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "frame": 1,
+      "source_sha256": "973139699a831325b04a9374baa4397722d86fa8eca830822833a2da3f03bf92",
+      "review_sha256": "b8907870e2b4c14c782b60bf7bd0d9b719f58f5c0cdb92d1250da5393b28da6e",
+      "runtime_sha256": "9cd36a16ec4d44e47825e984c618214660e8ae100223fa4b9c5e83df890caeb8",
+      "runtime_alpha_bbox": [
+        44,
+        96,
+        246,
+        163
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "frame": 2,
+      "source_sha256": "f96ecfe2d96cc9853b75cff347c70b134c8534b32bf703f457a7310f1512e7e5",
+      "review_sha256": "d305cf562150ae8ab863ae985a8e3e041880f2cccd5f8edf8e26e295baf88913",
+      "runtime_sha256": "c703b900aa4f1882d875235e9af29e28a656ab6c979ccfcb482b3bda8fe462ff",
+      "runtime_alpha_bbox": [
+        77,
+        86,
+        246,
+        164
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "frame": 3,
+      "source_sha256": "b137ffde56df667cf3772a6f9b20853fbbb03cc1428c5079611d7d609fc2a6c5",
+      "review_sha256": "389201dd7bee6accfb1206a6a8e509b29809081592883f8e469952fd563e48da",
+      "runtime_sha256": "18e10370e9e45db9c960e8efbeb9201181b8bdfd5de7b1df851b2cc6258b4b92",
+      "runtime_alpha_bbox": [
+        15,
+        72,
+        245,
+        172
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "frame": 4,
+      "source_sha256": "b11176cfe4d3ddb63253de9cbd466d8c245e13c82d8b26d7a9af6d7d6c8b783c",
+      "review_sha256": "f203d866f672a67f3b44b3ffb9379318634cebbb5d5ea3926b86d8528748b9db",
+      "runtime_sha256": "41014be05aedef78b5c2cc66621814687e7be98d8116a86675e4a0cf261aed22",
+      "runtime_alpha_bbox": [
+        27,
+        85,
+        241,
+        159
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "frame": 5,
+      "source_sha256": "fc1b0904110058fbee04b88f078d6b0cbdf66229c9e19fc6fe79a2f91ba40003",
+      "review_sha256": "78c212090412982942c359b2c490fd3acb451bcaec4ac6dea36724670003b86c",
+      "runtime_sha256": "86e421f1c8869d10a7735a32e5eb19bb7f18eff04a820879d72f004f6142face",
+      "runtime_alpha_bbox": [
+        60,
+        95,
+        244,
+        161
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "frame": 6,
+      "source_sha256": "78b8fcc3a8f88377496262bd0f469b02b5049f79ccb8c807b551fb42fbb1158f",
+      "review_sha256": "ab2a02c87b3c39cb0b019dfb12e0e1b60c9624183627defa2a829a388b7cf36f",
+      "runtime_sha256": "8cd0ad589fbd531bdd59aa1c5d12a5221420aaeddccc92a7920e3942f3628349",
+      "runtime_alpha_bbox": [
+        24,
+        95,
+        245,
+        154
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "frame": 7,
+      "source_sha256": "f77ec8cd3a093788450fa8859b4353ade26b95e22248c74e8dfa1ebd0b0c00bf",
+      "review_sha256": "98de6f8fa8fc2fecf8cc3af7eac084c231844695d68aeab1c91954347cd88613",
+      "runtime_sha256": "28e671f23f89e2ba663654a3516c0e00f4419ab832787ec500938f2b68e14b11",
+      "runtime_alpha_bbox": [
+        14,
+        100,
+        244,
+        158
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "frame": 8,
+      "source_sha256": "83017cbc6fe993d1b2be17892566f920288d455612057898771f2993316146b2",
+      "review_sha256": "5760fe0c9964a659927cdc01ba94823b64e69ee0fa86ef109214f3d24f9cc888",
+      "runtime_sha256": "7bf8878d9a2f5f10d18d00f54b4bf8f28f76c59a44498c286151c82a76708067",
+      "runtime_alpha_bbox": [
+        11,
+        70,
+        246,
+        187
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "frame": 9,
+      "source_sha256": "6e978b5baa5f8e3240aa5692a1237f9b04cad2622da6add63658704018d7b3d6",
+      "review_sha256": "7dfc59d16be1438c79154ee429c99770bc9fd764261c8c084c4c855d59db2510",
+      "runtime_sha256": "e0bb861b9aaf7bb03be78365a0bf0d6ee801107dd1c5edc976a765f45e9fb3f9",
+      "runtime_alpha_bbox": [
+        15,
+        97,
+        244,
+        155
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "frame": 10,
+      "source_sha256": "0d419c86044a77c0d47ba22336e3b2c8b72f29b3579b75d4534e63fb4f84b58c",
+      "review_sha256": "12acd06f4bf2e98195a53adec2c57753d0309441b1e1bfc30d8f95d2716734de",
+      "runtime_sha256": "b9b4ce9fa56ccaf3503fb7c077960c51ec615fac68aec2d06c7a41de688869ba",
+      "runtime_alpha_bbox": [
+        10,
+        59,
+        246,
+        203
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "frame": 11,
+      "source_sha256": "634c7845392c7371d5883a3311c5dc45315e047a7a44ec5c46b854ba336a0f73",
+      "review_sha256": "51eec0647b25999bfee0685643f92c4d97fdcb2ea314d01128cf37bdac161ef7",
+      "runtime_sha256": "0a5d801469e7dc88d46e188a79fb9f587dc9e5125b41cdceb5913e7f9152a4ca",
+      "runtime_alpha_bbox": [
+        13,
+        94,
+        246,
+        165
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "frame": 12,
+      "source_sha256": "518a0c8667650c1d70031152485995f6834e6af5c767453c668b1768ec1a5aff",
+      "review_sha256": "cd8e1587690458497eac0833177c35a29fc139d5ec2253b067ac88b56f5586d0",
+      "runtime_sha256": "37a18f3f503cfde61b4c27ce878ce9f57aaa1291a68b831b50d3761af7e4ab8a",
+      "runtime_alpha_bbox": [
+        11,
+        65,
+        244,
+        181
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "frame": 13,
+      "source_sha256": "a01dcb33f84134542a900a560214b757a64418242f4793e7f7b1b44d470814ba",
+      "review_sha256": "3d44c0905b1c3b30e3fef9822aedf8a2c54e3b416fc0c2f806d4db25853e3de8",
+      "runtime_sha256": "28a67d4770e762088bdd6bc7b76ca75c927ec3e3cc832b5d18e3c6b9db89eebc",
+      "runtime_alpha_bbox": [
+        10,
+        50,
+        246,
+        204
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "frame": 14,
+      "source_sha256": "9f1a61e5b2e4f645b43c66bbdc0edc4d734c984aad0e8e78f4731741f9a21505",
+      "review_sha256": "33bffc73f0e603c1b034e26f442327b52d7faa4ad69840a39ce6c847229d9cb5",
+      "runtime_sha256": "de8e3c8dc88129f7e3cc583f8cd01f1b0629f3010f0bb18280ae85d93f40bfca",
+      "runtime_alpha_bbox": [
+        10,
+        66,
+        246,
+        190
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "frame": 15,
+      "source_sha256": "5aef8003132f9bcdd47f02ab0cd66e7726f7b4e05c29683f6108cf13c39819a5",
+      "review_sha256": "afcf494d957b27d0eedef4e33479fdabf9209b774bbbea13f14ad3bb4c079094",
+      "runtime_sha256": "30d47b96bf2a1f8e4699df8c7baba1dbfc8cb8b727eed4d257406c0a3e701f9d",
+      "runtime_alpha_bbox": [
+        11,
+        67,
+        246,
+        194
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "frame": 16,
+      "source_sha256": "bf4cb5a1e1560a2a4a65e7ebfc8853ea897940316f359df93c83df78cb508c22",
+      "review_sha256": "6aab1e4818d6a18dcbe73f6a8217dd6d5ae3d7e241880d592a5ae2938b957821",
+      "runtime_sha256": "7bcf7756186d3520d519c1c66f5ad847a61f0b6e821bce369a7450a7145019fa",
+      "runtime_alpha_bbox": [
+        11,
+        49,
+        244,
+        195
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "frame": 17,
+      "source_sha256": "22fb729d3809452157d0b4a07f7495ca940fe170192009ba560c38b5c911eb90",
+      "review_sha256": "fd35d1529b1a3db78e5420bc1fd0e29935ef157003aa1524404f5eba19c9751e",
+      "runtime_sha256": "db8a8ab4b42442f0f12e81f30ed998208c692ea1a6c248c6d51ef1f204893ee2",
+      "runtime_alpha_bbox": [
+        22,
+        97,
+        240,
+        151
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    }
+  ],
+  "gif": {
+    "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinBasic3HitCombo/selected/C3-like-character-free-vfx-exact18-revision-02/C3-like-character-free-vfx-continuous18.gif",
+    "sha256": "4c030a8aa57898401c673312529adb08c4543c0520b7685b48e87f6a5546d2e8"
+  },
+  "contact": {
+    "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinBasic3HitCombo/selected/C3-like-character-free-vfx-exact18-revision-02/C3-like-character-free-vfx-contact18.png",
+    "sha256": "3b5d14cacdc90afcdd78d85f959a222e20f228e4c18ef51215070bfa4ed57a55"
+  },
+  "install": 0
+}

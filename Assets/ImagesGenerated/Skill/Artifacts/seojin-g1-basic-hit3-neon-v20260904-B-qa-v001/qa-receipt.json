@@ -1,0 +1,175 @@
+{
+  "schema": "projectbs.physical-animation-qa-receipt.v1",
+  "overall": "FAIL",
+  "passed": {
+    "candidate_manifest_sha": true,
+    "frame_order": true,
+    "dimensions_256x256": true,
+    "rgba_mode": true,
+    "alpha_channel_has_variation": true,
+    "frame_sha_matches_manifest": true,
+    "frame_sha_unique": true,
+    "metadata": true,
+    "no_dark_semitransparent_black_fringe_by_rgb_max_lt_20": true
+  },
+  "failed_gates": [
+    "transparent_border: every frame has nonzero alpha on every canvas side; alpha bbox is [0,0,256,256]",
+    "transparent_corner: frame 0 top-right alpha=4; frame 1 top-left alpha=4; frame 3 bottom-left alpha=4; frame 5 top-right alpha=4",
+    "alpha_zero_rgb_cleanliness: every alpha=0 pixel in every frame retains nonzero RGB",
+    "clipping_risk: frame 3 top border reaches alpha=255; all other listed border maxima remain 4-8"
+  ],
+  "per_frame": [
+    {
+      "frame": 0,
+      "alpha_bbox_touches_all_canvas_edges": true,
+      "border_nonzero_alpha_counts": {
+        "top": 120,
+        "bottom": 109,
+        "left": 101,
+        "right": 99
+      },
+      "border_max_alpha": {
+        "top": 8,
+        "bottom": 8,
+        "left": 8,
+        "right": 8
+      },
+      "nonzero_corner_alpha": [
+        0,
+        4,
+        0,
+        0
+      ],
+      "alpha_zero_rgb_residue_count": 31299,
+      "alpha_zero_pixel_count": 31299
+    },
+    {
+      "frame": 1,
+      "alpha_bbox_touches_all_canvas_edges": true,
+      "border_nonzero_alpha_counts": {
+        "top": 120,
+        "bottom": 108,
+        "left": 120,
+        "right": 121
+      },
+      "border_max_alpha": {
+        "top": 8,
+        "bottom": 8,
+        "left": 8,
+        "right": 8
+      },
+      "nonzero_corner_alpha": [
+        4,
+        0,
+        0,
+        0
+      ],
+      "alpha_zero_rgb_residue_count": 25327,
+      "alpha_zero_pixel_count": 25327
+    },
+    {
+      "frame": 2,
+      "alpha_bbox_touches_all_canvas_edges": true,
+      "border_nonzero_alpha_counts": {
+        "top": 112,
+        "bottom": 96,
+        "left": 117,
+        "right": 113
+      },
+      "border_max_alpha": {
+        "top": 8,
+        "bottom": 8,
+        "left": 8,
+        "right": 8
+      },
+      "nonzero_corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha_zero_rgb_residue_count": 19610,
+      "alpha_zero_pixel_count": 19610
+    },
+    {
+      "frame": 3,
+      "alpha_bbox_touches_all_canvas_edges": true,
+      "border_nonzero_alpha_counts": {
+        "top": 159,
+        "bottom": 100,
+        "left": 101,
+        "right": 123
+      },
+      "border_max_alpha": {
+        "top": 255,
+        "bottom": 8,
+        "left": 8,
+        "right": 8
+      },
+      "nonzero_corner_alpha": [
+        0,
+        0,
+        4,
+        0
+      ],
+      "alpha_zero_rgb_residue_count": 21055,
+      "alpha_zero_pixel_count": 21055
+    },
+    {
+      "frame": 4,
+      "alpha_bbox_touches_all_canvas_edges": true,
+      "border_nonzero_alpha_counts": {
+        "top": 101,
+        "bottom": 78,
+        "left": 133,
+        "right": 116
+      },
+      "border_max_alpha": {
+        "top": 8,
+        "bottom": 4,
+        "left": 8,
+        "right": 8
+      },
+      "nonzero_corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha_zero_rgb_residue_count": 27054,
+      "alpha_zero_pixel_count": 27054
+    },
+    {
+      "frame": 5,
+      "alpha_bbox_touches_all_canvas_edges": true,
+      "border_nonzero_alpha_counts": {
+        "top": 100,
+        "bottom": 80,
+        "left": 119,
+        "right": 139
+      },
+      "border_max_alpha": {
+        "top": 8,
+        "bottom": 8,
+        "left": 8,
+        "right": 8
+      },
+      "nonzero_corner_alpha": [
+        0,
+        4,
+        0,
+        0
+      ],
+      "alpha_zero_rgb_residue_count": 31108,
+      "alpha_zero_pixel_count": 31108
+    }
+  ],
+  "provenance_disclosure": "Source checker/matte removal post-processing was reported upstream. This receipt does not classify the frames as native-generated RGBA.",
+  "scope_exclusions": [
+    "visual-direction adjudication",
+    "pixel modification",
+    "installation",
+    "runtime validation",
+    "release decision"
+  ]
+}

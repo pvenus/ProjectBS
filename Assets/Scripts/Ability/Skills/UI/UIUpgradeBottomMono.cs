@@ -44,7 +44,7 @@ public class UIUpgradeBottomMono : MonoBehaviour
     [SerializeField] private bool debugLog;
 
     private readonly List<SkillUpgradeMono> _targets = new List<SkillUpgradeMono>();
-    private readonly string[] _slotLabels = { "0 Basic", "1 Skill1", "2 Skill2", "3 Skill3" };
+    private readonly string[] _slotLabels = { "0 Basic", "1 Skill1", "2 Skill2", "3 Skill3", "4 Skill4" };
     private readonly UpgradeEffectType[] _effectValues = (UpgradeEffectType[])Enum.GetValues(typeof(UpgradeEffectType));
 
     private bool _isVisible;

@@ -8,7 +8,8 @@
                         "skillComponentType":  "Projectile",
                         "projectileCount":  1,
                         "projectileScale": 2,
-                        "projectileColliderRadius":  0.8,
+                        "rendererScale": 0.18,
+                        "projectileColliderRadius":  0.26666668,
                         "projectileLifetime":  0.25,
                         "projectileSpawn":  {
                                                 "spawnOffset":  0.6,
@@ -18,10 +19,13 @@
     "cast":  {
                  "castId":  "skill.character.chain_dragger_raider.1.basic_attack.chain_swing.cast",
                  "targetingType":  "AutoTargetDirection",
-                 "cooldown":  1.33,
-                 "castTime":  0,
+                 "cooldown":  2.66,
+                 "castTime":  1.35,
                  "range":  0.7,
-                 "skipAttackAnimation":  false
+                 "skipAttackAnimation":  false,
+                 "snapshotTargetPointOnCast": true,
+                 "bodyActionClip": "Assets/AnimationClips/Character/character.chain_dragger_raider.1/character.chain_dragger_raider.1.basic_attack.v2.Right.anim",
+                 "bodyActionPlayback": { "contactTime": 0.18, "duration": 0.45 }
              },
     "move":  {
                  "moveId":  "skill.character.chain_dragger_raider.1.basic_attack.chain_swing.move",
@@ -67,6 +71,6 @@
              ],
     "baseVisual":  {
                        "visualId":  "skill.character.chain_dragger_raider.1.basic_attack.chain_swing.visual",
-                       "projectileVisualType":  "Default"
+                       "projectileVisualType":  "None"
                    }
 }

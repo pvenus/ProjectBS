@@ -1,0 +1,1078 @@
+{
+  "status": "REVIEW_ONLY_RUNTIME_PASS_NOT_INFERRED",
+  "source_review": "proxy-calibrated-r1-v01",
+  "canvas": [
+    1008,
+    614
+  ],
+  "safe_padding_required": 48,
+  "union_bbox_original": [
+    140,
+    -17,
+    716,
+    500
+  ],
+  "union_bbox_safe": [
+    188,
+    48,
+    764,
+    565
+  ],
+  "art_clearance_safe": [
+    188,
+    48,
+    244,
+    49
+  ],
+  "clearance_gate_32px": true,
+  "global_shift": [
+    48,
+    65
+  ],
+  "clipped_in_v01": [
+    {
+      "grade": "g1",
+      "hit": 0,
+      "frame": 0,
+      "kind": "body",
+      "bbox960": [
+        171,
+        -4,
+        430,
+        481
+      ],
+      "clipped_sides": [
+        "top"
+      ]
+    },
+    {
+      "grade": "g1",
+      "hit": 1,
+      "frame": 0,
+      "kind": "body",
+      "bbox960": [
+        163,
+        -13,
+        437,
+        472
+      ],
+      "clipped_sides": [
+        "top"
+      ]
+    },
+    {
+      "grade": "g1",
+      "hit": 2,
+      "frame": 0,
+      "kind": "body",
+      "bbox960": [
+        177,
+        -11,
+        424,
+        474
+      ],
+      "clipped_sides": [
+        "top"
+      ]
+    },
+    {
+      "grade": "g1",
+      "hit": 2,
+      "frame": 2,
+      "kind": "body",
+      "bbox960": [
+        140,
+        -17,
+        461,
+        448
+      ],
+      "clipped_sides": [
+        "top"
+      ]
+    },
+    {
+      "grade": "g2",
+      "hit": 0,
+      "frame": 0,
+      "kind": "body",
+      "bbox960": [
+        171,
+        -4,
+        430,
+        481
+      ],
+      "clipped_sides": [
+        "top"
+      ]
+    },
+    {
+      "grade": "g2",
+      "hit": 1,
+      "frame": 0,
+      "kind": "body",
+      "bbox960": [
+        163,
+        -13,
+        437,
+        472
+      ],
+      "clipped_sides": [
+        "top"
+      ]
+    },
+    {
+      "grade": "g2",
+      "hit": 2,
+      "frame": 0,
+      "kind": "body",
+      "bbox960": [
+        177,
+        -11,
+        424,
+        474
+      ],
+      "clipped_sides": [
+        "top"
+      ]
+    },
+    {
+      "grade": "g2",
+      "hit": 2,
+      "frame": 2,
+      "kind": "body",
+      "bbox960": [
+        140,
+        -17,
+        461,
+        448
+      ],
+      "clipped_sides": [
+        "top"
+      ]
+    },
+    {
+      "grade": "g3",
+      "hit": 0,
+      "frame": 0,
+      "kind": "body",
+      "bbox960": [
+        171,
+        -4,
+        430,
+        481
+      ],
+      "clipped_sides": [
+        "top"
+      ]
+    },
+    {
+      "grade": "g3",
+      "hit": 1,
+      "frame": 0,
+      "kind": "body",
+      "bbox960": [
+        163,
+        -13,
+        437,
+        472
+      ],
+      "clipped_sides": [
+        "top"
+      ]
+    },
+    {
+      "grade": "g3",
+      "hit": 2,
+      "frame": 0,
+      "kind": "body",
+      "bbox960": [
+        177,
+        -11,
+        424,
+        474
+      ],
+      "clipped_sides": [
+        "top"
+      ]
+    },
+    {
+      "grade": "g3",
+      "hit": 2,
+      "frame": 2,
+      "kind": "body",
+      "bbox960": [
+        140,
+        -17,
+        461,
+        448
+      ],
+      "clipped_sides": [
+        "top"
+      ]
+    }
+  ],
+  "interpolation": "NEAREST/point; no shrink",
+  "outputs": [
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinBasic3HitCombo/review/proxy-calibrated-r1-v02-safe-canvas/seojin-basic-3hit-g1-combined-safe.gif",
+      "sha256": "b163922167fc9932192a0cc5064422e6d03153febf2dff6f0c93aa0596f5bf77",
+      "grade": "g1",
+      "mode": "combined",
+      "frames": 16,
+      "delays_ms": [
+        40,
+        40,
+        40,
+        40,
+        120,
+        40,
+        40,
+        40,
+        40,
+        130,
+        40,
+        40,
+        40,
+        40,
+        140,
+        300
+      ],
+      "events": [
+        {
+          "time": 0,
+          "hit": 0,
+          "frame": 0,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.04,
+          "hit": 0,
+          "frame": 1,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.08,
+          "hit": 0,
+          "frame": 2,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.12,
+          "hit": 0,
+          "frame": 3,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.16,
+          "hit": 0,
+          "frame": 4,
+          "delay_ms": 120
+        },
+        {
+          "time": 0.28,
+          "hit": 1,
+          "frame": 0,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.3175,
+          "hit": 1,
+          "frame": 1,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.355,
+          "hit": 1,
+          "frame": 2,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.3925,
+          "hit": 1,
+          "frame": 3,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.43,
+          "hit": 1,
+          "frame": 4,
+          "delay_ms": 130
+        },
+        {
+          "time": 0.56,
+          "hit": 2,
+          "frame": 0,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.6,
+          "hit": 2,
+          "frame": 1,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.64,
+          "hit": 2,
+          "frame": 2,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.68,
+          "hit": 2,
+          "frame": 3,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.72,
+          "hit": 2,
+          "frame": 4,
+          "delay_ms": 140
+        },
+        {
+          "time": 0.86,
+          "hit": 2,
+          "frame": 5,
+          "delay_ms": 300
+        }
+      ]
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinBasic3HitCombo/review/proxy-calibrated-r1-v02-safe-canvas/seojin-basic-3hit-g1-vfx-safe.gif",
+      "sha256": "cd57a48108293247e5b9bcf150d604f2303cdeea3ed7b386b41d7ba5d82c003a",
+      "grade": "g1",
+      "mode": "vfx",
+      "frames": 16,
+      "delays_ms": [
+        40,
+        40,
+        40,
+        40,
+        120,
+        40,
+        40,
+        40,
+        40,
+        130,
+        40,
+        40,
+        40,
+        40,
+        140,
+        300
+      ],
+      "events": [
+        {
+          "time": 0,
+          "hit": 0,
+          "frame": 0,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.04,
+          "hit": 0,
+          "frame": 1,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.08,
+          "hit": 0,
+          "frame": 2,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.12,
+          "hit": 0,
+          "frame": 3,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.16,
+          "hit": 0,
+          "frame": 4,
+          "delay_ms": 120
+        },
+        {
+          "time": 0.28,
+          "hit": 1,
+          "frame": 0,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.3175,
+          "hit": 1,
+          "frame": 1,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.355,
+          "hit": 1,
+          "frame": 2,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.3925,
+          "hit": 1,
+          "frame": 3,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.43,
+          "hit": 1,
+          "frame": 4,
+          "delay_ms": 130
+        },
+        {
+          "time": 0.56,
+          "hit": 2,
+          "frame": 0,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.6,
+          "hit": 2,
+          "frame": 1,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.64,
+          "hit": 2,
+          "frame": 2,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.68,
+          "hit": 2,
+          "frame": 3,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.72,
+          "hit": 2,
+          "frame": 4,
+          "delay_ms": 140
+        },
+        {
+          "time": 0.86,
+          "hit": 2,
+          "frame": 5,
+          "delay_ms": 300
+        }
+      ]
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinBasic3HitCombo/review/proxy-calibrated-r1-v02-safe-canvas/seojin-basic-3hit-g2-combined-safe.gif",
+      "sha256": "99b57c13e30844f1e812631bc8000a1b88d0f6d1501d1532a6752fe039cc1e01",
+      "grade": "g2",
+      "mode": "combined",
+      "frames": 16,
+      "delays_ms": [
+        40,
+        40,
+        30,
+        40,
+        110,
+        30,
+        30,
+        30,
+        30,
+        120,
+        40,
+        40,
+        40,
+        40,
+        130,
+        300
+      ],
+      "events": [
+        {
+          "time": 0,
+          "hit": 0,
+          "frame": 0,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.035,
+          "hit": 0,
+          "frame": 1,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.07,
+          "hit": 0,
+          "frame": 2,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.105,
+          "hit": 0,
+          "frame": 3,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.14,
+          "hit": 0,
+          "frame": 4,
+          "delay_ms": 110
+        },
+        {
+          "time": 0.25,
+          "hit": 1,
+          "frame": 0,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.2825,
+          "hit": 1,
+          "frame": 1,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.315,
+          "hit": 1,
+          "frame": 2,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.3475,
+          "hit": 1,
+          "frame": 3,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.38,
+          "hit": 1,
+          "frame": 4,
+          "delay_ms": 120
+        },
+        {
+          "time": 0.5,
+          "hit": 2,
+          "frame": 0,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.5375,
+          "hit": 2,
+          "frame": 1,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.575,
+          "hit": 2,
+          "frame": 2,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.6125,
+          "hit": 2,
+          "frame": 3,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.65,
+          "hit": 2,
+          "frame": 4,
+          "delay_ms": 130
+        },
+        {
+          "time": 0.78,
+          "hit": 2,
+          "frame": 5,
+          "delay_ms": 300
+        }
+      ]
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinBasic3HitCombo/review/proxy-calibrated-r1-v02-safe-canvas/seojin-basic-3hit-g2-vfx-safe.gif",
+      "sha256": "db7b0f598fc9bac5188a5deaa5e490ee9f04fee01c779fb0d4e0b0df1d95a667",
+      "grade": "g2",
+      "mode": "vfx",
+      "frames": 16,
+      "delays_ms": [
+        40,
+        40,
+        30,
+        40,
+        110,
+        30,
+        30,
+        30,
+        30,
+        120,
+        40,
+        40,
+        40,
+        40,
+        130,
+        300
+      ],
+      "events": [
+        {
+          "time": 0,
+          "hit": 0,
+          "frame": 0,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.035,
+          "hit": 0,
+          "frame": 1,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.07,
+          "hit": 0,
+          "frame": 2,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.105,
+          "hit": 0,
+          "frame": 3,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.14,
+          "hit": 0,
+          "frame": 4,
+          "delay_ms": 110
+        },
+        {
+          "time": 0.25,
+          "hit": 1,
+          "frame": 0,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.2825,
+          "hit": 1,
+          "frame": 1,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.315,
+          "hit": 1,
+          "frame": 2,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.3475,
+          "hit": 1,
+          "frame": 3,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.38,
+          "hit": 1,
+          "frame": 4,
+          "delay_ms": 120
+        },
+        {
+          "time": 0.5,
+          "hit": 2,
+          "frame": 0,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.5375,
+          "hit": 2,
+          "frame": 1,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.575,
+          "hit": 2,
+          "frame": 2,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.6125,
+          "hit": 2,
+          "frame": 3,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.65,
+          "hit": 2,
+          "frame": 4,
+          "delay_ms": 130
+        },
+        {
+          "time": 0.78,
+          "hit": 2,
+          "frame": 5,
+          "delay_ms": 300
+        }
+      ]
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinBasic3HitCombo/review/proxy-calibrated-r1-v02-safe-canvas/seojin-basic-3hit-g3-combined-safe.gif",
+      "sha256": "203d46904965c0ac3a21270b274cb2ff1ad537a1c0a1415ecbebee59e9669212",
+      "grade": "g3",
+      "mode": "combined",
+      "frames": 16,
+      "delays_ms": [
+        30,
+        30,
+        30,
+        30,
+        100,
+        30,
+        30,
+        30,
+        30,
+        100,
+        30,
+        40,
+        40,
+        30,
+        120,
+        300
+      ],
+      "events": [
+        {
+          "time": 0,
+          "hit": 0,
+          "frame": 0,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.03,
+          "hit": 0,
+          "frame": 1,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.06,
+          "hit": 0,
+          "frame": 2,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.09,
+          "hit": 0,
+          "frame": 3,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.12,
+          "hit": 0,
+          "frame": 4,
+          "delay_ms": 100
+        },
+        {
+          "time": 0.22,
+          "hit": 1,
+          "frame": 0,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.25,
+          "hit": 1,
+          "frame": 1,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.28,
+          "hit": 1,
+          "frame": 2,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.31,
+          "hit": 1,
+          "frame": 3,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.34,
+          "hit": 1,
+          "frame": 4,
+          "delay_ms": 100
+        },
+        {
+          "time": 0.44,
+          "hit": 2,
+          "frame": 0,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.475,
+          "hit": 2,
+          "frame": 1,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.51,
+          "hit": 2,
+          "frame": 2,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.545,
+          "hit": 2,
+          "frame": 3,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.58,
+          "hit": 2,
+          "frame": 4,
+          "delay_ms": 120
+        },
+        {
+          "time": 0.7,
+          "hit": 2,
+          "frame": 5,
+          "delay_ms": 300
+        }
+      ]
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinBasic3HitCombo/review/proxy-calibrated-r1-v02-safe-canvas/seojin-basic-3hit-g3-vfx-safe.gif",
+      "sha256": "e8d46c259d74f2868e15277c9fa20c0f0adf0329fde1eda8fb73661dbb662f90",
+      "grade": "g3",
+      "mode": "vfx",
+      "frames": 16,
+      "delays_ms": [
+        30,
+        30,
+        30,
+        30,
+        100,
+        30,
+        30,
+        30,
+        30,
+        100,
+        30,
+        40,
+        40,
+        30,
+        120,
+        300
+      ],
+      "events": [
+        {
+          "time": 0,
+          "hit": 0,
+          "frame": 0,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.03,
+          "hit": 0,
+          "frame": 1,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.06,
+          "hit": 0,
+          "frame": 2,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.09,
+          "hit": 0,
+          "frame": 3,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.12,
+          "hit": 0,
+          "frame": 4,
+          "delay_ms": 100
+        },
+        {
+          "time": 0.22,
+          "hit": 1,
+          "frame": 0,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.25,
+          "hit": 1,
+          "frame": 1,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.28,
+          "hit": 1,
+          "frame": 2,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.31,
+          "hit": 1,
+          "frame": 3,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.34,
+          "hit": 1,
+          "frame": 4,
+          "delay_ms": 100
+        },
+        {
+          "time": 0.44,
+          "hit": 2,
+          "frame": 0,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.475,
+          "hit": 2,
+          "frame": 1,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.51,
+          "hit": 2,
+          "frame": 2,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.545,
+          "hit": 2,
+          "frame": 3,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.58,
+          "hit": 2,
+          "frame": 4,
+          "delay_ms": 120
+        },
+        {
+          "time": 0.7,
+          "hit": 2,
+          "frame": 5,
+          "delay_ms": 300
+        }
+      ]
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinBasic3HitCombo/review/proxy-calibrated-r1-v02-safe-canvas/seojin-basic-3hit-body-shared-safe.gif",
+      "sha256": "286e2b4fc7c7dc0612d8186dd0e9122b32033a07c0246db1824e2a60cd36014d",
+      "grade": "shared-g2-timing",
+      "mode": "body",
+      "frames": 16,
+      "delays_ms": [
+        40,
+        40,
+        30,
+        40,
+        110,
+        30,
+        30,
+        30,
+        30,
+        120,
+        40,
+        40,
+        40,
+        40,
+        130,
+        300
+      ],
+      "events": [
+        {
+          "time": 0,
+          "hit": 0,
+          "frame": 0,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.035,
+          "hit": 0,
+          "frame": 1,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.07,
+          "hit": 0,
+          "frame": 2,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.105,
+          "hit": 0,
+          "frame": 3,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.14,
+          "hit": 0,
+          "frame": 4,
+          "delay_ms": 110
+        },
+        {
+          "time": 0.25,
+          "hit": 1,
+          "frame": 0,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.2825,
+          "hit": 1,
+          "frame": 1,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.315,
+          "hit": 1,
+          "frame": 2,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.3475,
+          "hit": 1,
+          "frame": 3,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.38,
+          "hit": 1,
+          "frame": 4,
+          "delay_ms": 120
+        },
+        {
+          "time": 0.5,
+          "hit": 2,
+          "frame": 0,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.5375,
+          "hit": 2,
+          "frame": 1,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.575,
+          "hit": 2,
+          "frame": 2,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.6125,
+          "hit": 2,
+          "frame": 3,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.65,
+          "hit": 2,
+          "frame": 4,
+          "delay_ms": 130
+        },
+        {
+          "time": 0.78,
+          "hit": 2,
+          "frame": 5,
+          "delay_ms": 300
+        }
+      ]
+    }
+  ]
+}

@@ -14,6 +14,7 @@ public class SkillLoadoutMono : MonoBehaviour
     public SkillPoolSlotData Skill1 => skillPool?.GetSlotByKey(SkillPoolSlotKeys.Active1);
     public SkillPoolSlotData Skill2 => skillPool?.GetSlotByKey(SkillPoolSlotKeys.Active2);
     public SkillPoolSlotData Skill3 => skillPool?.GetSlotByKey(SkillPoolSlotKeys.Active3);
+    public SkillPoolSlotData Skill4 => skillPool?.GetSlotByKey(SkillPoolSlotKeys.Active4);
 
     private void Awake()
     {
@@ -37,6 +38,11 @@ public class SkillLoadoutMono : MonoBehaviour
             }
 
             if (skillPool != null && skillPool.HasSkillByKey(SkillPoolSlotKeys.Active3))
+            {
+                count++;
+            }
+
+            if (skillPool != null && skillPool.HasSkillByKey(SkillPoolSlotKeys.Active4))
             {
                 count++;
             }

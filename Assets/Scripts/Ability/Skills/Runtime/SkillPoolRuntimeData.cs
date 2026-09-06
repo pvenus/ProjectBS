@@ -15,6 +15,7 @@ namespace Skill
         public const string Active1 = "active_1";
         public const string Active2 = "active_2";
         public const string Active3 = "active_3";
+        public const string Active4 = "active_4";
         public const string Passive1 = "passive_1";
 
         public const string Strategic1 = "strategic_1";

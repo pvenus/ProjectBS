@@ -19,9 +19,19 @@ namespace ResourceTools.Skill
         public float range;
 
         public bool skipAttackAnimation;
+        public bool snapshotTargetPointOnCast;
 
         public string castMove;
         public string selfEffects;
+        public string postMoveSelfEffects;
+        // Canonical JSON field names. The *Path fields remain supported for
+        // generated/legacy DTO callers and are normalized by the generator.
+        public string mobilityVfxClip;
+        public string mobilityVfxClipPath;
+        public string bodyPresentation;
+        public string bodyActionClip;
+        public string bodyActionClipPath;
+        public string bodyActionPlayback;
     }
 
     [Serializable]
@@ -36,6 +46,25 @@ namespace ResourceTools.Skill
     {
         public string moveType;
         public float distance;
+        public float duration;
+        public float anticipation;
+        public float wallSkin = 0.1f;
+        public float targetClearance = 0.35f;
+        public float minSuccessDistance = 0.4f;
+        public bool stopOnWall = true;
+    }
+
+    [Serializable]
+    public class MobilityBodyPresentationJson
+    {
+        public string profileId;
+        public int grade = 1;
+    }
+
+    [Serializable]
+    public class SkillBodyActionPlaybackJson
+    {
+        public float contactTime;
         public float duration;
     }
 
@@ -73,6 +102,14 @@ namespace ResourceTools.Skill
 
             EnsureFolder(outputFolder);
 
+            if (!string.IsNullOrWhiteSpace(json.bodyActionClipPath) &&
+                AssetDatabase.LoadAssetAtPath<AnimationClip>(json.bodyActionClipPath) == null)
+            {
+                Debug.LogError(
+                    $"[SkillCastAssetBuilder] Body action clip does not exist; cast remains unchanged: {json.bodyActionClipPath}");
+                return null;
+            }
+
             string assetName = ResolveAssetName(json);
             string assetPath = Path.Combine(outputFolder, assetName + ".asset")
                 .Replace("\\", "/");
@@ -90,11 +127,11 @@ namespace ResourceTools.Skill
 
             EditorUtility.SetDirty(castSo);
             AssetDatabase.SaveAssets();
-            AssetDatabase.Refresh();
+            AssetDatabase.ImportAsset(assetPath, ImportAssetOptions.ForceSynchronousImport);
 
             Debug.Log($"[SkillCastAssetBuilder] Updated SkillCastSO: {assetPath}");
 
-            return castSo;
+            return AssetDatabase.LoadAssetAtPath<SkillCastSO>(assetPath);
         }
 
         private static T ParseObject<T>(string json)
@@ -361,6 +398,11 @@ namespace ResourceTools.Skill
             BurstJson burst = ParseObject<BurstJson>(json.burst);
             CastMoveJson castMove = ParseObject<CastMoveJson>(json.castMove);
             string[] selfEffects = ParseJsonObjectArray(json.selfEffects);
+            string[] postMoveSelfEffects = ParseJsonObjectArray(json.postMoveSelfEffects);
+            MobilityBodyPresentationJson bodyPresentation =
+                ParseObject<MobilityBodyPresentationJson>(json.bodyPresentation);
+            SkillBodyActionPlaybackJson bodyActionPlayback =
+                ParseObject<SkillBodyActionPlaybackJson>(json.bodyActionPlayback);
 
             TargetingType targetingType = ParseEnum<TargetingType>(json.targetingType);
             EffectEntrySO[] selfEffectEntries =
@@ -368,6 +410,20 @@ namespace ResourceTools.Skill
                     json,
                     selfEffects,
                     outputFolder);
+            EffectEntrySO[] terminalEffectEntries =
+                CreateOrUpdateSelfEffectEntries(json, postMoveSelfEffects, outputFolder);
+            string mobilityVfxClipPath = json.mobilityVfxClipPath;
+            if (string.IsNullOrWhiteSpace(mobilityVfxClipPath) &&
+                !string.IsNullOrWhiteSpace(json.castId) &&
+                json.castId.EndsWith(".active_4.swift_step.cast", StringComparison.Ordinal))
+            {
+                string skillId = json.castId.Substring(0, json.castId.Length - ".cast".Length);
+                mobilityVfxClipPath = $"Assets/AnimationClips/Skill/{skillId}.visual.loop.anim";
+            }
+
+            AnimationClip mobilityVfxClip = string.IsNullOrWhiteSpace(mobilityVfxClipPath)
+                ? null
+                : AssetDatabase.LoadAssetAtPath<AnimationClip>(mobilityVfxClipPath);
 
             castSo.ApplyEditorData(
                 json.castId,
@@ -377,6 +433,33 @@ namespace ResourceTools.Skill
                 json.range,
                 json.skipAttackAnimation,
                 selfEffectEntries);
+
+            MobilityBodyPresentationProfile presentationProfile = new MobilityBodyPresentationProfile();
+            if (bodyPresentation != null)
+            {
+                presentationProfile.ApplyEditorData(bodyPresentation.profileId, bodyPresentation.grade);
+            }
+            castSo.ApplyEditorMobilityData(
+                terminalEffectEntries, mobilityVfxClip, presentationProfile);
+
+            AnimationClip bodyActionClip = null;
+            if (!string.IsNullOrWhiteSpace(json.bodyActionClipPath))
+            {
+                bodyActionClip = AssetDatabase.LoadAssetAtPath<AnimationClip>(json.bodyActionClipPath);
+                if (bodyActionClip == null)
+                {
+                    Debug.LogError($"[SkillCastAssetBuilder] Body action clip does not exist: {json.bodyActionClipPath}");
+                }
+            }
+            SkillBodyActionPlaybackProfile playbackProfile = new SkillBodyActionPlaybackProfile();
+            if (bodyActionPlayback != null)
+            {
+                playbackProfile.ApplyEditorData(
+                    bodyActionPlayback.contactTime,
+                    bodyActionPlayback.duration);
+            }
+            castSo.ApplyEditorBodyActionData(bodyActionClip, playbackProfile);
+            castSo.ApplyEditorTargetSnapshotPolicy(json.snapshotTargetPointOnCast);
 
             if (burst != null)
             {
@@ -390,7 +473,12 @@ namespace ResourceTools.Skill
                 castSo.ApplyEditorCastMove(
                     ParseEnum<CastMoveType>(castMove.moveType),
                     castMove.distance,
-                    castMove.duration);
+                    castMove.duration,
+                    castMove.anticipation,
+                    castMove.wallSkin,
+                    castMove.targetClearance,
+                    castMove.minSuccessDistance,
+                    castMove.stopOnWall);
             }
         }
 

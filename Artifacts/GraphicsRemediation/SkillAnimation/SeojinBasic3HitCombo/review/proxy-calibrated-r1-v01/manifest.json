@@ -1,0 +1,975 @@
+{
+  "status": "REVIEW_ONLY_RUNTIME_PASS_NOT_INFERRED",
+  "authority_receipt_sha": "3aade3b3e486c04a866e85db8f670ad6dcaf6de59a8ab722f5a9be6512c97374",
+  "canvas": [
+    960,
+    540
+  ],
+  "interpolation": "none; NEAREST/point",
+  "loop": 0,
+  "outputs": [
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinBasic3HitCombo/review/proxy-calibrated-r1-v01/seojin-basic-3hit-g1-combined.gif",
+      "sha256": "daa9e73bf980d1906df4fe5d6c7ba4c76625e74d68188dc9b0528ef9b1d52ce2",
+      "grade": "g1",
+      "mode": "combined",
+      "physical_frames": 16,
+      "delays_ms": [
+        40,
+        40,
+        40,
+        40,
+        120,
+        40,
+        40,
+        40,
+        40,
+        130,
+        40,
+        40,
+        40,
+        40,
+        140,
+        300
+      ],
+      "events": [
+        {
+          "time": 0,
+          "hit": 0,
+          "frame": 0,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.04,
+          "hit": 0,
+          "frame": 1,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.08,
+          "hit": 0,
+          "frame": 2,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.12,
+          "hit": 0,
+          "frame": 3,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.16,
+          "hit": 0,
+          "frame": 4,
+          "delay_ms": 120
+        },
+        {
+          "time": 0.28,
+          "hit": 1,
+          "frame": 0,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.3175,
+          "hit": 1,
+          "frame": 1,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.355,
+          "hit": 1,
+          "frame": 2,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.3925,
+          "hit": 1,
+          "frame": 3,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.43,
+          "hit": 1,
+          "frame": 4,
+          "delay_ms": 130
+        },
+        {
+          "time": 0.56,
+          "hit": 2,
+          "frame": 0,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.6,
+          "hit": 2,
+          "frame": 1,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.64,
+          "hit": 2,
+          "frame": 2,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.68,
+          "hit": 2,
+          "frame": 3,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.72,
+          "hit": 2,
+          "frame": 4,
+          "delay_ms": 140
+        },
+        {
+          "time": 0.86,
+          "hit": 2,
+          "frame": 5,
+          "delay_ms": 300
+        }
+      ]
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinBasic3HitCombo/review/proxy-calibrated-r1-v01/seojin-basic-3hit-g1-vfx.gif",
+      "sha256": "3429708214b863224991b2cfd060241e41bc96d59919d9d6b5579114a8e4c63e",
+      "grade": "g1",
+      "mode": "vfx",
+      "physical_frames": 16,
+      "delays_ms": [
+        40,
+        40,
+        40,
+        40,
+        120,
+        40,
+        40,
+        40,
+        40,
+        130,
+        40,
+        40,
+        40,
+        40,
+        140,
+        300
+      ],
+      "events": [
+        {
+          "time": 0,
+          "hit": 0,
+          "frame": 0,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.04,
+          "hit": 0,
+          "frame": 1,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.08,
+          "hit": 0,
+          "frame": 2,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.12,
+          "hit": 0,
+          "frame": 3,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.16,
+          "hit": 0,
+          "frame": 4,
+          "delay_ms": 120
+        },
+        {
+          "time": 0.28,
+          "hit": 1,
+          "frame": 0,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.3175,
+          "hit": 1,
+          "frame": 1,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.355,
+          "hit": 1,
+          "frame": 2,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.3925,
+          "hit": 1,
+          "frame": 3,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.43,
+          "hit": 1,
+          "frame": 4,
+          "delay_ms": 130
+        },
+        {
+          "time": 0.56,
+          "hit": 2,
+          "frame": 0,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.6,
+          "hit": 2,
+          "frame": 1,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.64,
+          "hit": 2,
+          "frame": 2,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.68,
+          "hit": 2,
+          "frame": 3,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.72,
+          "hit": 2,
+          "frame": 4,
+          "delay_ms": 140
+        },
+        {
+          "time": 0.86,
+          "hit": 2,
+          "frame": 5,
+          "delay_ms": 300
+        }
+      ]
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinBasic3HitCombo/review/proxy-calibrated-r1-v01/seojin-basic-3hit-g2-combined.gif",
+      "sha256": "250d16618dffbf7a53ca867f26875e8fd83de84bb2c995592ee7d790df8daf71",
+      "grade": "g2",
+      "mode": "combined",
+      "physical_frames": 16,
+      "delays_ms": [
+        40,
+        40,
+        30,
+        40,
+        110,
+        30,
+        30,
+        30,
+        30,
+        120,
+        40,
+        40,
+        40,
+        40,
+        130,
+        300
+      ],
+      "events": [
+        {
+          "time": 0,
+          "hit": 0,
+          "frame": 0,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.035,
+          "hit": 0,
+          "frame": 1,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.07,
+          "hit": 0,
+          "frame": 2,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.105,
+          "hit": 0,
+          "frame": 3,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.14,
+          "hit": 0,
+          "frame": 4,
+          "delay_ms": 110
+        },
+        {
+          "time": 0.25,
+          "hit": 1,
+          "frame": 0,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.2825,
+          "hit": 1,
+          "frame": 1,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.315,
+          "hit": 1,
+          "frame": 2,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.3475,
+          "hit": 1,
+          "frame": 3,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.38,
+          "hit": 1,
+          "frame": 4,
+          "delay_ms": 120
+        },
+        {
+          "time": 0.5,
+          "hit": 2,
+          "frame": 0,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.5375,
+          "hit": 2,
+          "frame": 1,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.575,
+          "hit": 2,
+          "frame": 2,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.6125,
+          "hit": 2,
+          "frame": 3,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.65,
+          "hit": 2,
+          "frame": 4,
+          "delay_ms": 130
+        },
+        {
+          "time": 0.78,
+          "hit": 2,
+          "frame": 5,
+          "delay_ms": 300
+        }
+      ]
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinBasic3HitCombo/review/proxy-calibrated-r1-v01/seojin-basic-3hit-g2-vfx.gif",
+      "sha256": "7c85c867c1d903ce4895e1f958fa43b4873b4ab78052769941bd3afe0ffc1f1f",
+      "grade": "g2",
+      "mode": "vfx",
+      "physical_frames": 16,
+      "delays_ms": [
+        40,
+        40,
+        30,
+        40,
+        110,
+        30,
+        30,
+        30,
+        30,
+        120,
+        40,
+        40,
+        40,
+        40,
+        130,
+        300
+      ],
+      "events": [
+        {
+          "time": 0,
+          "hit": 0,
+          "frame": 0,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.035,
+          "hit": 0,
+          "frame": 1,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.07,
+          "hit": 0,
+          "frame": 2,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.105,
+          "hit": 0,
+          "frame": 3,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.14,
+          "hit": 0,
+          "frame": 4,
+          "delay_ms": 110
+        },
+        {
+          "time": 0.25,
+          "hit": 1,
+          "frame": 0,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.2825,
+          "hit": 1,
+          "frame": 1,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.315,
+          "hit": 1,
+          "frame": 2,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.3475,
+          "hit": 1,
+          "frame": 3,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.38,
+          "hit": 1,
+          "frame": 4,
+          "delay_ms": 120
+        },
+        {
+          "time": 0.5,
+          "hit": 2,
+          "frame": 0,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.5375,
+          "hit": 2,
+          "frame": 1,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.575,
+          "hit": 2,
+          "frame": 2,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.6125,
+          "hit": 2,
+          "frame": 3,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.65,
+          "hit": 2,
+          "frame": 4,
+          "delay_ms": 130
+        },
+        {
+          "time": 0.78,
+          "hit": 2,
+          "frame": 5,
+          "delay_ms": 300
+        }
+      ]
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinBasic3HitCombo/review/proxy-calibrated-r1-v01/seojin-basic-3hit-g3-combined.gif",
+      "sha256": "c34f6db4fb200388def4ccbc0d05f505a38b1110b8600478d3091758a851c884",
+      "grade": "g3",
+      "mode": "combined",
+      "physical_frames": 16,
+      "delays_ms": [
+        30,
+        30,
+        30,
+        30,
+        100,
+        30,
+        30,
+        30,
+        30,
+        100,
+        30,
+        40,
+        40,
+        30,
+        120,
+        300
+      ],
+      "events": [
+        {
+          "time": 0,
+          "hit": 0,
+          "frame": 0,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.03,
+          "hit": 0,
+          "frame": 1,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.06,
+          "hit": 0,
+          "frame": 2,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.09,
+          "hit": 0,
+          "frame": 3,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.12,
+          "hit": 0,
+          "frame": 4,
+          "delay_ms": 100
+        },
+        {
+          "time": 0.22,
+          "hit": 1,
+          "frame": 0,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.25,
+          "hit": 1,
+          "frame": 1,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.28,
+          "hit": 1,
+          "frame": 2,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.31,
+          "hit": 1,
+          "frame": 3,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.34,
+          "hit": 1,
+          "frame": 4,
+          "delay_ms": 100
+        },
+        {
+          "time": 0.44,
+          "hit": 2,
+          "frame": 0,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.475,
+          "hit": 2,
+          "frame": 1,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.51,
+          "hit": 2,
+          "frame": 2,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.545,
+          "hit": 2,
+          "frame": 3,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.58,
+          "hit": 2,
+          "frame": 4,
+          "delay_ms": 120
+        },
+        {
+          "time": 0.7,
+          "hit": 2,
+          "frame": 5,
+          "delay_ms": 300
+        }
+      ]
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinBasic3HitCombo/review/proxy-calibrated-r1-v01/seojin-basic-3hit-g3-vfx.gif",
+      "sha256": "7d2d720e2a34816b39cceefc7543fcac4a0f184b3a03bcfeb2dfb55f3c360632",
+      "grade": "g3",
+      "mode": "vfx",
+      "physical_frames": 16,
+      "delays_ms": [
+        30,
+        30,
+        30,
+        30,
+        100,
+        30,
+        30,
+        30,
+        30,
+        100,
+        30,
+        40,
+        40,
+        30,
+        120,
+        300
+      ],
+      "events": [
+        {
+          "time": 0,
+          "hit": 0,
+          "frame": 0,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.03,
+          "hit": 0,
+          "frame": 1,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.06,
+          "hit": 0,
+          "frame": 2,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.09,
+          "hit": 0,
+          "frame": 3,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.12,
+          "hit": 0,
+          "frame": 4,
+          "delay_ms": 100
+        },
+        {
+          "time": 0.22,
+          "hit": 1,
+          "frame": 0,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.25,
+          "hit": 1,
+          "frame": 1,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.28,
+          "hit": 1,
+          "frame": 2,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.31,
+          "hit": 1,
+          "frame": 3,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.34,
+          "hit": 1,
+          "frame": 4,
+          "delay_ms": 100
+        },
+        {
+          "time": 0.44,
+          "hit": 2,
+          "frame": 0,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.475,
+          "hit": 2,
+          "frame": 1,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.51,
+          "hit": 2,
+          "frame": 2,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.545,
+          "hit": 2,
+          "frame": 3,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.58,
+          "hit": 2,
+          "frame": 4,
+          "delay_ms": 120
+        },
+        {
+          "time": 0.7,
+          "hit": 2,
+          "frame": 5,
+          "delay_ms": 300
+        }
+      ]
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinBasic3HitCombo/review/proxy-calibrated-r1-v01/seojin-basic-3hit-body-shared.gif",
+      "sha256": "82a012c6a3b07b00b3d28f1aa2a6025bea95597c189a6180d8354cfa862f13a9",
+      "grade": "shared-g2-timing",
+      "mode": "body",
+      "physical_frames": 16,
+      "delays_ms": [
+        40,
+        40,
+        30,
+        40,
+        110,
+        30,
+        30,
+        30,
+        30,
+        120,
+        40,
+        40,
+        40,
+        40,
+        130,
+        300
+      ],
+      "events": [
+        {
+          "time": 0,
+          "hit": 0,
+          "frame": 0,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.035,
+          "hit": 0,
+          "frame": 1,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.07,
+          "hit": 0,
+          "frame": 2,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.105,
+          "hit": 0,
+          "frame": 3,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.14,
+          "hit": 0,
+          "frame": 4,
+          "delay_ms": 110
+        },
+        {
+          "time": 0.25,
+          "hit": 1,
+          "frame": 0,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.2825,
+          "hit": 1,
+          "frame": 1,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.315,
+          "hit": 1,
+          "frame": 2,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.3475,
+          "hit": 1,
+          "frame": 3,
+          "delay_ms": 30
+        },
+        {
+          "time": 0.38,
+          "hit": 1,
+          "frame": 4,
+          "delay_ms": 120
+        },
+        {
+          "time": 0.5,
+          "hit": 2,
+          "frame": 0,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.5375,
+          "hit": 2,
+          "frame": 1,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.575,
+          "hit": 2,
+          "frame": 2,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.6125,
+          "hit": 2,
+          "frame": 3,
+          "delay_ms": 40
+        },
+        {
+          "time": 0.65,
+          "hit": 2,
+          "frame": 4,
+          "delay_ms": 130
+        },
+        {
+          "time": 0.78,
+          "hit": 2,
+          "frame": 5,
+          "delay_ms": 300
+        }
+      ]
+    }
+  ],
+  "sources": {
+    "body": {
+      "hit0": [
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Character/animation/character.seojin.basic_attack.combo.hit0.body/frame-0.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Character/animation/character.seojin.basic_attack.combo.hit0.body/frame-1.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Character/animation/character.seojin.basic_attack.combo.hit0.body/frame-2.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Character/animation/character.seojin.basic_attack.combo.hit0.body/frame-3.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Character/animation/character.seojin.basic_attack.combo.hit0.body/frame-4.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Character/animation/character.seojin.basic_attack.combo.hit0.body/frame-5.png"
+      ],
+      "hit1": [
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Character/animation/character.seojin.basic_attack.combo.hit1.body/frame-0.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Character/animation/character.seojin.basic_attack.combo.hit1.body/frame-1.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Character/animation/character.seojin.basic_attack.combo.hit1.body/frame-2.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Character/animation/character.seojin.basic_attack.combo.hit1.body/frame-3.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Character/animation/character.seojin.basic_attack.combo.hit1.body/frame-4.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Character/animation/character.seojin.basic_attack.combo.hit1.body/frame-5.png"
+      ],
+      "hit2": [
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Character/animation/character.seojin.basic_attack.combo.hit2.body/frame-0.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Character/animation/character.seojin.basic_attack.combo.hit2.body/frame-1.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Character/animation/character.seojin.basic_attack.combo.hit2.body/frame-2.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Character/animation/character.seojin.basic_attack.combo.hit2.body/frame-3.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Character/animation/character.seojin.basic_attack.combo.hit2.body/frame-4.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Character/animation/character.seojin.basic_attack.combo.hit2.body/frame-5.png"
+      ]
+    },
+    "vfx": {
+      "g1/hit0": [
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.1.basic_attack.basic_attack/frame-0.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.1.basic_attack.basic_attack/frame-1.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.1.basic_attack.basic_attack/frame-2.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.1.basic_attack.basic_attack/frame-3.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.1.basic_attack.basic_attack/frame-4.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.1.basic_attack.basic_attack/frame-5.png"
+      ],
+      "g1/hit1": [
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.1.basic_attack.basic_attack.combo.1.visual/frame-0.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.1.basic_attack.basic_attack.combo.1.visual/frame-1.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.1.basic_attack.basic_attack.combo.1.visual/frame-2.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.1.basic_attack.basic_attack.combo.1.visual/frame-3.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.1.basic_attack.basic_attack.combo.1.visual/frame-4.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.1.basic_attack.basic_attack.combo.1.visual/frame-5.png"
+      ],
+      "g1/hit2": [
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.1.basic_attack.basic_attack.combo.2.visual/frame-0.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.1.basic_attack.basic_attack.combo.2.visual/frame-1.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.1.basic_attack.basic_attack.combo.2.visual/frame-2.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.1.basic_attack.basic_attack.combo.2.visual/frame-3.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.1.basic_attack.basic_attack.combo.2.visual/frame-4.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.1.basic_attack.basic_attack.combo.2.visual/frame-5.png"
+      ],
+      "g2/hit0": [
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.2.basic_attack.basic_attack/frame-0.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.2.basic_attack.basic_attack/frame-1.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.2.basic_attack.basic_attack/frame-2.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.2.basic_attack.basic_attack/frame-3.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.2.basic_attack.basic_attack/frame-4.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.2.basic_attack.basic_attack/frame-5.png"
+      ],
+      "g2/hit1": [
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.2.basic_attack.basic_attack.combo.1.visual/frame-0.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.2.basic_attack.basic_attack.combo.1.visual/frame-1.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.2.basic_attack.basic_attack.combo.1.visual/frame-2.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.2.basic_attack.basic_attack.combo.1.visual/frame-3.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.2.basic_attack.basic_attack.combo.1.visual/frame-4.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.2.basic_attack.basic_attack.combo.1.visual/frame-5.png"
+      ],
+      "g2/hit2": [
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.2.basic_attack.basic_attack.combo.2.visual/frame-0.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.2.basic_attack.basic_attack.combo.2.visual/frame-1.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.2.basic_attack.basic_attack.combo.2.visual/frame-2.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.2.basic_attack.basic_attack.combo.2.visual/frame-3.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.2.basic_attack.basic_attack.combo.2.visual/frame-4.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.2.basic_attack.basic_attack.combo.2.visual/frame-5.png"
+      ],
+      "g3/hit0": [
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.3.basic_attack.basic_attack/frame-0.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.3.basic_attack.basic_attack/frame-1.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.3.basic_attack.basic_attack/frame-2.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.3.basic_attack.basic_attack/frame-3.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.3.basic_attack.basic_attack/frame-4.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.3.basic_attack.basic_attack/frame-5.png"
+      ],
+      "g3/hit1": [
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.3.basic_attack.basic_attack.combo.1.visual/frame-0.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.3.basic_attack.basic_attack.combo.1.visual/frame-1.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.3.basic_attack.basic_attack.combo.1.visual/frame-2.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.3.basic_attack.basic_attack.combo.1.visual/frame-3.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.3.basic_attack.basic_attack.combo.1.visual/frame-4.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.3.basic_attack.basic_attack.combo.1.visual/frame-5.png"
+      ],
+      "g3/hit2": [
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.3.basic_attack.basic_attack.combo.2.visual/frame-0.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.3.basic_attack.basic_attack.combo.2.visual/frame-1.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.3.basic_attack.basic_attack.combo.2.visual/frame-2.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.3.basic_attack.basic_attack.combo.2.visual/frame-3.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.3.basic_attack.basic_attack.combo.2.visual/frame-4.png",
+        "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.3.basic_attack.basic_attack.combo.2.visual/frame-5.png"
+      ]
+    }
+  }
+}

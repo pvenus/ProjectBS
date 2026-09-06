@@ -15,6 +15,17 @@ namespace Skill.Service.Helper
         public bool UsePoint { get; set; }
         public Vector2 TargetPoint { get; set; }
         public MonoBehaviour CoroutineRunner { get; set; }
+        public int SelectedHitIndex { get; set; } = -1;
+        public int ComboIndex { get; set; } = -1;
+        public SkillHitSO HitOverride { get; set; }
+        public AnimationClip VisualClipOverride { get; set; }
+        public SkillAnimationVfxProfileSO AnimationVfxProfileOverride { get; set; }
+        public SpritePresentationCalibrationProfileSO PresentationCalibration { get; set; }
+        public string ComboToken { get; set; }
+        public bool? CriticalOverride { get; set; }
+        public float DamageWeight { get; set; } = 1f;
+        public bool SuppressVisual { get; set; }
+        public float MinimumVisualLifetime { get; set; }
 
         public GameObject CasterObject =>
             Caster != null ? Caster.gameObject : null;
@@ -61,6 +72,11 @@ namespace Skill.Service.Helper
                 case SkillComponentType.Spawn:
                     return UseSpawnSkillAndSelfEffects(context);
 
+                case SkillComponentType.Mobility:
+                    // Movement and terminal effects are owned by CharacterSkillManager.
+                    // No projectile/spawn/self-effect is allowed on this path.
+                    return true;
+
                 case SkillComponentType.Projectile:
                 default:
                     return UseProjectileSkillAndSelfEffects(context);
@@ -88,7 +104,18 @@ namespace Skill.Service.Helper
                 context.Caster,
                 context.Target,
                 context.UsePoint,
-                context.TargetPoint);
+                context.TargetPoint,
+                context.SelectedHitIndex,
+                context.VisualClipOverride,
+                context.AnimationVfxProfileOverride,
+                context.PresentationCalibration,
+                context.ComboToken,
+                context.CriticalOverride,
+                context.DamageWeight,
+                context.ComboIndex,
+                context.HitOverride,
+                context.SuppressVisual,
+                context.MinimumVisualLifetime);
         }
 
         private static bool UseSpawnSkillAndSelfEffects(
@@ -320,7 +347,18 @@ namespace Skill.Service.Helper
             Vector2 spawnPosition,
             Vector2 direction,
             Vector2 targetPoint,
-            bool usePoint)
+            bool usePoint,
+            int selectedHitIndex = -1,
+            AnimationClip visualClipOverride = null,
+            SkillAnimationVfxProfileSO animationVfxProfileOverride = null,
+            SpritePresentationCalibrationProfileSO presentationCalibration = null,
+            string comboToken = null,
+            bool? criticalOverride = null,
+            float damageWeight = 1f,
+            int comboIndex = -1,
+            SkillHitSO hitOverride = null,
+            bool suppressVisual = false,
+            float minimumVisualLifetime = 0f)
         {
             if (runtime == null || caster == null)
             {
@@ -334,7 +372,18 @@ namespace Skill.Service.Helper
                     target,
                     spawnPosition,
                     direction,
-                    targetPoint);
+                    targetPoint,
+                    selectedHitIndex,
+                    visualClipOverride,
+                    animationVfxProfileOverride,
+                    presentationCalibration,
+                    comboToken,
+                    criticalOverride,
+                    damageWeight,
+                    comboIndex,
+                    hitOverride,
+                    suppressVisual,
+                    minimumVisualLifetime);
 
             if (projectileDatas == null || projectileDatas.Length == 0)
             {
@@ -427,12 +476,51 @@ namespace Skill.Service.Helper
                 resolvedEffects);
         }
 
+        public static void ApplyPostMoveSelfEffects(
+            EquipmentSkillRuntimeData runtime,
+            GameObject caster)
+        {
+            SkillCastSO castSo = ResolveCastSo(runtime);
+            if (castSo == null || caster == null) return;
+            ApplyEffectEntries(
+                castSo.PostMoveSelfEffects,
+                caster,
+                runtime.upgradeRuntimeData?.effectModifiers);
+        }
+
+        private static void ApplyEffectEntries(
+            EffectEntrySO[] entries,
+            GameObject caster,
+            System.Collections.Generic.IReadOnlyList<EffectUpgradeModifierData> modifiers)
+        {
+            if (entries == null || entries.Length == 0 || caster == null) return;
+            EffectManager effectManager = ResolveEffectManager(caster);
+            CharacterManager casterCharacter = caster.GetComponent<CharacterManager>()
+                ?? caster.GetComponentInParent<CharacterManager>()
+                ?? caster.GetComponentInChildren<CharacterManager>();
+            if (effectManager == null) return;
+            EffectEntryRuntime[] resolved = effectResolver.ResolveEntries(
+                entries, caster, caster, EffectCategoryType.Buff, modifiers);
+            EffectApplyHelper.ApplyEffects(effectManager, resolved);
+        }
+
         public static bool UseSkillProjectilesAndSelfEffects(
             EquipmentSkillRuntimeData runtime,
             Transform caster,
             Transform target,
             bool usePoint,
-            Vector2 targetPoint)
+            Vector2 targetPoint,
+            int selectedHitIndex = -1,
+            AnimationClip visualClipOverride = null,
+            SkillAnimationVfxProfileSO animationVfxProfileOverride = null,
+            SpritePresentationCalibrationProfileSO presentationCalibration = null,
+            string comboToken = null,
+            bool? criticalOverride = null,
+            float damageWeight = 1f,
+            int comboIndex = -1,
+            SkillHitSO hitOverride = null,
+            bool suppressVisual = false,
+            float minimumVisualLifetime = 0f)
         {
             if (runtime == null || caster == null)
             {
@@ -465,7 +553,18 @@ namespace Skill.Service.Helper
                 spawnPosition,
                 direction,
                 resolvedTargetPoint,
-                usePoint);
+                usePoint,
+                selectedHitIndex,
+                visualClipOverride,
+                animationVfxProfileOverride,
+                presentationCalibration,
+                comboToken,
+                criticalOverride,
+                damageWeight,
+                comboIndex,
+                hitOverride,
+                suppressVisual,
+                minimumVisualLifetime);
         }
 
         public static Vector2 ResolveTargetPoint(

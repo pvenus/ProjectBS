@@ -183,6 +183,7 @@ public sealed class SkillAnimationVfxControllerMono : MonoBehaviour
 public static class SkillAnimationVfxMaterialAuthority
 {
     public const string ShaderName = "Custom/SkillAnimationVfx";
+    public const string SourceReadableShaderName = "Custom/SkillAnimationVfxSourceReadable";
     private static Material runtimeFallback;
 
     public static bool Ensure(SpriteRenderer renderer, Material preferred = null)
@@ -192,18 +193,21 @@ public static class SkillAnimationVfxMaterialAuthority
         if (preferred != null)
         {
             renderer.sharedMaterial = preferred;
-            return preferred.shader != null && preferred.shader.name == ShaderName;
+            return IsSupported(preferred.shader);
         }
         if (current != null && current.shader != null
             && current.shader.name != "Sprites/Default")
         {
-            return current.shader.name == ShaderName;
+            return IsSupported(current.shader);
         }
         runtimeFallback ??= CreateRuntimeFallback();
         if (runtimeFallback == null) return false;
         renderer.sharedMaterial = runtimeFallback;
         return true;
     }
+
+    private static bool IsSupported(Shader shader) => shader != null &&
+        (shader.name == ShaderName || shader.name == SourceReadableShaderName);
 
     private static Material CreateRuntimeFallback()
     {

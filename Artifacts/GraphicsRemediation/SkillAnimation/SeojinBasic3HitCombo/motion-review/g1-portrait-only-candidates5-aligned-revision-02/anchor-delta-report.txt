@@ -1,0 +1,33 @@
+G1 portrait-only candidate5 deterministic registration report
+status=REVIEW_ONLY_REGISTERED
+source_repaint=0
+rotation=0
+warp=0
+crop=0
+install=0
+
+Method
+- main visible body component measured per physical frame
+- candidate-local median body height
+- candidate-local common foot baseline
+- uniform aspect-preserving scale + translation only
+- piecewise continuous three-segment root trajectory
+- target adjacent anchor jump ceiling 8px
+- entire visible layer receives the same transform
+- output 768x512, physical18, 1800ms; contacts04/10/16 unchanged
+
+Candidate | before max X jump | after max X jump | before max foot jump | after max foot jump | minimum clearance
+A | 51px | 9px | 68px | 4px | 72px
+B | 87px | 10px | 64px | 2px | 72px
+C | 174px | 10px | 40px | 2px | 78px
+D | 48px | 8px | 74px | 2px | 80px
+E | 82px | 9px | 62px | 2px | 62px
+
+Candidate | median body height | common foot baseline
+A | 354px | 426px
+B | 341px | 415px
+C | 353px | 433px
+D | 349px | 431px
+E | 346px | 449px
+
+All measured main-component clearances exceed required24px. Frame timings, order, contacts and source pixels apart from the authorized geometric registration/resampling are unchanged. Outputs remain review-only and are not production-frame extraction or install authority.

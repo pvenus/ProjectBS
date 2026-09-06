@@ -29,7 +29,9 @@ public class ProjectileHitHandler : MonoBehaviour
     private ProjectileRuntimeData runtimeData;
     private CharacterManager ownerCharacter;
     private readonly HashSet<Collider2D> hitTargets = new();
+    private readonly HashSet<int> hitTargetRoots = new();
     private readonly List<Collider2D> pendingHitTargets = new();
+    private readonly Dictionary<Collider2D, float> pendingContactTimes = new();
     private readonly HashSet<Collider2D> overlapTargets = new();
     private readonly Dictionary<Collider2D, int> repeatApplyCounts = new();
     private Coroutine collectCoroutine;
@@ -74,7 +76,9 @@ public class ProjectileHitHandler : MonoBehaviour
         ConfigureHitCollider(data);
         initialized = true;
         hitTargets.Clear();
+        hitTargetRoots.Clear();
         pendingHitTargets.Clear();
+        pendingContactTimes.Clear();
         overlapTargets.Clear();
         repeatApplyCounts.Clear();
         initialHitCollectionCompleted = false;
@@ -288,8 +292,11 @@ public class ProjectileHitHandler : MonoBehaviour
         float collectDelay = runtimeData != null && runtimeData.hit != null
             ? Mathf.Max(0f, runtimeData.hit.hitStartTime)
             : 0f;
+        bool needsMultiTargetCollection = runtimeData != null &&
+                                          runtimeData.hit != null &&
+                                          runtimeData.hit.maxHitCount > 1;
 
-        if (collectDelay <= 0f)
+        if (collectDelay <= 0f && !needsMultiTargetCollection)
         {
             initialHitCollectionCompleted = true;
             return;
@@ -302,7 +309,16 @@ public class ProjectileHitHandler : MonoBehaviour
 
     private IEnumerator CollectInitialHitsAndProcess(float collectDelay)
     {
-        yield return new WaitForSeconds(collectDelay);
+        if (collectDelay > 0f)
+        {
+            yield return new WaitForSeconds(collectDelay);
+        }
+        else
+        {
+            // Collect all trigger contacts from the same physics step before
+            // applying the unique-root cap in deterministic order.
+            yield return new WaitForFixedUpdate();
+        }
 
         isCollectingInitialHits = false;
         initialHitCollectionCompleted = true;
@@ -319,6 +335,7 @@ public class ProjectileHitHandler : MonoBehaviour
         }
 
         pendingHitTargets.Add(other);
+        pendingContactTimes[other] = Time.time;
     }
 
     private void ProcessPendingHitsByDistance()
@@ -349,10 +366,19 @@ public class ProjectileHitHandler : MonoBehaviour
         }
 
         pendingHitTargets.Clear();
+        pendingContactTimes.Clear();
     }
 
     private int CompareColliderDistanceToProjectile(Collider2D a, Collider2D b)
     {
+        pendingContactTimes.TryGetValue(a, out float contactA);
+        pendingContactTimes.TryGetValue(b, out float contactB);
+        int contactOrder = contactA.CompareTo(contactB);
+        if (contactOrder != 0)
+        {
+            return contactOrder;
+        }
+
         Vector2 origin = transform.position;
 
         float distanceA = a != null
@@ -363,7 +389,13 @@ public class ProjectileHitHandler : MonoBehaviour
             ? ((Vector2)b.ClosestPoint(origin) - origin).sqrMagnitude
             : float.MaxValue;
 
-        return distanceA.CompareTo(distanceB);
+        int distanceOrder = distanceA.CompareTo(distanceB);
+        if (distanceOrder != 0)
+        {
+            return distanceOrder;
+        }
+
+        return ResolveTargetRootId(a).CompareTo(ResolveTargetRootId(b));
     }
 
     private bool CanProcessCollider(Collider2D other)
@@ -393,7 +425,8 @@ public class ProjectileHitHandler : MonoBehaviour
             return false;
         }
 
-        if (!ignoreHitHistory && hitTargets.Contains(other))
+        if (!ignoreHitHistory &&
+            (hitTargets.Contains(other) || hitTargetRoots.Contains(ResolveTargetRootId(other))))
         {
             return false;
         }
@@ -459,6 +492,7 @@ public class ProjectileHitHandler : MonoBehaviour
             if (!ignoreHitHistory)
             {
                 hitTargets.Add(other);
+                hitTargetRoots.Add(ResolveTargetRootId(other));
             }
 
             currentHitCount++;
@@ -512,6 +546,7 @@ public class ProjectileHitHandler : MonoBehaviour
         if (!ignoreHitHistory)
         {
             hitTargets.Add(other);
+            hitTargetRoots.Add(ResolveTargetRootId(other));
         }
 
         currentHitCount++;
@@ -547,6 +582,25 @@ public class ProjectileHitHandler : MonoBehaviour
         }
     }
 
+    private static int ResolveTargetRootId(Collider2D collider)
+    {
+        if (collider == null)
+        {
+            return 0;
+        }
+
+        CharacterManager character = collider.GetComponentInParent<CharacterManager>();
+        if (character != null)
+        {
+            return character.transform.root.GetInstanceID();
+        }
+
+        BattlePropController prop = collider.GetComponentInParent<BattlePropController>();
+        return prop != null
+            ? prop.transform.root.GetInstanceID()
+            : collider.transform.root.GetInstanceID();
+    }
+
     private static bool HasMeaningfulDamageProfile(SkillProjectileHitDto hit)
     {
         if (hit == null || hit.damageProfile == null)
@@ -574,6 +628,9 @@ public class ProjectileHitHandler : MonoBehaviour
         }
 
         pendingHitTargets.Clear();
+        pendingContactTimes.Clear();
+        hitTargets.Clear();
+        hitTargetRoots.Clear();
         overlapTargets.Clear();
         repeatApplyCounts.Clear();
         isCollectingInitialHits = false;
@@ -715,7 +772,9 @@ public class ProjectileHitHandler : MonoBehaviour
             baseDamage = baseDamage,
 
             attackDamagePercent =
-                runtimeData.hit.damageProfile.attackDamagePercent
+                runtimeData.hit.damageProfile.attackDamagePercent,
+            useCriticalOverride = runtimeData.useCriticalOverride,
+            criticalOverride = runtimeData.criticalOverride
         };
     }
 }

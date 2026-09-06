@@ -1,0 +1,62 @@
+{
+  "status": "REVIEW_ONLY_NOT_INSTALLABLE",
+  "identity_reference": "Assets/ImagesGenerated/Character/portrait/character.seojin.1.portrait.png",
+  "grade": "G1 only/shared across grades unless reopened",
+  "sequence": [
+    "hit1-opening",
+    "hit2-linking",
+    "hit3-finisher"
+  ],
+  "canonical_install": false,
+  "frames": [
+    {
+      "file": "hit1-opening.png",
+      "sha256": "971253e084d794c9aa1aea91a165b544fb73ae2a40569dc8da6d476d5d165eb4",
+      "mode": "RGBA",
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "alpha_bbox": [
+        25,
+        19,
+        995,
+        1493
+      ],
+      "border_nonzero_alpha": 0,
+      "alpha0_rgb_residue_pixels": 885122,
+      "native_transparency": true
+    },
+    {
+      "file": "hit2-linking.png",
+      "sha256": "765c9fa32bd2a631b4f91178feffe9534aa8faf3c8ac57aedc8f3ec3d59eb621",
+      "mode": "RGBA",
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "alpha_bbox": [
+        48,
+        117,
+        1016,
+        1493
+      ],
+      "border_nonzero_alpha": 0,
+      "alpha0_rgb_residue_pixels": 886117,
+      "native_transparency": true
+    },
+    {
+      "file": "hit3-finisher.png",
+      "sha256": "7f1955d5b1d3d8f7c76a627287c16ea95673b49e040b84cb82403975acaa06f1",
+      "mode": "RGB",
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "alpha_bbox": null,
+      "border_nonzero_alpha": 5120,
+      "alpha0_rgb_residue_pixels": null,
+      "native_transparency": false
+    }
+  ]
+}

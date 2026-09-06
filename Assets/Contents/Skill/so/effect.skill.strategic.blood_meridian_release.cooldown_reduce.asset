@@ -15,11 +15,11 @@ MonoBehaviour:
   effectId: effect.skill.strategic.blood_meridian_release.cooldown_reduce
   icon: {fileID: 0}
   config:
-    rid: 666566856101331685
+    rid: 666566856101331848
   references:
     version: 2
     RefIds:
-    - rid: 666566856101331685
+    - rid: 666566856101331848
       type: {class: CooldownReduceEffectConfig, ns: Effect, asm: Assembly-CSharp}
       data:
         reduceType: 0

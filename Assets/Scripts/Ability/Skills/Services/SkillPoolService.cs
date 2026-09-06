@@ -6,7 +6,7 @@ namespace Skill
     /// <summary>
     /// 범용 스킬 풀 서비스.
     /// SkillPoolRuntimeData를 받아 slotKey 기반으로 RuntimeData 조회/갱신 기능을 제공한다.
-    /// 캐릭터 스킬셋은 SkillPoolSlotKeys.BasicAttack / Active1~3 / Passive1 키를 사용한다.
+    /// 캐릭터 스킬셋은 SkillPoolSlotKeys.BasicAttack / Active1~4 / Passive1 키를 사용한다.
     /// </summary>
     public class SkillPoolService
     {
@@ -145,7 +145,8 @@ namespace Skill
 
             return poolRuntimeData.HasSkillByKey(SkillPoolSlotKeys.Active1)
                 || poolRuntimeData.HasSkillByKey(SkillPoolSlotKeys.Active2)
-                || poolRuntimeData.HasSkillByKey(SkillPoolSlotKeys.Active3);
+                || poolRuntimeData.HasSkillByKey(SkillPoolSlotKeys.Active3)
+                || poolRuntimeData.HasSkillByKey(SkillPoolSlotKeys.Active4);
         }
 
         public bool HasPassiveSkill(SkillPoolRuntimeData poolRuntimeData)
@@ -189,7 +190,8 @@ namespace Skill
             return poolRuntimeData.GetEntriesByKeys(
                 SkillPoolSlotKeys.Active1,
                 SkillPoolSlotKeys.Active2,
-                SkillPoolSlotKeys.Active3);
+                SkillPoolSlotKeys.Active3,
+                SkillPoolSlotKeys.Active4);
         }
 
         public List<SkillPoolSlotData> GetPassiveEntries(
@@ -208,11 +210,12 @@ namespace Skill
             SkillPoolRuntimeData poolRuntimeData,
             Character.CharacterRuntimeData characterRuntimeData)
         {
-            List<EquipmentSkillRuntimeData> result = new List<EquipmentSkillRuntimeData>(3);
+            List<EquipmentSkillRuntimeData> result = new List<EquipmentSkillRuntimeData>(4);
 
             AddRuntimeIfExists(result, GetRuntimeByKey(poolRuntimeData, SkillPoolSlotKeys.Active1, characterRuntimeData));
             AddRuntimeIfExists(result, GetRuntimeByKey(poolRuntimeData, SkillPoolSlotKeys.Active2, characterRuntimeData));
             AddRuntimeIfExists(result, GetRuntimeByKey(poolRuntimeData, SkillPoolSlotKeys.Active3, characterRuntimeData));
+            AddRuntimeIfExists(result, GetRuntimeByKey(poolRuntimeData, SkillPoolSlotKeys.Active4, characterRuntimeData));
 
             return result;
         }
@@ -241,6 +244,7 @@ namespace Skill
                 SkillPoolSlotKeys.Active1,
                 SkillPoolSlotKeys.Active2,
                 SkillPoolSlotKeys.Active3,
+                SkillPoolSlotKeys.Active4,
                 SkillPoolSlotKeys.Passive1);
         }
 
@@ -248,12 +252,13 @@ namespace Skill
             SkillPoolRuntimeData poolRuntimeData,
             Character.CharacterRuntimeData characterRuntimeData)
         {
-            List<EquipmentSkillRuntimeData> result = new List<EquipmentSkillRuntimeData>(5);
+            List<EquipmentSkillRuntimeData> result = new List<EquipmentSkillRuntimeData>(6);
 
             AddRuntimeIfExists(result, GetRuntimeByKey(poolRuntimeData, SkillPoolSlotKeys.BasicAttack, characterRuntimeData));
             AddRuntimeIfExists(result, GetRuntimeByKey(poolRuntimeData, SkillPoolSlotKeys.Active1, characterRuntimeData));
             AddRuntimeIfExists(result, GetRuntimeByKey(poolRuntimeData, SkillPoolSlotKeys.Active2, characterRuntimeData));
             AddRuntimeIfExists(result, GetRuntimeByKey(poolRuntimeData, SkillPoolSlotKeys.Active3, characterRuntimeData));
+            AddRuntimeIfExists(result, GetRuntimeByKey(poolRuntimeData, SkillPoolSlotKeys.Active4, characterRuntimeData));
             AddRuntimeIfExists(result, GetRuntimeByKey(poolRuntimeData, SkillPoolSlotKeys.Passive1, characterRuntimeData));
 
             return result;
@@ -283,6 +288,7 @@ namespace Skill
             AddSlotIfRuntimeExists(result, GetSlotByKey(poolRuntimeData, SkillPoolSlotKeys.Active1), characterRuntimeData);
             AddSlotIfRuntimeExists(result, GetSlotByKey(poolRuntimeData, SkillPoolSlotKeys.Active2), characterRuntimeData);
             AddSlotIfRuntimeExists(result, GetSlotByKey(poolRuntimeData, SkillPoolSlotKeys.Active3), characterRuntimeData);
+            AddSlotIfRuntimeExists(result, GetSlotByKey(poolRuntimeData, SkillPoolSlotKeys.Active4), characterRuntimeData);
             AddSlotIfRuntimeExists(result, GetSlotByKey(poolRuntimeData, SkillPoolSlotKeys.Passive1), characterRuntimeData);
 
             return result;
@@ -338,6 +344,7 @@ namespace Skill
             DebugLogSlot(GetSlotByKey(poolRuntimeData, SkillPoolSlotKeys.Active1), "Active1");
             DebugLogSlot(GetSlotByKey(poolRuntimeData, SkillPoolSlotKeys.Active2), "Active2");
             DebugLogSlot(GetSlotByKey(poolRuntimeData, SkillPoolSlotKeys.Active3), "Active3");
+            DebugLogSlot(GetSlotByKey(poolRuntimeData, SkillPoolSlotKeys.Active4), "Active4");
             DebugLogSlot(GetSlotByKey(poolRuntimeData, SkillPoolSlotKeys.Passive1), "Passive1");
         }
 
@@ -417,6 +424,8 @@ namespace Skill
                 case 3:
                     return SkillPoolSlotKeys.Active3;
                 case 4:
+                    return SkillPoolSlotKeys.Active4;
+                case 5:
                     return SkillPoolSlotKeys.Passive1;
                 default:
                     return null;

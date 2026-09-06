@@ -1,0 +1,83 @@
+{
+  "schema": "projectbs.selected-animation-qa.v1",
+  "selection": "B",
+  "status": "PHYSICAL_QA_FAILED",
+  "release_authorization": false,
+  "source_candidate_manifest": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/candidates/seojin-g1-basic-hit3-neon-v20260904/candidate-manifest.json",
+  "source_candidate_manifest_sha256": "d6ac738dc7144ea3c9893e7018f3f24854764c10183773abbb14e356d19fc740",
+  "provenance": {
+    "classification": "postprocessed_source_extraction",
+    "statement": "Frames were produced after source checker/matte removal post-processing; they are not represented as native-generated RGBA."
+  },
+  "canvas": [
+    256,
+    256
+  ],
+  "pivot": [
+    0.5,
+    0.5
+  ],
+  "ppu": 100,
+  "frame_times_seconds": [
+    0,
+    0.05,
+    0.1,
+    0.15,
+    0.2,
+    0.25
+  ],
+  "stop_time_seconds": 0.3,
+  "loop": false,
+  "frames": [
+    {
+      "frame": 0,
+      "role": "ignition",
+      "file": "selected-frames/frame-0.png",
+      "sha256": "e2af9bd11d300cffff2e14628ebda86e3cc20203c8d42776d67112cdd98bc6cc"
+    },
+    {
+      "frame": 1,
+      "role": "buildup",
+      "file": "selected-frames/frame-1.png",
+      "sha256": "d4007b09ba7f4781738fa55383bfd8bd488ca5867524f114f0d405509d03eda6"
+    },
+    {
+      "frame": 2,
+      "role": "peak_contact",
+      "file": "selected-frames/frame-2.png",
+      "sha256": "8d2f51e41591a178a7415407512be83b0896a4884cfc8305acfe7ac6a9f517e6"
+    },
+    {
+      "frame": 3,
+      "role": "recoil_residue",
+      "file": "selected-frames/frame-3.png",
+      "sha256": "195aacd5ccc81beb0f1e5b9f5c6f8644cf04e2a6d7a9271ecacd290538950556"
+    },
+    {
+      "frame": 4,
+      "role": "breakup",
+      "file": "selected-frames/frame-4.png",
+      "sha256": "afe7f1609e5a068776fb039842a09f5c86b5f497e3313e337e79ee96e9aade1a"
+    },
+    {
+      "frame": 5,
+      "role": "near_clear_fade",
+      "file": "selected-frames/frame-5.png",
+      "sha256": "cd33c74749fc668feb37e6900701f054987ce6aae14326cb7da566141cb22a2e"
+    }
+  ],
+  "previews": [
+    "previews/contact-light-200px.png",
+    "previews/preview-light-200px.gif",
+    "previews/contact-dark-200px.png",
+    "previews/preview-dark-200px.gif",
+    "previews/contact-light-80px.png",
+    "previews/preview-light-80px.gif",
+    "previews/contact-dark-80px.png",
+    "previews/preview-dark-80px.gif",
+    "previews/contact-light-32px.png",
+    "previews/preview-light-32px.gif",
+    "previews/contact-dark-32px.png",
+    "previews/preview-dark-32px.gif"
+  ]
+}

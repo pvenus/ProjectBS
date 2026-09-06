@@ -1,0 +1,5697 @@
+{
+  "status": "READ_ONLY_CONTAMINATION_AUDIT",
+  "total": 54,
+  "fail_count": 54,
+  "installed_hash_match_count": 54,
+  "gif_canvas_issue_separate": "v01 GIF top clipping was composition-canvas only; this report concerns source strip/cell provenance.",
+  "rows": [
+    {
+      "registry": "body",
+      "unit": "hit0",
+      "frame": 0,
+      "installed": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Character/animation/character.seojin.basic_attack.combo.hit0.body/frame-0.png",
+      "installed_sha": "1e11e903774f3aedf8c46e65372db2229c990fed3cf2c320a5146867a16a96c8",
+      "artifact_sha": "1e11e903774f3aedf8c46e65372db2229c990fed3cf2c320a5146867a16a96c8",
+      "installed_matches_r1": true,
+      "bbox": [
+        68,
+        12,
+        187,
+        235
+      ],
+      "border_touch_pixels": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "components": 198,
+      "largest_component_area": 12794,
+      "small_component_area": 315,
+      "source_rect": [
+        0,
+        0,
+        362,
+        724
+      ],
+      "source_crossings": [
+        {
+          "component": 2,
+          "area": 103741,
+          "bbox": [
+            345,
+            78,
+            692,
+            660
+          ],
+          "cells": [
+            [
+              0,
+              503
+            ],
+            [
+              1,
+              103238
+            ]
+          ],
+          "area_in_frame": 503,
+          "probable_donors": [
+            {
+              "frame": 1,
+              "area": 103238
+            }
+          ],
+          "sides": [
+            "right"
+          ]
+        },
+        {
+          "component": 17,
+          "area": 16,
+          "bbox": [
+            361,
+            635,
+            374,
+            637
+          ],
+          "cells": [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              15
+            ]
+          ],
+          "area_in_frame": 1,
+          "probable_donors": [
+            {
+              "frame": 1,
+              "area": 15
+            }
+          ],
+          "sides": [
+            "right"
+          ]
+        }
+      ],
+      "flags": [
+        "source_component_crossed_cell_edge",
+        "weapon_or_body_half_shape_risk"
+      ],
+      "fail": true
+    },
+    {
+      "registry": "body",
+      "unit": "hit0",
+      "frame": 1,
+      "installed": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Character/animation/character.seojin.basic_attack.combo.hit0.body/frame-1.png",
+      "installed_sha": "ec666f80c530ba54c86453c9b07cd6a441750ae8895a7660389e432a075e46b1",
+      "artifact_sha": "ec666f80c530ba54c86453c9b07cd6a441750ae8895a7660389e432a075e46b1",
+      "installed_matches_r1": true,
+      "bbox": [
+        59,
+        12,
+        197,
+        238
+      ],
+      "border_touch_pixels": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "components": 237,
+      "largest_component_area": 14982,
+      "small_component_area": 345,
+      "source_rect": [
+        362,
+        0,
+        724,
+        724
+      ],
+      "source_crossings": [
+        {
+          "component": 2,
+          "area": 103741,
+          "bbox": [
+            345,
+            78,
+            692,
+            660
+          ],
+          "cells": [
+            [
+              0,
+              503
+            ],
+            [
+              1,
+              103238
+            ]
+          ],
+          "area_in_frame": 103238,
+          "probable_donors": [
+            {
+              "frame": 0,
+              "area": 503
+            }
+          ],
+          "sides": [
+            "left"
+          ]
+        },
+        {
+          "component": 3,
+          "area": 96841,
+          "bbox": [
+            705,
+            99,
+            1250,
+            658
+          ],
+          "cells": [
+            [
+              1,
+              508
+            ],
+            [
+              2,
+              93287
+            ],
+            [
+              3,
+              3046
+            ]
+          ],
+          "area_in_frame": 508,
+          "probable_donors": [
+            {
+              "frame": 2,
+              "area": 93287
+            },
+            {
+              "frame": 3,
+              "area": 3046
+            }
+          ],
+          "sides": [
+            "right"
+          ]
+        },
+        {
+          "component": 10,
+          "area": 18,
+          "bbox": [
+            711,
+            649,
+            726,
+            653
+          ],
+          "cells": [
+            [
+              1,
+              15
+            ],
+            [
+              2,
+              3
+            ]
+          ],
+          "area_in_frame": 15,
+          "probable_donors": [
+            {
+              "frame": 2,
+              "area": 3
+            }
+          ],
+          "sides": [
+            "right"
+          ]
+        },
+        {
+          "component": 17,
+          "area": 16,
+          "bbox": [
+            361,
+            635,
+            374,
+            637
+          ],
+          "cells": [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              15
+            ]
+          ],
+          "area_in_frame": 15,
+          "probable_donors": [
+            {
+              "frame": 0,
+              "area": 1
+            }
+          ],
+          "sides": [
+            "left"
+          ]
+        }
+      ],
+      "flags": [
+        "source_component_crossed_cell_edge",
+        "weapon_or_body_half_shape_risk"
+      ],
+      "fail": true
+    },
+    {
+      "registry": "body",
+      "unit": "hit0",
+      "frame": 2,
+      "installed": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Character/animation/character.seojin.basic_attack.combo.hit0.body/frame-2.png",
+      "installed_sha": "52b3e30fb6cb78512ed7651ebc87a7781ba7f56d8f86478b6b83062bd4481517",
+      "artifact_sha": "52b3e30fb6cb78512ed7651ebc87a7781ba7f56d8f86478b6b83062bd4481517",
+      "installed_matches_r1": true,
+      "bbox": [
+        57,
+        12,
+        198,
+        233
+      ],
+      "border_touch_pixels": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "components": 200,
+      "largest_component_area": 14174,
+      "small_component_area": 294,
+      "source_rect": [
+        724,
+        0,
+        1086,
+        724
+      ],
+      "source_crossings": [
+        {
+          "component": 3,
+          "area": 96841,
+          "bbox": [
+            705,
+            99,
+            1250,
+            658
+          ],
+          "cells": [
+            [
+              1,
+              508
+            ],
+            [
+              2,
+              93287
+            ],
+            [
+              3,
+              3046
+            ]
+          ],
+          "area_in_frame": 93287,
+          "probable_donors": [
+            {
+              "frame": 1,
+              "area": 508
+            },
+            {
+              "frame": 3,
+              "area": 3046
+            }
+          ],
+          "sides": [
+            "left",
+            "right"
+          ]
+        },
+        {
+          "component": 4,
+          "area": 54,
+          "bbox": [
+            1047,
+            278,
+            1098,
+            281
+          ],
+          "cells": [
+            [
+              2,
+              42
+            ],
+            [
+              3,
+              12
+            ]
+          ],
+          "area_in_frame": 42,
+          "probable_donors": [
+            {
+              "frame": 3,
+              "area": 12
+            }
+          ],
+          "sides": [
+            "right"
+          ]
+        },
+        {
+          "component": 10,
+          "area": 18,
+          "bbox": [
+            711,
+            649,
+            726,
+            653
+          ],
+          "cells": [
+            [
+              1,
+              15
+            ],
+            [
+              2,
+              3
+            ]
+          ],
+          "area_in_frame": 3,
+          "probable_donors": [
+            {
+              "frame": 1,
+              "area": 15
+            }
+          ],
+          "sides": [
+            "left"
+          ]
+        }
+      ],
+      "flags": [
+        "source_component_crossed_cell_edge",
+        "weapon_or_body_half_shape_risk"
+      ],
+      "fail": true
+    },
+    {
+      "registry": "body",
+      "unit": "hit0",
+      "frame": 3,
+      "installed": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Character/animation/character.seojin.basic_attack.combo.hit0.body/frame-3.png",
+      "installed_sha": "0723dadde31117cd7de22294b7961f7b5723a66391aca7b69dab3d50c0c6f57e",
+      "artifact_sha": "0723dadde31117cd7de22294b7961f7b5723a66391aca7b69dab3d50c0c6f57e",
+      "installed_matches_r1": true,
+      "bbox": [
+        54,
+        12,
+        201,
+        239
+      ],
+      "border_touch_pixels": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "components": 182,
+      "largest_component_area": 14492,
+      "small_component_area": 267,
+      "source_rect": [
+        1086,
+        0,
+        1448,
+        724
+      ],
+      "source_crossings": [
+        {
+          "component": 0,
+          "area": 303229,
+          "bbox": [
+            1115,
+            34,
+            2161,
+            668
+          ],
+          "cells": [
+            [
+              3,
+              87818
+            ],
+            [
+              4,
+              99654
+            ],
+            [
+              5,
+              115757
+            ]
+          ],
+          "area_in_frame": 87818,
+          "probable_donors": [
+            {
+              "frame": 4,
+              "area": 99654
+            },
+            {
+              "frame": 5,
+              "area": 115757
+            }
+          ],
+          "sides": [
+            "right"
+          ]
+        },
+        {
+          "component": 3,
+          "area": 96841,
+          "bbox": [
+            705,
+            99,
+            1250,
+            658
+          ],
+          "cells": [
+            [
+              1,
+              508
+            ],
+            [
+              2,
+              93287
+            ],
+            [
+              3,
+              3046
+            ]
+          ],
+          "area_in_frame": 3046,
+          "probable_donors": [
+            {
+              "frame": 1,
+              "area": 508
+            },
+            {
+              "frame": 2,
+              "area": 93287
+            }
+          ],
+          "sides": [
+            "left"
+          ]
+        },
+        {
+          "component": 4,
+          "area": 54,
+          "bbox": [
+            1047,
+            278,
+            1098,
+            281
+          ],
+          "cells": [
+            [
+              2,
+              42
+            ],
+            [
+              3,
+              12
+            ]
+          ],
+          "area_in_frame": 12,
+          "probable_donors": [
+            {
+              "frame": 2,
+              "area": 42
+            }
+          ],
+          "sides": [
+            "left"
+          ]
+        }
+      ],
+      "flags": [
+        "source_component_crossed_cell_edge",
+        "weapon_or_body_half_shape_risk"
+      ],
+      "fail": true
+    },
+    {
+      "registry": "body",
+      "unit": "hit0",
+      "frame": 4,
+      "installed": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Character/animation/character.seojin.basic_attack.combo.hit0.body/frame-4.png",
+      "installed_sha": "84acdc6f8bb86d62b2ef4c4b0e5fd1c51b1450027b53b881652c090f9e9bca0a",
+      "artifact_sha": "84acdc6f8bb86d62b2ef4c4b0e5fd1c51b1450027b53b881652c090f9e9bca0a",
+      "installed_matches_r1": true,
+      "bbox": [
+        53,
+        12,
+        202,
+        244
+      ],
+      "border_touch_pixels": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "components": 210,
+      "largest_component_area": 16471,
+      "small_component_area": 307,
+      "source_rect": [
+        1448,
+        0,
+        1810,
+        724
+      ],
+      "source_crossings": [
+        {
+          "component": 0,
+          "area": 303229,
+          "bbox": [
+            1115,
+            34,
+            2161,
+            668
+          ],
+          "cells": [
+            [
+              3,
+              87818
+            ],
+            [
+              4,
+              99654
+            ],
+            [
+              5,
+              115757
+            ]
+          ],
+          "area_in_frame": 99654,
+          "probable_donors": [
+            {
+              "frame": 3,
+              "area": 87818
+            },
+            {
+              "frame": 5,
+              "area": 115757
+            }
+          ],
+          "sides": [
+            "left",
+            "right"
+          ]
+        },
+        {
+          "component": 6,
+          "area": 31,
+          "bbox": [
+            1807,
+            662,
+            1831,
+            664
+          ],
+          "cells": [
+            [
+              4,
+              3
+            ],
+            [
+              5,
+              28
+            ]
+          ],
+          "area_in_frame": 3,
+          "probable_donors": [
+            {
+              "frame": 5,
+              "area": 28
+            }
+          ],
+          "sides": [
+            "right"
+          ]
+        }
+      ],
+      "flags": [
+        "source_component_crossed_cell_edge",
+        "weapon_or_body_half_shape_risk"
+      ],
+      "fail": true
+    },
+    {
+      "registry": "body",
+      "unit": "hit0",
+      "frame": 5,
+      "installed": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Character/animation/character.seojin.basic_attack.combo.hit0.body/frame-5.png",
+      "installed_sha": "2312e6b39036f5f5ebfcb6566ef982ae1c7b444d160301934f7f2c553e53e6dd",
+      "artifact_sha": "2312e6b39036f5f5ebfcb6566ef982ae1c7b444d160301934f7f2c553e53e6dd",
+      "installed_matches_r1": true,
+      "bbox": [
+        64,
+        12,
+        191,
+        244
+      ],
+      "border_touch_pixels": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "components": 239,
+      "largest_component_area": 14931,
+      "small_component_area": 359,
+      "source_rect": [
+        1810,
+        0,
+        2172,
+        724
+      ],
+      "source_crossings": [
+        {
+          "component": 0,
+          "area": 303229,
+          "bbox": [
+            1115,
+            34,
+            2161,
+            668
+          ],
+          "cells": [
+            [
+              3,
+              87818
+            ],
+            [
+              4,
+              99654
+            ],
+            [
+              5,
+              115757
+            ]
+          ],
+          "area_in_frame": 115757,
+          "probable_donors": [
+            {
+              "frame": 3,
+              "area": 87818
+            },
+            {
+              "frame": 4,
+              "area": 99654
+            }
+          ],
+          "sides": [
+            "left"
+          ]
+        },
+        {
+          "component": 6,
+          "area": 31,
+          "bbox": [
+            1807,
+            662,
+            1831,
+            664
+          ],
+          "cells": [
+            [
+              4,
+              3
+            ],
+            [
+              5,
+              28
+            ]
+          ],
+          "area_in_frame": 28,
+          "probable_donors": [
+            {
+              "frame": 4,
+              "area": 3
+            }
+          ],
+          "sides": [
+            "left"
+          ]
+        }
+      ],
+      "flags": [
+        "source_component_crossed_cell_edge",
+        "weapon_or_body_half_shape_risk"
+      ],
+      "fail": true
+    },
+    {
+      "registry": "body",
+      "unit": "hit1",
+      "frame": 0,
+      "installed": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Character/animation/character.seojin.basic_attack.combo.hit1.body/frame-0.png",
+      "installed_sha": "c580ea95f60e064d41944e1825f96fc50e07caad364a3a4b59ed19e96c657d38",
+      "artifact_sha": "c580ea95f60e064d41944e1825f96fc50e07caad364a3a4b59ed19e96c657d38",
+      "installed_matches_r1": true,
+      "bbox": [
+        62,
+        12,
+        193,
+        244
+      ],
+      "border_touch_pixels": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "components": 230,
+      "largest_component_area": 14293,
+      "small_component_area": 349,
+      "source_rect": [
+        0,
+        0,
+        362,
+        724
+      ],
+      "source_crossings": [
+        {
+          "component": 3,
+          "area": 97922,
+          "bbox": [
+            356,
+            99,
+            715,
+            659
+          ],
+          "cells": [
+            [
+              0,
+              102
+            ],
+            [
+              1,
+              97820
+            ]
+          ],
+          "area_in_frame": 102,
+          "probable_donors": [
+            {
+              "frame": 1,
+              "area": 97820
+            }
+          ],
+          "sides": [
+            "right"
+          ]
+        }
+      ],
+      "flags": [
+        "source_component_crossed_cell_edge",
+        "weapon_or_body_half_shape_risk"
+      ],
+      "fail": true
+    },
+    {
+      "registry": "body",
+      "unit": "hit1",
+      "frame": 1,
+      "installed": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Character/animation/character.seojin.basic_attack.combo.hit1.body/frame-1.png",
+      "installed_sha": "de434f2f494bd878b8ea682befc1a389917cea63d72800836761c46b752bab00",
+      "artifact_sha": "de434f2f494bd878b8ea682befc1a389917cea63d72800836761c46b752bab00",
+      "installed_matches_r1": true,
+      "bbox": [
+        56,
+        12,
+        199,
+        237
+      ],
+      "border_touch_pixels": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "components": 196,
+      "largest_component_area": 15237,
+      "small_component_area": 286,
+      "source_rect": [
+        362,
+        0,
+        724,
+        724
+      ],
+      "source_crossings": [
+        {
+          "component": 1,
+          "area": 107950,
+          "bbox": [
+            693,
+            83,
+            1139,
+            659
+          ],
+          "cells": [
+            [
+              1,
+              1375
+            ],
+            [
+              2,
+              105567
+            ],
+            [
+              3,
+              1008
+            ]
+          ],
+          "area_in_frame": 1375,
+          "probable_donors": [
+            {
+              "frame": 2,
+              "area": 105567
+            },
+            {
+              "frame": 3,
+              "area": 1008
+            }
+          ],
+          "sides": [
+            "right"
+          ]
+        },
+        {
+          "component": 3,
+          "area": 97922,
+          "bbox": [
+            356,
+            99,
+            715,
+            659
+          ],
+          "cells": [
+            [
+              0,
+              102
+            ],
+            [
+              1,
+              97820
+            ]
+          ],
+          "area_in_frame": 97820,
+          "probable_donors": [
+            {
+              "frame": 0,
+              "area": 102
+            }
+          ],
+          "sides": [
+            "left"
+          ]
+        }
+      ],
+      "flags": [
+        "source_component_crossed_cell_edge",
+        "weapon_or_body_half_shape_risk"
+      ],
+      "fail": true
+    },
+    {
+      "registry": "body",
+      "unit": "hit1",
+      "frame": 2,
+      "installed": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Character/animation/character.seojin.basic_attack.combo.hit1.body/frame-2.png",
+      "installed_sha": "7966b0c00673ea24702e56865f1c090eed8e95679391c38531894a68563e8c78",
+      "artifact_sha": "7966b0c00673ea24702e56865f1c090eed8e95679391c38531894a68563e8c78",
+      "installed_matches_r1": true,
+      "bbox": [
+        56,
+        12,
+        200,
+        244
+      ],
+      "border_touch_pixels": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "components": 210,
+      "largest_component_area": 16587,
+      "small_component_area": 369,
+      "source_rect": [
+        724,
+        0,
+        1086,
+        724
+      ],
+      "source_crossings": [
+        {
+          "component": 1,
+          "area": 107950,
+          "bbox": [
+            693,
+            83,
+            1139,
+            659
+          ],
+          "cells": [
+            [
+              1,
+              1375
+            ],
+            [
+              2,
+              105567
+            ],
+            [
+              3,
+              1008
+            ]
+          ],
+          "area_in_frame": 105567,
+          "probable_donors": [
+            {
+              "frame": 1,
+              "area": 1375
+            },
+            {
+              "frame": 3,
+              "area": 1008
+            }
+          ],
+          "sides": [
+            "left",
+            "right"
+          ]
+        }
+      ],
+      "flags": [
+        "source_component_crossed_cell_edge",
+        "weapon_or_body_half_shape_risk"
+      ],
+      "fail": true
+    },
+    {
+      "registry": "body",
+      "unit": "hit1",
+      "frame": 3,
+      "installed": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Character/animation/character.seojin.basic_attack.combo.hit1.body/frame-3.png",
+      "installed_sha": "9d79ed76e7d6b16dd45c47c62e49838863e9ddcaa8d0e03184dc2a0255df51e7",
+      "artifact_sha": "9d79ed76e7d6b16dd45c47c62e49838863e9ddcaa8d0e03184dc2a0255df51e7",
+      "installed_matches_r1": true,
+      "bbox": [
+        53,
+        12,
+        202,
+        244
+      ],
+      "border_touch_pixels": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "components": 247,
+      "largest_component_area": 16097,
+      "small_component_area": 364,
+      "source_rect": [
+        1086,
+        0,
+        1448,
+        724
+      ],
+      "source_crossings": [
+        {
+          "component": 0,
+          "area": 280582,
+          "bbox": [
+            1095,
+            75,
+            2153,
+            674
+          ],
+          "cells": [
+            [
+              3,
+              95491
+            ],
+            [
+              4,
+              89133
+            ],
+            [
+              5,
+              95958
+            ]
+          ],
+          "area_in_frame": 95491,
+          "probable_donors": [
+            {
+              "frame": 4,
+              "area": 89133
+            },
+            {
+              "frame": 5,
+              "area": 95958
+            }
+          ],
+          "sides": [
+            "right"
+          ]
+        },
+        {
+          "component": 1,
+          "area": 107950,
+          "bbox": [
+            693,
+            83,
+            1139,
+            659
+          ],
+          "cells": [
+            [
+              1,
+              1375
+            ],
+            [
+              2,
+              105567
+            ],
+            [
+              3,
+              1008
+            ]
+          ],
+          "area_in_frame": 1008,
+          "probable_donors": [
+            {
+              "frame": 1,
+              "area": 1375
+            },
+            {
+              "frame": 2,
+              "area": 105567
+            }
+          ],
+          "sides": [
+            "left"
+          ]
+        }
+      ],
+      "flags": [
+        "source_component_crossed_cell_edge",
+        "weapon_or_body_half_shape_risk"
+      ],
+      "fail": true
+    },
+    {
+      "registry": "body",
+      "unit": "hit1",
+      "frame": 4,
+      "installed": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Character/animation/character.seojin.basic_attack.combo.hit1.body/frame-4.png",
+      "installed_sha": "6c1442c0e86bdfaf7cd63921f1cf5456de86772b243a8d152a9dc96d37225c3c",
+      "artifact_sha": "6c1442c0e86bdfaf7cd63921f1cf5456de86772b243a8d152a9dc96d37225c3c",
+      "installed_matches_r1": true,
+      "bbox": [
+        58,
+        34,
+        198,
+        244
+      ],
+      "border_touch_pixels": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "components": 183,
+      "largest_component_area": 13292,
+      "small_component_area": 284,
+      "source_rect": [
+        1448,
+        0,
+        1810,
+        724
+      ],
+      "source_crossings": [
+        {
+          "component": 0,
+          "area": 280582,
+          "bbox": [
+            1095,
+            75,
+            2153,
+            674
+          ],
+          "cells": [
+            [
+              3,
+              95491
+            ],
+            [
+              4,
+              89133
+            ],
+            [
+              5,
+              95958
+            ]
+          ],
+          "area_in_frame": 89133,
+          "probable_donors": [
+            {
+              "frame": 3,
+              "area": 95491
+            },
+            {
+              "frame": 5,
+              "area": 95958
+            }
+          ],
+          "sides": [
+            "left",
+            "right"
+          ]
+        },
+        {
+          "component": 378,
+          "area": 2,
+          "bbox": [
+            1809,
+            378,
+            1811,
+            379
+          ],
+          "cells": [
+            [
+              4,
+              1
+            ],
+            [
+              5,
+              1
+            ]
+          ],
+          "area_in_frame": 1,
+          "probable_donors": [
+            {
+              "frame": 5,
+              "area": 1
+            }
+          ],
+          "sides": [
+            "right"
+          ]
+        }
+      ],
+      "flags": [
+        "source_component_crossed_cell_edge",
+        "weapon_or_body_half_shape_risk"
+      ],
+      "fail": true
+    },
+    {
+      "registry": "body",
+      "unit": "hit1",
+      "frame": 5,
+      "installed": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Character/animation/character.seojin.basic_attack.combo.hit1.body/frame-5.png",
+      "installed_sha": "1cd508ee5625ff7668414a773548d51ad3948116ea25134814ed13c0d269c0df",
+      "artifact_sha": "1cd508ee5625ff7668414a773548d51ad3948116ea25134814ed13c0d269c0df",
+      "installed_matches_r1": true,
+      "bbox": [
+        67,
+        12,
+        189,
+        228
+      ],
+      "border_touch_pixels": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "components": 221,
+      "largest_component_area": 12064,
+      "small_component_area": 331,
+      "source_rect": [
+        1810,
+        0,
+        2172,
+        724
+      ],
+      "source_crossings": [
+        {
+          "component": 0,
+          "area": 280582,
+          "bbox": [
+            1095,
+            75,
+            2153,
+            674
+          ],
+          "cells": [
+            [
+              3,
+              95491
+            ],
+            [
+              4,
+              89133
+            ],
+            [
+              5,
+              95958
+            ]
+          ],
+          "area_in_frame": 95958,
+          "probable_donors": [
+            {
+              "frame": 3,
+              "area": 95491
+            },
+            {
+              "frame": 4,
+              "area": 89133
+            }
+          ],
+          "sides": [
+            "left"
+          ]
+        },
+        {
+          "component": 378,
+          "area": 2,
+          "bbox": [
+            1809,
+            378,
+            1811,
+            379
+          ],
+          "cells": [
+            [
+              4,
+              1
+            ],
+            [
+              5,
+              1
+            ]
+          ],
+          "area_in_frame": 1,
+          "probable_donors": [
+            {
+              "frame": 4,
+              "area": 1
+            }
+          ],
+          "sides": [
+            "left"
+          ]
+        }
+      ],
+      "flags": [
+        "source_component_crossed_cell_edge",
+        "weapon_or_body_half_shape_risk"
+      ],
+      "fail": true
+    },
+    {
+      "registry": "body",
+      "unit": "hit2",
+      "frame": 0,
+      "installed": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Character/animation/character.seojin.basic_attack.combo.hit2.body/frame-0.png",
+      "installed_sha": "c10e7fa64b3ffb243c76d000988428614b5cf01836901e3282095389c01c4f5f",
+      "artifact_sha": "c10e7fa64b3ffb243c76d000988428614b5cf01836901e3282095389c01c4f5f",
+      "installed_matches_r1": true,
+      "bbox": [
+        69,
+        12,
+        186,
+        242
+      ],
+      "border_touch_pixels": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "components": 224,
+      "largest_component_area": 13263,
+      "small_component_area": 347,
+      "source_rect": [
+        0,
+        0,
+        362,
+        724
+      ],
+      "source_crossings": [
+        {
+          "component": 0,
+          "area": 185169,
+          "bbox": [
+            41,
+            66,
+            705,
+            689
+          ],
+          "cells": [
+            [
+              0,
+              101291
+            ],
+            [
+              1,
+              83878
+            ]
+          ],
+          "area_in_frame": 101291,
+          "probable_donors": [
+            {
+              "frame": 1,
+              "area": 83878
+            }
+          ],
+          "sides": [
+            "right"
+          ]
+        }
+      ],
+      "flags": [
+        "source_component_crossed_cell_edge",
+        "weapon_or_body_half_shape_risk"
+      ],
+      "fail": true
+    },
+    {
+      "registry": "body",
+      "unit": "hit2",
+      "frame": 1,
+      "installed": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Character/animation/character.seojin.basic_attack.combo.hit2.body/frame-1.png",
+      "installed_sha": "11b66708be0a602c44ec95cfe6d697077ac463119434b52b78396450e238a080",
+      "artifact_sha": "11b66708be0a602c44ec95cfe6d697077ac463119434b52b78396450e238a080",
+      "installed_matches_r1": true,
+      "bbox": [
+        51,
+        12,
+        205,
+        244
+      ],
+      "border_touch_pixels": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "components": 196,
+      "largest_component_area": 15084,
+      "small_component_area": 308,
+      "source_rect": [
+        362,
+        0,
+        724,
+        724
+      ],
+      "source_crossings": [
+        {
+          "component": 0,
+          "area": 185169,
+          "bbox": [
+            41,
+            66,
+            705,
+            689
+          ],
+          "cells": [
+            [
+              0,
+              101291
+            ],
+            [
+              1,
+              83878
+            ]
+          ],
+          "area_in_frame": 83878,
+          "probable_donors": [
+            {
+              "frame": 0,
+              "area": 101291
+            }
+          ],
+          "sides": [
+            "left"
+          ]
+        },
+        {
+          "component": 4,
+          "area": 80310,
+          "bbox": [
+            689,
+            176,
+            1160,
+            689
+          ],
+          "cells": [
+            [
+              1,
+              2076
+            ],
+            [
+              2,
+              77248
+            ],
+            [
+              3,
+              986
+            ]
+          ],
+          "area_in_frame": 2076,
+          "probable_donors": [
+            {
+              "frame": 2,
+              "area": 77248
+            },
+            {
+              "frame": 3,
+              "area": 986
+            }
+          ],
+          "sides": [
+            "right"
+          ]
+        }
+      ],
+      "flags": [
+        "source_component_crossed_cell_edge",
+        "weapon_or_body_half_shape_risk"
+      ],
+      "fail": true
+    },
+    {
+      "registry": "body",
+      "unit": "hit2",
+      "frame": 2,
+      "installed": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Character/animation/character.seojin.basic_attack.combo.hit2.body/frame-2.png",
+      "installed_sha": "c5d55ec11ebede6366a7a592dce79d1c2c1c301918d73f13e8e140899a61bf1c",
+      "artifact_sha": "c5d55ec11ebede6366a7a592dce79d1c2c1c301918d73f13e8e140899a61bf1c",
+      "installed_matches_r1": true,
+      "bbox": [
+        58,
+        41,
+        198,
+        244
+      ],
+      "border_touch_pixels": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "components": 186,
+      "largest_component_area": 11498,
+      "small_component_area": 283,
+      "source_rect": [
+        724,
+        0,
+        1086,
+        724
+      ],
+      "source_crossings": [
+        {
+          "component": 2,
+          "area": 84344,
+          "bbox": [
+            1043,
+            135,
+            1426,
+            673
+          ],
+          "cells": [
+            [
+              2,
+              2542
+            ],
+            [
+              3,
+              81802
+            ]
+          ],
+          "area_in_frame": 2542,
+          "probable_donors": [
+            {
+              "frame": 3,
+              "area": 81802
+            }
+          ],
+          "sides": [
+            "right"
+          ]
+        },
+        {
+          "component": 4,
+          "area": 80310,
+          "bbox": [
+            689,
+            176,
+            1160,
+            689
+          ],
+          "cells": [
+            [
+              1,
+              2076
+            ],
+            [
+              2,
+              77248
+            ],
+            [
+              3,
+              986
+            ]
+          ],
+          "area_in_frame": 77248,
+          "probable_donors": [
+            {
+              "frame": 1,
+              "area": 2076
+            },
+            {
+              "frame": 3,
+              "area": 986
+            }
+          ],
+          "sides": [
+            "left",
+            "right"
+          ]
+        }
+      ],
+      "flags": [
+        "source_component_crossed_cell_edge",
+        "weapon_or_body_half_shape_risk"
+      ],
+      "fail": true
+    },
+    {
+      "registry": "body",
+      "unit": "hit2",
+      "frame": 3,
+      "installed": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Character/animation/character.seojin.basic_attack.combo.hit2.body/frame-3.png",
+      "installed_sha": "d6eb4c8755280cc67e221e99ae143fcf538d79632a91c99b8e4a48cec1a4a2ef",
+      "artifact_sha": "d6eb4c8755280cc67e221e99ae143fcf538d79632a91c99b8e4a48cec1a4a2ef",
+      "installed_matches_r1": true,
+      "bbox": [
+        53,
+        12,
+        203,
+        239
+      ],
+      "border_touch_pixels": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "components": 281,
+      "largest_component_area": 13965,
+      "small_component_area": 402,
+      "source_rect": [
+        1086,
+        0,
+        1448,
+        724
+      ],
+      "source_crossings": [
+        {
+          "component": 2,
+          "area": 84344,
+          "bbox": [
+            1043,
+            135,
+            1426,
+            673
+          ],
+          "cells": [
+            [
+              2,
+              2542
+            ],
+            [
+              3,
+              81802
+            ]
+          ],
+          "area_in_frame": 81802,
+          "probable_donors": [
+            {
+              "frame": 2,
+              "area": 2542
+            }
+          ],
+          "sides": [
+            "left"
+          ]
+        },
+        {
+          "component": 3,
+          "area": 80748,
+          "bbox": [
+            1419,
+            66,
+            1809,
+            690
+          ],
+          "cells": [
+            [
+              3,
+              761
+            ],
+            [
+              4,
+              79987
+            ]
+          ],
+          "area_in_frame": 761,
+          "probable_donors": [
+            {
+              "frame": 4,
+              "area": 79987
+            }
+          ],
+          "sides": [
+            "right"
+          ]
+        },
+        {
+          "component": 4,
+          "area": 80310,
+          "bbox": [
+            689,
+            176,
+            1160,
+            689
+          ],
+          "cells": [
+            [
+              1,
+              2076
+            ],
+            [
+              2,
+              77248
+            ],
+            [
+              3,
+              986
+            ]
+          ],
+          "area_in_frame": 986,
+          "probable_donors": [
+            {
+              "frame": 1,
+              "area": 2076
+            },
+            {
+              "frame": 2,
+              "area": 77248
+            }
+          ],
+          "sides": [
+            "left"
+          ]
+        },
+        {
+          "component": 57,
+          "area": 5,
+          "bbox": [
+            1446,
+            659,
+            1451,
+            660
+          ],
+          "cells": [
+            [
+              3,
+              2
+            ],
+            [
+              4,
+              3
+            ]
+          ],
+          "area_in_frame": 2,
+          "probable_donors": [
+            {
+              "frame": 4,
+              "area": 3
+            }
+          ],
+          "sides": [
+            "right"
+          ]
+        }
+      ],
+      "flags": [
+        "source_component_crossed_cell_edge",
+        "weapon_or_body_half_shape_risk"
+      ],
+      "fail": true
+    },
+    {
+      "registry": "body",
+      "unit": "hit2",
+      "frame": 4,
+      "installed": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Character/animation/character.seojin.basic_attack.combo.hit2.body/frame-4.png",
+      "installed_sha": "e90dde919b286012452bdbf7f2b11302dbc09e979939f1f302da9271809a39b6",
+      "artifact_sha": "e90dde919b286012452bdbf7f2b11302dbc09e979939f1f302da9271809a39b6",
+      "installed_matches_r1": true,
+      "bbox": [
+        61,
+        12,
+        194,
+        244
+      ],
+      "border_touch_pixels": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "components": 243,
+      "largest_component_area": 10800,
+      "small_component_area": 313,
+      "source_rect": [
+        1448,
+        0,
+        1810,
+        724
+      ],
+      "source_crossings": [
+        {
+          "component": 1,
+          "area": 86919,
+          "bbox": [
+            1789,
+            27,
+            2146,
+            678
+          ],
+          "cells": [
+            [
+              4,
+              638
+            ],
+            [
+              5,
+              86281
+            ]
+          ],
+          "area_in_frame": 638,
+          "probable_donors": [
+            {
+              "frame": 5,
+              "area": 86281
+            }
+          ],
+          "sides": [
+            "right"
+          ]
+        },
+        {
+          "component": 3,
+          "area": 80748,
+          "bbox": [
+            1419,
+            66,
+            1809,
+            690
+          ],
+          "cells": [
+            [
+              3,
+              761
+            ],
+            [
+              4,
+              79987
+            ]
+          ],
+          "area_in_frame": 79987,
+          "probable_donors": [
+            {
+              "frame": 3,
+              "area": 761
+            }
+          ],
+          "sides": [
+            "left"
+          ]
+        },
+        {
+          "component": 57,
+          "area": 5,
+          "bbox": [
+            1446,
+            659,
+            1451,
+            660
+          ],
+          "cells": [
+            [
+              3,
+              2
+            ],
+            [
+              4,
+              3
+            ]
+          ],
+          "area_in_frame": 3,
+          "probable_donors": [
+            {
+              "frame": 3,
+              "area": 2
+            }
+          ],
+          "sides": [
+            "left"
+          ]
+        }
+      ],
+      "flags": [
+        "source_component_crossed_cell_edge",
+        "weapon_or_body_half_shape_risk"
+      ],
+      "fail": true
+    },
+    {
+      "registry": "body",
+      "unit": "hit2",
+      "frame": 5,
+      "installed": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Character/animation/character.seojin.basic_attack.combo.hit2.body/frame-5.png",
+      "installed_sha": "971074427897e0958bc7f4384fc17a570bb21b7e032a7c2f72ff106871efaace",
+      "artifact_sha": "971074427897e0958bc7f4384fc17a570bb21b7e032a7c2f72ff106871efaace",
+      "installed_matches_r1": true,
+      "bbox": [
+        66,
+        12,
+        189,
+        244
+      ],
+      "border_touch_pixels": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "components": 235,
+      "largest_component_area": 10949,
+      "small_component_area": 328,
+      "source_rect": [
+        1810,
+        0,
+        2172,
+        724
+      ],
+      "source_crossings": [
+        {
+          "component": 1,
+          "area": 86919,
+          "bbox": [
+            1789,
+            27,
+            2146,
+            678
+          ],
+          "cells": [
+            [
+              4,
+              638
+            ],
+            [
+              5,
+              86281
+            ]
+          ],
+          "area_in_frame": 86281,
+          "probable_donors": [
+            {
+              "frame": 4,
+              "area": 638
+            }
+          ],
+          "sides": [
+            "left"
+          ]
+        }
+      ],
+      "flags": [
+        "source_component_crossed_cell_edge",
+        "weapon_or_body_half_shape_risk"
+      ],
+      "fail": true
+    },
+    {
+      "registry": "vfx",
+      "unit": "g1/hit1",
+      "frame": 0,
+      "installed": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.1.basic_attack.basic_attack.combo.1.visual/frame-0.png",
+      "installed_sha": "d66d31a9c43f3b06930509c37673276bb7d9b7eabf3f27685e7508de1709e1be",
+      "artifact_sha": "d66d31a9c43f3b06930509c37673276bb7d9b7eabf3f27685e7508de1709e1be",
+      "installed_matches_r1": true,
+      "bbox": [
+        53,
+        44,
+        203,
+        232
+      ],
+      "border_touch_pixels": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "components": 3,
+      "largest_component_area": 4771,
+      "small_component_area": 2,
+      "source_rect": [
+        0,
+        0,
+        362,
+        724
+      ],
+      "source_crossings": [
+        {
+          "component": 2,
+          "area": 39302,
+          "bbox": [
+            272,
+            287,
+            577,
+            509
+          ],
+          "cells": [
+            [
+              0,
+              8398
+            ],
+            [
+              1,
+              30904
+            ]
+          ],
+          "area_in_frame": 8398,
+          "probable_donors": [
+            {
+              "frame": 1,
+              "area": 30904
+            }
+          ],
+          "sides": [
+            "right"
+          ]
+        }
+      ],
+      "flags": [
+        "source_component_crossed_cell_edge",
+        "vfx_gutter_or_neighbor_shape_risk"
+      ],
+      "fail": true
+    },
+    {
+      "registry": "vfx",
+      "unit": "g1/hit1",
+      "frame": 1,
+      "installed": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.1.basic_attack.basic_attack.combo.1.visual/frame-1.png",
+      "installed_sha": "8d50bd781c1f296293dddd748e77f772dee629d33c3f45691b901d5bfa948ebb",
+      "artifact_sha": "8d50bd781c1f296293dddd748e77f772dee629d33c3f45691b901d5bfa948ebb",
+      "installed_matches_r1": true,
+      "bbox": [
+        71,
+        51,
+        185,
+        197
+      ],
+      "border_touch_pixels": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "components": 11,
+      "largest_component_area": 3016,
+      "small_component_area": 33,
+      "source_rect": [
+        362,
+        0,
+        724,
+        724
+      ],
+      "source_crossings": [
+        {
+          "component": 1,
+          "area": 87959,
+          "bbox": [
+            570,
+            204,
+            1016,
+            528
+          ],
+          "cells": [
+            [
+              1,
+              22029
+            ],
+            [
+              2,
+              65930
+            ]
+          ],
+          "area_in_frame": 22029,
+          "probable_donors": [
+            {
+              "frame": 2,
+              "area": 65930
+            }
+          ],
+          "sides": [
+            "right"
+          ]
+        },
+        {
+          "component": 2,
+          "area": 39302,
+          "bbox": [
+            272,
+            287,
+            577,
+            509
+          ],
+          "cells": [
+            [
+              0,
+              8398
+            ],
+            [
+              1,
+              30904
+            ]
+          ],
+          "area_in_frame": 30904,
+          "probable_donors": [
+            {
+              "frame": 0,
+              "area": 8398
+            }
+          ],
+          "sides": [
+            "left"
+          ]
+        }
+      ],
+      "flags": [
+        "source_component_crossed_cell_edge",
+        "vfx_gutter_or_neighbor_shape_risk"
+      ],
+      "fail": true
+    },
+    {
+      "registry": "vfx",
+      "unit": "g1/hit1",
+      "frame": 2,
+      "installed": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.1.basic_attack.basic_attack.combo.1.visual/frame-2.png",
+      "installed_sha": "445159450252593adfb40b05187e5314d0a3161921e07f9c8ade42965b6ac72f",
+      "artifact_sha": "445159450252593adfb40b05187e5314d0a3161921e07f9c8ade42965b6ac72f",
+      "installed_matches_r1": true,
+      "bbox": [
+        70,
+        24,
+        186,
+        224
+      ],
+      "border_touch_pixels": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "components": 8,
+      "largest_component_area": 6750,
+      "small_component_area": 12,
+      "source_rect": [
+        724,
+        0,
+        1086,
+        724
+      ],
+      "source_crossings": [
+        {
+          "component": 0,
+          "area": 139197,
+          "bbox": [
+            1027,
+            145,
+            1830,
+            587
+          ],
+          "cells": [
+            [
+              2,
+              3670
+            ],
+            [
+              3,
+              98113
+            ],
+            [
+              4,
+              37220
+            ],
+            [
+              5,
+              194
+            ]
+          ],
+          "area_in_frame": 3670,
+          "probable_donors": [
+            {
+              "frame": 3,
+              "area": 98113
+            },
+            {
+              "frame": 4,
+              "area": 37220
+            },
+            {
+              "frame": 5,
+              "area": 194
+            }
+          ],
+          "sides": [
+            "right"
+          ]
+        },
+        {
+          "component": 1,
+          "area": 87959,
+          "bbox": [
+            570,
+            204,
+            1016,
+            528
+          ],
+          "cells": [
+            [
+              1,
+              22029
+            ],
+            [
+              2,
+              65930
+            ]
+          ],
+          "area_in_frame": 65930,
+          "probable_donors": [
+            {
+              "frame": 1,
+              "area": 22029
+            }
+          ],
+          "sides": [
+            "left"
+          ]
+        }
+      ],
+      "flags": [
+        "source_component_crossed_cell_edge",
+        "vfx_gutter_or_neighbor_shape_risk"
+      ],
+      "fail": true
+    },
+    {
+      "registry": "vfx",
+      "unit": "g1/hit1",
+      "frame": 3,
+      "installed": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.1.basic_attack.basic_attack.combo.1.visual/frame-3.png",
+      "installed_sha": "ac5990ce86f0ab1a5f11d089dab156df07c4aa6b2eca47f8d358e192662c3e26",
+      "artifact_sha": "ac5990ce86f0ab1a5f11d089dab156df07c4aa6b2eca47f8d358e192662c3e26",
+      "installed_matches_r1": true,
+      "bbox": [
+        73,
+        62,
+        182,
+        198
+      ],
+      "border_touch_pixels": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "components": 62,
+      "largest_component_area": 8771,
+      "small_component_area": 86,
+      "source_rect": [
+        1086,
+        0,
+        1448,
+        724
+      ],
+      "source_crossings": [
+        {
+          "component": 0,
+          "area": 139197,
+          "bbox": [
+            1027,
+            145,
+            1830,
+            587
+          ],
+          "cells": [
+            [
+              2,
+              3670
+            ],
+            [
+              3,
+              98113
+            ],
+            [
+              4,
+              37220
+            ],
+            [
+              5,
+              194
+            ]
+          ],
+          "area_in_frame": 98113,
+          "probable_donors": [
+            {
+              "frame": 2,
+              "area": 3670
+            },
+            {
+              "frame": 4,
+              "area": 37220
+            },
+            {
+              "frame": 5,
+              "area": 194
+            }
+          ],
+          "sides": [
+            "left",
+            "right"
+          ]
+        }
+      ],
+      "flags": [
+        "source_component_crossed_cell_edge",
+        "vfx_gutter_or_neighbor_shape_risk"
+      ],
+      "fail": true
+    },
+    {
+      "registry": "vfx",
+      "unit": "g1/hit1",
+      "frame": 4,
+      "installed": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.1.basic_attack.basic_attack.combo.1.visual/frame-4.png",
+      "installed_sha": "0128c58c971d219a00efe20eedab5b08a223e6cef3f2eccd4c91d1305b7d27eb",
+      "artifact_sha": "0128c58c971d219a00efe20eedab5b08a223e6cef3f2eccd4c91d1305b7d27eb",
+      "installed_matches_r1": true,
+      "bbox": [
+        62,
+        36,
+        193,
+        232
+      ],
+      "border_touch_pixels": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "components": 16,
+      "largest_component_area": 4854,
+      "small_component_area": 25,
+      "source_rect": [
+        1448,
+        0,
+        1810,
+        724
+      ],
+      "source_crossings": [
+        {
+          "component": 0,
+          "area": 139197,
+          "bbox": [
+            1027,
+            145,
+            1830,
+            587
+          ],
+          "cells": [
+            [
+              2,
+              3670
+            ],
+            [
+              3,
+              98113
+            ],
+            [
+              4,
+              37220
+            ],
+            [
+              5,
+              194
+            ]
+          ],
+          "area_in_frame": 37220,
+          "probable_donors": [
+            {
+              "frame": 2,
+              "area": 3670
+            },
+            {
+              "frame": 3,
+              "area": 98113
+            },
+            {
+              "frame": 5,
+              "area": 194
+            }
+          ],
+          "sides": [
+            "left",
+            "right"
+          ]
+        }
+      ],
+      "flags": [
+        "source_component_crossed_cell_edge",
+        "vfx_gutter_or_neighbor_shape_risk"
+      ],
+      "fail": true
+    },
+    {
+      "registry": "vfx",
+      "unit": "g1/hit1",
+      "frame": 5,
+      "installed": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.1.basic_attack.basic_attack.combo.1.visual/frame-5.png",
+      "installed_sha": "175cc672fc3134d6ae243fd609d1451ec754a5f2fde2e87e2d434b137d68b96a",
+      "artifact_sha": "175cc672fc3134d6ae243fd609d1451ec754a5f2fde2e87e2d434b137d68b96a",
+      "installed_matches_r1": true,
+      "bbox": [
+        43,
+        46,
+        213,
+        232
+      ],
+      "border_touch_pixels": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "components": 29,
+      "largest_component_area": 3492,
+      "small_component_area": 158,
+      "source_rect": [
+        1810,
+        0,
+        2172,
+        724
+      ],
+      "source_crossings": [
+        {
+          "component": 0,
+          "area": 139197,
+          "bbox": [
+            1027,
+            145,
+            1830,
+            587
+          ],
+          "cells": [
+            [
+              2,
+              3670
+            ],
+            [
+              3,
+              98113
+            ],
+            [
+              4,
+              37220
+            ],
+            [
+              5,
+              194
+            ]
+          ],
+          "area_in_frame": 194,
+          "probable_donors": [
+            {
+              "frame": 2,
+              "area": 3670
+            },
+            {
+              "frame": 3,
+              "area": 98113
+            },
+            {
+              "frame": 4,
+              "area": 37220
+            }
+          ],
+          "sides": [
+            "left"
+          ]
+        }
+      ],
+      "flags": [
+        "source_component_crossed_cell_edge",
+        "vfx_gutter_or_neighbor_shape_risk"
+      ],
+      "fail": true
+    },
+    {
+      "registry": "vfx",
+      "unit": "g1/hit2",
+      "frame": 0,
+      "installed": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.1.basic_attack.basic_attack.combo.2.visual/frame-0.png",
+      "installed_sha": "34aa8445ddecb3d7a9f00814e5d69e39a1d24d51bb896ecf70f73fcc7ac9f239",
+      "artifact_sha": "34aa8445ddecb3d7a9f00814e5d69e39a1d24d51bb896ecf70f73fcc7ac9f239",
+      "installed_matches_r1": true,
+      "bbox": [
+        59,
+        39,
+        197,
+        175
+      ],
+      "border_touch_pixels": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "components": 7,
+      "largest_component_area": 5022,
+      "small_component_area": 14,
+      "source_rect": [
+        0,
+        0,
+        362,
+        724
+      ],
+      "source_crossings": [
+        {
+          "component": 2,
+          "area": 33593,
+          "bbox": [
+            328,
+            256,
+            663,
+            435
+          ],
+          "cells": [
+            [
+              0,
+              811
+            ],
+            [
+              1,
+              32782
+            ]
+          ],
+          "area_in_frame": 811,
+          "probable_donors": [
+            {
+              "frame": 1,
+              "area": 32782
+            }
+          ],
+          "sides": [
+            "right"
+          ]
+        }
+      ],
+      "flags": [
+        "source_component_crossed_cell_edge",
+        "vfx_gutter_or_neighbor_shape_risk"
+      ],
+      "fail": true
+    },
+    {
+      "registry": "vfx",
+      "unit": "g1/hit2",
+      "frame": 1,
+      "installed": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.1.basic_attack.basic_attack.combo.2.visual/frame-1.png",
+      "installed_sha": "1b8ea0c50dd9ddb90afa5b18a5e7acb1ff6bbeffded73c3cce25dd5625dfa2a2",
+      "artifact_sha": "1b8ea0c50dd9ddb90afa5b18a5e7acb1ff6bbeffded73c3cce25dd5625dfa2a2",
+      "installed_matches_r1": true,
+      "bbox": [
+        48,
+        31,
+        207,
+        226
+      ],
+      "border_touch_pixels": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "components": 18,
+      "largest_component_area": 6335,
+      "small_component_area": 22,
+      "source_rect": [
+        362,
+        0,
+        724,
+        724
+      ],
+      "source_crossings": [
+        {
+          "component": 0,
+          "area": 221356,
+          "bbox": [
+            668,
+            98,
+            1485,
+            579
+          ],
+          "cells": [
+            [
+              1,
+              7413
+            ],
+            [
+              2,
+              71472
+            ],
+            [
+              3,
+              135411
+            ],
+            [
+              4,
+              7060
+            ]
+          ],
+          "area_in_frame": 7413,
+          "probable_donors": [
+            {
+              "frame": 2,
+              "area": 71472
+            },
+            {
+              "frame": 3,
+              "area": 135411
+            },
+            {
+              "frame": 4,
+              "area": 7060
+            }
+          ],
+          "sides": [
+            "right"
+          ]
+        },
+        {
+          "component": 2,
+          "area": 33593,
+          "bbox": [
+            328,
+            256,
+            663,
+            435
+          ],
+          "cells": [
+            [
+              0,
+              811
+            ],
+            [
+              1,
+              32782
+            ]
+          ],
+          "area_in_frame": 32782,
+          "probable_donors": [
+            {
+              "frame": 0,
+              "area": 811
+            }
+          ],
+          "sides": [
+            "left"
+          ]
+        }
+      ],
+      "flags": [
+        "source_component_crossed_cell_edge",
+        "vfx_gutter_or_neighbor_shape_risk"
+      ],
+      "fail": true
+    },
+    {
+      "registry": "vfx",
+      "unit": "g1/hit2",
+      "frame": 2,
+      "installed": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.1.basic_attack.basic_attack.combo.2.visual/frame-2.png",
+      "installed_sha": "0e0bdd0b7abb256a7ef5666a1e6cdf28526ffd7b301e0f8de14449325bf0fd32",
+      "artifact_sha": "0e0bdd0b7abb256a7ef5666a1e6cdf28526ffd7b301e0f8de14449325bf0fd32",
+      "installed_matches_r1": true,
+      "bbox": [
+        69,
+        32,
+        187,
+        214
+      ],
+      "border_touch_pixels": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "components": 7,
+      "largest_component_area": 7615,
+      "small_component_area": 10,
+      "source_rect": [
+        724,
+        0,
+        1086,
+        724
+      ],
+      "source_crossings": [
+        {
+          "component": 0,
+          "area": 221356,
+          "bbox": [
+            668,
+            98,
+            1485,
+            579
+          ],
+          "cells": [
+            [
+              1,
+              7413
+            ],
+            [
+              2,
+              71472
+            ],
+            [
+              3,
+              135411
+            ],
+            [
+              4,
+              7060
+            ]
+          ],
+          "area_in_frame": 71472,
+          "probable_donors": [
+            {
+              "frame": 1,
+              "area": 7413
+            },
+            {
+              "frame": 3,
+              "area": 135411
+            },
+            {
+              "frame": 4,
+              "area": 7060
+            }
+          ],
+          "sides": [
+            "left",
+            "right"
+          ]
+        },
+        {
+          "component": 5,
+          "area": 327,
+          "bbox": [
+            1053,
+            514,
+            1088,
+            537
+          ],
+          "cells": [
+            [
+              2,
+              321
+            ],
+            [
+              3,
+              6
+            ]
+          ],
+          "area_in_frame": 321,
+          "probable_donors": [
+            {
+              "frame": 3,
+              "area": 6
+            }
+          ],
+          "sides": [
+            "right"
+          ]
+        }
+      ],
+      "flags": [
+        "source_component_crossed_cell_edge",
+        "vfx_gutter_or_neighbor_shape_risk"
+      ],
+      "fail": true
+    },
+    {
+      "registry": "vfx",
+      "unit": "g1/hit2",
+      "frame": 3,
+      "installed": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.1.basic_attack.basic_attack.combo.2.visual/frame-3.png",
+      "installed_sha": "1347a25ef063f150aa8e6b4c42737f0e05cbab7d70eac5321b0775c0732b6428",
+      "artifact_sha": "1347a25ef063f150aa8e6b4c42737f0e05cbab7d70eac5321b0775c0732b6428",
+      "installed_matches_r1": true,
+      "bbox": [
+        72,
+        46,
+        183,
+        217
+      ],
+      "border_touch_pixels": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "components": 27,
+      "largest_component_area": 12763,
+      "small_component_area": 34,
+      "source_rect": [
+        1086,
+        0,
+        1448,
+        724
+      ],
+      "source_crossings": [
+        {
+          "component": 0,
+          "area": 221356,
+          "bbox": [
+            668,
+            98,
+            1485,
+            579
+          ],
+          "cells": [
+            [
+              1,
+              7413
+            ],
+            [
+              2,
+              71472
+            ],
+            [
+              3,
+              135411
+            ],
+            [
+              4,
+              7060
+            ]
+          ],
+          "area_in_frame": 135411,
+          "probable_donors": [
+            {
+              "frame": 1,
+              "area": 7413
+            },
+            {
+              "frame": 2,
+              "area": 71472
+            },
+            {
+              "frame": 4,
+              "area": 7060
+            }
+          ],
+          "sides": [
+            "left",
+            "right"
+          ]
+        },
+        {
+          "component": 5,
+          "area": 327,
+          "bbox": [
+            1053,
+            514,
+            1088,
+            537
+          ],
+          "cells": [
+            [
+              2,
+              321
+            ],
+            [
+              3,
+              6
+            ]
+          ],
+          "area_in_frame": 6,
+          "probable_donors": [
+            {
+              "frame": 2,
+              "area": 321
+            }
+          ],
+          "sides": [
+            "left"
+          ]
+        },
+        {
+          "component": 59,
+          "area": 3,
+          "bbox": [
+            1447,
+            216,
+            1449,
+            218
+          ],
+          "cells": [
+            [
+              3,
+              1
+            ],
+            [
+              4,
+              2
+            ]
+          ],
+          "area_in_frame": 1,
+          "probable_donors": [
+            {
+              "frame": 4,
+              "area": 2
+            }
+          ],
+          "sides": [
+            "right"
+          ]
+        }
+      ],
+      "flags": [
+        "source_component_crossed_cell_edge",
+        "vfx_gutter_or_neighbor_shape_risk"
+      ],
+      "fail": true
+    },
+    {
+      "registry": "vfx",
+      "unit": "g1/hit2",
+      "frame": 4,
+      "installed": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.1.basic_attack.basic_attack.combo.2.visual/frame-4.png",
+      "installed_sha": "b256202d297f9fd070c4cca711d0ba18a0351c35f7e7577bb5987dca7f60fc1b",
+      "artifact_sha": "b256202d297f9fd070c4cca711d0ba18a0351c35f7e7577bb5987dca7f60fc1b",
+      "installed_matches_r1": true,
+      "bbox": [
+        64,
+        38,
+        192,
+        232
+      ],
+      "border_touch_pixels": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "components": 9,
+      "largest_component_area": 5524,
+      "small_component_area": 12,
+      "source_rect": [
+        1448,
+        0,
+        1810,
+        724
+      ],
+      "source_crossings": [
+        {
+          "component": 0,
+          "area": 221356,
+          "bbox": [
+            668,
+            98,
+            1485,
+            579
+          ],
+          "cells": [
+            [
+              1,
+              7413
+            ],
+            [
+              2,
+              71472
+            ],
+            [
+              3,
+              135411
+            ],
+            [
+              4,
+              7060
+            ]
+          ],
+          "area_in_frame": 7060,
+          "probable_donors": [
+            {
+              "frame": 1,
+              "area": 7413
+            },
+            {
+              "frame": 2,
+              "area": 71472
+            },
+            {
+              "frame": 3,
+              "area": 135411
+            }
+          ],
+          "sides": [
+            "left"
+          ]
+        },
+        {
+          "component": 1,
+          "area": 44336,
+          "bbox": [
+            1497,
+            230,
+            1842,
+            472
+          ],
+          "cells": [
+            [
+              4,
+              44034
+            ],
+            [
+              5,
+              302
+            ]
+          ],
+          "area_in_frame": 44034,
+          "probable_donors": [
+            {
+              "frame": 5,
+              "area": 302
+            }
+          ],
+          "sides": [
+            "right"
+          ]
+        },
+        {
+          "component": 59,
+          "area": 3,
+          "bbox": [
+            1447,
+            216,
+            1449,
+            218
+          ],
+          "cells": [
+            [
+              3,
+              1
+            ],
+            [
+              4,
+              2
+            ]
+          ],
+          "area_in_frame": 2,
+          "probable_donors": [
+            {
+              "frame": 3,
+              "area": 1
+            }
+          ],
+          "sides": [
+            "left"
+          ]
+        }
+      ],
+      "flags": [
+        "source_component_crossed_cell_edge",
+        "vfx_gutter_or_neighbor_shape_risk"
+      ],
+      "fail": true
+    },
+    {
+      "registry": "vfx",
+      "unit": "g1/hit2",
+      "frame": 5,
+      "installed": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.1.basic_attack.basic_attack.combo.2.visual/frame-5.png",
+      "installed_sha": "2fc1e27906cdca40568b09be849cb44ac4cbbf4c50f8648c88780d591d185a5a",
+      "artifact_sha": "2fc1e27906cdca40568b09be849cb44ac4cbbf4c50f8648c88780d591d185a5a",
+      "installed_matches_r1": true,
+      "bbox": [
+        40,
+        36,
+        212,
+        196
+      ],
+      "border_touch_pixels": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "components": 7,
+      "largest_component_area": 3245,
+      "small_component_area": 6,
+      "source_rect": [
+        1810,
+        0,
+        2172,
+        724
+      ],
+      "source_crossings": [
+        {
+          "component": 1,
+          "area": 44336,
+          "bbox": [
+            1497,
+            230,
+            1842,
+            472
+          ],
+          "cells": [
+            [
+              4,
+              44034
+            ],
+            [
+              5,
+              302
+            ]
+          ],
+          "area_in_frame": 302,
+          "probable_donors": [
+            {
+              "frame": 4,
+              "area": 44034
+            }
+          ],
+          "sides": [
+            "left"
+          ]
+        }
+      ],
+      "flags": [
+        "source_component_crossed_cell_edge",
+        "vfx_gutter_or_neighbor_shape_risk"
+      ],
+      "fail": true
+    },
+    {
+      "registry": "vfx",
+      "unit": "g2/hit1",
+      "frame": 0,
+      "installed": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.2.basic_attack.basic_attack.combo.1.visual/frame-0.png",
+      "installed_sha": "96423af3af0bf090198f1a47b34ed511b0f58da9b1b442de00d1dfb743583395",
+      "artifact_sha": "96423af3af0bf090198f1a47b34ed511b0f58da9b1b442de00d1dfb743583395",
+      "installed_matches_r1": true,
+      "bbox": [
+        54,
+        33,
+        205,
+        214
+      ],
+      "border_touch_pixels": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "components": 28,
+      "largest_component_area": 2625,
+      "small_component_area": 35,
+      "source_rect": [
+        0,
+        0,
+        340,
+        771
+      ],
+      "source_crossings": [
+        {
+          "component": 2,
+          "area": 30701,
+          "bbox": [
+            236,
+            291,
+            570,
+            491
+          ],
+          "cells": [
+            [
+              0,
+              5789
+            ],
+            [
+              1,
+              24912
+            ]
+          ],
+          "area_in_frame": 5789,
+          "probable_donors": [
+            {
+              "frame": 1,
+              "area": 24912
+            }
+          ],
+          "sides": [
+            "right"
+          ]
+        }
+      ],
+      "flags": [
+        "source_component_crossed_cell_edge",
+        "vfx_gutter_or_neighbor_shape_risk"
+      ],
+      "fail": true
+    },
+    {
+      "registry": "vfx",
+      "unit": "g2/hit1",
+      "frame": 1,
+      "installed": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.2.basic_attack.basic_attack.combo.1.visual/frame-1.png",
+      "installed_sha": "77df8ada050207ccb26f2e1caa090648f8cf58876e06722d47ccde3c9238cc47",
+      "artifact_sha": "77df8ada050207ccb26f2e1caa090648f8cf58876e06722d47ccde3c9238cc47",
+      "installed_matches_r1": true,
+      "bbox": [
+        61,
+        28,
+        194,
+        226
+      ],
+      "border_touch_pixels": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "components": 60,
+      "largest_component_area": 3696,
+      "small_component_area": 98,
+      "source_rect": [
+        340,
+        0,
+        679,
+        771
+      ],
+      "source_crossings": [
+        {
+          "component": 1,
+          "area": 72199,
+          "bbox": [
+            488,
+            227,
+            1015,
+            534
+          ],
+          "cells": [
+            [
+              1,
+              11689
+            ],
+            [
+              2,
+              60510
+            ]
+          ],
+          "area_in_frame": 11689,
+          "probable_donors": [
+            {
+              "frame": 2,
+              "area": 60510
+            }
+          ],
+          "sides": [
+            "right"
+          ]
+        },
+        {
+          "component": 2,
+          "area": 30701,
+          "bbox": [
+            236,
+            291,
+            570,
+            491
+          ],
+          "cells": [
+            [
+              0,
+              5789
+            ],
+            [
+              1,
+              24912
+            ]
+          ],
+          "area_in_frame": 24912,
+          "probable_donors": [
+            {
+              "frame": 0,
+              "area": 5789
+            }
+          ],
+          "sides": [
+            "left"
+          ]
+        }
+      ],
+      "flags": [
+        "source_component_crossed_cell_edge",
+        "vfx_gutter_or_neighbor_shape_risk"
+      ],
+      "fail": true
+    },
+    {
+      "registry": "vfx",
+      "unit": "g2/hit1",
+      "frame": 2,
+      "installed": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.2.basic_attack.basic_attack.combo.1.visual/frame-2.png",
+      "installed_sha": "421ee5cc0967ba842b4d091d5d7ce77c737d13fe0c20c2eb47b99faa31678c3d",
+      "artifact_sha": "421ee5cc0967ba842b4d091d5d7ce77c737d13fe0c20c2eb47b99faa31678c3d",
+      "installed_matches_r1": true,
+      "bbox": [
+        71,
+        25,
+        184,
+        215
+      ],
+      "border_touch_pixels": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "components": 90,
+      "largest_component_area": 6574,
+      "small_component_area": 152,
+      "source_rect": [
+        679,
+        0,
+        1019,
+        771
+      ],
+      "source_crossings": [
+        {
+          "component": 0,
+          "area": 143437,
+          "bbox": [
+            907,
+            161,
+            1749,
+            581
+          ],
+          "cells": [
+            [
+              2,
+              4366
+            ],
+            [
+              3,
+              89823
+            ],
+            [
+              4,
+              47516
+            ],
+            [
+              5,
+              1732
+            ]
+          ],
+          "area_in_frame": 4366,
+          "probable_donors": [
+            {
+              "frame": 3,
+              "area": 89823
+            },
+            {
+              "frame": 4,
+              "area": 47516
+            },
+            {
+              "frame": 5,
+              "area": 1732
+            }
+          ],
+          "sides": [
+            "right"
+          ]
+        },
+        {
+          "component": 1,
+          "area": 72199,
+          "bbox": [
+            488,
+            227,
+            1015,
+            534
+          ],
+          "cells": [
+            [
+              1,
+              11689
+            ],
+            [
+              2,
+              60510
+            ]
+          ],
+          "area_in_frame": 60510,
+          "probable_donors": [
+            {
+              "frame": 1,
+              "area": 11689
+            }
+          ],
+          "sides": [
+            "left"
+          ]
+        }
+      ],
+      "flags": [
+        "source_component_crossed_cell_edge",
+        "vfx_gutter_or_neighbor_shape_risk"
+      ],
+      "fail": true
+    },
+    {
+      "registry": "vfx",
+      "unit": "g2/hit1",
+      "frame": 3,
+      "installed": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.2.basic_attack.basic_attack.combo.1.visual/frame-3.png",
+      "installed_sha": "3b3abfcd34a3e27c982985031d8a56d593f5bd199772f8c1e3d6a74c3c8dccaa",
+      "artifact_sha": "3b3abfcd34a3e27c982985031d8a56d593f5bd199772f8c1e3d6a74c3c8dccaa",
+      "installed_matches_r1": true,
+      "bbox": [
+        76,
+        25,
+        179,
+        230
+      ],
+      "border_touch_pixels": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "components": 126,
+      "largest_component_area": 8122,
+      "small_component_area": 352,
+      "source_rect": [
+        1019,
+        0,
+        1359,
+        771
+      ],
+      "source_crossings": [
+        {
+          "component": 0,
+          "area": 143437,
+          "bbox": [
+            907,
+            161,
+            1749,
+            581
+          ],
+          "cells": [
+            [
+              2,
+              4366
+            ],
+            [
+              3,
+              89823
+            ],
+            [
+              4,
+              47516
+            ],
+            [
+              5,
+              1732
+            ]
+          ],
+          "area_in_frame": 89823,
+          "probable_donors": [
+            {
+              "frame": 2,
+              "area": 4366
+            },
+            {
+              "frame": 4,
+              "area": 47516
+            },
+            {
+              "frame": 5,
+              "area": 1732
+            }
+          ],
+          "sides": [
+            "left",
+            "right"
+          ]
+        }
+      ],
+      "flags": [
+        "source_component_crossed_cell_edge",
+        "vfx_gutter_or_neighbor_shape_risk"
+      ],
+      "fail": true
+    },
+    {
+      "registry": "vfx",
+      "unit": "g2/hit1",
+      "frame": 4,
+      "installed": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.2.basic_attack.basic_attack.combo.1.visual/frame-4.png",
+      "installed_sha": "533ef417405cf266ccea3ce4f99c91d9f7ee20d000e8539e405acc8115604e2f",
+      "artifact_sha": "533ef417405cf266ccea3ce4f99c91d9f7ee20d000e8539e405acc8115604e2f",
+      "installed_matches_r1": true,
+      "bbox": [
+        74,
+        24,
+        181,
+        232
+      ],
+      "border_touch_pixels": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "components": 88,
+      "largest_component_area": 4052,
+      "small_component_area": 224,
+      "source_rect": [
+        1359,
+        0,
+        1698,
+        771
+      ],
+      "source_crossings": [
+        {
+          "component": 0,
+          "area": 143437,
+          "bbox": [
+            907,
+            161,
+            1749,
+            581
+          ],
+          "cells": [
+            [
+              2,
+              4366
+            ],
+            [
+              3,
+              89823
+            ],
+            [
+              4,
+              47516
+            ],
+            [
+              5,
+              1732
+            ]
+          ],
+          "area_in_frame": 47516,
+          "probable_donors": [
+            {
+              "frame": 2,
+              "area": 4366
+            },
+            {
+              "frame": 3,
+              "area": 89823
+            },
+            {
+              "frame": 5,
+              "area": 1732
+            }
+          ],
+          "sides": [
+            "left",
+            "right"
+          ]
+        },
+        {
+          "component": 85,
+          "area": 4,
+          "bbox": [
+            1697,
+            407,
+            1699,
+            410
+          ],
+          "cells": [
+            [
+              4,
+              2
+            ],
+            [
+              5,
+              2
+            ]
+          ],
+          "area_in_frame": 2,
+          "probable_donors": [
+            {
+              "frame": 5,
+              "area": 2
+            }
+          ],
+          "sides": [
+            "right"
+          ]
+        }
+      ],
+      "flags": [
+        "source_component_crossed_cell_edge",
+        "vfx_gutter_or_neighbor_shape_risk"
+      ],
+      "fail": true
+    },
+    {
+      "registry": "vfx",
+      "unit": "g2/hit1",
+      "frame": 5,
+      "installed": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.2.basic_attack.basic_attack.combo.1.visual/frame-5.png",
+      "installed_sha": "e940e56d555741b64a7e150a393328eaf976e50a67eb1ee848f460a54eb574d6",
+      "artifact_sha": "e940e56d555741b64a7e150a393328eaf976e50a67eb1ee848f460a54eb574d6",
+      "installed_matches_r1": true,
+      "bbox": [
+        68,
+        76,
+        180,
+        203
+      ],
+      "border_touch_pixels": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "components": 48,
+      "largest_component_area": 2397,
+      "small_component_area": 234,
+      "source_rect": [
+        1698,
+        0,
+        2038,
+        771
+      ],
+      "source_crossings": [
+        {
+          "component": 0,
+          "area": 143437,
+          "bbox": [
+            907,
+            161,
+            1749,
+            581
+          ],
+          "cells": [
+            [
+              2,
+              4366
+            ],
+            [
+              3,
+              89823
+            ],
+            [
+              4,
+              47516
+            ],
+            [
+              5,
+              1732
+            ]
+          ],
+          "area_in_frame": 1732,
+          "probable_donors": [
+            {
+              "frame": 2,
+              "area": 4366
+            },
+            {
+              "frame": 3,
+              "area": 89823
+            },
+            {
+              "frame": 4,
+              "area": 47516
+            }
+          ],
+          "sides": [
+            "left"
+          ]
+        },
+        {
+          "component": 85,
+          "area": 4,
+          "bbox": [
+            1697,
+            407,
+            1699,
+            410
+          ],
+          "cells": [
+            [
+              4,
+              2
+            ],
+            [
+              5,
+              2
+            ]
+          ],
+          "area_in_frame": 2,
+          "probable_donors": [
+            {
+              "frame": 4,
+              "area": 2
+            }
+          ],
+          "sides": [
+            "left"
+          ]
+        }
+      ],
+      "flags": [
+        "source_component_crossed_cell_edge",
+        "vfx_gutter_or_neighbor_shape_risk"
+      ],
+      "fail": true
+    },
+    {
+      "registry": "vfx",
+      "unit": "g2/hit2",
+      "frame": 0,
+      "installed": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.2.basic_attack.basic_attack.combo.2.visual/frame-0.png",
+      "installed_sha": "8faa3435e1a4917cb535cd439e68abf9dec509f4f80f95ec8572854bc5d2655c",
+      "artifact_sha": "8faa3435e1a4917cb535cd439e68abf9dec509f4f80f95ec8572854bc5d2655c",
+      "installed_matches_r1": true,
+      "bbox": [
+        70,
+        75,
+        185,
+        232
+      ],
+      "border_touch_pixels": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "components": 21,
+      "largest_component_area": 2627,
+      "small_component_area": 21,
+      "source_rect": [
+        0,
+        0,
+        362,
+        724
+      ],
+      "source_crossings": [
+        {
+          "component": 0,
+          "area": 352073,
+          "bbox": [
+            323,
+            61,
+            1909,
+            645
+          ],
+          "cells": [
+            [
+              0,
+              2302
+            ],
+            [
+              1,
+              53152
+            ],
+            [
+              2,
+              89785
+            ],
+            [
+              3,
+              147889
+            ],
+            [
+              4,
+              56455
+            ],
+            [
+              5,
+              2490
+            ]
+          ],
+          "area_in_frame": 2302,
+          "probable_donors": [
+            {
+              "frame": 1,
+              "area": 53152
+            },
+            {
+              "frame": 2,
+              "area": 89785
+            },
+            {
+              "frame": 3,
+              "area": 147889
+            },
+            {
+              "frame": 4,
+              "area": 56455
+            },
+            {
+              "frame": 5,
+              "area": 2490
+            }
+          ],
+          "sides": [
+            "right"
+          ]
+        }
+      ],
+      "flags": [
+        "source_component_crossed_cell_edge",
+        "vfx_gutter_or_neighbor_shape_risk"
+      ],
+      "fail": true
+    },
+    {
+      "registry": "vfx",
+      "unit": "g2/hit2",
+      "frame": 1,
+      "installed": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.2.basic_attack.basic_attack.combo.2.visual/frame-1.png",
+      "installed_sha": "d62499cbf09bfe5f3e43a7891a29b64ce9f9c92ab0dc09119a0522ed6fced36a",
+      "artifact_sha": "d62499cbf09bfe5f3e43a7891a29b64ce9f9c92ab0dc09119a0522ed6fced36a",
+      "installed_matches_r1": true,
+      "bbox": [
+        72,
+        25,
+        183,
+        232
+      ],
+      "border_touch_pixels": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "components": 48,
+      "largest_component_area": 4602,
+      "small_component_area": 72,
+      "source_rect": [
+        362,
+        0,
+        724,
+        724
+      ],
+      "source_crossings": [
+        {
+          "component": 0,
+          "area": 352073,
+          "bbox": [
+            323,
+            61,
+            1909,
+            645
+          ],
+          "cells": [
+            [
+              0,
+              2302
+            ],
+            [
+              1,
+              53152
+            ],
+            [
+              2,
+              89785
+            ],
+            [
+              3,
+              147889
+            ],
+            [
+              4,
+              56455
+            ],
+            [
+              5,
+              2490
+            ]
+          ],
+          "area_in_frame": 53152,
+          "probable_donors": [
+            {
+              "frame": 0,
+              "area": 2302
+            },
+            {
+              "frame": 2,
+              "area": 89785
+            },
+            {
+              "frame": 3,
+              "area": 147889
+            },
+            {
+              "frame": 4,
+              "area": 56455
+            },
+            {
+              "frame": 5,
+              "area": 2490
+            }
+          ],
+          "sides": [
+            "left",
+            "right"
+          ]
+        }
+      ],
+      "flags": [
+        "source_component_crossed_cell_edge",
+        "vfx_gutter_or_neighbor_shape_risk"
+      ],
+      "fail": true
+    },
+    {
+      "registry": "vfx",
+      "unit": "g2/hit2",
+      "frame": 2,
+      "installed": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.2.basic_attack.basic_attack.combo.2.visual/frame-2.png",
+      "installed_sha": "3582de56f44a476860c801551551de16e7fb30fb2930fb15cd5d9b5de10033b1",
+      "artifact_sha": "3582de56f44a476860c801551551de16e7fb30fb2930fb15cd5d9b5de10033b1",
+      "installed_matches_r1": true,
+      "bbox": [
+        74,
+        36,
+        181,
+        209
+      ],
+      "border_touch_pixels": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "components": 76,
+      "largest_component_area": 7386,
+      "small_component_area": 154,
+      "source_rect": [
+        724,
+        0,
+        1086,
+        724
+      ],
+      "source_crossings": [
+        {
+          "component": 0,
+          "area": 352073,
+          "bbox": [
+            323,
+            61,
+            1909,
+            645
+          ],
+          "cells": [
+            [
+              0,
+              2302
+            ],
+            [
+              1,
+              53152
+            ],
+            [
+              2,
+              89785
+            ],
+            [
+              3,
+              147889
+            ],
+            [
+              4,
+              56455
+            ],
+            [
+              5,
+              2490
+            ]
+          ],
+          "area_in_frame": 89785,
+          "probable_donors": [
+            {
+              "frame": 0,
+              "area": 2302
+            },
+            {
+              "frame": 1,
+              "area": 53152
+            },
+            {
+              "frame": 3,
+              "area": 147889
+            },
+            {
+              "frame": 4,
+              "area": 56455
+            },
+            {
+              "frame": 5,
+              "area": 2490
+            }
+          ],
+          "sides": [
+            "left",
+            "right"
+          ]
+        }
+      ],
+      "flags": [
+        "source_component_crossed_cell_edge",
+        "vfx_gutter_or_neighbor_shape_risk"
+      ],
+      "fail": true
+    },
+    {
+      "registry": "vfx",
+      "unit": "g2/hit2",
+      "frame": 3,
+      "installed": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.2.basic_attack.basic_attack.combo.2.visual/frame-3.png",
+      "installed_sha": "a8070b9baa4338e7c984ec9cd0f8f7330834a99c0ef17f2f4e74ea4ac6d5da23",
+      "artifact_sha": "a8070b9baa4338e7c984ec9cd0f8f7330834a99c0ef17f2f4e74ea4ac6d5da23",
+      "installed_matches_r1": true,
+      "bbox": [
+        71,
+        34,
+        184,
+        221
+      ],
+      "border_touch_pixels": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "components": 71,
+      "largest_component_area": 14241,
+      "small_component_area": 163,
+      "source_rect": [
+        1086,
+        0,
+        1448,
+        724
+      ],
+      "source_crossings": [
+        {
+          "component": 0,
+          "area": 352073,
+          "bbox": [
+            323,
+            61,
+            1909,
+            645
+          ],
+          "cells": [
+            [
+              0,
+              2302
+            ],
+            [
+              1,
+              53152
+            ],
+            [
+              2,
+              89785
+            ],
+            [
+              3,
+              147889
+            ],
+            [
+              4,
+              56455
+            ],
+            [
+              5,
+              2490
+            ]
+          ],
+          "area_in_frame": 147889,
+          "probable_donors": [
+            {
+              "frame": 0,
+              "area": 2302
+            },
+            {
+              "frame": 1,
+              "area": 53152
+            },
+            {
+              "frame": 2,
+              "area": 89785
+            },
+            {
+              "frame": 4,
+              "area": 56455
+            },
+            {
+              "frame": 5,
+              "area": 2490
+            }
+          ],
+          "sides": [
+            "left",
+            "right"
+          ]
+        }
+      ],
+      "flags": [
+        "source_component_crossed_cell_edge",
+        "vfx_gutter_or_neighbor_shape_risk"
+      ],
+      "fail": true
+    },
+    {
+      "registry": "vfx",
+      "unit": "g2/hit2",
+      "frame": 4,
+      "installed": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.2.basic_attack.basic_attack.combo.2.visual/frame-4.png",
+      "installed_sha": "e6f92ef3fa61dc4b9abe8d720a4d58cabfe417fb227633de590e6810875ae84e",
+      "artifact_sha": "e6f92ef3fa61dc4b9abe8d720a4d58cabfe417fb227633de590e6810875ae84e",
+      "installed_matches_r1": true,
+      "bbox": [
+        72,
+        47,
+        184,
+        219
+      ],
+      "border_touch_pixels": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "components": 81,
+      "largest_component_area": 5258,
+      "small_component_area": 200,
+      "source_rect": [
+        1448,
+        0,
+        1810,
+        724
+      ],
+      "source_crossings": [
+        {
+          "component": 0,
+          "area": 352073,
+          "bbox": [
+            323,
+            61,
+            1909,
+            645
+          ],
+          "cells": [
+            [
+              0,
+              2302
+            ],
+            [
+              1,
+              53152
+            ],
+            [
+              2,
+              89785
+            ],
+            [
+              3,
+              147889
+            ],
+            [
+              4,
+              56455
+            ],
+            [
+              5,
+              2490
+            ]
+          ],
+          "area_in_frame": 56455,
+          "probable_donors": [
+            {
+              "frame": 0,
+              "area": 2302
+            },
+            {
+              "frame": 1,
+              "area": 53152
+            },
+            {
+              "frame": 2,
+              "area": 89785
+            },
+            {
+              "frame": 3,
+              "area": 147889
+            },
+            {
+              "frame": 5,
+              "area": 2490
+            }
+          ],
+          "sides": [
+            "left",
+            "right"
+          ]
+        }
+      ],
+      "flags": [
+        "source_component_crossed_cell_edge",
+        "vfx_gutter_or_neighbor_shape_risk"
+      ],
+      "fail": true
+    },
+    {
+      "registry": "vfx",
+      "unit": "g2/hit2",
+      "frame": 5,
+      "installed": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.2.basic_attack.basic_attack.combo.2.visual/frame-5.png",
+      "installed_sha": "dc4119e270d1095a140b6d7eaccc9060fc8bd9f3236fbbd31cc362779a048884",
+      "artifact_sha": "dc4119e270d1095a140b6d7eaccc9060fc8bd9f3236fbbd31cc362779a048884",
+      "installed_matches_r1": true,
+      "bbox": [
+        62,
+        41,
+        188,
+        230
+      ],
+      "border_touch_pixels": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "components": 11,
+      "largest_component_area": 3230,
+      "small_component_area": 246,
+      "source_rect": [
+        1810,
+        0,
+        2172,
+        724
+      ],
+      "source_crossings": [
+        {
+          "component": 0,
+          "area": 352073,
+          "bbox": [
+            323,
+            61,
+            1909,
+            645
+          ],
+          "cells": [
+            [
+              0,
+              2302
+            ],
+            [
+              1,
+              53152
+            ],
+            [
+              2,
+              89785
+            ],
+            [
+              3,
+              147889
+            ],
+            [
+              4,
+              56455
+            ],
+            [
+              5,
+              2490
+            ]
+          ],
+          "area_in_frame": 2490,
+          "probable_donors": [
+            {
+              "frame": 0,
+              "area": 2302
+            },
+            {
+              "frame": 1,
+              "area": 53152
+            },
+            {
+              "frame": 2,
+              "area": 89785
+            },
+            {
+              "frame": 3,
+              "area": 147889
+            },
+            {
+              "frame": 4,
+              "area": 56455
+            }
+          ],
+          "sides": [
+            "left"
+          ]
+        }
+      ],
+      "flags": [
+        "source_component_crossed_cell_edge",
+        "vfx_gutter_or_neighbor_shape_risk"
+      ],
+      "fail": true
+    },
+    {
+      "registry": "vfx",
+      "unit": "g3/hit1",
+      "frame": 0,
+      "installed": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.3.basic_attack.basic_attack.combo.1.visual/frame-0.png",
+      "installed_sha": "809c34311659b1ed0bfb12f1664028dd70b089134fd7736ea0af6be75470c704",
+      "artifact_sha": "809c34311659b1ed0bfb12f1664028dd70b089134fd7736ea0af6be75470c704",
+      "installed_matches_r1": true,
+      "bbox": [
+        58,
+        123,
+        197,
+        230
+      ],
+      "border_touch_pixels": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "components": 18,
+      "largest_component_area": 1816,
+      "small_component_area": 25,
+      "source_rect": [
+        0,
+        0,
+        362,
+        724
+      ],
+      "source_crossings": [
+        {
+          "component": 0,
+          "area": 300321,
+          "bbox": [
+            192,
+            116,
+            2152,
+            574
+          ],
+          "cells": [
+            [
+              0,
+              10554
+            ],
+            [
+              1,
+              42888
+            ],
+            [
+              2,
+              53511
+            ],
+            [
+              3,
+              76621
+            ],
+            [
+              4,
+              86521
+            ],
+            [
+              5,
+              30226
+            ]
+          ],
+          "area_in_frame": 10554,
+          "probable_donors": [
+            {
+              "frame": 1,
+              "area": 42888
+            },
+            {
+              "frame": 2,
+              "area": 53511
+            },
+            {
+              "frame": 3,
+              "area": 76621
+            },
+            {
+              "frame": 4,
+              "area": 86521
+            },
+            {
+              "frame": 5,
+              "area": 30226
+            }
+          ],
+          "sides": [
+            "right"
+          ]
+        }
+      ],
+      "flags": [
+        "source_component_crossed_cell_edge",
+        "vfx_gutter_or_neighbor_shape_risk"
+      ],
+      "fail": true
+    },
+    {
+      "registry": "vfx",
+      "unit": "g3/hit1",
+      "frame": 1,
+      "installed": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.3.basic_attack.basic_attack.combo.1.visual/frame-1.png",
+      "installed_sha": "8db2c5b2bb7d8184208bfbc866485956d3acbcfc2c2eea1c18de92b2cd8e4928",
+      "artifact_sha": "8db2c5b2bb7d8184208bfbc866485956d3acbcfc2c2eea1c18de92b2cd8e4928",
+      "installed_matches_r1": true,
+      "bbox": [
+        57,
+        29,
+        199,
+        216
+      ],
+      "border_touch_pixels": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "components": 50,
+      "largest_component_area": 6513,
+      "small_component_area": 146,
+      "source_rect": [
+        362,
+        0,
+        724,
+        724
+      ],
+      "source_crossings": [
+        {
+          "component": 0,
+          "area": 300321,
+          "bbox": [
+            192,
+            116,
+            2152,
+            574
+          ],
+          "cells": [
+            [
+              0,
+              10554
+            ],
+            [
+              1,
+              42888
+            ],
+            [
+              2,
+              53511
+            ],
+            [
+              3,
+              76621
+            ],
+            [
+              4,
+              86521
+            ],
+            [
+              5,
+              30226
+            ]
+          ],
+          "area_in_frame": 42888,
+          "probable_donors": [
+            {
+              "frame": 0,
+              "area": 10554
+            },
+            {
+              "frame": 2,
+              "area": 53511
+            },
+            {
+              "frame": 3,
+              "area": 76621
+            },
+            {
+              "frame": 4,
+              "area": 86521
+            },
+            {
+              "frame": 5,
+              "area": 30226
+            }
+          ],
+          "sides": [
+            "left",
+            "right"
+          ]
+        }
+      ],
+      "flags": [
+        "source_component_crossed_cell_edge",
+        "vfx_gutter_or_neighbor_shape_risk"
+      ],
+      "fail": true
+    },
+    {
+      "registry": "vfx",
+      "unit": "g3/hit1",
+      "frame": 2,
+      "installed": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.3.basic_attack.basic_attack.combo.1.visual/frame-2.png",
+      "installed_sha": "d311a3a57024e12a0877417cd08b27faaf1722009ddec830d071a7e2bbad113f",
+      "artifact_sha": "d311a3a57024e12a0877417cd08b27faaf1722009ddec830d071a7e2bbad113f",
+      "installed_matches_r1": true,
+      "bbox": [
+        61,
+        35,
+        195,
+        203
+      ],
+      "border_touch_pixels": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "components": 53,
+      "largest_component_area": 7248,
+      "small_component_area": 70,
+      "source_rect": [
+        724,
+        0,
+        1086,
+        724
+      ],
+      "source_crossings": [
+        {
+          "component": 0,
+          "area": 300321,
+          "bbox": [
+            192,
+            116,
+            2152,
+            574
+          ],
+          "cells": [
+            [
+              0,
+              10554
+            ],
+            [
+              1,
+              42888
+            ],
+            [
+              2,
+              53511
+            ],
+            [
+              3,
+              76621
+            ],
+            [
+              4,
+              86521
+            ],
+            [
+              5,
+              30226
+            ]
+          ],
+          "area_in_frame": 53511,
+          "probable_donors": [
+            {
+              "frame": 0,
+              "area": 10554
+            },
+            {
+              "frame": 1,
+              "area": 42888
+            },
+            {
+              "frame": 3,
+              "area": 76621
+            },
+            {
+              "frame": 4,
+              "area": 86521
+            },
+            {
+              "frame": 5,
+              "area": 30226
+            }
+          ],
+          "sides": [
+            "left",
+            "right"
+          ]
+        },
+        {
+          "component": 9,
+          "area": 100,
+          "bbox": [
+            1076,
+            450,
+            1090,
+            461
+          ],
+          "cells": [
+            [
+              2,
+              80
+            ],
+            [
+              3,
+              20
+            ]
+          ],
+          "area_in_frame": 80,
+          "probable_donors": [
+            {
+              "frame": 3,
+              "area": 20
+            }
+          ],
+          "sides": [
+            "right"
+          ]
+        }
+      ],
+      "flags": [
+        "source_component_crossed_cell_edge",
+        "vfx_gutter_or_neighbor_shape_risk"
+      ],
+      "fail": true
+    },
+    {
+      "registry": "vfx",
+      "unit": "g3/hit1",
+      "frame": 3,
+      "installed": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.3.basic_attack.basic_attack.combo.1.visual/frame-3.png",
+      "installed_sha": "50bd342be388f929cd7ba29be68ca9c0c6fee8fccbc969ad842f1bc2a2c9bbfd",
+      "artifact_sha": "50bd342be388f929cd7ba29be68ca9c0c6fee8fccbc969ad842f1bc2a2c9bbfd",
+      "installed_matches_r1": true,
+      "bbox": [
+        68,
+        62,
+        187,
+        214
+      ],
+      "border_touch_pixels": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "components": 30,
+      "largest_component_area": 7987,
+      "small_component_area": 36,
+      "source_rect": [
+        1086,
+        0,
+        1448,
+        724
+      ],
+      "source_crossings": [
+        {
+          "component": 0,
+          "area": 300321,
+          "bbox": [
+            192,
+            116,
+            2152,
+            574
+          ],
+          "cells": [
+            [
+              0,
+              10554
+            ],
+            [
+              1,
+              42888
+            ],
+            [
+              2,
+              53511
+            ],
+            [
+              3,
+              76621
+            ],
+            [
+              4,
+              86521
+            ],
+            [
+              5,
+              30226
+            ]
+          ],
+          "area_in_frame": 76621,
+          "probable_donors": [
+            {
+              "frame": 0,
+              "area": 10554
+            },
+            {
+              "frame": 1,
+              "area": 42888
+            },
+            {
+              "frame": 2,
+              "area": 53511
+            },
+            {
+              "frame": 4,
+              "area": 86521
+            },
+            {
+              "frame": 5,
+              "area": 30226
+            }
+          ],
+          "sides": [
+            "left",
+            "right"
+          ]
+        },
+        {
+          "component": 9,
+          "area": 100,
+          "bbox": [
+            1076,
+            450,
+            1090,
+            461
+          ],
+          "cells": [
+            [
+              2,
+              80
+            ],
+            [
+              3,
+              20
+            ]
+          ],
+          "area_in_frame": 20,
+          "probable_donors": [
+            {
+              "frame": 2,
+              "area": 80
+            }
+          ],
+          "sides": [
+            "left"
+          ]
+        }
+      ],
+      "flags": [
+        "source_component_crossed_cell_edge",
+        "vfx_gutter_or_neighbor_shape_risk"
+      ],
+      "fail": true
+    },
+    {
+      "registry": "vfx",
+      "unit": "g3/hit1",
+      "frame": 4,
+      "installed": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.3.basic_attack.basic_attack.combo.1.visual/frame-4.png",
+      "installed_sha": "9e3d4ca70386e5613e92ba5ac8246f72f48342f26ddaedcbe5ffa3d891ba3967",
+      "artifact_sha": "9e3d4ca70386e5613e92ba5ac8246f72f48342f26ddaedcbe5ffa3d891ba3967",
+      "installed_matches_r1": true,
+      "bbox": [
+        72,
+        35,
+        184,
+        231
+      ],
+      "border_touch_pixels": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "components": 114,
+      "largest_component_area": 8124,
+      "small_component_area": 323,
+      "source_rect": [
+        1448,
+        0,
+        1810,
+        724
+      ],
+      "source_crossings": [
+        {
+          "component": 0,
+          "area": 300321,
+          "bbox": [
+            192,
+            116,
+            2152,
+            574
+          ],
+          "cells": [
+            [
+              0,
+              10554
+            ],
+            [
+              1,
+              42888
+            ],
+            [
+              2,
+              53511
+            ],
+            [
+              3,
+              76621
+            ],
+            [
+              4,
+              86521
+            ],
+            [
+              5,
+              30226
+            ]
+          ],
+          "area_in_frame": 86521,
+          "probable_donors": [
+            {
+              "frame": 0,
+              "area": 10554
+            },
+            {
+              "frame": 1,
+              "area": 42888
+            },
+            {
+              "frame": 2,
+              "area": 53511
+            },
+            {
+              "frame": 3,
+              "area": 76621
+            },
+            {
+              "frame": 5,
+              "area": 30226
+            }
+          ],
+          "sides": [
+            "left",
+            "right"
+          ]
+        },
+        {
+          "component": 7,
+          "area": 145,
+          "bbox": [
+            1803,
+            453,
+            1831,
+            470
+          ],
+          "cells": [
+            [
+              4,
+              26
+            ],
+            [
+              5,
+              119
+            ]
+          ],
+          "area_in_frame": 26,
+          "probable_donors": [
+            {
+              "frame": 5,
+              "area": 119
+            }
+          ],
+          "sides": [
+            "right"
+          ]
+        },
+        {
+          "component": 8,
+          "area": 132,
+          "bbox": [
+            1793,
+            272,
+            1818,
+            288
+          ],
+          "cells": [
+            [
+              4,
+              93
+            ],
+            [
+              5,
+              39
+            ]
+          ],
+          "area_in_frame": 93,
+          "probable_donors": [
+            {
+              "frame": 5,
+              "area": 39
+            }
+          ],
+          "sides": [
+            "right"
+          ]
+        },
+        {
+          "component": 11,
+          "area": 86,
+          "bbox": [
+            1805,
+            513,
+            1819,
+            525
+          ],
+          "cells": [
+            [
+              4,
+              24
+            ],
+            [
+              5,
+              62
+            ]
+          ],
+          "area_in_frame": 24,
+          "probable_donors": [
+            {
+              "frame": 5,
+              "area": 62
+            }
+          ],
+          "sides": [
+            "right"
+          ]
+        }
+      ],
+      "flags": [
+        "source_component_crossed_cell_edge",
+        "vfx_gutter_or_neighbor_shape_risk"
+      ],
+      "fail": true
+    },
+    {
+      "registry": "vfx",
+      "unit": "g3/hit1",
+      "frame": 5,
+      "installed": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.3.basic_attack.basic_attack.combo.1.visual/frame-5.png",
+      "installed_sha": "ad315c8dc3537f3dcfde8bece95d4583103b97a438fee35aa542fa1ff8bfba42",
+      "artifact_sha": "ad315c8dc3537f3dcfde8bece95d4583103b97a438fee35aa542fa1ff8bfba42",
+      "installed_matches_r1": true,
+      "bbox": [
+        67,
+        26,
+        188,
+        227
+      ],
+      "border_touch_pixels": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "components": 12,
+      "largest_component_area": 3559,
+      "small_component_area": 20,
+      "source_rect": [
+        1810,
+        0,
+        2172,
+        724
+      ],
+      "source_crossings": [
+        {
+          "component": 0,
+          "area": 300321,
+          "bbox": [
+            192,
+            116,
+            2152,
+            574
+          ],
+          "cells": [
+            [
+              0,
+              10554
+            ],
+            [
+              1,
+              42888
+            ],
+            [
+              2,
+              53511
+            ],
+            [
+              3,
+              76621
+            ],
+            [
+              4,
+              86521
+            ],
+            [
+              5,
+              30226
+            ]
+          ],
+          "area_in_frame": 30226,
+          "probable_donors": [
+            {
+              "frame": 0,
+              "area": 10554
+            },
+            {
+              "frame": 1,
+              "area": 42888
+            },
+            {
+              "frame": 2,
+              "area": 53511
+            },
+            {
+              "frame": 3,
+              "area": 76621
+            },
+            {
+              "frame": 4,
+              "area": 86521
+            }
+          ],
+          "sides": [
+            "left"
+          ]
+        },
+        {
+          "component": 7,
+          "area": 145,
+          "bbox": [
+            1803,
+            453,
+            1831,
+            470
+          ],
+          "cells": [
+            [
+              4,
+              26
+            ],
+            [
+              5,
+              119
+            ]
+          ],
+          "area_in_frame": 119,
+          "probable_donors": [
+            {
+              "frame": 4,
+              "area": 26
+            }
+          ],
+          "sides": [
+            "left"
+          ]
+        },
+        {
+          "component": 8,
+          "area": 132,
+          "bbox": [
+            1793,
+            272,
+            1818,
+            288
+          ],
+          "cells": [
+            [
+              4,
+              93
+            ],
+            [
+              5,
+              39
+            ]
+          ],
+          "area_in_frame": 39,
+          "probable_donors": [
+            {
+              "frame": 4,
+              "area": 93
+            }
+          ],
+          "sides": [
+            "left"
+          ]
+        },
+        {
+          "component": 11,
+          "area": 86,
+          "bbox": [
+            1805,
+            513,
+            1819,
+            525
+          ],
+          "cells": [
+            [
+              4,
+              24
+            ],
+            [
+              5,
+              62
+            ]
+          ],
+          "area_in_frame": 62,
+          "probable_donors": [
+            {
+              "frame": 4,
+              "area": 24
+            }
+          ],
+          "sides": [
+            "left"
+          ]
+        }
+      ],
+      "flags": [
+        "source_component_crossed_cell_edge",
+        "vfx_gutter_or_neighbor_shape_risk"
+      ],
+      "fail": true
+    },
+    {
+      "registry": "vfx",
+      "unit": "g3/hit2",
+      "frame": 0,
+      "installed": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.3.basic_attack.basic_attack.combo.2.visual/frame-0.png",
+      "installed_sha": "137443d2379a9171f8c1fc776605a92b0e55b18d817f703118d0d14c9814caf0",
+      "artifact_sha": "137443d2379a9171f8c1fc776605a92b0e55b18d817f703118d0d14c9814caf0",
+      "installed_matches_r1": true,
+      "bbox": [
+        58,
+        91,
+        198,
+        176
+      ],
+      "border_touch_pixels": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "components": 54,
+      "largest_component_area": 3605,
+      "small_component_area": 129,
+      "source_rect": [
+        0,
+        0,
+        362,
+        724
+      ],
+      "source_crossings": [
+        {
+          "component": 2,
+          "area": 34083,
+          "bbox": [
+            289,
+            252,
+            630,
+            469
+          ],
+          "cells": [
+            [
+              0,
+              3864
+            ],
+            [
+              1,
+              30219
+            ]
+          ],
+          "area_in_frame": 3864,
+          "probable_donors": [
+            {
+              "frame": 1,
+              "area": 30219
+            }
+          ],
+          "sides": [
+            "right"
+          ]
+        },
+        {
+          "component": 157,
+          "area": 3,
+          "bbox": [
+            361,
+            327,
+            363,
+            329
+          ],
+          "cells": [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "area_in_frame": 2,
+          "probable_donors": [
+            {
+              "frame": 1,
+              "area": 1
+            }
+          ],
+          "sides": [
+            "right"
+          ]
+        }
+      ],
+      "flags": [
+        "source_component_crossed_cell_edge",
+        "vfx_gutter_or_neighbor_shape_risk"
+      ],
+      "fail": true
+    },
+    {
+      "registry": "vfx",
+      "unit": "g3/hit2",
+      "frame": 1,
+      "installed": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.3.basic_attack.basic_attack.combo.2.visual/frame-1.png",
+      "installed_sha": "8712d6093ec1b4b3d394efa16aaabb2be321a0f7a77d5e7af99fd06f648a6826",
+      "artifact_sha": "8712d6093ec1b4b3d394efa16aaabb2be321a0f7a77d5e7af99fd06f648a6826",
+      "installed_matches_r1": true,
+      "bbox": [
+        49,
+        26,
+        207,
+        231
+      ],
+      "border_touch_pixels": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "components": 109,
+      "largest_component_area": 5619,
+      "small_component_area": 246,
+      "source_rect": [
+        362,
+        0,
+        724,
+        724
+      ],
+      "source_crossings": [
+        {
+          "component": 1,
+          "area": 63987,
+          "bbox": [
+            677,
+            178,
+            1076,
+            462
+          ],
+          "cells": [
+            [
+              1,
+              3541
+            ],
+            [
+              2,
+              60446
+            ]
+          ],
+          "area_in_frame": 3541,
+          "probable_donors": [
+            {
+              "frame": 2,
+              "area": 60446
+            }
+          ],
+          "sides": [
+            "right"
+          ]
+        },
+        {
+          "component": 2,
+          "area": 34083,
+          "bbox": [
+            289,
+            252,
+            630,
+            469
+          ],
+          "cells": [
+            [
+              0,
+              3864
+            ],
+            [
+              1,
+              30219
+            ]
+          ],
+          "area_in_frame": 30219,
+          "probable_donors": [
+            {
+              "frame": 0,
+              "area": 3864
+            }
+          ],
+          "sides": [
+            "left"
+          ]
+        },
+        {
+          "component": 157,
+          "area": 3,
+          "bbox": [
+            361,
+            327,
+            363,
+            329
+          ],
+          "cells": [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "area_in_frame": 1,
+          "probable_donors": [
+            {
+              "frame": 0,
+              "area": 2
+            }
+          ],
+          "sides": [
+            "left"
+          ]
+        }
+      ],
+      "flags": [
+        "source_component_crossed_cell_edge",
+        "vfx_gutter_or_neighbor_shape_risk"
+      ],
+      "fail": true
+    },
+    {
+      "registry": "vfx",
+      "unit": "g3/hit2",
+      "frame": 2,
+      "installed": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.3.basic_attack.basic_attack.combo.2.visual/frame-2.png",
+      "installed_sha": "6b9087ce7c227d9475f10ae14301693b341e5786e512927b2c4abfb9c5647094",
+      "artifact_sha": "6b9087ce7c227d9475f10ae14301693b341e5786e512927b2c4abfb9c5647094",
+      "installed_matches_r1": true,
+      "bbox": [
+        63,
+        26,
+        193,
+        228
+      ],
+      "border_touch_pixels": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "components": 103,
+      "largest_component_area": 7550,
+      "small_component_area": 261,
+      "source_rect": [
+        724,
+        0,
+        1086,
+        724
+      ],
+      "source_crossings": [
+        {
+          "component": 1,
+          "area": 63987,
+          "bbox": [
+            677,
+            178,
+            1076,
+            462
+          ],
+          "cells": [
+            [
+              1,
+              3541
+            ],
+            [
+              2,
+              60446
+            ]
+          ],
+          "area_in_frame": 60446,
+          "probable_donors": [
+            {
+              "frame": 1,
+              "area": 3541
+            }
+          ],
+          "sides": [
+            "left"
+          ]
+        }
+      ],
+      "flags": [
+        "source_component_crossed_cell_edge",
+        "vfx_gutter_or_neighbor_shape_risk"
+      ],
+      "fail": true
+    },
+    {
+      "registry": "vfx",
+      "unit": "g3/hit2",
+      "frame": 3,
+      "installed": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.3.basic_attack.basic_attack.combo.2.visual/frame-3.png",
+      "installed_sha": "335a62e492c0674e57f2c8d6e22801b9419a46533f6c2a73a8e99e2e706b1b7b",
+      "artifact_sha": "335a62e492c0674e57f2c8d6e22801b9419a46533f6c2a73a8e99e2e706b1b7b",
+      "installed_matches_r1": true,
+      "bbox": [
+        69,
+        55,
+        187,
+        208
+      ],
+      "border_touch_pixels": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "components": 158,
+      "largest_component_area": 6484,
+      "small_component_area": 356,
+      "source_rect": [
+        1086,
+        0,
+        1448,
+        724
+      ],
+      "source_crossings": [
+        {
+          "component": 0,
+          "area": 139158,
+          "bbox": [
+            1094,
+            107,
+            1779,
+            582
+          ],
+          "cells": [
+            [
+              3,
+              63251
+            ],
+            [
+              4,
+              75907
+            ]
+          ],
+          "area_in_frame": 63251,
+          "probable_donors": [
+            {
+              "frame": 4,
+              "area": 75907
+            }
+          ],
+          "sides": [
+            "right"
+          ]
+        }
+      ],
+      "flags": [
+        "source_component_crossed_cell_edge",
+        "vfx_gutter_or_neighbor_shape_risk"
+      ],
+      "fail": true
+    },
+    {
+      "registry": "vfx",
+      "unit": "g3/hit2",
+      "frame": 4,
+      "installed": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.3.basic_attack.basic_attack.combo.2.visual/frame-4.png",
+      "installed_sha": "14b51ac2eb299f120c35806bfc3390a265b2ccce0ea194d287288b0e28573e83",
+      "artifact_sha": "14b51ac2eb299f120c35806bfc3390a265b2ccce0ea194d287288b0e28573e83",
+      "installed_matches_r1": true,
+      "bbox": [
+        73,
+        51,
+        182,
+        196
+      ],
+      "border_touch_pixels": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "components": 155,
+      "largest_component_area": 6690,
+      "small_component_area": 383,
+      "source_rect": [
+        1448,
+        0,
+        1810,
+        724
+      ],
+      "source_crossings": [
+        {
+          "component": 0,
+          "area": 139158,
+          "bbox": [
+            1094,
+            107,
+            1779,
+            582
+          ],
+          "cells": [
+            [
+              3,
+              63251
+            ],
+            [
+              4,
+              75907
+            ]
+          ],
+          "area_in_frame": 75907,
+          "probable_donors": [
+            {
+              "frame": 3,
+              "area": 63251
+            }
+          ],
+          "sides": [
+            "left"
+          ]
+        },
+        {
+          "component": 3,
+          "area": 22605,
+          "bbox": [
+            1789,
+            266,
+            2125,
+            444
+          ],
+          "cells": [
+            [
+              4,
+              390
+            ],
+            [
+              5,
+              22215
+            ]
+          ],
+          "area_in_frame": 390,
+          "probable_donors": [
+            {
+              "frame": 5,
+              "area": 22215
+            }
+          ],
+          "sides": [
+            "right"
+          ]
+        }
+      ],
+      "flags": [
+        "source_component_crossed_cell_edge",
+        "vfx_gutter_or_neighbor_shape_risk"
+      ],
+      "fail": true
+    },
+    {
+      "registry": "vfx",
+      "unit": "g3/hit2",
+      "frame": 5,
+      "installed": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Skill/animation/skill.character.seojin.3.basic_attack.basic_attack.combo.2.visual/frame-5.png",
+      "installed_sha": "6469f2d68d04e579b0de54e568edc7d4034c12b7bc42657932a077345511f38f",
+      "artifact_sha": "6469f2d68d04e579b0de54e568edc7d4034c12b7bc42657932a077345511f38f",
+      "installed_matches_r1": true,
+      "bbox": [
+        66,
+        24,
+        178,
+        208
+      ],
+      "border_touch_pixels": {
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "components": 67,
+      "largest_component_area": 2731,
+      "small_component_area": 100,
+      "source_rect": [
+        1810,
+        0,
+        2172,
+        724
+      ],
+      "source_crossings": [
+        {
+          "component": 3,
+          "area": 22605,
+          "bbox": [
+            1789,
+            266,
+            2125,
+            444
+          ],
+          "cells": [
+            [
+              4,
+              390
+            ],
+            [
+              5,
+              22215
+            ]
+          ],
+          "area_in_frame": 22215,
+          "probable_donors": [
+            {
+              "frame": 4,
+              "area": 390
+            }
+          ],
+          "sides": [
+            "left"
+          ]
+        }
+      ],
+      "flags": [
+        "source_component_crossed_cell_edge",
+        "vfx_gutter_or_neighbor_shape_risk"
+      ],
+      "fail": true
+    }
+  ],
+  "remedy": {
+    "preferred": "fresh standalone full-canvas native RGBA frames; no shared strip gutters",
+    "conditional": "re-extract original full strip only if overlap-aware segmentation can recover complete connected subjects without donor pixels; current proportional cell cuts are not safe",
+    "partial_install": false
+  }
+}

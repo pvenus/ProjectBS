@@ -50,7 +50,12 @@ public class ProjectileVisual : MonoBehaviour
     private bool baselineMaterialCaptured;
     private Transform rendererScaleTransform;
     private Vector3 baselineRendererLocalScale;
+    private Vector3 baselineRendererLocalPosition;
     private bool baselineRendererScaleCaptured;
+    private float effectiveRendererScale = 1f;
+    private SpriteRenderer presentationProxyRenderer;
+    private bool sourceRendererEnabledBeforeProxy;
+    private MaterialPropertyBlock presentationPropertyBlock;
 
     private PlayableGraph playableGraph;
     private AnimationClipPlayable clipPlayable;
@@ -133,6 +138,15 @@ public class ProjectileVisual : MonoBehaviour
         baselineMaterialCaptured = true;
     }
 
+    private void RestoreBaselineMaterial()
+    {
+        animationVfx?.StopImmediate();
+        if (materialTargetRenderer != null && baselineMaterialCaptured)
+        {
+            materialTargetRenderer.sharedMaterial = baselineSharedMaterial;
+        }
+    }
+
     private void EnsureSpriteRenderer()
     {
         if (spriteRenderer != null)
@@ -189,7 +203,9 @@ public class ProjectileVisual : MonoBehaviour
 
     private void CaptureBaselineRendererScale()
     {
-        Transform candidate = spriteRenderer != null
+        Transform candidate = presentationProxyRenderer != null && presentationProxyRenderer.enabled
+            ? presentationProxyRenderer.transform
+            : spriteRenderer != null
             ? spriteRenderer.transform
             : materialTargetRenderer != null
                 ? materialTargetRenderer.transform
@@ -204,6 +220,7 @@ public class ProjectileVisual : MonoBehaviour
         {
             rendererScaleTransform = candidate;
             baselineRendererLocalScale = candidate.localScale;
+            baselineRendererLocalPosition = candidate.localPosition;
             baselineRendererScaleCaptured = true;
         }
     }
@@ -217,6 +234,7 @@ public class ProjectileVisual : MonoBehaviour
         }
 
         float effectiveScale = EquipmentBaseProfileSO.NormalizeRendererScale(scale);
+        effectiveRendererScale = effectiveScale;
         rendererScaleTransform.localScale = baselineRendererLocalScale * effectiveScale;
     }
 
@@ -225,7 +243,9 @@ public class ProjectileVisual : MonoBehaviour
         if (baselineRendererScaleCaptured && rendererScaleTransform != null)
         {
             rendererScaleTransform.localScale = baselineRendererLocalScale;
+            rendererScaleTransform.localPosition = baselineRendererLocalPosition;
         }
+        effectiveRendererScale = 1f;
     }
 
     private void Update()
@@ -254,6 +274,84 @@ public class ProjectileVisual : MonoBehaviour
     private void LateUpdate()
     {
         ApplyRelativeSortingOrder();
+        ApplyPresentationCalibration();
+    }
+
+    private void ApplyPresentationCalibration()
+    {
+        if (!initialized || runtimeData == null || runtimeData.presentationCalibration == null || spriteRenderer == null)
+        {
+            return;
+        }
+        if (presentationProxyRenderer != null && presentationProxyRenderer.enabled)
+        {
+            CopyRendererPresentation(spriteRenderer, presentationProxyRenderer);
+            presentationProxyRenderer.sprite = spriteRenderer.sprite;
+        }
+        CaptureBaselineRendererScale();
+        if (!baselineRendererScaleCaptured || rendererScaleTransform == null) return;
+        if (runtimeData.presentationCalibration.TryResolve(spriteRenderer.sprite, out Vector2 scale, out Vector2 offset))
+        {
+            rendererScaleTransform.localScale = Vector3.Scale(
+                baselineRendererLocalScale * effectiveRendererScale,
+                new Vector3(scale.x, scale.y, 1f));
+            rendererScaleTransform.localPosition = baselineRendererLocalPosition + new Vector3(offset.x, offset.y, 0f);
+        }
+        else
+        {
+            rendererScaleTransform.localScale = baselineRendererLocalScale * effectiveRendererScale;
+            rendererScaleTransform.localPosition = baselineRendererLocalPosition;
+        }
+    }
+
+    private void BeginPresentationProxyIfRequired()
+    {
+        EndPresentationProxy();
+        if (runtimeData == null || runtimeData.presentationCalibration == null ||
+            spriteRenderer == null || spriteRenderer.transform != transform) return;
+
+        Transform child = transform.Find("__ProjectilePresentationProxy");
+        if (child == null)
+        {
+            child = new GameObject("__ProjectilePresentationProxy").transform;
+            child.SetParent(transform, false);
+        }
+        presentationProxyRenderer = child.GetComponent<SpriteRenderer>() ?? child.gameObject.AddComponent<SpriteRenderer>();
+        CopyRendererPresentation(spriteRenderer, presentationProxyRenderer);
+        presentationProxyRenderer.sprite = spriteRenderer.sprite;
+        presentationProxyRenderer.enabled = true;
+        sourceRendererEnabledBeforeProxy = spriteRenderer.enabled;
+        spriteRenderer.enabled = false;
+        baselineRendererScaleCaptured = false;
+        CaptureBaselineRendererScale();
+    }
+
+    private void EndPresentationProxy()
+    {
+        if (presentationProxyRenderer == null) return;
+        presentationProxyRenderer.enabled = false;
+        presentationProxyRenderer.sprite = null;
+        presentationProxyRenderer.transform.localScale = Vector3.one;
+        presentationProxyRenderer.transform.localPosition = Vector3.zero;
+        if (spriteRenderer != null) spriteRenderer.enabled = sourceRendererEnabledBeforeProxy;
+        presentationProxyRenderer = null;
+        baselineRendererScaleCaptured = false;
+        CaptureBaselineRendererScale();
+    }
+
+    private void CopyRendererPresentation(SpriteRenderer source, SpriteRenderer destination)
+    {
+        if (source == null || destination == null) return;
+        destination.sharedMaterial = source.sharedMaterial;
+        destination.color = source.color;
+        destination.flipX = source.flipX;
+        destination.flipY = source.flipY;
+        destination.sortingLayerID = source.sortingLayerID;
+        destination.sortingOrder = source.sortingOrder;
+        destination.maskInteraction = source.maskInteraction;
+        presentationPropertyBlock ??= new MaterialPropertyBlock();
+        source.GetPropertyBlock(presentationPropertyBlock);
+        destination.SetPropertyBlock(presentationPropertyBlock);
     }
 
     private void ApplyRelativeSortingOrder()
@@ -263,7 +361,10 @@ public class ProjectileVisual : MonoBehaviour
             return;
         }
 
-        if (runtimeData.sortingRelation == SkillSortingRelation.AbsoluteTop)
+        // AboveOwner is the character-overlay contract: keep it above every
+        // character/body/effect renderer rather than only ownerOrder + 1.
+        if (runtimeData.sortingRelation == SkillSortingRelation.AbsoluteTop ||
+            runtimeData.sortingRelation == SkillSortingRelation.AboveOwner)
         {
             ApplyResolvedSortingOrder((int)SkillSortingRelation.AbsoluteTop);
             return;
@@ -326,6 +427,7 @@ public class ProjectileVisual : MonoBehaviour
     private void OnDestroy()
     {
         StopRainRoutine();
+        RestoreBaselineMaterial();
         DestroyPlayableGraph();
     }
 
@@ -351,21 +453,31 @@ public class ProjectileVisual : MonoBehaviour
         RestoreRendererScale();
         ApplyRendererScale(data.rendererScale);
         ApplyRuntimeVisualData(data);
+        BeginPresentationProxyIfRequired();
+
+        if (data.suppressVisual)
+        {
+            animationVfx?.StopImmediate();
+            EndPresentationProxy();
+            if (spriteRenderer != null) spriteRenderer.enabled = false;
+            return;
+        }
+
+        if (spriteRenderer != null) spriteRenderer.enabled = true;
 
         OnSpawn();
     }
 
     public void OnSpawn()
     {
-        if (!initialized)
+        if (!initialized || IsVisualSuppressed())
         {
             return;
         }
 
-        animationVfx?.Play();
-
         if (IsRainVisualType())
         {
+            animationVfx?.Play();
             PlayRainVisual();
             return;
         }
@@ -374,15 +486,17 @@ public class ProjectileVisual : MonoBehaviour
         if (!ShouldUseAnimatorTriggers() && clip != null)
         {
             PlayClip(clip);
+            animationVfx?.Play();
             return;
         }
 
+        animationVfx?.Play();
         TriggerAnimation(spawnTriggerName);
     }
 
     public void OnHit()
     {
-        if (!initialized)
+        if (!initialized || IsVisualSuppressed())
         {
             return;
         }
@@ -415,7 +529,14 @@ public class ProjectileVisual : MonoBehaviour
         }
 
         animationVfx?.StopImmediate();
+        RestoreBaselineMaterial();
         RestoreRendererScale();
+        EndPresentationProxy();
+
+        if (IsVisualSuppressed())
+        {
+            return;
+        }
 
         if (IsRainVisualType())
         {
@@ -425,6 +546,9 @@ public class ProjectileVisual : MonoBehaviour
 
         TriggerAnimation(despawnTriggerName);
     }
+
+    private bool IsVisualSuppressed() =>
+        runtimeData != null && runtimeData.suppressVisual;
 
     public void PlayClip(AnimationClip clip, bool deactivateWhenFinished = false)
     {
@@ -468,6 +592,11 @@ public class ProjectileVisual : MonoBehaviour
         {
             playableGraph.Play();
         }
+
+        // The shared projectile prefab starts with no sprite. Evaluate the
+        // first clip sample immediately so short-lived melee projectiles have
+        // a visible source texture before VFX/material state is applied.
+        playableGraph.Evaluate(0f);
     }
 
     public void RestartCurrentClip()
@@ -530,9 +659,11 @@ public class ProjectileVisual : MonoBehaviour
         BaseVisualSO baseVisual = data.sourceEquipment != null
             ? data.sourceEquipment.BaseVisualSo
             : null;
-        SkillAnimationVfxProfileSO profile = baseVisual != null
-            ? baseVisual.AnimationVfxProfile
-            : null;
+        SkillAnimationVfxProfileSO profile = data.animationVfxProfileOverride != null
+            ? data.animationVfxProfileOverride
+            : baseVisual != null
+                ? baseVisual.AnimationVfxProfile
+                : null;
         if (profile != null && spriteRenderer != null)
         {
             if (profile.Material != null)
@@ -542,7 +673,6 @@ public class ProjectileVisual : MonoBehaviour
             animationVfx ??= GetComponent<SkillAnimationVfxFeatureObject>()
                 ?? gameObject.AddComponent<SkillAnimationVfxFeatureObject>();
             animationVfx.Initialize(spriteRenderer, profile, baseVisual.AnimationVfxPalette);
-            animationVfx.Play();
         }
         else
         {
@@ -554,6 +684,11 @@ public class ProjectileVisual : MonoBehaviour
     private AnimationClip ResolveAnimationClip(
         SkillAnimationClipType clipType)
     {
+        if (clipType == SkillAnimationClipType.ProjectileLoop &&
+            runtimeData != null && runtimeData.visualClipOverride != null)
+        {
+            return runtimeData.visualClipOverride;
+        }
         BaseVisualSO baseVisual = runtimeData != null &&
                                   runtimeData.sourceEquipment != null
             ? runtimeData.sourceEquipment.BaseVisualSo
@@ -828,7 +963,7 @@ public class ProjectileVisual : MonoBehaviour
         }
 
         float availableLifetime = runtimeData != null
-            ? runtimeData.lifetime
+            ? Mathf.Max(runtimeData.lifetime, runtimeData.minimumVisualLifetime)
             : 0f;
 
         if (availableLifetime <= 0f || clip.length <= availableLifetime)

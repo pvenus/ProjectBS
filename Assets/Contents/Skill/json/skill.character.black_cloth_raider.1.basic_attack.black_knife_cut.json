@@ -8,7 +8,8 @@
                         "skillComponentType":  "Projectile",
                         "projectileCount":  1,
                         "projectileScale": 2,
-                        "projectileColliderRadius":  0.55,
+                        "rendererScale": 0.18,
+                        "projectileColliderRadius":  0.09166667,
                         "projectileLifetime":  0.25,
                         "projectileSpawn":  {
                                                 "spawnOffset":  0.5,
@@ -18,10 +19,13 @@
     "cast":  {
                  "castId":  "skill.character.black_cloth_raider.1.basic_attack.black_knife_cut.cast",
                  "targetingType":  "AutoTargetDirection",
-                 "cooldown":  1,
-                 "castTime":  0,
-                 "range":  0.5,
-                 "skipAttackAnimation":  false
+                 "cooldown":  2,
+                 "castTime":  0.9,
+                 "range":  0.25,
+                 "skipAttackAnimation":  false,
+                 "snapshotTargetPointOnCast": true,
+                 "bodyActionClip": "Assets/AnimationClips/Character/character.black_cloth_raider.1/character.black_cloth_raider.1.basic_attack.v2.Right.anim",
+                 "bodyActionPlayback": { "contactTime": 0.12, "duration": 0.34 }
              },
     "move":  {
                  "moveId":  "skill.character.black_cloth_raider.1.basic_attack.black_knife_cut.move",
@@ -50,6 +54,6 @@
              ],
     "baseVisual":  {
                        "visualId":  "skill.character.black_cloth_raider.1.basic_attack.black_knife_cut.visual",
-                       "projectileVisualType":  "Default"
+                       "projectileVisualType":  "None"
                    }
 }

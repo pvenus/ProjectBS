@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "hwagam_npc2_weapon_impact_vfx_disposition_v1",
+  "status": "PROVENANCE_ONLY_NO_INSTALL",
+  "decision": "User decided not to use NPC basic-attack impact VFX.",
+  "affected": [
+    "black_cloth_raider.BasicAttack.VFX",
+    "chain_dragger_raider.BasicAttack.VFX"
+  ],
+  "artifactRoot": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/NPC2WeaponImpactVFX/selected/revision-05-final-exact8-horizontal-v001",
+  "priorSelectionReceiptSha256": "467d27536f64e859f08777a215079b11e2a1537fdf843382ecc45f713a247de6",
+  "authority": {
+    "sourceSelection": false,
+    "install": false,
+    "canonicalPromotion": false,
+    "unityWrite": false,
+    "runtimeAcceptance": false
+  },
+  "preservation": {
+    "artifactsDeleted": false,
+    "npcExistingVfxChanged": false,
+    "mainCharacterNeonVfxChanged": false
+  },
+  "rollback": "No rollback action is required because no canonical or Unity installation occurred."
+}

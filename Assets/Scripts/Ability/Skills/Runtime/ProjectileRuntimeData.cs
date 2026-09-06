@@ -56,6 +56,15 @@ public class ProjectileRuntimeData
     public Color color = Color.white;
     // Optional: if true, prefer Animator triggers over direct clips
     public bool useAnimatorTriggers;
+    public AnimationClip visualClipOverride;
+    public SkillAnimationVfxProfileSO animationVfxProfileOverride;
+    public float minimumVisualLifetime;
+    public SpritePresentationCalibrationProfileSO presentationCalibration;
+    public string comboToken;
+    public int comboIndex = -1;
+    public bool useCriticalOverride;
+    public bool criticalOverride;
+    public bool suppressVisual;
 
     /// <summary>
     /// owner 기준 forward가 없는 2D 환경에서 direction이 비어 있으면 fallback 판단용.

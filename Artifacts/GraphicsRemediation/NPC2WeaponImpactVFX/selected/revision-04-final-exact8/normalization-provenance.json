@@ -1,0 +1,182 @@
+{
+  "status": "SELECTED_SOURCE_EXACT8_PRE_QA",
+  "canvas": [
+    627,
+    627
+  ],
+  "pivot": [
+    0.5,
+    0.5
+  ],
+  "frameTimes": [
+    0.0,
+    0.12,
+    0.24,
+    0.36
+  ],
+  "stopTime": 0.48,
+  "loop": true,
+  "blackBoard": {
+    "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/NPC2WeaponImpactVFX/selected/revision-02-A-r2/black_cloth_raider/VFX-board.png",
+    "sha256": "235419f002ef7de449760e0d2e735969ef70597ca6f3779389172560075f8a3b",
+    "frames": [
+      {
+        "frame": 1,
+        "sourceCell": [
+          0,
+          0
+        ],
+        "bbox": [
+          256,
+          339,
+          370,
+          448
+        ],
+        "sha256": "ef14ec5fbeff6302280b77183cf839c844f7fa4e411ec2359ed07449b214dda4"
+      },
+      {
+        "frame": 2,
+        "sourceCell": [
+          1,
+          0
+        ],
+        "bbox": [
+          63,
+          210,
+          523,
+          492
+        ],
+        "sha256": "43fa3ef222fc267466eb1e3bf2990637207ee6d9d2fd2809865c4fd6c14dbeac"
+      },
+      {
+        "frame": 3,
+        "sourceCell": [
+          0,
+          1
+        ],
+        "bbox": [
+          254,
+          219,
+          465,
+          440
+        ],
+        "sha256": "ca7567917b0e19929671192a5858f3f48168e518f40a0410b9ea1e0d22e05ea4"
+      },
+      {
+        "frame": 4,
+        "sourceCell": [
+          1,
+          1
+        ],
+        "bbox": [
+          105,
+          128,
+          565,
+          374
+        ],
+        "sha256": "202a368e95a6807782f1236ddea284cc9cb4a1a59f8016e25904d8afd9a374e3"
+      }
+    ]
+  },
+  "chain": {
+    "commonScale": 0.40461215932914046,
+    "safePadding": 24,
+    "frames": [
+      {
+        "frame": 1,
+        "source": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/NPC2WeaponImpactVFX/selected/revision-03-A-chain-standalone/chain_dragger_raider/frames/frame_01.png",
+        "sourceSha256": "d40382588c56c239c8d375896fcbc476c1c4c117065156e57502c1b1d7b36760",
+        "sourceAlphaBbox": [
+          355,
+          317,
+          1353,
+          882
+        ],
+        "outputOffset": [
+          111,
+          199
+        ],
+        "outputBbox": [
+          231,
+          248,
+          364,
+          274
+        ],
+        "sha256": "6cabd58f5456ad075455ddab8fb951f0462653301137c80036435be5e9b5ce96"
+      },
+      {
+        "frame": 2,
+        "source": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/NPC2WeaponImpactVFX/selected/revision-03-A-chain-standalone/chain_dragger_raider/frames/frame_02.png",
+        "sourceSha256": "2c87f722a09b77c6d6edb809e55e959bc785f2cf4fd40eebfc966b9d5bf2c7b8",
+        "sourceAlphaBbox": [
+          361,
+          335,
+          1792,
+          414
+        ],
+        "outputOffset": [
+          24,
+          297
+        ],
+        "outputBbox": [
+          25,
+          297,
+          601,
+          317
+        ],
+        "sha256": "a2d227e1fa34d94e9909b571b6df0f28374cee2414150af11b27afa9cfe9b085"
+      },
+      {
+        "frame": 3,
+        "source": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/NPC2WeaponImpactVFX/selected/revision-03-A-chain-standalone/chain_dragger_raider/frames/frame_03.png",
+        "sourceSha256": "09f4e7b89b3e1367d5bf705f0585bf8b4990d0fd4337035f8aee14c68f3d5798",
+        "sourceAlphaBbox": [
+          543,
+          357,
+          1284,
+          558
+        ],
+        "outputOffset": [
+          163,
+          273
+        ],
+        "outputBbox": [
+          189,
+          307,
+          334,
+          354
+        ],
+        "sha256": "be323ee12dcc016a085316e455298880e68a12601ea7747507cc90b8aea271c4"
+      },
+      {
+        "frame": 4,
+        "source": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/NPC2WeaponImpactVFX/selected/revision-03-A-chain-standalone/chain_dragger_raider/frames/frame_04.png",
+        "sourceSha256": "9992c4ba0a2c81993775efea69540b7734c430244fd716be3f380829e526f3b3",
+        "sourceAlphaBbox": [
+          1129,
+          394,
+          1255,
+          639
+        ],
+        "outputOffset": [
+          288,
+          264
+        ],
+        "outputBbox": [
+          288,
+          265,
+          339,
+          363
+        ],
+        "sha256": "6abad72c4ec45505fbbc98ca0069dcb6b6d3596504d5c37b12f59d3d71eb7fbb"
+      }
+    ]
+  },
+  "pixelOperations": {
+    "black": "lossless 2x2 cell crop; alpha0 RGB sanitized",
+    "chain": "alpha-bbox crop; one common aspect-preserving Lanczos scale; center contain; alpha0 RGB sanitized",
+    "repaint": false,
+    "recolor": false,
+    "backgroundRemoval": false
+  }
+}

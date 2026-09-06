@@ -1,0 +1,781 @@
+{
+  "scope": "physical QA/package only",
+  "sourceRoot": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/NPC2WeaponImpactVFX/selected/revision-04-final-exact8",
+  "normalizationProvenance": {
+    "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/NPC2WeaponImpactVFX/selected/revision-04-final-exact8/normalization-provenance.json",
+    "sha256": "5f6bb4577542418458071d70b5730e4f74f09714f27887584b4396b5cadefcc8",
+    "data": {
+      "status": "SELECTED_SOURCE_EXACT8_PRE_QA",
+      "canvas": [
+        627,
+        627
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "frameTimes": [
+        0.0,
+        0.12,
+        0.24,
+        0.36
+      ],
+      "stopTime": 0.48,
+      "loop": true,
+      "blackBoard": {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/NPC2WeaponImpactVFX/selected/revision-02-A-r2/black_cloth_raider/VFX-board.png",
+        "sha256": "235419f002ef7de449760e0d2e735969ef70597ca6f3779389172560075f8a3b",
+        "frames": [
+          {
+            "frame": 1,
+            "sourceCell": [
+              0,
+              0
+            ],
+            "bbox": [
+              256,
+              339,
+              370,
+              448
+            ],
+            "sha256": "ef14ec5fbeff6302280b77183cf839c844f7fa4e411ec2359ed07449b214dda4"
+          },
+          {
+            "frame": 2,
+            "sourceCell": [
+              1,
+              0
+            ],
+            "bbox": [
+              63,
+              210,
+              523,
+              492
+            ],
+            "sha256": "43fa3ef222fc267466eb1e3bf2990637207ee6d9d2fd2809865c4fd6c14dbeac"
+          },
+          {
+            "frame": 3,
+            "sourceCell": [
+              0,
+              1
+            ],
+            "bbox": [
+              254,
+              219,
+              465,
+              440
+            ],
+            "sha256": "ca7567917b0e19929671192a5858f3f48168e518f40a0410b9ea1e0d22e05ea4"
+          },
+          {
+            "frame": 4,
+            "sourceCell": [
+              1,
+              1
+            ],
+            "bbox": [
+              105,
+              128,
+              565,
+              374
+            ],
+            "sha256": "202a368e95a6807782f1236ddea284cc9cb4a1a59f8016e25904d8afd9a374e3"
+          }
+        ]
+      },
+      "chain": {
+        "commonScale": 0.40461215932914046,
+        "safePadding": 24,
+        "frames": [
+          {
+            "frame": 1,
+            "source": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/NPC2WeaponImpactVFX/selected/revision-03-A-chain-standalone/chain_dragger_raider/frames/frame_01.png",
+            "sourceSha256": "d40382588c56c239c8d375896fcbc476c1c4c117065156e57502c1b1d7b36760",
+            "sourceAlphaBbox": [
+              355,
+              317,
+              1353,
+              882
+            ],
+            "outputOffset": [
+              111,
+              199
+            ],
+            "outputBbox": [
+              231,
+              248,
+              364,
+              274
+            ],
+            "sha256": "6cabd58f5456ad075455ddab8fb951f0462653301137c80036435be5e9b5ce96"
+          },
+          {
+            "frame": 2,
+            "source": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/NPC2WeaponImpactVFX/selected/revision-03-A-chain-standalone/chain_dragger_raider/frames/frame_02.png",
+            "sourceSha256": "2c87f722a09b77c6d6edb809e55e959bc785f2cf4fd40eebfc966b9d5bf2c7b8",
+            "sourceAlphaBbox": [
+              361,
+              335,
+              1792,
+              414
+            ],
+            "outputOffset": [
+              24,
+              297
+            ],
+            "outputBbox": [
+              25,
+              297,
+              601,
+              317
+            ],
+            "sha256": "a2d227e1fa34d94e9909b571b6df0f28374cee2414150af11b27afa9cfe9b085"
+          },
+          {
+            "frame": 3,
+            "source": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/NPC2WeaponImpactVFX/selected/revision-03-A-chain-standalone/chain_dragger_raider/frames/frame_03.png",
+            "sourceSha256": "09f4e7b89b3e1367d5bf705f0585bf8b4990d0fd4337035f8aee14c68f3d5798",
+            "sourceAlphaBbox": [
+              543,
+              357,
+              1284,
+              558
+            ],
+            "outputOffset": [
+              163,
+              273
+            ],
+            "outputBbox": [
+              189,
+              307,
+              334,
+              354
+            ],
+            "sha256": "be323ee12dcc016a085316e455298880e68a12601ea7747507cc90b8aea271c4"
+          },
+          {
+            "frame": 4,
+            "source": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/NPC2WeaponImpactVFX/selected/revision-03-A-chain-standalone/chain_dragger_raider/frames/frame_04.png",
+            "sourceSha256": "9992c4ba0a2c81993775efea69540b7734c430244fd716be3f380829e526f3b3",
+            "sourceAlphaBbox": [
+              1129,
+              394,
+              1255,
+              639
+            ],
+            "outputOffset": [
+              288,
+              264
+            ],
+            "outputBbox": [
+              288,
+              265,
+              339,
+              363
+            ],
+            "sha256": "6abad72c4ec45505fbbc98ca0069dcb6b6d3596504d5c37b12f59d3d71eb7fbb"
+          }
+        ]
+      },
+      "pixelOperations": {
+        "black": "lossless 2x2 cell crop; alpha0 RGB sanitized",
+        "chain": "alpha-bbox crop; one common aspect-preserving Lanczos scale; center contain; alpha0 RGB sanitized",
+        "repaint": false,
+        "recolor": false,
+        "backgroundRemoval": false
+      }
+    }
+  },
+  "actions": {
+    "black_cloth_raider": {
+      "inventory": {
+        "actual": [
+          "frame_01.png",
+          "frame_02.png",
+          "frame_03.png",
+          "frame_04.png"
+        ],
+        "expected": [
+          "frame_01.png",
+          "frame_02.png",
+          "frame_03.png",
+          "frame_04.png"
+        ],
+        "exact4Order": true
+      },
+      "frames": [
+        {
+          "index": 0,
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/NPC2WeaponImpactVFX/selected/revision-04-final-exact8/black_cloth_raider/VFX/frame_01.png",
+          "sha256": "ef14ec5fbeff6302280b77183cf839c844f7fa4e411ec2359ed07449b214dda4",
+          "open": true,
+          "mode": "RGBA",
+          "dimensions": [
+            627,
+            627
+          ],
+          "alphaBBox": [
+            256,
+            339,
+            370,
+            448
+          ],
+          "margins": {
+            "left": 256,
+            "top": 339,
+            "right": 257,
+            "bottom": 179
+          },
+          "borderContact": {
+            "left": false,
+            "top": false,
+            "right": false,
+            "bottom": false
+          },
+          "cornersAlpha": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "alpha0RgbResiduePixels": 0,
+          "clipping": "NONE"
+        },
+        {
+          "index": 1,
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/NPC2WeaponImpactVFX/selected/revision-04-final-exact8/black_cloth_raider/VFX/frame_02.png",
+          "sha256": "43fa3ef222fc267466eb1e3bf2990637207ee6d9d2fd2809865c4fd6c14dbeac",
+          "open": true,
+          "mode": "RGBA",
+          "dimensions": [
+            627,
+            627
+          ],
+          "alphaBBox": [
+            63,
+            210,
+            523,
+            492
+          ],
+          "margins": {
+            "left": 63,
+            "top": 210,
+            "right": 104,
+            "bottom": 135
+          },
+          "borderContact": {
+            "left": false,
+            "top": false,
+            "right": false,
+            "bottom": false
+          },
+          "cornersAlpha": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "alpha0RgbResiduePixels": 0,
+          "clipping": "NONE"
+        },
+        {
+          "index": 2,
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/NPC2WeaponImpactVFX/selected/revision-04-final-exact8/black_cloth_raider/VFX/frame_03.png",
+          "sha256": "ca7567917b0e19929671192a5858f3f48168e518f40a0410b9ea1e0d22e05ea4",
+          "open": true,
+          "mode": "RGBA",
+          "dimensions": [
+            627,
+            627
+          ],
+          "alphaBBox": [
+            254,
+            219,
+            465,
+            440
+          ],
+          "margins": {
+            "left": 254,
+            "top": 219,
+            "right": 162,
+            "bottom": 187
+          },
+          "borderContact": {
+            "left": false,
+            "top": false,
+            "right": false,
+            "bottom": false
+          },
+          "cornersAlpha": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "alpha0RgbResiduePixels": 0,
+          "clipping": "NONE"
+        },
+        {
+          "index": 3,
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/NPC2WeaponImpactVFX/selected/revision-04-final-exact8/black_cloth_raider/VFX/frame_04.png",
+          "sha256": "202a368e95a6807782f1236ddea284cc9cb4a1a59f8016e25904d8afd9a374e3",
+          "open": true,
+          "mode": "RGBA",
+          "dimensions": [
+            627,
+            627
+          ],
+          "alphaBBox": [
+            105,
+            128,
+            565,
+            374
+          ],
+          "margins": {
+            "left": 105,
+            "top": 128,
+            "right": 62,
+            "bottom": 253
+          },
+          "borderContact": {
+            "left": false,
+            "top": false,
+            "right": false,
+            "bottom": false
+          },
+          "cornersAlpha": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "alpha0RgbResiduePixels": 0,
+          "clipping": "NONE"
+        }
+      ],
+      "uniqueSha4": true,
+      "bodyFree": true,
+      "hardBans": {
+        "neon": false,
+        "glow": false,
+        "crystal": false,
+        "radial": false,
+        "largeMass": false,
+        "crescent": false,
+        "observationOnly": true
+      },
+      "physicalPass": true,
+      "gif": {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/NPC2WeaponImpactVFX/selected/revision-04-final-exact8/qa-package-v001/gifs/black_cloth_raider__VFX.gif",
+        "sha256": "0c1f22ee0ee807fc0e99e25b1882ea180b199f1a0a2ff41817108aa5dcf7858e"
+      },
+      "provenanceOutputShaMatch4": true
+    },
+    "chain_dragger_raider": {
+      "inventory": {
+        "actual": [
+          "frame_01.png",
+          "frame_02.png",
+          "frame_03.png",
+          "frame_04.png"
+        ],
+        "expected": [
+          "frame_01.png",
+          "frame_02.png",
+          "frame_03.png",
+          "frame_04.png"
+        ],
+        "exact4Order": true
+      },
+      "frames": [
+        {
+          "index": 0,
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/NPC2WeaponImpactVFX/selected/revision-04-final-exact8/chain_dragger_raider/VFX/frame_01.png",
+          "sha256": "6cabd58f5456ad075455ddab8fb951f0462653301137c80036435be5e9b5ce96",
+          "open": true,
+          "mode": "RGBA",
+          "dimensions": [
+            627,
+            627
+          ],
+          "alphaBBox": [
+            231,
+            248,
+            364,
+            274
+          ],
+          "margins": {
+            "left": 231,
+            "top": 248,
+            "right": 263,
+            "bottom": 353
+          },
+          "borderContact": {
+            "left": false,
+            "top": false,
+            "right": false,
+            "bottom": false
+          },
+          "cornersAlpha": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "alpha0RgbResiduePixels": 0,
+          "clipping": "NONE"
+        },
+        {
+          "index": 1,
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/NPC2WeaponImpactVFX/selected/revision-04-final-exact8/chain_dragger_raider/VFX/frame_02.png",
+          "sha256": "a2d227e1fa34d94e9909b571b6df0f28374cee2414150af11b27afa9cfe9b085",
+          "open": true,
+          "mode": "RGBA",
+          "dimensions": [
+            627,
+            627
+          ],
+          "alphaBBox": [
+            25,
+            297,
+            601,
+            317
+          ],
+          "margins": {
+            "left": 25,
+            "top": 297,
+            "right": 26,
+            "bottom": 310
+          },
+          "borderContact": {
+            "left": false,
+            "top": false,
+            "right": false,
+            "bottom": false
+          },
+          "cornersAlpha": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "alpha0RgbResiduePixels": 0,
+          "clipping": "NONE"
+        },
+        {
+          "index": 2,
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/NPC2WeaponImpactVFX/selected/revision-04-final-exact8/chain_dragger_raider/VFX/frame_03.png",
+          "sha256": "be323ee12dcc016a085316e455298880e68a12601ea7747507cc90b8aea271c4",
+          "open": true,
+          "mode": "RGBA",
+          "dimensions": [
+            627,
+            627
+          ],
+          "alphaBBox": [
+            189,
+            307,
+            334,
+            354
+          ],
+          "margins": {
+            "left": 189,
+            "top": 307,
+            "right": 293,
+            "bottom": 273
+          },
+          "borderContact": {
+            "left": false,
+            "top": false,
+            "right": false,
+            "bottom": false
+          },
+          "cornersAlpha": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "alpha0RgbResiduePixels": 0,
+          "clipping": "NONE"
+        },
+        {
+          "index": 3,
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/NPC2WeaponImpactVFX/selected/revision-04-final-exact8/chain_dragger_raider/VFX/frame_04.png",
+          "sha256": "6abad72c4ec45505fbbc98ca0069dcb6b6d3596504d5c37b12f59d3d71eb7fbb",
+          "open": true,
+          "mode": "RGBA",
+          "dimensions": [
+            627,
+            627
+          ],
+          "alphaBBox": [
+            288,
+            265,
+            339,
+            363
+          ],
+          "margins": {
+            "left": 288,
+            "top": 265,
+            "right": 288,
+            "bottom": 264
+          },
+          "borderContact": {
+            "left": false,
+            "top": false,
+            "right": false,
+            "bottom": false
+          },
+          "cornersAlpha": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "alpha0RgbResiduePixels": 0,
+          "clipping": "NONE"
+        }
+      ],
+      "uniqueSha4": true,
+      "bodyFree": true,
+      "hardBans": {
+        "neon": false,
+        "glow": false,
+        "crystal": false,
+        "radial": false,
+        "largeMass": false,
+        "crescent": false,
+        "observationOnly": true
+      },
+      "physicalPass": true,
+      "gif": {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/NPC2WeaponImpactVFX/selected/revision-04-final-exact8/qa-package-v001/gifs/chain_dragger_raider__VFX.gif",
+        "sha256": "0f33beed3c3ed468e8f2f42387cf93659fa43f84c9a5f4cfafefd79dd781ede9"
+      },
+      "provenanceOutputShaMatch4": true
+    }
+  },
+  "timing": {
+    "frameTimes": [
+      0.0,
+      0.12,
+      0.24,
+      0.36
+    ],
+    "stopTime": 0.48,
+    "loop": true,
+    "exact": true
+  },
+  "hardBanObservation": {
+    "black_cloth_raider": {
+      "neon": false,
+      "glow": false,
+      "crystal": false,
+      "radial": false,
+      "largeMass": false,
+      "crescent": false,
+      "note": "No listed hard-ban motif observed in light/dark contacts; observation only, not visual-direction approval."
+    },
+    "chain_dragger_raider": {
+      "neon": false,
+      "glow": false,
+      "crystal": false,
+      "radial": false,
+      "largeMass": false,
+      "crescent": false,
+      "note": "No listed hard-ban motif observed in light/dark contacts; observation only, not visual-direction approval."
+    }
+  },
+  "pixelMutation": false,
+  "runtimeReleaseInstallAuthority": false,
+  "comparison": {
+    "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/NPC2WeaponImpactVFX/selected/revision-04-final-exact8/qa-package-v001/comparison-exact8.png",
+    "sha256": "45e862ead982f108d4e9a5a71d3dd4cd3e29640be2ee6bbcd0bebd72152ba62f"
+  },
+  "normalizationScriptProvenance": {
+    "sha256AsProvided": "50e5c1...ea3f",
+    "isAbbreviated": true
+  },
+  "previewReadback": [
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/NPC2WeaponImpactVFX/selected/revision-04-final-exact8/qa-package-v001/contacts/black_cloth_raider__VFX__200px__dark.png",
+      "sha256": "dad24ffbf53ee8d9f3ce0af6030ebc64c6bea72fd120d2480c9eb7ff15e17fce",
+      "format": "PNG",
+      "dimensions": [
+        800,
+        200
+      ],
+      "frames": 1,
+      "open": true
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/NPC2WeaponImpactVFX/selected/revision-04-final-exact8/qa-package-v001/contacts/black_cloth_raider__VFX__200px__light.png",
+      "sha256": "54105557f476e562679a67d6c1e802a702136cd088848eece47def2091b53253",
+      "format": "PNG",
+      "dimensions": [
+        800,
+        200
+      ],
+      "frames": 1,
+      "open": true
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/NPC2WeaponImpactVFX/selected/revision-04-final-exact8/qa-package-v001/contacts/black_cloth_raider__VFX__32px__dark.png",
+      "sha256": "1902f5da9a2e0671d945b431771957c84781b0ac1c61123f0332671294d2bb12",
+      "format": "PNG",
+      "dimensions": [
+        128,
+        32
+      ],
+      "frames": 1,
+      "open": true
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/NPC2WeaponImpactVFX/selected/revision-04-final-exact8/qa-package-v001/contacts/black_cloth_raider__VFX__32px__light.png",
+      "sha256": "6f0470f197e5e9030a073cc7cdf277efcca189d0619f847ab1593f4d74ac0e92",
+      "format": "PNG",
+      "dimensions": [
+        128,
+        32
+      ],
+      "frames": 1,
+      "open": true
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/NPC2WeaponImpactVFX/selected/revision-04-final-exact8/qa-package-v001/contacts/black_cloth_raider__VFX__80px__dark.png",
+      "sha256": "c0c63c545d538f297d3b5c19cd0f222656794d0ee48a4a7994fd4f79c0c7fe45",
+      "format": "PNG",
+      "dimensions": [
+        320,
+        80
+      ],
+      "frames": 1,
+      "open": true
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/NPC2WeaponImpactVFX/selected/revision-04-final-exact8/qa-package-v001/contacts/black_cloth_raider__VFX__80px__light.png",
+      "sha256": "77967e4cffecb566c9370ff9a6deea3c3d6e288050ad9c8d2d23a147b43190e3",
+      "format": "PNG",
+      "dimensions": [
+        320,
+        80
+      ],
+      "frames": 1,
+      "open": true
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/NPC2WeaponImpactVFX/selected/revision-04-final-exact8/qa-package-v001/contacts/chain_dragger_raider__VFX__200px__dark.png",
+      "sha256": "f2b13d80442f8db15b978dce7b45b5132d64a34fffe56e00f4dc4020e79baf5d",
+      "format": "PNG",
+      "dimensions": [
+        800,
+        200
+      ],
+      "frames": 1,
+      "open": true
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/NPC2WeaponImpactVFX/selected/revision-04-final-exact8/qa-package-v001/contacts/chain_dragger_raider__VFX__200px__light.png",
+      "sha256": "c0361ab15041f92aa9b1685171653398f9dd2239db334245ceb5c2ccc8666992",
+      "format": "PNG",
+      "dimensions": [
+        800,
+        200
+      ],
+      "frames": 1,
+      "open": true
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/NPC2WeaponImpactVFX/selected/revision-04-final-exact8/qa-package-v001/contacts/chain_dragger_raider__VFX__32px__dark.png",
+      "sha256": "a6ca62a3dae3223c406dfb6749a81e78f80c654562115bcb28e8a510ac7afab3",
+      "format": "PNG",
+      "dimensions": [
+        128,
+        32
+      ],
+      "frames": 1,
+      "open": true
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/NPC2WeaponImpactVFX/selected/revision-04-final-exact8/qa-package-v001/contacts/chain_dragger_raider__VFX__32px__light.png",
+      "sha256": "1e6d00bae9bcd992449db21743b11fdff488c7eaf015ee07de47afe795a8c9a2",
+      "format": "PNG",
+      "dimensions": [
+        128,
+        32
+      ],
+      "frames": 1,
+      "open": true
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/NPC2WeaponImpactVFX/selected/revision-04-final-exact8/qa-package-v001/contacts/chain_dragger_raider__VFX__80px__dark.png",
+      "sha256": "c160cd653c001a3c057724af4670475b52fb35b4f69fec7badc7f66b31b15bf3",
+      "format": "PNG",
+      "dimensions": [
+        320,
+        80
+      ],
+      "frames": 1,
+      "open": true
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/NPC2WeaponImpactVFX/selected/revision-04-final-exact8/qa-package-v001/contacts/chain_dragger_raider__VFX__80px__light.png",
+      "sha256": "f2d10518f02b5bb893320cadef1f3b9083ebe5f59a31579ad33d78d82233a640",
+      "format": "PNG",
+      "dimensions": [
+        320,
+        80
+      ],
+      "frames": 1,
+      "open": true
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/NPC2WeaponImpactVFX/selected/revision-04-final-exact8/qa-package-v001/gifs/black_cloth_raider__VFX.gif",
+      "sha256": "0c1f22ee0ee807fc0e99e25b1882ea180b199f1a0a2ff41817108aa5dcf7858e",
+      "format": "GIF",
+      "dimensions": [
+        256,
+        256
+      ],
+      "frames": 4,
+      "open": true
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/NPC2WeaponImpactVFX/selected/revision-04-final-exact8/qa-package-v001/gifs/chain_dragger_raider__VFX.gif",
+      "sha256": "0f33beed3c3ed468e8f2f42387cf93659fa43f84c9a5f4cfafefd79dd781ede9",
+      "format": "GIF",
+      "dimensions": [
+        256,
+        256
+      ],
+      "frames": 4,
+      "open": true
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/NPC2WeaponImpactVFX/selected/revision-04-final-exact8/qa-package-v001/comparison-exact8.png",
+      "sha256": "45e862ead982f108d4e9a5a71d3dd4cd3e29640be2ee6bbcd0bebd72152ba62f",
+      "format": "PNG",
+      "dimensions": [
+        800,
+        400
+      ],
+      "frames": 1,
+      "open": true
+    }
+  ],
+  "summary": {
+    "actions": 2,
+    "frames": 8,
+    "exact8": true,
+    "physicalPass": true,
+    "bodyFree": true,
+    "provenanceOutputShaMatch8": true,
+    "timingPass": true,
+    "contacts": 12,
+    "gifs": 2,
+    "gifExact4": true,
+    "strictPass": true
+  }
+}

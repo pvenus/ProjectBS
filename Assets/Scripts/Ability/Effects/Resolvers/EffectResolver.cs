@@ -51,6 +51,12 @@ namespace Effect
                     continue;
                 }
 
+                resolvedEntry = ResolveSwiftStepSnapshot(
+                    entry,
+                    resolvedEntry,
+                    targetCharacter,
+                    effectUpgradeModifiers);
+
                 EffectCategoryType categoryType = resolvedEntry.CategoryType;
 
                 results.Add(new EffectEntryRuntime(
@@ -64,6 +70,52 @@ namespace Effect
             return results.Count > 0
                 ? results.ToArray()
                 : null;
+        }
+
+        private static EffectEntryRuntime ResolveSwiftStepSnapshot(
+            EffectEntrySO source,
+            EffectEntryRuntime resolved,
+            CharacterManager target,
+            System.Collections.Generic.IReadOnlyList<EffectUpgradeModifierData> modifiers)
+        {
+            string effectId = source?.EffectSO?.EffectId;
+            if (string.IsNullOrEmpty(effectId) ||
+                effectId.IndexOf(".active_4.swift_step.effect.self.", System.StringComparison.Ordinal) < 0)
+            {
+                return resolved;
+            }
+
+            if (!(source.EffectSO.Config is StatModifierEffectConfig config) || target == null)
+            {
+                return null;
+            }
+
+            float value = config.Value;
+            float duration = source.Duration;
+            if (modifiers != null)
+            {
+                for (int i = 0; i < modifiers.Count; i++)
+                {
+                    EffectUpgradeModifierData modifier = modifiers[i];
+                    if (modifier == null ||
+                        !string.Equals(modifier.TargetEffectId, effectId, System.StringComparison.Ordinal))
+                        continue;
+                    if (modifier.OperationType != global::Skill.SkillStatModifierOperationType.Flat)
+                        return null;
+                    if (modifier.FieldType == EffectModifierFieldType.Value) value += modifier.Value;
+                    else if (modifier.FieldType == EffectModifierFieldType.Duration) duration += modifier.Value;
+                    else return null;
+                }
+            }
+
+            EffectRuntimeData runtime = new StatModifierEffectRuntime(
+                source.EffectSO, config, target, value);
+            return new EffectEntryRuntime(
+                runtime,
+                resolved.LifetimeType,
+                resolved.CategoryType,
+                Mathf.Max(0f, duration),
+                resolved.MaxApplyCount);
         }
 
         public EffectEntryRuntime Resolve(

@@ -51,7 +51,8 @@ public class EquipmentSkillResolver
                 : 1f,
 
             visualContext = BuildVisualContext(equipmentSo),
-            upgradeRuntimeData = upgradeRuntimeData
+            upgradeRuntimeData = upgradeRuntimeData,
+            comboProfile = equipmentSo.ComboProfile
         };
     }
 
@@ -61,7 +62,18 @@ public class EquipmentSkillResolver
         GameObject target,
         Vector2 spawnPosition,
         Vector2 direction,
-        Vector2? explicitTargetPosition = null)
+        Vector2? explicitTargetPosition = null,
+        int selectedHitIndex = -1,
+        AnimationClip visualClipOverride = null,
+        SkillAnimationVfxProfileSO animationVfxProfileOverride = null,
+        SpritePresentationCalibrationProfileSO presentationCalibration = null,
+        string comboToken = null,
+        bool? criticalOverride = null,
+        float damageWeight = 1f,
+        int comboIndex = -1,
+        SkillHitSO hitOverride = null,
+        bool suppressVisual = false,
+        float minimumVisualLifetime = 0f)
     {
         if (runtime == null)
         {
@@ -130,7 +142,26 @@ public class EquipmentSkillResolver
         ResolvedHitRuntimeData[] hitRuntimes =
             CreateHitRuntimeDatas(
                 runtime,
-                resolvedStatModifiers);
+                resolvedStatModifiers,
+                selectedHitIndex,
+                hitOverride);
+
+        float resolvedDamageWeight = Mathf.Clamp01(damageWeight);
+        if (resolvedDamageWeight < 1f)
+        {
+            for (int i = 0; i < hitRuntimes.Length; i++)
+            {
+                SkillDamageProfileDto profile = hitRuntimes[i].damageProfile;
+                if (profile == null)
+                {
+                    continue;
+                }
+
+                profile.baseDamage *= resolvedDamageWeight;
+                profile.firstHitBaseDamage *= resolvedDamageWeight;
+                profile.attackDamagePercent *= resolvedDamageWeight;
+            }
+        }
 
         if (hitRuntimes == null || hitRuntimes.Length == 0)
         {
@@ -147,6 +178,15 @@ public class EquipmentSkillResolver
             ProjectileRuntimeData projectileData = CloneProjectileRuntimeData(baseProjectileData);
             projectileData.hit = hitRuntimes[i].hit;
             projectileData.damageProfile = hitRuntimes[i].damageProfile;
+            projectileData.visualClipOverride = visualClipOverride;
+            projectileData.animationVfxProfileOverride = animationVfxProfileOverride;
+            projectileData.presentationCalibration = presentationCalibration;
+            projectileData.comboToken = comboToken;
+            projectileData.comboIndex = comboIndex >= 0 ? comboIndex : selectedHitIndex;
+            projectileData.useCriticalOverride = criticalOverride.HasValue;
+            projectileData.criticalOverride = criticalOverride.GetValueOrDefault();
+            projectileData.suppressVisual = suppressVisual;
+            projectileData.minimumVisualLifetime = Mathf.Max(0f, minimumVisualLifetime);
             ResolveProjectileVisualRuntime(runtime, projectileData);
             projectileDatas[i] = projectileData;
         }
@@ -216,7 +256,15 @@ public class EquipmentSkillResolver
             sortingRelation = source.sortingRelation,
             material = source.material,
             color = source.color,
-            useAnimatorTriggers = source.useAnimatorTriggers
+            useAnimatorTriggers = source.useAnimatorTriggers,
+            visualClipOverride = source.visualClipOverride,
+            animationVfxProfileOverride = source.animationVfxProfileOverride,
+            minimumVisualLifetime = source.minimumVisualLifetime,
+            presentationCalibration = source.presentationCalibration,
+            comboToken = source.comboToken,
+            comboIndex = source.comboIndex,
+            useCriticalOverride = source.useCriticalOverride,
+            criticalOverride = source.criticalOverride
         };
     }
 
@@ -396,10 +444,14 @@ public class EquipmentSkillResolver
 
     private ResolvedHitRuntimeData[] CreateHitRuntimeDatas(
         EquipmentSkillRuntimeData runtime,
-        List<SkillStatModifierData> resolvedStatModifiers)
+        List<SkillStatModifierData> resolvedStatModifiers,
+        int selectedHitIndex = -1,
+        SkillHitSO hitOverride = null)
     {
         EquipmentSkillSO equipmentSo = runtime?.sourceEquipment;
-        SkillHitSO[] hitSos = equipmentSo != null
+        SkillHitSO[] hitSos = hitOverride != null
+            ? new[] { hitOverride }
+            : equipmentSo != null
             ? equipmentSo.HitSos
             : null;
 
@@ -412,6 +464,10 @@ public class EquipmentSkillResolver
 
         for (int i = 0; i < hitSos.Length; i++)
         {
+            if (hitOverride == null && selectedHitIndex >= 0 && i != selectedHitIndex)
+            {
+                continue;
+            }
             SkillHitSO hitSo = hitSos[i];
 
             if (hitSo == null)
@@ -431,9 +487,8 @@ public class EquipmentSkillResolver
                     resolvedStatModifiers);
 
             int resolvedMaxHitCount =
-                statResolver.ResolveIntStat(
-                    equipmentSo,
-                    SkillStatModifierType.MaxHitCount,
+                statResolver.ResolveHitMaxHitCount(
+                    hitSo,
                     resolvedStatModifiers);
 
             SkillProjectileHitDto hitDto = CreateHitDto(
@@ -512,15 +567,18 @@ public class EquipmentSkillResolver
         projectileData.projectileVisualType = baseVisual != null
             ? baseVisual.ProjectileVisualType
             : ProjectileVisualType.Default;
+        projectileData.suppressVisual = projectileData.suppressVisual ||
+            projectileData.projectileVisualType == ProjectileVisualType.None;
         projectileData.sortingRelation = baseVisual != null
             ? baseVisual.SortingRelation
             : SkillSortingRelation.SameAsOwner;
 
         projectileData.material = null;
         projectileData.color = Color.white;
-        projectileData.useAnimatorTriggers = baseVisual == null ||
+        projectileData.useAnimatorTriggers = !projectileData.suppressVisual &&
+                                             (baseVisual == null ||
                                              baseVisual.AnimationClips == null ||
-                                             baseVisual.AnimationClips.Length == 0;
+                                             baseVisual.AnimationClips.Length == 0);
     }
 
     private ResolvedVisualContextDto BuildVisualContext(

@@ -99,7 +99,7 @@ public class MovementController : MonoBehaviour
     /// </summary>
     public void MoveTo(Vector2 targetPosition)
     {
-        _targetPosition = targetPosition;
+        _targetPosition = Battle.BattleMapBoundsContext.ClampActorCenter(targetPosition);
         _moveMode = MoveMode.Target;
         _hasReachedTarget = false;
     }
@@ -144,7 +144,14 @@ public class MovementController : MonoBehaviour
         if (_rb == null)
             return;
 
-        _rb.linearVelocity = _moveDirection * moveSpeed;
+        Vector2 velocity = _moveDirection * moveSpeed;
+        if (Battle.BattleMapBoundsContext.IsActive)
+        {
+            Vector2 next = _rb.position + velocity * Time.fixedDeltaTime;
+            Vector2 clamped = Battle.BattleMapBoundsContext.ClampActorCenter(next);
+            velocity = (clamped - _rb.position) / Mathf.Max(.0001f, Time.fixedDeltaTime);
+        }
+        _rb.linearVelocity = velocity;
     }
 
     private void TickTargetMove()
@@ -165,7 +172,14 @@ public class MovementController : MonoBehaviour
         }
 
         _moveDirection = delta.normalized;
-        _rb.linearVelocity = _moveDirection * moveSpeed;
+        Vector2 velocity = _moveDirection * moveSpeed;
+        if (Battle.BattleMapBoundsContext.IsActive)
+        {
+            Vector2 next = _rb.position + velocity * Time.fixedDeltaTime;
+            Vector2 clamped = Battle.BattleMapBoundsContext.ClampActorCenter(next);
+            velocity = (clamped - _rb.position) / Mathf.Max(.0001f, Time.fixedDeltaTime);
+        }
+        _rb.linearVelocity = velocity;
         _hasReachedTarget = false;
     }
 

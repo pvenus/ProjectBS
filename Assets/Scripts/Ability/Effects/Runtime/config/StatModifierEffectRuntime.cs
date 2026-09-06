@@ -1,3 +1,4 @@
+using System.Collections;
 using Character;
 
 namespace Effect
@@ -34,6 +35,17 @@ namespace Effect
                 return;
             }
 
+            if (config.TargetStat == Stat.StatType.RootDuration)
+            {
+                float requested = UnityEngine.Mathf.Clamp(
+                    valueOverride ?? config.Value,
+                    0f,
+                    0.20f);
+                targetCharacterManager.StartCoroutine(ApplyRootAfterDisplacement(requested));
+                appliedValue = 0f;
+                return;
+            }
+
             appliedValue = CalculateModifierValue();
 
             targetCharacterManager.AddStat(
@@ -43,7 +55,8 @@ namespace Effect
 
         public override void OnRemove()
         {
-            if (effectSO == null || config == null || targetCharacterManager == null)
+            if (effectSO == null || config == null || targetCharacterManager == null
+                || config.TargetStat == Stat.StatType.RootDuration)
             {
                 return;
             }
@@ -72,6 +85,33 @@ namespace Effect
 
                 _ => resolvedValue
             };
+        }
+
+        private IEnumerator ApplyRootAfterDisplacement(float requested)
+        {
+            MovementMono movement = targetCharacterManager != null
+                ? targetCharacterManager.GetComponent<MovementMono>()
+                  ?? targetCharacterManager.GetComponentInParent<MovementMono>()
+                  ?? targetCharacterManager.GetComponentInChildren<MovementMono>()
+                : null;
+
+            while (targetCharacterManager != null
+                   && targetCharacterManager.isActiveAndEnabled
+                   && movement != null
+                   && movement.IsKnockingBack())
+            {
+                yield return null;
+            }
+
+            if (targetCharacterManager == null || !targetCharacterManager.isActiveAndEnabled)
+            {
+                yield break;
+            }
+
+            float current = targetCharacterManager.GetStatValue(config.TargetStat);
+            targetCharacterManager.SetStat(
+                config.TargetStat,
+                UnityEngine.Mathf.Max(current, requested));
         }
 
         private string GetTargetRuntimeId()

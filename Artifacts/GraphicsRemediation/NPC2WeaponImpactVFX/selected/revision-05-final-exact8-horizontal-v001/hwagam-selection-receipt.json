@@ -1,0 +1,60 @@
+{
+  "schemaVersion": "hwagam_npc2_weapon_impact_vfx_selection_v1",
+  "status": "SELECTED_SOURCE_AND_PHYSICAL_QA_PASS_INSTALL_NOT_AUTHORIZED",
+  "scope": [
+    "black_cloth_raider.BasicAttack.VFX",
+    "chain_dragger_raider.BasicAttack.VFX"
+  ],
+  "selection": {
+    "candidate": "A-horizontal-r5",
+    "reason": "Black knife follows the supplied BasicAttack source's screen-right horizontal thrust/cut axis; chain remains a thin directional pressure trace. Both are restrained, body-free ink/dust acknowledgements without neon, glow, crystal, radial burst, crescent, UI, or large opaque mass.",
+    "candidateComparison": {
+      "A": "selected after black-axis correction; smallest and most weapon-specific silhouette",
+      "B": "not selected; heavier/crescent-like mass",
+      "C": "not selected; heavier/crescent-like mass"
+    }
+  },
+  "sources": {
+    "blackReference": "/Users/pvenus/imageforge-mcp/generated_image/black_cloth_raider/BasicAttack/frame_01.png..frame_04.png",
+    "blackBoard": {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/NPC2WeaponImpactVFX/selected/revision-04-black-horizontal/black_cloth_raider/VFX-board.png",
+      "sha256": "2aeaefdca644a3142f7257610bc218f045c6811191deb3588c9508dd95a2fbb5"
+    },
+    "chainFramesRoot": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/NPC2WeaponImpactVFX/selected/revision-03-A-chain-standalone/chain_dragger_raider/frames"
+  },
+  "deliverable": {
+    "root": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/NPC2WeaponImpactVFX/selected/revision-05-final-exact8-horizontal-v001",
+    "frameCount": 8,
+    "perAction": 4,
+    "canvas": [627, 627],
+    "mode": "RGBA",
+    "pivot": [0.5, 0.5],
+    "timestampsSeconds": [0.0, 0.12, 0.24, 0.36],
+    "stopSeconds": 0.48,
+    "loop": true,
+    "physicalQa": "PASS",
+    "visualSelection": "PASS_SOURCE_DIRECTION",
+    "runtimeReadability": "T0_REQUIRED_DARK_CONTACTS_INTENTIONALLY_SUBTLE"
+  },
+  "evidence": {
+    "provenance": {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/NPC2WeaponImpactVFX/selected/revision-05-final-exact8-horizontal-v001/normalization-provenance.json",
+      "sha256": "1535eb13d6dcfc1263435f1762e92333e096bfc366a78034e2e6b6c1a0092b27"
+    },
+    "qaManifest": {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/NPC2WeaponImpactVFX/selected/revision-05-final-exact8-horizontal-v001/qa-package-v001/source-output-sha-manifest.json",
+      "sha256": "41e0e8fc4de5a11d47bd4e7bd7bb5fd1cf8d1efc8d2752cb04a4f99da2118a5a"
+    },
+    "qaReceipt": {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/NPC2WeaponImpactVFX/selected/revision-05-final-exact8-horizontal-v001/qa-package-v001/qa-receipt.json",
+      "sha256": "f94c3795ec9feb8ad6dd9870be5fccac4e9a16b49463bc4439e1d979335a11ec"
+    }
+  },
+  "boundaries": {
+    "unityWrite": false,
+    "canonicalWrite": false,
+    "installAuthority": false,
+    "mainCharacterArtChanged": false,
+    "rollback": "Delete or ignore revision-05-final-exact8-horizontal-v001; no canonical/project binding was changed."
+  }
+}

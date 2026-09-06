@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bdfb642961ab451b87e9c00a70de4c1, type: 3}
+  m_Name: skill.character.seojin.2.active_4.swift_step.cast
+  m_EditorClassIdentifier: Assembly-CSharp::Skill.SkillCastSO
+  castId: skill.character.seojin.2.active_4.swift_step.cast
+  cooldown: 10
+  castTime: 0
+  range: 0
+  targetingType: 1
+  burst:
+    count: 1
+    interval: 0
+  castMove:
+    moveType: 1
+    distance: 2.5
+    duration: 0.2
+    anticipation: 0.08
+    wallSkin: 0.1
+    targetClearance: 0.35
+    minSuccessDistance: 0.4
+    stopOnWall: 1
+  selfEffects: []
+  postMoveSelfEffects:
+  - {fileID: 11400000, guid: c803ab699259246ff94143ee70405568, type: 2}
+  - {fileID: 11400000, guid: da5370e44ac4c406cb5155bc581801a4, type: 2}
+  mobilityVfxClip: {fileID: 7400000, guid: 3f7d437ee0614419086f0a77923c6333, type: 2}
+  mobilityBodyPresentation:
+    profileId: presentation.character.seojin.2.active_4.swift_step.body.v1
+    grade: 2
+    reducedMotion: 0
+    disablePresentation: 0
+  bodyActionClip: {fileID: 7400000, guid: fb54330c4e1b244f3e16af7139691fb9, type: 2}
+  bodyActionPlayback:
+    contactTime: 0.28
+    duration: 0.42
+  skipAttackAnimation: 1

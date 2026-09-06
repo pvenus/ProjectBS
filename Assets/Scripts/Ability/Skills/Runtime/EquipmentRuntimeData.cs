@@ -34,4 +34,5 @@ public class EquipmentSkillRuntimeData
     [Header("Resolved Runtime Context")]
     public ResolvedVisualContextDto visualContext;
     public EquipmentUpgradeRuntimeData upgradeRuntimeData;
+    public Skill.SkillComboProfile comboProfile;
 }

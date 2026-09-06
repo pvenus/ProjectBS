@@ -152,7 +152,13 @@ namespace Skill
         /// 화살비, 운석우, 낙뢰 등 다수 오브젝트 낙하 연출.
         /// 별도 코드 로직으로 처리한다.
         /// </summary>
-        Rain = 1
+        Rain = 1,
+
+        /// <summary>
+        /// 의도적으로 투사체/피격 스프라이트 연출을 표시하지 않는다.
+        /// 투사체의 충돌, 피해, 효과 및 수명주기는 그대로 실행된다.
+        /// </summary>
+        None = 2
     }
 
     /// <summary>
@@ -214,7 +220,8 @@ namespace Skill
     public enum SkillComponentType
     {
         Projectile = 0,
-        Spawn = 1
+        Spawn = 1,
+        Mobility = 2
     }
 
     public enum SkillSortingRelation

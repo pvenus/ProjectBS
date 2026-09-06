@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: skill.character.black_cloth_raider.1.basic_attack.black_knife_cut.cast
   m_EditorClassIdentifier: Assembly-CSharp::Skill.SkillCastSO
   castId: skill.character.black_cloth_raider.1.basic_attack.black_knife_cut.cast
-  cooldown: 1
-  castTime: 0
-  range: 0.5
+  cooldown: 2
+  castTime: 0.9
+  range: 0.25
   targetingType: 3
   burst:
     count: 1
@@ -24,5 +24,22 @@ MonoBehaviour:
     moveType: 0
     distance: 0
     duration: 0
+    anticipation: 0
+    wallSkin: 0.1
+    targetClearance: 0.35
+    minSuccessDistance: 0.4
+    stopOnWall: 1
   selfEffects: []
+  postMoveSelfEffects: []
+  mobilityVfxClip: {fileID: 0}
+  mobilityBodyPresentation:
+    profileId:
+    grade: 1
+    reducedMotion: 0
+    disablePresentation: 0
+  bodyActionClip: {fileID: 7400000, guid: 7d4f5d3b3000446e3b093d136337deee, type: 2}
+  bodyActionPlayback:
+    contactTime: 0.12
+    duration: 0.34
   skipAttackAnimation: 0
+  snapshotTargetPointOnCast: 1

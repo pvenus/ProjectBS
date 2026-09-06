@@ -312,6 +312,22 @@ public class EquipmentStatResolver
             modifiers);
     }
 
+    public int ResolveHitMaxHitCount(
+        SkillHitSO hitSo,
+        IEnumerable<SkillStatModifierData> modifiers)
+    {
+        float baseValue = hitSo != null
+            ? Mathf.Max(1, hitSo.MaxHitCount)
+            : 1f;
+        float resolved = ApplyStatModifiers(
+            baseValue,
+            SkillStatModifierType.MaxHitCount,
+            modifiers);
+        return Mathf.RoundToInt(ClampResolvedStat(
+            SkillStatModifierType.MaxHitCount,
+            resolved));
+    }
+
     public float ResolveCooldown(
         EquipmentSkillSO equipmentSo,
         IEnumerable<SkillStatModifierData> modifiers)

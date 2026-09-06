@@ -65,12 +65,44 @@ namespace ResourceTools.Skill
 
             EnsureFolder(outputFolder);
 
-            string assetName = ResolveAssetName(json);
+            string assetName = NormalizeHitAssetName(ResolveAssetName(json));
             string assetPath = Path.Combine(outputFolder, assetName + ".asset")
                 .Replace("\\", "/");
 
-            SkillHitSO hitSo =
-                AssetDatabase.LoadAssetAtPath<SkillHitSO>(assetPath);
+            bool hasTerminalHitSuffix = assetName.EndsWith(".hit", StringComparison.OrdinalIgnoreCase);
+            string legacyDuplicatePath = Path.Combine(outputFolder, assetName + ".hit.asset")
+                .Replace("\\", "/");
+            bool canonicalExists = AssetDatabase.LoadMainAssetAtPath(assetPath) != null;
+            bool legacyDuplicateExists = hasTerminalHitSuffix &&
+                                         !string.Equals(
+                                             assetPath,
+                                             legacyDuplicatePath,
+                                             StringComparison.OrdinalIgnoreCase) &&
+                                         AssetDatabase.LoadMainAssetAtPath(legacyDuplicatePath) != null;
+
+            if (canonicalExists && legacyDuplicateExists)
+            {
+                Debug.LogError(
+                    $"[SkillHitAssetBuilder] Ambiguous duplicate hit assets. " +
+                    $"canonical={assetPath} legacy={legacyDuplicatePath}. Resolve explicitly; no asset was changed.");
+                return null;
+            }
+
+            if (!canonicalExists && legacyDuplicateExists)
+            {
+                string moveError = AssetDatabase.MoveAsset(legacyDuplicatePath, assetPath);
+                if (!string.IsNullOrEmpty(moveError))
+                {
+                    Debug.LogError(
+                        $"[SkillHitAssetBuilder] Failed to move legacy hit asset to canonical path. " +
+                        $"from={legacyDuplicatePath} to={assetPath} error={moveError}");
+                    return null;
+                }
+
+                AssetDatabase.ImportAsset(assetPath, ImportAssetOptions.ForceSynchronousImport);
+            }
+
+            SkillHitSO hitSo = AssetDatabase.LoadAssetAtPath<SkillHitSO>(assetPath);
 
             if (hitSo == null)
             {
@@ -82,11 +114,31 @@ namespace ResourceTools.Skill
 
             EditorUtility.SetDirty(hitSo);
             AssetDatabase.SaveAssets();
-            AssetDatabase.Refresh();
+            AssetDatabase.ImportAsset(assetPath, ImportAssetOptions.ForceSynchronousImport);
+
+            SkillHitSO persisted = AssetDatabase.LoadAssetAtPath<SkillHitSO>(assetPath);
+            if (persisted == null)
+            {
+                Debug.LogError(
+                    $"[SkillHitAssetBuilder] Persisted canonical SkillHitSO could not be reloaded: {assetPath}");
+                return null;
+            }
 
             Debug.Log($"[SkillHitAssetBuilder] Updated SkillHitSO: {assetPath}");
 
-            return hitSo;
+            return persisted;
+        }
+
+        internal static string NormalizeHitAssetName(string assetName)
+        {
+            const string duplicatedSuffix = ".hit.hit";
+            while (!string.IsNullOrWhiteSpace(assetName) &&
+                   assetName.EndsWith(duplicatedSuffix, StringComparison.OrdinalIgnoreCase))
+            {
+                assetName = assetName.Substring(0, assetName.Length - ".hit".Length);
+            }
+
+            return assetName;
         }
 
 

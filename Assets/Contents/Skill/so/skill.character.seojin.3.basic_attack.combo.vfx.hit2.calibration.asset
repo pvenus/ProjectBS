@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1bca11b54e64898b01c0a54f18a7721, type: 3}
+  m_Name: skill.character.seojin.3.basic_attack.combo.vfx.hit2.calibration
+  m_EditorClassIdentifier: Assembly-CSharp::Skill.SpritePresentationCalibrationProfileSO
+  profileId: skill.character.seojin.3.basic_attack.combo.vfx.hit2.calibration
+  entries:
+  - frameIndex: 0
+    scale: {x: 1.128571, y: 0.517647}
+    offset: {x: 0, y: 0.028471}
+  - frameIndex: 1
+    scale: {x: 1.493671, y: 0.302439}
+    offset: {x: 0, y: 0.001512}
+  - frameIndex: 2
+    scale: {x: 1.815385, y: 0.430693}
+    offset: {x: 0, y: 0.000693}
+  - frameIndex: 3
+    scale: {x: 2, y: 0.686275}
+    offset: {x: 0, y: 0.02902}
+  - frameIndex: 4
+    scale: {x: 2.165138, y: 0.689655}
+    offset: {x: 0.010826, y: -0.031034}
+  - frameIndex: 5
+    scale: {x: 2.107143, y: 0.320652}
+    offset: {x: 0.126429, y: -0.033478}

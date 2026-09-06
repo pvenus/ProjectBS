@@ -48,6 +48,7 @@ public class ProjectileFactory
                 instanceData,
                 Quaternion.identity,
                 null);
+            if (instance == null) return firstInstance;
             ConfigureSpawnedProjectile(instance, instanceData);
             instance.Initialize(instanceData);
 
@@ -92,6 +93,7 @@ public class ProjectileFactory
                 instanceData,
                 Quaternion.identity,
                 parent);
+            if (instance == null) return firstInstance;
             ConfigureSpawnedProjectile(instance, instanceData);
             instance.Initialize(instanceData);
 
@@ -138,6 +140,7 @@ public class ProjectileFactory
                 instanceData,
                 instanceRotation,
                 null);
+            if (instance == null) return firstInstance;
             ConfigureSpawnedProjectile(instance, instanceData);
             instance.Initialize(instanceData);
 
@@ -155,7 +158,27 @@ public class ProjectileFactory
         Quaternion rotation,
         Transform parent)
     {
+        var ownership = Battle.Morpg.MorpgOwnedObject.From(runtimeData.owner);
+        if (ownership != null && ownership.IsClosed) return null;
         ProjectileEntity prefab = ResolveProjectilePrefab();
+        if (ownership != null)
+        {
+            if (ownership.Staging == null) return null;
+            ProjectileEntity owned;
+            if (prefab != null)
+                owned = Object.Instantiate(prefab, runtimeData.spawnPosition, rotation, ownership.Staging);
+            else
+            {
+                var root = new GameObject("MORPG ProjectileEntity");
+                root.transform.SetParent(ownership.Staging, false);
+                root.transform.position = runtimeData.spawnPosition;
+                root.transform.rotation = rotation;
+                owned = root.AddComponent<ProjectileEntity>();
+            }
+            if (!ownership.RegisterProjectile(owned.gameObject)) return null;
+            owned.transform.SetParent(parent, true);
+            return owned;
+        }
         if (prefab != null)
         {
             return Object.Instantiate(
@@ -247,6 +270,8 @@ public class ProjectileFactory
         Transform parent,
         bool oriented)
     {
+        var sourceScope = Battle.Morpg.MorpgOwnedObject.From(runtimeData.owner);
+        bool scoped = sourceScope != null;
         int count = Mathf.Max(1, runtimeData.projectileCount);
         float interval = Mathf.Max(
             0f,
@@ -256,6 +281,7 @@ public class ProjectileFactory
 
         for (int i = 0; i < count; i++)
         {
+            if (scoped && (sourceScope == null || sourceScope.IsClosed)) yield break;
             var instanceData = CreateInstanceRuntimeData(runtimeData, i);
             Quaternion instanceRotation = oriented
                 ? ResolveSpawnRotation(instanceData)
@@ -266,6 +292,7 @@ public class ProjectileFactory
                 instanceRotation,
                 parent);
 
+            if (instance == null) yield break;
             ConfigureSpawnedProjectile(instance, instanceData);
 
             instance.Initialize(instanceData);
@@ -701,7 +728,16 @@ public class ProjectileFactory
             color = source.color,
             projectileVisualType = source.projectileVisualType,
             sortingRelation = source.sortingRelation,
-            useAnimatorTriggers = source.useAnimatorTriggers
+            useAnimatorTriggers = source.useAnimatorTriggers,
+            visualClipOverride = source.visualClipOverride,
+            animationVfxProfileOverride = source.animationVfxProfileOverride,
+            minimumVisualLifetime = source.minimumVisualLifetime,
+            presentationCalibration = source.presentationCalibration,
+            comboToken = source.comboToken,
+            comboIndex = source.comboIndex,
+            useCriticalOverride = source.useCriticalOverride,
+            criticalOverride = source.criticalOverride,
+            suppressVisual = source.suppressVisual
         };
 
         return data;

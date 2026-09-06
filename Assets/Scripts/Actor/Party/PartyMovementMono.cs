@@ -136,6 +136,8 @@ public class PartyMovementMono : MonoBehaviour
 
     private bool _isMovementControlledByPlayer = false;
     private Vector2 _manualMoveInput = Vector2.zero;
+    private object _externalMovementOwner;
+    private float _lastManualInputTime = -999f;
 
     private void Awake()
     {
@@ -192,15 +194,46 @@ public class PartyMovementMono : MonoBehaviour
     }
 
     public bool IsMovementControlledByPlayer() => _isMovementControlledByPlayer;
+    public bool HasRecentManualInput(float graceSeconds = 0.30f) =>
+        _isMovementControlledByPlayer ||
+        _manualMoveInput.sqrMagnitude > 0.0001f ||
+        Time.time - _lastManualInputTime < Mathf.Max(0f, graceSeconds);
+
+    public bool TryAcquireExternalMovement(
+        object owner,
+        bool allowManualOverride = false)
+    {
+        if (owner == null || (!allowManualOverride && HasRecentManualInput()) ||
+            (_externalMovementOwner != null && !ReferenceEquals(_externalMovementOwner, owner)))
+        {
+            return false;
+        }
+        StopMovement();
+        _externalMovementOwner = owner;
+        return true;
+    }
+
+    public void ReleaseExternalMovement(object owner)
+    {
+        if (!ReferenceEquals(_externalMovementOwner, owner)) return;
+        _externalMovementOwner = null;
+        StopMovement();
+        _phase = MovePhase.ComputePosition;
+        _phaseTimer = 0f;
+    }
 
     public void SetManualMoveInput(Vector2 input)
     {
         _manualMoveInput = Vector2.ClampMagnitude(input, 1f);
+        if (_manualMoveInput.sqrMagnitude > 0.0001f)
+        {
+            _lastManualInputTime = Time.time;
+        }
     }
 
     private void Update()
     {
-        if (_isMovementControlledByPlayer)
+        if (_isMovementControlledByPlayer || _externalMovementOwner != null)
             return;
 
         _phaseTimer += Time.deltaTime;
@@ -292,6 +325,10 @@ public class PartyMovementMono : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (_externalMovementOwner != null)
+        {
+            return;
+        }
         if (_animationMono != null && _animationMono.IsPlayingAttack())
         {
             StopMovement();

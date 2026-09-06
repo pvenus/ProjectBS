@@ -17,7 +17,7 @@ public class SkillUpgradeMono : MonoBehaviour
     [Serializable]
     public class SkillUpgradeState
     {
-        [Tooltip("0 = BasicAttack, 1 = Skill1, 2 = Skill2, 3 = Skill3")]
+        [Tooltip("0 = BasicAttack, 1 = Skill1, 2 = Skill2, 3 = Skill3, 4 = Skill4")]
         public int slotIndex;
 
         [Header("Damage")]
@@ -201,7 +201,7 @@ public class SkillUpgradeMono : MonoBehaviour
             if (state == null)
                 continue;
 
-            int slotIndex = Mathf.Clamp(state.slotIndex, 0, 3);
+            int slotIndex = Mathf.Clamp(state.slotIndex, 0, 4);
             state.slotIndex = slotIndex;
 
             if (_stateMap.ContainsKey(slotIndex))
@@ -227,7 +227,7 @@ public class SkillUpgradeMono : MonoBehaviour
     public SkillUpgradeData GetUpgradeDataBySlot(int slotIndex)
     {
         EnsureInitialized();
-        int safeSlotIndex = Mathf.Clamp(slotIndex, 0, 3);
+        int safeSlotIndex = Mathf.Clamp(slotIndex, 0, 4);
 
         if (_stateMap.TryGetValue(safeSlotIndex, out SkillUpgradeState state) && state != null)
             return state.ToData();
@@ -264,7 +264,7 @@ public class SkillUpgradeMono : MonoBehaviour
     {
         EnsureInitialized();
 
-        int safeSlotIndex = Mathf.Clamp(slotIndex, 0, 3);
+        int safeSlotIndex = Mathf.Clamp(slotIndex, 0, 4);
         if (_stateMap.TryGetValue(safeSlotIndex, out SkillUpgradeState state) && state != null)
             return state;
 
@@ -474,7 +474,7 @@ public class SkillUpgradeMono : MonoBehaviour
     {
         EnsureInitialized();
 
-        int safeSlotIndex = Mathf.Clamp(slotIndex, 0, 3);
+        int safeSlotIndex = Mathf.Clamp(slotIndex, 0, 4);
         if (!_stateMap.TryGetValue(safeSlotIndex, out SkillUpgradeState state) || state == null)
             return;
 
@@ -520,7 +520,7 @@ public class SkillUpgradeMono : MonoBehaviour
     public bool HasStateBySlot(int slotIndex)
     {
         EnsureInitialized();
-        return _stateMap.ContainsKey(Mathf.Clamp(slotIndex, 0, 3));
+        return _stateMap.ContainsKey(Mathf.Clamp(slotIndex, 0, 4));
     }
 
     private int ResolveSlotIndex(ScriptableObject skill)
@@ -533,7 +533,7 @@ public class SkillUpgradeMono : MonoBehaviour
         if (skillLoadout == null)
             return -1;
 
-        for (int slotIndex = 0; slotIndex <= 3; slotIndex++)
+        for (int slotIndex = 0; slotIndex <= 4; slotIndex++)
         {
             SkillPoolSlotData entry = skillLoadout.GetEntryBySlot(slotIndex);
             if (entry != null && entry.SkillSo == skill)

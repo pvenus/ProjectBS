@@ -11,5 +11,7 @@ namespace Character
         public float baseDamage;
 
         public float attackDamagePercent = 1f;
+        public bool useCriticalOverride;
+        public bool criticalOverride;
     }
 }

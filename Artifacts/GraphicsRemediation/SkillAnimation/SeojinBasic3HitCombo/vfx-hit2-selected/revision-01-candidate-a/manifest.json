@@ -1,0 +1,34 @@
+{
+  "schema": "seojin_basic_combo2_vfx_selected_candidate_v1",
+  "status": "NORMALIZED_SELECTED_CANDIDATE",
+  "selectionOwner": "Hwagam",
+  "candidate": "A",
+  "runtimeSlot": "skill.character.seojin.1.basic_attack.basic_attack.combo.2.visual",
+  "sourceRoot": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinBasic3HitCombo/vfx-hit2-review/revision-01-neon-abc/A",
+  "outputRoot": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinBasic3HitCombo/vfx-hit2-selected/revision-01-candidate-a/frames",
+  "timing": {"times": [0.0, 0.05, 0.1, 0.15, 0.2, 0.28], "stop": 0.34, "loop": false},
+  "canvas": [256, 256],
+  "pivotAssumption": [0.5, 0.5],
+  "safeMarginMinimumPx": 12,
+  "method": {
+    "operation": "aspect-preserving alpha-bbox contain",
+    "resampling": "Pillow LANCZOS",
+    "alphaHandling": "integer premultiply before resample; integer unpremultiply after; alpha0=>RGB0",
+    "placement": "centered",
+    "crop": false,
+    "warp": false,
+    "repaint": false,
+    "recolor": false,
+    "script": "scripts/normalize_premultiplied_contain.py",
+    "scriptSha256": "12c2f1046a63fed37265f47854ac0d87ba8ba098410babafea15e0049d72dc19"
+  },
+  "frames": [
+    {"frame":0,"sourceSha256":"d779198199092b1be06ad90d47580714442449363b1cf8e862546e5551e0964f","outputSha256":"fe1e01de66ecaa3e384ab5a84d5c512ec63f1167d22c00df263269c311b42771","alphaBBox":[24,82,243,146],"padding":[24,82,13,110]},
+    {"frame":1,"sourceSha256":"118dedbfb9ec7f8c7363d23961f905219b6a16fc29f92e07cb12e32091c74aec","outputSha256":"a5ff0f891d48841b9bf2e1f590cf37611f2436a555d51e9b17eb611dc232f038","alphaBBox":[16,18,244,233],"padding":[16,18,12,23]},
+    {"frame":2,"sourceSha256":"036c6e60c667b64d7d4058a2c7d6f0e01578644fcdc086c9673fffb95dd62e06","outputSha256":"5742e965aa54eacf53963a3e8620b232f604b07ee9719f3ed93213a02bd3eff0","alphaBBox":[20,44,244,218],"padding":[20,44,12,38]},
+    {"frame":3,"sourceSha256":"2abec390a081f6d4c183f73365f4c2d8f9071de53271456f39d4b9ec3f651cb2","outputSha256":"82f912e056a1ffba9e5240c97d25df2e29f5ed99feb6d1473031aaf97bab0296","alphaBBox":[13,57,242,194],"padding":[13,57,14,62]},
+    {"frame":4,"sourceSha256":"270a165bf5a337ff445598a3d3ad9eace356963de25fab503b4e92be01da8a7f","outputSha256":"4a8629bce1a2e50ba736a512119c376ba1395276eb153d3a7c880288288be276","alphaBBox":[16,45,244,183],"padding":[16,45,12,73]},
+    {"frame":5,"sourceSha256":"a1b50a9ec11c98d04c45e6a34b00fd1f73d5d8b338e1f5c55ad315e2bb686ff2","outputSha256":"c6de1d62892ba586359409b44de42e3f9c1def2bb6b5b62ccf6cd6606e3225ef","alphaBBox":[12,87,244,164],"padding":[12,87,12,92]}
+  ],
+  "physical": {"rgba": "6/6", "size256": "6/6", "borderAlpha0": "6/6", "alpha0Rgb0": "6/6", "safeMargin12": "6/6", "deterministicRerunByteIdentity": "6/6"}
+}

@@ -61,7 +61,8 @@ namespace Skill
                 return;
             }
 
-            if (sortingRelation == SkillSortingRelation.AbsoluteTop)
+            if (sortingRelation == SkillSortingRelation.AbsoluteTop ||
+                sortingRelation == SkillSortingRelation.AboveOwner)
             {
                 visualRenderer.sortingOrder = (int)SkillSortingRelation.AbsoluteTop;
                 return;

@@ -1,0 +1,330 @@
+{
+  "schema": "seojin_basic_combo2_vfx_selected_candidate_qa_v1",
+  "status": "PHYSICAL_QA_PASS_VISUAL_SELECTION_OWNER_UNCHANGED",
+  "scope": "read-only source QA plus review derivatives",
+  "sourceManifest": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinBasic3HitCombo/vfx-hit2-selected/revision-01-candidate-a/manifest.json",
+  "sourceManifestSha256": "5d74321016353867244ed222293aaa56a31c57194edc9cb57719c16f4a12fb9e",
+  "timing": {
+    "times": [
+      0.0,
+      0.05,
+      0.1,
+      0.15,
+      0.2,
+      0.28
+    ],
+    "stop": 0.34,
+    "loop": false,
+    "gifDurationsMs": [
+      50,
+      50,
+      50,
+      50,
+      80,
+      60
+    ]
+  },
+  "checks": {
+    "frameCount": 6,
+    "uniqueFrames": 6,
+    "rgba": 6,
+    "size256": 6,
+    "borderAlpha0": 6,
+    "alpha0Rgb0": 6,
+    "safeMargin12": 6,
+    "clippingByAlphaBorder": 0,
+    "orderedNames": [
+      "frame-00.png",
+      "frame-01.png",
+      "frame-02.png",
+      "frame-03.png",
+      "frame-04.png",
+      "frame-05.png"
+    ]
+  },
+  "frames": [
+    {
+      "frame": 0,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinBasic3HitCombo/vfx-hit2-selected/revision-01-candidate-a/frames/frame-00.png",
+      "sha256": "fe1e01de66ecaa3e384ab5a84d5c512ec63f1167d22c00df263269c311b42771",
+      "mode": "RGBA",
+      "dimensions": [
+        256,
+        256
+      ],
+      "alphaBBoxInclusive": [
+        24,
+        82,
+        242,
+        145
+      ],
+      "clearanceLTRB": [
+        24,
+        82,
+        13,
+        110
+      ],
+      "borderAlphaNonzero": 0,
+      "alpha0RgbNonzero": 0,
+      "alphaNonzeroPixels": 5044
+    },
+    {
+      "frame": 1,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinBasic3HitCombo/vfx-hit2-selected/revision-01-candidate-a/frames/frame-01.png",
+      "sha256": "a5ff0f891d48841b9bf2e1f590cf37611f2436a555d51e9b17eb611dc232f038",
+      "mode": "RGBA",
+      "dimensions": [
+        256,
+        256
+      ],
+      "alphaBBoxInclusive": [
+        16,
+        18,
+        243,
+        232
+      ],
+      "clearanceLTRB": [
+        16,
+        18,
+        12,
+        23
+      ],
+      "borderAlphaNonzero": 0,
+      "alpha0RgbNonzero": 0,
+      "alphaNonzeroPixels": 18501
+    },
+    {
+      "frame": 2,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinBasic3HitCombo/vfx-hit2-selected/revision-01-candidate-a/frames/frame-02.png",
+      "sha256": "5742e965aa54eacf53963a3e8620b232f604b07ee9719f3ed93213a02bd3eff0",
+      "mode": "RGBA",
+      "dimensions": [
+        256,
+        256
+      ],
+      "alphaBBoxInclusive": [
+        20,
+        44,
+        243,
+        217
+      ],
+      "clearanceLTRB": [
+        20,
+        44,
+        12,
+        38
+      ],
+      "borderAlphaNonzero": 0,
+      "alpha0RgbNonzero": 0,
+      "alphaNonzeroPixels": 16930
+    },
+    {
+      "frame": 3,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinBasic3HitCombo/vfx-hit2-selected/revision-01-candidate-a/frames/frame-03.png",
+      "sha256": "82f912e056a1ffba9e5240c97d25df2e29f5ed99feb6d1473031aaf97bab0296",
+      "mode": "RGBA",
+      "dimensions": [
+        256,
+        256
+      ],
+      "alphaBBoxInclusive": [
+        13,
+        57,
+        241,
+        193
+      ],
+      "clearanceLTRB": [
+        13,
+        57,
+        14,
+        62
+      ],
+      "borderAlphaNonzero": 0,
+      "alpha0RgbNonzero": 0,
+      "alphaNonzeroPixels": 11835
+    },
+    {
+      "frame": 4,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinBasic3HitCombo/vfx-hit2-selected/revision-01-candidate-a/frames/frame-04.png",
+      "sha256": "4a8629bce1a2e50ba736a512119c376ba1395276eb153d3a7c880288288be276",
+      "mode": "RGBA",
+      "dimensions": [
+        256,
+        256
+      ],
+      "alphaBBoxInclusive": [
+        16,
+        45,
+        243,
+        182
+      ],
+      "clearanceLTRB": [
+        16,
+        45,
+        12,
+        73
+      ],
+      "borderAlphaNonzero": 0,
+      "alpha0RgbNonzero": 0,
+      "alphaNonzeroPixels": 12965
+    },
+    {
+      "frame": 5,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinBasic3HitCombo/vfx-hit2-selected/revision-01-candidate-a/frames/frame-05.png",
+      "sha256": "c6de1d62892ba586359409b44de42e3f9c1def2bb6b5b62ccf6cd6606e3225ef",
+      "mode": "RGBA",
+      "dimensions": [
+        256,
+        256
+      ],
+      "alphaBBoxInclusive": [
+        12,
+        87,
+        243,
+        163
+      ],
+      "clearanceLTRB": [
+        12,
+        87,
+        12,
+        92
+      ],
+      "borderAlphaNonzero": 0,
+      "alpha0RgbNonzero": 0,
+      "alphaNonzeroPixels": 9451
+    }
+  ],
+  "contacts": [
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinBasic3HitCombo/vfx-hit2-selected/revision-01-candidate-a/evidence/contacts/contact-200-light-color.png",
+      "sha256": "156dc6e76a13a198e86710f852a036d965eb7de9e9d473892af563475be3cc8d",
+      "dimensions": [
+        1200,
+        200
+      ],
+      "mode": "RGB"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinBasic3HitCombo/vfx-hit2-selected/revision-01-candidate-a/evidence/contacts/contact-200-light-gray.png",
+      "sha256": "af6e381b8bf458ca804e6d399a597894c6934121532b5ef467e4fae4fd1c20ac",
+      "dimensions": [
+        1200,
+        200
+      ],
+      "mode": "L"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinBasic3HitCombo/vfx-hit2-selected/revision-01-candidate-a/evidence/contacts/contact-200-dark-color.png",
+      "sha256": "19a5b065d20bad7782ebac6329fcb7668261831f0b39915f65be4d08272a4be4",
+      "dimensions": [
+        1200,
+        200
+      ],
+      "mode": "RGB"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinBasic3HitCombo/vfx-hit2-selected/revision-01-candidate-a/evidence/contacts/contact-200-dark-gray.png",
+      "sha256": "66d810a5045d207864375bcac89d0c6b217460bee489bf863feb7fc3f302cbdc",
+      "dimensions": [
+        1200,
+        200
+      ],
+      "mode": "L"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinBasic3HitCombo/vfx-hit2-selected/revision-01-candidate-a/evidence/contacts/contact-80-light-color.png",
+      "sha256": "93fbebaeec817febfca7273356ec8c85e453e45e149e04513ef350ec385d08eb",
+      "dimensions": [
+        480,
+        80
+      ],
+      "mode": "RGB"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinBasic3HitCombo/vfx-hit2-selected/revision-01-candidate-a/evidence/contacts/contact-80-light-gray.png",
+      "sha256": "9428056ed1b72f74ce9a609bb56ed780bac7a7149e61d1c007b35a8e8cd3ba95",
+      "dimensions": [
+        480,
+        80
+      ],
+      "mode": "L"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinBasic3HitCombo/vfx-hit2-selected/revision-01-candidate-a/evidence/contacts/contact-80-dark-color.png",
+      "sha256": "0ca55c755bfb8955b367b3beec28c920f1d1788a6a4c9ac65690713228a3a896",
+      "dimensions": [
+        480,
+        80
+      ],
+      "mode": "RGB"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinBasic3HitCombo/vfx-hit2-selected/revision-01-candidate-a/evidence/contacts/contact-80-dark-gray.png",
+      "sha256": "3190c109fd3608c1a8ec0cf5bd61e5e4b760865a06c4ca7eb2b371565fac8f0c",
+      "dimensions": [
+        480,
+        80
+      ],
+      "mode": "L"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinBasic3HitCombo/vfx-hit2-selected/revision-01-candidate-a/evidence/contacts/contact-32-light-color.png",
+      "sha256": "da12ac1f818d3abb3dc76d276258dad40cd75fc51b216ee7dbfccd696b78cbdd",
+      "dimensions": [
+        192,
+        32
+      ],
+      "mode": "RGB"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinBasic3HitCombo/vfx-hit2-selected/revision-01-candidate-a/evidence/contacts/contact-32-light-gray.png",
+      "sha256": "7b7bc9603542db1be5fadd9361339c1dcd800d2e60b6086c2ff45a2ff75d2bbf",
+      "dimensions": [
+        192,
+        32
+      ],
+      "mode": "L"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinBasic3HitCombo/vfx-hit2-selected/revision-01-candidate-a/evidence/contacts/contact-32-dark-color.png",
+      "sha256": "44d08ff0fb1bdb5981ca6a5fa51a8ce009150aedb416265f353a95481ceeb6e7",
+      "dimensions": [
+        192,
+        32
+      ],
+      "mode": "RGB"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinBasic3HitCombo/vfx-hit2-selected/revision-01-candidate-a/evidence/contacts/contact-32-dark-gray.png",
+      "sha256": "0d9175f08098a56ee30144fc8fae0357c78aa608e89bce27631240e1978b4128",
+      "dimensions": [
+        192,
+        32
+      ],
+      "mode": "L"
+    }
+  ],
+  "gif": {
+    "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinBasic3HitCombo/vfx-hit2-selected/revision-01-candidate-a/evidence/candidate-a-non-loop-dark.gif",
+    "sha256": "c2575d9d813a8e83a5686ca298008a24e9fdc0e95339ae8bb6864f3a23a9d38e",
+    "dimensions": [
+      256,
+      256
+    ],
+    "physicalFrames": 6,
+    "durationsMs": [
+      50,
+      50,
+      50,
+      50,
+      80,
+      60
+    ],
+    "loopMetadata": null
+  },
+  "limitations": [
+    "No source pixels were modified.",
+    "This QA does not make visual-direction, runtime, release, or install decisions.",
+    "Contact sheets and GIF are review derivatives only."
+  ]
+}

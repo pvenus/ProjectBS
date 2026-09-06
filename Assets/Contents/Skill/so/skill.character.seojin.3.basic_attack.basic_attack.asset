@@ -18,7 +18,60 @@ MonoBehaviour:
   castSo: {fileID: 11400000, guid: 451e3b2df388f41fcaea489194177a5e, type: 2}
   hitSos:
   - {fileID: 11400000, guid: 0facfa1ae3f7040a1b5ac71e82b70d33, type: 2}
+  - {fileID: 11400000, guid: c3000000000000000000000000000010, type: 2}
+  - {fileID: 11400000, guid: c3000000000000000000000000000013, type: 2}
+  - {fileID: 11400000, guid: c3000000000000000000000000000001, type: 2}
   moveSo: {fileID: 11400000, guid: 3b390e5dbb70142599209db4be3b2db1, type: 2}
   spawnSkillSo: {fileID: 0}
   upgradeTableSo: {fileID: 11400000, guid: e8341d167a9152b51d330dc790a02ba1, type: 2}
   baseVisualSo: {fileID: 11400000, guid: 8c627e8ba8b45435aacaad618e1bc45a, type: 2}
+  comboProfile:
+    enabled: 1
+    duration: 0.7
+    totalLungeCap: 0.48
+    useCanonicalBodyChoreography: 1
+    segmentedBodyActionClip: {fileID: 0}
+    segmentedBodyFrameCount: 18
+    steps:
+    - comboIndex: 0
+      hit: {fileID: 11400000, guid: c3000000000000000000000000000010, type: 2}
+      bodyActionClip: {fileID: 7400000, guid: 994215e857c7b25fdd9d47b9097014af, type: 2}
+      bodySegmentStartFrame: -1
+      bodySegmentEndFrame: -1
+      visualClip: {fileID: 7400000, guid: 7ceeea2d1758f436bb9dbcca9b172322, type: 2}
+      bodyPresentationCalibration: {fileID: 11400000, guid: d2000000000000000000000000000000, type: 2}
+      vfxPresentationCalibration: {fileID: 0}
+      startTime: 0
+      hitTime: 0.12
+      activeEnd: 0.17
+      recoveryEnd: 0.22
+      damageWeight: 0.25
+      lungeDistance: 0.16
+    - comboIndex: 1
+      hit: {fileID: 11400000, guid: c3000000000000000000000000000013, type: 2}
+      bodyActionClip: {fileID: 7400000, guid: a903ea1a4024a5e1eaec3f60e63c2be3, type: 2}
+      bodySegmentStartFrame: -1
+      bodySegmentEndFrame: -1
+      visualClip: {fileID: 7400000, guid: c8fbf084613f66fd28be7a54f1affcf5, type: 2}
+      bodyPresentationCalibration: {fileID: 11400000, guid: d2000000000000000000000000000001, type: 2}
+      vfxPresentationCalibration: {fileID: 11400000, guid: d2300000000000000000000000000011, type: 2}
+      startTime: 0.22
+      hitTime: 0.34
+      activeEnd: 0.39
+      recoveryEnd: 0.44
+      damageWeight: 0.3
+      lungeDistance: 0.16
+    - comboIndex: 2
+      hit: {fileID: 11400000, guid: c3000000000000000000000000000001, type: 2}
+      bodyActionClip: {fileID: 7400000, guid: 394f5ea110c3b4bc680b9b9c7be429ec, type: 2}
+      bodySegmentStartFrame: -1
+      bodySegmentEndFrame: -1
+      visualClip: {fileID: 7400000, guid: b4d27071f6ac7a6e2fd30ef5962c72f7, type: 2}
+      bodyPresentationCalibration: {fileID: 11400000, guid: d2000000000000000000000000000002, type: 2}
+      vfxPresentationCalibration: {fileID: 11400000, guid: d2300000000000000000000000000012, type: 2}
+      startTime: 0.44
+      hitTime: 0.58
+      activeEnd: 0.64
+      recoveryEnd: 0.7
+      damageWeight: 0.45
+      lungeDistance: 0.16
