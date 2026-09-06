@@ -37,6 +37,12 @@ namespace Character.Skill
 
             if (!context.HasSelectedSkill)
             {
+                if (ShouldEnterKiting(context, out KitingRepositionState kiting))
+                {
+                    context.StateManager?.LogStateMessage(
+                        "Decision selected: KitingRepositionState because offensive skills are temporarily unavailable");
+                    return kiting;
+                }
                 context.StateManager?.LogStateMessage(
                     "Decision selected: SelectSkillState because selected skill is missing");
                 return new SelectSkillState();
@@ -68,6 +74,43 @@ namespace Character.Skill
             context.StateManager?.LogStateMessage(
                 "Decision selected: AttackTargetState because target is in selected skill range");
             return new AttackTargetState();
+        }
+
+        private static bool ShouldEnterKiting(
+            CharacterActionContext context,
+            out KitingRepositionState state)
+        {
+            state = null;
+            if (!KitingRepositionState.TryCreate(context, out KitingRepositionState candidate) ||
+                context?.SkillManager == null || context.CharacterManager == null ||
+                !context.CharacterManager.CanMove || !context.CharacterManager.CanUseSkill)
+            {
+                return false;
+            }
+
+            PartyMovementMono partyMovement = context.Owner != null
+                ? context.Owner.GetComponent<PartyMovementMono>() ??
+                  context.Owner.GetComponentInChildren<PartyMovementMono>()
+                : null;
+            if (partyMovement != null && partyMovement.HasRecentManualInput())
+            {
+                return false;
+            }
+
+            OffensiveReadinessSnapshot snapshot = context.SkillManager.QueryOffensiveReadiness(
+                context.StateService == null || context.StateService.CanUseActiveSkill,
+                context.CharacterManager.CanUseSkill,
+                context.CurrentTarget != null);
+            if (snapshot.hasUsableOffensive || snapshot.blockReason == OffensiveBlockReason.CrowdControl)
+            {
+                return false;
+            }
+
+            state = candidate;
+            return snapshot.blockReason == OffensiveBlockReason.Cooldown ||
+                   snapshot.blockReason == OffensiveBlockReason.FailureRetry ||
+                   snapshot.blockReason == OffensiveBlockReason.Cadence ||
+                   snapshot.blockReason == OffensiveBlockReason.NoOffensiveRuntime;
         }
 
         private LayerMask[] ResolveTargetMask(CharacterActionContext context)

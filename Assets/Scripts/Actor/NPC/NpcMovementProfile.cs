@@ -47,6 +47,10 @@ public class NpcMovementProfile : MonoBehaviour
     [SerializeField] private bool meleeCommitToNearestTarget = true;
     [SerializeField] private bool flyingIgnoreGroundPathing = true;
 
+    [Header("Attack Gap Tactical Reposition")]
+    [SerializeField] private bool enableAttackGapReposition = true;
+    [SerializeField] private bool scriptedMovementOptOut = false;
+
     [Header("Debug")]
     [SerializeField] private bool debugProfileLog = false;
 
@@ -198,6 +202,11 @@ public class NpcMovementProfile : MonoBehaviour
     public bool ShouldIgnoreGroundPathing()
     {
         return archetype == MovementArchetype.Flying && flyingIgnoreGroundPathing;
+    }
+
+    public bool AllowsAttackGapReposition()
+    {
+        return enableAttackGapReposition && !scriptedMovementOptOut && !IsFlying();
     }
 
     private NpcTargeting.TargetingArchetype ConvertToTargetingArchetype(MovementArchetype value)

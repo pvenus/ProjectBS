@@ -81,7 +81,7 @@ namespace Character
 
                 Collider2D[] hits = Physics2D.OverlapCircleAll(
                     origin,
-                    SearchRadius,
+                    Battle.BattleMapBoundsContext.ResolveTargetSearchRadius(SearchRadius),
                     _targetMasks[maskIndex]);
 
                 for (int i = 0; i < hits.Length; i++)
@@ -102,7 +102,9 @@ namespace Character
 
                     if (isOwner)
                     {
-                        distanceSqr += SearchRadius * SearchRadius;
+                    float effectiveSearchRadius =
+                        Battle.BattleMapBoundsContext.ResolveTargetSearchRadius(SearchRadius);
+                    distanceSqr += effectiveSearchRadius * effectiveSearchRadius;
                     }
 
                     if (distanceSqr < closestDistanceSqr)

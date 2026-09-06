@@ -29,6 +29,7 @@ public class NpcPathing : MonoBehaviour
     [SerializeField] private MovementController movementController;
     [SerializeField] private AnimationMono animationMono;
     [SerializeField] private CharacterManager characterManager;
+    [SerializeField] private CharacterSkillManager characterSkillManager;
 
     [Header("Movement")]
     [SerializeField] private PathingArchetype archetype = PathingArchetype.Normal;
@@ -69,6 +70,17 @@ public class NpcPathing : MonoBehaviour
         new NpcWanderService();
     private readonly NpcMovementAnimationService _movementAnimationService =
         new NpcMovementAnimationService();
+    private readonly EnemyCombatRepositionState _combatRepositionState =
+        new EnemyCombatRepositionState();
+    private readonly NpcPostAttackTacticalRepositionState _postAttackTacticalState =
+        new NpcPostAttackTacticalRepositionState();
+    private readonly Collider2D[] _crowdScan = new Collider2D[EnemyCombatRepositionState.MaxCrowdScan];
+    private Vector2 _lastCombatPosition;
+    private bool _hadCombatMove;
+    private bool _postAttackPending;
+    private string _postAttackEquipmentId;
+    private int _postAttackSequence;
+    private bool _skillUseSubscribed;
 
     private void Awake()
     {
@@ -104,6 +116,10 @@ public class NpcPathing : MonoBehaviour
             characterManager = GetComponent<CharacterManager>();
         if (characterManager == null)
             characterManager = GetComponentInParent<CharacterManager>();
+        if (characterSkillManager == null)
+            characterSkillManager = GetComponent<CharacterSkillManager>() ??
+                GetComponentInParent<CharacterSkillManager>();
+        SubscribeSkillUse();
 
         SyncMovementControllerConfig();
 
@@ -114,6 +130,7 @@ public class NpcPathing : MonoBehaviour
         InitializeFlyingService();
         _wanderService.Reset();
         _movementAnimationService.Reset();
+        _lastCombatPosition = _rb.position;
     }
 
     private void Update()
@@ -132,6 +149,7 @@ public class NpcPathing : MonoBehaviour
     {
         if (IsMovementLocked())
         {
+            ExitCombatReposition();
             StopMovement();
             UpdateMovementAnimation();
             return;
@@ -141,14 +159,29 @@ public class NpcPathing : MonoBehaviour
         bool canChase = target != null && Vector2.Distance(transform.position, target.position) <= chaseRange;
         bool shouldHoldPosition = canChase && ShouldHoldPositionNearTarget(target, false) && !IsFlyingArchetype();
 
+        if (TryHandleExact2PostAttackTacticalReposition(target))
+        {
+            UpdateMovementAnimation();
+            return;
+        }
+
         if (canChase)
         {
             if (IsFlyingArchetype())
             {
+                ExitCombatReposition();
                 HandleFlyingMovement(target);
                 UpdateMovementAnimation();
                 return;
             }
+
+            if (TryHandleAttackGapReposition(target))
+            {
+                UpdateMovementAnimation();
+                return;
+            }
+
+            ExitCombatReposition();
 
             if (UsesDirectRangeChase())
             {
@@ -169,6 +202,8 @@ public class NpcPathing : MonoBehaviour
             return;
         }
 
+        ExitCombatReposition();
+
         NpcWanderService.Result wanderResult =
             _wanderService.Evaluate(CreateWanderContext());
 
@@ -181,6 +216,259 @@ public class NpcPathing : MonoBehaviour
 
         MoveInDirection(wanderResult.moveDirection);
         UpdateMovementAnimation();
+    }
+
+    private bool TryHandleAttackGapReposition(Transform target)
+    {
+        if (target == null || skillExecutor == null || !AllowsAttackGapReposition())
+            return false;
+
+        EnemyOffensiveRecoverySignal signal =
+            skillExecutor.GetEnemyOffensiveRecoverySignal(transform, target);
+
+        // Attack owns the fixed tick as soon as readiness returns.
+        if (signal.State == EnemyOffensiveRecoveryState.Ready && signal.InEffectiveRange)
+        {
+            ExitCombatReposition();
+            StopMovement();
+            return true;
+        }
+
+        // Windup never moves. Ready/out-of-range immediately returns to legacy chase.
+        if (signal.State == EnemyOffensiveRecoveryState.Windup)
+        {
+            ExitCombatReposition();
+            StopMovement();
+            return true;
+        }
+
+        if (!signal.AllowsReposition)
+            return false;
+
+        float time = Time.fixedTime;
+        int stableId = characterManager != null ? characterManager.gameObject.GetInstanceID() : gameObject.GetInstanceID();
+        _combatRepositionState.Enter(stableId, time);
+
+        Vector2 current = _rb.position;
+        bool blocked = _hadCombatMove && (current - _lastCombatPosition).sqrMagnitude < 0.0001f;
+        Vector2 crowd = BuildCrowdAvoidance(current);
+        EnemyCombatRepositionState.Result result;
+
+        float attackRange = Mathf.Max(0.05f, GetCurrentSkillRange());
+        if (UsesDirectRangeChase())
+        {
+            float distance = Vector2.Distance(current, target.position);
+            float preferred = GetStopDistanceForCurrentArchetype();
+            bool bandSatisfied = distance >= preferred * 0.85f && distance <= preferred * 1.05f;
+            if (!bandSatisfied)
+            {
+                // Existing range service retains retreat/safety priority.
+                MoveWithRangeControl(target);
+                _lastCombatPosition = current;
+                _hadCombatMove = true;
+                return true;
+            }
+            result = _combatRepositionState.EvaluateRangedBand(current, target.position, crowd, time, blocked);
+        }
+        else
+        {
+            result = _combatRepositionState.EvaluateMelee(current, target.position, attackRange, crowd, time, blocked);
+        }
+
+        if (result.ShouldMove)
+            MoveInDirection(result.Direction, result.SpeedMultiplier);
+        else
+            StopMovement();
+
+        _lastCombatPosition = current;
+        _hadCombatMove = result.ShouldMove;
+        return true;
+    }
+
+    private bool AllowsAttackGapReposition()
+    {
+        if (IsFlyingArchetype()) return false;
+        return movementProfile == null || movementProfile.AllowsAttackGapReposition();
+    }
+
+    private void ExitCombatReposition()
+    {
+        if (_combatRepositionState.IsActive)
+            _combatRepositionState.Exit();
+        _hadCombatMove = false;
+    }
+
+    private void OnDisable()
+    {
+        UnsubscribeSkillUse();
+        _postAttackPending = false;
+        _postAttackEquipmentId = null;
+        _postAttackTacticalState.Exit();
+        ExitCombatReposition();
+        StopMovement();
+    }
+
+    private void OnEnable() => SubscribeSkillUse();
+
+    private void SubscribeSkillUse()
+    {
+        if (_skillUseSubscribed) return;
+        if (characterSkillManager == null)
+            characterSkillManager = GetComponent<CharacterSkillManager>() ??
+                GetComponentInParent<CharacterSkillManager>();
+        if (characterSkillManager == null) return;
+        characterSkillManager.SkillUseSucceeded += HandleSkillUseSucceeded;
+        _skillUseSubscribed = true;
+    }
+
+    private void UnsubscribeSkillUse()
+    {
+        if (!_skillUseSubscribed || characterSkillManager == null) return;
+        characterSkillManager.SkillUseSucceeded -= HandleSkillUseSucceeded;
+        _skillUseSubscribed = false;
+    }
+
+    private void HandleSkillUseSucceeded(EquipmentSkillRuntimeData runtime)
+    {
+        string equipmentId = runtime?.sourceEquipment?.EquipmentId;
+        if (!NpcPostAttackTacticalRepositionState.Supports(equipmentId)) return;
+        _postAttackPending = true;
+        _postAttackEquipmentId = equipmentId;
+        _postAttackSequence++;
+    }
+
+    private bool TryHandleExact2PostAttackTacticalReposition(Transform target)
+    {
+        if (!_postAttackPending && !_postAttackTacticalState.IsActive) return false;
+        // CanUseSkill can remain false briefly after the body recovery marker. Treating
+        // that hand-off frame as a hard cancel consumed the accepted reposition token
+        // before the recovery signal could become Cooldown. Only a true movement lock
+        // cancels here; Windup/Disabled are handled by the read-only recovery signal.
+        if (characterManager != null && !characterManager.CanMove)
+        {
+            _postAttackPending = false;
+            _postAttackEquipmentId = null;
+            _postAttackTacticalState.Exit();
+            StopMovement();
+            return true;
+        }
+
+        if (target == null || !target.gameObject.activeInHierarchy)
+        {
+            _postAttackPending = false;
+            _postAttackEquipmentId = null;
+            _postAttackTacticalState.Exit();
+            StopMovement();
+            return false;
+        }
+
+        float time = Time.fixedTime;
+        Vector2 current = _rb.position;
+        if (!_postAttackTacticalState.IsActive)
+        {
+            EnemyOffensiveRecoverySignal recovery = skillExecutor != null
+                ? skillExecutor.GetEnemyOffensiveRecoverySignal(transform, target)
+                : default;
+            if (recovery.State == EnemyOffensiveRecoveryState.Ready)
+            {
+                _postAttackPending = false;
+                _postAttackEquipmentId = null;
+                return false;
+            }
+            if (!recovery.AllowsReposition)
+            {
+                StopMovement();
+                return true;
+            }
+            _postAttackPending = false;
+            int stableId = characterManager != null
+                ? characterManager.gameObject.GetInstanceID()
+                : gameObject.GetInstanceID();
+            _postAttackTacticalState.Enter(_postAttackEquipmentId, stableId, _postAttackSequence, current,
+                target.position, Mathf.Max(.05f, GetCurrentSkillRange()), _spawnPosition, time);
+        }
+        else if (_postAttackTacticalState.ShouldRefresh(time, target.position))
+        {
+            _postAttackTacticalState.Refresh(_postAttackEquipmentId, current, target.position,
+                Mathf.Max(.05f, GetCurrentSkillRange()), _spawnPosition, time);
+        }
+
+        if (_postAttackTacticalState.IsExpired(time) ||
+            Vector2.Distance(current, _postAttackTacticalState.Destination) <= .06f)
+        {
+            _postAttackTacticalState.Exit();
+            _postAttackEquipmentId = null;
+            StopMovement();
+            return false;
+        }
+
+        if (!_postAttackTacticalState.ShouldMove)
+        {
+            StopMovement();
+            return true;
+        }
+
+        Vector2 projected = ProjectTacticalDestination(current,
+            _postAttackTacticalState.Destination);
+        if ((projected - current).sqrMagnitude <= .04f * .04f)
+        {
+            StopMovement();
+            return true;
+        }
+
+        SyncMovementControllerConfig(NpcPostAttackTacticalRepositionState.ResolveSpeedMultiplier(
+            _postAttackEquipmentId, _postAttackTacticalState.CurrentPattern));
+        movementController.MoveTo(projected);
+        return true;
+    }
+
+    private Vector2 ProjectTacticalDestination(Vector2 current, Vector2 desired)
+    {
+        Vector2 delta = desired - current;
+        float distance = delta.magnitude;
+        if (distance <= .0001f) return current;
+        Vector2 direction = delta / distance;
+        RaycastHit2D[] hits = Physics2D.CircleCastAll(current, .15f, direction, distance);
+        float allowed = distance;
+        for (int i = 0; i < hits.Length; i++)
+        {
+            Collider2D collider = hits[i].collider;
+            if (collider == null || collider.isTrigger ||
+                collider.transform.IsChildOf(transform)) continue;
+            CharacterManager owner = collider.GetComponentInParent<CharacterManager>();
+            if (owner != null) continue;
+            allowed = Mathf.Min(allowed, Mathf.Max(0f, hits[i].distance - .08f));
+        }
+        return current + direction * allowed;
+    }
+
+    private Vector2 BuildCrowdAvoidance(Vector2 selfPosition)
+    {
+        int count = Physics2D.OverlapCircleNonAlloc(
+            selfPosition,
+            EnemyCombatRepositionState.CrowdRadius,
+            _crowdScan);
+        Vector2 sum = Vector2.zero;
+        var seen = new System.Collections.Generic.HashSet<CharacterManager>();
+
+        for (int i = 0; i < count && i < EnemyCombatRepositionState.MaxCrowdScan; i++)
+        {
+            Collider2D collider = _crowdScan[i];
+            CharacterManager other = collider != null ? collider.GetComponentInParent<CharacterManager>() : null;
+            if (other == null || other == characterManager || !other.IsTargetable || !seen.Add(other))
+                continue;
+            if (other.gameObject.layer != gameObject.layer)
+                continue;
+
+            Vector2 away = selfPosition - (Vector2)other.transform.position;
+            float distance = away.magnitude;
+            if (distance <= 0.0001f || distance >= EnemyCombatRepositionState.CrowdRadius)
+                continue;
+            sum += away.normalized * (1f - distance / EnemyCombatRepositionState.CrowdRadius);
+        }
+
+        System.Array.Clear(_crowdScan, 0, _crowdScan.Length);
+        return Vector2.ClampMagnitude(sum, EnemyCombatRepositionState.MaxCrowdContribution);
     }
     private bool UsesDirectRangeChase()
     {

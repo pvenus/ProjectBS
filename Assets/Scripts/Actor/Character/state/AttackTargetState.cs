@@ -21,12 +21,26 @@ namespace Character.Skill
 
         private AnimationMono currentAnimation;
         private bool waitingForAttackAnimation;
+        private bool waitingForCast;
+        private CharacterSkillManager currentSkillManager;
+        private CharacterActionContext currentContext;
+        private EquipmentSkillRuntimeData pendingRuntime;
+        private bool successfulUseRecorded;
 
         public void Enter(CharacterActionContext context)
         {
             IsFinished = false;
             currentAnimation = ResolveAnimation(context);
             waitingForAttackAnimation = false;
+            waitingForCast = false;
+            currentSkillManager = ResolveSkillManager(context);
+            currentContext = context;
+            pendingRuntime = context?.SelectedSkillRuntime;
+            successfulUseRecorded = false;
+            if (currentSkillManager != null)
+            {
+                currentSkillManager.CastCommitted += OnCastCommitted;
+            }
 
             context?.StateManager?.LogStateMessage(
                 "AttackTargetState Enter");
@@ -43,10 +57,11 @@ namespace Character.Skill
                 return;
             }
 
-            waitingForAttackAnimation =
+            waitingForCast = currentSkillManager != null && currentSkillManager.IsCasting;
+            waitingForAttackAnimation = !waitingForCast &&
                 currentAnimation != null && currentAnimation.IsPlayingAttack();
 
-            if (!waitingForAttackAnimation)
+            if (!waitingForCast && !waitingForAttackAnimation)
             {
                 ClearSelectedSkill(context);
                 ClearCurrentTarget(context);
@@ -58,7 +73,33 @@ namespace Character.Skill
             CharacterActionContext context,
             float deltaTime)
         {
-            if (IsFinished || !waitingForAttackAnimation)
+            if (IsFinished)
+            {
+                return;
+            }
+
+            if (waitingForCast)
+            {
+                if (currentSkillManager != null && currentSkillManager.IsCasting)
+                {
+                    return;
+                }
+
+                waitingForCast = false;
+                waitingForAttackAnimation =
+                    currentAnimation != null && currentAnimation.IsPlayingAttack();
+                if (waitingForAttackAnimation)
+                {
+                    return;
+                }
+
+                ClearSelectedSkill(context);
+                ClearCurrentTarget(context);
+                IsFinished = true;
+                return;
+            }
+
+            if (!waitingForAttackAnimation)
             {
                 return;
             }
@@ -74,6 +115,12 @@ namespace Character.Skill
 
         public void Exit(CharacterActionContext context)
         {
+            if (currentSkillManager != null)
+            {
+                currentSkillManager.CastCommitted -= OnCastCommitted;
+            }
+            currentContext = null;
+            pendingRuntime = null;
             context?.StateManager?.LogStateMessage(
                 "AttackTargetState Exit");
         }
@@ -144,11 +191,9 @@ namespace Character.Skill
                     context.Owner != null ? context.Owner.transform : null,
                     target);
 
-            if (executed)
+            if (executed && !skillManager.IsCasting)
             {
-                context.StateService?.RecordSuccessfulSkillUse(
-                    selectedRuntime,
-                    skillManager);
+                RecordSuccessfulUseOnce(selectedRuntime, skillManager);
             }
 
             context.StateManager?.LogStateMessage(
@@ -159,6 +204,29 @@ namespace Character.Skill
                 $"Executed={executed}");
 
             return executed;
+        }
+
+        private void OnCastCommitted(EquipmentSkillRuntimeData runtime)
+        {
+            if (runtime != pendingRuntime || currentSkillManager == null)
+            {
+                return;
+            }
+
+            RecordSuccessfulUseOnce(runtime, currentSkillManager);
+        }
+
+        private void RecordSuccessfulUseOnce(
+            EquipmentSkillRuntimeData runtime,
+            CharacterSkillManager skillManager)
+        {
+            if (successfulUseRecorded)
+            {
+                return;
+            }
+
+            successfulUseRecorded = true;
+            currentContext?.StateService?.RecordSuccessfulSkillUse(runtime, skillManager);
         }
 
         private bool RequiresTarget(EquipmentSkillRuntimeData runtime)

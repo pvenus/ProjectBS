@@ -40,7 +40,8 @@ public class PerceptionMono : MonoBehaviour
 
     void ScanEnemies()
     {
-        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, DetectRadius, enemyMask);
+        float effectiveRadius = Battle.BattleMapBoundsContext.ResolveTargetSearchRadius(DetectRadius);
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, effectiveRadius, enemyMask);
 
         EnemyCount = 0;
         ClosestEnemy = null;
@@ -75,7 +76,8 @@ public class PerceptionMono : MonoBehaviour
             return;
 
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, DetectRadius);
+        Gizmos.DrawWireSphere(transform.position,
+            Battle.BattleMapBoundsContext.ResolveTargetSearchRadius(DetectRadius));
 
         if (ClosestEnemy != null)
         {
