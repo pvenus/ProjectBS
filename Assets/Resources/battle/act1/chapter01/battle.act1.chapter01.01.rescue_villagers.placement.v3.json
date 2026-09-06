@@ -1,0 +1,599 @@
+{
+  "schemaVersion": "battle-large-wave-placement.v3",
+  "profileId": "arena.act1.chapter01.01.rescue_villagers.large_map.v3",
+  "battleId": "battle.act1.chapter01.01.rescue_villagers",
+  "partySize": 1,
+  "map": {
+    "x": 32,
+    "y": 18
+  },
+  "boundary": {
+    "boundaryAssetId": "boundary.act1.chapter01.01.rescue_villagers.large_map.v3",
+    "movementInset": 0.75,
+    "spawnInset": 0.5,
+    "safeRadius": 4.5,
+    "corridorWidth": 2.5
+  },
+  "hardLivingCap": 28,
+  "waves": [
+    {
+      "waveIndex": 1,
+      "count": 19,
+      "start": 0.35
+    },
+    {
+      "waveIndex": 2,
+      "count": 5,
+      "start": 4.6
+    },
+    {
+      "waveIndex": 3,
+      "count": 4,
+      "start": 8.6
+    }
+  ],
+  "candidateSearch": {
+    "radiusOffsets": [
+      0,
+      -0.4,
+      0.4,
+      -0.8,
+      0.8
+    ],
+    "angleOffsets": [
+      0,
+      6,
+      -6,
+      12,
+      -12
+    ],
+    "maxCandidates": 25,
+    "minSeparation": 0.65,
+    "blockerClearance": 0.4
+  },
+  "slots": [
+    {
+      "slotId": "slot.w1.b0.s0",
+      "waveIndex": 1,
+      "batchIndex": 0,
+      "slotIndex": 0,
+      "unitKey": "spawn.swarm.fodder.melee",
+      "dueTime": 0.35,
+      "radiusMin": 7.25,
+      "radiusMax": 8,
+      "preferredAngle": -18,
+      "angleDeviation": 30,
+      "fallbackAnchorId": "anchor.battle.act1.chapter01.01.rescue_villagers.w1.s0"
+    },
+    {
+      "slotId": "slot.w1.b0.s1",
+      "waveIndex": 1,
+      "batchIndex": 0,
+      "slotIndex": 1,
+      "unitKey": "spawn.swarm.fodder.melee",
+      "dueTime": 0.43,
+      "radiusMin": 7.25,
+      "radiusMax": 8,
+      "preferredAngle": -12,
+      "angleDeviation": 30,
+      "fallbackAnchorId": "anchor.battle.act1.chapter01.01.rescue_villagers.w1.s1"
+    },
+    {
+      "slotId": "slot.w1.b0.s2",
+      "waveIndex": 1,
+      "batchIndex": 0,
+      "slotIndex": 2,
+      "unitKey": "spawn.swarm.fodder.melee",
+      "dueTime": 0.51,
+      "radiusMin": 7.25,
+      "radiusMax": 8,
+      "preferredAngle": -6,
+      "angleDeviation": 30,
+      "fallbackAnchorId": "anchor.battle.act1.chapter01.01.rescue_villagers.w1.s2"
+    },
+    {
+      "slotId": "slot.w1.b0.s3",
+      "waveIndex": 1,
+      "batchIndex": 0,
+      "slotIndex": 3,
+      "unitKey": "spawn.swarm.fast.melee",
+      "dueTime": 0.59,
+      "radiusMin": 7.25,
+      "radiusMax": 8,
+      "preferredAngle": 0,
+      "angleDeviation": 30,
+      "fallbackAnchorId": "anchor.battle.act1.chapter01.01.rescue_villagers.w1.s3"
+    },
+    {
+      "slotId": "slot.w1.b0.s4",
+      "waveIndex": 1,
+      "batchIndex": 0,
+      "slotIndex": 4,
+      "unitKey": "spawn.swarm.fodder.melee",
+      "dueTime": 0.67,
+      "radiusMin": 7.25,
+      "radiusMax": 8,
+      "preferredAngle": 6,
+      "angleDeviation": 30,
+      "fallbackAnchorId": "anchor.battle.act1.chapter01.01.rescue_villagers.w1.s4"
+    },
+    {
+      "slotId": "slot.w1.b0.s5",
+      "waveIndex": 1,
+      "batchIndex": 0,
+      "slotIndex": 5,
+      "unitKey": "spawn.swarm.fodder.melee",
+      "dueTime": 0.75,
+      "radiusMin": 7.25,
+      "radiusMax": 8,
+      "preferredAngle": 12,
+      "angleDeviation": 30,
+      "fallbackAnchorId": "anchor.battle.act1.chapter01.01.rescue_villagers.w1.s5"
+    },
+    {
+      "slotId": "slot.w1.b0.s6",
+      "waveIndex": 1,
+      "batchIndex": 0,
+      "slotIndex": 6,
+      "unitKey": "spawn.swarm.fast.melee",
+      "dueTime": 0.83,
+      "radiusMin": 7.25,
+      "radiusMax": 8,
+      "preferredAngle": 18,
+      "angleDeviation": 30,
+      "fallbackAnchorId": "anchor.battle.act1.chapter01.01.rescue_villagers.w1.s6"
+    },
+    {
+      "slotId": "slot.w1.b1.s0",
+      "waveIndex": 1,
+      "batchIndex": 1,
+      "slotIndex": 0,
+      "unitKey": "spawn.swarm.fodder.melee",
+      "dueTime": 0.91,
+      "radiusMin": 7.25,
+      "radiusMax": 8,
+      "preferredAngle": 165,
+      "angleDeviation": 30,
+      "fallbackAnchorId": "anchor.battle.act1.chapter01.01.rescue_villagers.w1.s7"
+    },
+    {
+      "slotId": "slot.w1.b1.s1",
+      "waveIndex": 1,
+      "batchIndex": 1,
+      "slotIndex": 1,
+      "unitKey": "spawn.swarm.fodder.melee",
+      "dueTime": 0.99,
+      "radiusMin": 7.25,
+      "radiusMax": 8,
+      "preferredAngle": 171,
+      "angleDeviation": 30,
+      "fallbackAnchorId": "anchor.battle.act1.chapter01.01.rescue_villagers.w1.s8"
+    },
+    {
+      "slotId": "slot.w1.b1.s2",
+      "waveIndex": 1,
+      "batchIndex": 1,
+      "slotIndex": 2,
+      "unitKey": "spawn.swarm.fast.melee",
+      "dueTime": 1.07,
+      "radiusMin": 7.25,
+      "radiusMax": 8,
+      "preferredAngle": 177,
+      "angleDeviation": 30,
+      "fallbackAnchorId": "anchor.battle.act1.chapter01.01.rescue_villagers.w1.s9"
+    },
+    {
+      "slotId": "slot.w1.b1.s3",
+      "waveIndex": 1,
+      "batchIndex": 1,
+      "slotIndex": 3,
+      "unitKey": "spawn.swarm.fodder.melee",
+      "dueTime": 1.15,
+      "radiusMin": 7.25,
+      "radiusMax": 8,
+      "preferredAngle": 183,
+      "angleDeviation": 30,
+      "fallbackAnchorId": "anchor.battle.act1.chapter01.01.rescue_villagers.w1.s10"
+    },
+    {
+      "slotId": "slot.w1.b1.s4",
+      "waveIndex": 1,
+      "batchIndex": 1,
+      "slotIndex": 4,
+      "unitKey": "spawn.swarm.fodder.melee",
+      "dueTime": 1.23,
+      "radiusMin": 7.25,
+      "radiusMax": 8,
+      "preferredAngle": 189,
+      "angleDeviation": 30,
+      "fallbackAnchorId": "anchor.battle.act1.chapter01.01.rescue_villagers.w1.s11"
+    },
+    {
+      "slotId": "slot.w1.b1.s5",
+      "waveIndex": 1,
+      "batchIndex": 1,
+      "slotIndex": 5,
+      "unitKey": "spawn.swarm.fodder.melee",
+      "dueTime": 1.31,
+      "radiusMin": 7.25,
+      "radiusMax": 8,
+      "preferredAngle": 195,
+      "angleDeviation": 30,
+      "fallbackAnchorId": "anchor.battle.act1.chapter01.01.rescue_villagers.w1.s12"
+    },
+    {
+      "slotId": "slot.w1.b2.s0",
+      "waveIndex": 1,
+      "batchIndex": 2,
+      "slotIndex": 0,
+      "unitKey": "spawn.swarm.fodder.melee",
+      "dueTime": 1.47,
+      "radiusMin": 7.25,
+      "radiusMax": 8,
+      "preferredAngle": 45,
+      "angleDeviation": 30,
+      "fallbackAnchorId": "anchor.battle.act1.chapter01.01.rescue_villagers.w1.s13"
+    },
+    {
+      "slotId": "slot.w1.b2.s1",
+      "waveIndex": 1,
+      "batchIndex": 2,
+      "slotIndex": 1,
+      "unitKey": "spawn.swarm.fodder.melee",
+      "dueTime": 1.55,
+      "radiusMin": 7.25,
+      "radiusMax": 8,
+      "preferredAngle": 51,
+      "angleDeviation": 30,
+      "fallbackAnchorId": "anchor.battle.act1.chapter01.01.rescue_villagers.w1.s14"
+    },
+    {
+      "slotId": "slot.w1.b2.s2",
+      "waveIndex": 1,
+      "batchIndex": 2,
+      "slotIndex": 2,
+      "unitKey": "spawn.swarm.fast.melee",
+      "dueTime": 1.63,
+      "radiusMin": 7.25,
+      "radiusMax": 8,
+      "preferredAngle": 57,
+      "angleDeviation": 30,
+      "fallbackAnchorId": "anchor.battle.act1.chapter01.01.rescue_villagers.w1.s15"
+    },
+    {
+      "slotId": "slot.w1.b2.s3",
+      "waveIndex": 1,
+      "batchIndex": 2,
+      "slotIndex": 3,
+      "unitKey": "spawn.swarm.fodder.melee",
+      "dueTime": 1.71,
+      "radiusMin": 7.25,
+      "radiusMax": 8,
+      "preferredAngle": 63,
+      "angleDeviation": 30,
+      "fallbackAnchorId": "anchor.battle.act1.chapter01.01.rescue_villagers.w1.s16"
+    },
+    {
+      "slotId": "slot.w1.b2.s4",
+      "waveIndex": 1,
+      "batchIndex": 2,
+      "slotIndex": 4,
+      "unitKey": "spawn.swarm.fodder.melee",
+      "dueTime": 1.79,
+      "radiusMin": 7.25,
+      "radiusMax": 8,
+      "preferredAngle": 69,
+      "angleDeviation": 30,
+      "fallbackAnchorId": "anchor.battle.act1.chapter01.01.rescue_villagers.w1.s17"
+    },
+    {
+      "slotId": "slot.w1.b2.s5",
+      "waveIndex": 1,
+      "batchIndex": 2,
+      "slotIndex": 5,
+      "unitKey": "spawn.swarm.fodder.melee",
+      "dueTime": 1.87,
+      "radiusMin": 7.25,
+      "radiusMax": 8,
+      "preferredAngle": 75,
+      "angleDeviation": 30,
+      "fallbackAnchorId": "anchor.battle.act1.chapter01.01.rescue_villagers.w1.s18"
+    },
+    {
+      "slotId": "slot.w2.b0.s0",
+      "waveIndex": 2,
+      "batchIndex": 0,
+      "slotIndex": 0,
+      "unitKey": "spawn.swarm.fodder.melee",
+      "dueTime": 4.6,
+      "radiusMin": 10.25,
+      "radiusMax": 11.75,
+      "preferredAngle": 140,
+      "angleDeviation": 12,
+      "fallbackAnchorId": "anchor.battle.act1.chapter01.01.rescue_villagers.w2.s19"
+    },
+    {
+      "slotId": "slot.w2.b0.s1",
+      "waveIndex": 2,
+      "batchIndex": 0,
+      "slotIndex": 1,
+      "unitKey": "spawn.swarm.fodder.melee",
+      "dueTime": 4.72,
+      "radiusMin": 10.25,
+      "radiusMax": 11.75,
+      "preferredAngle": 220,
+      "angleDeviation": 12,
+      "fallbackAnchorId": "anchor.battle.act1.chapter01.01.rescue_villagers.w2.s20"
+    },
+    {
+      "slotId": "slot.w2.b0.s2",
+      "waveIndex": 2,
+      "batchIndex": 0,
+      "slotIndex": 2,
+      "unitKey": "spawn.swarm.fast.melee",
+      "dueTime": 4.84,
+      "radiusMin": 10.25,
+      "radiusMax": 11.75,
+      "preferredAngle": 35,
+      "angleDeviation": 12,
+      "fallbackAnchorId": "anchor.battle.act1.chapter01.01.rescue_villagers.w2.s21"
+    },
+    {
+      "slotId": "slot.w2.b0.s3",
+      "waveIndex": 2,
+      "batchIndex": 0,
+      "slotIndex": 3,
+      "unitKey": "spawn.swarm.fodder.melee",
+      "dueTime": 4.96,
+      "radiusMin": 10.25,
+      "radiusMax": 11.75,
+      "preferredAngle": 325,
+      "angleDeviation": 12,
+      "fallbackAnchorId": "anchor.battle.act1.chapter01.01.rescue_villagers.w2.s22"
+    },
+    {
+      "slotId": "slot.w2.b0.s4",
+      "waveIndex": 2,
+      "batchIndex": 0,
+      "slotIndex": 4,
+      "unitKey": "spawn.swarm.fodder.melee",
+      "dueTime": 5.08,
+      "radiusMin": 10.25,
+      "radiusMax": 11.75,
+      "preferredAngle": 180,
+      "angleDeviation": 12,
+      "fallbackAnchorId": "anchor.battle.act1.chapter01.01.rescue_villagers.w2.s23"
+    },
+    {
+      "slotId": "slot.w3.b0.s0",
+      "waveIndex": 3,
+      "batchIndex": 0,
+      "slotIndex": 0,
+      "unitKey": "spawn.swarm.fodder.melee",
+      "dueTime": 8.6,
+      "radiusMin": 12.5,
+      "radiusMax": 14.25,
+      "preferredAngle": 160,
+      "angleDeviation": 12,
+      "fallbackAnchorId": "anchor.battle.act1.chapter01.01.rescue_villagers.w3.s24"
+    },
+    {
+      "slotId": "slot.w3.b0.s1",
+      "waveIndex": 3,
+      "batchIndex": 0,
+      "slotIndex": 1,
+      "unitKey": "spawn.swarm.fodder.melee",
+      "dueTime": 8.72,
+      "radiusMin": 12.5,
+      "radiusMax": 14.25,
+      "preferredAngle": 200,
+      "angleDeviation": 12,
+      "fallbackAnchorId": "anchor.battle.act1.chapter01.01.rescue_villagers.w3.s25"
+    },
+    {
+      "slotId": "slot.w3.b0.s2",
+      "waveIndex": 3,
+      "batchIndex": 0,
+      "slotIndex": 2,
+      "unitKey": "spawn.swarm.fast.melee",
+      "dueTime": 8.84,
+      "radiusMin": 12.5,
+      "radiusMax": 14.25,
+      "preferredAngle": 20,
+      "angleDeviation": 12,
+      "fallbackAnchorId": "anchor.battle.act1.chapter01.01.rescue_villagers.w3.s26"
+    },
+    {
+      "slotId": "slot.w3.b0.s3",
+      "waveIndex": 3,
+      "batchIndex": 0,
+      "slotIndex": 3,
+      "unitKey": "spawn.swarm.fodder.melee",
+      "dueTime": 8.96,
+      "radiusMin": 12.5,
+      "radiusMax": 14.25,
+      "preferredAngle": 340,
+      "angleDeviation": 12,
+      "fallbackAnchorId": "anchor.battle.act1.chapter01.01.rescue_villagers.w3.s27"
+    }
+  ],
+  "fallbackAnchors": [
+    {
+      "anchorId": "anchor.battle.act1.chapter01.01.rescue_villagers.w1.s0",
+      "x": 7.251806,
+      "y": -2.356255,
+      "boundaryAssetId": "boundary.act1.chapter01.01.rescue_villagers.large_map.v3"
+    },
+    {
+      "anchorId": "anchor.battle.act1.chapter01.01.rescue_villagers.w1.s1",
+      "x": 7.458375,
+      "y": -1.585327,
+      "boundaryAssetId": "boundary.act1.chapter01.01.rescue_villagers.large_map.v3"
+    },
+    {
+      "anchorId": "anchor.battle.act1.chapter01.01.rescue_villagers.w1.s2",
+      "x": 7.583229,
+      "y": -0.79703,
+      "boundaryAssetId": "boundary.act1.chapter01.01.rescue_villagers.large_map.v3"
+    },
+    {
+      "anchorId": "anchor.battle.act1.chapter01.01.rescue_villagers.w1.s3",
+      "x": 7.625,
+      "y": 0,
+      "boundaryAssetId": "boundary.act1.chapter01.01.rescue_villagers.large_map.v3"
+    },
+    {
+      "anchorId": "anchor.battle.act1.chapter01.01.rescue_villagers.w1.s4",
+      "x": 7.583229,
+      "y": 0.79703,
+      "boundaryAssetId": "boundary.act1.chapter01.01.rescue_villagers.large_map.v3"
+    },
+    {
+      "anchorId": "anchor.battle.act1.chapter01.01.rescue_villagers.w1.s5",
+      "x": 7.458375,
+      "y": 1.585327,
+      "boundaryAssetId": "boundary.act1.chapter01.01.rescue_villagers.large_map.v3"
+    },
+    {
+      "anchorId": "anchor.battle.act1.chapter01.01.rescue_villagers.w1.s6",
+      "x": 7.251806,
+      "y": 2.356255,
+      "boundaryAssetId": "boundary.act1.chapter01.01.rescue_villagers.large_map.v3"
+    },
+    {
+      "anchorId": "anchor.battle.act1.chapter01.01.rescue_villagers.w1.s7",
+      "x": -7.365184,
+      "y": 1.973495,
+      "boundaryAssetId": "boundary.act1.chapter01.01.rescue_villagers.large_map.v3"
+    },
+    {
+      "anchorId": "anchor.battle.act1.chapter01.01.rescue_villagers.w1.s8",
+      "x": -7.531124,
+      "y": 1.192813,
+      "boundaryAssetId": "boundary.act1.chapter01.01.rescue_villagers.large_map.v3"
+    },
+    {
+      "anchorId": "anchor.battle.act1.chapter01.01.rescue_villagers.w1.s9",
+      "x": -7.61455,
+      "y": 0.399062,
+      "boundaryAssetId": "boundary.act1.chapter01.01.rescue_villagers.large_map.v3"
+    },
+    {
+      "anchorId": "anchor.battle.act1.chapter01.01.rescue_villagers.w1.s10",
+      "x": -7.61455,
+      "y": -0.399062,
+      "boundaryAssetId": "boundary.act1.chapter01.01.rescue_villagers.large_map.v3"
+    },
+    {
+      "anchorId": "anchor.battle.act1.chapter01.01.rescue_villagers.w1.s11",
+      "x": -7.531124,
+      "y": -1.192813,
+      "boundaryAssetId": "boundary.act1.chapter01.01.rescue_villagers.large_map.v3"
+    },
+    {
+      "anchorId": "anchor.battle.act1.chapter01.01.rescue_villagers.w1.s12",
+      "x": -7.365184,
+      "y": -1.973495,
+      "boundaryAssetId": "boundary.act1.chapter01.01.rescue_villagers.large_map.v3"
+    },
+    {
+      "anchorId": "anchor.battle.act1.chapter01.01.rescue_villagers.w1.s13",
+      "x": 5.391689,
+      "y": 5.391689,
+      "boundaryAssetId": "boundary.act1.chapter01.01.rescue_villagers.large_map.v3"
+    },
+    {
+      "anchorId": "anchor.battle.act1.chapter01.01.rescue_villagers.w1.s14",
+      "x": 4.798568,
+      "y": 5.925738,
+      "boundaryAssetId": "boundary.act1.chapter01.01.rescue_villagers.large_map.v3"
+    },
+    {
+      "anchorId": "anchor.battle.act1.chapter01.01.rescue_villagers.w1.s15",
+      "x": 4.152873,
+      "y": 6.394863,
+      "boundaryAssetId": "boundary.act1.chapter01.01.rescue_villagers.large_map.v3"
+    },
+    {
+      "anchorId": "anchor.battle.act1.chapter01.01.rescue_villagers.w1.s16",
+      "x": 3.461678,
+      "y": 6.793925,
+      "boundaryAssetId": "boundary.act1.chapter01.01.rescue_villagers.large_map.v3"
+    },
+    {
+      "anchorId": "anchor.battle.act1.chapter01.01.rescue_villagers.w1.s17",
+      "x": 2.732556,
+      "y": 7.118551,
+      "boundaryAssetId": "boundary.act1.chapter01.01.rescue_villagers.large_map.v3"
+    },
+    {
+      "anchorId": "anchor.battle.act1.chapter01.01.rescue_villagers.w1.s18",
+      "x": 1.973495,
+      "y": 7.365184,
+      "boundaryAssetId": "boundary.act1.chapter01.01.rescue_villagers.large_map.v3"
+    },
+    {
+      "anchorId": "anchor.battle.act1.chapter01.01.rescue_villagers.w2.s19",
+      "x": -8.426489,
+      "y": 7.070664,
+      "boundaryAssetId": "boundary.act1.chapter01.01.rescue_villagers.large_map.v3"
+    },
+    {
+      "anchorId": "anchor.battle.act1.chapter01.01.rescue_villagers.w2.s20",
+      "x": -8.426489,
+      "y": -7.070664,
+      "boundaryAssetId": "boundary.act1.chapter01.01.rescue_villagers.large_map.v3"
+    },
+    {
+      "anchorId": "anchor.battle.act1.chapter01.01.rescue_villagers.w2.s21",
+      "x": 9.010672,
+      "y": 6.309341,
+      "boundaryAssetId": "boundary.act1.chapter01.01.rescue_villagers.large_map.v3"
+    },
+    {
+      "anchorId": "anchor.battle.act1.chapter01.01.rescue_villagers.w2.s22",
+      "x": 9.010672,
+      "y": -6.309341,
+      "boundaryAssetId": "boundary.act1.chapter01.01.rescue_villagers.large_map.v3"
+    },
+    {
+      "anchorId": "anchor.battle.act1.chapter01.01.rescue_villagers.w2.s23",
+      "x": -11,
+      "y": 0,
+      "boundaryAssetId": "boundary.act1.chapter01.01.rescue_villagers.large_map.v3"
+    },
+    {
+      "anchorId": "anchor.battle.act1.chapter01.01.rescue_villagers.w3.s24",
+      "x": -12.568389,
+      "y": 4.574519,
+      "boundaryAssetId": "boundary.act1.chapter01.01.rescue_villagers.large_map.v3"
+    },
+    {
+      "anchorId": "anchor.battle.act1.chapter01.01.rescue_villagers.w3.s25",
+      "x": -12.568389,
+      "y": -4.574519,
+      "boundaryAssetId": "boundary.act1.chapter01.01.rescue_villagers.large_map.v3"
+    },
+    {
+      "anchorId": "anchor.battle.act1.chapter01.01.rescue_villagers.w3.s26",
+      "x": 12.568389,
+      "y": 4.574519,
+      "boundaryAssetId": "boundary.act1.chapter01.01.rescue_villagers.large_map.v3"
+    },
+    {
+      "anchorId": "anchor.battle.act1.chapter01.01.rescue_villagers.w3.s27",
+      "x": 12.568389,
+      "y": -4.574519,
+      "boundaryAssetId": "boundary.act1.chapter01.01.rescue_villagers.large_map.v3"
+    }
+  ],
+  "victory": {
+    "emitted": 28,
+    "pending": 0,
+    "living": 0,
+    "nextFrame": true
+  },
+  "sourceAuthority": "/private/tmp/projectbs-current-byeori-episode1-large-map-three-stage-spawn-contract.txt",
+  "version": "v3",
+  "digest": "845ca4932954e591080a7e00214848e64c32662246205b5ef29c7cf0fef61069"
+}

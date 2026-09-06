@@ -15,16 +15,36 @@ namespace Battle
         private int nextReservation;
         private int terminalReadyFrame = -1;
 
-        public BattleLargeWaveRunner(BattleLargeWavePolicySO policy, ISpawnUnitResolver resolver)
+        private BattleLargeWaveRunner(BattleLargeWavePolicySO policy, ISpawnUnitResolver resolver,
+            IReadOnlyList<LargeWaveReservation> preflightReservations)
         {
             this.policy = policy;
             this.resolver = resolver;
+            reservations = preflightReservations;
+        }
+
+        public static bool TryCreate(BattleLargeWavePolicySO policy, ISpawnUnitResolver resolver,
+            out BattleLargeWaveRunner runner, out string error)
+        {
+            runner = null;
+            if (policy == null || policy.PolicyId !=
+                "seq.act1.chapter01.01.rescue_villagers.large_map.three_stage.v3")
+            {
+                error = "unsupported large-wave placement policy";
+                return false;
+            }
+            if (!BattleLargeWavePlacementV3.TryLoadAndResolve(resolver, out var profile,
+                    out IReadOnlyList<LargeWaveReservation> rows, out error)) return false;
+            BattleMapBoundsContext.Activate(new Vector2(profile.map.x, profile.map.y),
+                profile.boundary.movementInset);
+            runner = new BattleLargeWaveRunner(policy, resolver, rows);
+            return true;
         }
 
         public bool IsCommitted { get; private set; }
         public bool HasFailed { get; private set; }
         public int EmittedCount => emittedTokens.Count;
-        public int PendingCount => IsCommitted ? Episode1SoloLargeWaveManifest.TotalCount - EmittedCount : 0;
+        public int PendingCount => IsCommitted ? reservations.Count - EmittedCount : 0;
         public int LivingCount => livingInstanceIds.Count;
         public bool IsTerminalReadyNextFrame => terminalReadyFrame >= 0 && Time.frameCount > terminalReadyFrame;
 
@@ -35,12 +55,6 @@ namespace Battle
 
             if (!IsCommitted && elapsed >= policy.ReservationCommitTime)
             {
-                if (!Episode1SoloLargeWaveManifest.TryCreate(policy, out reservations, out string error) || !ResolveAllUnits())
-                {
-                    HasFailed = true;
-                    Debug.LogError($"[BattleLargeWaveRunner] Exact1 pilot disabled before commit: {error}");
-                    return;
-                }
                 IsCommitted = true;
             }
 
@@ -57,17 +71,6 @@ namespace Battle
         {
             if (enemy != null) livingInstanceIds.Remove(enemy.GetInstanceID());
             TryMarkTerminal();
-        }
-
-        private bool ResolveAllUnits()
-        {
-            if (resolver == null) return false;
-            for (int i = 0; i < reservations.Count; i++)
-            {
-                CharacterSO character = resolver.Resolve(new SpawnUnitRequest(reservations[i].UnitKey, SpawnUnitRole.Melee));
-                if (character == null) return false;
-            }
-            return true;
         }
 
         private void Emit(LargeWaveReservation reservation)
@@ -91,7 +94,7 @@ namespace Battle
 
         private void TryMarkTerminal()
         {
-            if (IsCommitted && EmittedCount == Episode1SoloLargeWaveManifest.TotalCount && PendingCount == 0 && LivingCount == 0 && terminalReadyFrame < 0)
+            if (IsCommitted && EmittedCount == reservations.Count && PendingCount == 0 && LivingCount == 0 && terminalReadyFrame < 0)
             {
                 terminalReadyFrame = Time.frameCount;
             }

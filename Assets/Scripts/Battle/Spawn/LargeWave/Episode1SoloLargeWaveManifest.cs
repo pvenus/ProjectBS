@@ -29,10 +29,13 @@ namespace Battle
         public const int FodderCount = 22;
         public const int FastCount = 6;
 
-        private static readonly float[] BatchStarts = { 0.45f, 0.80f, 1.15f, 1.50f };
-        private static readonly int[] BatchCounts = { 8, 8, 6, 6 };
-        private static readonly int[] BatchFastCounts = { 0, 2, 2, 2 };
-        private static readonly float[] SectorAngles = { 0f, 90f, 135f, 315f, 180f, 45f, 270f, 0f };
+        public const int AssaultGroupCount = 6;
+        public const float UnitInterval = 0.14f;
+
+        private static readonly float[] GroupStarts = { 0.45f, 1.25f, 2.05f, 2.85f, 3.65f, 4.45f };
+        private static readonly int[] GroupCounts = { 5, 5, 5, 5, 4, 4 };
+        private static readonly int[] GroupFastCounts = { 1, 1, 1, 1, 1, 1 };
+        private static readonly float[] GroupCenterAngles = { 0f, 180f, 60f, 240f, 120f, 300f };
 
         public static bool TryCreate(BattleLargeWavePolicySO policy, out IReadOnlyList<LargeWaveReservation> result, out string error)
         {
@@ -53,26 +56,31 @@ namespace Battle
 
             var reservations = new List<LargeWaveReservation>(TotalCount);
             int token = 0;
-            for (int batch = 0; batch < BatchCounts.Length; batch++)
+            for (int group = 0; group < GroupCounts.Length; group++)
             {
-                int fastStart = BatchCounts[batch] - BatchFastCounts[batch];
-                int half = BatchCounts[batch] / 2;
-                for (int slot = 0; slot < BatchCounts[batch]; slot++)
+                int groupCount = GroupCounts[group];
+                int fastStart = groupCount - GroupFastCounts[group];
+                for (int slot = 0; slot < groupCount; slot++)
                 {
-                    float angle = SectorAngles[batch * 2 + (slot < half ? 0 : 1)];
-                    float radius = 9f + ((token * 37) % 51) * (5f / 50f);
+                    // A compact arc reads as one assault group. Group centers alternate
+                    // across the player, then rotate around the ring to build pressure
+                    // without producing straight spawn lines or one flat mass.
+                    float centeredSlot = slot - (groupCount - 1) * 0.5f;
+                    float angle = GroupCenterAngles[group] + centeredSlot * 6f;
+                    float radiusStep = slot == 0 ? 0f : ((slot + 1) / 2) * 0.35f * (slot % 2 == 0 ? 1f : -1f);
+                    float radius = 11.5f + radiusStep;
                     Vector3 direction = Quaternion.Euler(0f, 0f, angle) * Vector3.right;
                     string key = slot >= fastStart ? FastKey : FodderKey;
                     reservations.Add(new LargeWaveReservation(
                         token,
                         key,
-                        BatchStarts[batch] + (slot % half) * 0.05f,
+                        GroupStarts[group] + slot * UnitInterval,
                         direction * radius));
                     token++;
                 }
             }
 
-            if (reservations.Count != TotalCount || reservations[reservations.Count - 1].EmitTime > 1.6001f)
+            if (reservations.Count != TotalCount || reservations[reservations.Count - 1].EmitTime > 4.9001f)
             {
                 error = "Exact1 manifest count or terminal emit time is invalid.";
                 return false;
