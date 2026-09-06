@@ -1,0 +1,82 @@
+{
+  "schemaVersion": "hwagam_player_selection_indicator_neon_refinement_v1",
+  "status": "SELECTED_ART_PACKAGE_READY_UNITY_INSTALL_NOT_AUTHORIZED",
+  "supersedesArtPackage": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-02-refined-oval-F",
+  "invariants": {
+    "purpose": "persistent underfoot character selection indicator HUD",
+    "singleOval": true,
+    "transparentCenter": true,
+    "abstractKnotCount": 3,
+    "characterOrSkillVfx": false,
+    "readableGlyphs": false,
+    "westernRunesPentagramAlchemyConstellation": false
+  },
+  "candidateDisposition": {
+    "H": "visual direction pass, native alpha fail; provenance-only",
+    "I": "brightest moving sheen, native alpha fail; provenance-only",
+    "J": "strong navy-cyan edge, native alpha fail; provenance-only",
+    "K": "selected; native RGBA pass and best restrained neon selection readability"
+  },
+  "selectedSource": {
+    "candidate": "K",
+    "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/seojin-selection-indicator-neon-revision-04-K-v20260906/K/source-board.png",
+    "sha256": "56b090ee8e4c9b420276345ecc85bfe83c6c0721594aad7eaa123aae7224d95b",
+    "generationMethod": "built-in ImageGen generate",
+    "inputImage": null,
+    "layout": "3x2 row-major exact6"
+  },
+  "selectedPackage": {
+    "root": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-03-neon-refinement-K",
+    "sourceManifest": {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-03-neon-refinement-K/source-manifest.json",
+      "sha256": "3174fc019812f024cf0e1011e2269871dd232a6165b470e367c33c9e1f10f16b"
+    },
+    "packagingScriptSha256": "149d5f0ac3188b94e558c6c060812b2c6506ea570cf615cfcc8cb050354c0cdf",
+    "registry": {"combined": 6, "back": 6, "front": 6},
+    "canvas": [1536, 1024],
+    "mode": "RGBA",
+    "pivot": [0.5, 0.5],
+    "ppu": 512,
+    "timestampsSeconds": [0.0, 0.16, 0.32, 0.48, 0.64, 0.80],
+    "stopSeconds": 0.96,
+    "loop": true,
+    "staticFallbackFrame": "frame_01.png"
+  },
+  "visualDecision": {
+    "result": "PASS",
+    "reason": "Dark ink core remains visible while a thin desaturated cyan edge and one localized moving highlight make selection immediately legible. The ring stays stable and persistent, with no attack direction, cast onset, shockwave, or global flash.",
+    "currentFootprintRatio": {"width": "76.8-86.8%", "height": "68.3-76.6%"},
+    "note": "Smaller than the current static seal, intentionally reducing skill-range misread and character occlusion."
+  },
+  "quality": {
+    "physical": "PASS",
+    "combinedBackFrontRecompositionPixelDiff": 0,
+    "bordersCornersAlpha0": true,
+    "alpha0RgbResidue0": true,
+    "clipping": false,
+    "centralTransparency": "PASS",
+    "seamVisual": "PASS"
+  },
+  "qa": {
+    "manifest": {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-03-neon-refinement-K/qa-package-v001/per-frame-sha-qa-manifest.json",
+      "sha256": "89917a926d9e3f4e93f58ef121c76cdc60741f80ff30d03baef32c9fc38db7de"
+    },
+    "receipt": {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-03-neon-refinement-K/qa-package-v001/qa-receipt.json",
+      "sha256": "be4892bae8d96d467af1aa3101633baa459c746c361307b0ed8dce40ffdf7988"
+    },
+    "gif": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-03-neon-refinement-K/qa-package-v001/gif/combined-exact6.gif",
+    "contacts": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-03-neon-refinement-K/qa-package-v001/contacts",
+    "contactSheet": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-03-neon-refinement-K/qa-package-v001/contact-sheet.png"
+  },
+  "promotionBoundary": {
+    "currentProjectAssetsUntouched": true,
+    "unityWrite": false,
+    "canonicalWrite": false,
+    "installAuthority": false,
+    "runtimeAcceptance": false,
+    "runtimeLoopRequiresAnimatorOrCodeAuthority": true,
+    "rollback": "Remove or ignore revision-03-neon-refinement-K; current static aura assets remain authoritative."
+  }
+}

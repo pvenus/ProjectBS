@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "imageforge_external_selected_package_v1",
+  "status": "COMPLETE_SOURCE_IDENTICAL",
+  "destination": "/Users/pvenus/imageforge-mcp/generated_image/seojin/Selected",
+  "namingBasis": "existing generated_image/<character>/<Action> convention; new stable character name seojin and action Selected",
+  "source": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-03-neon-refinement-K/combined",
+  "copyDisposition": "new destination; no prior files and no backup required",
+  "frames": [
+    {"file": "frame_01.png", "time": 0.00, "sha256": "bce08db8c42de6f22b7106f418cde10cce3e93c10a6cd4d0fc407dde7ae8a8cd"},
+    {"file": "frame_02.png", "time": 0.16, "sha256": "d6ce3da8bacf3011a6c49c09fe54c615663372f82ab82e0d12b1712742761261"},
+    {"file": "frame_03.png", "time": 0.32, "sha256": "36db3aae6ef53612e6e5ebea51d6d9792208ddbe6b2aee06581d35479c1f5a1e"},
+    {"file": "frame_04.png", "time": 0.48, "sha256": "409a6ff0d63c026c6d4491b1d77eda2f12d9a85512d6550c0b261c613f910717"},
+    {"file": "frame_05.png", "time": 0.64, "sha256": "484914ea704ca2efef9d71a698e054a4d9f3ebbca3fd0e0f438b12a01d162203"},
+    {"file": "frame_06.png", "time": 0.80, "sha256": "c061a509eaa92098d1fd21af286aa0e70d356d2ab450c20b6767b906b67d6b1a"}
+  ],
+  "manifest": {
+    "file": "transform-manifest.json",
+    "sha256": "3becbee32756c7795ac6310884a8f05f484c2c47c4b98b03768f1a7994053a16"
+  },
+  "animation": {"frameCount": 6, "stop": 0.96, "loop": true},
+  "physical": {
+    "dimensions": [1536, 1024],
+    "mode": "RGBA",
+    "sourceDestinationShaIdentity": "6/6",
+    "borderAlphaMax": 0,
+    "alpha0RgbResiduePixels": 0
+  },
+  "exclusions": ["back frames", "front frames", "candidate boards", "Unity assets"],
+  "projectCanonicalWrite": false,
+  "unityWrite": false,
+  "rollback": "Delete external seojin/Selected directory if the external review package must be withdrawn; ProjectBS source remains unchanged."
+}

@@ -1,0 +1,91 @@
+{
+  "schemaVersion": "hwagam_player_selection_indicator_art_v1",
+  "status": "SELECTED_ART_PACKAGE_READY_UNITY_INSTALL_NOT_AUTHORIZED",
+  "purpose": "Always-on underfoot selection indicator HUD for selected Seojin",
+  "currentAuthorityAudit": {
+    "prefab": "/Users/pvenus/ProjectBS/Assets/Resources/battle/Presentation/PlayerCharacterAura.prefab",
+    "prefabSha256Prefix": "7bf3c0",
+    "currentBack": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Battle/character/player-character-aura-back.png",
+    "currentBackSha256": "458b9bee83cfcd39ad1d985dccfd404f08a7922699cfb83c1bd49031d25139be",
+    "currentFront": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Battle/character/player-character-aura-front.png",
+    "currentFrontSha256": "6794941bc1920d046c68113d747e677142e7699dd9463687bd1881d94f74cc6d",
+    "currentCanvas": [1536, 1024],
+    "import": {"ppu": 512, "pivot": [0.5, 0.5], "filter": "bilinear", "wrap": "clamp"},
+    "renderer": {"scale": [0.6, 0.45], "offset": [0.0, -0.65, 0.0], "backOrderOffset": -1, "frontOrderOffset": 1},
+    "runtimeLoopSupport": false,
+    "note": "Current prefab is a static back/front sandwich with no Animator or frame-step controller."
+  },
+  "candidateDisposition": {
+    "A-D": "provenance-only; superseded by corrected selection-indicator intent",
+    "E": "not selected; metallic ornaments read as equipment/summon UI",
+    "F": "selected; restrained single oval brush band, transparent center, three abstract knot nodes",
+    "G": "not selected; round nodes risk constellation/planet reading"
+  },
+  "selectedSource": {
+    "candidate": "F",
+    "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/seojin-selection-indicator-loop-v20260906/F/source-board.png",
+    "sha256": "deb24fbb17607cd6cb86d7d88fc588998372749bb6ba389b9700b369d87c43aa",
+    "generationMethod": "built-in ImageGen",
+    "layout": "3x2 row-major exact6"
+  },
+  "selectedPackage": {
+    "root": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-02-refined-oval-F",
+    "sourceManifest": {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-02-refined-oval-F/source-manifest.json",
+      "sha256": "a4093955c076f9eba6f80aef23dc491ae9e30560487aca712d9c98d7a62c155c"
+    },
+    "packagingScriptSha256": "69a124883b8f8b2627dc37d4eff8b168c16c878d101c235d10f90321f21b8447",
+    "registry": {"combined": 6, "back": 6, "front": 6},
+    "frameCanvas": [1536, 1024],
+    "mode": "RGBA",
+    "pivot": [0.5, 0.5],
+    "ppu": 512,
+    "timestampsSeconds": [0.0, 0.16, 0.32, 0.48, 0.64, 0.80],
+    "stopSeconds": 0.96,
+    "loop": true,
+    "staticFallbackFrame": "frame_01.png"
+  },
+  "quality": {
+    "physical": "PASS",
+    "visual": "PASS",
+    "combinedBackFrontRecompositionPixelDiff": 0,
+    "bordersCornersAlpha0": true,
+    "alpha0RgbResidue0": true,
+    "clipping": false,
+    "centerCharacterReadability": "PASS",
+    "forbiddenRead": {
+      "westernRunes": false,
+      "pentagram": false,
+      "constellation": false,
+      "alchemyDiagram": false,
+      "readableGlyph": false,
+      "attackOrCast": false,
+      "neonOrExplosion": false
+    }
+  },
+  "qa": {
+    "manifest": {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-02-refined-oval-F/qa-package-v001/per-frame-sha-qa-manifest.json",
+      "sha256": "df5eb495355be5f6933ba8399821de503442ab32d4117333f8f999fa8964f034"
+    },
+    "receipt": {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-02-refined-oval-F/qa-package-v001/qa-receipt.json",
+      "sha256": "0e0726918ac4958e54c14bd3743a42d63d3208bfe7a2ed6f0c5fcfa7904a737d"
+    },
+    "gif": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-02-refined-oval-F/qa-package-v001/gif/combined-exact6.gif",
+    "contacts": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-02-refined-oval-F/qa-package-v001/contacts",
+    "contactSheet": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-02-refined-oval-F/qa-package-v001/contact-sheet.png"
+  },
+  "promotionBoundary": {
+    "targets": [
+      "Assets/ImagesGenerated/Battle/character/player-character-aura-back.png",
+      "Assets/ImagesGenerated/Battle/character/player-character-aura-front.png",
+      "new downstream loop clip/controller binding if authorized"
+    ],
+    "unityWrite": false,
+    "canonicalWrite": false,
+    "installAuthority": false,
+    "runtimeAcceptance": false,
+    "rollback": "Remove/ignore revision-02-refined-oval-F; current static back/front assets and prefab remain untouched."
+  }
+}

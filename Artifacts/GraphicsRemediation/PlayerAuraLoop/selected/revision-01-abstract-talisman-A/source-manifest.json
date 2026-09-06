@@ -1,0 +1,199 @@
+{
+  "schemaVersion": "player_aura_loop_selected_source_v1",
+  "status": "ART_SOURCE_SELECTED_INSTALL_NOT_AUTHORIZED",
+  "selection": "A",
+  "source": {
+    "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/seojin-ground-decal-loop-v20260906/A/source-board.png",
+    "sha256": "f081bc24a18ad60e734d828ad3b1488f566a07ba60f8085800f7554acd00b1c0",
+    "layout": "3x2 row-major"
+  },
+  "processing": {
+    "operation": "deterministic fixed-cell extraction, uniform Lanczos contain, alpha<=1 sanitation, horizontal back/front split",
+    "cellSize": [
+      512,
+      512
+    ],
+    "canvas": [
+      1536,
+      1024
+    ],
+    "containedSize": [
+      944,
+      944
+    ],
+    "offset": [
+      296,
+      40
+    ],
+    "repaint": false,
+    "recolor": false,
+    "backgroundRemoval": false
+  },
+  "runtimeConvention": {
+    "ppu": 512,
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "filter": "bilinear",
+    "wrap": "clamp"
+  },
+  "animation": {
+    "frameCount": 6,
+    "timestamps": [
+      0.0,
+      0.16,
+      0.32,
+      0.48,
+      0.64,
+      0.8
+    ],
+    "stop": 0.96,
+    "loop": true
+  },
+  "frames": [
+    {
+      "index": 0,
+      "time": 0.0,
+      "sourceCell": [
+        0,
+        0
+      ],
+      "outputs": {
+        "combined": {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-01-abstract-talisman-A/combined/frame_01.png",
+          "sha256": "7cda4d50b5c83acfcb19ad141e09add2a491b0705cd1a13992fbc117c72966e9"
+        },
+        "back": {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-01-abstract-talisman-A/back/frame_01.png",
+          "sha256": "98fd4423d9b39162559a53623465f22926cfb2e85825aa566b65c14238258ac4"
+        },
+        "front": {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-01-abstract-talisman-A/front/frame_01.png",
+          "sha256": "72bd173b5584524b0b6dd36d9346d11281b88ba3d59800a98f50ab34e6a5eb65"
+        }
+      }
+    },
+    {
+      "index": 1,
+      "time": 0.16,
+      "sourceCell": [
+        1,
+        0
+      ],
+      "outputs": {
+        "combined": {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-01-abstract-talisman-A/combined/frame_02.png",
+          "sha256": "180b6e8c9e645350dfa9aa0f9311f6735633fc67cf8e486dc2bb8f431a70183c"
+        },
+        "back": {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-01-abstract-talisman-A/back/frame_02.png",
+          "sha256": "2a2cfd81af4cd3bfbfec44fefa01d12db6f69e307bb326745b238d9ff4e0a262"
+        },
+        "front": {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-01-abstract-talisman-A/front/frame_02.png",
+          "sha256": "5fbf72e18a6d6a89a884594c2a76f508f89124eee92247518e8e4831d541cd16"
+        }
+      }
+    },
+    {
+      "index": 2,
+      "time": 0.32,
+      "sourceCell": [
+        2,
+        0
+      ],
+      "outputs": {
+        "combined": {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-01-abstract-talisman-A/combined/frame_03.png",
+          "sha256": "a434729d99b37ce077967e6c9c8e1e9e8b3249f1a49e84758471d9123a0ecdba"
+        },
+        "back": {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-01-abstract-talisman-A/back/frame_03.png",
+          "sha256": "32d03d211a0f29cdf67e6fedb2ee8f556b181d8563d7735d511d98704ff01dde"
+        },
+        "front": {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-01-abstract-talisman-A/front/frame_03.png",
+          "sha256": "5bd5a9da844151668863f77d5657e4342c3e01f3d24fca5c1ad6b4c70c909233"
+        }
+      }
+    },
+    {
+      "index": 3,
+      "time": 0.48,
+      "sourceCell": [
+        0,
+        1
+      ],
+      "outputs": {
+        "combined": {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-01-abstract-talisman-A/combined/frame_04.png",
+          "sha256": "34652b715b5153b073e3be6c505faf9c2cee5b28162e4940518feed4fb9b3137"
+        },
+        "back": {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-01-abstract-talisman-A/back/frame_04.png",
+          "sha256": "effd3011880a5e63708a58610e5fd22f3fbaa111bc5c34b5400c8eb5ddc119d3"
+        },
+        "front": {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-01-abstract-talisman-A/front/frame_04.png",
+          "sha256": "1a69b3aff9563d2134a1a89339880376de2f513fcd5d3b348e14071711bc21dc"
+        }
+      }
+    },
+    {
+      "index": 4,
+      "time": 0.64,
+      "sourceCell": [
+        1,
+        1
+      ],
+      "outputs": {
+        "combined": {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-01-abstract-talisman-A/combined/frame_05.png",
+          "sha256": "a33e1a1ca6433c6ca000ac94be79dedbb6e38a309eed91ee025a86f557c2a1f4"
+        },
+        "back": {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-01-abstract-talisman-A/back/frame_05.png",
+          "sha256": "4d6eb9e3d552b9c8a11da1c2efb8270cc7b883b03c36f2dc1a21a0cbef7d6479"
+        },
+        "front": {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-01-abstract-talisman-A/front/frame_05.png",
+          "sha256": "f117173a4026b307fd57c748defd95365cb9cfed025c361b58b70e4cbd803833"
+        }
+      }
+    },
+    {
+      "index": 5,
+      "time": 0.8,
+      "sourceCell": [
+        2,
+        1
+      ],
+      "outputs": {
+        "combined": {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-01-abstract-talisman-A/combined/frame_06.png",
+          "sha256": "1b41405eae1fd315ddd03ed69da3a79ae8038d1928da0207ad615bd5054d917b"
+        },
+        "back": {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-01-abstract-talisman-A/back/frame_06.png",
+          "sha256": "493b0cbeb097a114c3a1801baf42749c0e4d47b0528e11003286a4f51b151360"
+        },
+        "front": {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-01-abstract-talisman-A/front/frame_06.png",
+          "sha256": "e8b9f3689e5cf9293c1d2c4a350e3caf6f7a94dd0b57db7d9d9b2f3cace97e11"
+        }
+      }
+    }
+  ],
+  "promotionTargets": [
+    "Assets/ImagesGenerated/Battle/character/player-character-aura-back.png",
+    "Assets/ImagesGenerated/Battle/character/player-character-aura-front.png"
+  ],
+  "boundary": {
+    "unityWrite": false,
+    "canonicalWrite": false,
+    "installAuthority": false,
+    "runtimeLoopRequiresAnimatorOrCodeAuthority": true,
+    "rollback": "artifact package absence; canonical assets untouched"
+  }
+}

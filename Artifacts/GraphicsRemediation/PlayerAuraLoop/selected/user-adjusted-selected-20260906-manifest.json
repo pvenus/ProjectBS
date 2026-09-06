@@ -1,0 +1,38 @@
+{
+  "schemaVersion": "player_aura_user_adjusted_selected_v1",
+  "sourceRoot": "/Users/pvenus/imageforge-mcp/generated_image/seojin/Selected",
+  "sourceAuthority": "frame_01.png..frame_06.png file bytes; transform-manifest.json is provenance-only",
+  "processing": {
+    "operation": "common transparent pad 2px then lossless horizontal back/front alpha partition",
+    "sourceCanvas": [245, 140],
+    "installedCanvas": [249, 144],
+    "sourceOffset": [2, 2],
+    "visibleSourcePixelMutation": false,
+    "recompositionPixelDiff": 0,
+    "ppu": 100,
+    "pivot": [0.5, 0.5]
+  },
+  "animation": {
+    "timestamps": [0.0, 0.16, 0.32, 0.48, 0.64, 0.80],
+    "stop": 0.96,
+    "loop": true,
+    "timeSource": "unscaled"
+  },
+  "frames": [
+    {"index":1,"sourceSha256":"31e42e0da9d3136367ca6a63e9e34ab5fba5ae545cbf09da5b226be90946d4c0","backSha256":"60905a9f5bcf1a1a4d64c017dc6cca610dae4c4b80b5d3b38649b8f59adbeb62","frontSha256":"27f97fb5b130274bb76d9251e9d1a38ff1a329d60b781fc600b8e6a6bbc93ace"},
+    {"index":2,"sourceSha256":"ff8b044fc7801966c162e7c9f1c9fb0300f51d3ca75fa6b544312d90555f1d22","backSha256":"fe2d602ba9d053972d25718eb8fa75dab93ad60b537932608981069acb4e9c36","frontSha256":"397fabb725799356cb2478e405da80fe4bc2bb240e79e9d3819ce08e2ae05c9c"},
+    {"index":3,"sourceSha256":"76ec1acdff78b9fb50606481633a822224acacb17eb13383e4dfec71dcc0c694","backSha256":"3a570b16b89f7adbdaec07bf244d4a41516eb48210c1ae4933e5e3bc3924f729","frontSha256":"a818707ddb43f11edd86c14c63b4641de745a6981fdff7e9bbf02aeac9bb6192"},
+    {"index":4,"sourceSha256":"9ea77d42a6ed782c78a0b643ab68078fc13857b78fe671751c86c7ef724ebd07","backSha256":"5d6a731502fe437a47aedefaa6f7b58e7b5192ef6776a29feace472f78bb68a0","frontSha256":"5a154c3a7cebb833173851cfd7297a9d37135fac776b64f636426a23d0491f7e"},
+    {"index":5,"sourceSha256":"e334e643ae62d6b5b2e455a20326d27744fce15ddb1d32f80fe56957f3369769","backSha256":"665f670dc731cdbb9c70a2820b28535a5ea16b72715300fb723a005ff95a7198","frontSha256":"16c2116d0d3584c55db16fb2e87875f890a68c093fd7f23dc416bbb2218279fd"},
+    {"index":6,"sourceSha256":"78db68a6cbb45e2d3ee0fefffba95199df0695dec0e896cf945e004501422eac","backSha256":"a7c60a4a88b8f77e42113e4d7d51ca8dbafa0f2361face033b6ad21a5298e2d4","frontSha256":"471c6c057a186356d2570d577e080a494fb16dd9e6280037e59852810aebb9d7"}
+  ],
+  "validation": {
+    "rgbaExact6": true,
+    "sameCanvas": true,
+    "uniqueSourceExact6": true,
+    "alphaBorderContactInstalled": false,
+    "visibleSourcePixelIdentityExact6": true,
+    "backFrontRecompositionIdentityExact6": true
+  },
+  "rollback": "/private/tmp/projectbs-player-aura-k-rollback.1vLJbH"
+}

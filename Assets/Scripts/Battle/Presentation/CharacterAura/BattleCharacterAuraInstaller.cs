@@ -111,7 +111,22 @@ namespace Battle.Presentation
             bool applyColor,
             Color color)
         {
-            if (applyColor && auraView != null)
+            if (auraView == null)
+            {
+                return null;
+            }
+
+            auraView.SetSelectionActive(true);
+
+            if (auraView.HasAuthoredSelectionLoop)
+            {
+                // The selected exact6 loop carries its approved navy/rust
+                // palette. Party-index tinting (index 0 == red) destroys that
+                // authored colour and makes the marker resemble the legacy
+                // red static sigil.
+                auraView.SetColor(Color.white);
+            }
+            else if (applyColor)
             {
                 auraView.SetColor(color);
             }

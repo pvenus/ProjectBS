@@ -1,0 +1,205 @@
+{
+  "schemaVersion": "player_aura_loop_selected_source_v1",
+  "status": "ART_SOURCE_SELECTED_INSTALL_NOT_AUTHORIZED",
+  "selection": "K",
+  "source": {
+    "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/seojin-selection-indicator-neon-revision-04-K-v20260906/K/source-board.png",
+    "sha256": "56b090ee8e4c9b420276345ecc85bfe83c6c0721594aad7eaa123aae7224d95b",
+    "layout": "3x2 row-major"
+  },
+  "processing": {
+    "operation": "deterministic fixed-cell extraction, uniform Lanczos contain, alpha<=1 sanitation, horizontal back/front split",
+    "cellSize": [
+      512,
+      512
+    ],
+    "canvas": [
+      1536,
+      1024
+    ],
+    "uniformScaledSizeBeforeVerticalWindow": [
+      1408,
+      1408
+    ],
+    "verticalWindow": [
+      0,
+      192,
+      1408,
+      1216
+    ],
+    "offset": [
+      64,
+      0
+    ],
+    "repaint": false,
+    "recolor": false,
+    "backgroundRemoval": false
+  },
+  "runtimeConvention": {
+    "ppu": 512,
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "filter": "bilinear",
+    "wrap": "clamp"
+  },
+  "animation": {
+    "frameCount": 6,
+    "timestamps": [
+      0.0,
+      0.16,
+      0.32,
+      0.48,
+      0.64,
+      0.8
+    ],
+    "stop": 0.96,
+    "loop": true
+  },
+  "frames": [
+    {
+      "index": 0,
+      "time": 0.0,
+      "sourceCell": [
+        0,
+        0
+      ],
+      "outputs": {
+        "combined": {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-03-neon-refinement-K/combined/frame_01.png",
+          "sha256": "bce08db8c42de6f22b7106f418cde10cce3e93c10a6cd4d0fc407dde7ae8a8cd"
+        },
+        "back": {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-03-neon-refinement-K/back/frame_01.png",
+          "sha256": "aa9f0420e7f7e7c4e7dd484626b8eb7a0315b1a3da72a47d03cd4fde731bb1ef"
+        },
+        "front": {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-03-neon-refinement-K/front/frame_01.png",
+          "sha256": "460450992fabc05846e73c06f9d809d513e02335e29158d2e4fdd6b94b5bcfb5"
+        }
+      }
+    },
+    {
+      "index": 1,
+      "time": 0.16,
+      "sourceCell": [
+        1,
+        0
+      ],
+      "outputs": {
+        "combined": {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-03-neon-refinement-K/combined/frame_02.png",
+          "sha256": "d6ce3da8bacf3011a6c49c09fe54c615663372f82ab82e0d12b1712742761261"
+        },
+        "back": {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-03-neon-refinement-K/back/frame_02.png",
+          "sha256": "02775c2ad9c43852b0e0d05e7253610fb132cb6a7b8ab4ba6f661f256d8f6f02"
+        },
+        "front": {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-03-neon-refinement-K/front/frame_02.png",
+          "sha256": "fde425f4170fcbd6c35b2fb6eed37c9dd40ab21bb824bd60e4b4bc9ce623153e"
+        }
+      }
+    },
+    {
+      "index": 2,
+      "time": 0.32,
+      "sourceCell": [
+        2,
+        0
+      ],
+      "outputs": {
+        "combined": {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-03-neon-refinement-K/combined/frame_03.png",
+          "sha256": "36db3aae6ef53612e6e5ebea51d6d9792208ddbe6b2aee06581d35479c1f5a1e"
+        },
+        "back": {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-03-neon-refinement-K/back/frame_03.png",
+          "sha256": "e18b8f77e912a93e56d6373699a5e0519355b3ce342f876ed2e26350415bdaa4"
+        },
+        "front": {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-03-neon-refinement-K/front/frame_03.png",
+          "sha256": "2b230c95cdf8fbee833047a502fa9b2cae694a281c98909f5ebd091324132119"
+        }
+      }
+    },
+    {
+      "index": 3,
+      "time": 0.48,
+      "sourceCell": [
+        0,
+        1
+      ],
+      "outputs": {
+        "combined": {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-03-neon-refinement-K/combined/frame_04.png",
+          "sha256": "409a6ff0d63c026c6d4491b1d77eda2f12d9a85512d6550c0b261c613f910717"
+        },
+        "back": {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-03-neon-refinement-K/back/frame_04.png",
+          "sha256": "aaf88bf5f66a780f9189d1ed735c3dde239c55467ffd3160a796715044580db5"
+        },
+        "front": {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-03-neon-refinement-K/front/frame_04.png",
+          "sha256": "f0e67de108df67907023bb9d924563089b89b54b094219a1bac7138fc7a66d47"
+        }
+      }
+    },
+    {
+      "index": 4,
+      "time": 0.64,
+      "sourceCell": [
+        1,
+        1
+      ],
+      "outputs": {
+        "combined": {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-03-neon-refinement-K/combined/frame_05.png",
+          "sha256": "484914ea704ca2efef9d71a698e054a4d9f3ebbca3fd0e0f438b12a01d162203"
+        },
+        "back": {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-03-neon-refinement-K/back/frame_05.png",
+          "sha256": "11494131dd66382763695e4da3f7ed7a58405006d29c997b1d7b4b6246502207"
+        },
+        "front": {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-03-neon-refinement-K/front/frame_05.png",
+          "sha256": "6df6c70b097511250393a54e3083391312d97e6b61193931fcd71993a93ef201"
+        }
+      }
+    },
+    {
+      "index": 5,
+      "time": 0.8,
+      "sourceCell": [
+        2,
+        1
+      ],
+      "outputs": {
+        "combined": {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-03-neon-refinement-K/combined/frame_06.png",
+          "sha256": "c061a509eaa92098d1fd21af286aa0e70d356d2ab450c20b6767b906b67d6b1a"
+        },
+        "back": {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-03-neon-refinement-K/back/frame_06.png",
+          "sha256": "896ebe12099ee5bb005128ff6d4e4ea17b162a3b03b404b98d0675963d7b1a28"
+        },
+        "front": {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-03-neon-refinement-K/front/frame_06.png",
+          "sha256": "32dcc9b757205bc19f18e7a9d0dcd63c78dabbf895bbca5dbb3c1924ca14e9cd"
+        }
+      }
+    }
+  ],
+  "promotionTargets": [
+    "Assets/ImagesGenerated/Battle/character/player-character-aura-back.png",
+    "Assets/ImagesGenerated/Battle/character/player-character-aura-front.png"
+  ],
+  "boundary": {
+    "unityWrite": false,
+    "canonicalWrite": false,
+    "installAuthority": false,
+    "runtimeLoopRequiresAnimatorOrCodeAuthority": true,
+    "rollback": "artifact package absence; canonical assets untouched"
+  }
+}

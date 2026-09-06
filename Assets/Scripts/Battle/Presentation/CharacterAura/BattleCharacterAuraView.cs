@@ -19,6 +19,11 @@ namespace Battle.Presentation
         [Tooltip("Keeps the aura's world size independent from the parent character scale.")]
         [SerializeField] private bool compensateParentScale = true;
 
+        [Header("Selection Loop")]
+        [SerializeField] private Sprite[] backLoopFrames;
+        [SerializeField] private Sprite[] frontLoopFrames;
+        [SerializeField, Min(0.01f)] private float loopFrameDuration = 0.16f;
+
         [Header("Sorting")]
         [SerializeField] private bool followCharacterSorting = true;
         [SerializeField, Min(1)] private int backOrderOffset = 1;
@@ -28,19 +33,38 @@ namespace Battle.Presentation
         [SerializeField] private int fallbackFrontSortingOrder = 1;
 
         private SpriteRenderer[] characterRenderers;
+        private Sprite fallbackBackSprite;
+        private Sprite fallbackFrontSprite;
+        private float loopElapsed;
+        private int displayedLoopFrame = -1;
 
         public SpriteRenderer BackArcRenderer => backArcRenderer;
         public SpriteRenderer FrontArcRenderer => frontArcRenderer;
         public Color DefaultColor => defaultColor;
         public Vector3 PositionOffset => positionOffset;
         public Vector2 VisualScale => visualScale;
+        public bool HasAuthoredSelectionLoop => HasCompleteSelectionLoop();
 
         private void Awake()
         {
             ResolveRenderers();
+            CaptureStaticFallbackSprites();
             ApplyDefaultColor();
             ApplyVisualTransform();
             ApplyFallbackSorting();
+        }
+
+        private void OnEnable()
+        {
+            SetRendererVisibility(true);
+            RestartSelectionLoop();
+        }
+
+        private void OnDisable()
+        {
+            loopElapsed = 0f;
+            displayedLoopFrame = -1;
+            SetRendererVisibility(false);
         }
 
         private void OnValidate()
@@ -57,6 +81,7 @@ namespace Battle.Presentation
 
         private void LateUpdate()
         {
+            UpdateSelectionLoop();
             ApplyParentScaleCompensation();
             ApplySorting();
         }
@@ -97,6 +122,134 @@ namespace Battle.Presentation
             ResolveRenderers();
             backArcRenderer.sprite = backSprite;
             frontArcRenderer.sprite = frontSprite;
+            fallbackBackSprite = backSprite;
+            fallbackFrontSprite = frontSprite;
+            RestartSelectionLoop();
+        }
+
+        public void SetSelectionActive(bool selected)
+        {
+            if (enabled == selected)
+            {
+                if (selected)
+                {
+                    RestartSelectionLoop();
+                    SetRendererVisibility(true);
+                }
+
+                return;
+            }
+
+            enabled = selected;
+        }
+
+        private void CaptureStaticFallbackSprites()
+        {
+            if (backArcRenderer != null && fallbackBackSprite == null)
+            {
+                fallbackBackSprite = backArcRenderer.sprite;
+            }
+
+            if (frontArcRenderer != null && fallbackFrontSprite == null)
+            {
+                fallbackFrontSprite = frontArcRenderer.sprite;
+            }
+        }
+
+        private bool HasCompleteSelectionLoop()
+        {
+            if (backLoopFrames == null || frontLoopFrames == null ||
+                backLoopFrames.Length != 6 || frontLoopFrames.Length != 6)
+            {
+                return false;
+            }
+
+            for (int i = 0; i < 6; i++)
+            {
+                if (backLoopFrames[i] == null || frontLoopFrames[i] == null)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private void RestartSelectionLoop()
+        {
+            loopElapsed = 0f;
+            displayedLoopFrame = -1;
+            ApplySelectionLoopFrame(0);
+        }
+
+        private void UpdateSelectionLoop()
+        {
+            if (!HasCompleteSelectionLoop())
+            {
+                ApplyStaticFallbackSprites();
+                return;
+            }
+
+            loopElapsed = Mathf.Repeat(
+                loopElapsed + Time.unscaledDeltaTime,
+                loopFrameDuration * 6f);
+            int frame = Mathf.Clamp(
+                Mathf.FloorToInt(loopElapsed / loopFrameDuration),
+                0,
+                5);
+            ApplySelectionLoopFrame(frame);
+        }
+
+        private void ApplySelectionLoopFrame(int frame)
+        {
+            ResolveRenderers();
+            CaptureStaticFallbackSprites();
+
+            if (!HasCompleteSelectionLoop())
+            {
+                ApplyStaticFallbackSprites();
+                return;
+            }
+
+            frame = Mathf.Clamp(frame, 0, 5);
+            if (displayedLoopFrame == frame)
+            {
+                return;
+            }
+
+            backArcRenderer.sprite = backLoopFrames[frame];
+            frontArcRenderer.sprite = frontLoopFrames[frame];
+            displayedLoopFrame = frame;
+        }
+
+        private void ApplyStaticFallbackSprites()
+        {
+            ResolveRenderers();
+            if (backArcRenderer != null && fallbackBackSprite != null)
+            {
+                backArcRenderer.sprite = fallbackBackSprite;
+            }
+
+            if (frontArcRenderer != null && fallbackFrontSprite != null)
+            {
+                frontArcRenderer.sprite = fallbackFrontSprite;
+            }
+
+            displayedLoopFrame = -1;
+        }
+
+        private void SetRendererVisibility(bool visible)
+        {
+            ResolveRenderers();
+            if (backArcRenderer != null)
+            {
+                backArcRenderer.enabled = visible;
+            }
+
+            if (frontArcRenderer != null)
+            {
+                frontArcRenderer.enabled = visible;
+            }
         }
 
         public void SetColor(Color color)

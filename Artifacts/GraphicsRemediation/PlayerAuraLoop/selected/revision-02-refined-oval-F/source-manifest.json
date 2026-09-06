@@ -1,0 +1,199 @@
+{
+  "schemaVersion": "player_aura_loop_selected_source_v1",
+  "status": "ART_SOURCE_SELECTED_INSTALL_NOT_AUTHORIZED",
+  "selection": "F",
+  "source": {
+    "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/seojin-selection-indicator-loop-v20260906/F/source-board.png",
+    "sha256": "deb24fbb17607cd6cb86d7d88fc588998372749bb6ba389b9700b369d87c43aa",
+    "layout": "3x2 row-major"
+  },
+  "processing": {
+    "operation": "deterministic fixed-cell extraction, uniform Lanczos contain, alpha<=1 sanitation, horizontal back/front split",
+    "cellSize": [
+      512,
+      512
+    ],
+    "canvas": [
+      1536,
+      1024
+    ],
+    "containedSize": [
+      944,
+      944
+    ],
+    "offset": [
+      296,
+      40
+    ],
+    "repaint": false,
+    "recolor": false,
+    "backgroundRemoval": false
+  },
+  "runtimeConvention": {
+    "ppu": 512,
+    "pivot": [
+      0.5,
+      0.5
+    ],
+    "filter": "bilinear",
+    "wrap": "clamp"
+  },
+  "animation": {
+    "frameCount": 6,
+    "timestamps": [
+      0.0,
+      0.16,
+      0.32,
+      0.48,
+      0.64,
+      0.8
+    ],
+    "stop": 0.96,
+    "loop": true
+  },
+  "frames": [
+    {
+      "index": 0,
+      "time": 0.0,
+      "sourceCell": [
+        0,
+        0
+      ],
+      "outputs": {
+        "combined": {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-02-refined-oval-F/combined/frame_01.png",
+          "sha256": "783a93a8a9881d4555b39e4499ff71dffcbdd79f857817953657b41ace58870c"
+        },
+        "back": {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-02-refined-oval-F/back/frame_01.png",
+          "sha256": "0b6651605802d09810aa12f5fb35b9789557bf64666fb879603a23d1e752b63d"
+        },
+        "front": {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-02-refined-oval-F/front/frame_01.png",
+          "sha256": "641d97593183c1cb1fb25816b143134328a45fba268e3ee5765337f4b2c6acbf"
+        }
+      }
+    },
+    {
+      "index": 1,
+      "time": 0.16,
+      "sourceCell": [
+        1,
+        0
+      ],
+      "outputs": {
+        "combined": {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-02-refined-oval-F/combined/frame_02.png",
+          "sha256": "1a3051868c1293f0575fb210b43a816f65db913b5b2528bb8d22970bbf01b9c1"
+        },
+        "back": {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-02-refined-oval-F/back/frame_02.png",
+          "sha256": "bdd863d23a1d11bf80825928f67567b4d7fc21386d1b94fc0a7f371ed37c34e1"
+        },
+        "front": {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-02-refined-oval-F/front/frame_02.png",
+          "sha256": "7e3cd98748722095f736265923371d769f6fdd32a54fa4d2af8ca4988359a830"
+        }
+      }
+    },
+    {
+      "index": 2,
+      "time": 0.32,
+      "sourceCell": [
+        2,
+        0
+      ],
+      "outputs": {
+        "combined": {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-02-refined-oval-F/combined/frame_03.png",
+          "sha256": "b0fad4a76a0a641725680a6ab47068b8d855f9a3bb0253b9807024f095795ab9"
+        },
+        "back": {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-02-refined-oval-F/back/frame_03.png",
+          "sha256": "a4c2ac5478742740a78136c849648140235761d6bf965dfc5ef72a316cda8608"
+        },
+        "front": {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-02-refined-oval-F/front/frame_03.png",
+          "sha256": "a08962b9e13906d9278e9d122ea959c23b821adaf571a8a623b7333db909d06b"
+        }
+      }
+    },
+    {
+      "index": 3,
+      "time": 0.48,
+      "sourceCell": [
+        0,
+        1
+      ],
+      "outputs": {
+        "combined": {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-02-refined-oval-F/combined/frame_04.png",
+          "sha256": "8e1891a4e8e647add9e5309be9e003da6737d4eae8bb569462ad1b7d49e39576"
+        },
+        "back": {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-02-refined-oval-F/back/frame_04.png",
+          "sha256": "c138d51a33e903e52495e46a52f3c7eb0e58788273981805436c12bce13f7c48"
+        },
+        "front": {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-02-refined-oval-F/front/frame_04.png",
+          "sha256": "b4312786041495704064d823590aec005c2a572fffe5170a0a818784ac7f63c5"
+        }
+      }
+    },
+    {
+      "index": 4,
+      "time": 0.64,
+      "sourceCell": [
+        1,
+        1
+      ],
+      "outputs": {
+        "combined": {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-02-refined-oval-F/combined/frame_05.png",
+          "sha256": "f3e44ca2e793783cf97e091cf156c78a18ec314893646580d314b78be22c0e7f"
+        },
+        "back": {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-02-refined-oval-F/back/frame_05.png",
+          "sha256": "99f83f484eca24bc902f9de79540c67ba8d6c60f2b73dd91f4912d120a315707"
+        },
+        "front": {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-02-refined-oval-F/front/frame_05.png",
+          "sha256": "7249411f6fa18125daa86a655eb9c1f055ed9e60c65047820acbcb0076194791"
+        }
+      }
+    },
+    {
+      "index": 5,
+      "time": 0.8,
+      "sourceCell": [
+        2,
+        1
+      ],
+      "outputs": {
+        "combined": {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-02-refined-oval-F/combined/frame_06.png",
+          "sha256": "41aacbb93f66b267a368d0d016cca98ec932600853f2279ff7694dab201744e0"
+        },
+        "back": {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-02-refined-oval-F/back/frame_06.png",
+          "sha256": "b45f03565599680355b81720b44d79c5470f04ef791cd21e99a33910eddb4b40"
+        },
+        "front": {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/PlayerAuraLoop/selected/revision-02-refined-oval-F/front/frame_06.png",
+          "sha256": "7e0b4c4b3df503ea916d2ab9104d1f4660d8849b26da7d43ff2ced9d85a3adda"
+        }
+      }
+    }
+  ],
+  "promotionTargets": [
+    "Assets/ImagesGenerated/Battle/character/player-character-aura-back.png",
+    "Assets/ImagesGenerated/Battle/character/player-character-aura-front.png"
+  ],
+  "boundary": {
+    "unityWrite": false,
+    "canonicalWrite": false,
+    "installAuthority": false,
+    "runtimeLoopRequiresAnimatorOrCodeAuthority": true,
+    "rollback": "artifact package absence; canonical assets untouched"
+  }
+}
