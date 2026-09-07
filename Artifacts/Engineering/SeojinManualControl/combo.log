@@ -1,0 +1,20 @@
+/var/folders/_8/xw585pp54nv9g8sxff2cxndr0000gn/T/projectbs-manual-combo-vnq9vdia/Tests.cs(11,253): warning CS0649: Field 'SkillComboStep.VfxPresentationCalibration' is never assigned to, and will always have its default value null
+/var/folders/_8/xw585pp54nv9g8sxff2cxndr0000gn/T/projectbs-manual-combo-vnq9vdia/Tests.cs(12,66): warning CS0649: Field 'Profile.UseCanonicalBodyChoreography' is never assigned to, and will always have its default value false
+/var/folders/_8/xw585pp54nv9g8sxff2cxndr0000gn/T/projectbs-manual-combo-vnq9vdia/Tests.cs(11,234): warning CS0649: Field 'SkillComboStep.VfxProfileOverride' is never assigned to, and will always have its default value null
+/var/folders/_8/xw585pp54nv9g8sxff2cxndr0000gn/T/projectbs-manual-combo-vnq9vdia/Tests.cs(11,192): warning CS0649: Field 'SkillComboStep.BodyPresentationCalibration' is never assigned to, and will always have its default value null
+PASS tap-release-completes-current-hit-no-second-step-no-cooldown
+PASS held-authoritative-cadence-body-contact-VFX-001
+PASS cooldown-on-third-step-entry-once
+PASS snapshot-all-three-hits-no-target-following
+PASS basic-mouse-snapshot-controls-all-three-production-facing-calls
+PASS release-during-second-hit-finishes-second-only
+PASS cancel-after-third-entry-no-refund-no-delayed-hit
+PASS old-combo-reaches-hit-wait
+PASS old-generation-cannot-hit-stop-or-clear-new-combo
+PASS missing-body-clip-retains-gameplay-fallback-null-VFX-forwarded
+PASS legacy-target-mode-retains-validation-fail-closed
+PASS nested-coroutine-cancel-blocks-old-delayed-hit
+PASS old-coroutine-cleanup-preserves-new-ticket
+PASS new-epoch-executes-and-releases-own-ticket
+PASS Direction-basic-three-step-facing-hit-context-no-ground-point
+PASS 15/15 extracted production combo/guard tests

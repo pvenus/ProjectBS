@@ -1,0 +1,60 @@
+{
+  "revision": "dual-hud-09",
+  "status": "complete",
+  "blocker": null,
+  "completed_at": "2026-09-07T21:33:41.406674+09:00",
+  "source_manifest_sha256": "99737281257a6c67b77eb4ac418ff97689d1d2b2850db11096e282d34703a5dd",
+  "exact2_installed": true,
+  "sprite_single": true,
+  "RGBA": [
+    512,
+    512,
+    8
+  ],
+  "PPU": 100,
+  "pivot": [
+    0.5,
+    0.5
+  ],
+  "existing_aura_unchanged": true,
+  "red": "live mouse direction",
+  "blue": "live normalized WASD only; release/opposites hide",
+  "UI_policy": "both hidden: existing owner global no-intent policy",
+  "selection_gate": "aura enabled and arc renderer visible",
+  "rotation_owner": "HUD pivots only; inverse floor ellipse projection then atan2",
+  "camera_cached": true,
+  "frame_object_or_resource_load": false,
+  "missing_sprite_hidden_rebind_recovery": true,
+  "tests": {
+    "prior": 622,
+    "HUD": 27,
+    "passed": 649,
+    "failed": 0
+  },
+  "compile": {
+    "runtime_errors": 0,
+    "runtime_warnings": 31,
+    "editor_errors": 0,
+    "editor_warnings": 41
+  },
+  "checks": {
+    "diff": true,
+    "reverse_dry_run": true,
+    "existing_files": 50,
+    "new_files": 43,
+    "protected_unchanged": 455
+  },
+  "preview": "static-preview.png",
+  "zero_runs": [
+    "Unity GUI",
+    "Unity headless",
+    "Unity Play",
+    "Unity import",
+    "staging",
+    "commit",
+    "push",
+    "actual rollback"
+  ],
+  "report": "REPORT.md",
+  "patch": "correction.patch"
+}

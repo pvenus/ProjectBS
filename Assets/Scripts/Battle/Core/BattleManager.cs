@@ -259,6 +259,7 @@ namespace Battle
                 else
                     FitBackgroundToCamera(backgroundObject.transform, renderer);
 
+                Morpg.MorpgLegacyBackground.Register(battleRuntime,renderer);
                 return backgroundObject;
             }
 
@@ -790,6 +791,7 @@ namespace Battle
             }
             Vector3 current = transform.position;
             Vector2 desired = (Vector2)target.position + offset;
+            if(Morpg.MorpgEnvironmentRuntime.Active!=null)desired=Morpg.MorpgEnvironmentRuntime.Active.FrameAim(desired);
             Vector2 currentXY = current;
             Vector2 next = snapDistance > 0f && Vector2.Distance(currentXY, desired) >= snapDistance
                 ? desired

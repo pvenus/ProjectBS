@@ -1,0 +1,27 @@
+[화감 COMPLETE | MORPG foreground-empty backgrounds revision02]
+Date: 2026-09-07 KST
+Status: SELECTED_BACKGROUND_EXACT3_READY_INSTALL_HOLD
+
+Background exact3 regenerated with built-in ImageGen:
+- W1 dry plain; distant hills and faint sapling grove only.
+- W2 compacted dirt; tiny distant village roofs/palisade only.
+- W3 empty stone/packed-earth square; tiny distant tiled skyline only.
+
+Composition PASS:
+- lower75-80% is continuous ground texture with independent foreground/midground prop0.
+- distant identity is confined to upper20-25% with low contrast and atmospheric perspective.
+- close tree/fence/house/wall/rock pile0.
+- character/NPC/monster/UI/text/VFX/collider mark0.
+- W1<W2<W3 civilization density remains readable without competing with combat.
+
+Physical:
+- opaque RGB exact3, each1536x512, unique SHA3/3.
+- deterministic aspect-preserving width normalization and top-aligned crop; warp0.
+
+Preserved:
+- revision-01 background/barrier package is not overwritten or deleted.
+- revision-01 top/bottom barrier6 bytes unchanged and independently composited in preview.
+- internal prop assets/system unchanged.
+
+Manifest: manifest.json in this directory.
+Project/canonical/Unity/install writes0.

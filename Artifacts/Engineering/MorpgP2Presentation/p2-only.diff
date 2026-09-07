@@ -1,0 +1,981 @@
+--- a/Assets/Scripts/Battle/Morpg/BattleMorpgLiveRoute.cs
++++ b/Assets/Scripts/Battle/Morpg/BattleMorpgLiveRoute.cs
+@@ -26,6 +26,8 @@
+         private readonly Dictionary<Behaviour, bool> locked = new();
+         private BattleMorpgZoneTransitionCoordinator coordinator;
+         private BattleRewardLedger ledger;
++        private MorpgRewardDeliveryQueue delivery;
++        private MorpgRewardHudMono rewardHud;
+         private CharacterManager player;
+         private GameObject staging;
+         private MorpgTransitionScopeToken token;
+@@ -113,9 +115,23 @@
+                     if (float.IsNaN(xp) || float.IsInfinity(xp) || xp < 0 || xp > 1000000f || xp * 4f != (float)Math.Truncate(xp * 4f))
+                     { Fail("raw XP headroom unavailable"); return; }
+                     ledger = new BattleRewardLedger(new GoldAccount(currency), new XpAccount(player));
++                    delivery = new MorpgRewardDeliveryQueue(TryCommitArrivedReward);
++                    rewardHud = MorpgRewardHudMono.TryCreate(parent, FlushPendingRewards, currency.gold, xp);
++                    delivery.Presentation = rewardHud;
+                     WarpTo(0);
+                     if (!coordinator.TryStartActiveWave()) { Fail(coordinator.LastError); return; }
+                 }
++                if (!delivery.Tick(delta, false)) { Fail(delivery.Error); return; }
++                try { rewardHud?.TickHud(delta, currency.gold, player.GetStatValue(StatType.Experience)); }
++                catch (Exception e)
++                {
++                    Debug.LogWarning("[MORPG] Optional HUD disabled: " + e.Message);
++                    FlushPendingRewards();
++                    rewardHud?.DisposeView();
++                    rewardHud = null;
++                    delivery.Presentation = null;
++                }
++                if (failed) return;
+                 if (player.RuntimeData.isDead)
+                 { Fail("party defeated", MorpgRouteStopReason.Defeat); return; }
+                 coordinator.Tick(delta);
+@@ -140,7 +156,9 @@
+                 if (!TryGetMorpgZoneClearSnapshot(coordinator.ActiveHandle, out var clear, out string error))
+                 { Fail(error); return; }
+                 if (clear.SpawnFailed || clear.RewardTransactionFailed) { Fail("zone accounting failed"); return; }
+-                if (!clear.Eligible) { clearFrame = -1; return; }
++                // Arrival-commit override: normal clear waits for all confirmed-death receipts.
++                // This also ensures that no new zone or final handoff can outrun a pending reward.
++                if (!clear.Eligible || delivery.PendingCount != 0) { clearFrame = -1; return; }
+                 // Let the entire death callback/frame finish, including a simultaneous player death.
+                 if (clearFrame < 0) { clearFrame = Time.frameCount; return; }
+                 if (Time.frameCount <= clearFrame) return;
+@@ -175,15 +193,40 @@
+             marker.MarkDied();
+             bool chain = units["chain"] == character.RuntimeData.characterSO;
+             int gold = chain ? 3 : 1, quarters = chain ? 3 : 1;
++            if (!delivery.TryReserve(BattleMorpgCanonicalKeys.Bundle(attempt, reservation), ++deaths,
++                reservation, gold, quarters, character.transform.position.x, character.transform.position.y))
++            { scope.TryFail(scope.Handle, true); Fail(delivery.Error); }
++        }
++
++        private bool TryCommitArrivedReward(MorpgPendingReward reward, out string error)
++        {
++            error = null;
+             try
+             {
+-                if (!ledger.TryCredit(BattleMorpgCanonicalKeys.Bundle(attempt, reservation), ++deaths,
+-                    reservation, gold, quarters, out string error))
+-                { scope.TryFail(scope.Handle, true); Fail(error); return; }
+-                creditedGold += gold; creditedQuarters += quarters;
++                if (!ledger.TryCredit(reward.Id, reward.DeathSequence, reward.ReservationId,
++                    reward.Gold, reward.XpQuarterUnits, out error))
++                {
++                    waves.ActiveScope?.TryFail(waves.ActiveScope.Handle, true);
++                    return false;
++                }
++                creditedGold += reward.Gold; creditedQuarters += reward.XpQuarterUnits;
+             }
+             catch (Exception e)
+-            { scope.TryFail(scope.Handle, true); Fail("reward callback: " + e.Message); }
++            {
++                error = "reward callback: " + e.Message;
++                waves.ActiveScope?.TryFail(waves.ActiveScope.Handle, true);
++                return false;
++            }
++            // A receipt is already committed: optional UI exceptions cannot turn it into a retry.
++            try { rewardHud?.NotifyCredited(reward.Gold, reward.XpQuarterUnits, currency.gold,
++                player.GetStatValue(StatType.Experience)); }
++            catch (Exception e) { Debug.LogWarning("[MORPG] Optional HUD receipt: " + e.Message); }
++            return true;
++        }
++
++        internal void FlushPendingRewards()
++        {
++            if (delivery != null && !delivery.Flush()) Fail(delivery.Error);
+         }
+ 
+         public bool TryStartMorpgZoneWave(BattleAttemptKey key, int ordinal, out MorpgZoneRuntimeHandle handle, out string error)
+@@ -248,6 +291,9 @@
+             if (!TryStopMorpgZoneWave(coordinator.ActiveHandle, MorpgZoneStopReason.Transition, out error)) return false;
+             // Per-death raw XP has settled. Do not offer the same final XP payload again.
+             session.BattleRuntime.rewardExperience = 0f;
++            // The existing upgrade flow may pause immediately; never strand the final HUD mid-tween.
++            try { rewardHud?.SnapToAuthoritative(currency.gold, player.GetStatValue(StatType.Experience)); }
++            catch (Exception e) { Debug.LogWarning("[MORPG] Optional final HUD: " + e.Message); }
+             error = null; return true;
+         }
+ 
+@@ -296,6 +342,11 @@
+         {
+             if (failed) return;
+             failed = true; failure = error;
++            // Pay confirmed kills on defeat/abort; no living or un-emitted reservation is fabricated.
++            if (delivery != null && !delivery.Close()) failure = delivery.Error;
++            rewardHud?.DisposeView();
++            rewardHud = null;
++            if (delivery != null) delivery.Presentation = null;
+             coordinator.DisposeMorpgRoute(reason);
+             UnlockPlayer();
+             Debug.LogError("[MORPG] Attempt stopped (no legacy replay): " + error);
+@@ -303,7 +354,11 @@
+         public void Dispose()
+         {
+             if (disposed) return;
++            // Settle before destroying either the view or actor/account owners.
++            if (delivery != null && !delivery.Close()) Debug.LogError("[MORPG] Teardown settlement: " + delivery.Error);
+             disposed = true;
++            rewardHud?.DisposeView();
++            rewardHud = null;
+             CharacterManager.OnAnyCharacterDied -= OnDied;
+             coordinator.DisposeMorpgRoute(MorpgRouteStopReason.Teardown);
+             UnlockPlayer();
+@@ -321,6 +376,7 @@
+                 GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), Texture2D.whiteTexture);
+                 GUI.color = previous;
+             }
++            if (rewardHud != null && rewardHud.isActiveAndEnabled) return;
+             GUI.Box(new Rect(16, 16, 340, 76), "");
+             GUI.Label(new Rect(28, 24, 320, 26), $"Zone {coordinator.ActiveZoneIndex + 1}/3   Gold +{creditedGold}   XP +{creditedQuarters / 4m:0.##}");
+             string status = failed ? "Battle stopped. Restart required." : VictoryReady ? "Victory" :
+@@ -349,7 +405,8 @@
+             public long Revision { get { if (Value != observed) { observed = Value; revision++; } return revision; } }
+             public bool TryApply(decimal delta, long expected)
+             {
+-                if (expected != Revision || character.RuntimeData.isDead) return false;
++                // Confirmed kills still settle during defeat/scene teardown.
++                if (expected != Revision) return false;
+                 decimal before = Value, next = before + delta;
+                 try { character.SetStat(StatType.Experience, (float)next); }
+                 catch
+--- a/Assets/Scripts/Battle/Spawn/Sequence/BattleSpawnManager.cs
++++ b/Assets/Scripts/Battle/Spawn/Sequence/BattleSpawnManager.cs
+@@ -47,6 +47,11 @@
+         {
+             InitializeForTest();
+         }
++    }
++
++    private void OnDisable()
++    {
++        morpgRoute?.FlushPendingRewards();
+     }
+ 
+     private void OnDestroy()
+--- a/AgentTools/MorpgIntegrationHarness/Program.cs
++++ b/AgentTools/MorpgIntegrationHarness/Program.cs
+@@ -13,6 +13,7 @@
+  sealed class Fixture:IDisposable {
+   public BattleMorpgLiveRoute Route;public CharacterManager Player;public BattleSession Session;
+   public Fixture(){
++   MorpgRewardHudMono.EnableForTests=false;
+    GameSession.Instance=new GameSession();PartyManager.Instance=new PartyManager();NpcSpawnService.Instance=new NpcSpawnService();Time.timeScale=1;
+    Player=new GameObject("player").AddComponent<CharacterManager>();PartyManager.Instance.Members.Add(Player);
+    Session=new BattleSession{BattleSO=new Battle.BattleSO{BattleId=BattleMorpgDefinitionValidator.BattleId}};
+@@ -63,6 +64,36 @@
+    using var f=new Fixture();f.Tick();var owner=NpcSpawnService.Instance.Spawned[0].GetComponent<MorpgOwnedObject>();var projectile=new GameObject("owned");var foreign=new GameObject("foreign");
+    Check(owner.RegisterProjectile(projectile),"child registration");f.Clear();Check(projectile.destroyed&&!foreign.destroyed,"cleanup crossed ownership");Check(!owner.RegisterProjectile(new GameObject("late")),"late producer admitted");
+   });
++  Test("live-present-death-position-and-arrival-account-HUD-commit",()=>{
++   using var f=new Fixture();MorpgRewardHudMono.EnableForTests=true;f.Tick(.1f);
++   var enemy=NpcSpawnService.Instance.Spawned[0];enemy.transform.position=new Vector3(2,3,0);enemy.Die();
++   Check(GameSession.Instance.StageSession.CurrencyRuntimeData.gold==0 && f.Player.xp==0,"old immediate credit path remained");
++   Check(MorpgRewardHudMono.Last.Groups[0].X==2 && MorpgRewardHudMono.Last.Groups[0].Y==3,"death position lost");
++   f.Tick(.45f);Check(MorpgRewardHudMono.Last.Receipts==0,"HUD credited before arrival");
++   f.Tick(.35f);Check(GameSession.Instance.StageSession.CurrencyRuntimeData.gold==1 && f.Player.xp==.25f && MorpgRewardHudMono.Last.Receipts==1,"arrival did not commit accounts/UI");
++   enemy.Die();Check(MorpgRewardHudMono.Last.Receipts==1,"duplicate arrival receipt");
++  });
++  Test("live-pause-and-disabled-HUD-lossless-failover",()=>{
++   using var f=new Fixture();MorpgRewardHudMono.EnableForTests=true;f.Tick(.1f);NpcSpawnService.Instance.Spawned[0].Die();
++   Time.timeScale=0;f.Tick(100);Check(GameSession.Instance.StageSession.CurrencyRuntimeData.gold==0,"paused commit");
++   MorpgRewardHudMono.Last.LosePresentation();Check(GameSession.Instance.StageSession.CurrencyRuntimeData.gold==1,"disabled view lost reward");
++   Time.timeScale=1;f.Tick();Check(GameSession.Instance.StageSession.CurrencyRuntimeData.gold==1,"failover replay");
++  });
++  Test("live-defeat-and-teardown-settle-pending-confirmed-kills",()=>{
++   using(var f=new Fixture()){MorpgRewardHudMono.EnableForTests=true;f.Tick(.1f);NpcSpawnService.Instance.Spawned[0].Die();f.Player.Die();f.Tick(.01f);
++    Check(GameSession.Instance.StageSession.CurrencyRuntimeData.gold==1 && f.Player.xp==.25f && !f.Route.VictoryReady,"defeat lost confirmed reward");}
++   using(var f=new Fixture()){MorpgRewardHudMono.EnableForTests=true;f.Tick(.1f);NpcSpawnService.Instance.Spawned[0].Die();f.Route.Dispose();f.Route.Dispose();
++    Check(GameSession.Instance.StageSession.CurrencyRuntimeData.gold==1 && f.Player.xp==.25f,"teardown lost/duplicated confirmed reward");}
++  });
++  Test("live-HUD-render-exception-fails-over-without-failing-battle",()=>{
++   using var f=new Fixture();MorpgRewardHudMono.EnableForTests=true;f.Tick(.1f);NpcSpawnService.Instance.Spawned[0].Die();
++   MorpgRewardHudMono.Last.ThrowTick=true;f.Tick(.1f);Check(GameSession.Instance.StageSession.CurrencyRuntimeData.gold==1,"HUD exception lost reward");
++   f.Tick(2f);Check(NpcSpawnService.Instance.Spawned.Count==19,"optional HUD error stopped battle");
++  });
++  Test("live-presented-28-deaths-settle-before-final-HUD-snapshot",()=>{
++   using var f=new Fixture();MorpgRewardHudMono.EnableForTests=true;f.Clear();f.Tick(1.3f);f.Clear();f.Tick(1.3f);f.Clear();
++   Check(f.Route.VictoryReady && MorpgRewardHudMono.Last.Receipts==28 && MorpgRewardHudMono.Last.FinalGold==40 && f.Player.xp==10,"final presentation/account barrier");
++  });
+   Console.WriteLine("PASS "+pass+"/"+pass+" live glue simulations (Unity engine stub)");
+  }
+ }
+--- a/AgentTools/MorpgIntegrationHarness/RuntimeStub.cs
++++ b/AgentTools/MorpgIntegrationHarness/RuntimeStub.cs
+@@ -30,7 +30,7 @@
+  public class Rigidbody2D:Component {public Vector2 position,linearVelocity;public float angularVelocity;}
+  public class Camera:Behaviour {public static Camera main;}
+  public static class Time {public static float timeScale=1;public static int frameCount;}
+- public static class Debug {public static void LogError(string s){} }
++ public static class Debug {public static void LogError(string s){}public static void LogWarning(string s){}public static void LogException(System.Exception e){} }
+  public class TextAsset {public string text;public TextAsset(string s){text=s;}}
+  public static class Resources {public static readonly Dictionary<string,object> Items=new();public static T Load<T>(string name) where T:class=>Items.TryGetValue(name,out var o)?o as T:null;}
+  public static class GUI {public static Color color;public static void DrawTexture(Rect r,Texture2D t){}public static void Box(Rect r,string s){}public static void Label(Rect r,string s){} }
+@@ -88,3 +88,20 @@
+ public class SkillBrainMono:UnityEngine.MonoBehaviour {}
+ public class SkillExecutorMono:UnityEngine.MonoBehaviour {}
+ namespace UnityEngine {public struct Color {public Color(float r,float g,float b,float a){}}public static class Screen {public static int width=800,height=600;}public class Texture2D {public static Texture2D whiteTexture=new();}public static class Mathf {public static float Clamp01(float f)=>Math.Max(0,Math.Min(1,f));}}
++
++namespace Battle.Morpg {
++ internal class MorpgRewardHudMono:UnityEngine.MonoBehaviour,IMorpgRewardPresentation {
++  internal static bool EnableForTests;internal static MorpgRewardHudMono Last;
++  internal readonly System.Collections.Generic.List<MorpgRewardVisualGroup> Groups=new();
++  internal int Receipts;internal int? FinalGold;internal bool Available=true, ThrowTick;private System.Action missing;
++  internal static MorpgRewardHudMono TryCreate(UnityEngine.Transform p,System.Action missing,int gold,float xp){
++   if(!EnableForTests)return null;var view=new UnityEngine.GameObject("reward HUD").AddComponent<MorpgRewardHudMono>();view.missing=missing;Last=view;return view;
++  }
++  public bool isActiveAndEnabled=>Available;
++  public bool IsAvailable=>Available;
++  public bool TryShow(MorpgRewardVisualGroup g){Groups.Add(g);return true;}
++  public void Refresh(MorpgRewardVisualGroup g){} public void Release(MorpgRewardVisualGroup g){Groups.Remove(g);}
++  internal void NotifyCredited(int g,int q,int total,float xp){Receipts++;}internal void TickHud(float d,int gold,float xp){if(ThrowTick)throw new System.Exception("HUD anchor missing");} internal void DisposeView(){Available=false;}internal void SnapToAuthoritative(int gold,float xp){FinalGold=gold;}
++  internal void LosePresentation(){Available=false;missing?.Invoke();}
++ }
++}
+--- a/AgentTools/MorpgIntegrationHarness/run.sh
++++ b/AgentTools/MorpgIntegrationHarness/run.sh
+@@ -3,5 +3,5 @@
+ cd /Users/pvenus/ProjectBS
+ morpg_mono=/Applications/Unity/Hub/Editor/6000.3.10f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge
+ morpg_out=$(mktemp -d /private/tmp/projectbs-morpg-live.XXXXXX)
+-"$morpg_mono/bin/mono" "$morpg_mono/lib/mono/msbuild/Current/bin/Roslyn/csc.exe" -nologo -langversion:9.0 -r:System.Web.Extensions.dll -out:"$morpg_out/live.exe" AgentTools/MorpgIntegrationHarness/Program.cs AgentTools/MorpgIntegrationHarness/RuntimeStub.cs AgentTools/MorpgP0Harness/UnityEngineStub.cs Assets/Scripts/Battle/Morpg/*.cs Assets/Scripts/Collection/Currency/CurrencyRutimeData.cs
++"$morpg_mono/bin/mono" "$morpg_mono/lib/mono/msbuild/Current/bin/Roslyn/csc.exe" -nologo -langversion:9.0 -r:System.Web.Extensions.dll -out:"$morpg_out/live.exe" AgentTools/MorpgIntegrationHarness/Program.cs AgentTools/MorpgIntegrationHarness/RuntimeStub.cs AgentTools/MorpgP0Harness/UnityEngineStub.cs $(rg --files Assets/Scripts/Battle/Morpg -g '*.cs' | rg -v '/MorpgRewardHudMono.cs$') Assets/Scripts/Collection/Currency/CurrencyRutimeData.cs
+ "$morpg_mono/bin/mono" "$morpg_out/live.exe" /Users/pvenus/ProjectBS
+--- a/AgentTools/MorpgIntegrationHarness/inactive_spawn_tests.py
++++ b/AgentTools/MorpgIntegrationHarness/inactive_spawn_tests.py
+@@ -73,26 +73,31 @@
+  static void Test(string s,Action a){EnemyRegistry.Instance=new EnemyRegistry();a();pass++;Console.WriteLine("PASS "+s);}
+  static void Main(){
+  foreach(string role in new[]{"black","chain"}){
++ Test(role+"-direct-inactive-initialize-defers-reveal",()=>{
++ var root=new GameObject("inactive direct");var cm=root.AddComponent<CharacterManager>();root.SetActive(false);
++ cm.InitializeFromSO(new CharacterSO{name=role});Check(cm.Starts==0&&cm.Routines.Count==0,"inactive direct coroutine");
++ root.SetActive(true);Check(cm.Starts==1&&cm.Routines.Count==1,"deferred reveal not unique");
++ });
+  Test(role+"-inactive-initialize-then-enable-once",()=>{
+  var stage=new GameObject("staging");stage.SetActive(false);var so=new CharacterSO{name=role};bool prepared=false;
+  var root=NpcSpawnService.Instance.SpawnNpc(so,new Vector3(3,4,0),0,null,stage.transform,g=>{
+- var c=g.GetComponent<CharacterManager>();Check(!g.activeInHierarchy&&c.Starts==0,"coroutine started under inactive parent");Check(c.RuntimeData.characterSO==so,"ownership before initialization");prepared=true;return true;});
+- Check(root!=null&&prepared&&root.activeInHierarchy,"spawn failed");var cm=root.GetComponent<CharacterManager>();Check(cm.Starts==1,"enable did not schedule exactly once");Check(EnemyRegistry.Instance.ActiveEnemies.Count==1,"living registry");cm.NextFrame();Check(cm.Routines.Count==0,"reveal not completed");
++ var c=g.GetComponent<CharacterManager>();Check(!g.activeInHierarchy&&c.Starts==0,"coroutine started under inactive parent");Check(EnemyRegistry.Instance.ActiveEnemies.Count==0,"ownership published living NPC early");prepared=true;return true;});
++ Check(root!=null&&prepared&&root.activeInHierarchy,"spawn failed");var cm=root.GetComponent<CharacterManager>();Check(cm.RuntimeData.characterSO==so,"returned NPC not initialized");Check(cm.Starts==1,"enable did not schedule exactly once");Check(EnemyRegistry.Instance.ActiveEnemies.Count==1,"living registry");cm.NextFrame();Check(cm.Routines.Count==0,"reveal not completed");
+  });
+  Test(role+"-pooled-reuse-cancels-old-reveal-and-death-state",()=>{
+  var pooled=new GameObject("pool");var cm=pooled.AddComponent<CharacterManager>();var shader=pooled.AddComponent<ShaderControllerMono>();cm.InitializeFromSO(new CharacterSO{name="prior"});cm.SeedDying();pooled.SetActive(false);CharacterBuilder.Pooled=pooled;
+  var stage=new GameObject("stage");stage.SetActive(false);var so=new CharacterSO{name=role};
+  var root=NpcSpawnService.Instance.SpawnNpc(so,new Vector3(8,9,0),0,null,stage.transform,g=>true);
+- Check(root==pooled&&cm.RuntimeData.characterSO==so&&!cm.IsDying,"pooled state stale");Check(cm.Routines.Count==1&&cm.Starts==2,"duplicate or missing reveal");cm.NextFrame();Check(shader.Reveals==1,"old reveal survived reuse");Check(root.transform.position.x==8,"pooled position stale");
++ Check(root==pooled&&cm.RuntimeData.characterSO==so&&!cm.IsDying,"pooled state stale");Check(cm.Routines.Count==1,"duplicate or missing reveal");cm.NextFrame();Check(shader.Reveals==1,"old reveal survived reuse");Check(root.transform.position.x==8,"pooled position stale");
+  });
+  }
+  Test("active-legacy-spawn-still-reveals",()=>{
+  var root=NpcSpawnService.Instance.SpawnNpc(new CharacterSO{name="legacy"},new Vector3(),0,null);Check(root!=null&&root.GetComponent<CharacterManager>().Starts==1,"legacy changed");
+  });
+  Test("initialization-rejection-never-enters-living-registry",()=>{
+- var stage=new GameObject("stage");stage.SetActive(false);bool prepared=false;
+- var root=NpcSpawnService.Instance.SpawnNpc(new CharacterSO{name="bad",FailInitialization=true},new Vector3(),0,null,stage.transform,g=>{prepared=true;return true;});
+- Check(root==null&&!prepared&&EnemyRegistry.Instance.ActiveEnemies.Count==0&&CharacterBuilder.Last.destroyed,"partial initialization published");
++ var stage=new GameObject("stage");stage.SetActive(false);
++ var root=NpcSpawnService.Instance.SpawnNpc(new CharacterSO{name="bad",FailInitialization=true},new Vector3(),0,null,stage.transform,g=>true);
++ Check(root==null&&EnemyRegistry.Instance.ActiveEnemies.Count==0&&CharacterBuilder.Last.destroyed,"partial initialization published");
+  });
+  Test("ownership-rejection-never-enters-living-registry",()=>{
+  var stage=new GameObject("stage");stage.SetActive(false);var root=NpcSpawnService.Instance.SpawnNpc(new CharacterSO{name="black"},new Vector3(),0,null,stage.transform,g=>false);
+--- /dev/null
++++ b/Assets/Scripts/Battle/Morpg/MorpgRewardDeliveryQueue.cs
+@@ -0,0 +1,166 @@
++using System;
++using System.Collections.Generic;
++
++namespace Battle.Morpg
++{
++    internal sealed class MorpgPendingReward
++    {
++        internal string Id, ReservationId;
++        internal long DeathSequence;
++        internal int Gold, XpQuarterUnits;
++        internal bool Ready, Credited;
++    }
++
++    internal sealed class MorpgRewardVisualGroup
++    {
++        internal readonly List<MorpgPendingReward> Rewards = new();
++        internal string HostId;
++        internal long CreationSequence;
++        internal float X, Y, Age;
++        internal bool Flying => Age >= MorpgRewardDeliveryQueue.GroundSeconds;
++        internal float FlightProgress => Math.Min(1f, Math.Max(0f,
++            (Age - MorpgRewardDeliveryQueue.GroundSeconds) / MorpgRewardDeliveryQueue.FlySeconds));
++        internal int Gold { get { int sum = 0; foreach (var reward in Rewards) sum += reward.Gold; return sum; } }
++        internal int Quarters { get { int sum = 0; foreach (var reward in Rewards) sum += reward.XpQuarterUnits; return sum; } }
++    }
++
++    internal interface IMorpgRewardPresentation
++    {
++        bool IsAvailable { get; }
++        bool TryShow(MorpgRewardVisualGroup group);
++        void Refresh(MorpgRewardVisualGroup group);
++        void Release(MorpgRewardVisualGroup group);
++    }
++
++    internal delegate bool MorpgRewardCommit(MorpgPendingReward reward, out string error);
++
++    // Economy remains in BattleRewardLedger. Visuals can only mark receipts ready, never apply accounts.
++    internal sealed class MorpgRewardDeliveryQueue
++    {
++        internal const float GroundSeconds = .45f, FlySeconds = .35f, GroupRadius = .60f;
++        internal const int VisualCap = 12;
++        private readonly MorpgRewardCommit commit;
++        private readonly Dictionary<string, MorpgPendingReward> receipts = new(StringComparer.Ordinal);
++        private readonly List<MorpgPendingReward> ordered = new();
++        private readonly List<MorpgRewardVisualGroup> groups = new();
++        private int cursor;
++        private bool draining, closed;
++        internal IMorpgRewardPresentation Presentation { get; set; }
++        internal int PendingCount => ordered.Count - cursor;
++        internal int ActiveVisualCount => groups.Count;
++        internal bool Failed { get; private set; }
++        internal string Error { get; private set; }
++        internal MorpgRewardDeliveryQueue(MorpgRewardCommit commit) { this.commit = commit; }
++
++        internal bool TryReserve(string id, long sequence, string reservation, int gold, int quarters, float x, float y)
++        {
++            if (string.IsNullOrEmpty(id)) return Fail("missing reward identity");
++            if (receipts.ContainsKey(id)) return !Failed;
++            if (closed || Failed || string.IsNullOrEmpty(id) || string.IsNullOrEmpty(reservation) ||
++                gold < 0 || quarters < 0 || (ordered.Count > 0 && sequence <= ordered[ordered.Count - 1].DeathSequence))
++                return Fail("invalid/out-of-order reward reservation");
++            var reward = new MorpgPendingReward { Id = id, DeathSequence = sequence, ReservationId = reservation,
++                Gold = gold, XpQuarterUnits = quarters };
++            receipts.Add(id, reward); ordered.Add(reward);
++            if (!Available()) return Flush();
++            var group = NearestGround(x, y);
++            if (group == null && groups.Count >= VisualCap)
++            {
++                // A flying host cannot accept more ground receipts. Saturation uses lossless failover.
++                foreach (var candidate in groups)
++                    if (!candidate.Flying && (group == null || candidate.CreationSequence < group.CreationSequence ||
++                        (candidate.CreationSequence == group.CreationSequence && string.CompareOrdinal(candidate.HostId, group.HostId) < 0)))
++                        group = candidate;
++                if (group == null) return Flush();
++            }
++            bool created = group == null;
++            if (created)
++            {
++                group = new MorpgRewardVisualGroup { HostId = id, CreationSequence = sequence, X = x, Y = y };
++                groups.Add(group);
++            }
++            group.Rewards.Add(reward);
++            try
++            {
++                if (created && !Presentation.TryShow(group)) return Flush();
++                Presentation.Refresh(group);
++            }
++            catch { return Flush(); }
++            return true;
++        }
++
++        private MorpgRewardVisualGroup NearestGround(float x, float y)
++        {
++            MorpgRewardVisualGroup nearest = null;
++            float best = GroupRadius * GroupRadius;
++            foreach (var group in groups)
++            {
++                if (group.Flying) continue;
++                float dx = group.X - x, dy = group.Y - y, distance = dx * dx + dy * dy;
++                if (distance > best) continue;
++                if (nearest == null || distance < best || string.CompareOrdinal(group.HostId, nearest.HostId) < 0)
++                { nearest = group; best = distance; }
++            }
++            return nearest;
++        }
++
++        internal bool Tick(float deltaTime, bool paused)
++        {
++            if (Failed) return false;
++            if (closed || paused || deltaTime <= 0f || float.IsNaN(deltaTime) || float.IsInfinity(deltaTime)) return true;
++            if (!Available()) return Flush();
++            foreach (var group in groups.ToArray())
++            {
++                group.Age += deltaTime;
++                try { Presentation.Refresh(group); }
++                catch { return Flush(); }
++                if (group.Age + .000001f < GroundSeconds + FlySeconds) continue;
++                foreach (var reward in group.Rewards) reward.Ready = true;
++                Release(group);
++            }
++            return Drain();
++        }
++
++        // Explicit visual failure/teardown may call this synchronously, even when normal clocks are paused.
++        internal bool Flush()
++        {
++            foreach (var group in groups.ToArray()) Release(group);
++            foreach (var reward in ordered) if (!reward.Credited) reward.Ready = true;
++            return Drain();
++        }
++        internal bool Close()
++        {
++            closed = true;
++            return Flush();
++        }
++        private bool Available()
++        {
++            try { return Presentation != null && Presentation.IsAvailable; }
++            catch { return false; }
++        }
++        private void Release(MorpgRewardVisualGroup group)
++        {
++            groups.Remove(group);
++            try { Presentation?.Release(group); } catch { /* Optional visual failure cannot lose a receipt. */ }
++        }
++        private bool Drain()
++        {
++            if (Failed) return false;
++            if (draining) return true;
++            draining = true;
++            try
++            {
++                while (cursor < ordered.Count && ordered[cursor].Ready)
++                {
++                    var reward = ordered[cursor];
++                    if (!commit(reward, out string error)) return Fail(error ?? "reward commit failed");
++                    reward.Credited = true; cursor++;
++                }
++                return true;
++            }
++            catch (Exception e) { return Fail("reward commit: " + e.Message); }
++            finally { draining = false; }
++        }
++        private bool Fail(string error) { Failed = true; Error = error; return false; }
++    }
++}
+--- /dev/null
++++ b/Assets/Scripts/Battle/Morpg/MorpgRewardDeliveryQueue.cs.meta
+@@ -0,0 +1,2 @@
++fileFormatVersion: 2
++guid: a44bf430779d4834aff36a1b1b6d41e8
+--- /dev/null
++++ b/Assets/Scripts/Battle/Morpg/MorpgRewardHudMono.cs
+@@ -0,0 +1,240 @@
++using System;
++using System.Collections.Generic;
++using TMPro;
++using UnityEngine;
++using UnityEngine.UI;
++
++namespace Battle.Morpg
++{
++    // Optional exact-route view. No account, ledger or reward amount is owned by a glyph or animation.
++    internal sealed class MorpgRewardHudMono : MonoBehaviour, IMorpgRewardPresentation
++    {
++        private const string GoldResource = "battle/morpg/rewards/reward.gold.coin-charm";
++        private const string XpResource = "battle/morpg/rewards/reward.xp.faceted-shard";
++        private readonly Dictionary<MorpgRewardVisualGroup, GlyphPair> live = new();
++        private readonly Stack<GlyphPair> pool = new();
++        private RectTransform canvasRect, goldAnchor, xpAnchor, goldPanel, xpPanel;
++        private TMP_Text goldText, xpText, goldDelta, xpDelta;
++        private Image xpFill;
++        private Sprite goldSprite, xpSprite;
++        private Action unavailable;
++        private bool closing;
++        private double shownGold, startGold, targetGold;
++        private float shownXp, startXp, targetXp, tweenAge = .3f, shownQuarters, startQuarters;
++        private float deltaAge = 1f, coalesceAge = 1f, pulseAge = 1f;
++        private int deltaGold, deltaQuarters, earnedQuarters;
++        internal bool ReducedMotion { get; set; }
++        internal bool ReducedFlash { get; set; }
++        public bool IsAvailable => this != null && isActiveAndEnabled && canvasRect != null &&
++            canvasRect.gameObject.activeInHierarchy && goldAnchor != null && xpAnchor != null &&
++            goldAnchor.gameObject.activeInHierarchy && xpAnchor.gameObject.activeInHierarchy &&
++            goldSprite != null && xpSprite != null && Camera.main != null;
++
++        private sealed class GlyphPair
++        {
++            internal GameObject Root;
++            internal RectTransform Gold, Xp;
++            internal Vector2 FlightStart;
++            internal bool Flying;
++        }
++
++        internal static MorpgRewardHudMono TryCreate(Transform owner, Action onUnavailable, int gold, float xp)
++        {
++            GameObject root = null;
++            try
++            {
++                root = new GameObject("MORPG reward HUD", typeof(RectTransform), typeof(Canvas), typeof(CanvasScaler));
++                root.transform.SetParent(owner, false);
++                var view = root.AddComponent<MorpgRewardHudMono>();
++                view.unavailable = onUnavailable;
++                view.Build(gold, xp);
++                return view;
++            }
++            catch (Exception e)
++            {
++                Debug.LogWarning("[MORPG] Optional reward HUD unavailable: " + e.Message);
++                if (root != null) Destroy(root);
++                return null;
++            }
++        }
++
++        private void Build(int gold, float xp)
++        {
++            var canvas = GetComponent<Canvas>();
++            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
++            canvas.sortingOrder = 250;
++            var scaler = GetComponent<CanvasScaler>();
++            scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
++            scaler.referenceResolution = new Vector2(1920f, 1080f);
++            scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
++            scaler.matchWidthOrHeight = 1f;
++            canvasRect = (RectTransform)transform;
++            goldSprite = Resources.Load<Sprite>(GoldResource);
++            xpSprite = Resources.Load<Sprite>(XpResource);
++            Color background = new Color(.025f, .03f, .04f, .82f);
++            goldPanel = Box("Gold", canvasRect, new Vector2(1, 1), new Vector2(1, 1),
++                new Vector2(-24, -24), new Vector2(180, 56), background).rectTransform;
++            goldAnchor = Icon("Gold target", goldPanel, goldSprite, new Vector2(-62, 0), 36);
++            goldText = Label("Gold value", goldPanel, new Vector2(24, 0), new Vector2(120, 44), new Color32(0xF3, 0xD4, 0x7A, 255));
++            goldDelta = Label("Gold arrival", goldPanel, new Vector2(-20, -42), new Vector2(170, 30), new Color32(0xF3, 0xD4, 0x7A, 255));
++            xpPanel = Box("Raw XP", canvasRect, new Vector2(.5f, 0), new Vector2(.5f, 0),
++                new Vector2(0, 24), new Vector2(600, 28), background).rectTransform;
++            xpFill = Box("Encounter XP progress", xpPanel, new Vector2(0, .5f), new Vector2(0, .5f),
++                Vector2.zero, new Vector2(600, 28), new Color32(0x5A, 0xA8, 0xB8, 180));
++            xpAnchor = Icon("XP target", xpPanel, xpSprite, new Vector2(-274, 0), 30);
++            xpText = Label("Raw XP value", xpPanel, new Vector2(0, 0), new Vector2(500, 28), Color.white);
++            xpDelta = Label("XP arrival", xpPanel, new Vector2(-225, 34), new Vector2(160, 30), new Color32(0x8F, 0xD1, 0xD5, 255));
++            shownGold = startGold = targetGold = gold;
++            shownXp = startXp = targetXp = xp;
++            RenderNumbers();
++            goldDelta.text = xpDelta.text = string.Empty;
++        }
++
++        private static Image Box(string name, RectTransform parent, Vector2 anchor, Vector2 pivot,
++            Vector2 position, Vector2 size, Color color)
++        {
++            var go = new GameObject(name, typeof(RectTransform), typeof(Image));
++            var rect = (RectTransform)go.transform;
++            rect.SetParent(parent, false); rect.anchorMin = rect.anchorMax = anchor; rect.pivot = pivot;
++            rect.anchoredPosition = position; rect.sizeDelta = size;
++            var image = go.GetComponent<Image>(); image.color = color; image.raycastTarget = false;
++            return image;
++        }
++        private static RectTransform Icon(string name, RectTransform parent, Sprite sprite, Vector2 position, float size)
++        {
++            var image = Box(name, parent, new Vector2(.5f, .5f), new Vector2(.5f, .5f), position,
++                new Vector2(size, size), Color.white);
++            image.sprite = sprite; image.preserveAspect = true;
++            if (sprite == null) image.color = Color.clear;
++            return image.rectTransform;
++        }
++        private static TMP_Text Label(string name, RectTransform parent, Vector2 position, Vector2 size, Color color)
++        {
++            var go = new GameObject(name, typeof(RectTransform), typeof(TextMeshProUGUI));
++            var rect = (RectTransform)go.transform; rect.SetParent(parent, false);
++            rect.anchorMin = rect.anchorMax = rect.pivot = new Vector2(.5f, .5f);
++            rect.anchoredPosition = position; rect.sizeDelta = size;
++            var text = go.GetComponent<TextMeshProUGUI>();
++            foreach (var font in Resources.FindObjectsOfTypeAll<TMP_FontAsset>())
++                if (font.name == "EBS_SB SDF") { text.font = font; break; }
++            text.fontSize = 22; text.color = color; text.alignment = TextAlignmentOptions.Center;
++            text.raycastTarget = false; text.textWrappingMode = TextWrappingModes.NoWrap;
++            return text;
++        }
++
++        public bool TryShow(MorpgRewardVisualGroup group)
++        {
++            if (!IsAvailable || ReducedMotion) return false;
++            GlyphPair pair = null;
++            while (pool.Count > 0 && (pair == null || pair.Root == null)) pair = pool.Pop();
++            if (pair == null || pair.Root == null)
++            {
++                if (live.Count >= MorpgRewardDeliveryQueue.VisualCap) return false;
++                pair = new GlyphPair { Root = new GameObject("Reward bundle glyphs", typeof(RectTransform)) };
++                pair.Root.transform.SetParent(canvasRect, false);
++                var parent = (RectTransform)pair.Root.transform;
++                parent.anchorMin = parent.anchorMax = parent.pivot = new Vector2(.5f, .5f);
++                parent.anchoredPosition = Vector2.zero; parent.sizeDelta = Vector2.zero;
++                pair.Gold = Icon("coin-charm", parent, goldSprite, Vector2.zero, 38);
++                pair.Xp = Icon("faceted-shard", parent, xpSprite, Vector2.zero, 38);
++            }
++            pair.Flying = false; pair.Root.SetActive(true);
++            live.Add(group, pair);
++            return true;
++        }
++        public void Refresh(MorpgRewardVisualGroup group)
++        {
++            if (!IsAvailable || !live.TryGetValue(group, out var pair) || pair.Root == null ||
++                !pair.Root.activeInHierarchy || pair.Gold == null || pair.Xp == null)
++                throw new InvalidOperationException("reward glyph/anchor inactive");
++            Vector3 screen = Camera.main.WorldToScreenPoint(new Vector3(group.X, group.Y, 0));
++            if (screen.z < 0) throw new InvalidOperationException("reward behind camera");
++            RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, screen, null, out Vector2 ground);
++            if (!group.Flying)
++            {
++                float envelope = group.Age < .12f ? Mathf.Lerp(.82f, 1.06f, group.Age / .12f) :
++                    Mathf.Lerp(1.06f, 1f, Mathf.Clamp01((group.Age - .12f) / .20f));
++                float groupingScale = group.Rewards.Count > 1 ? 1.12f : 1f;
++                pair.Gold.localScale = pair.Xp.localScale = Vector3.one * envelope * groupingScale;
++                pair.Gold.anchoredPosition = ground + new Vector2(-17, 2);
++                pair.Xp.anchoredPosition = ground + new Vector2(17, 2);
++                return;
++            }
++            if (!pair.Flying) { pair.Flying = true; pair.FlightStart = ground; }
++            pair.Gold.localScale = pair.Xp.localScale = Vector3.one;
++            Vector2 goldTarget = canvasRect.InverseTransformPoint(goldAnchor.position);
++            Vector2 xpTarget = canvasRect.InverseTransformPoint(xpAnchor.position);
++            pair.Gold.anchoredPosition = Arc(pair.FlightStart + new Vector2(-17, 2), goldTarget, group.FlightProgress);
++            pair.Xp.anchoredPosition = Arc(pair.FlightStart + new Vector2(17, 2), xpTarget, group.FlightProgress);
++        }
++        private static Vector2 Arc(Vector2 start, Vector2 end, float t)
++        {
++            Vector2 control = (start + end) * .5f + new Vector2(0, 50f);
++            float a = 1f - t;
++            return a * a * start + 2f * a * t * control + t * t * end;
++        }
++        public void Release(MorpgRewardVisualGroup group)
++        {
++            if (!live.TryGetValue(group, out var pair)) return;
++            live.Remove(group);
++            if (pair.Root == null) return;
++            pair.Root.SetActive(false); pool.Push(pair);
++        }
++
++        internal void NotifyCredited(int gold, int quarters, int totalGold, float totalXp)
++        {
++            if (this == null || closing || goldText == null || xpText == null) return;
++            if (coalesceAge > .10f) { deltaGold = 0; deltaQuarters = 0; }
++            deltaGold += gold; deltaQuarters += quarters;
++            coalesceAge = deltaAge = pulseAge = 0f;
++            startQuarters = shownQuarters;
++            earnedQuarters += quarters;
++            startGold = shownGold; startXp = shownXp; targetGold = totalGold; targetXp = totalXp; tweenAge = 0;
++            if (ReducedMotion) { shownGold = targetGold; shownXp = targetXp; shownQuarters = earnedQuarters; tweenAge = .3f; RenderNumbers(); }
++        }
++        internal void TickHud(float delta, int currentGold, float currentXp)
++        {
++            if (this == null || closing || !isActiveAndEnabled || goldText == null || xpText == null || delta <= 0) return;
++            if (targetGold != currentGold || targetXp != currentXp)
++            {
++                startGold = shownGold; startXp = shownXp;
++                targetGold = currentGold; targetXp = currentXp; tweenAge = 0f;
++            }
++            tweenAge += delta; deltaAge += delta; coalesceAge += delta; pulseAge += delta;
++            float t = Mathf.Clamp01(tweenAge / .30f); t = 1f - (1f - t) * (1f - t);
++            shownGold = startGold + (targetGold - startGold) * t;
++            shownXp = Mathf.Lerp(startXp, targetXp, t);
++            shownQuarters = Mathf.Lerp(startQuarters, earnedQuarters, t);
++            RenderNumbers();
++            goldDelta.text = deltaAge < .65f ? "+" + deltaGold : string.Empty;
++            xpDelta.text = deltaAge < .65f ? "+" + (deltaQuarters / 4m).ToString("0.##") : string.Empty;
++            float pulse = ReducedFlash || ReducedMotion ? 1f : 1f + .08f * (1f - Mathf.Clamp01(pulseAge / .12f));
++            goldAnchor.localScale = xpAnchor.localScale = Vector3.one * pulse;
++        }
++        private void RenderNumbers()
++        {
++            goldText.text = Math.Round(shownGold).ToString("N0");
++            // RawExperienceOnly addendum: no invented level/next-level threshold.
++            xpText.text = "XP " + shownXp.ToString("0.##") + "  (+" + (earnedQuarters / 4m).ToString("0.##") + ")";
++            xpFill.rectTransform.sizeDelta = new Vector2(600f * Mathf.Clamp01(shownQuarters / 40f), 28f);
++        }
++        internal void SnapToAuthoritative(int gold, float xp)
++        {
++            if (this == null || goldText == null || xpText == null || xpFill == null) return;
++            shownGold = startGold = targetGold = gold;
++            shownXp = startXp = targetXp = xp;
++            shownQuarters = startQuarters = earnedQuarters;
++            tweenAge = .3f;
++            RenderNumbers();
++        }
++
++        internal void DisposeView()
++        {
++            closing = true; unavailable = null;
++            if (this != null) Destroy(gameObject);
++            live.Clear(); pool.Clear();
++        }
++        private void OnDisable() { if (!closing) unavailable?.Invoke(); }
++        private void OnDestroy() { if (!closing) unavailable?.Invoke(); live.Clear(); pool.Clear(); }
++    }
++}
+--- /dev/null
++++ b/Assets/Scripts/Battle/Morpg/MorpgRewardHudMono.cs.meta
+@@ -0,0 +1,2 @@
++fileFormatVersion: 2
++guid: 4a22504b21b54b39ba9dc49721d7acbb
+--- /dev/null
++++ b/Assets/Resources/battle/morpg.meta
+@@ -0,0 +1,5 @@
++fileFormatVersion: 2
++guid: e828e4b29d094b73b9038ad735a3ac13
++folderAsset: yes
++DefaultImporter:
++  externalObjects: {}
+--- /dev/null
++++ b/Assets/Resources/battle/morpg/rewards.meta
+@@ -0,0 +1,5 @@
++fileFormatVersion: 2
++guid: 86722081f2144ef19528529c16d3a113
++folderAsset: yes
++DefaultImporter:
++  externalObjects: {}
+--- /dev/null
++++ b/Assets/Resources/battle/morpg/rewards/reward.gold.coin-charm.png.meta
+@@ -0,0 +1,45 @@
++fileFormatVersion: 2
++guid: f8a1e4bce4d448888b81c08980553ba3
++TextureImporter:
++  serializedVersion: 13
++  internalIDToNameTable: []
++  externalObjects: {}
++  mipmaps:
++    enableMipMap: 0
++    sRGBTexture: 1
++  isReadable: 0
++  textureSettings:
++    serializedVersion: 2
++    filterMode: 1
++    aniso: 1
++    wrapU: 1
++    wrapV: 1
++    wrapW: 1
++  maxTextureSize: 128
++  textureCompression: 0
++  spriteMode: 1
++  spriteMeshType: 1
++  spritePivot: {x: 0.5, y: 0.5}
++  spritePixelsToUnits: 100
++  alphaIsTransparency: 1
++  textureType: 8
++  textureShape: 1
++  nPOTScale: 0
++  platformSettings:
++  - serializedVersion: 3
++    buildTarget: DefaultTexturePlatform
++    maxTextureSize: 128
++    resizeAlgorithm: 0
++    textureFormat: 4
++    textureCompression: 0
++    compressionQuality: 100
++    crunchedCompression: 0
++    allowsAlphaSplitting: 0
++    overridden: 0
++  spriteSheet:
++    serializedVersion: 2
++    sprites: []
++    spriteID: 7c205886755d47938d38f7a60f7f75a3
++    internalID: 0
++    outline: []
++    physicsShape: []
+--- /dev/null
++++ b/Assets/Resources/battle/morpg/rewards/reward.xp.faceted-shard.png.meta
+@@ -0,0 +1,45 @@
++fileFormatVersion: 2
++guid: 5574a2a074854bf182008a16dbab0e80
++TextureImporter:
++  serializedVersion: 13
++  internalIDToNameTable: []
++  externalObjects: {}
++  mipmaps:
++    enableMipMap: 0
++    sRGBTexture: 1
++  isReadable: 0
++  textureSettings:
++    serializedVersion: 2
++    filterMode: 1
++    aniso: 1
++    wrapU: 1
++    wrapV: 1
++    wrapW: 1
++  maxTextureSize: 128
++  textureCompression: 0
++  spriteMode: 1
++  spriteMeshType: 1
++  spritePivot: {x: 0.5, y: 0.5}
++  spritePixelsToUnits: 100
++  alphaIsTransparency: 1
++  textureType: 8
++  textureShape: 1
++  nPOTScale: 0
++  platformSettings:
++  - serializedVersion: 3
++    buildTarget: DefaultTexturePlatform
++    maxTextureSize: 128
++    resizeAlgorithm: 0
++    textureFormat: 4
++    textureCompression: 0
++    compressionQuality: 100
++    crunchedCompression: 0
++    allowsAlphaSplitting: 0
++    overridden: 0
++  spriteSheet:
++    serializedVersion: 2
++    sprites: []
++    spriteID: 4cf3532959964a5898b7d52bc18e303a
++    internalID: 0
++    outline: []
++    physicsShape: []
+--- /dev/null
++++ b/AgentTools/MorpgIntegrationHarness/reward_delivery_tests.cs
+@@ -0,0 +1,121 @@
++using System;
++using System.Collections.Generic;
++using System.Linq;
++using Battle.Morpg;
++
++internal static class RewardDeliveryTests
++{
++    private sealed class Account : IRevisionedRewardAccount
++    {
++        public decimal Value { get; private set; }
++        public long Revision { get; private set; }
++        internal bool Reject;
++        public bool TryApply(decimal delta, long revision) { if (Reject || revision != Revision) return false; Value += delta; Revision++; return true; }
++        public bool TryRestore(decimal value, long revision) { if (revision != Revision) return false; Value = value; Revision++; return true; }
++    }
++    private sealed class View : IMorpgRewardPresentation
++    {
++        internal readonly List<MorpgRewardVisualGroup> Live = new();
++        internal bool Available = true, RejectShow, ThrowRefresh, ThrowRelease;
++        internal int MaxLive;
++        public bool IsAvailable => Available;
++        public bool TryShow(MorpgRewardVisualGroup group) { if (RejectShow) return false; Live.Add(group); MaxLive = Math.Max(MaxLive, Live.Count); return true; }
++        public void Refresh(MorpgRewardVisualGroup group) { if (ThrowRefresh) throw new Exception("inactive/missing glyph"); }
++        public void Release(MorpgRewardVisualGroup group) { Live.Remove(group); if (ThrowRelease) throw new Exception("destroyed glyph"); }
++    }
++    private sealed class Fixture
++    {
++        internal readonly Account Gold = new(), Xp = new();
++        internal readonly View View = new();
++        internal readonly List<string> Commits = new();
++        internal readonly MorpgRewardDeliveryQueue Queue;
++        internal readonly BattleRewardLedger Ledger;
++        internal Fixture()
++        {
++            Ledger = new BattleRewardLedger(Gold, Xp);
++            Queue = new MorpgRewardDeliveryQueue(Commit) { Presentation = View };
++        }
++        private bool Commit(MorpgPendingReward r, out string error)
++        {
++            bool result = Ledger.TryCredit(r.Id, r.DeathSequence, r.ReservationId, r.Gold, r.XpQuarterUnits, out error);
++            if (result) Commits.Add(r.Id);
++            return result;
++        }
++        internal bool Add(long sequence, float x = 0, float y = 0, string id = null, int amount = 1) =>
++            Queue.TryReserve(id ?? "r" + sequence, sequence, "reservation-" + sequence, amount, amount, x, y);
++    }
++    private static int passed;
++    private static void Check(bool yes, string why) { if (!yes) throw new Exception(why); }
++    private static void Test(string name, Action action) { action(); passed++; Console.WriteLine("PASS " + name); }
++    internal static void Main()
++    {
++        Test("arrival-commit-after-450ms-ground-350ms-flight", () => {
++            var f = new Fixture(); Check(f.Add(1, 7, -3), "reserve");
++            Check(f.Gold.Value == 0 && f.Ledger.Bundles.Count == 0, "old immediate account path");
++            f.Queue.Tick(.449f, false); Check(!f.View.Live[0].Flying, "early flight");
++            f.Queue.Tick(.001f, false); Check(f.View.Live[0].Flying && f.Gold.Value == 0, "dwell boundary");
++            f.Queue.Tick(.349f, false); Check(f.Gold.Value == 0, "early arrival credit");
++            f.Queue.Tick(.001f, false); Check(f.Gold.Value == 1 && f.Xp.Value == .25m && f.View.Live.Count == 0, "arrival not atomic");
++        });
++        Test("duplicate-before-and-after-arrival-mutation-zero", () => {
++            var f = new Fixture(); f.Add(1); f.Add(1); Check(f.Queue.PendingCount == 1, "pending duplicate");
++            f.Queue.Tick(.8f, false); f.Add(1); f.Queue.Close(); f.Queue.Close();
++            Check(f.Commits.Count == 1 && f.Gold.Value == 1, "duplicate committed");
++        });
++        Test("nearest-ground-radius-and-lexical-tie-first-position", () => {
++            var f = new Fixture(); f.Add(1, -.5f, 0, "z"); f.Add(2, .5f, 0, "a"); f.Add(3, 0, 0, "m");
++            Check(f.View.Live.Count == 2, "group count");
++            var host = f.View.Live.Single(g => g.HostId == "a");
++            Check(host.Rewards.Count == 2 && host.X == .5f, "nearest tie or host position");
++        });
++        Test("cap12-oldest-ground-grouping-and-28-death-conservation", () => {
++            var f = new Fixture();
++            for (int i = 1; i <= 28; i++) f.Add(i, i * 2, 0, null, i <= 22 ? 1 : 3);
++            Check(f.View.Live.Count == 12 && f.View.MaxLive == 12 && f.View.Live[0].Rewards.Count == 17, "cap/grouping");
++            f.Queue.Tick(.8f, false);
++            Check(f.Gold.Value == 40 && f.Xp.Value == 10 && f.Commits.Count == 28 && f.Queue.PendingCount == 0, "conservation");
++        });
++        Test("group-arrival-reordering-keeps-death-order", () => {
++            var f = new Fixture(); f.Add(1); f.Queue.Tick(.3f, false); f.Add(2, 3); f.Add(3, .1f);
++            f.Queue.Tick(.5f, false); Check(f.Commits.SequenceEqual(new[] { "r1" }), "later grouped credit jumped queue");
++            f.Queue.Tick(.3f, false); Check(f.Commits.SequenceEqual(new[] { "r1", "r2", "r3" }), "death order changed");
++        });
++        Test("pause-freezes-dwell-flight-and-commit", () => {
++            var f = new Fixture(); f.Add(1); f.Queue.Tick(100, true);
++            Check(f.View.Live[0].Age == 0 && f.Gold.Value == 0, "paused progress");
++            f.Queue.Tick(.5f, false); f.Queue.Tick(100, true); Check(f.Gold.Value == 0, "paused flight committed");
++            f.Queue.Tick(.3f, false); Check(f.Gold.Value == 1, "resume lost reward");
++        });
++        Test("missing-assets-or-HUD-immediate-failover", () => {
++            var f = new Fixture(); f.View.Available = false; f.Add(1);
++            Check(f.Gold.Value == 1 && f.View.Live.Count == 0, "missing presentation lost reward");
++            f.Queue.Presentation = null; f.Add(2); Check(f.Gold.Value == 2, "null HUD lost reward");
++        });
++        Test("inactive-glyph-or-show-failure-immediate-failover", () => {
++            var f = new Fixture(); f.View.RejectShow = true; f.Add(1); Check(f.Gold.Value == 1, "show fail lost");
++            f.View.RejectShow = false; f.Add(2); f.View.ThrowRefresh = true;
++            f.Queue.Tick(.1f, false); Check(f.Gold.Value == 2 && f.Queue.ActiveVisualCount == 0, "inactive glyph lost");
++        });
++        Test("midflight-HUD-loss-drains-in-order", () => {
++            var f = new Fixture(); f.Add(1); f.Add(2, 3); f.Queue.Tick(.5f, false); f.View.Available = false;
++            f.Queue.Tick(.01f, false); Check(f.Commits.SequenceEqual(new[] { "r1", "r2" }) && f.View.Live.Count == 0, "HUD loss");
++        });
++        Test("teardown-defeat-close-pays-confirmed-only-and-is-idempotent", () => {
++            var f = new Fixture(); f.Add(1); f.Add(2, 3, 0, null, 3); f.Queue.Tick(.1f, true);
++            f.View.ThrowRelease = true; Check(f.Queue.Close(), "close failed"); f.Queue.Close();
++            Check(f.Gold.Value == 4 && f.Xp.Value == 1 && f.Commits.Count == 2 && f.Queue.ActiveVisualCount == 0, "teardown duplicate/loss");
++        });
++        Test("all-flying-cap-saturation-fails-over-without-13th-visual", () => {
++            var f = new Fixture(); for (int i = 1; i <= 12; i++) f.Add(i, i * 2);
++            f.Queue.Tick(.5f, false); f.Add(13, 50);
++            Check(f.View.MaxLive == 12 && f.Gold.Value == 13 && f.Queue.ActiveVisualCount == 0, "flying cap overflow");
++        });
++        Test("arrival-transaction-failure-restores-gold-and-is-terminal", () => {
++            var f = new Fixture(); f.Add(1); f.Xp.Reject = true;
++            Check(!f.Queue.Tick(.8f, false) && f.Queue.Failed, "failed transaction accepted");
++            Check(f.Gold.Value == 0 && f.Xp.Value == 0, "partial account commit");
++            f.Queue.Flush(); Check(f.Commits.Count == 0, "failed terminal retried");
++        });
++        Console.WriteLine("PASS " + passed + "/" + passed + " production delivery queue + ledger tests");
++    }
++}
+--- /dev/null
++++ b/AgentTools/MorpgIntegrationHarness/reward_delivery_tests.sh
+@@ -0,0 +1,7 @@
++#!/bin/sh
++set -eu
++cd /Users/pvenus/ProjectBS
++p2_mono=/Applications/Unity/Hub/Editor/6000.3.10f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge
++p2_out=$(mktemp -d /private/tmp/projectbs-reward-delivery.XXXXXX)
++"$p2_mono/bin/mono" "$p2_mono/lib/mono/msbuild/Current/bin/Roslyn/csc.exe" -nologo -langversion:9.0 -r:System.Web.Extensions.dll -out:"$p2_out/tests.exe" AgentTools/MorpgIntegrationHarness/reward_delivery_tests.cs AgentTools/MorpgP0Harness/UnityEngineStub.cs Assets/Scripts/Battle/Morpg/MorpgRewardDeliveryQueue.cs Assets/Scripts/Battle/Morpg/BattleMorpgZoneRewardContracts.cs Assets/Scripts/Battle/Morpg/StrictCanonicalJson.cs Assets/Scripts/Battle/Morpg/BattleMorpgP0AddendumCodec.cs
++"$p2_mono/bin/mono" "$p2_out/tests.exe"
+--- /dev/null
++++ b/AgentTools/MorpgIntegrationHarness/reward_asset_checks.py
+@@ -0,0 +1,24 @@
++from pathlib import Path
++import hashlib,json,struct
++root=Path('/Users/pvenus/ProjectBS')
++manifest=json.loads((root/'Artifacts/GraphicsRemediation/RewardAbsorbPresentation/selected/revision-01-exact2/manifest.json').read_text())
++for asset in manifest['assets']:
++    p=root/'Assets/Resources/battle/morpg/rewards'/(asset['id']+'.png')
++    blob=p.read_bytes()
++    assert hashlib.sha256(blob).hexdigest()==asset['runtimeCandidate']['sha256']
++    assert blob[:8]==b'\x89PNG\r\n\x1a\n'
++    assert struct.unpack('>II',blob[16:24])==(128,128) and blob[25]==6
++    meta=Path(str(p)+'.meta').read_text()
++    for token in ('spriteMode: 1','spritePixelsToUnits: 100','enableMipMap: 0','filterMode: 1','wrapU: 1','wrapV: 1','textureCompression: 0'):
++        assert token in meta,(p,token)
++    print('PASS selected-byte-exact-rgba-sprite-import '+asset['id'])
++route=(root/'Assets/Scripts/Battle/Morpg/BattleMorpgLiveRoute.cs').read_text()
++on_death=route.split('private void OnDied(')[1].split('private bool TryCommitArrivedReward(')[0]
++assert 'delivery.TryReserve(' in on_death and 'ledger.TryCredit(' not in on_death
++assert 'delivery.PendingCount != 0' in route
++assert 'session?.BattleSO?.BattleId != BattleMorpgDefinitionValidator.BattleId' in route
++view=(root/'Assets/Scripts/Battle/Morpg/MorpgRewardHudMono.cs').read_text()
++for token in ('RenderMode.ScreenSpaceOverlay','goldAnchor.position','xpAnchor.position','Camera.main.WorldToScreenPoint','/ .30f','/ .12f','coalesceAge > .10f','goldSprite = Resources.Load<Sprite>','xpSprite = Resources.Load<Sprite>'):
++    assert token in view,token
++assert 'Time.unscaled' not in view and 'Time.unscaled' not in (root/'Assets/Scripts/Battle/Morpg/MorpgRewardDeliveryQueue.cs').read_text()
++print('PASS exact-gate-reservation-only-death-settlement-barrier-real-HUD-targets-scaled-clock')

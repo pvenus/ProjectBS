@@ -1,0 +1,184 @@
+{
+  "status": "manifest_only_not_executed",
+  "restoreUsingReversePatch": "installed-changes.diff",
+  "restoredFiles": [
+    "Assets/Scripts/Battle/Map/BattleMapBoundsContext.cs",
+    "Assets/Scripts/Actor/Shared/Movement/MovementController.cs",
+    "Assets/Scripts/Actor/Shared/Movement/KnockbackController.cs",
+    "Assets/Scripts/Actor/Shared/Movement/MovementMono.cs",
+    "AgentTools/MorpgIntegrationHarness/run.sh",
+    "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.01.rescue_villagers.morpg-zone-reward.v1.json"
+  ],
+  "removeOnlyIfHashMatches": [
+    {
+      "path": "Assets/Resources/battle/morpg/environment/z2-fence-straight.png",
+      "sha256": "20ea7e729c604cf56859c8ab518d1b66a2664d9203208b3cf039ac2ac87b07b6"
+    },
+    {
+      "path": "Assets/Resources/battle/morpg/environment/z2-cart-straw.png",
+      "sha256": "3431af3f2de3da861a22283bc08aafd955287b358df72cf15405b536692896a1"
+    },
+    {
+      "path": "Assets/Resources/battle/morpg/environment/z1-boundary-gate.png.meta",
+      "sha256": "d0c398a783cce958c508bfbfef7263896f396f2a9fc91dae060389b26ae0cb3f"
+    },
+    {
+      "path": "Assets/Resources/battle/morpg/environment/z3-house-edge-end.png",
+      "sha256": "dff89d16f52a36363bb7ac11ff1937dbfb84fc0b213ebbf6f848bb174b26aa97"
+    },
+    {
+      "path": "Assets/Resources/battle/morpg/environment/z2-fence-straight.png.meta",
+      "sha256": "43338582d73443150f2cda6848a86ae678f1043cb386c09fdcb3b735de5d814c"
+    },
+    {
+      "path": "Assets/Resources/battle/morpg/environment/environment.v1.json",
+      "sha256": "9a0951a0976591c8712d93dd7a39326c5aed497b16210c724fe5e8e422fadb66"
+    },
+    {
+      "path": "Assets/Resources/battle/morpg/environment/z3-wall-gate.png",
+      "sha256": "51817f3806533bb77fc4d8465ae02f313496b26b7cf32964ad7bf75ee3b2210b"
+    },
+    {
+      "path": "Assets/Resources/battle/morpg/environment/z1-boundary-straight.png",
+      "sha256": "8edaf5f56876a1e759f87c56fa9cd11e734c4962b6384c56f8ee5dafaff9b2cd"
+    },
+    {
+      "path": "Assets/Resources/battle/morpg/environment/z3-square-props.png",
+      "sha256": "f0c0f4b3b3d5c0c9c08dc3951907fc597b782928d3cbaee4152320f20a542c69"
+    },
+    {
+      "path": "Assets/Resources/battle/morpg/environment/z3-house-edge-end.png.meta",
+      "sha256": "0a6642d3f1def6878152bba2344dacb95b30bb2acdee769c86d4ed612ecc95df"
+    },
+    {
+      "path": "Assets/Resources/battle/morpg/environment/z2-fence-end.png.meta",
+      "sha256": "7c0df864854e2eeb3884040d6e2b88d19d235917eb06f6e930abcad993cd0a2a"
+    },
+    {
+      "path": "Assets/Resources/battle/morpg/environment/z2-fence-gate.png.meta",
+      "sha256": "0251349f7d279526e0f5ba0d021b49017aff45b82fe88b8b7c2e52479d2d3d3c"
+    },
+    {
+      "path": "Assets/Resources/battle/morpg/environment/z1-boundary-end.png",
+      "sha256": "7082c0f7419c42d977d34c6cafe6cfc06630d0c969a5b4e11d38adfa67237535"
+    },
+    {
+      "path": "Assets/Resources/battle/morpg/environment/z3-wall-gate.png.meta",
+      "sha256": "288c491fdba658f04226d7760bac8ceb65489945b189b7cc4482da8394d9b8a8"
+    },
+    {
+      "path": "Assets/Resources/battle/morpg/environment/z2-fence-corner.png",
+      "sha256": "ba11a89d1a3dadbbd33425d22524691a71343e21317b760cc05df081e66f9ad5"
+    },
+    {
+      "path": "Assets/Resources/battle/morpg/environment/z3-wall-corner.png",
+      "sha256": "10ca39e13307220bfb52df95a691afd10c587a99c75a2d8d79a356b839f4c277"
+    },
+    {
+      "path": "Assets/Resources/battle/morpg/environment/z3-wall-straight.png",
+      "sha256": "b5baa69171249b4acf1ff6510dce2305d1c31e29eef5621d79ce4faada4e4ebf"
+    },
+    {
+      "path": "Assets/Resources/battle/morpg/environment/z1-boundary-end.png.meta",
+      "sha256": "0b896e0c234f0137037ec583fc333ac423de7c5d8d36fd88077c87e359a9334f"
+    },
+    {
+      "path": "Assets/Resources/battle/morpg/environment/z1-boundary-straight.png.meta",
+      "sha256": "fafaf7f3bf13715d1a5b29265467184bda4465bf3cb25e28d50f2f9fb4500bdf"
+    },
+    {
+      "path": "Assets/Resources/battle/morpg/environment/z3-wall-straight.png.meta",
+      "sha256": "efa9cc6dc847819683b920eb070e7c824691dc9551c235671d41dbf937ad0293"
+    },
+    {
+      "path": "Assets/Resources/battle/morpg/environment/z3-square-props.png.meta",
+      "sha256": "67e1f4a59d9aa8be998ac0d6020c4c233585d5b6d0ca94a4cc0d6e821d68a3db"
+    },
+    {
+      "path": "Assets/Resources/battle/morpg/environment/z1-boundary-corner.png",
+      "sha256": "6bfe55fe02ed7c888677c63813d48c80ecdd750720425e1614a9a4797c2e4f19"
+    },
+    {
+      "path": "Assets/Resources/battle/morpg/environment/z2-fence-gate.png",
+      "sha256": "941ba0ac4fd99622e759071d589a822f85f211eb410fa0e0008f62456728ff3d"
+    },
+    {
+      "path": "Assets/Resources/battle/morpg/environment/z3-wall-corner.png.meta",
+      "sha256": "5ecf13f0069218e987cc5b7b0044d0374bc568314d7a303e610dee530d0c61c4"
+    },
+    {
+      "path": "Assets/Resources/battle/morpg/environment/z1-boundary-gate.png",
+      "sha256": "0445b885e04dbc9d2707177a41aae376a2db64006162c15646cb270941041ac1"
+    },
+    {
+      "path": "Assets/Resources/battle/morpg/environment/z2-fence-corner.png.meta",
+      "sha256": "31839ba5c2815b3ccddbe972417215b0e47cbe20749db5c5f24928a9e0818913"
+    },
+    {
+      "path": "Assets/Resources/battle/morpg/environment/z2-cart-straw.png.meta",
+      "sha256": "56e15a14759fbd66ab777c95b027a1d36220efc613954d1cec009dd688ef3f2f"
+    },
+    {
+      "path": "Assets/Resources/battle/morpg/environment/z1-sapling.png.meta",
+      "sha256": "bd1c03c5691266700ce29f8efc4b1579f9e43da7c54b8b80dfce8701091f8e9c"
+    },
+    {
+      "path": "Assets/Resources/battle/morpg/environment/environment.v1.json.meta",
+      "sha256": "26507c3ae350b938de136bf64ebf474e2ff7d9d6dfccea86b7b0a25233a0cc3f"
+    },
+    {
+      "path": "Assets/Resources/battle/morpg/environment/z1-sapling.png",
+      "sha256": "a19217b690d0f8fa8057cb74f8372f234d96290b17d9e3907ba439faf97cd31d"
+    },
+    {
+      "path": "Assets/Resources/battle/morpg/environment/z1-boundary-corner.png.meta",
+      "sha256": "956615c038a111e825ba02c394ed10eff38fa8fa4a2f61df9ca32e8e787b7477"
+    },
+    {
+      "path": "Assets/Resources/battle/morpg/environment/z2-fence-end.png",
+      "sha256": "a893804dc666935b5b18b3f8a982a424a8ad1a476f831440a32a9d3e36fb6a52"
+    },
+    {
+      "path": "Assets/Resources/battle/morpg/environment.meta",
+      "sha256": "f35bef040f3033187d421115dd41593942a20f9bdbd83b077aef31d28d6a8f3a"
+    },
+    {
+      "path": "Assets/Scripts/Battle/Morpg/MorpgEnvironmentRuntime.cs",
+      "sha256": "09748f15a29e8830f8ffc9aa1c748ada30bdef3a6aeb07b4ffc298c91a00230c"
+    },
+    {
+      "path": "Assets/Scripts/Battle/Morpg/MorpgEnvironmentGeometry.cs",
+      "sha256": "8dc8e2cc0998ea966085ae5bbcd58e458fa16ff312955310c341c5a6e74c6b08"
+    },
+    {
+      "path": "Assets/Scripts/Battle/Morpg/MorpgEnvironmentRuntime.cs.meta",
+      "sha256": "0e6205f02f48b72393c1e898c5f10b02fa2c7919265f9961959c454609bed381"
+    },
+    {
+      "path": "Assets/Scripts/Battle/Morpg/MorpgEnvironmentGeometry.cs.meta",
+      "sha256": "ebc5b1be9560b3ed8f401ac971b13fb1b20df3a418e1eae0ba9321c15a851a3d"
+    },
+    {
+      "path": "AgentTools/MorpgEnvironmentHarness/connectivity.py",
+      "sha256": "f2f1623552a7b7d0a2c52c26437a6cb8fae8535f510378bd98a896a2775c177b"
+    },
+    {
+      "path": "AgentTools/MorpgEnvironmentHarness/audit_assets.py",
+      "sha256": "4e1486d5e86259f2556dde30b8400786a28802d8cae0674fa31105cf6570d164"
+    },
+    {
+      "path": "AgentTools/MorpgEnvironmentHarness/GeometryTests.cs",
+      "sha256": "71b1ed3c8d6550b137450d2a71a6f3f7fec4f4522cd8e17cb3dbc33646f19450"
+    },
+    {
+      "path": "AgentTools/MorpgEnvironmentHarness/run.sh",
+      "sha256": "1c7749afaf5cc0ec96ee1c17a954e6395023992ab73a02ade79019fb6f893af2"
+    },
+    {
+      "path": "AgentTools/MorpgEnvironmentHarness/install_profile.py",
+      "sha256": "650164687f2eb0bc5c3e2d2c40ab4016d8f573e35e67822c842b10dfcfb5baab"
+    }
+  ],
+  "pendingIntegrationApplied": false,
+  "indexUnchanged": true
+}

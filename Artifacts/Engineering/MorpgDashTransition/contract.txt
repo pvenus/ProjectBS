@@ -1,0 +1,78 @@
+[벼리 환경 계약 addendum | MORPG zone transition dash v1]
+Date: 2026-09-06 KST
+Status: DESIGN_ACCEPTED / USER_CHOICE0 / PROJECT_WRITE0
+Applies: Z1→Z2, Z2→Z3 only
+Supersedes: simple fade+warp as default presentation; retains it as safe fallback
+
+1. Stable anchors
+- Exit Z1 `anchor...left.exit.right`=(-5.70,0); Exit Z2 `anchor...center.exit.right`=(4.45,0).
+- Entry staging Z2 `anchor...center.entry_staging.left`=(-3.00,0) → accepted target `(0,0)`.
+- Entry staging Z3 `anchor...right.entry_staging.left`=(7.25,0) → accepted target `(10.25,0)`.
+- Exit/entry corridor is world +X, raw width2.80 and usable width2.50 after actor clearance. It must be free of prop colliders, rewards, hostile objects and spawn reservations.
+
+2. Ordered lifecycle
+- Zone clear t0: existing clear CAS, input/skill lock, hostile damage/effect immunity, player velocity0 and next-wave aggro/spawn0.
+- t+.20 source-zone hostile projectile/effect cleanup; t+.20–.50 reward settlement unchanged.
+- At settlement PASS define presentation τ=0 (clear t+.50):
+  τ0–.08 facing right locked, Dash body anticipation pose; displacement0.
+  τ.08–exitEnd: code-owned move from current position to exit anchor. Duration `clamp(pathLength/14,.32,.65)s`; ease cubic-in `(t/d)^3`. Body Dash one-shot, rootMotion0.
+  Alpha stays1 through first55% of exit, then smoothstep fades1→0 over final45%; exact0 by exitEnd.
+  At first fully invisible simulation frame: atomic old-boundary disable→party reposition to next staging→camera cut→next-boundary enable. No rendered intermediate position.
+  Entry from staging to target: duration.36s, smoothstep ease-out `1-(1-t)^3`; alpha0→1 during first.22s and remains1 thereafter. Facing right/Dash body maintained.
+  Settle.16s at target: renderer exact baseline, Idle state, velocity0.
+  Unlock input/immunity on following frame; next wave activates.20s later.
+- Total after settlement is exitDuration+.52s; nominal next-wave delay after clear=1.34–1.67s. No fixed minimum combat duration beyond this transition.
+
+3. Camera and visibility — user correction supersedes follow wording
+- Clear CAS frame captures the current valid zone combat framing and locks camera transform there. Camera follow target updates are ignored for the entire exit.
+- On the same fully invisible frame as staging reposition, camera atomically snaps to the next fixed combat framing: Z2 `(0,0,-10)`, Z3 `(10.25,0,-10)` with existing orthographic size/FOV unchanged.
+- Camera remains fixed at that transform throughout staging, entry dash, fade-in, landing and Idle settle. Exit tracking0, entry tracking0, animated pan0.
+- Normal battle follow may resume only on the first simulation frame after the next-wave start receipt, never before. Resume begins from the fixed framing without a catch-up animation or accumulated follow velocity.
+- Zoom/FOV/rotation/shake0. Screen-wide fade is not used in default path; character alpha alone hides atomic reposition.
+- `instantTeleportVisibleFrames=0`; alpha must be exactly0 for at least1 rendered frame containing reposition/camera cut.
+
+4. Party formation
+- Pilot Player1/Seojin is leader slot0. Future party support is schema-safe only: slots trail the leader at local offsets slot1(-.55,+.45), slot2(-.55,-.45), slot3(-1.10,0).
+- All members face right, share normalized phase, and preserve offsets at staging/target. Each uses dedicated Dash body animation or an explicitly approved Move fallback; null animation does not block movement but selects safe fade fallback for the whole party.
+- Party colliders/hitboxes never clone; movement service owns each world transform. Root motion/contact damage/pass-through/i-frame from animation0.
+
+5. Collision and failure fallback
+- Before τ0, sweep each exit path, staging footprint and entry path using actor collider+.15 against active/new prop and zone colliders. Clearance must remain>=.15 and corridor usable width>=2.50.
+- During dash, world path is bounded to prevalidated corridor; dynamic obstruction causes immediate renderer alpha→0 within.06s, then safe fallback rather than collision penetration.
+- Safe fallback: full-screen ink fade-out.12s, atomic boundary/player/camera switch under opacity1, fade-in.16s, settle.10s. No body dash required. This is also ReducedMotion default.
+- Invalid staging/target/boundary or failed atomic switch enters Transition Failed and restores old-zone position/boundary while still obscured; next wave0. Silent nearest-point relocation0.
+
+6. Cancel/death/pause/cleanup
+- Death/defeat before clear CAS prevents transition. After clear CAS immunity and hostile cleanup prevent combat death; explicit scene abort/disable enters Failed and restores renderer alpha/facing/animation/velocity/input/immunity/camera ownership.
+- Stun/root present at clear is cleared only by its normal lifecycle; transition waits up to.50s after reward settlement. If still blocking body motion, use safe fade fallback without removing the status.
+- Pause freezes transition clock, alpha, movement and camera cut. Resume continues exact sample. Duplicate clear/transition callbacks consume the existing transitionKey and mutation0.
+
+7. Next-wave isolation
+- Target-zone NPC reservations are not instantiated or targetable before player settle completes.
+- Next wave starts exactly.20s after unlock; aggro evaluation begins on that same simulation tick, never during staging/entry.
+- Old-zone NPC/projectile/effect living/pending must be0 before transition; old props may remain visual only behind inactive boundary.
+
+8. Machine-readable row
+```json
+{
+ "schemaVersion":"battle-zone-transition-presentation.v1",
+ "rows":[
+  {"ordinal":1,"from":"zone.act1.chapter01.01.rescue_villagers.left","to":"zone.act1.chapter01.01.rescue_villagers.center","exitAnchor":[-5.7,0],"staging":[-3,0],"target":[0,0]},
+  {"ordinal":2,"from":"zone.act1.chapter01.01.rescue_villagers.center","to":"zone.act1.chapter01.01.rescue_villagers.right","exitAnchor":[4.45,0],"staging":[7.25,0],"target":[10.25,0]}
+ ],
+ "exit":{"speed":14,"durationMin":.32,"durationMax":.65,"alphaFadeStart":.55,"easing":"cubicIn"},
+ "entry":{"distance":3,"duration":.36,"fadeIn":.22,"easing":"cubicOut"},
+  "settle":.16,"waveDelayAfterUnlock":.20,"cameraMode":"fixed_clear_then_invisible_atomic_snap_then_fixed_until_wave_start","cameraTargets":{"zone2":[0,0,-10],"zone3":[10.25,0,-10]},"facing":"right","rootMotion":false,"fallback":"obscured_fade_atomic_warp"
+}
+```
+
+9. Acceptance
+- Clear→settlement→exit→invisible atomic cut→entry→Idle→unlock→wave order diff0; duplicate callback movement0.
+- Right-facing Dash body visible during both legs; exit reaches alpha0 before any reposition/camera cut; visible teleport frames0.
+- Actor/formation sweeps do not intersect accepted prop/zone colliders; landing target and egress remain clear.
+- Camera transform diff0 from clear through exit; one invisible-frame snap; transform diff0 through entry/landing/Idle and until wave-start receipt. Pan/follow/zoom/rotation animation0.
+- Renderer alpha, facing lock, animator priority, movement/input/immunity state restore exactly once on success/failure/pause/abort.
+- Target wave living/aggro/spawn0 until settle+unlock+.20; source wave hostile state0 before cut.
+- ReducedMotion and missing animation/path obstruction use the single obscured fallback and preserve gameplay destination/timing order.
+
+No Unity/code/art/Git mutation performed.

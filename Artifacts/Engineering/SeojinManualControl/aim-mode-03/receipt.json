@@ -1,0 +1,63 @@
+{
+  "task": "skill aim mode SSOT + direction-first manual input",
+  "revision": "aim-mode-03",
+  "status": "complete",
+  "blocker": null,
+  "completed_at": "2026-09-07T19:29:04.442424+09:00",
+  "compile": {
+    "runtime_errors": 0,
+    "runtime_warnings": 31,
+    "editor_errors": 0,
+    "editor_warnings": 41
+  },
+  "tests": {
+    "input_core_lifecycle": 29,
+    "combo_guard": 15,
+    "teardown": 10,
+    "schema_materializer_helper_cone": 12,
+    "morpg_live": 62,
+    "geometry": 14,
+    "dash": 9,
+    "reward": 12,
+    "spawn": 10,
+    "npc_cast": 4,
+    "p1": 27,
+    "passed": 204,
+    "failed": 0
+  },
+  "materializer": {
+    "source": "EquipmentSkillJsonGenerator.ApplySkillFields -> EquipmentSkillSO.ConfigureAimMode",
+    "JSON_DTO_SO_readback": true,
+    "idempotent_slots": 12,
+    "applications_per_slot": 2,
+    "yaml_enum_match": true,
+    "adapter": "test serialization adapter; real Unity import not run"
+  },
+  "scope": {
+    "available_seojin_slots": 12,
+    "unavailable_slots_preserved": 3,
+    "protected_unchanged": 458,
+    "authorized_aim_only_assets": 12,
+    "cumulative_existing_files": 38,
+    "cumulative_new_files": 20,
+    "npc_point_api_body_unchanged": true,
+    "git_index_unchanged": true
+  },
+  "checks": {
+    "diff_check": true,
+    "reverse_patch_dry_run": true
+  },
+  "not_run": [
+    "Unity GUI",
+    "Unity headless",
+    "Unity Play",
+    "Unity asset import/reimport",
+    "staging",
+    "commit",
+    "push",
+    "actual rollback"
+  ],
+  "report": "REPORT.md",
+  "manifest": "slot-manifest.json",
+  "patch": "aim-mode.patch"
+}

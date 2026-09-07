@@ -20,6 +20,7 @@ public class ProjectileRuntimeData
     [Header("Spawn")]
     public Vector2 spawnPosition;
     public Vector2 direction;
+    public bool orientManualPresentation;
 
     [Header("Runtime Profiles")]
     public SkillMoveRuntimeDto moveRuntime;

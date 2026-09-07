@@ -1,0 +1,49 @@
+{
+  "status": "HORIZONTAL_REVISION03_APPLIED_STATIC_ACCEPTANCE_PASS",
+  "authority": "Implementation-selected exact geometry under latest delegated operation instruction; no designer review claimed.",
+  "contractSha256": "eb9c0df227e23a34d7aa0107cf73a8fe4864feee69fe28286dde32986cf75ddf",
+  "canonicalHashes": {
+    "Assets/Resources/battle/morpg/environment/environment.v1.json": "1eb31311327d4666894bc79976e50c348b14ee1be821da2ef3a1d66de055ae39",
+    "Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.01.rescue_villagers.morpg-zone-reward.v1.json": "f8399231c2a222667b2db07584bc1323d295ec772b7dfee91cab73c32a1a790f"
+  },
+  "tests": {
+    "liveProductionWithUnityStub": 34,
+    "geometry": 14,
+    "clock": 8,
+    "rewardQueue": 12,
+    "inactiveSpawn": 10,
+    "cast": 4,
+    "p1": 27
+  },
+  "totalPassed": 109,
+  "compiler": {
+    "errors": 0,
+    "existingWarnings": 31
+  },
+  "connectivity": {
+    "gridStep": 0.1,
+    "actorRadius": 0.35,
+    "extraInset": 0.15,
+    "unreachableSpawns": 0
+  },
+  "assets": {
+    "byteExact": 15,
+    "uniqueGuid": 15,
+    "structuralProps": 17,
+    "decorations": 54
+  },
+  "idempotentAuthor": true,
+  "noncoordinateRouteDataUnchanged": true,
+  "normalDashBothInstalledLegs": "PASS without test geometry mutation",
+  "gitIndexUnchanged": true,
+  "reversePatchCheck": "PASS",
+  "limitations": [
+    "Unity engine is stubbed in behavioral tests; no Play Mode or GPU proof.",
+    "Safe fallback remains for unavailable clip, reduced motion, or actor/dynamic path obstruction outside the surveyed centerline capsule."
+  ],
+  "supersedes": [
+    "revision-03/PREPARATION.md pending-coordinate status",
+    "MorpgDashTransition/REPORT.md installed-profile corridor incompatibility"
+  ],
+  "delivery": "BLOCKED: automatic approval review rejected direct report to Hangyeol task 01a0424c-6e30-7b23-aef4-9ae6516ae07d because trusted authorization for internal payload and destination was unavailable. No bypass attempted."
+}

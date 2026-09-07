@@ -1,0 +1,14 @@
+Assets/Scripts/Battle/Morpg/BattleMorpgZoneRewardContracts.cs(267,68): warning CS0649: Field 'BattleMorpgDefinitionCodec.Header.schemaVersion' is never assigned to, and will always have its default value null
+PASS arrival-commit-after-450ms-ground-350ms-flight
+PASS duplicate-before-and-after-arrival-mutation-zero
+PASS nearest-ground-radius-and-lexical-tie-first-position
+PASS cap12-oldest-ground-grouping-and-28-death-conservation
+PASS group-arrival-reordering-keeps-death-order
+PASS pause-freezes-dwell-flight-and-commit
+PASS missing-assets-or-HUD-immediate-failover
+PASS inactive-glyph-or-show-failure-immediate-failover
+PASS midflight-HUD-loss-drains-in-order
+PASS teardown-defeat-close-pays-confirmed-only-and-is-idempotent
+PASS all-flying-cap-saturation-fails-over-without-13th-visual
+PASS arrival-transaction-failure-restores-gold-and-is-terminal
+PASS 12/12 production delivery queue + ledger tests

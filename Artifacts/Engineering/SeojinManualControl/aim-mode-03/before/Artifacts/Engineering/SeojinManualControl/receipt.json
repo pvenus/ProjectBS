@@ -1,0 +1,64 @@
+{
+  "task": "Seojin default Manual control and bounded control ownership",
+  "completed_at": "2026-09-07T19:02:30.218995+09:00",
+  "compile": {
+    "errors": 0,
+    "warnings": 31,
+    "engine_launched": false,
+    "log": "build.log"
+  },
+  "tests": {
+    "input_core_lifecycle": 21,
+    "production_combo_guard_extracted": 14,
+    "morpg_live_glue": 62,
+    "environment_geometry": 14,
+    "dash_clock": 9,
+    "reward_delivery": 12,
+    "inactive_spawn": 10,
+    "cast_presenter": 4,
+    "p1_regression": 27,
+    "total_passed": 183,
+    "failed": 0,
+    "teardown_production_methods": 10
+  },
+  "scope": {
+    "existing_files": 10,
+    "new_files": 15,
+    "protected_hashes_unchanged": 470,
+    "reverse_patch_check": true,
+    "git_diff_check": true,
+    "index_modified": false,
+    "source_assets_deleted": false
+  },
+  "limitations": [
+    "Unity GUI/headless/Play was not launched.",
+    "Input/lifecycle tests compile production control files against engine stubs.",
+    "Combo/guard tests extract exact production method bodies and use mocked gameplay and animation endpoints; real rendered VFX and physics were not observed."
+  ],
+  "report": "REPORT.md",
+  "patch": "scoped.patch",
+  "before": "before-sha.json",
+  "after": "after-sha.json",
+  "new_files": "new-files.json",
+  "detailed_cross_task_delivery": "automatic approval review blocked; detailed report retained locally",
+  "revision": "teardown-02 synchronous ownership cleanup and inactive presentation gate",
+  "correction": {
+    "mouse_over_wasd": true,
+    "epsilon_distance": 0.01,
+    "fallback": "normalized WASD, last valid facing, right",
+    "dash_snapshot": "keydown clamped world point and caster-origin direction",
+    "basic_snapshot": "press retained across readiness wait; held cycles resample at cycle start",
+    "slots_unchanged": true,
+    "report": "correction-01/correction.patch"
+  },
+  "teardown": {
+    "dedicated_api": "PartyMovementMono.ReleaseManualControlForTeardown",
+    "presentation_coroutine_starts_during_teardown": 0,
+    "inactive_final_guard": "isActiveAndEnabled && gameObject.activeInHierarchy && teardown depth == 0",
+    "reenable_idle_move_starts_per_same_state": 1,
+    "all_animation_coroutine_sites_gated": true,
+    "engine_lifecycle_simulated": true,
+    "report": "teardown-02/REPORT.md",
+    "patch": "teardown-02/teardown.patch"
+  }
+}

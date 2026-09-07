@@ -62,7 +62,7 @@ public class SkillProjectileMoveController
                 break;
         }
 
-        _applyDirectionRotation = moveDto.applyDirectionRotation;
+        _applyDirectionRotation = moveDto.applyDirectionRotation && !movementContext.visualOnlyDirectionRotation;
         _rotationOffset = moveDto.rotationOffset;
 
         if (_applyDirectionRotation)

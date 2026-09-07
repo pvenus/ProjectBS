@@ -148,7 +148,7 @@ namespace Character.Skill
             if (partyMovement != null &&
                 !partyMovement.TryAcquireExternalMovement(
                     this,
-                    priority == CharacterMovementPriority.SwiftStep))
+                    (priority == CharacterMovementPriority.SwiftStep || (runner is CharacterSkillManager manual && manual.ManualExecutionAuthorized))))
             {
                 ReleaseMovementOwnership();
                 return false;

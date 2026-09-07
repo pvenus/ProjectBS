@@ -1,0 +1,44 @@
+{
+  "status": "IMPLEMENTED_STATIC_AND_FOCUSED_PASS_UNITY_PLAY_PENDING",
+  "reportTo": "한결 only",
+  "checkpointA": "checkpoint-a.json",
+  "changed": {
+    "Assets/Scripts/Battle/Morpg/BattleMorpgLiveRoute.cs": "1c6701f289c224193fae908cf0ec37d0af69a20f82fcd15e4e70283caaaf1ee1",
+    "Assets/Scripts/Battle/Spawn/Sequence/BattleSpawnManager.cs": "9a60d961cdc4a3fbd4a716129ca54982e1b5fc4bf4ff68b2e862b82d8b1b0720",
+    "AgentTools/MorpgIntegrationHarness/Program.cs": "c817737c8eb7edf416b4049a95dde02d714a9b8bccd08d6c97da2b60c93b56f8",
+    "AgentTools/MorpgIntegrationHarness/RuntimeStub.cs": "92f066039d41cd6b4bb58834e4ce7153844d50dac24e0c81c7708e653cdafacc",
+    "AgentTools/MorpgIntegrationHarness/run.sh": "07143bee45ec92c82273b51b320acb24909156cf91781cbb6dc14f425618981e",
+    "AgentTools/MorpgIntegrationHarness/inactive_spawn_tests.py": "d147440a36cc3919dbae66d0874ee58c1b3bef6976028c6c60c39ae4b360c389"
+  },
+  "added": {
+    "Assets/Scripts/Battle/Morpg/MorpgRewardDeliveryQueue.cs": "b9afbc0a31be5c8dd4ba826ae983a6be1b93dd7d832819e58309b9d95f321424",
+    "Assets/Scripts/Battle/Morpg/MorpgRewardDeliveryQueue.cs.meta": "b9d9188a241a0211f03b80e6b9bf518a6683b6acee00f41a9bc3fa39658d9b4c",
+    "Assets/Scripts/Battle/Morpg/MorpgRewardHudMono.cs": "34cdfd5cf24b4cf1c8d8e01568b4842d7d19cf568d56b7f13da876cd54d1a8da",
+    "Assets/Scripts/Battle/Morpg/MorpgRewardHudMono.cs.meta": "840e1166e149c89a4c41dfb41d9a251246c47ed2a6b883ca235c54f51f613c44",
+    "Assets/Resources/battle/morpg.meta": "7a591a5d2b1259cf3b084ad810840a065d66d58ddd6b57b9b7230fc4e3542abb",
+    "Assets/Resources/battle/morpg/rewards.meta": "062fffffa2abf71dbec9c88eff52eeb7c575dcdbf3febc970b624e3710253434",
+    "Assets/Resources/battle/morpg/rewards/reward.gold.coin-charm.png.meta": "92db33dd13f78c6f04b368498d2c34c191240442b7c10f0d62253992e257afb2",
+    "Assets/Resources/battle/morpg/rewards/reward.xp.faceted-shard.png": "858c7e13ff286652d9d7841d55a7a9ee2fae09ebfc133a614ddcf07ce696dfd9",
+    "Assets/Resources/battle/morpg/rewards/reward.xp.faceted-shard.png.meta": "ffd76f46911c4bd97aa1eb5bfcc8232c56011ad588ee1e9fb826b8ceffe75ea7",
+    "Assets/Resources/battle/morpg/rewards/reward.gold.coin-charm.png": "dcfbd73c3795de4df867a17621b7811303836bda11c1699d4e9e5be37b6ead3d",
+    "AgentTools/MorpgIntegrationHarness/reward_delivery_tests.cs": "87788ecbd68617854cc0aa8c953bf1a86082072fc6791bb691a980166fd62640",
+    "AgentTools/MorpgIntegrationHarness/reward_delivery_tests.sh": "82b192b775e7e634cd99f90c5abd4d0327b4389b84d6c0e5b30e8d591472028b",
+    "AgentTools/MorpgIntegrationHarness/reward_asset_checks.py": "458bb84413b5502d7db3a156b208563c57d354cd80cf1acc2c640c0b92629098"
+  },
+  "checks": {
+    "compileErrors": 0,
+    "compileWarnings": 31,
+    "deliveryQueueLedger": 12,
+    "liveRoute": 12,
+    "inactiveLifecycle": 10,
+    "castPresenter": 4,
+    "p0p1Focused": 27,
+    "assetReferences": "PASS",
+    "diffCheck": "PASS",
+    "indexUnchangedSinceCheckpointA": true
+  },
+  "unityGuiUsed": false,
+  "scenesEdited": false,
+  "stagingCommitPushUsed": false,
+  "deliveryStatus": "Checkpoint A transmission rejected by auto-review. Final receipt saved locally; no bypass or indirect routing."
+}

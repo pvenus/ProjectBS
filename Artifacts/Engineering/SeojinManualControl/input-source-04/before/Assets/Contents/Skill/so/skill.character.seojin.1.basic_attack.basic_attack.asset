@@ -1,0 +1,80 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63226e07ba84a4a69967ef3b8995b8d7, type: 3}
+  m_Name: skill.character.seojin.1.basic_attack.basic_attack
+  m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
+  equipmentId: skill.character.seojin.1.basic_attack.basic_attack
+  aimMode: 1
+  icon: {fileID: 21300000, guid: 2dce23810664544b4b273d1e4f7ad889, type: 3}
+  baseProfileSo: {fileID: 11400000, guid: f92cdaae63dff4142a23c5c65660f0bb, type: 2}
+  castSo: {fileID: 11400000, guid: 72015cdc3054b4b7685dd35aad397864, type: 2}
+  hitSos:
+  - {fileID: 11400000, guid: f4e8d847859f34a05a7ef09379c1fa03, type: 2}
+  - {fileID: 11400000, guid: a1000000000000000000000000000010, type: 2}
+  - {fileID: 11400000, guid: a1000000000000000000000000000013, type: 2}
+  - {fileID: 11400000, guid: a1000000000000000000000000000001, type: 2}
+  moveSo: {fileID: 11400000, guid: 4ff7e9d2ce97841e8810d0ea40c67a56, type: 2}
+  spawnSkillSo: {fileID: 0}
+  upgradeTableSo: {fileID: 11400000, guid: d496b58ee410c481f948bf2646e44b9c, type: 2}
+  baseVisualSo: {fileID: 11400000, guid: 21f2a59a4186e4d91824790a661cd3ff, type: 2}
+  comboProfile:
+    enabled: 1
+    duration: 1.06
+    totalLungeCap: 0.36
+    useCanonicalBodyChoreography: 0
+    segmentedBodyActionClip: {fileID: 7400000, guid: e11fffffffffffffffffffffffffffff, type: 2}
+    segmentedBodyFrameCount: 18
+    steps:
+    - comboIndex: 0
+      hit: {fileID: 11400000, guid: a1000000000000000000000000000010, type: 2}
+      bodyActionClip: {fileID: 7400000, guid: e11fffffffffffffffffffffffffffff, type: 2}
+      bodySegmentStartFrame: 0
+      bodySegmentEndFrame: 5
+      visualClip: {fileID: 7400000, guid: 11a81539e323648bcbc4d876eac27830, type: 2}
+      bodyPresentationCalibration: {fileID: 11400000, guid: d2000000000000000000000000000000, type: 2}
+      vfxPresentationCalibration: {fileID: 0}
+      startTime: 0
+      hitTime: 0.16
+      activeEnd: 0.21
+      recoveryEnd: 0.28
+      damageWeight: 0.25
+      lungeDistance: 0.12
+    - comboIndex: 1
+      hit: {fileID: 11400000, guid: a1000000000000000000000000000013, type: 2}
+      bodyActionClip: {fileID: 7400000, guid: e11fffffffffffffffffffffffffffff, type: 2}
+      bodySegmentStartFrame: 6
+      bodySegmentEndFrame: 11
+      visualClip: {fileID: 7400000, guid: dd7b58f805007239b84f3b9eefacda7c, type: 2}
+      bodyPresentationCalibration: {fileID: 11400000, guid: d2000000000000000000000000000001, type: 2}
+      vfxPresentationCalibration: {fileID: 11400000, guid: d2100000000000000000000000000011, type: 2}
+      startTime: 0.48
+      hitTime: 0.64
+      activeEnd: 0.66
+      recoveryEnd: 0.68
+      damageWeight: 0.3
+      lungeDistance: 0.12
+    - comboIndex: 2
+      hit: {fileID: 11400000, guid: a1000000000000000000000000000001, type: 2}
+      bodyActionClip: {fileID: 7400000, guid: e11fffffffffffffffffffffffffffff, type: 2}
+      bodySegmentStartFrame: 12
+      bodySegmentEndFrame: 17
+      visualClip: {fileID: 7400000, guid: f1829639c23dd9280696619f9fd3caff, type: 2}
+      vfxProfileOverride: {fileID: 11400000, guid: 9b2c41a6078d49c5a2fc9e78e0d3a5b1, type: 2}
+      minimumVisualLifetime: 0.15
+      bodyPresentationCalibration: {fileID: 11400000, guid: d2000000000000000000000000000002, type: 2}
+      vfxPresentationCalibration: {fileID: 0}
+      startTime: 0.78
+      hitTime: 0.94
+      activeEnd: 0.99
+      recoveryEnd: 1.06
+      damageWeight: 0.45
+      lungeDistance: 0.12

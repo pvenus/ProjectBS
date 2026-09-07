@@ -4,6 +4,9 @@ Shader "ProjectBS/CharacterCastProgress"
     {
         [PerRendererData] _MainTex ("Sprite Texture", 2D) = "white" {}
         _Color ("Tint", Color) = (1,1,1,1)
+        _NpcCastOutlineEnabled ("NPC Cast Outline", Float) = 0
+        _OutlineColor ("Outline Color", Color) = (1,1,1,1)
+        _OutlineWidth ("Outline Width", Float) = 2.09
         _CastEnabled ("Cast Enabled", Float) = 0
         _CastProgress ("Cast Progress", Range(0,1)) = 0
         _CastTime ("Cast Local Time", Float) = 0
@@ -36,6 +39,9 @@ Shader "ProjectBS/CharacterCastProgress"
             struct appdata { float4 vertex : POSITION; float2 uv : TEXCOORD0; fixed4 color : COLOR; };
             struct v2f { float4 vertex : SV_POSITION; float2 uv : TEXCOORD0; fixed4 color : COLOR; };
             sampler2D _MainTex;
+            float4 _MainTex_TexelSize;
+            float _NpcCastOutlineEnabled, _OutlineWidth;
+            fixed4 _OutlineColor;
             fixed4 _Color, _CastBaseColor, _CastAccentColor;
             float _CastEnabled, _CastProgress, _CastTime;
             float _CastPulseHzMin, _CastPulseHzMax;
@@ -55,6 +61,24 @@ Shader "ProjectBS/CharacterCastProgress"
             fixed4 frag(v2f i) : SV_Target
             {
                 fixed4 tex = tex2D(_MainTex, i.uv) * i.color;
+                if (_NpcCastOutlineEnabled > 0.5 && _CastEnabled > 0.5)
+                {
+                    float2 stepUV = _MainTex_TexelSize.xy * _OutlineWidth;
+                    float neighbor = 0.0;
+                    neighbor = max(neighbor, tex2D(_MainTex, i.uv + float2(stepUV.x, 0)).a);
+                    neighbor = max(neighbor, tex2D(_MainTex, i.uv - float2(stepUV.x, 0)).a);
+                    neighbor = max(neighbor, tex2D(_MainTex, i.uv + float2(0, stepUV.y)).a);
+                    neighbor = max(neighbor, tex2D(_MainTex, i.uv - float2(0, stepUV.y)).a);
+                    neighbor = max(neighbor, tex2D(_MainTex, i.uv + stepUV).a);
+                    neighbor = max(neighbor, tex2D(_MainTex, i.uv - stepUV).a);
+                    neighbor = max(neighbor, tex2D(_MainTex, i.uv + float2(stepUV.x, -stepUV.y)).a);
+                    neighbor = max(neighbor, tex2D(_MainTex, i.uv + float2(-stepUV.x, stepUV.y)).a);
+                    if (tex.a <= 0.01 && neighbor > 0.01)
+                    {
+                        float alpha = _OutlineColor.a * neighbor * i.color.a;
+                        return fixed4(_OutlineColor.rgb * alpha, alpha);
+                    }
+                }
                 float progress = saturate(_CastProgress);
                 float eased = smoothstep(0.0, 1.0, progress);
                 float hz = _CastReducedMotion > 0.5 ? 0.0 : min(1.99, lerp(_CastPulseHzMin, _CastPulseHzMax, eased));

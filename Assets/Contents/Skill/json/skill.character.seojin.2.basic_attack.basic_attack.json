@@ -1,4 +1,6 @@
 {
+  "aimMode": "Direction",
+  "aimInputSource": "MouseDirection",
   "equipmentId": "skill.character.seojin.2.basic_attack.basic_attack",
   "slotName": "basic",
   "skillName": "전열베기",
@@ -32,7 +34,7 @@
   },
   "cast": {
     "castId": "skill.character.seojin.2.basic_attack.basic_attack.cast",
-    "cooldown": 2.5,
+    "cooldown": 1.000,
     "castTime": 0,
     "range": 0.7,
     "castType": "Instant",

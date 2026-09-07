@@ -1,0 +1,32 @@
+{
+  "status": "DASH_CHARACTER_FADE_CONSISTENCY_ROOTFIX_APPLIED",
+  "compiler": {
+    "errors": 0,
+    "existingWarnings": 31
+  },
+  "tests": {
+    "live": 40,
+    "clock": 9,
+    "geometry": 14,
+    "rewardQueue": 12,
+    "inactiveSpawn": 10,
+    "cast": 4,
+    "p1": 27
+  },
+  "totalPassed": 116,
+  "legalClearPositionsSwept": 1762,
+  "canonicalGeometryAndRouteUnchanged": true,
+  "selectedDashClipUnchangedSpriteFlipOnly": true,
+  "normalFadeStart": 0.35,
+  "normalFadeInSeconds": 0.22,
+  "modePolicy": "NormalDash -> AssistedDash at most once; NonDash only selected initially for ReducedMotion or unavailable body clip/renderer.",
+  "diagnostics": "One start log after cleanup; at most one later structural-assistance log. See diagnostics.log.",
+  "reversePatchCheck": "PASS",
+  "gitIndexUnchanged": true,
+  "limitations": [
+    "Behavioral tests use Unity engine stubs, not actual Play Mode/GPU evidence.",
+    "Local exit may include a short swept correction toward the validated lane near a boundary.",
+    "Runtime visual acceptance on the user device remains necessary."
+  ],
+  "delivery": "Prepared for Hangyeol only. Direct internal report delivery remains blocked by earlier automatic approval review; no workaround used. Trusted explicit authorization needed."
+}

@@ -1,0 +1,48 @@
+{
+  "prefab": "Assets/Resources/skill/ProjectileEntity.prefab",
+  "hierarchy_before": "ProjectileEntity -> Scaler -> Renderer (Animator + SpriteRenderer)",
+  "hierarchy_manual": "ProjectileEntity -> Scaler -> __ProjectileDirectionRotation -> Renderer (Animator + SpriteRenderer)",
+  "charge_move_readback": [
+    {
+      "grade": 1,
+      "equipment": "Assets/Contents/Skill/so/skill.character.seojin.1.active_1.active_1.asset",
+      "move": "Assets/Contents/Skill/so/skill.character.seojin.1.active_1.active_1.move.asset",
+      "applyDirectionRotation": true,
+      "rotationOffset": 0.0,
+      "moveType": "Hover",
+      "clip": "Assets/AnimationClips/Skill/skill.character.seojin.1.active_1.active_1.visual.loop.anim",
+      "current_clip_rotation_curves": 0,
+      "root_flip_curve": true
+    },
+    {
+      "grade": 2,
+      "equipment": "Assets/Contents/Skill/so/skill.character.seojin.2.active_1.charge.asset",
+      "move": "Assets/Contents/Skill/so/skill.character.seojin.2.active_1.charge.move.asset",
+      "applyDirectionRotation": true,
+      "rotationOffset": 0.0,
+      "moveType": "Hover",
+      "clip": "Assets/AnimationClips/Skill/skill.character.seojin.2.active_1.charge.visual.loop.anim",
+      "current_clip_rotation_curves": 0,
+      "root_flip_curve": true
+    },
+    {
+      "grade": 3,
+      "equipment": "Assets/Contents/Skill/so/skill.character.seojin.3.active_1.charge.asset",
+      "move": "Assets/Contents/Skill/so/skill.character.seojin.3.active_1.charge.move.asset",
+      "applyDirectionRotation": true,
+      "rotationOffset": 0.0,
+      "moveType": "Hover",
+      "clip": "Assets/AnimationClips/Skill/skill.character.seojin.3.active_1.charge.visual.loop.anim",
+      "current_clip_rotation_curves": 0,
+      "root_flip_curve": true
+    }
+  ],
+  "root_cause": [
+    "Factory CreateInstanceRuntimeData dropped orientManualPresentation",
+    "Hover ignored runtime direction and inferred from owner/target/spawn",
+    "Factory and MoveController used gameplay-root rotation; old visual child ignored applyDirectionRotation and rotationOffset",
+    "Warp clone dropped applyDirectionRotation/rotationOffset"
+  ],
+  "morpg_unchanged": true,
+  "Unity_import": false
+}

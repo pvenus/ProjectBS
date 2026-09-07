@@ -60,18 +60,20 @@ public sealed class NpcSpawnService
                 characterManager = spawnedGo.AddComponent<CharacterManager>();
             }
 
-            characterManager.InitializeFromSO(characterSO);
-            ApplyInitialLookDirection(spawnedGo, rotationZ);
-
             if (prepareBeforeActivation != null)
             {
                 if (!prepareBeforeActivation(spawnedGo))
                 {
                     throw new InvalidOperationException("Spawn ownership preparation was rejected.");
                 }
-                spawnedGo.transform.SetParent(null, true);
-                spawnedGo.SetActive(true);
             }
+
+            // CharacterManager initialization may start reveal/presentation coroutines.
+            // Publish ownership while inactive, then activate before invoking Unity lifecycle work.
+            spawnedGo.transform.SetParent(null, true);
+            spawnedGo.SetActive(true);
+            characterManager.InitializeFromSO(characterSO);
+            ApplyInitialLookDirection(spawnedGo, rotationZ);
 
             if (!spawnedGo.activeInHierarchy || characterManager.RuntimeData == null ||
                 characterManager.RuntimeData.characterSO != characterSO)

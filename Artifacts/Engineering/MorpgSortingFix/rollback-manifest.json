@@ -1,0 +1,43 @@
+{
+  "reversePatch": "sorting-only.diff",
+  "files": [
+    {
+      "path": "Assets/Scripts/Battle/Morpg/MorpgEnvironmentRuntime.cs",
+      "before": "53e9012977a7879d673617d9214a638435b52d7bbdc04bce7de02909ea5e089d",
+      "after": "f85310209aac8cad60951ec64720904db2dca42d7cd7e70da73b43cdeb25c29a"
+    },
+    {
+      "path": "Assets/Scripts/Battle/Presentation/BattlePresentationSortingPolicy.cs",
+      "before": "244a8fa8caed6964db21be8f545e3827071e58e83476096410d2b8a05b292255",
+      "after": "5f0f2575956b9c87606f76bb74ca20ca30eda85db67d8df0a7f6f1916b2ab7a8"
+    },
+    {
+      "path": "Assets/Scripts/Core/Utilities/SortingOrderMono.cs",
+      "before": "f241b6018d08f2e7f6237fe140f148f23d52199dd57bf204486a431f8e5ea10e",
+      "after": "04c99de2fad8997363b9f2ec12e8a23012c1c8162634b6c1531943657d5ef2e6"
+    },
+    {
+      "path": "Assets/Scripts/Actor/Character/presentation/NpcCastGroundConeTelegraphMono.cs",
+      "before": "b17dd3b7722c4f71475734070e3b298ac1fb6b355d26b2bfc1bb5dbf15df79ae",
+      "after": "1b31b41027fb3d25300f1ba86801e25f9a8fe82fe080ec835548e67fe0217b51"
+    },
+    {
+      "path": "AgentTools/MorpgIntegrationHarness/RuntimeStub.cs",
+      "before": "eac65a668bf97bec0c7a995f0b6cecce2f3da5ce13f51bb4a441678ccba72988",
+      "after": "6f715e02cdd7c0e302dda56c99e0286cdac1a90308447f7198c078a76211c606"
+    },
+    {
+      "path": "AgentTools/MorpgIntegrationHarness/Program.cs",
+      "before": "5bdbeed4aa789723801ffd4d7dbf78c9e902c6829e4e4b9b4dd915aece2aaed1",
+      "after": "1c9f144bd10d010625588e8998ec20c98c16d037fae059e8945111459af39a1c"
+    },
+    {
+      "path": "AgentTools/MorpgIntegrationHarness/run.sh",
+      "before": "07143bee45ec92c82273b51b320acb24909156cf91781cbb6dc14f425618981e",
+      "after": "842bbbce91883f3e814d636d03ce00f0cf5e0c82c03695d8a66ac280d1587f90"
+    }
+  ],
+  "reverseCheckPassed": true,
+  "executed": false,
+  "indexUnchanged": true
+}

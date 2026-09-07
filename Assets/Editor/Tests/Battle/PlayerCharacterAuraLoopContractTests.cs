@@ -59,10 +59,10 @@ public sealed class PlayerCharacterAuraLoopContractTests
         Assert.That(prefab, Does.Not.Contain("8d999b956ebb4c87b15aae1b7612c6d8"));
         Assert.That(prefab, Does.Contain("m_Sprite: {fileID: 21300000, guid: 0b6651605802d09810aa12f5fb35b978, type: 3}"));
         Assert.That(prefab, Does.Contain("m_Sprite: {fileID: 21300000, guid: 641d97593183c1cb1fb25816b1431343, type: 3}"));
-        Assert.That(prefab, Does.Contain("visualScale: {x: 0.42, y: 0.315}"));
-        Assert.That(prefab, Does.Contain("positionOffset: {x: 0, y: -0.45, z: 0}"));
-        Assert.That(Count(prefab, "m_LocalPosition: {x: 0, y: -0.45, z: 0}"), Is.EqualTo(2));
-        Assert.That(Count(prefab, "m_LocalScale: {x: 0.42, y: 0.315, z: 1}"), Is.EqualTo(2));
+        Assert.That(prefab, Does.Contain("visualScale: {x: 0.2058, y: 0.15435}"));
+        Assert.That(prefab, Does.Contain("positionOffset: {x: 0, y: -0.25, z: 0}"));
+        Assert.That(Count(prefab, "m_LocalPosition: {x: 0, y: -0.25, z: 0}"), Is.EqualTo(2));
+        Assert.That(Count(prefab, "m_LocalScale: {x: 0.2058, y: 0.15435, z: 1}"), Is.EqualTo(2));
     }
 
     [Test]
@@ -87,6 +87,20 @@ public sealed class PlayerCharacterAuraLoopContractTests
         Assert.That(installer, Does.Contain("auraView.SetSelectionActive(true);"));
         Assert.That(installer, Does.Contain("auraView.HasAuthoredSelectionLoop"));
         Assert.That(installer, Does.Contain("auraView.SetColor(Color.white);"));
+    }
+
+    [Test]
+    public void SeojinDirectionHudDoublesOnlyItsPresentationFootprint()
+    {
+        string source = File.ReadAllText(
+            "Assets/Scripts/Actor/Character/Control/SeojinDualDirectionHud.cs");
+
+        Assert.That(source, Does.Contain("internal const float FootprintScale=2f;"));
+        Assert.That(source, Does.Contain("CreateArc(\"MouseRed\",redSprite,1.15f"));
+        Assert.That(source, Does.Contain("CreateArc(\"WasdBlue\",blueSprite,1f"));
+        Assert.That(Count(source, "*FootprintScale/5.12f"), Is.EqualTo(2));
+        Assert.That(source, Does.Not.Contain("actor.transform.localScale"));
+        Assert.That(source, Does.Not.Contain("aura.VisualScale="));
     }
 
     private static void AssertImporter(string meta)

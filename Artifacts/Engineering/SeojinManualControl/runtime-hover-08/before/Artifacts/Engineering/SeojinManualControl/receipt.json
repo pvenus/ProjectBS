@@ -1,0 +1,90 @@
+{
+  "revision": "visual-aim-07",
+  "status": "complete",
+  "blocker": null,
+  "completed_at": "2026-09-07T20:48:42.755463+09:00",
+  "body": {
+    "rotation_z": 0,
+    "root_rotation_written": false,
+    "body_renderer_rotation_fallback": "removed",
+    "selection": "8-dir clip, mirrored clip, horizontal facing only",
+    "keydown_WASD_unchanged": true
+  },
+  "vfx": {
+    "rotation": "atan2 snapshot minus canonicalForward on renderer-only child",
+    "caster_collider_rigidbody_unchanged": true,
+    "pool_restore": true,
+    "basic_visible_step_uses_same_snapshot": true
+  },
+  "combo": {
+    "snapshot": "each admitted step start/commit",
+    "hit_facing_flip_projectile_vfx_same_source": true,
+    "midstep_immutable": true,
+    "release_no_next_capture": true,
+    "fallback": "mouse -> current WASD -> precise previous step facing (initial AnimationMono facing) -> right",
+    "grades": [
+      1,
+      2,
+      3
+    ],
+    "cooldown_reject_preserves_provider": true
+  },
+  "tests": {
+    "input": 51,
+    "combo": 53,
+    "teardown": 10,
+    "pipeline": 15,
+    "replay": 1,
+    "morpg": 62,
+    "environment": 14,
+    "dash": 9,
+    "reward": 12,
+    "spawn": 10,
+    "npc_cast": 4,
+    "p1": 27,
+    "visual": 124,
+    "passed": 392,
+    "failed": 0,
+    "prior_coverage": 323,
+    "added": 69,
+    "old_body_expectation_updated_to_zero": true
+  },
+  "compile": {
+    "runtime_errors": 0,
+    "runtime_warnings": 31,
+    "editor_errors": 0,
+    "editor_warnings": 41
+  },
+  "preservation": {
+    "morpg_sha_unchanged": true,
+    "protected_unchanged": 455,
+    "prior_authorized_assets": 15,
+    "cumulative_existing": 44,
+    "cumulative_new": 27
+  },
+  "checks": {
+    "diff": true,
+    "reverse_dry_run": true
+  },
+  "zero_runs": [
+    "Unity GUI",
+    "Unity headless",
+    "Unity Play",
+    "Unity import",
+    "staging",
+    "commit",
+    "push",
+    "actual rollback"
+  ],
+  "report": "REPORT.md",
+  "patch": "correction.patch",
+  "rollback": "rollback.patch",
+  "close_review": {
+    "provider_live_authorization_before_read": true,
+    "step_and_hit_live_authorization": true,
+    "suspension_cancels_epoch": true,
+    "initial_same_frame_uses_cached_sample": true,
+    "delayed_initial_frame_resamples": true,
+    "fallback_current_WASD_then_precise_previous_step_facing": true
+  }
+}

@@ -1,0 +1,110 @@
+--- a/Assets/Scripts/Battle/Morpg/BattleMorpgLiveRoute.cs
++++ b/Assets/Scripts/Battle/Morpg/BattleMorpgLiveRoute.cs
+@@ -31,6 +31,7 @@
+         private BattleRewardLedger ledger;
+         private MorpgRewardDeliveryQueue delivery;
+         private MorpgRewardHudMono rewardHud;
++        private MorpgEnvironmentRuntime environment;
+         private CharacterManager player;
+         private GameObject staging;
+         private MorpgTransitionScopeToken token;
+@@ -96,19 +97,35 @@
+                 var candidate = new BattleMorpgLiveRoute(session, d, attempt, units, parent, currency);
+                 if (!BattleMorpgZoneTransitionCoordinator.TryCreate(true, d, addendum.text, attempt,
+                     candidate, candidate, true, out candidate.coordinator, out error)) return false;
++                if (session.BattleRuntime?.backgroundSprite == null)
++                { error = "environment background binding missing"; return false; }
++                if (!MorpgEnvironmentRuntime.TryLoad(d, out candidate.environment, out error)) return false;
+                 route = candidate; return true;
+             }
+             catch (Exception e) { error = "preflight: " + e.Message; return false; }
+         }
+ 
+-        internal void Activate()
+-        {
+-            activated = true;
+-            staging = new GameObject("MORPG inactive producer staging");
+-            staging.transform.SetParent(parent, false);
+-            staging.SetActive(false);
+-            CharacterManager.OnAnyCharacterDied += OnDied;
+-            BattleMapBoundsContext.Activate(new Vector2(32f, 18f), .75f);
++        internal bool Activate()
++        {
++            try
++            {
++                // Build the complete profile before control; partial creation is disposed before fallback.
++                environment.Activate(parent, session.BattleRuntime.backgroundSprite);
++                staging = new GameObject("MORPG inactive producer staging");
++                staging.transform.SetParent(parent, false);
++                staging.SetActive(false);
++                CharacterManager.OnAnyCharacterDied += OnDied;
++                BattleMapBoundsContext.Activate(new Vector2(32f, 18f), .75f);
++                activated = true;
++                return true;
++            }
++            catch (Exception e)
++            {
++                Debug.LogWarning("[MORPG] Environment activation rejected before control: " + e.Message);
++                Dispose();
++                BattleMapBoundsContext.Clear();
++                return false;
++            }
+         }
+ 
+         internal void Tick(float delta)
+@@ -132,6 +149,7 @@
+                     delivery = new MorpgRewardDeliveryQueue(TryCommitArrivedReward);
+                     rewardHud = MorpgRewardHudMono.TryCreate(parent, FlushPendingRewards, currency.gold, xp);
+                     delivery.Presentation = rewardHud;
++                    environment.RegisterActor(player);
+                     WarpTo(0);
+                     if (!coordinator.TryStartActiveWave()) { Fail(coordinator.LastError); return; }
+                 }
+@@ -146,6 +164,7 @@
+                     delivery.Presentation = null;
+                 }
+                 if (failed) return;
++                environment.Tick(delta);
+                 if (player.RuntimeData.isDead)
+                 { Fail("party defeated", MorpgRouteStopReason.Defeat); return; }
+                 if (SettlementState == MorpgFinalSettlementState.FinalSettlementPending)
+@@ -200,6 +219,7 @@
+             marker.Bind(scope, reservation, MorpgOwnedKind.EnemyRoot, staging.transform);
+             if (!scope.TryEmitted(scope.Handle, reservation, marker, out _)) return false;
+             roots.Add(character, reservation);
++            environment.RegisterActor(character);
+             return true;
+         }
+ 
+@@ -402,12 +422,15 @@
+         private void WarpTo(int ordinal)
+         {
+             var zone = definition.zones[ordinal];
++            if (!environment.TryBeginWarp(ordinal, out string environmentError))
++                throw new InvalidOperationException(environmentError);
+             BattleMapBoundsContext.SetActorZone(Rect.MinMaxRect(zone.bounds[0], zone.bounds[1], zone.bounds[2], zone.bounds[3]));
+             player.GetComponent<MovementMono>()?.StopAllMotion();
+             Vector3 position = new Vector3(zone.entry[0], zone.entry[1], player.transform.position.z);
+             player.transform.position = position;
+             var body = player.GetComponent<Rigidbody2D>();
+             if (body != null) { body.position = position; body.linearVelocity = Vector2.zero; body.angularVelocity = 0f; }
++            environment.CompleteWarp(ordinal);
+             var camera = Camera.main;
+             if (camera != null)
+             {
+@@ -428,6 +451,7 @@
+             if (delivery != null) delivery.Presentation = null;
+             coordinator.DisposeMorpgRoute(reason);
+             UnlockPlayer();
++            environment?.Dispose();
+             Debug.LogError("[MORPG] Attempt stopped (no legacy replay): " + error);
+         }
+         public void Dispose()
+@@ -446,6 +470,7 @@
+             CharacterManager.OnAnyCharacterDied -= OnDied;
+             coordinator.DisposeMorpgRoute(MorpgRouteStopReason.Teardown);
+             UnlockPlayer();
++            environment?.Dispose();
+             if (staging != null) UnityEngine.Object.Destroy(staging);
+         }
+         internal void DrawHud()

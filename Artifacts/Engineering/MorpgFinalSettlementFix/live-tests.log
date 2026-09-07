@@ -1,0 +1,20 @@
+Assets/Scripts/Battle/Morpg/BattleMorpgZoneRewardContracts.cs(267,68): warning CS0649: Field 'BattleMorpgDefinitionCodec.Header.schemaVersion' is never assigned to, and will always have its default value null
+PASS live-exact-gate-preflight-no-mutation
+PASS live-19-5-4-warp-reward-dedup-final
+PASS live-pause-transition-and-teardown-unlock
+PASS live-final-frame-defeat-wins
+PASS live-spawn-fault-no-next-wave
+PASS live-xp-notification-fault-rolls-back-gold-and-xp
+PASS live-owned-projectile-cleanup-preserves-foreign
+PASS live-present-death-position-and-arrival-account-HUD-commit
+PASS live-pause-and-disabled-HUD-lossless-failover
+PASS live-defeat-and-teardown-settle-pending-confirmed-kills
+PASS live-HUD-render-exception-fails-over-without-failing-battle
+PASS live-presented-28-deaths-settle-before-final-HUD-snapshot
+PASS final-pending-arrival-and-duplicate-exactly-once
+PASS final-pending-HUD-loss-flush-before-victory
+PASS final-pending-scaled-timeout-and-pause
+PASS final-pending-defeat-beats-arrival
+PASS final-pending-teardown-aborts-and-settles-once
+PASS final-real-accounting-mismatch-fails
+PASS 18/18 live glue simulations (Unity engine stub)

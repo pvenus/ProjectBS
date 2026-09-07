@@ -1,0 +1,58 @@
+{
+  "modified": [
+    {
+      "path": "AgentTools/MorpgIntegrationHarness/RuntimeStub.cs",
+      "beforeSha256": "f9c4c8afc4599fbdd505726cfc149eac46802ad8f9f2147dd61f831c7bd52f9b",
+      "afterSha256": "c307edec1d93b56f46c9ebb8a3b1ee8dfacd4b743eaf223b18fc057a58c35788",
+      "backup": "Artifacts/Engineering/MorpgDashConsistency/before/AgentTools/MorpgIntegrationHarness/RuntimeStub.cs"
+    },
+    {
+      "path": "AgentTools/MorpgIntegrationHarness/Program.cs",
+      "beforeSha256": "637863e3f44d68640b48e7af98f4a1c80c293681c6da39c23288d7a6476b24b2",
+      "afterSha256": "a2a0d18c93054481aa718cc513db8cd79d336b90a695e1c8efcda4f93783cc6e",
+      "backup": "Artifacts/Engineering/MorpgDashConsistency/before/AgentTools/MorpgIntegrationHarness/Program.cs"
+    },
+    {
+      "path": "AgentTools/MorpgDashHarness/ClockTests.cs",
+      "beforeSha256": "7a6738e0c1b8702644a66b124eb5c01955f0320401adc682ada1ad964bb5d9ee",
+      "afterSha256": "04250cc04f0ba5a9fa26e08e7d3c7ed36e6885b61fa6decf9cad616899e19d1a",
+      "backup": "Artifacts/Engineering/MorpgDashConsistency/before/AgentTools/MorpgDashHarness/ClockTests.cs"
+    },
+    {
+      "path": "Assets/Scripts/Battle/Morpg/MorpgTransitionClock.cs",
+      "beforeSha256": "8a1f257684a1403a00d109a4cc0f15d86e58d98c8a97ace53866d9e07b3e5a4a",
+      "afterSha256": "5ba7faa14e247865cbb8be1979b40503ac355c544d9a2c2507e72bd0fd3e4151",
+      "backup": "Artifacts/Engineering/MorpgDashConsistency/before/Assets/Scripts/Battle/Morpg/MorpgTransitionClock.cs"
+    },
+    {
+      "path": "Assets/Scripts/Battle/Morpg/MorpgEnvironmentRuntime.cs",
+      "beforeSha256": "0919f892ac3fd6a9bca844b1c770f85182f60892d4a59e694628b45a56ea04f9",
+      "afterSha256": "35f7c5b5d1edab3e6d23b6f76f5ce986b212e64a5609fe96e2088f530e4a3799",
+      "backup": "Artifacts/Engineering/MorpgDashConsistency/before/Assets/Scripts/Battle/Morpg/MorpgEnvironmentRuntime.cs"
+    },
+    {
+      "path": "Assets/Scripts/Battle/Morpg/MorpgDashTransitionView.cs",
+      "beforeSha256": "cbc69c8511560810d45e0eb2a7881ba03b63be18edb6285d3f481959881d63ac",
+      "afterSha256": "ddb0564886ba1c84b54e919ed8acdfc856e5562c555f6c4b186d045422448ef5",
+      "backup": "Artifacts/Engineering/MorpgDashConsistency/before/Assets/Scripts/Battle/Morpg/MorpgDashTransitionView.cs"
+    },
+    {
+      "path": "Assets/Scripts/Actor/Party/AnimationMono.cs",
+      "beforeSha256": "9d661c98a97aa19fba2bc22b0ba73c073d8e5b6589d58a9afdb24339429fc879",
+      "afterSha256": "7dadbd4e559406c59778e83451400dbc1507775b76056e00a61ead5a2aa065f9",
+      "backup": "Artifacts/Engineering/MorpgDashConsistency/before/Assets/Scripts/Actor/Party/AnimationMono.cs"
+    }
+  ],
+  "added": [
+    {
+      "path": "Assets/Scripts/Battle/Morpg/MorpgDashExitPath.cs",
+      "sha256": "8d66e77acbad3c75e058415ced29cdfc8de724d696ff784794cde108c24f9086"
+    },
+    {
+      "path": "Assets/Scripts/Battle/Morpg/MorpgDashExitPath.cs.meta",
+      "sha256": "6a9d7f2b6782001180e0448a9291f997a9de6776f77ad445a4095918af92bfcb"
+    }
+  ],
+  "gitIndexUnchanged": true,
+  "rollback": "Check current hashes, then reverse only dash-consistency-only.diff. No reset of shared dirty work. This restores the pre-rootfix Dash and revision03 environment implementation."
+}

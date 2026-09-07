@@ -37,6 +37,8 @@ namespace Skill
         [Header("Optional Character Body Action")]
         [SerializeField] private AnimationClip bodyActionClip;
         [SerializeField] private SkillBodyActionPlaybackProfile bodyActionPlayback = new();
+        [SerializeField] private SkillDirectionPresentationProfile directionPresentation = new();
+        public SkillDirectionPresentationProfile DirectionPresentation=>directionPresentation;
 
         [Header("Flags")]
         [SerializeField] private bool skipAttackAnimation;

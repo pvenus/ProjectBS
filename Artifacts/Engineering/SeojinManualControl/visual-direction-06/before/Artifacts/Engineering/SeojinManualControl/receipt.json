@@ -1,0 +1,80 @@
+{
+  "revision": "rootfix-05",
+  "status": "complete",
+  "blocker": null,
+  "completed_at": "2026-09-07T20:05:34.049251+09:00",
+  "root_cause": "pending assigned before readiness cleared held Basic and its aim; not-ready pending blocked Basic and combo continuation",
+  "fix": {
+    "active_pending_slot": 0,
+    "reject_non_consuming": true,
+    "failed_preempt": false,
+    "basic_no_repress": true,
+    "priority_only_on_fire_success": true,
+    "generation_cancel_on_rejected_input": 0
+  },
+  "charge": {
+    "grades": [
+      1,
+      2,
+      3
+    ],
+    "mode": "Direction",
+    "inputSource": "KeyboardMoveDirection",
+    "fallback": "WASD -> last movement -> current facing -> right",
+    "mouse_ignored": true
+  },
+  "tests": {
+    "input": 40,
+    "pipeline": 15,
+    "combo": 15,
+    "teardown": 10,
+    "morpg": 62,
+    "geometry": 14,
+    "dash": 9,
+    "reward": 12,
+    "spawn": 10,
+    "npc_cast": 4,
+    "p1": 27,
+    "differential_replay": 1,
+    "passed": 219,
+    "failed": 0
+  },
+  "compile": {
+    "runtime_errors": 0,
+    "runtime_warnings": 31,
+    "editor_errors": 0,
+    "editor_warnings": 41
+  },
+  "materialized_readback": {
+    "slots": 12,
+    "charge_mode_1_source_2": 3,
+    "basic_cooldown_1_000": 3,
+    "test_serialization_adapter": true,
+    "Unity_import": false
+  },
+  "preservation": {
+    "skill_manager_and_service_sha_unchanged": true,
+    "non_charge_prior_assets_sha_unchanged": 21,
+    "protected_unchanged": 455,
+    "index_unchanged": true,
+    "cumulative_existing": 41,
+    "cumulative_new": 22
+  },
+  "checks": {
+    "diff": true,
+    "reverse_dry_run": true
+  },
+  "not_run": [
+    "Unity GUI",
+    "Unity headless",
+    "Unity Play",
+    "Unity import",
+    "staging",
+    "commit",
+    "push",
+    "actual rollback"
+  ],
+  "report": "REPORT.md",
+  "patch": "rootfix.patch",
+  "trace": "root-cause-replay.json"
+}

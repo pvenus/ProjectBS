@@ -1,0 +1,91 @@
+{
+  "schemaVersion": "morpg_wave_environment_exact9_v1",
+  "status": "SELECTED_EXACT9_READY_INSTALL_HOLD",
+  "dateKst": "2026-09-07",
+  "method": "Codex built-in ImageGen, one independent call per asset; deterministic exact-size normalization",
+  "root": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/MORPGWaveEnvironment/selected/revision-01",
+  "outputContract": {
+    "count": 9,
+    "dimensions": [1536, 512],
+    "aspect": "3:1",
+    "background": {"count": 3, "mode": "RGB", "opaque": true, "pivot": [0.5, 0.5], "pixelsPerUnit": 100},
+    "topBarrier": {"count": 3, "mode": "RGBA", "pivot": [0.5, 1.0], "pixelsPerUnit": 100},
+    "bottomBarrier": {"count": 3, "mode": "RGBA", "pivot": [0.5, 0.0], "pixelsPerUnit": 100},
+    "filter": "Bilinear",
+    "wrap": "Clamp",
+    "mipmaps": false
+  },
+  "waves": [
+    {
+      "wave": 1,
+      "theme": "dry plain; sparse saplings, rough grass, low earth and stone boundary",
+      "background": ["exact1536x512/wave1-background.1536x512.png", "ec867fd9553d95ca53deb8e23badc4b8e1d7538e1cf549bdf0194abb0e466854"],
+      "topBarrier": ["exact1536x512/wave1-top-barrier.1536x512.png", "d02039d2fea5293f4cba30cd432a679f04f1958eeecb079e399a820e05fb52f8"],
+      "bottomBarrier": ["exact1536x512/wave1-bottom-barrier.1536x512.png", "3247ca56be01723fa705d178c13437a8b77c5affccec2b838f5e7424dd51959a"]
+    },
+    {
+      "wave": 2,
+      "theme": "village outskirts; weathered timber fence and dirt-road boundary",
+      "background": ["exact1536x512/wave2-background.1536x512.png", "11aacc7211986fc156257393b776073c100ed699abe85c0f4281e2b44e9a7c34"],
+      "topBarrier": ["exact1536x512/wave2-top-barrier.1536x512.png", "a24eda5c13c3cc23eacf9e303f1839d8149c5d7e76e1ecf5d395fb30a4f53b7b"],
+      "bottomBarrier": ["exact1536x512/wave2-bottom-barrier.1536x512.png", "be7f8227be241a963b8df27d2301f364796a0fb6b9414ce5fb6876d1fb5c25f5"]
+    },
+    {
+      "wave": 3,
+      "theme": "village square; houses, plaster walls, dark roof tile and stone boundary",
+      "background": ["exact1536x512/wave3-background.1536x512.png", "b2abb63a931b4c11ef5dac80e293cfc5f52661e13bd50fa8888a0a438a73b531"],
+      "topBarrier": ["exact1536x512/wave3-top-barrier.1536x512.png", "fd96222ce0c43e3cefd858f48ee23d02a64b8fe49804dea8c5c619b71b938712"],
+      "bottomBarrier": ["exact1536x512/wave3-bottom-barrier.1536x512.png", "2e13074f74f02bff732bb893d257aa92bb1267199e4ff78354f539bfb7331160"]
+    }
+  ],
+  "tupleSchema": ["relativePath", "sha256"],
+  "rawProvenance": {
+    "backgrounds": [
+      ["raw/backgrounds/wave1-background.raw.png", "49f9191c094750ca27bb1446281fd2476b5b2989e60e5c3fe53b68ad2d93e326", [1774,887]],
+      ["raw/backgrounds/wave2-background.raw.png", "1f18f06f2dcb0b6ead5b04c60ca235aa63ee2fd242bec43ca3d91c33db31e925", [2167,725]],
+      ["raw/backgrounds/wave3-background.raw.png", "8e1e4293bbb8010bcffca95c927a83ef9a4d8088072ed8fbf86d2430de19131a", [1881,836]]
+    ],
+    "barriers": [
+      ["raw/barriers/wave1-top.raw.png", "968e13392e2ec005c283f946910e4717c2d6f10f7d597ad826784ad002c5a99b"],
+      ["raw/barriers/wave1-bottom.raw.png", "d5230f33e201734a45601822f896c180421773f63a5bb0d957ba7c983206323b"],
+      ["raw/barriers/wave2-top.raw.png", "5dfff1d1bd7eb71c341be406fb9b48310d6daf435425c0a18cfb74890f14569b"],
+      ["raw/barriers/wave2-bottom.raw.png", "d3765e31fa8d012b73f837dba8a88f4f7a3bb2bc84e00c7e78fd7a107a961ab9"],
+      ["raw/barriers/wave3-top.raw.png", "5ac2087b4e1fb947047316395cc3b6199d93bca545cfa00a186b60096b385e81"],
+      ["raw/barriers/wave3-bottom.raw.png", "d8205a982424399f884d319dc313a9c87543dc1be4a383b9813f4dbb3f30ff5a"]
+    ],
+    "barrierDimensions": "2171/2172x724 RGBA",
+    "buildScript": ["build_exact9.py", "8d0b4757360b8504fcbf3f6f296912f1b1f6fa6d0a6cb4187dfe0dd8a3f6e3ee"]
+  },
+  "normalization": {
+    "background": "RGB cover-center to 1536x512, preserving low-contrast combat center",
+    "barrier": "alpha-bbox crop only, aspect-preserving Lanczos contain within 1504x480, role-aware top/bottom placement with >=16px border, alpha0 RGB0",
+    "mirrorReuse": false,
+    "interpolationBetweenAssets": false
+  },
+  "qa": {
+    "selectedCount": "9/9",
+    "dimensions1536x512": "9/9",
+    "uniqueSha": "9/9",
+    "opaqueBackground": "3/3",
+    "rgbaBarrier": "6/6",
+    "barrierBorderAlphaContact": "0/6",
+    "barrierAlphaZeroRgbResidue": "0/6",
+    "barrierMinimumMarginPx": 16,
+    "clippingSuspicion": "0/9",
+    "forbiddenContent": "character/NPC/monster/UI/text/VFX/collider-line0",
+    "contact": ["evidence/wave1-wave2-wave3-composite-contact.png", "c6687811196449faad8f97e9f40cfa188a37553569ffd61720d801b59d750c2a", [1536,1536]]
+  },
+  "composition": {
+    "civilizationDensity": "wave1 < wave2 < wave3",
+    "combatCenter": "low contrast and free of large focal props",
+    "internalProps": "unchanged; this exact9 only replaces wave background plus top/bottom visual walls",
+    "collider": "not encoded in pixels; derive a simple continuous silhouette separately"
+  },
+  "boundaries": {
+    "projectCanonicalWrite": false,
+    "unityWrite": false,
+    "installAuthority": false,
+    "existingAssetOverwrite": false,
+    "rollback": "remove this versioned artifact root only"
+  }
+}

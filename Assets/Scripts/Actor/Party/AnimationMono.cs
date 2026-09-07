@@ -67,6 +67,7 @@ namespace Character
         [SerializeField] private List<CharacterAnimationClipEntry> animationClips = new();
         private CharacterAnimationProfileSO _animationProfile;
 
+        private readonly SkillDirectionPresentationLease directedBody=new();
         private Coroutine _playRoutine;
         private Coroutine _oneShotRoutine;
 
@@ -370,6 +371,7 @@ namespace Character
 
         public void PlayIdle()
         {
+            if (!EnsurePresentationActive()) return;
             if (_isDead || IsAttackDisabledByCc())
                 return;
 
@@ -381,6 +383,7 @@ namespace Character
 
         public void PlayMove()
         {
+            if (!EnsurePresentationActive()) return;
             if (_isDead || IsAttackDisabledByCc())
                 return;
 
@@ -416,8 +419,8 @@ namespace Character
             _isPlayingOneShot = true;
             _currentState = AnimationState.Attack;
             _currentClip = clip;
-            _playRoutine = StartCoroutine(PlayOneShotClipRoutine(clip, attackSpeed));
-            _oneShotRoutine = StartCoroutine(PlayAttackRoutine(clip, attackSpeed));
+            _playRoutine = StartPresentationRoutine(PlayOneShotClipRoutine(clip, attackSpeed));
+            _oneShotRoutine = StartPresentationRoutine(PlayAttackRoutine(clip, attackSpeed));
         }
 
         public void RestartAttack()
@@ -433,6 +436,28 @@ namespace Character
             PlayAttack();
         }
 
+        // Read-only target for the battle transition's late sprite sampler; no gameplay/CC state is acquired.
+        internal SpriteRenderer TransitionBodyRenderer => targetSpriteRenderer;
+
+        public bool PlayDirectedSkillBodyAction(AnimationClip fallback,float duration,Vector2 snapshot,SkillDirectionPresentationProfile profile)
+        {
+            if(!EnsurePresentationActive()||_isDead||IsAttackDisabledByCc()||targetSpriteRenderer==null||!SkillDirectionMath.Valid(snapshot))return false;
+            profile??=new SkillDirectionPresentationProfile();
+            AnimationClip clip=profile.ResolveBody(snapshot,fallback,out float angle,out bool flip);
+            if(clip==null)return false; // Missing visual never acquires gameplay state.
+            StopOneShotRoutine();StopPlayRoutine();
+            SetDirectionFromVector(snapshot);
+            _holdingSkillCastPose=false;_isPlayingOneShot=true;_currentState=AnimationState.Attack;_currentClip=clip;
+            directedBody.Begin(targetSpriteRenderer,angle,flip);
+            _playRoutine=StartPresentationRoutine(PlaySkillBodyActionRoutine(clip,Mathf.Max(.01f,duration),true));
+            return true;
+        }
+        public void CancelDirectedSkillPresentation()
+        {
+            if(!directedBody.Active)return;
+            StopOneShotRoutine();StopPlayRoutine();_isPlayingOneShot=false;_currentClip=null;_currentState=AnimationState.None;
+        }
+
         public bool PlaySkillBodyAction(AnimationClip clip, float duration)
         {
             return PlaySkillBodyAction(clip, duration, true);
@@ -440,13 +465,14 @@ namespace Character
 
         public bool PlaySkillBodyAction(AnimationClip clip, float duration, bool mirrorWithFacing)
         {
+            if (!EnsurePresentationActive()) return false;
             if (_isDead || IsAttackDisabledByCc() || clip == null || targetSpriteRenderer == null)
                 return false;
 
             if (_holdingSkillCastPose && _currentClip == clip)
             {
                 _holdingSkillCastPose = false;
-                _playRoutine = StartCoroutine(PlaySkillBodyActionRoutine(
+                _playRoutine = StartPresentationRoutine(PlaySkillBodyActionRoutine(
                     clip, Mathf.Max(.01f, duration), mirrorWithFacing));
                 return true;
             }
@@ -457,7 +483,7 @@ namespace Character
             _currentState = AnimationState.Attack;
             _currentClip = clip;
             if (!mirrorWithFacing) targetSpriteRenderer.flipX = false;
-            _playRoutine = StartCoroutine(PlaySkillBodyActionRoutine(
+            _playRoutine = StartPresentationRoutine(PlaySkillBodyActionRoutine(
                 clip, Mathf.Max(.01f, duration), mirrorWithFacing));
             return true;
         }
@@ -529,7 +555,7 @@ namespace Character
             _currentState = AnimationState.Attack;
             _currentClip = clip;
             BeginComboPresentation(calibration);
-            _playRoutine = StartCoroutine(PlayComboActionRoutine(
+            _playRoutine = StartPresentationRoutine(PlayComboActionRoutine(
                 clip,
                 Mathf.Max(.001f, startToHitDuration),
                 Mathf.Max(.001f, hitToRecoveryDuration)));
@@ -554,7 +580,7 @@ namespace Character
             _currentClip = clip;
             _continuousComboMinimumNormalizedFrame = 0f;
             BeginComboPresentation(calibration);
-            _playRoutine = StartCoroutine(PlayContinuousComboActionRoutine(clip, combo));
+            _playRoutine = StartPresentationRoutine(PlayContinuousComboActionRoutine(clip, combo));
             return true;
         }
 
@@ -608,7 +634,7 @@ namespace Character
             // the previous idle frame.
             attackClip.SampleAnimation(gameObject, 0f);
             BeginComboPresentation(null, true, true);
-            _playRoutine = StartCoroutine(PlayCanonicalComboChoreographyRoutine(
+            _playRoutine = StartPresentationRoutine(PlayCanonicalComboChoreographyRoutine(
                 attackClip,
                 comboIndex,
                 Mathf.Max(.001f, startToHitDuration),
@@ -663,8 +689,8 @@ namespace Character
             _currentState = AnimationState.Death;
             _currentClip = clip;
             _playRoutine = presentationDuration > 0f
-                ? StartCoroutine(PlayDeathDurationRoutine(clip, presentationDuration))
-                : StartCoroutine(PlayHoldLastFrameClipRoutine(clip));
+                ? StartPresentationRoutine(PlayDeathDurationRoutine(clip, presentationDuration))
+                : StartPresentationRoutine(PlayHoldLastFrameClipRoutine(clip));
         }
 
         private IEnumerator PlayDeathDurationRoutine(AnimationClip clip, float duration)
@@ -695,6 +721,7 @@ namespace Character
 
         private void PlayState(AnimationState state, bool restartIfSameState = false)
         {
+            if (!EnsurePresentationActive()) return;
             if (_isDead && state != AnimationState.Death)
                 return;
 
@@ -719,7 +746,7 @@ namespace Character
             }
 
             _currentClip = clip;
-            _playRoutine = StartCoroutine(PlayLoopClipRoutine(clip));
+            _playRoutine = StartPresentationRoutine(PlayLoopClipRoutine(clip));
         }
 
         private float GetAttackSpeed()
@@ -803,7 +830,7 @@ namespace Character
 
             StopPlayRoutine();
             _currentClip = clip;
-            _playRoutine = StartCoroutine(PlayLoopClipRoutine(clip));
+            _playRoutine = StartPresentationRoutine(PlayLoopClipRoutine(clip));
         }
 
         private AnimationClip GetClip(AnimationState state, DiagonalDirection direction)
@@ -925,6 +952,7 @@ namespace Character
 
         private bool CanPlayClip(AnimationClip clip, AnimationState state, DiagonalDirection direction)
         {
+            if (!EnsurePresentationActive()) return false;
             if (targetSpriteRenderer == null)
             {
                 Debug.LogWarning($"[{nameof(AnimationMono)}] SpriteRenderer is not assigned or found under {name}.", this);
@@ -1008,11 +1036,13 @@ namespace Character
             {
                 float normalized = Mathf.Clamp01(elapsed / duration);
                 clip.SampleAnimation(gameObject, clip.length * normalized);
+                directedBody.Apply();
                 elapsed += Time.deltaTime;
                 yield return null;
             }
 
             clip.SampleAnimation(gameObject, clip.length);
+            directedBody.Restore();
             _playRoutine = null;
             _isPlayingOneShot = false;
             _currentClip = null;
@@ -1254,6 +1284,7 @@ namespace Character
 
         private void StopPlayRoutine()
         {
+            directedBody.Restore();
             EndComboPresentation();
             _currentLocomotionPlaybackRate = 1f;
             if (_playRoutine != null)
@@ -1273,13 +1304,35 @@ namespace Character
             }
         }
 
-        private void OnDestroy()
+        // Final gate for every presentation coroutine, including recovery/CC paths.
+        private Coroutine StartPresentationRoutine(IEnumerator routine)
         {
-            StopOneShotRoutine();
-            StopPlayRoutine();
+            if (!EnsurePresentationActive()) return null;
+            return StartCoroutine(routine);
         }
 
-        private void OnDisable()
+        private bool EnsurePresentationActive()
+        {
+            if (_presentationTeardownDepth == 0 && isActiveAndEnabled && gameObject.activeInHierarchy) return true;
+            ResetInactivePresentation();
+            return false;
+        }
+
+        private int _presentationTeardownDepth;
+        internal void BeginSynchronousTeardown()
+        {
+            _presentationTeardownDepth++;
+            ResetInactivePresentation();
+        }
+        internal void EndSynchronousTeardown()
+        {
+            if (_presentationTeardownDepth > 0) _presentationTeardownDepth--;
+        }
+
+        private void OnDestroy() => ResetInactivePresentation();
+        private void OnDisable() => ResetInactivePresentation();
+
+        private void ResetInactivePresentation()
         {
             StopOneShotRoutine();
             StopPlayRoutine();
@@ -1323,6 +1376,7 @@ namespace Character
 
         private void LateUpdate()
         {
+            directedBody.Apply();
             UpdateAttackDisabledCcPresentation();
             ApplyFacingLockAfterAnimationSample();
             // Animation clips are sampled before this point. Mirror the current sampled
@@ -1342,6 +1396,8 @@ namespace Character
             targetSpriteRenderer.flipX =
                 _facingLockDirection == DiagonalDirection.UpLeft ||
                 _facingLockDirection == DiagonalDirection.DownLeft;
+            if(_comboPresentationActive&&_comboPresentationRenderer!=null)
+                _comboPresentationRenderer.flipX=targetSpriteRenderer.flipX;
         }
 
         private bool IsAttackDisabledByCc()
@@ -1379,7 +1435,7 @@ namespace Character
                 _isPlayingOneShot = false;
                 _currentState = AnimationState.AttackDisabledCc;
                 _currentClip = clip;
-                _playRoutine = StartCoroutine(PlayLoopClipRoutine(clip));
+                _playRoutine = StartPresentationRoutine(PlayLoopClipRoutine(clip));
             }
             else
             {
@@ -1484,6 +1540,7 @@ namespace Character
 
         private void ApplyComboPresentation()
         {
+            ApplyFacingLockAfterAnimationSample();
             if (!_comboPresentationActive) return;
             if (_comboPresentationRenderer == null || targetSpriteRenderer == null)
             {

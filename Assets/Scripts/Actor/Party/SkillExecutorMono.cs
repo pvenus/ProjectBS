@@ -113,6 +113,8 @@ public class SkillExecutorMono : MonoBehaviour, ISkillExecutor
 
     public bool SetRequest(SkillExecutionRequest req)
     {
+        var manual=GetComponent<Character.Control.SeojinManualControl>();
+        if(manual!=null&&!manual.AutoAuthorized)return false;
         _pendingRequest = req;
         _hasPendingRequest = (req.Skill != null && req.Caster != null);
 

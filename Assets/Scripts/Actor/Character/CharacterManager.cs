@@ -99,7 +99,7 @@ namespace Character
             return true;
         }
 
-        public bool CanUseSkill => !IsStunned;
+        public bool CanUseSkill => !IsStunned && !Battle.Morpg.BattleMorpgLiveRoute.IsTransitionLocked(this);
 
         public bool IsDying => isDying;
 
@@ -261,6 +261,8 @@ namespace Character
             // Removed old animation/skill override flow
             InitializeSkillManager(characterSO);
             EnsureBattleCharacterAura();
+            ConfigureNpcCastDefaults(runtimeData?.characterSO);
+            Control.SeojinManualControl.Bind(this);
 
             RequestSpawnReveal();
         }
@@ -332,9 +334,19 @@ namespace Character
             // Removed old animation/skill override flow
             InitializeSkillManager(runtimeData?.characterSO);
             EnsureBattleCharacterAura();
+            ConfigureNpcCastDefaults(runtimeData?.characterSO);
+            Control.SeojinManualControl.Bind(this);
 
             RequestSpawnReveal();
 
+        }
+
+        private void ConfigureNpcCastDefaults(CharacterSO character)
+        {
+            var presentation = GetComponent<CharacterSkillCastPresentationMono>();
+            if (presentation == null && CharacterSkillCastPresentationMono.SupportsNpcPalette(character))
+                presentation = gameObject.AddComponent<CharacterSkillCastPresentationMono>();
+            presentation?.ConfigureNpcDefaults(character);
         }
 
         private void EnsureBattleCharacterAura()

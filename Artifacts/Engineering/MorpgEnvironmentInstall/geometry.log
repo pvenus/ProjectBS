@@ -1,0 +1,12 @@
+PASS exact-15-assets-17-blockers-3-zones
+PASS all-28-reservations-safe-count-role-id-preserved
+CONTRACT BLOCKER landing/+X corridor blocked: zone.act1.chapter01.01.rescue_villagers.right
+CONTRACT BLOCKER prop gap below minimum: prop.zone.act1.chapter01.01.rescue_villagers.right.house.top.left / prop.zone.act1.chapter01.01.rescue_villagers.right.house.top.right
+CONTRACT BLOCKER prop gap below minimum: prop.zone.act1.chapter01.01.rescue_villagers.right.house.bottom.left / prop.zone.act1.chapter01.01.rescue_villagers.right.house.bottom.right
+PASS real-contract-conflicts-fail-closed-not-hidden
+PASS spawn-validator-detects-original-tree-and-house-overlap
+PASS sweep-stops-before-wall-no-tunneling
+PASS sweep-respects-sloped-boundary-and-actor-radius
+PASS landing-and-camera-derived-from-same-profile
+PASS missing-GUID-and-reservation-audit-rejected
+PASS 8/8 production geometry tests; profile activation remains blocked by the reported contract conflicts

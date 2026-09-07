@@ -1,0 +1,58 @@
+/var/folders/_8/xw585pp54nv9g8sxff2cxndr0000gn/T/projectbs-manual-combo-bh3uzpb0/Tests.cs(11,234): warning CS0649: Field 'SkillComboStep.VfxProfileOverride' is never assigned to, and will always have its default value null
+/var/folders/_8/xw585pp54nv9g8sxff2cxndr0000gn/T/projectbs-manual-combo-bh3uzpb0/Tests.cs(11,253): warning CS0649: Field 'SkillComboStep.VfxPresentationCalibration' is never assigned to, and will always have its default value null
+/var/folders/_8/xw585pp54nv9g8sxff2cxndr0000gn/T/projectbs-manual-combo-bh3uzpb0/Tests.cs(12,66): warning CS0649: Field 'Profile.UseCanonicalBodyChoreography' is never assigned to, and will always have its default value false
+/var/folders/_8/xw585pp54nv9g8sxff2cxndr0000gn/T/projectbs-manual-combo-bh3uzpb0/Tests.cs(11,192): warning CS0649: Field 'SkillComboStep.BodyPresentationCalibration' is never assigned to, and will always have its default value null
+PASS tap-release-completes-current-hit-no-second-step-no-cooldown
+PASS held-authoritative-cadence-body-contact-VFX-001
+PASS cooldown-on-third-step-entry-once
+PASS snapshot-all-three-hits-no-target-following
+PASS basic-mouse-snapshot-controls-all-three-production-facing-calls
+PASS release-during-second-hit-finishes-second-only
+PASS cancel-after-third-entry-no-refund-no-delayed-hit
+PASS old-combo-reaches-hit-wait
+PASS old-generation-cannot-hit-stop-or-clear-new-combo
+PASS missing-body-clip-retains-gameplay-fallback-null-VFX-forwarded
+PASS legacy-target-mode-retains-validation-fail-closed
+PASS nested-coroutine-cancel-blocks-old-delayed-hit
+PASS old-coroutine-cleanup-preserves-new-ticket
+PASS new-epoch-executes-and-releases-own-ticket
+PASS Direction-basic-three-step-facing-hit-context-no-ground-point
+PASS G1 captures only actual step starts
+PASS G1 A B C hit snapshots immutable through contact
+PASS G1 facing and hit/projectile/VFX context share step direction
+PASS G1 flip lock uses same immutable source
+PASS G1 completion releases own facing lease
+PASS G1 cooldown timing preserved
+PASS G2 captures only actual step starts
+PASS G2 A B C hit snapshots immutable through contact
+PASS G2 facing and hit/projectile/VFX context share step direction
+PASS G2 flip lock uses same immutable source
+PASS G2 completion releases own facing lease
+PASS G2 cooldown timing preserved
+PASS G3 captures only actual step starts
+PASS G3 A B C hit snapshots immutable through contact
+PASS G3 facing and hit/projectile/VFX context share step direction
+PASS G3 flip lock uses same immutable source
+PASS G3 completion releases own facing lease
+PASS G3 cooldown timing preserved
+PASS release does not read next snapshot but completes current hit
+PASS release restores facing lease
+PASS release does not read next snapshot but completes current hit
+PASS release restores facing lease
+PASS canceled generation cannot capture next aim or hit
+PASS old finally cannot release new facing owner
+PASS invalid provider fails closed before third cooldown commit
+PASS guard disposal releases manual facing on teardown
+PASS epsilon or invalid mouse uses current WASD
+PASS no WASD uses last facing at this step
+PASS epsilon or invalid mouse uses current WASD
+PASS no WASD uses last facing at this step
+PASS epsilon or invalid mouse uses current WASD
+PASS no WASD uses last facing at this step
+PASS epsilon or invalid mouse uses current WASD
+PASS no WASD uses last facing at this step
+PASS valid mouse wins over WASD per step
+PASS missing all directions safe right fallback
+PASS live authorization blocks hit or next capture even before core cancellation
+PASS live authorization blocks hit or next capture even before core cancellation
+PASS 53/53 extracted production combo/guard tests

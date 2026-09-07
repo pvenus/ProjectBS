@@ -1,0 +1,53 @@
+{
+  "task": "Seojin default Manual control and bounded control ownership",
+  "completed_at": "2026-09-07T18:50:45.270135+09:00",
+  "compile": {
+    "errors": 0,
+    "warnings": 31,
+    "engine_launched": false,
+    "log": "build.log"
+  },
+  "tests": {
+    "input_core_lifecycle": 21,
+    "production_combo_guard_extracted": 14,
+    "morpg_live_glue": 62,
+    "environment_geometry": 14,
+    "dash_clock": 9,
+    "reward_delivery": 12,
+    "inactive_spawn": 10,
+    "cast_presenter": 4,
+    "p1_regression": 27,
+    "total_passed": 173,
+    "failed": 0
+  },
+  "scope": {
+    "existing_files": 9,
+    "new_files": 13,
+    "protected_hashes_unchanged": 470,
+    "reverse_patch_check": true,
+    "git_diff_check": true,
+    "index_modified": false,
+    "source_assets_deleted": false
+  },
+  "limitations": [
+    "Unity GUI/headless/Play was not launched.",
+    "Input/lifecycle tests compile production control files against engine stubs.",
+    "Combo/guard tests extract exact production method bodies and use mocked gameplay and animation endpoints; real rendered VFX and physics were not observed."
+  ],
+  "report": "REPORT.md",
+  "patch": "scoped.patch",
+  "before": "before-sha.json",
+  "after": "after-sha.json",
+  "new_files": "new-files.json",
+  "detailed_cross_task_delivery": "automatic approval review blocked; detailed report retained locally",
+  "revision": "correction-01 mouse-authoritative Dash and basic cycle snapshots",
+  "correction": {
+    "mouse_over_wasd": true,
+    "epsilon_distance": 0.01,
+    "fallback": "normalized WASD, last valid facing, right",
+    "dash_snapshot": "keydown clamped world point and caster-origin direction",
+    "basic_snapshot": "press retained across readiness wait; held cycles resample at cycle start",
+    "slots_unchanged": true,
+    "report": "correction-01/correction.patch"
+  }
+}

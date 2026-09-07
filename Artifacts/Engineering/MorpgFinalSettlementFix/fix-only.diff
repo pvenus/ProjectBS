@@ -1,0 +1,292 @@
+--- a/Assets/Scripts/Battle/Morpg/BattleMorpgLiveRoute.cs
++++ b/Assets/Scripts/Battle/Morpg/BattleMorpgLiveRoute.cs
+@@ -9,6 +9,8 @@
+ 
+ namespace Battle.Morpg
+ {
++    internal enum MorpgFinalSettlementState { NotStarted, FinalSettlementPending, Completed, Failed, Defeated, Abandoned }
++
+     // SpawnManager owns this attempt; BattleManager alone performs the existing victory handoff.
+     internal sealed class BattleMorpgLiveRoute : IMorpgZoneBattleHost, IMorpgZoneWaveDriver, IDisposable
+     {
+@@ -23,6 +25,7 @@
+         private readonly Transform parent;
+         private readonly CurrencyRutimeData currency;
+         private readonly Dictionary<CharacterManager, string> roots = new();
++        private readonly Dictionary<string, int> rewardByReservation = new(StringComparer.Ordinal);
+         private readonly Dictionary<Behaviour, bool> locked = new();
+         private BattleMorpgZoneTransitionCoordinator coordinator;
+         private BattleRewardLedger ledger;
+@@ -37,6 +40,13 @@
+         private int next, clearFrame = -1, creditedGold, creditedQuarters;
+         private long deaths;
+         private bool disposed, failed, activated;
++        internal const float FinalSettlementTimeoutSeconds = 1.25f;
++        private MorpgTransitionScopeToken finalSettlementToken;
++        private float finalSettlementElapsed, initialXp;
++        private int initialGold;
++        internal MorpgFinalSettlementState SettlementState { get; private set; }
++        internal float FinalSettlementElapsed => finalSettlementElapsed;
++        internal bool FinalSettlementTimedOut { get; private set; }
+         private string failure;
+         internal bool VictoryReady => !failed && coordinator.Phase == ZoneTransitionPhase.Completed;
+ 
+@@ -46,6 +56,9 @@
+             this.session = session; this.definition = definition; this.attempt = attempt;
+             this.units = units; this.parent = parent; this.currency = currency;
+             waves = new MorpgZoneWaveOwner(attempt, definition);
++            foreach (var zone in definition.zones)
++                foreach (var row in zone.reservations)
++                    rewardByReservation.Add(row.reservationId, row.unitKey == "chain" ? 3 : 1);
+         }
+ 
+         internal static bool TryCreate(bool enabled, BattleSession session, ISpawnUnitResolver resolver,
+@@ -101,7 +114,7 @@
+         internal void Tick(float delta)
+         {
+             if (disposed || failed || VictoryReady || !activated) return;
+-            if (Time.timeScale <= 0f || delta <= 0f) return;
++            if (Time.timeScale <= 0f || delta <= 0f || float.IsNaN(delta) || float.IsInfinity(delta)) return;
+             try
+             {
+                 if (player == null)
+@@ -114,6 +127,7 @@
+                     float xp = player.GetStatValue(StatType.Experience);
+                     if (float.IsNaN(xp) || float.IsInfinity(xp) || xp < 0 || xp > 1000000f || xp * 4f != (float)Math.Truncate(xp * 4f))
+                     { Fail("raw XP headroom unavailable"); return; }
++                    initialGold = currency.gold; initialXp = xp;
+                     ledger = new BattleRewardLedger(new GoldAccount(currency), new XpAccount(player));
+                     delivery = new MorpgRewardDeliveryQueue(TryCommitArrivedReward);
+                     rewardHud = MorpgRewardHudMono.TryCreate(parent, FlushPendingRewards, currency.gold, xp);
+@@ -134,6 +148,11 @@
+                 if (failed) return;
+                 if (player.RuntimeData.isDead)
+                 { Fail("party defeated", MorpgRouteStopReason.Defeat); return; }
++                if (SettlementState == MorpgFinalSettlementState.FinalSettlementPending)
++                {
++                    TickFinalSettlement(delta);
++                    return;
++                }
+                 coordinator.Tick(delta);
+                 if (coordinator.Phase == ZoneTransitionPhase.Failed) { Fail(coordinator.LastError); return; }
+                 if (coordinator.Phase == ZoneTransitionPhase.NextWaveReady)
+@@ -158,14 +177,15 @@
+                 if (clear.SpawnFailed || clear.RewardTransactionFailed) { Fail("zone accounting failed"); return; }
+                 // Arrival-commit override: normal clear waits for all confirmed-death receipts.
+                 // This also ensures that no new zone or final handoff can outrun a pending reward.
+-                if (!clear.Eligible || delivery.PendingCount != 0) { clearFrame = -1; return; }
++                if (!clear.Eligible || (coordinator.ActiveZoneIndex != 2 && delivery.PendingCount != 0))
++                { clearFrame = -1; return; }
+                 // Let the entire death callback/frame finish, including a simultaneous player death.
+                 if (clearFrame < 0) { clearFrame = Time.frameCount; return; }
+                 if (Time.frameCount <= clearFrame) return;
+                 if (!coordinator.TryCompleteActiveWave(clear)) return;
+                 if (coordinator.ActiveZoneIndex == 2)
+                 {
+-                    if (!coordinator.TryRequestVictory()) Fail(coordinator.LastError);
++                    BeginFinalSettlement();
+                 }
+                 else if (!coordinator.TryBeginTransition()) Fail(coordinator.LastError);
+             }
+@@ -191,8 +211,8 @@
+             if (marker == null || !ReferenceEquals(marker.Zone, scope.Handle) ||
+                 !scope.TryDied(scope.Handle, reservation)) return;
+             marker.MarkDied();
+-            bool chain = units["chain"] == character.RuntimeData.characterSO;
+-            int gold = chain ? 3 : 1, quarters = chain ? 3 : 1;
++            // The reservation is the reward authority, even if presentation/pooling swaps a CharacterSO.
++            int gold = rewardByReservation[reservation], quarters = gold;
+             if (!delivery.TryReserve(BattleMorpgCanonicalKeys.Bundle(attempt, reservation), ++deaths,
+                 reservation, gold, quarters, character.transform.position.x, character.transform.position.y))
+             { scope.TryFail(scope.Handle, true); Fail(delivery.Error); }
+@@ -282,16 +302,73 @@
+             if (reason != MorpgTransitionReleaseReason.Success) record.TryFail();
+             UnlockPlayer(); token = null; preparedPlan = null; error = null; return true;
+         }
++        private void BeginFinalSettlement()
++        {
++            if (SettlementState != MorpgFinalSettlementState.NotStarted) return;
++            SettlementState = MorpgFinalSettlementState.FinalSettlementPending;
++            finalSettlementElapsed = 0f;
++            finalSettlementToken = new MorpgTransitionScopeToken();
++            LockPlayer();
++            // Clear was source-authorized and committed after the final-frame defeat barrier.
++            // No spawn/hostile work may run while optional rewards finish their flight.
++            if (!TryStopMorpgZoneWave(coordinator.ActiveHandle, MorpgZoneStopReason.Transition, out string error))
++            { Fail(error); return; }
++            TickFinalSettlement(0f);
++        }
++
++        private void TickFinalSettlement(float delta)
++        {
++            if (SettlementState != MorpgFinalSettlementState.FinalSettlementPending || failed) return;
++            if (player == null || player.RuntimeData.isDead)
++            { Fail("party defeated", MorpgRouteStopReason.Defeat); return; }
++            if (delivery.Failed) { Fail(delivery.Error); return; }
++            finalSettlementElapsed += delta;
++            if (delivery.PendingCount > 0 && finalSettlementElapsed >= FinalSettlementTimeoutSeconds)
++            {
++                FinalSettlementTimedOut = true;
++                if (!delivery.Flush()) { Fail(delivery.Error); return; }
++            }
++            // Normal waiting is not a rejected final outcome or accounting error.
++            if (delivery.PendingCount > 0) return;
++            if (!TryReconcileFinalRewards(out string error)) { Fail(error); return; }
++            if (!coordinator.TryRequestVictory())
++            { Fail(coordinator.LastError ?? "final victory authority rejected"); return; }
++            SettlementState = MorpgFinalSettlementState.Completed;
++            UnlockPlayer();
++        }
++
++        private bool TryReconcileFinalRewards(out string error)
++        {
++            error = null;
++            if (delivery.PendingCount > 0) return false;
++            int gold = 0, quarters = 0;
++            if (deaths != rewardByReservation.Count || ledger.Bundles.Count != rewardByReservation.Count)
++            { error = "final accounting mismatch: death/ledger reservation count"; return false; }
++            foreach (var expected in rewardByReservation)
++            {
++                string id = BattleMorpgCanonicalKeys.Bundle(attempt, expected.Key);
++                if (!ledger.Bundles.TryGetValue(id, out var bundle) || bundle.State != RewardBundleState.Credited ||
++                    bundle.ReservationId != expected.Key || bundle.Gold != expected.Value || bundle.XpQuarterUnits != expected.Value)
++                { error = "final accounting mismatch: " + expected.Key; return false; }
++                gold += expected.Value; quarters += expected.Value;
++            }
++            if (gold != definition.expected.gold || quarters / 4m != (decimal)definition.expected.xp ||
++                creditedGold != gold || creditedQuarters != quarters ||
++                currency.gold != (long)initialGold + gold || player.GetStatValue(StatType.Experience) != initialXp + quarters / 4f)
++            { error = "final accounting mismatch: ledger/account totals"; return false; }
++            return true;
++        }
++
+         public bool TryCompleteFinalZone(BattleAttemptKey key, WaveClearKey clear, out string error)
+         {
+-            error = "final settlement not ready";
++            error = "final authority mismatch";
+             if (!key.Equals(attempt) || coordinator.ActiveZoneIndex != 2 ||
+-                !clear.Equals(coordinator.ActiveHandle.ClearKey) || player == null || player.RuntimeData.isDead ||
+-                deaths != 28 || creditedGold != 40 || creditedQuarters != 40 || ledger.Bundles.Count != 28) return false;
++                !clear.Equals(coordinator.ActiveHandle.ClearKey) || player == null || player.RuntimeData.isDead) return false;
++            if (SettlementState != MorpgFinalSettlementState.FinalSettlementPending || delivery.PendingCount > 0)
++            { error = "final settlement pending"; return false; }
++            if (!TryReconcileFinalRewards(out error)) return false;
+             if (!TryStopMorpgZoneWave(coordinator.ActiveHandle, MorpgZoneStopReason.Transition, out error)) return false;
+-            // Per-death raw XP has settled. Do not offer the same final XP payload again.
+             session.BattleRuntime.rewardExperience = 0f;
+-            // The existing upgrade flow may pause immediately; never strand the final HUD mid-tween.
+             try { rewardHud?.SnapToAuthoritative(currency.gold, player.GetStatValue(StatType.Experience)); }
+             catch (Exception e) { Debug.LogWarning("[MORPG] Optional final HUD: " + e.Message); }
+             error = null; return true;
+@@ -303,7 +380,7 @@
+             player.GetComponent<MovementMono>()?.StopAllMotion();
+             player.GetComponent<CharacterSkillManager>()?.CancelCasting();
+             var movement = player.GetComponent<PartyMovementMono>();
+-            if (movement != null && !movement.TryAcquireExternalMovement(token, true))
++            if (movement != null && !movement.TryAcquireExternalMovement(token ?? finalSettlementToken, true))
+                 throw new InvalidOperationException("player movement scope already owned");
+             foreach (var behaviour in player.GetComponentsInChildren<MonoBehaviour>(true))
+             {
+@@ -317,7 +394,8 @@
+         private void UnlockPlayer()
+         {
+             transitionPlayers.Remove(player);
+-            if (player != null) player.GetComponent<PartyMovementMono>()?.ReleaseExternalMovement(token);
++            if (player != null) player.GetComponent<PartyMovementMono>()?.ReleaseExternalMovement(token ?? finalSettlementToken);
++            finalSettlementToken = null;
+             foreach (var pair in locked) if (pair.Key != null && pair.Value) pair.Key.enabled = true;
+             locked.Clear();
+         }
+@@ -342,6 +420,7 @@
+         {
+             if (failed) return;
+             failed = true; failure = error;
++            SettlementState = reason == MorpgRouteStopReason.Defeat ? MorpgFinalSettlementState.Defeated : MorpgFinalSettlementState.Failed;
+             // Pay confirmed kills on defeat/abort; no living or un-emitted reservation is fabricated.
+             if (delivery != null && !delivery.Close()) failure = delivery.Error;
+             rewardHud?.DisposeView();
+@@ -355,7 +434,12 @@
+         {
+             if (disposed) return;
+             // Settle before destroying either the view or actor/account owners.
+-            if (delivery != null && !delivery.Close()) Debug.LogError("[MORPG] Teardown settlement: " + delivery.Error);
++            if (delivery != null && !delivery.Close()) Fail(delivery.Error);
++            // Teardown settles confirmed receipts but abort wins over an uncommitted victory.
++            if (SettlementState == MorpgFinalSettlementState.NotStarted ||
++                SettlementState == MorpgFinalSettlementState.FinalSettlementPending)
++                SettlementState = player != null && player.RuntimeData.isDead
++                    ? MorpgFinalSettlementState.Defeated : MorpgFinalSettlementState.Abandoned;
+             disposed = true;
+             rewardHud?.DisposeView();
+             rewardHud = null;
+--- a/AgentTools/MorpgIntegrationHarness/Program.cs
++++ b/AgentTools/MorpgIntegrationHarness/Program.cs
+@@ -23,6 +23,12 @@
+   public void Tick(float delta=2){Time.frameCount++;Route.Tick(delta);}
+   public void Clear(){Tick();foreach(var c in NpcSpawnService.Instance.Spawned.ToArray())if(!c.RuntimeData.isDead)c.Die();Tick();Tick();}
+   public void Dispose(){Route.Dispose();}
++ }
++ static void ReachPending(Fixture f){
++  MorpgRewardHudMono.EnableForTests=true;f.Clear();f.Tick(1.3f);f.Clear();f.Tick(1.3f);f.Tick();
++  foreach(var c in NpcSpawnService.Instance.Spawned.ToArray())if(!c.RuntimeData.isDead)c.Die();
++  f.Tick(.01f);f.Tick(.01f);
++  Check(f.Route.SettlementState==MorpgFinalSettlementState.FinalSettlementPending && !f.Route.VictoryReady,"pending treated as terminal");
+  }
+  static void Test(string name,Action test){test();Console.WriteLine("PASS "+name);pass++;}
+  static void Main(string[] args){
+@@ -94,6 +100,36 @@
+    using var f=new Fixture();MorpgRewardHudMono.EnableForTests=true;f.Clear();f.Tick(1.3f);f.Clear();f.Tick(1.3f);f.Clear();
+    Check(f.Route.VictoryReady && MorpgRewardHudMono.Last.Receipts==28 && MorpgRewardHudMono.Last.FinalGold==40 && f.Player.xp==10,"final presentation/account barrier");
+   });
++  Test("final-pending-arrival-and-duplicate-exactly-once",()=>{
++   using var f=new Fixture();ReachPending(f);Check(BattleMorpgLiveRoute.IsTransitionLocked(f.Player),"final pending movement unlocked");
++   f.Tick(.8f);Check(f.Route.SettlementState==MorpgFinalSettlementState.Completed && f.Route.VictoryReady,"arrival failed victory");
++   foreach(var c in NpcSpawnService.Instance.Spawned)c.Die();f.Tick();
++   Check(MorpgRewardHudMono.Last.Receipts==28 && f.Player.xp==10 && GameSession.Instance.StageSession.CurrencyRuntimeData.gold==40,"receipt duplicated");
++   Check(!BattleMorpgLiveRoute.IsTransitionLocked(f.Player),"final lock leaked");
++  });
++  Test("final-pending-HUD-loss-flush-before-victory",()=>{
++   using var f=new Fixture();ReachPending(f);MorpgRewardHudMono.Last.LosePresentation();f.Tick(.01f);
++   Check(f.Route.VictoryReady && MorpgRewardHudMono.Last.Receipts==28,"HUD loss failed final settlement");
++  });
++  Test("final-pending-scaled-timeout-and-pause",()=>{
++   using var f=new Fixture();ReachPending(f);MorpgRewardHudMono.Last.HoldArrivals=true;
++   float elapsed=f.Route.FinalSettlementElapsed;Time.timeScale=0;f.Tick(100);
++   Check(f.Route.FinalSettlementElapsed==elapsed && !f.Route.VictoryReady,"pause advanced settlement");
++   Time.timeScale=1;f.Tick(1.26f);f.Tick();
++   Check(f.Route.FinalSettlementTimedOut && f.Route.VictoryReady && MorpgRewardHudMono.Last.Receipts==28 && f.Player.xp==10,"bounded flush failed");
++  });
++  Test("final-pending-defeat-beats-arrival",()=>{
++   using var f=new Fixture();ReachPending(f);f.Player.Die();f.Tick(.8f);
++   Check(f.Route.SettlementState==MorpgFinalSettlementState.Defeated && !f.Route.VictoryReady && f.Player.xp==10,"defeat priority or confirmed rewards lost");
++  });
++  Test("final-pending-teardown-aborts-and-settles-once",()=>{
++   using var f=new Fixture();ReachPending(f);f.Route.Dispose();f.Route.Dispose();
++   Check(f.Route.SettlementState==MorpgFinalSettlementState.Abandoned && !f.Route.VictoryReady && f.Player.xp==10 && MorpgRewardHudMono.Last.Receipts==28,"abort became victory or replayed rewards");
++  });
++  Test("final-real-accounting-mismatch-fails",()=>{
++   using var f=new Fixture();ReachPending(f);GameSession.Instance.StageSession.CurrencyRuntimeData.gold++;f.Tick(.8f);
++   Check(f.Route.SettlementState==MorpgFinalSettlementState.Failed && !f.Route.VictoryReady,"real mismatch accepted");
++  });
+   Console.WriteLine("PASS "+pass+"/"+pass+" live glue simulations (Unity engine stub)");
+  }
+ }
+--- a/AgentTools/MorpgIntegrationHarness/RuntimeStub.cs
++++ b/AgentTools/MorpgIntegrationHarness/RuntimeStub.cs
+@@ -93,14 +93,14 @@
+  internal class MorpgRewardHudMono:UnityEngine.MonoBehaviour,IMorpgRewardPresentation {
+   internal static bool EnableForTests;internal static MorpgRewardHudMono Last;
+   internal readonly System.Collections.Generic.List<MorpgRewardVisualGroup> Groups=new();
+-  internal int Receipts;internal int? FinalGold;internal bool Available=true, ThrowTick;private System.Action missing;
++  internal int Receipts;internal int? FinalGold;internal bool Available=true, ThrowTick, HoldArrivals;private System.Action missing;
+   internal static MorpgRewardHudMono TryCreate(UnityEngine.Transform p,System.Action missing,int gold,float xp){
+    if(!EnableForTests)return null;var view=new UnityEngine.GameObject("reward HUD").AddComponent<MorpgRewardHudMono>();view.missing=missing;Last=view;return view;
+   }
+   public bool isActiveAndEnabled=>Available;
+   public bool IsAvailable=>Available;
+   public bool TryShow(MorpgRewardVisualGroup g){Groups.Add(g);return true;}
+-  public void Refresh(MorpgRewardVisualGroup g){} public void Release(MorpgRewardVisualGroup g){Groups.Remove(g);}
++  public void Refresh(MorpgRewardVisualGroup g){if(HoldArrivals)g.Age=0f;} public void Release(MorpgRewardVisualGroup g){Groups.Remove(g);}
+   internal void NotifyCredited(int g,int q,int total,float xp){Receipts++;}internal void TickHud(float d,int gold,float xp){if(ThrowTick)throw new System.Exception("HUD anchor missing");} internal void DisposeView(){Available=false;}internal void SnapToAuthoritative(int gold,float xp){FinalGold=gold;}
+   internal void LosePresentation(){Available=false;missing?.Invoke();}
+  }

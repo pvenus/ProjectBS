@@ -176,6 +176,27 @@ public class PartyMovementMono : MonoBehaviour
 
     public void SetMovementControlByPlayer(bool enabled)
     {
+        if(Character.Control.SeojinManualControl.Bound(gameObject))return;
+        ApplyMovementControl(enabled);
+    }
+    internal void SetOwnedManualInput(bool controlled,Vector2 input)
+    {
+        if(_isMovementControlledByPlayer!=controlled)ApplyMovementControl(controlled);
+        ApplyManualMoveInput(input);
+    }
+    // Teardown contract: synchronous control/input/velocity cleanup only.
+    // External movement belongs to its own owner and is released by that owner.
+    internal void ReleaseManualControlForTeardown(bool restoreControlled)
+    {
+        _isMovementControlledByPlayer = restoreControlled;
+        _manualMoveInput = Vector2.zero;
+        _lastManualInputTime = float.NegativeInfinity;
+        _phase = MovePhase.ComputePosition;
+        _phaseTimer = 0f;
+        StopMovement();
+    }
+    private void ApplyMovementControl(bool enabled)
+    {
         _isMovementControlledByPlayer = enabled;
 
         if (!enabled)
@@ -224,6 +245,11 @@ public class PartyMovementMono : MonoBehaviour
 
     public void SetManualMoveInput(Vector2 input)
     {
+        if(Character.Control.SeojinManualControl.Bound(gameObject))return;
+        ApplyManualMoveInput(input);
+    }
+    private void ApplyManualMoveInput(Vector2 input)
+    {
         _manualMoveInput = Vector2.ClampMagnitude(input, 1f);
         if (_manualMoveInput.sqrMagnitude > 0.0001f)
         {
@@ -233,6 +259,8 @@ public class PartyMovementMono : MonoBehaviour
 
     private void Update()
     {
+        var owner=GetComponent<Character.Control.SeojinManualControl>();
+        if(owner!=null&&!owner.AutoAuthorized&&!owner.ManualAuthorized)return;
         if (_isMovementControlledByPlayer || _externalMovementOwner != null)
             return;
 
@@ -325,6 +353,8 @@ public class PartyMovementMono : MonoBehaviour
 
     private void FixedUpdate()
     {
+        var owner=GetComponent<Character.Control.SeojinManualControl>();
+        if(owner!=null&&!owner.AutoAuthorized&&!owner.ManualAuthorized)return;
         if (_externalMovementOwner != null)
         {
             return;
@@ -670,6 +700,8 @@ public class PartyMovementMono : MonoBehaviour
 
     private void UpdateMovementAnimation(Vector2 moveDirection)
     {
+        if (!isActiveAndEnabled || !gameObject.activeInHierarchy)
+            return;
         if (_animationMono == null)
             return;
 

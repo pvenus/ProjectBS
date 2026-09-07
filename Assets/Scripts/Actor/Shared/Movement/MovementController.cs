@@ -99,7 +99,7 @@ public class MovementController : MonoBehaviour
     /// </summary>
     public void MoveTo(Vector2 targetPosition)
     {
-        _targetPosition = Battle.BattleMapBoundsContext.ClampActorCenter(targetPosition);
+        _targetPosition = _rb != null ? Battle.BattleMapBoundsContext.SweepActorStep(_rb.position, targetPosition, _rb) : Battle.BattleMapBoundsContext.ClampActorCenter(targetPosition);
         _moveMode = MoveMode.Target;
         _hasReachedTarget = false;
     }
@@ -148,7 +148,7 @@ public class MovementController : MonoBehaviour
         if (Battle.BattleMapBoundsContext.IsActive)
         {
             Vector2 next = _rb.position + velocity * Time.fixedDeltaTime;
-            Vector2 clamped = Battle.BattleMapBoundsContext.ClampActorCenter(next);
+            Vector2 clamped = Battle.BattleMapBoundsContext.SweepActorStep(_rb.position, next, _rb);
             velocity = (clamped - _rb.position) / Mathf.Max(.0001f, Time.fixedDeltaTime);
         }
         _rb.linearVelocity = velocity;
@@ -176,7 +176,7 @@ public class MovementController : MonoBehaviour
         if (Battle.BattleMapBoundsContext.IsActive)
         {
             Vector2 next = _rb.position + velocity * Time.fixedDeltaTime;
-            Vector2 clamped = Battle.BattleMapBoundsContext.ClampActorCenter(next);
+            Vector2 clamped = Battle.BattleMapBoundsContext.SweepActorStep(_rb.position, next, _rb);
             velocity = (clamped - _rb.position) / Mathf.Max(.0001f, Time.fixedDeltaTime);
         }
         _rb.linearVelocity = velocity;

@@ -1,0 +1,239 @@
+--- a/Assets/Scripts/Battle/Morpg/MorpgEnvironmentRuntime.cs
++++ b/Assets/Scripts/Battle/Morpg/MorpgEnvironmentRuntime.cs
+@@ -52,9 +52,12 @@
+         {
+             if(root!=null || Active!=null)throw new InvalidOperationException("environment already installed");
+             if(backgroundSprite==null)throw new InvalidOperationException("environment full-map background missing");
+-            root=new GameObject("MORPG environment");root.transform.SetParent(parent,true);
++            root=new GameObject("MORPG environment");// Keep independent from any ancestor SortingGroup; ownership is this disposable runtime.
++            root.transform.SetParent(null,true);
+             background=Child(root.transform,"Full map dressing — collider0").AddComponent<SpriteRenderer>();
+-            background.sprite=backgroundSprite;background.sortingOrder=-90;
++            background.sprite=backgroundSprite;
++            background.sortingLayerID=BattlePresentationSortingPolicy.MorpgSortingLayerId;
++            background.sortingOrder=BattlePresentationSortingPolicy.Background;
+             Vector2 size=background.sprite.bounds.size;
+             background.transform.localScale=new Vector3((32f+Profile.overscan*2)/size.x,(18f+Profile.overscan*2)/size.y,1);
+             var visuals=Child(root.transform,"Visuals — foliage collider0");
+@@ -104,10 +107,17 @@
+             Vector3 localCenter=new Vector3((rect[0]+rect[2]/2-5.12f)*sx,(rect[1]+rect[3]/2-.48f)*sy,0);
+             Vector3 rotated=go.transform.rotation*localCenter;
+             go.transform.position=new Vector3(origin[0],origin[1]+size[1]/2,0)-rotated;
+-            renderer.sortingOrder=-50;
++            renderer.sortingLayerID=BattlePresentationSortingPolicy.MorpgSortingLayerId;
++            renderer.sortingOrder=BattlePresentationSortingPolicy.MorpgBackProps;
+             foreground.Add(renderer);
+         }
+-        internal void RegisterActor(CharacterManager actor){if(actor!=null&&!actors.Contains(actor))actors.Add(actor);}
++        internal static bool OwnsActor(CharacterManager actor) => Active != null && actor != null && Active.actors.Contains(actor);
++        internal void RegisterActor(CharacterManager actor)
++        {
++            if(actor==null || actors.Contains(actor))return;
++            actors.Add(actor);
++            foreach(var sorter in actor.GetComponentsInChildren<Util.SortingOrderMono>(true))sorter.UpdateSortingOrder();
++        }
+         internal bool TryBeginWarp(int ordinal,out string error)
+         {
+             error="environment landing blocked";
+@@ -134,6 +144,9 @@
+                         if(ar.enabled && ar.bounds.Intersects(renderer.bounds)){overlap=true;break;}
+                     if(overlap)break;
+                 }
++                // Only the environment-owned prop is promoted/faded. Bodies and their MPBs are never written.
++                renderer.sortingOrder=overlap ? BattlePresentationSortingPolicy.MorpgForegroundProps
++                    : BattlePresentationSortingPolicy.MorpgBackProps;
+                 var color=renderer.color;
+                 color.a=Mathf.MoveTowards(color.a,overlap?.35f:1f,.65f*delta/(overlap?.12f:.18f));
+                 renderer.color=color;
+@@ -161,6 +174,8 @@
+         {
+             if(disposed)return;disposed=true;
+             if(Active==this)Active=null;
++            foreach(var actor in actors)
++                if(actor!=null)foreach(var sorter in actor.GetComponentsInChildren<Util.SortingOrderMono>(true))sorter.UpdateSortingOrder();
+             actors.Clear();foreground.Clear();current=-1;
+             if(root!=null){root.SetActive(false);UnityEngine.Object.Destroy(root);}
+             if(camera!=null){camera.orthographicSize=cameraSize;camera.aspect=cameraAspect;camera.orthographic=cameraOrthographic;}
+--- a/Assets/Scripts/Battle/Presentation/BattlePresentationSortingPolicy.cs
++++ b/Assets/Scripts/Battle/Presentation/BattlePresentationSortingPolicy.cs
+@@ -8,5 +8,15 @@
+     {
+         public const int Background = -1000;
+         public const int GroundTelegraph = Background + 1;
++
++        // Exact MORPG route only. Default layer: background < back props < Y-sorted bodies
++        // < occluding props < telegraphs < existing world health HUD (200+) < overlay rewards.
++        public const int MorpgSortingLayerId = 0;
++        public const int MorpgBackProps = -900;
++        public const int MorpgBodyCenter = -400;
++        public const int MorpgForegroundProps = 50;
++        public const int MorpgGroundTelegraph = 100;
++        public static int MorpgBodyOrder(int legacyOrder) => MorpgBodyCenter +
++            System.Math.Max(-400, System.Math.Min(400, legacyOrder / 2));
+     }
+ }
+--- a/Assets/Scripts/Core/Utilities/SortingOrderMono.cs
++++ b/Assets/Scripts/Core/Utilities/SortingOrderMono.cs
+@@ -41,6 +41,8 @@
+             }
+         }
+ 
++        private bool appliedMorpgOrder;
++
+         private void LateUpdate()
+         {
+             UpdateSortingOrder();
+@@ -54,6 +56,8 @@
+             }
+ 
+             int order = CalculateSortingOrder();
++            appliedMorpgOrder = Battle.Morpg.MorpgEnvironmentRuntime.OwnsActor(
++                GetComponentInParent<Character.CharacterManager>());
+ 
+             foreach (var spriteRenderer in spriteRenderers)
+             {
+@@ -66,10 +70,21 @@
+             }
+         }
+ 
++        private void OnDisable()
++        {
++            if (!appliedMorpgOrder || spriteRenderers == null) return;
++            Transform pivot = sortPivot != null ? sortPivot : transform;
++            int legacyOrder = sortingOffset - Mathf.RoundToInt(pivot.position.y * sortingScale);
++            foreach (var renderer in spriteRenderers) if (renderer != null) renderer.sortingOrder = legacyOrder;
++            appliedMorpgOrder = false;
++        }
++
+         public int CalculateSortingOrder()
+         {
+             Transform pivot = sortPivot != null ? sortPivot : transform;
+-            return sortingOffset - Mathf.RoundToInt(pivot.position.y * sortingScale);
++            int legacyOrder = sortingOffset - Mathf.RoundToInt(pivot.position.y * sortingScale);
++            return Battle.Morpg.MorpgEnvironmentRuntime.OwnsActor(GetComponentInParent<Character.CharacterManager>())
++                ? Battle.BattlePresentationSortingPolicy.MorpgBodyOrder(legacyOrder) : legacyOrder;
+         }
+     }
+ }
+--- a/Assets/Scripts/Actor/Character/presentation/NpcCastGroundConeTelegraphMono.cs
++++ b/Assets/Scripts/Actor/Character/presentation/NpcCastGroundConeTelegraphMono.cs
+@@ -197,7 +197,9 @@
+                 // Reapply on every acquire so a pooled/domain-reloaded renderer
+                 // cannot retain an unrelated presentation order.
+                 meshRenderer.sortingLayerID = 0;
+-                meshRenderer.sortingOrder = Battle.BattlePresentationSortingPolicy.GroundTelegraph;
++                meshRenderer.sortingOrder = Battle.Morpg.MorpgEnvironmentRuntime.Active != null
++                    ? Battle.BattlePresentationSortingPolicy.MorpgGroundTelegraph
++                    : Battle.BattlePresentationSortingPolicy.GroundTelegraph;
+                 return true;
+             }
+             catch (System.Exception exception)
+--- a/AgentTools/MorpgIntegrationHarness/RuntimeStub.cs
++++ b/AgentTools/MorpgIntegrationHarness/RuntimeStub.cs
+@@ -9,6 +9,7 @@
+  public class Component:Object {
+   public GameObject gameObject; public Transform transform=>gameObject.transform;
+   public T GetComponent<T>() where T:class=>gameObject.GetComponent<T>();
++  public T GetComponentInParent<T>() where T:class=>gameObject.GetComponentInParent<T>();
+   public T[] GetComponents<T>() where T:class=>gameObject.GetComponentsInChildren<T>(false);
+   public T[] GetComponentsInChildren<T>(bool inactive=false) where T:class=>gameObject.GetComponentsInChildren<T>(inactive);
+  }
+@@ -24,7 +25,7 @@
+   public T AddComponent<T>() where T:Component,new(){if(ThrowOnAddType==typeof(T).Name){ThrowOnAddType=null;throw new Exception("injected component construction failure");}var c=new T{gameObject=this};components.Add(c);return c;}
+   public T GetComponent<T>() where T:class=>components.OfType<T>().FirstOrDefault();
+   public T GetComponentInParent<T>() where T:class=>GetComponent<T>()??transform.parent?.gameObject.GetComponentInParent<T>();
+-  public T[] GetComponentsInChildren<T>(bool inactive) where T:class=>components.OfType<T>().ToArray();
++  public T[] GetComponentsInChildren<T>(bool inactive) where T:class=>components.OfType<T>().Concat(All.Where(g=>g.transform.parent==transform && (inactive||g.activeInHierarchy)).SelectMany(g=>g.GetComponentsInChildren<T>(inactive))).ToArray();
+  }
+  public struct Vector2 {
+  public float x,y;public Vector2(float x,float y){this.x=x;this.y=y;}public static Vector2 zero=>new(0,0);
+@@ -34,9 +35,9 @@
+  }
+  public struct Vector3 {public float x,y,z;public Vector3(float x,float y,float z){this.x=x;this.y=y;this.z=z;}public static Vector3 operator -(Vector3 a,Vector3 b)=>new(a.x-b.x,a.y-b.y,a.z-b.z);}
+  public struct Quaternion {private float angle;public static Quaternion Euler(float x,float y,float z)=>new Quaternion{angle=z};public static Vector3 operator *(Quaternion q,Vector3 p){double t=q.angle*Math.PI/180;return new Vector3((float)(p.x*Math.Cos(t)-p.y*Math.Sin(t)),(float)(p.x*Math.Sin(t)+p.y*Math.Cos(t)),p.z);}}
+- public struct Bounds {public Vector3 size;public Vector3 extents=>new(size.x/2,size.y/2,size.z/2);public bool Intersects(Bounds b)=>false;}
++ public struct Bounds {public Vector3 center;public Vector3 size;public Vector3 extents=>new(size.x/2,size.y/2,size.z/2);public bool Intersects(Bounds b)=>Math.Abs(center.x-b.center.x)<=(size.x+b.size.x)/2 && Math.Abs(center.y-b.center.y)<=(size.y+b.size.y)/2;}
+  public class Sprite {public Bounds bounds=new Bounds{size=new Vector3(10.24f,10.24f,0)};}
+- public class SpriteRenderer:Behaviour {public Sprite sprite;public int sortingOrder;public Color color=new Color(1,1,1,1);public Bounds bounds=>sprite?.bounds??default;}
++ public class SpriteRenderer:Behaviour {public Sprite sprite;public int sortingOrder,sortingLayerID;public Bounds? TestBounds;public Color color=new Color(1,1,1,1);public Bounds bounds=>TestBounds??new Bounds{center=transform.position,size=sprite?.bounds.size??default};}
+  public class Collider2D:Behaviour {public bool isTrigger;public Bounds bounds;}
+  public class CircleCollider2D:Collider2D {public float radius;}
+  public class BoxCollider2D:Collider2D {public Vector2 size;}
+@@ -104,7 +105,7 @@
+ public class PartyMovementMono:UnityEngine.MonoBehaviour {public bool TryAcquireExternalMovement(object o,bool b)=>true;public void ReleaseExternalMovement(object o){}}
+ public class SkillBrainMono:UnityEngine.MonoBehaviour {}
+ public class SkillExecutorMono:UnityEngine.MonoBehaviour {}
+-namespace UnityEngine {public struct Color {public float a;public Color(float r,float g,float b,float a){this.a=a;}}public static class Screen {public static int width=800,height=600;}public class Texture2D {public static Texture2D whiteTexture=new();}public static class Mathf {public static float Clamp01(float f)=>Math.Max(0,Math.Min(1,f));public static float Max(float a,float b)=>Math.Max(a,b);public static float Abs(float v)=>Math.Abs(v);public static float Clamp(float v,float a,float b)=>Math.Max(a,Math.Min(b,v));public static float MoveTowards(float v,float target,float d)=>v<target?Math.Min(target,v+d):Math.Max(target,v-d);}}
++namespace UnityEngine {public struct Color {public float a;public Color(float r,float g,float b,float a){this.a=a;}}public static class Screen {public static int width=800,height=600;}public class Texture2D {public static Texture2D whiteTexture=new();}public static class Mathf {public static int RoundToInt(float f)=>(int)Math.Round(f);public static float Clamp01(float f)=>Math.Max(0,Math.Min(1,f));public static float Max(float a,float b)=>Math.Max(a,b);public static float Abs(float v)=>Math.Abs(v);public static float Clamp(float v,float a,float b)=>Math.Max(a,Math.Min(b,v));public static float MoveTowards(float v,float target,float d)=>v<target?Math.Min(target,v+d):Math.Max(target,v-d);}}
+ 
+ namespace Battle.Morpg {
+  internal class MorpgRewardHudMono:UnityEngine.MonoBehaviour,IMorpgRewardPresentation {
+@@ -122,3 +123,8 @@
+   internal void LosePresentation(){Available=false;missing?.Invoke();}
+  }
+ }
++
++namespace UnityEngine {public class SerializeField:Attribute{}public class DisallowMultipleComponent:Attribute{}public class MinAttribute:Attribute{public MinAttribute(int value){}}}
++namespace Character.UI {public class CharacterSkillCooldownSlot:UnityEngine.MonoBehaviour{}}
++namespace Party.UI {public class CharacterBattleHudUI:UnityEngine.MonoBehaviour{}}
++namespace Battle.Presentation {public class BattleCharacterAuraView:UnityEngine.MonoBehaviour{}}
+--- a/AgentTools/MorpgIntegrationHarness/Program.cs
++++ b/AgentTools/MorpgIntegrationHarness/Program.cs
+@@ -180,6 +180,48 @@
+    }
+    Check(Camera.main.orthographicSize==5 && Camera.main.aspect==2,"camera baseline not restored");Camera.main=null;
+   });
++  Test("sorting-background-props-player-NPC-foreground-telegraph-HUD",()=>{
++   using var f=new Fixture();f.Tick(.01f);
++   foreach(var actor in new[]{f.Player,NpcSpawnService.Instance.Spawned[0]}){
++    var body=actor.gameObject.AddComponent<SpriteRenderer>();body.sprite=new Sprite();
++    var hud=new GameObject("health HUD");hud.transform.SetParent(actor.transform,false);hud.AddComponent<Party.UI.CharacterBattleHudUI>();
++    var bar=hud.AddComponent<SpriteRenderer>();bar.sortingOrder=200;bar.sprite=new Sprite();
++    var sorter=actor.gameObject.AddComponent<Util.SortingOrderMono>();
++    typeof(Util.SortingOrderMono).GetMethod("Awake",System.Reflection.BindingFlags.NonPublic|System.Reflection.BindingFlags.Instance).Invoke(sorter,null);
++    var background=GameObject.All.Last(g=>g.name=="Full map dressing — collider0" && g.activeInHierarchy).GetComponent<SpriteRenderer>();
++    var prop=GameObject.All.Last(g=>g.name.StartsWith("prop.") && g.activeInHierarchy).GetComponent<SpriteRenderer>();
++    foreach(float y in new[]{-7.35f,-5f,0f,5f,7.35f}){
++     actor.transform.position=new Vector3(0,y,0);sorter.UpdateSortingOrder();
++     Check(background.sortingLayerID==body.sortingLayerID && prop.sortingLayerID==body.sortingLayerID,"layer mismatch");
++     Check(background.sortingOrder<prop.sortingOrder && prop.sortingOrder<body.sortingOrder && body.sortingOrder<Battle.BattlePresentationSortingPolicy.MorpgForegroundProps && Battle.BattlePresentationSortingPolicy.MorpgForegroundProps<Battle.BattlePresentationSortingPolicy.MorpgGroundTelegraph && Battle.BattlePresentationSortingPolicy.MorpgGroundTelegraph<bar.sortingOrder,"body hidden or HUD behind body at y="+y);
++     Check(body.color.a==1 && bar.sortingOrder==200,"body alpha or HUD mutated");
++    }
++   }
++   Check(GameObject.All.Last(g=>g.name=="MORPG environment" && g.activeInHierarchy).transform.parent==null,"ancestor sorting group inherited");
++  });
++  Test("sorting-foreground-fades-prop-only-and-restores",()=>{
++   using var f=new Fixture();f.Tick(.01f);var runtime=MorpgEnvironmentRuntime.Active;
++   var body=f.Player.gameObject.AddComponent<SpriteRenderer>();body.sprite=new Sprite();body.TestBounds=new Bounds{center=new Vector3(-10.25f,0,0),size=new Vector3(1,1,0)};
++   var props=GameObject.All.Where(g=>g.activeInHierarchy && (g.name.StartsWith("prop.")||g.name.StartsWith("dressing."))).Select(g=>g.GetComponent<SpriteRenderer>()).ToArray();
++   foreach(var r in props)r.TestBounds=new Bounds{center=new Vector3(1000,1000,0),size=new Vector3(1,1,0)};
++   var foreground=props[0];foreground.TestBounds=body.TestBounds;runtime.Tick(.12f);
++   Check(Math.Abs(foreground.color.a-.35f)<.0001f && foreground.sortingOrder==Battle.BattlePresentationSortingPolicy.MorpgForegroundProps,"foreground fade missing");
++   Check(body.color.a==1,"occlusion altered body alpha");
++   body.TestBounds=new Bounds{center=new Vector3(-1000,-1000,0),size=new Vector3(1,1,0)};runtime.Tick(.18f);
++   Check(foreground.color.a==1 && foreground.sortingOrder==Battle.BattlePresentationSortingPolicy.MorpgBackProps && body.color.a==1,"prop restore failed");
++  });
++  Test("sorting-pool-disable-dispose-and-foreign-actor-preserve-legacy",()=>{
++   using var f=new Fixture();f.Tick(.01f);
++   var body=f.Player.gameObject.AddComponent<SpriteRenderer>();f.Player.transform.position=new Vector3(0,6,0);
++   var sorter=f.Player.gameObject.AddComponent<Util.SortingOrderMono>();
++   var flags=System.Reflection.BindingFlags.NonPublic|System.Reflection.BindingFlags.Instance;
++   typeof(Util.SortingOrderMono).GetMethod("Awake",flags).Invoke(sorter,null);sorter.UpdateSortingOrder();Check(body.sortingOrder==-700,"MORPG body band");
++   typeof(Util.SortingOrderMono).GetMethod("OnDisable",flags).Invoke(sorter,null);Check(body.sortingOrder==-600,"pool baseline lost");
++   sorter.UpdateSortingOrder();Check(body.sortingOrder==-700,"reuse failed");
++   var foreign=new GameObject("foreign actor");foreign.AddComponent<CharacterManager>();foreign.transform.position=new Vector3(0,6,0);
++   var fs=foreign.AddComponent<Util.SortingOrderMono>();typeof(Util.SortingOrderMono).GetMethod("Awake",flags).Invoke(fs,null);Check(fs.CalculateSortingOrder()==-600,"foreign actor changed");
++   f.Route.Dispose();Check(body.sortingOrder==-600 && body.color.a==1,"dispose sorting/alpha restoration failed");
++  });
+   Console.WriteLine("PASS "+pass+"/"+pass+" live glue simulations (Unity engine stub)");
+  }
+ }
+--- a/AgentTools/MorpgIntegrationHarness/run.sh
++++ b/AgentTools/MorpgIntegrationHarness/run.sh
+@@ -3,5 +3,5 @@
+ cd /Users/pvenus/ProjectBS
+ morpg_mono=/Applications/Unity/Hub/Editor/6000.3.10f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge
+ morpg_out=$(mktemp -d /private/tmp/projectbs-morpg-live.XXXXXX)
+-"$morpg_mono/bin/mono" "$morpg_mono/lib/mono/msbuild/Current/bin/Roslyn/csc.exe" -nologo -langversion:9.0 -r:System.Web.Extensions.dll -out:"$morpg_out/live.exe" AgentTools/MorpgIntegrationHarness/Program.cs AgentTools/MorpgIntegrationHarness/RuntimeStub.cs AgentTools/MorpgP0Harness/UnityEngineStub.cs $(rg --files Assets/Scripts/Battle/Morpg -g '*.cs' | rg -v '/MorpgRewardHudMono.cs$') Assets/Scripts/Collection/Currency/CurrencyRutimeData.cs
++"$morpg_mono/bin/mono" "$morpg_mono/lib/mono/msbuild/Current/bin/Roslyn/csc.exe" -nologo -langversion:9.0 -r:System.Web.Extensions.dll -out:"$morpg_out/live.exe" AgentTools/MorpgIntegrationHarness/Program.cs AgentTools/MorpgIntegrationHarness/RuntimeStub.cs AgentTools/MorpgP0Harness/UnityEngineStub.cs $(rg --files Assets/Scripts/Battle/Morpg -g '*.cs' | rg -v '/MorpgRewardHudMono.cs$') Assets/Scripts/Collection/Currency/CurrencyRutimeData.cs Assets/Scripts/Battle/Presentation/BattlePresentationSortingPolicy.cs Assets/Scripts/Core/Utilities/SortingOrderMono.cs
+ "$morpg_mono/bin/mono" "$morpg_out/live.exe" /Users/pvenus/ProjectBS

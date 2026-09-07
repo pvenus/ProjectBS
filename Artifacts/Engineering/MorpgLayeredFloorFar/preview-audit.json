@@ -1,0 +1,2409 @@
+{
+  "method": "Static exact source compositing from runtime-stub transforms; no Unity/GPU execution",
+  "views": [
+    {
+      "wave": 1,
+      "view": "center",
+      "uncoveredPixels": 0,
+      "visibility": {
+        "top": {
+          "opaqueVisiblePixels": 20992,
+          "opaqueVisibleBBox": [
+            0,
+            0,
+            960,
+            52
+          ]
+        },
+        "bottom": {
+          "opaqueVisiblePixels": 18485,
+          "opaqueVisibleBBox": [
+            0,
+            462,
+            960,
+            540
+          ]
+        },
+        "bottomMissingColumns": 0
+      },
+      "camera": [
+        16,
+        -0.5
+      ],
+      "instances": [
+        {
+          "name": "wave1.top.tile.0",
+          "physicsBase": [
+            8.32,
+            5.13
+          ],
+          "position": [
+            8.32,
+            4.63
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            296,
+            1536,
+            216
+          ]
+        },
+        {
+          "name": "wave1.top.tile.1",
+          "physicsBase": [
+            23.68,
+            5.13
+          ],
+          "position": [
+            23.68,
+            4.63
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            296,
+            1536,
+            216
+          ]
+        },
+        {
+          "name": "wave1.bottom.tile.0",
+          "physicsBase": [
+            -4.27520037,
+            -5.28
+          ],
+          "position": [
+            -4.27520037,
+            -5.28
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            246
+          ]
+        },
+        {
+          "name": "wave1.bottom.tile.1",
+          "physicsBase": [
+            9.2416,
+            -5.28
+          ],
+          "position": [
+            9.2416,
+            -5.28
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            246
+          ]
+        },
+        {
+          "name": "wave1.bottom.tile.2",
+          "physicsBase": [
+            22.7584,
+            -5.28
+          ],
+          "position": [
+            22.7584,
+            -5.28
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            246
+          ]
+        },
+        {
+          "name": "wave1.bottom.tile.3",
+          "physicsBase": [
+            36.2752,
+            -5.28
+          ],
+          "position": [
+            36.2752,
+            -5.28
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            246
+          ]
+        }
+      ]
+    },
+    {
+      "wave": 1,
+      "view": "left",
+      "uncoveredPixels": 0,
+      "visibility": {
+        "top": {
+          "opaqueVisiblePixels": 21320,
+          "opaqueVisibleBBox": [
+            0,
+            0,
+            960,
+            52
+          ]
+        },
+        "bottom": {
+          "opaqueVisiblePixels": 23715,
+          "opaqueVisibleBBox": [
+            0,
+            462,
+            960,
+            540
+          ]
+        },
+        "bottomMissingColumns": 0
+      },
+      "camera": [
+        8.888889,
+        -0.5
+      ],
+      "instances": [
+        {
+          "name": "wave1.top.tile.0",
+          "physicsBase": [
+            8.32,
+            5.13
+          ],
+          "position": [
+            5.333333,
+            4.63
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            296,
+            1536,
+            216
+          ]
+        },
+        {
+          "name": "wave1.top.tile.1",
+          "physicsBase": [
+            23.68,
+            5.13
+          ],
+          "position": [
+            20.6933346,
+            4.63
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            296,
+            1536,
+            216
+          ]
+        },
+        {
+          "name": "wave1.bottom.tile.0",
+          "physicsBase": [
+            -4.27520037,
+            -5.28
+          ],
+          "position": [
+            -3.20853376,
+            -5.28
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            246
+          ]
+        },
+        {
+          "name": "wave1.bottom.tile.1",
+          "physicsBase": [
+            9.2416,
+            -5.28
+          ],
+          "position": [
+            10.3082666,
+            -5.28
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            246
+          ]
+        },
+        {
+          "name": "wave1.bottom.tile.2",
+          "physicsBase": [
+            22.7584,
+            -5.28
+          ],
+          "position": [
+            23.8250656,
+            -5.28
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            246
+          ]
+        },
+        {
+          "name": "wave1.bottom.tile.3",
+          "physicsBase": [
+            36.2752,
+            -5.28
+          ],
+          "position": [
+            37.3418655,
+            -5.28
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            246
+          ]
+        }
+      ]
+    },
+    {
+      "wave": 1,
+      "view": "right",
+      "uncoveredPixels": 0,
+      "visibility": {
+        "top": {
+          "opaqueVisiblePixels": 21035,
+          "opaqueVisibleBBox": [
+            0,
+            0,
+            960,
+            52
+          ]
+        },
+        "bottom": {
+          "opaqueVisiblePixels": 22796,
+          "opaqueVisibleBBox": [
+            0,
+            462,
+            960,
+            540
+          ]
+        },
+        "bottomMissingColumns": 0
+      },
+      "camera": [
+        23.11111,
+        -0.5
+      ],
+      "instances": [
+        {
+          "name": "wave1.top.tile.0",
+          "physicsBase": [
+            8.32,
+            5.13
+          ],
+          "position": [
+            11.3066664,
+            4.63
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            296,
+            1536,
+            216
+          ]
+        },
+        {
+          "name": "wave1.top.tile.1",
+          "physicsBase": [
+            23.68,
+            5.13
+          ],
+          "position": [
+            26.666666,
+            4.63
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            296,
+            1536,
+            216
+          ]
+        },
+        {
+          "name": "wave1.bottom.tile.0",
+          "physicsBase": [
+            -4.27520037,
+            -5.28
+          ],
+          "position": [
+            -5.341867,
+            -5.28
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            246
+          ]
+        },
+        {
+          "name": "wave1.bottom.tile.1",
+          "physicsBase": [
+            9.2416,
+            -5.28
+          ],
+          "position": [
+            8.174933,
+            -5.28
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            246
+          ]
+        },
+        {
+          "name": "wave1.bottom.tile.2",
+          "physicsBase": [
+            22.7584,
+            -5.28
+          ],
+          "position": [
+            21.6917343,
+            -5.28
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            246
+          ]
+        },
+        {
+          "name": "wave1.bottom.tile.3",
+          "physicsBase": [
+            36.2752,
+            -5.28
+          ],
+          "position": [
+            35.2085342,
+            -5.28
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            246
+          ]
+        }
+      ]
+    },
+    {
+      "wave": 1,
+      "view": "fast-left",
+      "uncoveredPixels": 0,
+      "visibility": {
+        "top": {
+          "opaqueVisiblePixels": 21320,
+          "opaqueVisibleBBox": [
+            0,
+            0,
+            960,
+            52
+          ]
+        },
+        "bottom": {
+          "opaqueVisiblePixels": 23715,
+          "opaqueVisibleBBox": [
+            0,
+            462,
+            960,
+            540
+          ]
+        },
+        "bottomMissingColumns": 0
+      },
+      "camera": [
+        8.888889,
+        -0.5
+      ],
+      "instances": [
+        {
+          "name": "wave1.top.tile.0",
+          "physicsBase": [
+            8.32,
+            5.13
+          ],
+          "position": [
+            5.333333,
+            4.63
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            296,
+            1536,
+            216
+          ]
+        },
+        {
+          "name": "wave1.top.tile.1",
+          "physicsBase": [
+            23.68,
+            5.13
+          ],
+          "position": [
+            20.6933346,
+            4.63
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            296,
+            1536,
+            216
+          ]
+        },
+        {
+          "name": "wave1.bottom.tile.0",
+          "physicsBase": [
+            -4.27520037,
+            -5.28
+          ],
+          "position": [
+            -3.20853376,
+            -5.28
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            246
+          ]
+        },
+        {
+          "name": "wave1.bottom.tile.1",
+          "physicsBase": [
+            9.2416,
+            -5.28
+          ],
+          "position": [
+            10.3082666,
+            -5.28
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            246
+          ]
+        },
+        {
+          "name": "wave1.bottom.tile.2",
+          "physicsBase": [
+            22.7584,
+            -5.28
+          ],
+          "position": [
+            23.8250656,
+            -5.28
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            246
+          ]
+        },
+        {
+          "name": "wave1.bottom.tile.3",
+          "physicsBase": [
+            36.2752,
+            -5.28
+          ],
+          "position": [
+            37.3418655,
+            -5.28
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            246
+          ]
+        }
+      ]
+    },
+    {
+      "wave": 1,
+      "view": "fast-right",
+      "uncoveredPixels": 0,
+      "visibility": {
+        "top": {
+          "opaqueVisiblePixels": 21035,
+          "opaqueVisibleBBox": [
+            0,
+            0,
+            960,
+            52
+          ]
+        },
+        "bottom": {
+          "opaqueVisiblePixels": 22796,
+          "opaqueVisibleBBox": [
+            0,
+            462,
+            960,
+            540
+          ]
+        },
+        "bottomMissingColumns": 0
+      },
+      "camera": [
+        23.11111,
+        -0.5
+      ],
+      "instances": [
+        {
+          "name": "wave1.top.tile.0",
+          "physicsBase": [
+            8.32,
+            5.13
+          ],
+          "position": [
+            11.3066664,
+            4.63
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            296,
+            1536,
+            216
+          ]
+        },
+        {
+          "name": "wave1.top.tile.1",
+          "physicsBase": [
+            23.68,
+            5.13
+          ],
+          "position": [
+            26.666666,
+            4.63
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            296,
+            1536,
+            216
+          ]
+        },
+        {
+          "name": "wave1.bottom.tile.0",
+          "physicsBase": [
+            -4.27520037,
+            -5.28
+          ],
+          "position": [
+            -5.341867,
+            -5.28
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            246
+          ]
+        },
+        {
+          "name": "wave1.bottom.tile.1",
+          "physicsBase": [
+            9.2416,
+            -5.28
+          ],
+          "position": [
+            8.174933,
+            -5.28
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            246
+          ]
+        },
+        {
+          "name": "wave1.bottom.tile.2",
+          "physicsBase": [
+            22.7584,
+            -5.28
+          ],
+          "position": [
+            21.6917343,
+            -5.28
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            246
+          ]
+        },
+        {
+          "name": "wave1.bottom.tile.3",
+          "physicsBase": [
+            36.2752,
+            -5.28
+          ],
+          "position": [
+            35.2085342,
+            -5.28
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            246
+          ]
+        }
+      ]
+    },
+    {
+      "wave": 2,
+      "view": "center",
+      "uncoveredPixels": 0,
+      "visibility": {
+        "top": {
+          "opaqueVisiblePixels": 33381,
+          "opaqueVisibleBBox": [
+            0,
+            0,
+            960,
+            51
+          ]
+        },
+        "bottom": {
+          "opaqueVisiblePixels": 23383,
+          "opaqueVisibleBBox": [
+            0,
+            462,
+            960,
+            540
+          ]
+        },
+        "bottomMissingColumns": 0
+      },
+      "camera": [
+        68,
+        -0.5
+      ],
+      "instances": [
+        {
+          "name": "wave2.top.tile.0",
+          "physicsBase": [
+            60.32,
+            5.59500027
+          ],
+          "position": [
+            60.32,
+            5.09500027
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            203.000015,
+            1536,
+            309
+          ]
+        },
+        {
+          "name": "wave2.top.tile.1",
+          "physicsBase": [
+            75.68,
+            5.59500027
+          ],
+          "position": [
+            75.68,
+            5.09500027
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            203.000015,
+            1536,
+            309
+          ]
+        },
+        {
+          "name": "wave2.bottom.tile.0",
+          "physicsBase": [
+            47.7248,
+            -5.76500034
+          ],
+          "position": [
+            47.7248,
+            -5.76500034
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            342.999969
+          ]
+        },
+        {
+          "name": "wave2.bottom.tile.1",
+          "physicsBase": [
+            61.2416,
+            -5.76500034
+          ],
+          "position": [
+            61.2416,
+            -5.76500034
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            342.999969
+          ]
+        },
+        {
+          "name": "wave2.bottom.tile.2",
+          "physicsBase": [
+            74.7584,
+            -5.76500034
+          ],
+          "position": [
+            74.7584,
+            -5.76500034
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            342.999969
+          ]
+        },
+        {
+          "name": "wave2.bottom.tile.3",
+          "physicsBase": [
+            88.2752,
+            -5.76500034
+          ],
+          "position": [
+            88.2752,
+            -5.76500034
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            342.999969
+          ]
+        }
+      ]
+    },
+    {
+      "wave": 2,
+      "view": "left",
+      "uncoveredPixels": 0,
+      "visibility": {
+        "top": {
+          "opaqueVisiblePixels": 34663,
+          "opaqueVisibleBBox": [
+            0,
+            0,
+            960,
+            51
+          ]
+        },
+        "bottom": {
+          "opaqueVisiblePixels": 24678,
+          "opaqueVisibleBBox": [
+            0,
+            462,
+            960,
+            540
+          ]
+        },
+        "bottomMissingColumns": 0
+      },
+      "camera": [
+        60.88889,
+        -0.5
+      ],
+      "instances": [
+        {
+          "name": "wave2.top.tile.0",
+          "physicsBase": [
+            60.32,
+            5.59500027
+          ],
+          "position": [
+            57.3333321,
+            5.09500027
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            203.000015,
+            1536,
+            309
+          ]
+        },
+        {
+          "name": "wave2.top.tile.1",
+          "physicsBase": [
+            75.68,
+            5.59500027
+          ],
+          "position": [
+            72.69334,
+            5.09500027
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            203.000015,
+            1536,
+            309
+          ]
+        },
+        {
+          "name": "wave2.bottom.tile.0",
+          "physicsBase": [
+            47.7248,
+            -5.76500034
+          ],
+          "position": [
+            48.7914658,
+            -5.76500034
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            342.999969
+          ]
+        },
+        {
+          "name": "wave2.bottom.tile.1",
+          "physicsBase": [
+            61.2416,
+            -5.76500034
+          ],
+          "position": [
+            62.3082657,
+            -5.76500034
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            342.999969
+          ]
+        },
+        {
+          "name": "wave2.bottom.tile.2",
+          "physicsBase": [
+            74.7584,
+            -5.76500034
+          ],
+          "position": [
+            75.8250656,
+            -5.76500034
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            342.999969
+          ]
+        },
+        {
+          "name": "wave2.bottom.tile.3",
+          "physicsBase": [
+            88.2752,
+            -5.76500034
+          ],
+          "position": [
+            89.3418655,
+            -5.76500034
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            342.999969
+          ]
+        }
+      ]
+    },
+    {
+      "wave": 2,
+      "view": "right",
+      "uncoveredPixels": 0,
+      "visibility": {
+        "top": {
+          "opaqueVisiblePixels": 34346,
+          "opaqueVisibleBBox": [
+            0,
+            0,
+            960,
+            51
+          ]
+        },
+        "bottom": {
+          "opaqueVisiblePixels": 24895,
+          "opaqueVisibleBBox": [
+            0,
+            462,
+            960,
+            540
+          ]
+        },
+        "bottomMissingColumns": 0
+      },
+      "camera": [
+        75.1111145,
+        -0.5
+      ],
+      "instances": [
+        {
+          "name": "wave2.top.tile.0",
+          "physicsBase": [
+            60.32,
+            5.59500027
+          ],
+          "position": [
+            63.3066673,
+            5.09500027
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            203.000015,
+            1536,
+            309
+          ]
+        },
+        {
+          "name": "wave2.top.tile.1",
+          "physicsBase": [
+            75.68,
+            5.59500027
+          ],
+          "position": [
+            78.66667,
+            5.09500027
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            203.000015,
+            1536,
+            309
+          ]
+        },
+        {
+          "name": "wave2.bottom.tile.0",
+          "physicsBase": [
+            47.7248,
+            -5.76500034
+          ],
+          "position": [
+            46.6581345,
+            -5.76500034
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            342.999969
+          ]
+        },
+        {
+          "name": "wave2.bottom.tile.1",
+          "physicsBase": [
+            61.2416,
+            -5.76500034
+          ],
+          "position": [
+            60.1749344,
+            -5.76500034
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            342.999969
+          ]
+        },
+        {
+          "name": "wave2.bottom.tile.2",
+          "physicsBase": [
+            74.7584,
+            -5.76500034
+          ],
+          "position": [
+            73.6917343,
+            -5.76500034
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            342.999969
+          ]
+        },
+        {
+          "name": "wave2.bottom.tile.3",
+          "physicsBase": [
+            88.2752,
+            -5.76500034
+          ],
+          "position": [
+            87.2085342,
+            -5.76500034
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            342.999969
+          ]
+        }
+      ]
+    },
+    {
+      "wave": 2,
+      "view": "fast-left",
+      "uncoveredPixels": 0,
+      "visibility": {
+        "top": {
+          "opaqueVisiblePixels": 34663,
+          "opaqueVisibleBBox": [
+            0,
+            0,
+            960,
+            51
+          ]
+        },
+        "bottom": {
+          "opaqueVisiblePixels": 24678,
+          "opaqueVisibleBBox": [
+            0,
+            462,
+            960,
+            540
+          ]
+        },
+        "bottomMissingColumns": 0
+      },
+      "camera": [
+        60.88889,
+        -0.5
+      ],
+      "instances": [
+        {
+          "name": "wave2.top.tile.0",
+          "physicsBase": [
+            60.32,
+            5.59500027
+          ],
+          "position": [
+            57.3333321,
+            5.09500027
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            203.000015,
+            1536,
+            309
+          ]
+        },
+        {
+          "name": "wave2.top.tile.1",
+          "physicsBase": [
+            75.68,
+            5.59500027
+          ],
+          "position": [
+            72.69334,
+            5.09500027
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            203.000015,
+            1536,
+            309
+          ]
+        },
+        {
+          "name": "wave2.bottom.tile.0",
+          "physicsBase": [
+            47.7248,
+            -5.76500034
+          ],
+          "position": [
+            48.7914658,
+            -5.76500034
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            342.999969
+          ]
+        },
+        {
+          "name": "wave2.bottom.tile.1",
+          "physicsBase": [
+            61.2416,
+            -5.76500034
+          ],
+          "position": [
+            62.3082657,
+            -5.76500034
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            342.999969
+          ]
+        },
+        {
+          "name": "wave2.bottom.tile.2",
+          "physicsBase": [
+            74.7584,
+            -5.76500034
+          ],
+          "position": [
+            75.8250656,
+            -5.76500034
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            342.999969
+          ]
+        },
+        {
+          "name": "wave2.bottom.tile.3",
+          "physicsBase": [
+            88.2752,
+            -5.76500034
+          ],
+          "position": [
+            89.3418655,
+            -5.76500034
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            342.999969
+          ]
+        }
+      ]
+    },
+    {
+      "wave": 2,
+      "view": "fast-right",
+      "uncoveredPixels": 0,
+      "visibility": {
+        "top": {
+          "opaqueVisiblePixels": 34346,
+          "opaqueVisibleBBox": [
+            0,
+            0,
+            960,
+            51
+          ]
+        },
+        "bottom": {
+          "opaqueVisiblePixels": 24895,
+          "opaqueVisibleBBox": [
+            0,
+            462,
+            960,
+            540
+          ]
+        },
+        "bottomMissingColumns": 0
+      },
+      "camera": [
+        75.1111145,
+        -0.5
+      ],
+      "instances": [
+        {
+          "name": "wave2.top.tile.0",
+          "physicsBase": [
+            60.32,
+            5.59500027
+          ],
+          "position": [
+            63.3066673,
+            5.09500027
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            203.000015,
+            1536,
+            309
+          ]
+        },
+        {
+          "name": "wave2.top.tile.1",
+          "physicsBase": [
+            75.68,
+            5.59500027
+          ],
+          "position": [
+            78.66667,
+            5.09500027
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            203.000015,
+            1536,
+            309
+          ]
+        },
+        {
+          "name": "wave2.bottom.tile.0",
+          "physicsBase": [
+            47.7248,
+            -5.76500034
+          ],
+          "position": [
+            46.6581345,
+            -5.76500034
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            342.999969
+          ]
+        },
+        {
+          "name": "wave2.bottom.tile.1",
+          "physicsBase": [
+            61.2416,
+            -5.76500034
+          ],
+          "position": [
+            60.1749344,
+            -5.76500034
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            342.999969
+          ]
+        },
+        {
+          "name": "wave2.bottom.tile.2",
+          "physicsBase": [
+            74.7584,
+            -5.76500034
+          ],
+          "position": [
+            73.6917343,
+            -5.76500034
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            342.999969
+          ]
+        },
+        {
+          "name": "wave2.bottom.tile.3",
+          "physicsBase": [
+            88.2752,
+            -5.76500034
+          ],
+          "position": [
+            87.2085342,
+            -5.76500034
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            342.999969
+          ]
+        }
+      ]
+    },
+    {
+      "wave": 3,
+      "view": "center",
+      "uncoveredPixels": 0,
+      "visibility": {
+        "top": {
+          "opaqueVisiblePixels": 44540,
+          "opaqueVisibleBBox": [
+            0,
+            0,
+            960,
+            51
+          ]
+        },
+        "bottom": {
+          "opaqueVisiblePixels": 35135,
+          "opaqueVisibleBBox": [
+            0,
+            472,
+            960,
+            540
+          ]
+        },
+        "bottomMissingColumns": 0
+      },
+      "camera": [
+        120,
+        -0.5
+      ],
+      "instances": [
+        {
+          "name": "wave3.top.tile.0",
+          "physicsBase": [
+            112.32,
+            5.255
+          ],
+          "position": [
+            112.32,
+            4.755
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            271,
+            1536,
+            241
+          ]
+        },
+        {
+          "name": "wave3.top.tile.1",
+          "physicsBase": [
+            127.68,
+            5.255
+          ],
+          "position": [
+            127.68,
+            4.755
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            271,
+            1536,
+            241
+          ]
+        },
+        {
+          "name": "wave3.bottom.tile.0",
+          "physicsBase": [
+            99.7248,
+            -5.41
+          ],
+          "position": [
+            99.7248,
+            -5.41
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            271.999969
+          ]
+        },
+        {
+          "name": "wave3.bottom.tile.1",
+          "physicsBase": [
+            113.2416,
+            -5.41
+          ],
+          "position": [
+            113.2416,
+            -5.41
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            271.999969
+          ]
+        },
+        {
+          "name": "wave3.bottom.tile.2",
+          "physicsBase": [
+            126.7584,
+            -5.41
+          ],
+          "position": [
+            126.7584,
+            -5.41
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            271.999969
+          ]
+        },
+        {
+          "name": "wave3.bottom.tile.3",
+          "physicsBase": [
+            140.275192,
+            -5.41
+          ],
+          "position": [
+            140.275192,
+            -5.41
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            271.999969
+          ]
+        }
+      ]
+    },
+    {
+      "wave": 3,
+      "view": "left",
+      "uncoveredPixels": 0,
+      "visibility": {
+        "top": {
+          "opaqueVisiblePixels": 44538,
+          "opaqueVisibleBBox": [
+            0,
+            0,
+            960,
+            51
+          ]
+        },
+        "bottom": {
+          "opaqueVisiblePixels": 36814,
+          "opaqueVisibleBBox": [
+            0,
+            472,
+            960,
+            540
+          ]
+        },
+        "bottomMissingColumns": 0
+      },
+      "camera": [
+        112.888885,
+        -0.5
+      ],
+      "instances": [
+        {
+          "name": "wave3.top.tile.0",
+          "physicsBase": [
+            112.32,
+            5.255
+          ],
+          "position": [
+            109.333328,
+            4.755
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            271,
+            1536,
+            241
+          ]
+        },
+        {
+          "name": "wave3.top.tile.1",
+          "physicsBase": [
+            127.68,
+            5.255
+          ],
+          "position": [
+            124.693329,
+            4.755
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            271,
+            1536,
+            241
+          ]
+        },
+        {
+          "name": "wave3.bottom.tile.0",
+          "physicsBase": [
+            99.7248,
+            -5.41
+          ],
+          "position": [
+            100.791466,
+            -5.41
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            271.999969
+          ]
+        },
+        {
+          "name": "wave3.bottom.tile.1",
+          "physicsBase": [
+            113.2416,
+            -5.41
+          ],
+          "position": [
+            114.308266,
+            -5.41
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            271.999969
+          ]
+        },
+        {
+          "name": "wave3.bottom.tile.2",
+          "physicsBase": [
+            126.7584,
+            -5.41
+          ],
+          "position": [
+            127.825066,
+            -5.41
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            271.999969
+          ]
+        },
+        {
+          "name": "wave3.bottom.tile.3",
+          "physicsBase": [
+            140.275192,
+            -5.41
+          ],
+          "position": [
+            141.341858,
+            -5.41
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            271.999969
+          ]
+        }
+      ]
+    },
+    {
+      "wave": 3,
+      "view": "right",
+      "uncoveredPixels": 0,
+      "visibility": {
+        "top": {
+          "opaqueVisiblePixels": 44588,
+          "opaqueVisibleBBox": [
+            0,
+            0,
+            960,
+            51
+          ]
+        },
+        "bottom": {
+          "opaqueVisiblePixels": 36788,
+          "opaqueVisibleBBox": [
+            0,
+            472,
+            960,
+            540
+          ]
+        },
+        "bottomMissingColumns": 0
+      },
+      "camera": [
+        127.111115,
+        -0.5
+      ],
+      "instances": [
+        {
+          "name": "wave3.top.tile.0",
+          "physicsBase": [
+            112.32,
+            5.255
+          ],
+          "position": [
+            115.306671,
+            4.755
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            271,
+            1536,
+            241
+          ]
+        },
+        {
+          "name": "wave3.top.tile.1",
+          "physicsBase": [
+            127.68,
+            5.255
+          ],
+          "position": [
+            130.666672,
+            4.755
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            271,
+            1536,
+            241
+          ]
+        },
+        {
+          "name": "wave3.bottom.tile.0",
+          "physicsBase": [
+            99.7248,
+            -5.41
+          ],
+          "position": [
+            98.6581345,
+            -5.41
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            271.999969
+          ]
+        },
+        {
+          "name": "wave3.bottom.tile.1",
+          "physicsBase": [
+            113.2416,
+            -5.41
+          ],
+          "position": [
+            112.174934,
+            -5.41
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            271.999969
+          ]
+        },
+        {
+          "name": "wave3.bottom.tile.2",
+          "physicsBase": [
+            126.7584,
+            -5.41
+          ],
+          "position": [
+            125.691734,
+            -5.41
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            271.999969
+          ]
+        },
+        {
+          "name": "wave3.bottom.tile.3",
+          "physicsBase": [
+            140.275192,
+            -5.41
+          ],
+          "position": [
+            139.208527,
+            -5.41
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            271.999969
+          ]
+        }
+      ]
+    },
+    {
+      "wave": 3,
+      "view": "fast-left",
+      "uncoveredPixels": 0,
+      "visibility": {
+        "top": {
+          "opaqueVisiblePixels": 44538,
+          "opaqueVisibleBBox": [
+            0,
+            0,
+            960,
+            51
+          ]
+        },
+        "bottom": {
+          "opaqueVisiblePixels": 36814,
+          "opaqueVisibleBBox": [
+            0,
+            472,
+            960,
+            540
+          ]
+        },
+        "bottomMissingColumns": 0
+      },
+      "camera": [
+        112.888885,
+        -0.5
+      ],
+      "instances": [
+        {
+          "name": "wave3.top.tile.0",
+          "physicsBase": [
+            112.32,
+            5.255
+          ],
+          "position": [
+            109.333328,
+            4.755
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            271,
+            1536,
+            241
+          ]
+        },
+        {
+          "name": "wave3.top.tile.1",
+          "physicsBase": [
+            127.68,
+            5.255
+          ],
+          "position": [
+            124.693329,
+            4.755
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            271,
+            1536,
+            241
+          ]
+        },
+        {
+          "name": "wave3.bottom.tile.0",
+          "physicsBase": [
+            99.7248,
+            -5.41
+          ],
+          "position": [
+            100.791466,
+            -5.41
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            271.999969
+          ]
+        },
+        {
+          "name": "wave3.bottom.tile.1",
+          "physicsBase": [
+            113.2416,
+            -5.41
+          ],
+          "position": [
+            114.308266,
+            -5.41
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            271.999969
+          ]
+        },
+        {
+          "name": "wave3.bottom.tile.2",
+          "physicsBase": [
+            126.7584,
+            -5.41
+          ],
+          "position": [
+            127.825066,
+            -5.41
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            271.999969
+          ]
+        },
+        {
+          "name": "wave3.bottom.tile.3",
+          "physicsBase": [
+            140.275192,
+            -5.41
+          ],
+          "position": [
+            141.341858,
+            -5.41
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            271.999969
+          ]
+        }
+      ]
+    },
+    {
+      "wave": 3,
+      "view": "fast-right",
+      "uncoveredPixels": 0,
+      "visibility": {
+        "top": {
+          "opaqueVisiblePixels": 44588,
+          "opaqueVisibleBBox": [
+            0,
+            0,
+            960,
+            51
+          ]
+        },
+        "bottom": {
+          "opaqueVisiblePixels": 36788,
+          "opaqueVisibleBBox": [
+            0,
+            472,
+            960,
+            540
+          ]
+        },
+        "bottomMissingColumns": 0
+      },
+      "camera": [
+        127.111115,
+        -0.5
+      ],
+      "instances": [
+        {
+          "name": "wave3.top.tile.0",
+          "physicsBase": [
+            112.32,
+            5.255
+          ],
+          "position": [
+            115.306671,
+            4.755
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            271,
+            1536,
+            241
+          ]
+        },
+        {
+          "name": "wave3.top.tile.1",
+          "physicsBase": [
+            127.68,
+            5.255
+          ],
+          "position": [
+            130.666672,
+            4.755
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            271,
+            1536,
+            241
+          ]
+        },
+        {
+          "name": "wave3.bottom.tile.0",
+          "physicsBase": [
+            99.7248,
+            -5.41
+          ],
+          "position": [
+            98.6581345,
+            -5.41
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            271.999969
+          ]
+        },
+        {
+          "name": "wave3.bottom.tile.1",
+          "physicsBase": [
+            113.2416,
+            -5.41
+          ],
+          "position": [
+            112.174934,
+            -5.41
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            271.999969
+          ]
+        },
+        {
+          "name": "wave3.bottom.tile.2",
+          "physicsBase": [
+            126.7584,
+            -5.41
+          ],
+          "position": [
+            125.691734,
+            -5.41
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            271.999969
+          ]
+        },
+        {
+          "name": "wave3.bottom.tile.3",
+          "physicsBase": [
+            140.275192,
+            -5.41
+          ],
+          "position": [
+            139.208527,
+            -5.41
+          ],
+          "scale": [
+            1,
+            1
+          ],
+          "crop": [
+            0,
+            0,
+            1536,
+            271.999969
+          ]
+        }
+      ]
+    }
+  ],
+  "worldFollowCoefficients": {
+    "floor": 0,
+    "far": 0.7,
+    "top": 0.42,
+    "bottom": -0.15
+  },
+  "gap": 20,
+  "origins": [
+    0,
+    52,
+    104
+  ],
+  "nativeTileCount": 18,
+  "topCount": 6,
+  "bottomCount": 12,
+  "floorCount": 3,
+  "farCount": 3,
+  "topVisualVerticalOffset": -0.5,
+  "fixedColliderBand": {
+    "topMinY": 4.05,
+    "bottomMaxY": -4.05
+  },
+  "maxVisualColliderSeparation": {
+    "top": 2.9866666666666664,
+    "bottom": 1.0666666666666667
+  },
+  "movingVisualBand": {
+    "topMinY": 3.55,
+    "bottomMaxY": -4.05
+  },
+  "opaqueSupportedTemplatePatches": 862,
+  "protectedSamePathDiff": 0,
+  "uncoveredPixels": 0,
+  "bottomMissingColumns": 0
+}

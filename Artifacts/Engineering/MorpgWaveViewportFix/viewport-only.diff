@@ -1,0 +1,3829 @@
+--- a/AgentTools/MorpgIntegrationHarness/RuntimeStub.cs
++++ b/AgentTools/MorpgIntegrationHarness/RuntimeStub.cs
+@@ -36,14 +36,14 @@
+  public struct Vector3 {public float x,y,z;public Vector3(float x,float y,float z){this.x=x;this.y=y;this.z=z;}public static Vector3 operator -(Vector3 a,Vector3 b)=>new(a.x-b.x,a.y-b.y,a.z-b.z);public static Vector3 Lerp(Vector3 a,Vector3 b,float t)=>new(a.x+(b.x-a.x)*t,a.y+(b.y-a.y)*t,a.z+(b.z-a.z)*t);}
+  public struct Quaternion {private float angle;public static Quaternion Euler(float x,float y,float z)=>new Quaternion{angle=z};public static Vector3 operator *(Quaternion q,Vector3 p){double t=q.angle*Math.PI/180;return new Vector3((float)(p.x*Math.Cos(t)-p.y*Math.Sin(t)),(float)(p.x*Math.Sin(t)+p.y*Math.Cos(t)),p.z);}}
+  public struct Bounds {public Vector3 center;public Vector3 size;public Vector3 extents=>new(size.x/2,size.y/2,size.z/2);public bool Intersects(Bounds b)=>Math.Abs(center.x-b.center.x)<=(size.x+b.size.x)/2 && Math.Abs(center.y-b.center.y)<=(size.y+b.size.y)/2;}
+- public class Sprite {public Bounds bounds=new Bounds{size=new Vector3(10.24f,10.24f,0)};}
++ public class Sprite {public Rect rect=new Rect(0,0,1536,512);public float pixelsPerUnit=100;public Vector2 pivot=new Vector2(768,256);public Bounds bounds=new Bounds{size=new Vector3(10.24f,10.24f,0)};}
+  public class SpriteRenderer:Behaviour {public Sprite sprite;public int sortingOrder,sortingLayerID;public bool flipX;public Bounds? TestBounds;public Color color=new Color(1,1,1,1);public Bounds bounds=>TestBounds??new Bounds{center=transform.position,size=sprite?.bounds.size??default};}
+  public class Collider2D:Behaviour {public Rigidbody2D attachedRigidbody=>GetComponent<Rigidbody2D>();public bool isTrigger;public Bounds bounds;}
+  public class CircleCollider2D:Collider2D {public float radius;}
+  public class BoxCollider2D:Collider2D {public Vector2 size;}
+  public class PolygonCollider2D:Collider2D {public Vector2[] points;public int pathCount;public readonly Dictionary<int,Vector2[]> Paths=new();public void SetPath(int i,Vector2[] p){Paths[i]=p;}}
+ 
+- public struct Rect {public float xMin,yMin,xMax,yMax;public Rect(float x,float y,float w,float h){xMin=x;yMin=y;xMax=x+w;yMax=y+h;}public static Rect MinMaxRect(float a,float b,float c,float d)=>new(a,b,c-a,d-b);}
++ public struct Rect {public float xMin,yMin,xMax,yMax;public float width=>xMax-xMin;public float height=>yMax-yMin;public Rect(float x,float y,float w,float h){xMin=x;yMin=y;xMax=x+w;yMax=y+h;}public static Rect MinMaxRect(float a,float b,float c,float d)=>new(a,b,c-a,d-b);}
+  public class Rigidbody2D:Component {public Vector2 position,linearVelocity;public float angularVelocity;public Collider2D BlockCast;public int Cast(Vector2 d,ContactFilter2D f,List<RaycastHit2D> hits,float distance){if(BlockCast==null)return 0;hits.Add(new RaycastHit2D{collider=BlockCast,distance=0});return 1;}public int Cast(Vector2 d,ContactFilter2D f,RaycastHit2D[] hits,float distance){if(BlockCast==null)return 0;hits[0]=new RaycastHit2D{collider=BlockCast,distance=0};return 1;}}
+  public class Camera:Behaviour {public static Camera main;public float orthographicSize=3,aspect=16f/9f;public bool orthographic=true;}
+  public static class Time {public static float timeScale=1;public static int frameCount;}
+--- a/AgentTools/MorpgIntegrationHarness/Program.cs
++++ b/AgentTools/MorpgIntegrationHarness/Program.cs
+@@ -12,11 +12,12 @@
+  sealed class Resolver:ISpawnUnitResolver {public readonly CharacterSO black=new(){name="black"},chain=new(){name="chain"};public CharacterSO Resolve(SpawnUnitRequest r)=>r.Key=="black"?black:chain;}
+  sealed class Fixture:IDisposable {
+   public BattleMorpgLiveRoute Route;public CharacterManager Player;public BattleSession Session;
+-  public Fixture(){
++  public Fixture(Action<BattleSession> beforeActivate=null){
+    MorpgRewardHudMono.EnableForTests=false;
+    GameSession.Instance=new GameSession();PartyManager.Instance=new PartyManager();NpcSpawnService.Instance=new NpcSpawnService();Time.timeScale=1;
+    Player=new GameObject("player").AddComponent<CharacterManager>();PartyManager.Instance.Members.Add(Player);
+    Session=new BattleSession{BattleSO=new Battle.BattleSO{BattleId=BattleMorpgDefinitionValidator.BattleId}};
++   beforeActivate?.Invoke(Session);
+    Check(BattleMorpgLiveRoute.TryCreate(true,Session,new Resolver(),new GameObject("host").transform,out Route,out var error),error);
+    Check(Route.Activate(),"environment activation failed");
+   }
+@@ -36,6 +37,11 @@
+   try{test();}finally{Camera.main=null;Physics2D.Overlaps=System.Array.Empty<Collider2D>();}
+  }
+  static Collider2D StructuralBlocker(string zoneId){var go=new GameObject("owned structural obstruction");go.transform.SetParent(GameObject.All.Last(g=>g.name==zoneId&&g.activeInHierarchy).transform,false);return go.AddComponent<BoxCollider2D>();}
++ static void WithInteriors(Action test){
++  var saved=Resources.Items[MorpgWaveDressing.Resource];
++  Resources.Items[MorpgWaveDressing.Resource]=new TextAsset(((TextAsset)saved).text.Replace("\"interiorPropsEnabled\": false","\"interiorPropsEnabled\": true"));
++  try{test();}finally{Resources.Items[MorpgWaveDressing.Resource]=saved;}
++ }
+  static void Test(string name,Action test){test();Console.WriteLine("PASS "+name);pass++;}
+  static void Main(string[] args){
+   string resource="battle/act1/chapter01/battle.act1.chapter01.01.rescue_villagers.morpg-zone-reward";
+@@ -44,13 +50,13 @@
+   Resources.Items[MorpgEnvironmentGeometry.Resource]=new TextAsset(environmentJson);
+   var environmentProfile=JsonUtility.FromJson<MorpgEnvironmentProfile>(environmentJson);
+   float startX=environmentProfile.zones[0].entry[0],entryX=environmentProfile.zones[1].entry[0],stagingX=environmentProfile.zones[1].transitionStaging[0];
+-  float sourceCameraX=environmentProfile.zones[0].cameraClamp[0],targetCameraX=environmentProfile.zones[1].cameraClamp[0];
++  float sourceCameraX=environmentProfile.zones[0].walkable.Min(v=>v.x)+environmentProfile.cameraOrthographicSize*16f/9f,targetCameraX=environmentProfile.zones[1].walkable.Min(v=>v.x)+environmentProfile.cameraOrthographicSize*16f/9f;
+   Resources.Items["battle/morpg/transitions/transition-dash"]=new AnimationClip();
+   foreach(var asset in environmentProfile.assets)Resources.Items[asset.resource]=new Sprite();
+   var dressingJson=File.ReadAllText(Path.Combine(args[0],"Assets/Resources/"+MorpgWaveDressing.Resource+".json"));
+   Resources.Items[MorpgWaveDressing.Resource]=new TextAsset(dressingJson);
+   var dressing=JsonUtility.FromJson<MorpgWaveDressing>(dressingJson);
+-  foreach(var wave in dressing.waves)foreach(var asset in wave.assets)Resources.Items[asset.resource]=new Sprite{bounds=new Bounds{size=new Vector3(15.36f,5.12f,0)}};
++  foreach(var wave in dressing.waves)foreach(var asset in wave.assets)Resources.Items[asset.resource]=new Sprite{pivot=new Vector2(asset.pivot[0]*1536,asset.pivot[1]*512),bounds=new Bounds{size=new Vector3(15.36f,5.12f,0)}};
+   Test("live-exact-gate-preflight-no-mutation",()=>{
+    var s=new BattleSession{BattleSO=new Battle.BattleSO{BattleId="other"}};
+    Check(!BattleMorpgLiveRoute.TryCreate(true,s,new Resolver(),null,out _,out _),"foreign battle accepted");
+@@ -147,7 +153,7 @@
+    using var f=new Fixture();ReachPending(f);GameSession.Instance.StageSession.CurrencyRuntimeData.gold++;f.Tick(.8f);
+    Check(f.Route.SettlementState==MorpgFinalSettlementState.Failed && !f.Route.VictoryReady,"real mismatch accepted");
+   });
+-  Test("environment-real-runtime-roots-and-collider-inventory",()=>{
++  Test("environment-real-runtime-roots-and-collider-inventory",()=>WithInteriors(()=>{
+    using var f=new Fixture();f.Tick(.01f);
+    var root=GameObject.All.Last(g=>g.name=="MORPG environment" && g.activeInHierarchy);
+    bool Descendant(GameObject g){var t=g.transform.parent;while(t!=null){if(t.gameObject==root)return true;t=t.parent;}return false;}
+@@ -158,7 +164,7 @@
+    Check(owned.Where(g=>g.GetComponent<SpriteRenderer>()!=null).All(g=>g.GetComponent<Collider2D>()==null),"visual collider fringe");
+    Check(owned.Count(g=>g.GetComponent<CircleCollider2D>()!=null && g.activeInHierarchy)==8,"initial active zone mismatch");
+    f.Route.Dispose();Check(MorpgEnvironmentRuntime.Active==null && !root.activeInHierarchy,"environment teardown leaked");
+-  });
++  }));
+   Test("environment-destination-enable-before-source-disable",()=>{
+    using var f=new Fixture();var runtime=MorpgEnvironmentRuntime.Active;
+    var old=GameObject.All.Last(g=>g.name==environmentProfile.zones[0].zoneId);
+@@ -189,11 +195,11 @@
+    Camera.main=new GameObject("camera").AddComponent<Camera>();Camera.main.orthographicSize=5;Camera.main.aspect=2;
+    using(var f=new Fixture()){
+     f.Tick(.01f);Check(Camera.main.orthographicSize==environmentProfile.cameraOrthographicSize && Math.Abs(Camera.main.aspect-16f/9f)<.0001f,"camera frame missing");
+-    var p=MorpgEnvironmentRuntime.Active.ClampCamera(new Vector2(-100,100));Check(Math.Abs(p.x-environmentProfile.zones[0].cameraClamp[0])<.0001f && p.y==environmentProfile.zones[0].cameraClamp[3],"zone camera clamp missing");
++    var p=MorpgEnvironmentRuntime.Active.ClampCamera(new Vector2(-100,100));Check(Math.Abs(p.x-sourceCameraX)<.0001f && p.y==1f,"zone camera clamp missing");
+    }
+    Check(Camera.main.orthographicSize==5 && Camera.main.aspect==2,"camera baseline not restored");Camera.main=null;
+   });
+-  Test("sorting-background-props-player-NPC-foreground-telegraph-HUD",()=>{
++  Test("sorting-background-props-player-NPC-foreground-telegraph-HUD",()=>WithInteriors(()=>{
+    using var f=new Fixture();f.Tick(.01f);
+    foreach(var actor in new[]{f.Player,NpcSpawnService.Instance.Spawned[0]}){
+     var body=actor.gameObject.AddComponent<SpriteRenderer>();body.sprite=new Sprite();
+@@ -211,8 +217,8 @@
+     }
+    }
+    Check(GameObject.All.Last(g=>g.name=="MORPG environment" && g.activeInHierarchy).transform.parent==null,"ancestor sorting group inherited");
+-  });
+-  Test("sorting-foreground-fades-prop-only-and-restores",()=>{
++  }));
++  Test("sorting-foreground-fades-prop-only-and-restores",()=>WithInteriors(()=>{
+    using var f=new Fixture();f.Tick(.01f);var runtime=MorpgEnvironmentRuntime.Active;
+    var body=f.Player.gameObject.AddComponent<SpriteRenderer>();body.sprite=new Sprite();body.TestBounds=new Bounds{center=new Vector3(startX,0,0),size=new Vector3(1,1,0)};
+    var props=GameObject.All.Where(g=>g.activeInHierarchy && (g.name.StartsWith("prop.")||g.name.StartsWith("dressing."))).Select(g=>g.GetComponent<SpriteRenderer>()).ToArray();
+@@ -222,7 +228,7 @@
+    Check(body.color.a==1,"occlusion altered body alpha");
+    body.TestBounds=new Bounds{center=new Vector3(-1000,-1000,0),size=new Vector3(1,1,0)};runtime.Tick(.18f);
+    Check(foreground.color.a==1 && foreground.sortingOrder==Battle.BattlePresentationSortingPolicy.MorpgBackProps && body.color.a==1,"prop restore failed");
+-  });
++  }));
+   Test("sorting-pool-disable-dispose-and-foreign-actor-preserve-legacy",()=>{
+    using var f=new Fixture();f.Tick(.01f);
+    var body=f.Player.gameObject.AddComponent<SpriteRenderer>();f.Player.transform.position=new Vector3(0,6,0);
+@@ -267,7 +273,7 @@
+    }
+   }));
+   Test("dash-missing-runtime-anchor-safe-fallback",()=>{
+-   using var f=new Fixture();f.Player.gameObject.AddComponent<AnimationMono>();f.Player.gameObject.AddComponent<SpriteRenderer>();MorpgEnvironmentRuntime.Active.Profile.zones[0].transitionExit=null;f.Clear();
++   using var f=new Fixture();f.Player.gameObject.AddComponent<AnimationMono>();f.Player.gameObject.AddComponent<SpriteRenderer>();MorpgEnvironmentRuntime.Active.RuntimeZone(0).transitionExit=null;f.Clear();
+    Check(f.Route.TransitionView.Clock.Fallback&&f.Route.TransitionView.FallbackReason=="authored dash corridor blocked","unsafe authored exit swept through wall");
+    f.Tick(.5f);f.Tick(.08f);f.Tick(.32f);Check(f.Route.TransitionView.Clock.ScreenOpacity==1&&f.Player.transform.position.x==entryX,"fallback cut exposed");f.AdvanceTransition();
+   });
+@@ -391,6 +397,82 @@
+     Check(!MorpgWaveDressing.TryLoad(environmentProfile,out _,out _),"combat-invading silhouette accepted");
+    }finally{Resources.Items[MorpgWaveDressing.Resource]=saved;}
+   });
++  Test("viewport-default-gate-removes-interior-renderers-colliders-and-virtual-blocks",()=>{
++   using var f=new Fixture();var env=MorpgEnvironmentRuntime.Active;
++   Check(!env.Dressing.interiorPropsEnabled&&env.Profile.zones[0].props.Length==8&&env.RuntimeZone(0).props.Length==0,"definition/gate mismatch");
++   var root=GameObject.All.Last(g=>g.name=="MORPG environment"&&g.activeInHierarchy);
++   var objects=GameObject.All.Where(g=>g.transform.IsChildOf(root.transform)).ToArray();
++   Check(objects.Count(g=>g.GetComponent<SpriteRenderer>()!=null)==9,"interior art still created");
++   Check(objects.Count(g=>g.GetComponent<CircleCollider2D>()!=null||g.GetComponent<BoxCollider2D>()!=null)==0,"interior collider still created");
++   var trunk=env.Profile.zones[0].props[0];Check(MorpgEnvironmentGeometry.Free(env.RuntimeZone(0),trunk.center[0],trunk.center[1],.15f),"invisible trunk still blocks");
++   Check(MorpgDashExitPath.Plan(env.RuntimeZone(0),new Vector3(28,3,0),.35f)!=null,"Dash reads disabled prop definitions");
++  });
++  Test("viewport-gate-can-reactivate-original-definitions",()=>WithInteriors(()=>{
++   using var f=new Fixture();var env=MorpgEnvironmentRuntime.Active;
++   Check(env.RuntimeZone(0).props.Length==8&&env.Dressing.interiorPropsEnabled,"reactivation lost definitions");
++   var trunk=env.Profile.zones[0].props[0];Check(!MorpgEnvironmentGeometry.Free(env.RuntimeZone(0),trunk.center[0],trunk.center[1],.15f),"reactivated collision absent");
++  }));
++  Test("viewport-extents-side-limits-and-no-background-void-all-zones",()=>WithInstalledDashProfile(()=>{
++   Camera.main=new GameObject("viewport geometry camera").AddComponent<Camera>();using var f=new Fixture();var env=MorpgEnvironmentRuntime.Active;
++   foreach(float aspect in new[]{16f/9f,2f}){
++    Camera.main.aspect=aspect;float hh=Camera.main.orthographicSize,hw=hh*aspect;
++    for(int i=0;i<3;i++){
++     env.CompleteWarp(i);var limits=env.CameraLimits(i);var bg=env.Dressing.waves[i].assets[0].rect;float left=env.RuntimeZone(i).walkable.Min(v=>v.x),right=left+32;
++     Check(Math.Abs(limits.xMin-hw-left)<.001f&&Math.Abs(limits.xMax+hw-right)<.001f,"side edge not at viewport edge");
++     foreach(float x in new[]{limits.xMin,limits.xMax})foreach(float y in new[]{limits.yMin,limits.yMax})Check(x-hw>=bg[0]&&x+hw<=bg[2]&&y-hh>=bg[1]&&y+hh<=bg[3],"viewport gray gap");
++     var a=env.ClampActorCenter(new Vector2(-100,-100),.35f);var b=env.ClampActorCenter(new Vector2(200,100),.35f);
++     Check(Math.Abs(a.x-left-.5f)<.001f&&Math.Abs(b.x-right+.5f)<.001f&&a.y==-3.5f&&b.y==3.5f,"player confused with camera-center limits");
++     var settled=env.ClampCamera(new Vector2(left,0));for(int n=0;n<20;n++)settled=env.ClampCamera(settled);Check(settled.y==0,"clamp accumulated offset");
++     Check(env.CameraTarget(i,new Vector2(left+5,0)).y==-.9f,"arrival framing offset missing");
++    }
++   }
++  }));
++  Test("viewport-alpha-bbox-inner-and-side-edges-match-outer-zone",()=>{
++   using var f=new Fixture();var env=MorpgEnvironmentRuntime.Active;
++   for(int i=0;i<3;i++)foreach(var a in env.Dressing.waves[i].assets.Where(a=>a.kind!="background")){
++    float sx=(a.rect[2]-a.rect[0])/1536,sy=(a.rect[3]-a.rect[1])/512;
++    float inner=a.rect[3]-a.alphaRect[a.kind=="top"?3:1]*sy;
++    Check(Math.Abs(inner-(a.kind=="top"?4:-4))<.001f,"canvas instead of alpha edge");
++    Check(Math.Abs(a.rect[0]+a.alphaRect[0]*sx-36*i)<.001f&&Math.Abs(a.rect[0]+a.alphaRect[2]*sx-(36*i+32))<.001f,"transparent side margin remains");
++    foreach(var q in a.colliderRects)Check(a.kind=="top"?q.rect[1]>=4.049f:q.rect[3]<=-4.049f,"silhouette penetrates outer bounds");
++   }
++  });
++  Test("viewport-imported-pivot-rejected-and-tight-bounds-cannot-rescale-canvas",()=>{
++   var asset=dressing.waves[0].assets[1];var sprite=(Sprite)Resources.Items[asset.resource];var pivot=sprite.pivot;var bounds=sprite.bounds;
++   try{sprite.pivot=new Vector2(1,1);Check(!MorpgWaveDressing.TryLoad(environmentProfile,out _,out var error)&&error.Contains("canvas/pivot"),"wrong import pivot accepted");sprite.pivot=pivot;
++    sprite.bounds=new Bounds{size=new Vector3(1,.1f,0)};using var f=new Fixture();var go=GameObject.All.Last(g=>g.name==asset.id&&g.activeInHierarchy);
++    Check(Math.Abs(go.transform.localScale.y-(asset.rect[3]-asset.rect[1])/5.12f)<.0001f,"tight alpha bounds scaled transparent canvas twice");
++   }finally{sprite.pivot=pivot;sprite.bounds=bounds;}
++  });
++  Test("legacy-background-normal1-success0-and-dispose-restores",()=>{
++   SpriteRenderer legacy=null;
++   using(var f=new Fixture(session=>{legacy=new GameObject("Background").AddComponent<SpriteRenderer>();legacy.sprite=new Sprite();MorpgLegacyBackground.Register(session.BattleRuntime,legacy);Check(legacy.enabled,"normal legacy hidden");})){
++    Check(!legacy.enabled,"production legacy duplicated dressing");
++    Check(GameObject.All.Count(g=>g.name=="wave1.background"&&g.activeInHierarchy&&g.GetComponent<SpriteRenderer>().enabled)==1,"wave1 background duplicate");
++   }
++   Check(legacy.enabled,"dispose did not restore legacy");
++  });
++  Test("legacy-background-test-path-after-activation-hidden-and-restored",()=>{
++   SpriteRenderer legacy;using(var f=new Fixture()){
++    legacy=new GameObject("Background").AddComponent<SpriteRenderer>();legacy.sprite=new Sprite();MorpgLegacyBackground.Register(f.Session.BattleRuntime,legacy);Check(!legacy.enabled,"late test background duplicated");
++    f.Route.Dispose();f.Route.Dispose();Check(legacy.enabled,"test background restore leaked");
++   }
++  });
++  Test("legacy-background-dressing-failure-remains-visible",()=>{
++   GameSession.Instance=new GameSession();var session=new BattleSession{BattleSO=new Battle.BattleSO{BattleId=BattleMorpgDefinitionValidator.BattleId}};
++   var legacy=new GameObject("Background").AddComponent<SpriteRenderer>();MorpgLegacyBackground.Register(session.BattleRuntime,legacy);
++   Check(BattleMorpgLiveRoute.TryCreate(true,session,new Resolver(),null,out var route,out var error),error);
++   GameObject.ThrowOnAddType="PolygonCollider2D";Check(!route.Activate()&&legacy.enabled,"activation failure lost fallback background");route.Dispose();
++   var saved=Resources.Items[MorpgWaveDressing.Resource];Resources.Items.Remove(MorpgWaveDressing.Resource);
++   try{Check(!BattleMorpgLiveRoute.TryCreate(true,session,new Resolver(),null,out _,out _)&&legacy.enabled,"preflight failure hid background");}finally{Resources.Items[MorpgWaveDressing.Resource]=saved;}
++  });
++  Test("legacy-background-owner-isolation-baseline-and-callsite-wiring",()=>{
++   var a=new Battle.BattleRuntime();var b=new Battle.BattleRuntime();var sr=new GameObject("Background").AddComponent<SpriteRenderer>();sr.enabled=false;var other=new GameObject("Background").AddComponent<SpriteRenderer>();
++   MorpgLegacyBackground.Register(a,sr);MorpgLegacyBackground.Register(b,other);
++   var one=MorpgLegacyBackground.Acquire(a);var two=MorpgLegacyBackground.Acquire(a);one.Dispose();Check(!sr.enabled&&other.enabled,"foreign/background lease changed");two.Dispose();two.Dispose();Check(!sr.enabled&&other.enabled,"disabled baseline lost");
++   Check(File.ReadAllText(Path.Combine(args[0],"Assets/Scripts/Battle/Core/BattleManager.cs")).Contains("MorpgLegacyBackground.Register(battleRuntime,renderer)"),"production registration missing");
++   Check(File.ReadAllText(Path.Combine(args[0],"Assets/Scripts/Battle/Spawn/Sequence/BattleSpawnManager.cs")).Contains("MorpgLegacyBackground.Register(runtime,renderer)"),"test registration missing");
++  });
+   File.WriteAllLines(Path.Combine(args[0],"Artifacts/Engineering/MorpgDashConsistency/diagnostics.log"),Debug.Messages);
+   Console.WriteLine("PASS "+pass+"/"+pass+" live glue simulations (Unity engine stub)");
+  }
+--- a/AgentTools/MorpgWaveDressingHarness/install.py
++++ b/AgentTools/MorpgWaveDressingHarness/install.py
+@@ -43,6 +43,9 @@
+ foldermeta=Path(str(dest)+'.meta');text='fileFormatVersion: 2\nguid: '+guid('folder')+'\nfolderAsset: yes\nDefaultImporter:\n  externalObjects: {}\n'
+ if foldermeta.exists():assert foldermeta.read_text()==text
+ else:foldermeta.write_text(text)
++if dest.exists() and 'alphaRect' in (dest/'binding.json').read_text():
++ shutil.rmtree(stage)
++ raise SystemExit('Viewport rootfix binding active. Use reframe.py; legacy installer is frozen.')
+ if dest.exists():
+  old={p.name:sha(p) for p in dest.iterdir()};new={p.name:sha(p) for p in stage.iterdir()}
+  if old!=new:
+--- a/Assets/Resources/battle/morpg/wave-environment-v1/binding.json
++++ b/Assets/Resources/battle/morpg/wave-environment-v1/binding.json
+@@ -17,13 +17,19 @@
+             0.5
+           ],
+           "rect": [
+-            -0.25,
+-            -4.5,
+-            32.25,
+-            6.333333333333334
++            -2,
++            -5.2,
++            34,
++            6.8
+           ],
+           "sortingOrder": -1000,
+-          "colliderRects": []
++          "colliderRects": [],
++          "alphaRect": [
++            0,
++            0,
++            1536,
++            512
++          ]
+         },
+         {
+           "id": "wave1.top",
+@@ -36,205 +42,211 @@
+             1
+           ],
+           "rect": [
+-            -0.25,
+-            2.5,
+-            32.25,
+-            5.7
++            -0.3404255319148936,
++            3.8438228438228443,
++            32.34042553191489,
++            5.037296037296038
+           ],
+           "sortingOrder": -900,
+           "colliderRects": [
+             {
+               "rect": [
+-                2.458333,
+-                4.8,
+-                3.135417,
+-                4.85
+-              ]
+-            },
+-            {
+-              "rect": [
+-                1.78125,
+-                4.75,
+-                3.135417,
+-                4.8
+-              ]
+-            },
+-            {
+-              "rect": [
+-                29.541667,
+-                4.75,
+-                30.21875,
+-                4.8
+-              ]
+-            },
+-            {
+-              "rect": [
+-                1.78125,
+-                4.7,
+-                3.8125,
+-                4.75
+-              ]
+-            },
+-            {
+-              "rect": [
+-                28.864583,
+-                4.7,
+-                30.21875,
+-                4.75
+-              ]
+-            },
+-            {
+-              "rect": [
+-                1.104167,
+-                4.65,
+-                4.489583,
+-                4.7
+-              ]
+-            },
+-            {
+-              "rect": [
+-                27.510417,
+-                4.65,
+-                30.895833,
+-                4.7
+-              ]
+-            },
+-            {
+-              "rect": [
+-                1.104167,
+-                4.6,
+-                5.84375,
+-                4.65
+-              ]
+-            },
+-            {
+-              "rect": [
+-                7.197917,
+-                4.6,
+-                7.875,
+-                4.65
+-              ]
+-            },
+-            {
+-              "rect": [
+-                9.90625,
+-                4.6,
+-                10.583333,
+-                4.65
+-              ]
+-            },
+-            {
+-              "rect": [
+-                18.708333,
+-                4.6,
+-                20.739583,
+-                4.65
+-              ]
+-            },
+-            {
+-              "rect": [
+-                26.833333,
+-                4.6,
+-                31.572917,
+-                4.65
+-              ]
+-            },
+-            {
+-              "rect": [
+-                0.427083,
+-                4.55,
+-                11.260417,
+-                4.6
+-              ]
+-            },
+-            {
+-              "rect": [
+-                18.708333,
+-                4.55,
+-                21.416667,
+-                4.6
+-              ]
+-            },
+-            {
+-              "rect": [
+-                24.125,
+-                4.55,
+-                24.802083,
+-                4.6
+-              ]
+-            },
+-            {
+-              "rect": [
+-                25.479167,
+-                4.55,
+-                31.572917,
+-                4.6
+-              ]
+-            },
+-            {
+-              "rect": [
+-                1.104167,
+-                4.5,
+-                12.614583,
+-                4.55
+-              ]
+-            },
+-            {
+-              "rect": [
+-                15.322917,
+-                4.5,
++                2.382979,
++                4.701632,
++                3.06383,
++                4.72028
++              ]
++            },
++            {
++              "rect": [
++                1.702128,
++                4.682984,
++                3.06383,
++                4.701632
++              ]
++            },
++            {
++              "rect": [
++                29.617021,
++                4.682984,
++                30.297872,
++                4.701632
++              ]
++            },
++            {
++              "rect": [
++                1.702128,
++                4.664336,
++                3.744681,
++                4.682984
++              ]
++            },
++            {
++              "rect": [
++                28.93617,
++                4.664336,
++                30.297872,
++                4.682984
++              ]
++            },
++            {
++              "rect": [
++                1.021277,
++                4.645688,
++                4.425532,
++                4.664336
++              ]
++            },
++            {
++              "rect": [
++                27.574468,
++                4.645688,
++                30.978723,
++                4.664336
++              ]
++            },
++            {
++              "rect": [
++                1.021277,
++                4.62704,
++                5.787234,
++                4.645688
++              ]
++            },
++            {
++              "rect": [
++                7.148936,
++                4.62704,
++                7.829787,
++                4.645688
++              ]
++            },
++            {
++              "rect": [
++                9.87234,
++                4.62704,
++                10.553191,
++                4.645688
++              ]
++            },
++            {
++              "rect": [
++                18.723404,
++                4.62704,
++                20.765957,
++                4.645688
++              ]
++            },
++            {
++              "rect": [
++                26.893617,
++                4.62704,
++                31.659574,
++                4.645688
++              ]
++            },
++            {
++              "rect": [
++                0.340426,
++                4.608392,
++                11.234043,
++                4.62704
++              ]
++            },
++            {
++              "rect": [
++                18.723404,
++                4.608392,
++                21.446809,
++                4.62704
++              ]
++            },
++            {
++              "rect": [
++                24.170213,
++                4.608392,
++                24.851064,
++                4.62704
++              ]
++            },
++            {
++              "rect": [
++                25.531915,
++                4.608392,
++                31.659574,
++                4.62704
++              ]
++            },
++            {
++              "rect": [
++                1.021277,
++                4.589744,
++                12.595745,
++                4.608392
++              ]
++            },
++            {
++              "rect": [
++                15.319149,
++                4.589744,
+                 16.0,
+-                4.55
+-              ]
+-            },
+-            {
+-              "rect": [
+-                17.354167,
+-                4.5,
+-                30.895833,
+-                4.55
+-              ]
+-            },
+-            {
+-              "rect": [
+-                1.78125,
+-                4.45,
+-                30.21875,
+-                4.5
+-              ]
+-            },
+-            {
+-              "rect": [
+-                8.552083,
+-                4.4,
+-                20.739583,
+-                4.45
+-              ]
+-            },
+-            {
+-              "rect": [
+-                23.447917,
+-                4.4,
+-                24.802083,
+-                4.45
+-              ]
+-            },
+-            {
+-              "rect": [
+-                26.15625,
+-                4.4,
+-                29.541667,
+-                4.45
+-              ]
+-            },
+-            {
+-              "rect": [
+-                14.645833,
+-                4.35,
++                4.608392
++              ]
++            },
++            {
++              "rect": [
++                17.361702,
++                4.589744,
++                30.978723,
++                4.608392
++              ]
++            },
++            {
++              "rect": [
++                1.702128,
++                4.571096,
++                30.297872,
++                4.589744
++              ]
++            },
++            {
++              "rect": [
++                8.510638,
++                4.552448,
++                20.765957,
++                4.571096
++              ]
++            },
++            {
++              "rect": [
++                23.489362,
++                4.552448,
++                24.851064,
++                4.571096
++              ]
++            },
++            {
++              "rect": [
++                26.212766,
++                4.552448,
++                29.617021,
++                4.571096
++              ]
++            },
++            {
++              "rect": [
++                14.638298,
++                4.5338,
+                 16.0,
+-                4.4
++                4.552448
+               ]
+             }
++          ],
++          "alphaRect": [
++            16,
++            16,
++            1520,
++            445
+           ]
+         },
+         {
+@@ -248,365 +260,371 @@
+             0
+           ],
+           "rect": [
+-            -0.25,
+-            -5.7,
+-            32.25,
+-            -2.5
++            -0.3404255319148936,
++            -5.038277511961723,
++            32.34042553191489,
++            -3.813397129186603
+           ],
+           "sortingOrder": 50,
+           "colliderRects": [
+             {
+               "rect": [
+-                0.427083,
+-                -4.55,
+-                2.458333,
+-                -4.5
+-              ]
+-            },
+-            {
+-              "rect": [
+-                29.541667,
+-                -4.55,
+-                30.895833,
+-                -4.5
+-              ]
+-            },
+-            {
+-              "rect": [
+-                0.427083,
+-                -4.6,
+-                2.458333,
+-                -4.55
+-              ]
+-            },
+-            {
+-              "rect": [
+-                29.541667,
+-                -4.6,
+-                30.895833,
+-                -4.55
+-              ]
+-            },
+-            {
+-              "rect": [
+-                0.427083,
+-                -4.65,
+-                3.135417,
+-                -4.6
+-              ]
+-            },
+-            {
+-              "rect": [
+-                28.864583,
+-                -4.65,
+-                31.572917,
+-                -4.6
+-              ]
+-            },
+-            {
+-              "rect": [
+-                0.427083,
+-                -4.7,
+-                3.135417,
+-                -4.65
+-              ]
+-            },
+-            {
+-              "rect": [
+-                28.864583,
+-                -4.7,
+-                31.572917,
+-                -4.65
+-              ]
+-            },
+-            {
+-              "rect": [
+-                0.427083,
+-                -4.75,
+-                3.8125,
+-                -4.7
+-              ]
+-            },
+-            {
+-              "rect": [
+-                28.1875,
+-                -4.75,
+-                31.572917,
+-                -4.7
+-              ]
+-            },
+-            {
+-              "rect": [
+-                0.427083,
+-                -4.8,
+-                3.8125,
+-                -4.75
+-              ]
+-            },
+-            {
+-              "rect": [
+-                28.1875,
+-                -4.8,
+-                31.572917,
+-                -4.75
+-              ]
+-            },
+-            {
+-              "rect": [
+-                0.427083,
+-                -4.85,
+-                4.489583,
+-                -4.8
+-              ]
+-            },
+-            {
+-              "rect": [
+-                22.770833,
+-                -4.85,
+-                23.447917,
+-                -4.8
+-              ]
+-            },
+-            {
+-              "rect": [
+-                28.1875,
+-                -4.85,
+-                31.572917,
+-                -4.8
+-              ]
+-            },
+-            {
+-              "rect": [
+-                0.427083,
+-                -4.9,
+-                5.166667,
+-                -4.85
+-              ]
+-            },
+-            {
+-              "rect": [
+-                20.739583,
+-                -4.9,
+-                21.416667,
+-                -4.85
+-              ]
+-            },
+-            {
+-              "rect": [
+-                22.770833,
+-                -4.9,
+-                24.125,
+-                -4.85
+-              ]
+-            },
+-            {
+-              "rect": [
+-                26.15625,
+-                -4.9,
+-                31.572917,
+-                -4.85
+-              ]
+-            },
+-            {
+-              "rect": [
+-                0.427083,
+-                -4.95,
+-                5.166667,
+-                -4.9
+-              ]
+-            },
+-            {
+-              "rect": [
+-                10.583333,
+-                -4.95,
+-                11.9375,
+-                -4.9
+-              ]
+-            },
+-            {
+-              "rect": [
+-                20.739583,
+-                -4.95,
+-                24.802083,
+-                -4.9
+-              ]
+-            },
+-            {
+-              "rect": [
+-                26.15625,
+-                -4.95,
+-                31.572917,
+-                -4.9
+-              ]
+-            },
+-            {
+-              "rect": [
+-                0.427083,
+-                -5.0,
+-                5.84375,
+-                -4.95
+-              ]
+-            },
+-            {
+-              "rect": [
+-                9.90625,
+-                -5.0,
+-                13.291667,
+-                -4.95
++                0.340426,
++                -4.598086,
++                2.382979,
++                -4.578947
++              ]
++            },
++            {
++              "rect": [
++                29.617021,
++                -4.598086,
++                30.978723,
++                -4.578947
++              ]
++            },
++            {
++              "rect": [
++                0.340426,
++                -4.617225,
++                2.382979,
++                -4.598086
++              ]
++            },
++            {
++              "rect": [
++                29.617021,
++                -4.617225,
++                30.978723,
++                -4.598086
++              ]
++            },
++            {
++              "rect": [
++                0.340426,
++                -4.636364,
++                3.06383,
++                -4.617225
++              ]
++            },
++            {
++              "rect": [
++                28.93617,
++                -4.636364,
++                31.659574,
++                -4.617225
++              ]
++            },
++            {
++              "rect": [
++                0.340426,
++                -4.655502,
++                3.06383,
++                -4.636364
++              ]
++            },
++            {
++              "rect": [
++                28.93617,
++                -4.655502,
++                31.659574,
++                -4.636364
++              ]
++            },
++            {
++              "rect": [
++                0.340426,
++                -4.674641,
++                3.744681,
++                -4.655502
++              ]
++            },
++            {
++              "rect": [
++                28.255319,
++                -4.674641,
++                31.659574,
++                -4.655502
++              ]
++            },
++            {
++              "rect": [
++                0.340426,
++                -4.69378,
++                3.744681,
++                -4.674641
++              ]
++            },
++            {
++              "rect": [
++                28.255319,
++                -4.69378,
++                31.659574,
++                -4.674641
++              ]
++            },
++            {
++              "rect": [
++                0.340426,
++                -4.712919,
++                4.425532,
++                -4.69378
++              ]
++            },
++            {
++              "rect": [
++                22.808511,
++                -4.712919,
++                23.489362,
++                -4.69378
++              ]
++            },
++            {
++              "rect": [
++                28.255319,
++                -4.712919,
++                31.659574,
++                -4.69378
++              ]
++            },
++            {
++              "rect": [
++                0.340426,
++                -4.732057,
++                5.106383,
++                -4.712919
++              ]
++            },
++            {
++              "rect": [
++                20.765957,
++                -4.732057,
++                21.446809,
++                -4.712919
++              ]
++            },
++            {
++              "rect": [
++                22.808511,
++                -4.732057,
++                24.170213,
++                -4.712919
++              ]
++            },
++            {
++              "rect": [
++                26.212766,
++                -4.732057,
++                31.659574,
++                -4.712919
++              ]
++            },
++            {
++              "rect": [
++                0.340426,
++                -4.751196,
++                5.106383,
++                -4.732057
++              ]
++            },
++            {
++              "rect": [
++                10.553191,
++                -4.751196,
++                11.914894,
++                -4.732057
++              ]
++            },
++            {
++              "rect": [
++                20.765957,
++                -4.751196,
++                24.851064,
++                -4.732057
++              ]
++            },
++            {
++              "rect": [
++                26.212766,
++                -4.751196,
++                31.659574,
++                -4.732057
++              ]
++            },
++            {
++              "rect": [
++                0.340426,
++                -4.770335,
++                5.787234,
++                -4.751196
++              ]
++            },
++            {
++              "rect": [
++                9.87234,
++                -4.770335,
++                13.276596,
++                -4.751196
+               ]
+             },
+             {
+               "rect": [
+                 16.0,
+-                -5.0,
+-                18.03125,
+-                -4.95
+-              ]
+-            },
+-            {
+-              "rect": [
+-                20.739583,
+-                -5.0,
+-                26.15625,
+-                -4.95
+-              ]
+-            },
+-            {
+-              "rect": [
+-                27.510417,
+-                -5.0,
+-                31.572917,
+-                -4.95
+-              ]
+-            },
+-            {
+-              "rect": [
+-                0.427083,
+-                -5.05,
+-                7.875,
+-                -5.0
+-              ]
+-            },
+-            {
+-              "rect": [
+-                8.552083,
+-                -5.05,
+-                13.96875,
+-                -5.0
+-              ]
+-            },
+-            {
+-              "rect": [
+-                14.645833,
+-                -5.05,
+-                31.572917,
+-                -5.0
+-              ]
+-            },
+-            {
+-              "rect": [
+-                0.427083,
+-                -5.1,
+-                31.572917,
+-                -5.05
+-              ]
+-            },
+-            {
+-              "rect": [
+-                0.427083,
+-                -5.15,
+-                31.572917,
+-                -5.1
+-              ]
+-            },
+-            {
+-              "rect": [
+-                0.427083,
+-                -5.2,
+-                31.572917,
+-                -5.15
+-              ]
+-            },
+-            {
+-              "rect": [
+-                0.427083,
+-                -5.25,
+-                31.572917,
+-                -5.2
+-              ]
+-            },
+-            {
+-              "rect": [
+-                0.427083,
+-                -5.3,
+-                31.572917,
+-                -5.25
+-              ]
+-            },
+-            {
+-              "rect": [
+-                1.78125,
+-                -5.35,
+-                9.90625,
+-                -5.3
+-              ]
+-            },
+-            {
+-              "rect": [
+-                11.260417,
+-                -5.35,
+-                31.572917,
+-                -5.3
+-              ]
+-            },
+-            {
+-              "rect": [
+-                5.84375,
+-                -5.4,
+-                8.552083,
+-                -5.35
+-              ]
+-            },
+-            {
+-              "rect": [
+-                11.9375,
+-                -5.4,
+-                15.322917,
+-                -5.35
+-              ]
+-            },
+-            {
+-              "rect": [
+-                20.739583,
+-                -5.4,
+-                24.125,
+-                -5.35
+-              ]
+-            },
+-            {
+-              "rect": [
+-                26.15625,
+-                -5.4,
+-                26.833333,
+-                -5.35
+-              ]
+-            },
+-            {
+-              "rect": [
+-                28.1875,
+-                -5.4,
+-                28.864583,
+-                -5.35
+-              ]
+-            },
+-            {
+-              "rect": [
+-                22.09375,
+-                -5.45,
+-                22.770833,
+-                -5.4
++                -4.770335,
++                18.042553,
++                -4.751196
++              ]
++            },
++            {
++              "rect": [
++                20.765957,
++                -4.770335,
++                26.212766,
++                -4.751196
++              ]
++            },
++            {
++              "rect": [
++                27.574468,
++                -4.770335,
++                31.659574,
++                -4.751196
++              ]
++            },
++            {
++              "rect": [
++                0.340426,
++                -4.789474,
++                7.829787,
++                -4.770335
++              ]
++            },
++            {
++              "rect": [
++                8.510638,
++                -4.789474,
++                13.957447,
++                -4.770335
++              ]
++            },
++            {
++              "rect": [
++                14.638298,
++                -4.789474,
++                31.659574,
++                -4.770335
++              ]
++            },
++            {
++              "rect": [
++                0.340426,
++                -4.808612,
++                31.659574,
++                -4.789474
++              ]
++            },
++            {
++              "rect": [
++                0.340426,
++                -4.827751,
++                31.659574,
++                -4.808612
++              ]
++            },
++            {
++              "rect": [
++                0.340426,
++                -4.84689,
++                31.659574,
++                -4.827751
++              ]
++            },
++            {
++              "rect": [
++                0.340426,
++                -4.866029,
++                31.659574,
++                -4.84689
++              ]
++            },
++            {
++              "rect": [
++                0.340426,
++                -4.885167,
++                31.659574,
++                -4.866029
++              ]
++            },
++            {
++              "rect": [
++                1.702128,
++                -4.904306,
++                9.87234,
++                -4.885167
++              ]
++            },
++            {
++              "rect": [
++                11.234043,
++                -4.904306,
++                31.659574,
++                -4.885167
++              ]
++            },
++            {
++              "rect": [
++                5.787234,
++                -4.923445,
++                8.510638,
++                -4.904306
++              ]
++            },
++            {
++              "rect": [
++                11.914894,
++                -4.923445,
++                15.319149,
++                -4.904306
++              ]
++            },
++            {
++              "rect": [
++                20.765957,
++                -4.923445,
++                24.170213,
++                -4.904306
++              ]
++            },
++            {
++              "rect": [
++                26.212766,
++                -4.923445,
++                26.893617,
++                -4.904306
++              ]
++            },
++            {
++              "rect": [
++                28.255319,
++                -4.923445,
++                28.93617,
++                -4.904306
++              ]
++            },
++            {
++              "rect": [
++                22.12766,
++                -4.942584,
++                22.808511,
++                -4.923445
+               ]
+             }
++          ],
++          "alphaRect": [
++            16,
++            78,
++            1520,
++            496
+           ]
+         }
+       ]
+@@ -625,13 +643,19 @@
+             0.5
+           ],
+           "rect": [
+-            35.75,
+-            -4.5,
+-            68.25,
+-            6.333333333333334
++            34,
++            -5.2,
++            70,
++            6.8
+           ],
+           "sortingOrder": -1000,
+-          "colliderRects": []
++          "colliderRects": [],
++          "alphaRect": [
++            0,
++            0,
++            1536,
++            512
++          ]
+         },
+         {
+           "id": "wave2.top",
+@@ -644,45 +668,395 @@
+             1
+           ],
+           "rect": [
+-            35.75,
+-            2.5,
+-            68.25,
+-            5.7
++            35.659574468085104,
++            3.919642857142857,
++            68.34042553191489,
++            5.0625
+           ],
+           "sortingOrder": -900,
+           "colliderRects": [
+             {
+               "rect": [
+-                37.104167,
+-                4.45,
+-                37.78125,
+-                4.5
+-              ]
+-            },
+-            {
+-              "rect": [
+-                37.78125,
+-                4.4,
+-                38.458333,
+-                4.45
+-              ]
+-            },
+-            {
+-              "rect": [
+-                37.78125,
+-                4.35,
+-                38.458333,
+-                4.4
+-              ]
+-            },
+-            {
+-              "rect": [
+-                64.864583,
+-                4.35,
+-                65.541667,
+-                4.4
++                37.021277,
++                4.616071,
++                37.702128,
++                4.633929
++              ]
++            },
++            {
++              "rect": [
++                37.702128,
++                4.598214,
++                38.382979,
++                4.616071
++              ]
++            },
++            {
++              "rect": [
++                37.702128,
++                4.580357,
++                38.382979,
++                4.598214
++              ]
++            },
++            {
++              "rect": [
++                64.93617,
++                4.580357,
++                65.617021,
++                4.598214
++              ]
++            },
++            {
++              "rect": [
++                37.021277,
++                4.5625,
++                38.382979,
++                4.580357
++              ]
++            },
++            {
++              "rect": [
++                47.234043,
++                4.5625,
++                48.595745,
++                4.580357
++              ]
++            },
++            {
++              "rect": [
++                64.93617,
++                4.5625,
++                66.297872,
++                4.580357
++              ]
++            },
++            {
++              "rect": [
++                37.021277,
++                4.544643,
++                38.382979,
++                4.5625
++              ]
++            },
++            {
++              "rect": [
++                43.829787,
++                4.544643,
++                46.553191,
++                4.5625
++              ]
++            },
++            {
++              "rect": [
++                56.085106,
++                4.544643,
++                58.808511,
++                4.5625
++              ]
++            },
++            {
++              "rect": [
++                60.170213,
++                4.544643,
++                60.851064,
++                4.5625
++              ]
++            },
++            {
++              "rect": [
++                64.93617,
++                4.544643,
++                66.297872,
++                4.5625
++              ]
++            },
++            {
++              "rect": [
++                37.021277,
++                4.526786,
++                39.06383,
++                4.544643
++              ]
++            },
++            {
++              "rect": [
++                42.468085,
++                4.526786,
++                43.148936,
++                4.544643
++              ]
++            },
++            {
++              "rect": [
++                44.510638,
++                4.526786,
++                45.191489,
++                4.544643
++              ]
++            },
++            {
++              "rect": [
++                57.446809,
++                4.526786,
++                58.12766,
++                4.544643
++              ]
++            },
++            {
++              "rect": [
++                59.489362,
++                4.526786,
++                60.851064,
++                4.544643
++              ]
++            },
++            {
++              "rect": [
++                64.255319,
++                4.526786,
++                66.297872,
++                4.544643
++              ]
++            },
++            {
++              "rect": [
++                37.021277,
++                4.508929,
++                40.425532,
++                4.526786
++              ]
++            },
++            {
++              "rect": [
++                44.510638,
++                4.508929,
++                45.87234,
++                4.526786
++              ]
++            },
++            {
++              "rect": [
++                57.446809,
++                4.508929,
++                58.12766,
++                4.526786
++              ]
++            },
++            {
++              "rect": [
++                59.489362,
++                4.508929,
++                60.851064,
++                4.526786
++              ]
++            },
++            {
++              "rect": [
++                63.574468,
++                4.508929,
++                66.978723,
++                4.526786
++              ]
++            },
++            {
++              "rect": [
++                37.021277,
++                4.491071,
++                42.468085,
++                4.508929
++              ]
++            },
++            {
++              "rect": [
++                43.829787,
++                4.491071,
++                45.87234,
++                4.508929
++              ]
++            },
++            {
++              "rect": [
++                57.446809,
++                4.491071,
++                60.851064,
++                4.508929
++              ]
++            },
++            {
++              "rect": [
++                63.574468,
++                4.491071,
++                66.978723,
++                4.508929
++              ]
++            },
++            {
++              "rect": [
++                37.021277,
++                4.473214,
++                47.234043,
++                4.491071
++              ]
++            },
++            {
++              "rect": [
++                48.595745,
++                4.473214,
++                49.276596,
++                4.491071
++              ]
++            },
++            {
++              "rect": [
++                50.638298,
++                4.473214,
++                51.319149,
++                4.491071
++              ]
++            },
++            {
++              "rect": [
++                54.042553,
++                4.473214,
++                55.404255,
++                4.491071
++              ]
++            },
++            {
++              "rect": [
++                56.765957,
++                4.473214,
++                60.851064,
++                4.491071
++              ]
++            },
++            {
++              "rect": [
++                62.212766,
++                4.473214,
++                66.978723,
++                4.491071
++              ]
++            },
++            {
++              "rect": [
++                37.021277,
++                4.455357,
++                51.319149,
++                4.473214
++              ]
++            },
++            {
++              "rect": [
++                53.361702,
++                4.455357,
++                66.978723,
++                4.473214
++              ]
++            },
++            {
++              "rect": [
++                37.021277,
++                4.4375,
++                52.0,
++                4.455357
++              ]
++            },
++            {
++              "rect": [
++                52.680851,
++                4.4375,
++                66.978723,
++                4.455357
++              ]
++            },
++            {
++              "rect": [
++                37.021277,
++                4.419643,
++                66.978723,
++                4.4375
++              ]
++            },
++            {
++              "rect": [
++                39.744681,
++                4.401786,
++                43.148936,
++                4.419643
++              ]
++            },
++            {
++              "rect": [
++                45.191489,
++                4.401786,
++                45.87234,
++                4.419643
++              ]
++            },
++            {
++              "rect": [
++                49.957447,
++                4.401786,
++                54.042553,
++                4.419643
++              ]
++            },
++            {
++              "rect": [
++                54.723404,
++                4.401786,
++                56.085106,
++                4.419643
++              ]
++            },
++            {
++              "rect": [
++                58.12766,
++                4.401786,
++                60.851064,
++                4.419643
++              ]
++            },
++            {
++              "rect": [
++                62.893617,
++                4.401786,
++                65.617021,
++                4.419643
++              ]
++            },
++            {
++              "rect": [
++                42.468085,
++                4.383929,
++                43.148936,
++                4.401786
++              ]
++            },
++            {
++              "rect": [
++                49.957447,
++                4.383929,
++                51.319149,
++                4.401786
++              ]
++            },
++            {
++              "rect": [
++                64.255319,
++                4.383929,
++                64.93617,
++                4.401786
+               ]
+             }
++          ],
++          "alphaRect": [
++            16,
++            28,
++            1520,
++            476
+           ]
+         },
+         {
+@@ -696,157 +1070,595 @@
+             0
+           ],
+           "rect": [
+-            35.75,
+-            -5.7,
+-            68.25,
+-            -2.5
++            35.659574468085104,
++            -5.035087719298246,
++            68.34042553191489,
++            -3.912280701754386
+           ],
+           "sortingOrder": 50,
+           "colliderRects": [
+             {
+               "rect": [
+-                37.104167,
+-                -4.4,
+-                39.135417,
+-                -4.35
+-              ]
+-            },
+-            {
+-              "rect": [
+-                48.614583,
+-                -4.4,
+-                49.96875,
+-                -4.35
+-              ]
+-            },
+-            {
+-              "rect": [
+-                55.385417,
+-                -4.4,
+-                58.09375,
+-                -4.35
+-              ]
+-            },
+-            {
+-              "rect": [
+-                64.864583,
+-                -4.4,
+-                66.895833,
+-                -4.35
+-              ]
+-            },
+-            {
+-              "rect": [
+-                37.104167,
+-                -4.45,
+-                41.166667,
+-                -4.4
+-              ]
+-            },
+-            {
+-              "rect": [
+-                45.90625,
+-                -4.45,
+-                58.770833,
+-                -4.4
+-              ]
+-            },
+-            {
+-              "rect": [
+-                63.510417,
+-                -4.45,
+-                66.895833,
+-                -4.4
+-              ]
+-            },
+-            {
+-              "rect": [
+-                36.427083,
+-                -4.5,
+-                67.572917,
+-                -4.45
+-              ]
+-            },
+-            {
+-              "rect": [
+-                36.427083,
+-                -4.55,
+-                67.572917,
+-                -4.5
+-              ]
+-            },
+-            {
+-              "rect": [
+-                36.427083,
+-                -4.6,
+-                43.875,
+-                -4.55
+-              ]
+-            },
+-            {
+-              "rect": [
+-                44.552083,
+-                -4.6,
+-                67.572917,
+-                -4.55
+-              ]
+-            },
+-            {
+-              "rect": [
+-                36.427083,
+-                -4.65,
+-                67.572917,
+-                -4.6
+-              ]
+-            },
+-            {
+-              "rect": [
+-                38.458333,
+-                -4.7,
+-                39.8125,
+-                -4.65
+-              ]
+-            },
+-            {
+-              "rect": [
+-                41.166667,
+-                -4.7,
+-                41.84375,
+-                -4.65
+-              ]
+-            },
+-            {
+-              "rect": [
+-                43.197917,
+-                -4.7,
+-                48.614583,
+-                -4.65
+-              ]
+-            },
+-            {
+-              "rect": [
+-                49.291667,
+-                -4.7,
++                37.021277,
++                -4.333333,
++                37.702128,
++                -4.315789
++              ]
++            },
++            {
++              "rect": [
++                37.021277,
++                -4.350877,
++                37.702128,
++                -4.333333
++              ]
++            },
++            {
++              "rect": [
++                37.021277,
++                -4.368421,
++                37.702128,
++                -4.350877
++              ]
++            },
++            {
++              "rect": [
++                66.297872,
++                -4.368421,
++                66.978723,
++                -4.350877
++              ]
++            },
++            {
++              "rect": [
++                37.021277,
++                -4.385965,
++                37.702128,
++                -4.368421
++              ]
++            },
++            {
++              "rect": [
++                66.297872,
++                -4.385965,
++                66.978723,
++                -4.368421
++              ]
++            },
++            {
++              "rect": [
++                37.021277,
++                -4.403509,
++                37.702128,
++                -4.385965
++              ]
++            },
++            {
++              "rect": [
++                66.297872,
++                -4.403509,
++                66.978723,
++                -4.385965
++              ]
++            },
++            {
++              "rect": [
++                37.021277,
++                -4.421053,
++                37.702128,
++                -4.403509
++              ]
++            },
++            {
++              "rect": [
++                66.297872,
++                -4.421053,
++                66.978723,
++                -4.403509
++              ]
++            },
++            {
++              "rect": [
++                37.021277,
++                -4.438596,
++                38.382979,
++                -4.421053
++              ]
++            },
++            {
++              "rect": [
++                66.297872,
++                -4.438596,
++                66.978723,
++                -4.421053
++              ]
++            },
++            {
++              "rect": [
++                37.021277,
++                -4.45614,
++                37.702128,
++                -4.438596
++              ]
++            },
++            {
++              "rect": [
++                38.382979,
++                -4.45614,
++                39.06383,
++                -4.438596
++              ]
++            },
++            {
++              "rect": [
++                48.595745,
++                -4.45614,
++                49.276596,
++                -4.438596
++              ]
++            },
++            {
++              "rect": [
++                66.297872,
++                -4.45614,
++                66.978723,
++                -4.438596
++              ]
++            },
++            {
++              "rect": [
++                37.021277,
++                -4.473684,
++                37.702128,
++                -4.45614
++              ]
++            },
++            {
++              "rect": [
++                39.06383,
++                -4.473684,
++                39.744681,
++                -4.45614
++              ]
++            },
++            {
++              "rect": [
++                48.595745,
++                -4.473684,
++                49.276596,
++                -4.45614
++              ]
++            },
++            {
++              "rect": [
++                56.765957,
++                -4.473684,
++                57.446809,
++                -4.45614
++              ]
++            },
++            {
++              "rect": [
++                64.93617,
++                -4.473684,
++                66.978723,
++                -4.45614
++              ]
++            },
++            {
++              "rect": [
++                37.021277,
++                -4.491228,
++                37.702128,
++                -4.473684
++              ]
++            },
++            {
++              "rect": [
++                46.553191,
++                -4.491228,
++                49.957447,
++                -4.473684
++              ]
++            },
++            {
++              "rect": [
++                56.765957,
++                -4.491228,
++                58.808511,
++                -4.473684
++              ]
++            },
++            {
++              "rect": [
++                64.255319,
++                -4.491228,
++                64.93617,
++                -4.473684
++              ]
++            },
++            {
++              "rect": [
++                66.297872,
++                -4.491228,
++                66.978723,
++                -4.473684
++              ]
++            },
++            {
++              "rect": [
++                37.021277,
++                -4.508772,
++                37.702128,
++                -4.491228
++              ]
++            },
++            {
++              "rect": [
++                40.425532,
++                -4.508772,
++                41.787234,
++                -4.491228
++              ]
++            },
++            {
++              "rect": [
++                45.87234,
++                -4.508772,
++                47.234043,
++                -4.491228
++              ]
++            },
++            {
++              "rect": [
++                48.595745,
++                -4.508772,
++                49.276596,
++                -4.491228
++              ]
++            },
++            {
++              "rect": [
++                50.638298,
++                -4.508772,
++                51.319149,
++                -4.491228
++              ]
++            },
++            {
++              "rect": [
++                56.765957,
++                -4.508772,
++                57.446809,
++                -4.491228
++              ]
++            },
++            {
++              "rect": [
++                58.808511,
++                -4.508772,
++                60.851064,
++                -4.491228
++              ]
++            },
++            {
++              "rect": [
++                62.893617,
++                -4.508772,
++                63.574468,
++                -4.491228
++              ]
++            },
++            {
++              "rect": [
++                66.297872,
++                -4.508772,
++                66.978723,
++                -4.491228
++              ]
++            },
++            {
++              "rect": [
++                37.021277,
++                -4.526316,
++                37.702128,
++                -4.508772
++              ]
++            },
++            {
++              "rect": [
++                41.787234,
++                -4.526316,
++                43.148936,
++                -4.508772
++              ]
++            },
++            {
++              "rect": [
++                44.510638,
++                -4.526316,
++                45.87234,
++                -4.508772
++              ]
++            },
++            {
++              "rect": [
++                48.595745,
++                -4.526316,
++                49.276596,
++                -4.508772
++              ]
++            },
++            {
++              "rect": [
++                51.319149,
++                -4.526316,
++                52.680851,
++                -4.508772
++              ]
++            },
++            {
++              "rect": [
++                55.404255,
++                -4.526316,
++                56.085106,
++                -4.508772
++              ]
++            },
++            {
++              "rect": [
++                56.765957,
++                -4.526316,
++                57.446809,
++                -4.508772
++              ]
++            },
++            {
++              "rect": [
++                61.531915,
++                -4.526316,
++                62.893617,
++                -4.508772
++              ]
++            },
++            {
++              "rect": [
++                66.297872,
++                -4.526316,
++                66.978723,
++                -4.508772
++              ]
++            },
++            {
++              "rect": [
++                37.021277,
++                -4.54386,
++                37.702128,
++                -4.526316
++              ]
++            },
++            {
++              "rect": [
++                43.148936,
++                -4.54386,
++                44.510638,
++                -4.526316
++              ]
++            },
++            {
++              "rect": [
++                48.595745,
++                -4.54386,
++                49.276596,
++                -4.526316
++              ]
++            },
++            {
++              "rect": [
++                52.680851,
++                -4.54386,
++                55.404255,
++                -4.526316
++              ]
++            },
++            {
++              "rect": [
++                56.765957,
++                -4.54386,
++                57.446809,
++                -4.526316
++              ]
++            },
++            {
++              "rect": [
++                66.297872,
++                -4.54386,
++                66.978723,
++                -4.526316
++              ]
++            },
++            {
++              "rect": [
++                37.021277,
++                -4.561404,
++                37.702128,
++                -4.54386
++              ]
++            },
++            {
++              "rect": [
++                48.595745,
++                -4.561404,
++                49.276596,
++                -4.54386
++              ]
++            },
++            {
++              "rect": [
++                56.765957,
++                -4.561404,
++                57.446809,
++                -4.54386
++              ]
++            },
++            {
++              "rect": [
++                66.297872,
++                -4.561404,
++                66.978723,
++                -4.54386
++              ]
++            },
++            {
++              "rect": [
++                37.021277,
++                -4.578947,
++                39.06383,
++                -4.561404
++              ]
++            },
++            {
++              "rect": [
++                48.595745,
++                -4.578947,
++                49.957447,
++                -4.561404
++              ]
++            },
++            {
++              "rect": [
++                55.404255,
++                -4.578947,
++                58.12766,
++                -4.561404
++              ]
++            },
++            {
++              "rect": [
++                64.93617,
++                -4.578947,
++                66.978723,
++                -4.561404
++              ]
++            },
++            {
++              "rect": [
++                37.021277,
++                -4.596491,
++                41.106383,
++                -4.578947
++              ]
++            },
++            {
++              "rect": [
++                45.87234,
++                -4.596491,
++                58.808511,
++                -4.578947
++              ]
++            },
++            {
++              "rect": [
++                63.574468,
++                -4.596491,
++                66.978723,
++                -4.578947
++              ]
++            },
++            {
++              "rect": [
++                36.340426,
++                -4.614035,
++                67.659574,
++                -4.596491
++              ]
++            },
++            {
++              "rect": [
++                36.340426,
++                -4.631579,
++                67.659574,
++                -4.614035
++              ]
++            },
++            {
++              "rect": [
++                36.340426,
++                -4.649123,
++                43.829787,
++                -4.631579
++              ]
++            },
++            {
++              "rect": [
++                44.510638,
++                -4.649123,
++                67.659574,
++                -4.631579
++              ]
++            },
++            {
++              "rect": [
++                36.340426,
++                -4.666667,
++                67.659574,
++                -4.649123
++              ]
++            },
++            {
++              "rect": [
++                38.382979,
++                -4.684211,
++                39.744681,
++                -4.666667
++              ]
++            },
++            {
++              "rect": [
++                41.106383,
++                -4.684211,
++                41.787234,
++                -4.666667
++              ]
++            },
++            {
++              "rect": [
++                43.148936,
++                -4.684211,
++                48.595745,
++                -4.666667
++              ]
++            },
++            {
++              "rect": [
++                49.276596,
++                -4.684211,
+                 52.0,
+-                -4.65
+-              ]
+-            },
+-            {
+-              "rect": [
+-                52.677083,
+-                -4.7,
+-                53.354167,
+-                -4.65
+-              ]
+-            },
+-            {
+-              "rect": [
+-                54.708333,
+-                -4.7,
+-                66.21875,
+-                -4.65
++                -4.666667
++              ]
++            },
++            {
++              "rect": [
++                52.680851,
++                -4.684211,
++                53.361702,
++                -4.666667
++              ]
++            },
++            {
++              "rect": [
++                54.723404,
++                -4.684211,
++                66.297872,
++                -4.666667
+               ]
+             }
++          ],
++          "alphaRect": [
++            16,
++            40,
++            1520,
++            496
+           ]
+         }
+       ]
+@@ -865,13 +1677,19 @@
+             0.5
+           ],
+           "rect": [
+-            71.75,
+-            -4.5,
+-            104.25,
+-            6.333333333333334
++            70,
++            -5.2,
++            106,
++            6.8
+           ],
+           "sortingOrder": -1000,
+-          "colliderRects": []
++          "colliderRects": [],
++          "alphaRect": [
++            0,
++            0,
++            1536,
++            512
++          ]
+         },
+         {
+           "id": "wave3.top",
+@@ -884,149 +1702,171 @@
+             1
+           ],
+           "rect": [
+-            71.75,
+-            2.5,
+-            104.25,
+-            5.7
++            71.65957446808511,
++            3.750629722921914,
++            104.34042553191489,
++            5.040302267002518
+           ],
+           "sortingOrder": -900,
+           "colliderRects": [
+             {
+               "rect": [
+-                73.104167,
+-                4.85,
+-                74.458333,
+-                4.9
+-              ]
+-            },
+-            {
+-              "rect": [
+-                73.104167,
+-                4.8,
+-                75.8125,
+-                4.85
+-              ]
+-            },
+-            {
+-              "rect": [
+-                95.447917,
+-                4.8,
+-                96.802083,
+-                4.85
+-              ]
+-            },
+-            {
+-              "rect": [
+-                101.541667,
+-                4.8,
+-                102.21875,
+-                4.85
+-              ]
+-            },
+-            {
+-              "rect": [
+-                73.104167,
+-                4.75,
+-                76.489583,
+-                4.8
+-              ]
+-            },
+-            {
+-              "rect": [
+-                79.197917,
+-                4.75,
+-                80.552083,
+-                4.8
+-              ]
+-            },
+-            {
+-              "rect": [
+-                84.614583,
+-                4.75,
+-                85.291667,
+-                4.8
+-              ]
+-            },
+-            {
+-              "rect": [
+-                91.385417,
+-                4.75,
+-                97.479167,
+-                4.8
+-              ]
+-            },
+-            {
+-              "rect": [
+-                100.864583,
+-                4.75,
+-                102.895833,
+-                4.8
+-              ]
+-            },
+-            {
+-              "rect": [
+-                73.104167,
+-                4.7,
+-                102.895833,
+-                4.75
+-              ]
+-            },
+-            {
+-              "rect": [
+-                73.104167,
+-                4.65,
+-                102.895833,
+-                4.7
+-              ]
+-            },
+-            {
+-              "rect": [
+-                73.104167,
+-                4.6,
+-                102.895833,
+-                4.65
+-              ]
+-            },
+-            {
+-              "rect": [
+-                73.104167,
+-                4.55,
+-                102.895833,
+-                4.6
+-              ]
+-            },
+-            {
+-              "rect": [
+-                73.104167,
+-                4.5,
+-                102.895833,
+-                4.55
+-              ]
+-            },
+-            {
+-              "rect": [
+-                73.104167,
+-                4.45,
+-                102.895833,
+-                4.5
+-              ]
+-            },
+-            {
+-              "rect": [
+-                73.104167,
+-                4.4,
+-                102.895833,
+-                4.45
+-              ]
+-            },
+-            {
+-              "rect": [
+-                73.104167,
+-                4.35,
+-                102.895833,
+-                4.4
++                73.021277,
++                4.697733,
++                74.382979,
++                4.717884
++              ]
++            },
++            {
++              "rect": [
++                73.021277,
++                4.677582,
++                75.744681,
++                4.697733
++              ]
++            },
++            {
++              "rect": [
++                95.489362,
++                4.677582,
++                96.851064,
++                4.697733
++              ]
++            },
++            {
++              "rect": [
++                101.617021,
++                4.677582,
++                102.297872,
++                4.697733
++              ]
++            },
++            {
++              "rect": [
++                73.021277,
++                4.657431,
++                76.425532,
++                4.677582
++              ]
++            },
++            {
++              "rect": [
++                79.148936,
++                4.657431,
++                80.510638,
++                4.677582
++              ]
++            },
++            {
++              "rect": [
++                84.595745,
++                4.657431,
++                85.276596,
++                4.677582
++              ]
++            },
++            {
++              "rect": [
++                91.404255,
++                4.657431,
++                97.531915,
++                4.677582
++              ]
++            },
++            {
++              "rect": [
++                100.93617,
++                4.657431,
++                102.978723,
++                4.677582
++              ]
++            },
++            {
++              "rect": [
++                73.021277,
++                4.63728,
++                102.978723,
++                4.657431
++              ]
++            },
++            {
++              "rect": [
++                73.021277,
++                4.617128,
++                102.978723,
++                4.63728
++              ]
++            },
++            {
++              "rect": [
++                73.021277,
++                4.596977,
++                102.978723,
++                4.617128
++              ]
++            },
++            {
++              "rect": [
++                73.021277,
++                4.576826,
++                102.978723,
++                4.596977
++              ]
++            },
++            {
++              "rect": [
++                73.021277,
++                4.556675,
++                102.978723,
++                4.576826
++              ]
++            },
++            {
++              "rect": [
++                73.021277,
++                4.536524,
++                102.978723,
++                4.556675
++              ]
++            },
++            {
++              "rect": [
++                73.021277,
++                4.516373,
++                102.978723,
++                4.536524
++              ]
++            },
++            {
++              "rect": [
++                73.021277,
++                4.496222,
++                102.978723,
++                4.516373
++              ]
++            },
++            {
++              "rect": [
++                73.021277,
++                4.476071,
++                102.978723,
++                4.496222
++              ]
++            },
++            {
++              "rect": [
++                72.340426,
++                4.455919,
++                103.659574,
++                4.476071
+               ]
+             }
++          ],
++          "alphaRect": [
++            16,
++            16,
++            1520,
++            413
+           ]
+         },
+         {
+@@ -1040,264 +1880,287 @@
+             0
+           ],
+           "rect": [
+-            71.75,
+-            -5.7,
+-            104.25,
+-            -2.5
++            71.65957446808511,
++            -5.039800995024875,
++            104.34042553191489,
++            -3.7661691542288556
+           ],
+           "sortingOrder": 50,
+           "colliderRects": [
+             {
+               "rect": [
+-                73.104167,
+-                -4.4,
+-                74.458333,
+-                -4.35
+-              ]
+-            },
+-            {
+-              "rect": [
+-                101.541667,
+-                -4.4,
+-                102.895833,
+-                -4.35
+-              ]
+-            },
+-            {
+-              "rect": [
+-                73.104167,
+-                -4.45,
+-                74.458333,
+-                -4.4
+-              ]
+-            },
+-            {
+-              "rect": [
+-                100.864583,
+-                -4.45,
+-                103.572917,
+-                -4.4
+-              ]
+-            },
+-            {
+-              "rect": [
+-                73.104167,
+-                -4.5,
+-                75.135417,
+-                -4.45
+-              ]
+-            },
+-            {
+-              "rect": [
+-                100.864583,
+-                -4.5,
+-                102.895833,
+-                -4.45
+-              ]
+-            },
+-            {
+-              "rect": [
+-                73.104167,
+-                -4.55,
+-                75.8125,
+-                -4.5
+-              ]
+-            },
+-            {
+-              "rect": [
+-                78.520833,
+-                -4.55,
+-                79.197917,
+-                -4.5
+-              ]
+-            },
+-            {
+-              "rect": [
+-                81.229167,
+-                -4.55,
+-                81.90625,
+-                -4.5
+-              ]
+-            },
+-            {
+-              "rect": [
+-                84.614583,
+-                -4.55,
+-                92.0625,
+-                -4.5
+-              ]
+-            },
+-            {
+-              "rect": [
+-                95.447917,
+-                -4.55,
+-                96.125,
+-                -4.5
+-              ]
+-            },
+-            {
+-              "rect": [
+-                99.510417,
+-                -4.55,
+-                102.895833,
+-                -4.5
+-              ]
+-            },
+-            {
+-              "rect": [
+-                73.104167,
+-                -4.6,
+-                102.895833,
+-                -4.55
+-              ]
+-            },
+-            {
+-              "rect": [
+-                73.104167,
+-                -4.65,
+-                102.895833,
+-                -4.6
+-              ]
+-            },
+-            {
+-              "rect": [
+-                73.104167,
+-                -4.7,
+-                102.895833,
+-                -4.65
+-              ]
+-            },
+-            {
+-              "rect": [
+-                73.104167,
+-                -4.75,
+-                102.895833,
+-                -4.7
+-              ]
+-            },
+-            {
+-              "rect": [
+-                73.104167,
+-                -4.8,
+-                102.895833,
+-                -4.75
+-              ]
+-            },
+-            {
+-              "rect": [
+-                73.104167,
+-                -4.85,
+-                102.895833,
+-                -4.8
+-              ]
+-            },
+-            {
+-              "rect": [
+-                73.104167,
+-                -4.9,
+-                102.895833,
+-                -4.85
+-              ]
+-            },
+-            {
+-              "rect": [
+-                73.104167,
+-                -4.95,
+-                102.895833,
+-                -4.9
+-              ]
+-            },
+-            {
+-              "rect": [
+-                73.104167,
+-                -5.0,
+-                102.895833,
+-                -4.95
+-              ]
+-            },
+-            {
+-              "rect": [
+-                73.104167,
+-                -5.05,
+-                102.895833,
+-                -5.0
+-              ]
+-            },
+-            {
+-              "rect": [
+-                73.104167,
+-                -5.1,
+-                102.895833,
+-                -5.05
+-              ]
+-            },
+-            {
+-              "rect": [
+-                73.104167,
+-                -5.15,
+-                102.895833,
+-                -5.1
+-              ]
+-            },
+-            {
+-              "rect": [
+-                73.104167,
+-                -5.2,
+-                102.895833,
+-                -5.15
+-              ]
+-            },
+-            {
+-              "rect": [
+-                73.104167,
+-                -5.25,
+-                102.895833,
+-                -5.2
+-              ]
+-            },
+-            {
+-              "rect": [
+-                72.427083,
+-                -5.3,
+-                103.572917,
+-                -5.25
+-              ]
+-            },
+-            {
+-              "rect": [
+-                72.427083,
+-                -5.35,
+-                85.96875,
+-                -5.3
+-              ]
+-            },
+-            {
+-              "rect": [
+-                86.645833,
+-                -5.35,
+-                103.572917,
+-                -5.3
+-              ]
+-            },
+-            {
+-              "rect": [
+-                73.104167,
+-                -5.4,
+-                73.78125,
+-                -5.35
+-              ]
+-            },
+-            {
+-              "rect": [
+-                101.541667,
+-                -5.4,
+-                102.895833,
+-                -5.35
++                73.021277,
++                -4.502488,
++                74.382979,
++                -4.482587
++              ]
++            },
++            {
++              "rect": [
++                101.617021,
++                -4.502488,
++                102.978723,
++                -4.482587
++              ]
++            },
++            {
++              "rect": [
++                73.021277,
++                -4.522388,
++                74.382979,
++                -4.502488
++              ]
++            },
++            {
++              "rect": [
++                101.617021,
++                -4.522388,
++                102.978723,
++                -4.502488
++              ]
++            },
++            {
++              "rect": [
++                73.021277,
++                -4.542289,
++                74.382979,
++                -4.522388
++              ]
++            },
++            {
++              "rect": [
++                100.93617,
++                -4.542289,
++                103.659574,
++                -4.522388
++              ]
++            },
++            {
++              "rect": [
++                73.021277,
++                -4.562189,
++                75.06383,
++                -4.542289
++              ]
++            },
++            {
++              "rect": [
++                100.93617,
++                -4.562189,
++                102.978723,
++                -4.542289
++              ]
++            },
++            {
++              "rect": [
++                73.021277,
++                -4.58209,
++                75.744681,
++                -4.562189
++              ]
++            },
++            {
++              "rect": [
++                78.468085,
++                -4.58209,
++                79.148936,
++                -4.562189
++              ]
++            },
++            {
++              "rect": [
++                81.191489,
++                -4.58209,
++                81.87234,
++                -4.562189
++              ]
++            },
++            {
++              "rect": [
++                84.595745,
++                -4.58209,
++                92.085106,
++                -4.562189
++              ]
++            },
++            {
++              "rect": [
++                95.489362,
++                -4.58209,
++                96.170213,
++                -4.562189
++              ]
++            },
++            {
++              "rect": [
++                99.574468,
++                -4.58209,
++                102.978723,
++                -4.562189
++              ]
++            },
++            {
++              "rect": [
++                73.021277,
++                -4.60199,
++                102.978723,
++                -4.58209
++              ]
++            },
++            {
++              "rect": [
++                73.021277,
++                -4.621891,
++                102.978723,
++                -4.60199
++              ]
++            },
++            {
++              "rect": [
++                73.021277,
++                -4.641791,
++                102.978723,
++                -4.621891
++              ]
++            },
++            {
++              "rect": [
++                73.021277,
++                -4.661692,
++                102.978723,
++                -4.641791
++              ]
++            },
++            {
++              "rect": [
++                73.021277,
++                -4.681592,
++                102.978723,
++                -4.661692
++              ]
++            },
++            {
++              "rect": [
++                73.021277,
++                -4.701493,
++                102.978723,
++                -4.681592
++              ]
++            },
++            {
++              "rect": [
++                73.021277,
++                -4.721393,
++                102.978723,
++                -4.701493
++              ]
++            },
++            {
++              "rect": [
++                73.021277,
++                -4.741294,
++                102.978723,
++                -4.721393
++              ]
++            },
++            {
++              "rect": [
++                73.021277,
++                -4.761194,
++                102.978723,
++                -4.741294
++              ]
++            },
++            {
++              "rect": [
++                73.021277,
++                -4.781095,
++                102.978723,
++                -4.761194
++              ]
++            },
++            {
++              "rect": [
++                73.021277,
++                -4.800995,
++                102.978723,
++                -4.781095
++              ]
++            },
++            {
++              "rect": [
++                73.021277,
++                -4.820896,
++                102.978723,
++                -4.800995
++              ]
++            },
++            {
++              "rect": [
++                73.021277,
++                -4.840796,
++                102.978723,
++                -4.820896
++              ]
++            },
++            {
++              "rect": [
++                73.021277,
++                -4.860697,
++                102.978723,
++                -4.840796
++              ]
++            },
++            {
++              "rect": [
++                72.340426,
++                -4.880597,
++                103.659574,
++                -4.860697
++              ]
++            },
++            {
++              "rect": [
++                72.340426,
++                -4.900498,
++                85.957447,
++                -4.880597
++              ]
++            },
++            {
++              "rect": [
++                86.638298,
++                -4.900498,
++                103.659574,
++                -4.880597
++              ]
++            },
++            {
++              "rect": [
++                73.021277,
++                -4.920398,
++                73.702128,
++                -4.900498
++              ]
++            },
++            {
++              "rect": [
++                101.617021,
++                -4.920398,
++                102.978723,
++                -4.900498
+               ]
+             }
++          ],
++          "alphaRect": [
++            16,
++            94,
++            1520,
++            496
+           ]
+         }
+       ]
+     }
+-  ]
++  ],
++  "interiorPropsEnabled": false
+ }
+--- a/Assets/Scripts/Battle/Core/BattleManager.cs
++++ b/Assets/Scripts/Battle/Core/BattleManager.cs
+@@ -259,6 +259,7 @@
+                 else
+                     FitBackgroundToCamera(backgroundObject.transform, renderer);
+ 
++                Morpg.MorpgLegacyBackground.Register(battleRuntime,renderer);
+                 return backgroundObject;
+             }
+ 
+@@ -790,6 +791,7 @@
+             }
+             Vector3 current = transform.position;
+             Vector2 desired = (Vector2)target.position + offset;
++            if(Morpg.MorpgEnvironmentRuntime.Active!=null)desired=Morpg.MorpgEnvironmentRuntime.Active.FrameAim(desired);
+             Vector2 currentXY = current;
+             Vector2 next = snapDistance > 0f && Vector2.Distance(currentXY, desired) >= snapDistance
+                 ? desired
+--- a/Assets/Scripts/Battle/Morpg/MorpgWaveDressing.cs
++++ b/Assets/Scripts/Battle/Morpg/MorpgWaveDressing.cs
+@@ -9,11 +9,12 @@
+         internal const string Resource="battle/morpg/wave-environment-v1/binding";
+         public string schemaVersion,backgroundManifestSha256,barrierManifestSha256;
+         public Wave[] waves;
++        public bool interiorPropsEnabled;
+         [Serializable] internal sealed class Wave { public string zoneId;public Asset[] assets; }
+         [Serializable] internal sealed class Asset
+         {
+             public string id,kind,resource,guid,sha256;
+-            public float[] pivot,rect;
++            public float[] pivot,rect,alphaRect;
+             public int sortingOrder;
+             public ColliderPatch[] colliderRects;
+             [NonSerialized] internal Sprite Sprite;
+@@ -27,13 +28,13 @@
+                 var source=Resources.Load<TextAsset>(Resource);
+                 if(source==null)throw new InvalidOperationException("wave dressing binding missing");
+                 if(!StrictCanonicalJson.TryParse(source.text,out var parsed,out error))return false;
+-                var root=Shape(parsed,"schemaVersion,backgroundManifestSha256,barrierManifestSha256,waves");
++                var root=Shape(parsed,"schemaVersion,backgroundManifestSha256,barrierManifestSha256,waves,interiorPropsEnabled");
+                 foreach(var w in (StrictCanonicalJson.ArrayNode)root["waves"])
+                 {
+                     var wave=Shape(w,"zoneId,assets");
+                     foreach(var a in (StrictCanonicalJson.ArrayNode)wave["assets"])
+                     {
+-                        var asset=Shape(a,"id,kind,resource,guid,sha256,pivot,rect,sortingOrder,colliderRects");
++                        var asset=Shape(a,"id,kind,resource,guid,sha256,pivot,rect,sortingOrder,colliderRects,alphaRect");
+                         foreach(var patch in (StrictCanonicalJson.ArrayNode)asset["colliderRects"])Shape(patch,"rect");
+                     }
+                 }
+@@ -50,7 +51,7 @@
+                     {
+                         var a=wave.assets[j];string kind=new[]{"background","top","bottom"}[j];
+                         if(a.kind!=kind || a.id!=$"wave{i+1}.{kind}" || !ids.Add(a.id) || string.IsNullOrEmpty(a.resource) || !resources.Add(a.resource) ||
+-                           a.guid?.Length!=32 || !guids.Add(a.guid) || a.sha256?.Length!=64 || !RectValid(a.rect) || a.pivot?.Length!=2 || a.pivot[0]!=.5f ||
++                           a.guid?.Length!=32 || !guids.Add(a.guid) || a.sha256?.Length!=64 || !RectValid(a.rect) || !RectValid(a.alphaRect) || a.alphaRect[0]<0 || a.alphaRect[1]<0 || a.alphaRect[2]>1536 || a.alphaRect[3]>512 || a.pivot?.Length!=2 || a.pivot[0]!=.5f ||
+                            a.pivot[1]!=(j==0?.5f:j==1?1f:0f) || a.sortingOrder!=new[]{-1000,-900,50}[j] || a.colliderRects==null)
+                             throw new InvalidOperationException("wave dressing asset: "+a.id);
+                         if(j==0)
+@@ -65,7 +66,13 @@
+                             if(a.colliderRects.Length==0)throw new InvalidOperationException("barrier silhouette missing");
+                             float edge=z.walkable[0].y;
+                             foreach(var p in z.walkable)edge=j==1?Math.Max(edge,p.y):Math.Min(edge,p.y);
+-                            edge=j==1?Math.Max(edge,z.cameraClamp[3]+environment.cameraOrthographicSize):Math.Min(edge,z.cameraClamp[1]-environment.cameraOrthographicSize);
++                            float sy=(a.rect[3]-a.rect[1])/512f;
++                            float visibleInner=a.rect[3]-a.alphaRect[j==1?3:1]*sy;
++                            float sx=(a.rect[2]-a.rect[0])/1536f;
++                            float left=z.walkable[0].x,right=left;
++                            foreach(var point in z.walkable){left=Math.Min(left,point.x);right=Math.Max(right,point.x);}
++                            if(Math.Abs(visibleInner-edge)>.001f || Math.Abs(a.rect[0]+a.alphaRect[0]*sx-left)>.001f || Math.Abs(a.rect[0]+a.alphaRect[2]*sx-right)>.001f)
++                                throw new InvalidOperationException("barrier alpha edge alignment");
+                             foreach(var patch in a.colliderRects)
+                             {
+                                 var box=patch.rect;
+@@ -76,6 +83,9 @@
+                         }
+                         a.Sprite=Resources.Load<Sprite>(a.resource);
+                         if(a.Sprite==null)throw new InvalidOperationException("wave dressing sprite missing: "+a.id);
++                        if(Math.Abs(a.Sprite.rect.width-1536)>.01f || Math.Abs(a.Sprite.rect.height-512)>.01f || Math.Abs(a.Sprite.pixelsPerUnit-100)>.001f ||
++                           Math.Abs(a.Sprite.pivot.x-a.pivot[0]*1536)>.01f || Math.Abs(a.Sprite.pivot.y-a.pivot[1]*512)>.01f)
++                            throw new InvalidOperationException("wave dressing imported canvas/pivot mismatch: "+a.id);
+                     }
+                 }
+                 profile=candidate;return true;
+--- a/Assets/Scripts/Battle/Morpg/MorpgEnvironmentRuntime.cs
++++ b/Assets/Scripts/Battle/Morpg/MorpgEnvironmentRuntime.cs
+@@ -10,13 +10,15 @@
+         internal static MorpgEnvironmentRuntime Active { get; private set; }
+         internal MorpgEnvironmentProfile Profile { get; }
+         internal Rect MapBounds => Rect.MinMaxRect(Profile.mapBounds[0],Profile.mapBounds[1],Profile.mapBounds[2],Profile.mapBounds[3]);
+-        internal MorpgEnvironmentProfile.Zone Zone => current < 0 ? null : Profile.zones[current];
++        internal MorpgEnvironmentProfile.Zone Zone => current < 0 ? null : runtimeZones[current];
+         private readonly Dictionary<string, Sprite> sprites = new(StringComparer.Ordinal);
+         private readonly List<SpriteRenderer> foreground = new();
+         private readonly List<CharacterManager> actors = new();
+         private readonly GameObject[] structural = new GameObject[3];
+         private GameObject root;
+         private int current=-1;
++        private MorpgEnvironmentProfile.Zone[] runtimeZones;
++        internal MorpgEnvironmentProfile.Zone RuntimeZone(int ordinal)=>runtimeZones[ordinal];
+         internal MorpgWaveDressing Dressing { get; private set; }
+         private float cameraSize, cameraAspect;
+         private bool cameraOrthographic;
+@@ -45,7 +47,7 @@
+                     candidate.sprites.Add(asset.id,sprite);
+                 }
+                 if(!MorpgWaveDressing.TryLoad(profile,out var dressing,out error))return false;
+-                candidate.Dressing=dressing;runtime=candidate;return true;
++                candidate.Dressing=dressing;candidate.runtimeZones=Array.ConvertAll(profile.zones,z=>dressing.interiorPropsEnabled?z:z.WithoutInteriorProps());runtime=candidate;return true;
+             }
+             catch(Exception e){error="environment preflight: "+e.Message;return false;}
+         }
+@@ -62,7 +64,7 @@
+                 var z=Profile.zones[i];
+                 structural[i]=Child(collision.transform,z.zoneId);structural[i].SetActive(false);
+                 foreach(var a in Dressing.waves[i].assets)ShowDressing(visuals.transform,structural[i].transform,a);
+-                foreach(var p in z.props)
++                if(Dressing.interiorPropsEnabled)foreach(var p in z.props)
+                 {
+                     Show(visuals.transform,p.id,p.asset,p.visualOrigin,p.visualSize,p.visualRotation,p.flipX);
+                     var blocker=Child(structural[i].transform,p.colliderId);
+@@ -70,7 +72,7 @@
+                     if(p.radius>0)blocker.AddComponent<CircleCollider2D>().radius=p.radius;
+                     else blocker.AddComponent<BoxCollider2D>().size=new Vector2(p.box[2]-p.box[0],p.box[3]-p.box[1]);
+                 }
+-                foreach(var p in z.decorations)Show(visuals.transform,p.id,p.asset,p.origin,p.size,p.visualRotation,p.flipX);
++                if(Dressing.interiorPropsEnabled)foreach(var p in z.decorations)Show(visuals.transform,p.id,p.asset,p.origin,p.size,p.visualRotation,p.flipX);
+                 // A closed strip outside each CCW edge, independent of the background and foliage.
+                 for(int j=0;j<z.walkable.Length;j++)
+                 {
+@@ -94,7 +96,7 @@
+             var go=Child(visualParent,asset.id);var renderer=go.AddComponent<SpriteRenderer>();renderer.sprite=asset.Sprite;
+             float width=asset.rect[2]-asset.rect[0],height=asset.rect[3]-asset.rect[1];
+             go.transform.position=new Vector3(asset.rect[0]+width*asset.pivot[0],asset.rect[1]+height*asset.pivot[1],0);
+-            go.transform.localScale=new Vector3(width/renderer.sprite.bounds.size.x,height/renderer.sprite.bounds.size.y,1);
++            go.transform.localScale=new Vector3(width/(1536f/100f),height/(512f/100f),1);
+             renderer.sortingLayerID=BattlePresentationSortingPolicy.MorpgSortingLayerId;renderer.sortingOrder=asset.sortingOrder;
+             if(asset.colliderRects.Length==0)return;
+             var blocker=Child(collisionParent,"silhouette."+asset.id);var collider=blocker.AddComponent<PolygonCollider2D>();
+@@ -141,8 +143,8 @@
+         internal bool TryBeginWarp(int ordinal,out string error,bool invisibleCut=false)
+         {
+             error="environment landing blocked";
+-            if(ordinal<0 || ordinal>=3 || !MorpgEnvironmentGeometry.LandingValid(Profile.zones[ordinal]))return false;
+-            var z=Profile.zones[ordinal];
++            if(ordinal<0 || ordinal>=3 || !MorpgEnvironmentGeometry.LandingValid(runtimeZones[ordinal]))return false;
++            var z=runtimeZones[ordinal];
+             foreach(var actor in actors)
+                 if(actor!=null && actor.RuntimeData!=null && !actor.RuntimeData.isDead &&
+                    actor.GetComponent<MorpgOwnedObject>()!=null &&
+@@ -180,13 +182,38 @@
+         internal Vector2 Sweep(Vector2 from,Vector2 to,float radius)
+         {
+             if(Zone==null)return to;
++            to=ClampActorCenter(to,radius);
+             float t=MorpgEnvironmentGeometry.SweepFraction(Zone,from.x,from.y,to.x,to.y,radius);
+             return Vector2.Lerp(from,to,t);
+         }
+-        internal Vector2 ClampCamera(Vector2 p)
+-        {
+-            if(Zone==null)return p;var r=Zone.cameraClamp;
+-            return new Vector2(Mathf.Clamp(p.x,r[0],r[2]),Mathf.Clamp(p.y,r[1],r[3]));
++        internal Rect CameraLimits(int ordinal)
++        {
++            var z=runtimeZones[ordinal];var bg=Dressing.waves[ordinal].assets[0].rect;
++            float hh=camera!=null?camera.orthographicSize:Profile.cameraOrthographicSize;
++            float hw=hh*(camera!=null?camera.aspect:16f/9f);
++            float left=z.walkable[0].x,right=left,bottom=z.walkable[0].y,top=bottom;
++            foreach(var point in z.walkable){left=Math.Min(left,point.x);right=Math.Max(right,point.x);bottom=Math.Min(bottom,point.y);top=Math.Max(top,point.y);}
++            float minX=Math.Max(left+hw,bg[0]+hw+.1f),maxX=Math.Min(right-hw,bg[2]-hw-.1f);
++            float minY=Math.Max(bottom+hh-1f,bg[1]+hh+.1f),maxY=Math.Min(top-hh+1f,bg[3]-hh-.1f);
++            if(minX>maxX)minX=maxX=(left+right)/2;
++            if(minY>maxY)minY=maxY=(bottom+top)/2;
++            return Rect.MinMaxRect(minX,minY,maxX,maxY);
++        }
++        internal Vector2 FrameAim(Vector2 p)=>new Vector2(p.x,p.y-.9f);
++        internal Vector2 CameraTarget(int ordinal,Vector2 p) => ClampCameraAt(ordinal,FrameAim(p));
++        private Vector2 ClampCameraAt(int ordinal,Vector2 p)
++        {var r=CameraLimits(ordinal);return new Vector2(Mathf.Clamp(p.x,r.xMin,r.xMax),Mathf.Clamp(p.y,r.yMin,r.yMax));}
++        internal Vector2 ClampCamera(Vector2 p)=>Zone==null?p:ClampCameraAt(current,p);
++        internal Vector2 ClampActorCenter(Vector2 p,float radius=0)
++        {
++            if(Zone==null)return p;
++            var cameraRange=CameraLimits(current);float hh=camera!=null?camera.orthographicSize:Profile.cameraOrthographicSize;
++            float hw=hh*(camera!=null?camera.aspect:16f/9f),left=Zone.walkable[0].x,right=left,bottom=Zone.walkable[0].y,top=bottom;
++            foreach(var v in Zone.walkable){left=Math.Min(left,v.x);right=Math.Max(right,v.x);bottom=Math.Min(bottom,v.y);top=Math.Max(top,v.y);}
++            float inset=Math.Max(0,radius)+Zone.actorInset;
++            // Camera-center limits are expanded by viewport half-width before applying actor clearance.
++            left=Math.Max(left,cameraRange.xMin-hw);right=Math.Min(right,cameraRange.xMax+hw);
++            return new Vector2(Mathf.Clamp(p.x,left+inset,right-inset),Mathf.Clamp(p.y,bottom+inset,top-inset));
+         }
+         internal static float ActorRadius(Rigidbody2D body)
+         {
+--- a/Assets/Scripts/Battle/Morpg/MorpgDashTransitionView.cs
++++ b/Assets/Scripts/Battle/Morpg/MorpgDashTransitionView.cs
+@@ -45,11 +45,11 @@
+             sourcePosition=actor.transform.position;
+             try
+             {
+-            var from=environment.Profile.zones[source];var to=environment.Profile.zones[destinationZone];
++            var from=environment.RuntimeZone(source);var to=environment.RuntimeZone(destinationZone);
+             targetPosition=new Vector3(to.entry[0],to.entry[1],sourcePosition.z);
+             var staging=to.transitionStaging;
+             stagingPosition=staging?.Length==2 ? new Vector3(staging[0],staging[1],sourcePosition.z) : targetPosition;
+-            CameraTarget=new Vector2(Mathf.Clamp(to.entry[0],to.cameraClamp[0],to.cameraClamp[2]),Mathf.Clamp(to.entry[1],to.cameraClamp[1],to.cameraClamp[3]));
++            CameraTarget=environment.CameraTarget(destinationZone,targetPosition);
+             camera=Camera.main;
+             if(camera!=null)
+             {
+--- a/Assets/Scripts/Battle/Morpg/MorpgEnvironmentGeometry.cs
++++ b/Assets/Scripts/Battle/Morpg/MorpgEnvironmentGeometry.cs
+@@ -25,6 +25,7 @@
+             public float spawnInset, actorInset, landingRadius, egressLength, egressRadius;
+             public Prop[] props;
+             public Decoration[] decorations;
++            internal Zone WithoutInteriorProps(){var copy=(Zone)MemberwiseClone();copy.props=System.Array.Empty<Prop>();return copy;}
+         }
+         [Serializable] internal sealed class Prop
+         {
+--- a/Assets/Scripts/Battle/Morpg/BattleMorpgLiveRoute.cs
++++ b/Assets/Scripts/Battle/Morpg/BattleMorpgLiveRoute.cs
+@@ -111,6 +111,7 @@
+             catch (Exception e) { error = "preflight: " + e.Message; return false; }
+         }
+ 
++        private IDisposable legacyBackgroundLease;
+         internal bool Activate()
+         {
+             try
+@@ -122,6 +123,7 @@
+                 staging.SetActive(false);
+                 CharacterManager.OnAnyCharacterDied += OnDied;
+                 BattleMapBoundsContext.Activate(environment.MapBounds, .75f);
++                legacyBackgroundLease=MorpgLegacyBackground.Acquire(session.BattleRuntime);
+                 activated = true;
+                 return true;
+             }
+@@ -469,7 +471,7 @@
+             var camera = Camera.main;
+             if (camera != null)
+             {
+-                Vector2 center = fixedCamera ?? BattleMapBoundsContext.ClampCameraCenter(position, camera);
++                Vector2 center = fixedCamera ?? environment.CameraTarget(ordinal,position);
+                 camera.transform.position = new Vector3(center.x, center.y, camera.transform.position.z);
+                 camera.GetComponent<BattlePlayerCameraFollowMono>()?.ResetSmoothing();
+             }
+@@ -488,6 +490,7 @@
+             if (delivery != null) delivery.Presentation = null;
+             coordinator.DisposeMorpgRoute(reason);
+             UnlockPlayer();
++            legacyBackgroundLease?.Dispose();legacyBackgroundLease=null;
+             environment?.Dispose();
+             Debug.LogError("[MORPG] Attempt stopped (no legacy replay): " + error);
+         }
+@@ -508,6 +511,7 @@
+             CharacterManager.OnAnyCharacterDied -= OnDied;
+             coordinator.DisposeMorpgRoute(MorpgRouteStopReason.Teardown);
+             UnlockPlayer();
++            legacyBackgroundLease?.Dispose();legacyBackgroundLease=null;
+             environment?.Dispose();
+             if (staging != null) UnityEngine.Object.Destroy(staging);
+         }
+--- a/Assets/Scripts/Battle/Map/BattleMapBoundsContext.cs
++++ b/Assets/Scripts/Battle/Map/BattleMapBoundsContext.cs
+@@ -40,6 +40,7 @@
+         public static Vector2 ClampActorCenter(Vector2 point, float extraInset = 0f)
+         {
+             if (!IsActive) return point;
++            if(Morpg.MorpgEnvironmentRuntime.Active!=null)return Morpg.MorpgEnvironmentRuntime.Active.ClampActorCenter(point,extraInset);
+             float inset = (actorZone.HasValue ? 0f : movementInset) + Mathf.Max(0f, extraInset);
+             Rect bounds = actorZone ?? arena;
+             return new Vector2(
+--- a/Assets/Scripts/Battle/Spawn/Sequence/BattleSpawnManager.cs
++++ b/Assets/Scripts/Battle/Spawn/Sequence/BattleSpawnManager.cs
+@@ -295,6 +295,7 @@
+             renderer.sprite = runtime.backgroundSprite;
+             renderer.sortingOrder = Battle.BattlePresentationSortingPolicy.Background;
+ 
++            Battle.Morpg.MorpgLegacyBackground.Register(runtime,renderer);
+             return backgroundObject;
+         }
+ 
+--- /dev/null
++++ b/AgentTools/MorpgWaveDressingHarness/reframe.py
+@@ -0,0 +1,22 @@
++from pathlib import Path
++import json,os
++from PIL import Image
++R=Path('/Users/pvenus/ProjectBS');O=R/'Artifacts/Engineering/MorpgWaveViewportFix';P=R/'Assets/Resources/battle/morpg/wave-environment-v1/binding.json'
++d=json.loads(P.read_text());e=json.loads((R/'Assets/Resources/battle/morpg/environment/environment.v1.json').read_text());d['interiorPropsEnabled']=False
++for w,z in zip(d['waves'],e['zones']):
++ left=min(v['x'] for v in z['walkable']);right=max(v['x'] for v in z['walkable']);bottom=min(v['y'] for v in z['walkable']);top=max(v['y'] for v in z['walkable'])
++ for a in w['assets']:
++  im=Image.open(R/('Assets/Resources/'+a['resource']+'.png'));bb=im.getchannel('A').getbbox() if im.mode=='RGBA' else (0,0,1536,512);a['alphaRect']=list(bb)
++  if a['kind']=='background':a['rect']=[left-2,bottom-1.2,right+2,bottom-1.2+(right-left+4)/3];continue
++  sx=(right-left)/(bb[2]-bb[0]);sy=1.0/(bb[3]-bb[1]);l=left-bb[0]*sx;t=top+bb[3]*sy if a['kind']=='top' else bottom+bb[1]*sy
++  a['rect']=[l,t-512*sy,l+1536*sx,t];alpha=im.getchannel('A');boxes=[]
++  for y in range(0,512,8):
++   run=None
++   for px in range(0,1568,32):
++    y0=t-(y+8)*sy;y1=t-y*sy;outside=y0>=top+.05 if a['kind']=='top' else y1<=bottom-.05
++    solid=px<1536 and outside and alpha.crop((px,y,px+32,y+8)).getextrema()[0]>=192
++    if solid and run is None:run=px
++    if not solid and run is not None:boxes.append({'rect':[round(l+run*sx,6),round(y0,6),round(l+px*sx,6),round(y1,6)]});run=None
++  assert boxes;a['colliderRects']=boxes
++text=json.dumps(d,indent=2)+'\n';tmp=Path(str(P)+'.tmp');tmp.write_text(text);os.replace(tmp,P);(O/'binding.json').write_text(text)
++print('PASS bbox inner edges aligned to y+/-4; visible side edges to zone x bounds; interior runtime gate OFF')
+--- /dev/null
++++ b/AgentTools/MorpgWaveDressingHarness/viewport_audit.py
+@@ -0,0 +1,36 @@
++from pathlib import Path
++from PIL import Image,ImageDraw
++import json,hashlib
++R=Path('/Users/pvenus/ProjectBS');O=R/'Artifacts/Engineering/MorpgWaveViewportFix';D=R/'Assets/Resources/battle/morpg/wave-environment-v1/binding.json';d=json.loads(D.read_text());e=json.loads((R/'Assets/Resources/battle/morpg/environment/environment.v1.json').read_text());assert d['interiorPropsEnabled'] is False
++sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
++for n,h in json.loads((O/'same-path-before.json').read_text()).items():assert sha(R/n)==h,n
++W,H=960,540;hh=e['cameraOrthographicSize'];hw=hh*16/9;scale=H/(hh*2);rows=[];images={};patches=0;previews=[]
++for i,(wave,z) in enumerate(zip(d['waves'],e['zones'])):
++ left=min(v['x'] for v in z['walkable']);right=max(v['x'] for v in z['walkable']);bottom=min(v['y'] for v in z['walkable']);top=max(v['y'] for v in z['walkable']);bg=wave['assets'][0]['rect']
++ xmin=max(left+hw,bg[0]+hw+.1);xmax=min(right-hw,bg[2]-hw-.1);ymin=max(bottom+hh-1,bg[1]+hh+.1);ymax=min(top-hh+1,bg[3]-hh-.1)
++ assert abs(xmin-hw-left)<1e-6 and abs(xmax+hw-right)<1e-6
++ for a in wave['assets']:
++  path=R/('Assets/Resources/'+a['resource']+'.png');im=Image.open(path).convert('RGBA');images[a['id']]=im;assert sha(path)==a['sha256']
++  bb=im.getchannel('A').getbbox();assert list(bb)==a['alphaRect'];l,b,r,t=a['rect'];sx=(r-l)/1536;sy=(t-b)/512
++  if a['kind']=='background':continue
++  assert abs(l+bb[0]*sx-left)<1e-6 and abs(l+bb[2]*sx-right)<1e-6
++  inner=t-bb[3 if a['kind']=='top' else 1]*sy;assert abs(inner-(top if a['kind']=='top' else bottom))<1e-6
++  for patch in a['colliderRects']:
++   x0,y0,x1,y1=patch['rect'];crop=(round((x0-l)/sx),round((t-y1)/sy),round((x1-l)/sx),round((t-y0)/sy));assert im.getchannel('A').crop(crop).getextrema()[0]>=192
++   assert y0>=top+.05-1e-6 if a['kind']=='top' else y1<=bottom-.05+1e-6;patches+=1
++ positions={'center':((xmin+xmax)/2,-.9),'left':(xmin,-.9),'right':(xmax,-.9),'top':((xmin+xmax)/2,ymax),'bottom':((xmin+xmax)/2,ymin),'top-left':(xmin,ymax),'top-right':(xmax,ymax),'bottom-left':(xmin,ymin),'bottom-right':(xmax,ymin)}
++ for name,(cx,cy) in positions.items():
++  vl,vb,vr,vt=cx-hw,cy-hh,cx+hw,cy+hh;assert vl>=bg[0] and vr<=bg[2] and vb>=bg[1] and vt<=bg[3]
++  out=Image.new('RGBA',(W,H),(0,0,0,0))
++  for a in sorted(wave['assets'],key=lambda a:a['sortingOrder']):
++   l,b,r,t=a['rect'];tile=images[a['id']].resize((round((r-l)*scale),round((t-b)*scale)),Image.Resampling.BILINEAR)
++   out.alpha_composite(tile,(round((l-vl)*scale),round((vt-t)*scale)))
++  assert out.getchannel('A').getextrema()==(255,255),'uncovered gray-producing viewport'
++  path=O/f'wave{i+1}-viewport-{name}.png';out.convert('RGB').save(path);previews.append((i,name,out))
++  rows.append(dict(wave=i+1,view=name,camera=[cx,cy],worldCrop=[vl,vb,vr,vt],pixels=[W,H],uncoveredPixels=0,path=str(path.relative_to(R))))
++contact=Image.new('RGB',(480*3,294*9),(235,231,221));draw=ImageDraw.Draw(contact)
++for i,name,im in previews:
++ row=list(positions).index(name);contact.paste(im.convert('RGB').resize((480,270)),(i*480,row*294+24));draw.text((i*480+8,row*294+6),f'W{i+1} / {name} — static viewport',(30,30,30))
++contact.save(O/'viewport-contact.png');(O/'viewport-crops.json').write_text(json.dumps(rows,indent=2)+'\n')
++report=dict(viewportCrops=27,uncoveredPixels=0,worldSideEdgeError=0,alphaInnerEdgeError=0,opaqueSupportedPatches=patches,sourcePngShaDiff=0,protectedSamePathDiff=0,interiorCreation=False,collisionDefinitionsPreserved=True,backgroundGroundAtZoneTop=(4-bg[1])/(bg[3]-bg[1]),method='Static compositing of exact installed assets, nominal16:9 orthographic viewport; no Unity/GPU execution')
++(O/'viewport-audit.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report))
+--- /dev/null
++++ b/Assets/Scripts/Battle/Morpg/MorpgLegacyBackground.cs
+@@ -0,0 +1,46 @@
++using System;
++using System.Collections.Generic;
++using UnityEngine;
++
++namespace Battle.Morpg
++{
++    // Explicitly registered legacy renderers only; never search scene objects by name or touch assets.
++    internal sealed class MorpgLegacyBackground : MonoBehaviour
++    {
++        private static readonly List<MorpgLegacyBackground> registrations=new();
++        private static readonly Dictionary<BattleRuntime,int> leases=new();
++        private BattleRuntime owner;
++        private SpriteRenderer sprite;
++        private bool hidden,baselineEnabled;
++        internal static void Register(BattleRuntime owner,SpriteRenderer renderer)
++        {
++            if(owner==null || renderer==null)return;
++            var marker=renderer.gameObject.AddComponent<MorpgLegacyBackground>();marker.owner=owner;marker.sprite=renderer;
++            registrations.Add(marker);
++            if(leases.ContainsKey(owner))marker.Hide();
++        }
++        private void Hide(){if(hidden||sprite==null)return;baselineEnabled=sprite.enabled;hidden=true;sprite.enabled=false;}
++        private void Restore(){if(!hidden)return;if(sprite!=null)sprite.enabled=baselineEnabled;hidden=false;}
++        private void OnDestroy()=>registrations.Remove(this);
++        internal static IDisposable Acquire(BattleRuntime owner)
++        {
++            leases.TryGetValue(owner,out int count);leases[owner]=count+1;
++            registrations.RemoveAll(r=>r==null);
++            foreach(var marker in registrations)if(ReferenceEquals(marker.owner,owner))marker.Hide();
++            return new Lease(owner);
++        }
++        private sealed class Lease:IDisposable
++        {
++            private BattleRuntime owner;
++            internal Lease(BattleRuntime owner){this.owner=owner;}
++            public void Dispose()
++            {
++                if(owner==null)return;var key=owner;owner=null;
++                if(!leases.TryGetValue(key,out int count))return;
++                if(count>1){leases[key]=count-1;return;}
++                leases.Remove(key);
++                foreach(var marker in registrations)if(marker!=null&&ReferenceEquals(marker.owner,key))marker.Restore();
++            }
++        }
++    }
++}
+--- /dev/null
++++ b/Assets/Scripts/Battle/Morpg/MorpgLegacyBackground.cs.meta
+@@ -0,0 +1,2 @@
++fileFormatVersion: 2
++guid: 37219fbe146f445492a13850ec7c4a91

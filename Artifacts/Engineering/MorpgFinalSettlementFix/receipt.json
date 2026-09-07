@@ -1,0 +1,26 @@
+{
+  "status": "implemented_verified_local_handoff",
+  "index_unchanged": true,
+  "reverse_check": 0,
+  "files": {
+    "Assets/Scripts/Battle/Morpg/BattleMorpgLiveRoute.cs": "eb8af4e5e0d80b3e0fa328d703b5c1de48d2b59e0a19556be080558b2d766174",
+    "AgentTools/MorpgIntegrationHarness/Program.cs": "8da8d9f59db46d520810faf24cd238af4673a87a670352b4b64e9d29c43375bd",
+    "AgentTools/MorpgIntegrationHarness/RuntimeStub.cs": "c5ccbfebe20307e2eb9b76381a5d36df79b0c9f420deb50ff8768d41578f9502",
+    ".git/index": "438b514e07c4dd20b43fe408042d0a2d3b8a9bd9b4a0243c554c3f46d25421c9"
+  },
+  "tests": {
+    "live": 18,
+    "queue": 12,
+    "spawn": 10,
+    "cast": 4,
+    "p0_p1": 27
+  },
+  "compiler": {
+    "errors": 0,
+    "warnings": 31
+  },
+  "limitations": [
+    "Unity engine stub tests; no GUI gameplay run",
+    "Lead handoff blocked by prior automatic approval review"
+  ]
+}

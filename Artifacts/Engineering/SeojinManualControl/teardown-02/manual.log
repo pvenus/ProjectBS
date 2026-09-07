@@ -1,0 +1,22 @@
+PASS axes-all16-opposites-diagonal-normalized
+PASS aim-snapshot-clamps-and-rejects-nonfinite
+PASS startup-manual-and-idle-is-never-auto
+PASS click-tap-keeps-atomic-step-and-stops-next-chain
+PASS held-repeat-after-recovery-and-cooldown-without-dedup-error
+PASS skills-pending-point-is-snapshot-latest-mouse-does-not-follow
+PASS missing-slot-fails-closed-without-blocking-basic
+PASS dash-mouse-opposite-WASD-wins
+PASS dash-epsilon-invalid-aim-WASD-then-last-facing-fallback
+PASS dash-clamped-keydown-snapshot-survives-mouse-caster-readiness-change
+PASS basic-press-snapshot-waits-and-each-held-cycle-resamples
+PASS all-forced-reasons-clear-and-manual-handback-no-ghost
+PASS ui-pause-buffer-clear-and-physical-state-resampled-next-frame
+PASS runtime-default-manual-and-NPC-not-bound
+PASS runtime-input-reader-shifts-and-slots-clamp
+PASS runtime-UI-focus-pause-end-intents-zero
+PASS runtime-OnDisable-restores-captured-baselines-and-zero-movement
+PASS runtime-reenable-idempotent-manual-first-frame-no-held-ghost
+PASS runtime-explicit-auto-only-forced-state-never-AI-authorized
+PASS runtime-reenable-clears-stale-auto-authorization-before-Update
+PASS runtime-slots-1-2-3-retain-clamped-point-contract
+PASS 21/21 production input/core/control lifecycle tests

@@ -1,0 +1,16 @@
+{
+  "before": {
+    "held": false,
+    "pending": true,
+    "chain": false,
+    "basicCalls": 1,
+    "cancelCount": 0
+  },
+  "after": {
+    "held": true,
+    "pending": false,
+    "chain": true,
+    "basicCalls": 2,
+    "cancelCount": 0
+  }
+}

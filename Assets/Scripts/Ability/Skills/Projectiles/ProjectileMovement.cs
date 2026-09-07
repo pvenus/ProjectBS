@@ -34,6 +34,9 @@ public class ProjectileMovement : MonoBehaviour
             return;
         }
 
+        moveController?.ResetController();
+        moveController=null;
+        if(data.orientManualPresentation)transform.rotation=Quaternion.identity;
         owner = ownerEntity;
         runtimeData = data;
         initialized = true;
@@ -42,6 +45,12 @@ public class ProjectileMovement : MonoBehaviour
 
         BuildMoveControllerIfNeeded();
         InitializeMoveController();
+    }
+
+    private void OnDisable()
+    {
+        moveController?.ResetController();moveController=null;
+        initialized=false;runtimeData=null;owner=null;direction=Vector2.right;
     }
 
     private void Update()
@@ -135,6 +144,9 @@ public class ProjectileMovement : MonoBehaviour
             projectileTransform = transform,
             targetTransform = targetTransform,
             targetLayerMask = data.hit.targetLayerMask,
+            authoritativeDirection = data.NormalizedDirection,
+            hasAuthoritativeDirection = data.orientManualPresentation,
+            visualOnlyDirectionRotation = data.orientManualPresentation,
             spawnPosition = data.spawnPosition
         };
     }

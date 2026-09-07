@@ -1,0 +1,86 @@
+{
+  "schemaVersion": "morpg_environment_prop_manifest_v1",
+  "status": "SELECTED_ART_READY_INSTALL_HOLD",
+  "dateKst": "2026-09-06",
+  "authority": {
+    "path": "/private/tmp/projectbs-current-byeori-morpg-zone3-environment-contract.txt",
+    "sha256": "20fd0dc578f51d8218e7e222faecf94f70fa3260c41bf27346756f7decfd75b8"
+  },
+  "generation": {
+    "method": "Codex built-in ImageGen; one independent call per prop",
+    "count": 15,
+    "style": "low-priority Korean ink-wash and sepia rural environment props",
+    "sourceRoot": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/MORPGEnvironmentProps/selected/revision-01/source",
+    "runtimeRoot": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/MORPGEnvironmentProps/selected/revision-01/runtime"
+  },
+  "runtimeImportIntent": {
+    "canvas": [1024, 1024],
+    "format": "PNG RGBA32",
+    "pixelsPerUnit": 100,
+    "pivot": [0.5, 0.046875],
+    "filter": "Bilinear",
+    "wrap": "Clamp",
+    "mipmaps": false,
+    "safeBorderPx": 48,
+    "alphaZeroRgbZero": true,
+    "collider": "independent simplified polygon authored from opaque structural footprint; foliage and brush fringe excluded"
+  },
+  "deployment": {
+    "zone1": {
+      "theme": "dry plain outer edge",
+      "requiredInstances": {"saplings": 8},
+      "modules": ["z1-sapling", "z1-boundary-straight", "z1-boundary-corner", "z1-boundary-end", "z1-boundary-gate"]
+    },
+    "zone2": {
+      "theme": "village outskirts",
+      "requiredInstances": {"fenceRows": 4},
+      "modules": ["z2-fence-straight", "z2-fence-corner", "z2-fence-end", "z2-fence-gate", "z2-cart-straw"]
+    },
+    "zone3": {
+      "theme": "village square",
+      "requiredInstances": {"houseOrWallRows": 5},
+      "modules": ["z3-wall-straight", "z3-wall-corner", "z3-house-edge-end", "z3-wall-gate", "z3-square-props"]
+    },
+    "exclusion": {
+      "entryClearanceWorldUnits": 3.25,
+      "landingRadiusWorldUnits": 1.5,
+      "positiveXEgressRawWidthWorldUnits": 2.8,
+      "positiveXEgressUsableWidthWorldUnits": 2.5,
+      "rule": "no visible sprite, collider, brush fringe or accessory cluster may intrude into these contract spaces"
+    }
+  },
+  "assets": [
+    ["z1-boundary-straight","7ee5317510eafd2a2141beb8ada46a20901881b4539c23859a5a785ec72a2be5","8edaf5f56876a1e759f87c56fa9cd11e734c4962b6384c56f8ee5dafaff9b2cd"],
+    ["z1-boundary-corner","5fda7ad86abc8cc8520c0b6191676db06defb83672b8fa5f4f4d33dac9cd68c5","6bfe55fe02ed7c888677c63813d48c80ecdd750720425e1614a9a4797c2e4f19"],
+    ["z1-boundary-end","ec9741fe386b4ebeaba1f1643769a31911e0412fc0a4f641600006dd0ba1bb83","7082c0f7419c42d977d34c6cafe6cfc06630d0c969a5b4e11d38adfa67237535"],
+    ["z1-boundary-gate","2be00621032f5777579243dc62577a731bba3cdb57f3d8934c9d151d55c910fa","0445b885e04dbc9d2707177a41aae376a2db64006162c15646cb270941041ac1"],
+    ["z1-sapling","0bec0f6a0c4a43a4cd7ba0972127051dbffc5c8e44f012bce54169610ef2af4c","a19217b690d0f8fa8057cb74f8372f234d96290b17d9e3907ba439faf97cd31d"],
+    ["z2-fence-straight","8dcfd6245597ba635e6d4309509e7c7e2696e63ae6514316753490a8635f1e12","20ea7e729c604cf56859c8ab518d1b66a2664d9203208b3cf039ac2ac87b07b6"],
+    ["z2-fence-corner","06dcb495f6ca5fe61a77edc868fd813c4973811314d93af9133067a016e30a19","ba11a89d1a3dadbbd33425d22524691a71343e21317b760cc05df081e66f9ad5"],
+    ["z2-fence-end","1d7a2f64a750332f02d7b9abdf950a1d308dcd24d8bc102776a8659e3a625286","a893804dc666935b5b18b3f8a982a424a8ad1a476f831440a32a9d3e36fb6a52"],
+    ["z2-fence-gate","37487be3eed97613730d6505a06d29ae199fbd6b6e31f78223bd6531648b5201","941ba0ac4fd99622e759071d589a822f85f211eb410fa0e0008f62456728ff3d"],
+    ["z2-cart-straw","f6c898d3f56084355486f61374905385d298702119577d167e6349d4582ed141","3431af3f2de3da861a22283bc08aafd955287b358df72cf15405b536692896a1"],
+    ["z3-wall-straight","755e0a1db80c47a234f4e3a46dd7823305ef7eb1f928aee474cd6f6bd3e16f91","b5baa69171249b4acf1ff6510dce2305d1c31e29eef5621d79ce4faada4e4ebf"],
+    ["z3-wall-corner","6c1ec6e656aaf2662b4132597fa43e1df95af85e5008605346d85986e70bca84","10ca39e13307220bfb52df95a691afd10c587a99c75a2d8d79a356b839f4c277"],
+    ["z3-house-edge-end","898caac453dc775d3258d78782a8abfd2d943c42a302b0c36e54dd7f2ead28ae","dff89d16f52a36363bb7ac11ff1937dbfb84fc0b213ebbf6f848bb174b26aa97"],
+    ["z3-wall-gate","9043dcddcc8532fc53caf52e762e2282a9b80e0ab4dcd5618a1ab8f2d65cbcf1","51817f3806533bb77fc4d8465ae02f313496b26b7cf32964ad7bf75ee3b2210b"],
+    ["z3-square-props","9a84b91bf5dcee592de3b2a6236b5852a40b6e1d07c5135c5e34c6b38c184c7b","f0c0f4b3b3d5c0c9c08dc3951907fc597b782928d3cbaee4152320f20a542c69"]
+  ],
+  "assetTupleSchema": ["id", "sourceSha256", "runtimeSha256"],
+  "qa": {
+    "runtimeCount": 15,
+    "runtimeDimensions": [1024, 1024],
+    "rgba": true,
+    "safeBorder48AlphaMax": 0,
+    "alphaZeroRgbNonzeroPixels": 0,
+    "clipping": false,
+    "textCharacterAnimalUi": false,
+    "visualPriority": "below characters, NPCs, combat telegraphs and reward pickups"
+  },
+  "boundaries": {
+    "projectCanonicalWrite": false,
+    "unityWrite": false,
+    "installAuthority": false,
+    "rollback": "remove this versioned artifact directory only"
+  }
+}

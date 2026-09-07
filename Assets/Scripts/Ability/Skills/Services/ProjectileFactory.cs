@@ -241,7 +241,7 @@ public class ProjectileFactory
             return Quaternion.identity;
         }
 
-        if (!runtimeData.moveRuntime.applyDirectionRotation)
+        if (runtimeData.orientManualPresentation || !runtimeData.moveRuntime.applyDirectionRotation)
         {
             return Quaternion.identity;
         }
@@ -700,6 +700,7 @@ public class ProjectileFactory
             target = source.target,
             sourceEquipment = source.sourceEquipment,
             spawnPosition = spawnPosition,
+            orientManualPresentation = source.orientManualPresentation,
             direction = ResolveProjectileDirection(
                 source,
                 spawnOrder),
@@ -783,7 +784,9 @@ public class ProjectileFactory
 
         return new WarpProjectileMoveDto
         {
-            targetPosition = spawnPosition
+            targetPosition = spawnPosition,
+            applyDirectionRotation = sourceMove.applyDirectionRotation,
+            rotationOffset = sourceMove.rotationOffset
         };
     }
 

@@ -1,0 +1,665 @@
+{
+  "aimMode": "Direction",
+  "equipmentId": "skill.character.seojin.3.basic_attack.basic_attack",
+  "slotName": "basic",
+  "skillName": "전열베기",
+  "desc": "적을 공격하여 피해를 줍니다.",
+  "baseProfile": {
+    "projectileCount": 1,
+    "projectileScale": 1.2,
+    "rendererScale": 0.8,
+    "projectileLifetime": 0.2,
+    "brainMeta": {
+      "category": "Attack",
+      "targetType": "Enemy",
+      "tacticalNeed": "None",
+      "basePriority": 0
+    },
+    "baseProfileId": "skill.character.seojin.3.basic_attack.basic_attack.profile",
+    "skillType": "Active",
+    "skillComponentType": "Projectile",
+    "projectileColliderRadius": 0.6,
+    "projectile": {
+      "arrangement": "Spread",
+      "arrangementValue": 0,
+      "spreadAngle": 0,
+      "radius": 0
+    },
+    "projectileSpawn": {
+      "spawnOffset": 0.45,
+      "interval": 0
+    }
+  },
+  "cast": {
+    "castId": "skill.character.seojin.3.basic_attack.basic_attack.cast",
+    "cooldown": 2,
+    "castTime": 0,
+    "range": 0.8,
+    "castType": "Instant",
+    "targetingType": "AutoTarget",
+    "canMoveWhileCasting": true,
+    "canCancelCasting": true,
+    "autoCast": true,
+    "burst": {
+      "count": 1,
+      "interval": 0
+    }
+  },
+  "move": {
+    "moveId": "skill.character.seojin.3.basic_attack.basic_attack.move",
+    "moveType": "Linear",
+    "applyDirectionRotation": true,
+    "rotationOffset": 0,
+    "linear": {
+      "speed": 0
+    },
+    "config": {
+      "speed": 0
+    }
+  },
+  "combo": {
+    "enabled": true,
+    "useCanonicalBodyChoreography": true,
+    "duration": 0.7,
+    "totalLungeCap": 0.48,
+    "steps": [
+      {
+        "comboIndex": 0,
+        "hitId": "skill.character.seojin.3.basic_attack.basic_attack.combo.0.hit",
+        "bodyActionClip": "character.seojin.basic_attack.combo.hit0.body",
+        "bodyPresentationCalibration": "skill.character.seojin.basic_attack.combo.body.hit0.calibration",
+        "vfxClip": "skill.character.seojin.3.basic_attack.basic_attack.visual.loop",
+        "visualClip": "skill.character.seojin.3.basic_attack.basic_attack.visual.loop",
+        "startTime": 0.0,
+        "hitTime": 0.12,
+        "activeEnd": 0.17,
+        "recoveryEnd": 0.22,
+        "damageWeight": 0.25,
+        "lungeDistance": 0.16
+      },
+      {
+        "comboIndex": 1,
+        "hitId": "skill.character.seojin.3.basic_attack.basic_attack.combo.1.hit",
+        "bodyActionClip": "character.seojin.basic_attack.combo.hit1.body",
+        "bodyPresentationCalibration": "skill.character.seojin.basic_attack.combo.body.hit1.calibration",
+        "vfxPresentationCalibration": "skill.character.seojin.3.basic_attack.combo.vfx.hit1.calibration",
+        "vfxClip": "skill.character.seojin.3.basic_attack.basic_attack.combo.1.visual.loop",
+        "visualClip": "skill.character.seojin.3.basic_attack.basic_attack.visual.loop",
+        "startTime": 0.22,
+        "hitTime": 0.34,
+        "activeEnd": 0.39,
+        "recoveryEnd": 0.44,
+        "damageWeight": 0.3,
+        "lungeDistance": 0.16
+      },
+      {
+        "comboIndex": 2,
+        "hitId": "skill.character.seojin.3.basic_attack.basic_attack.combo.2.hit",
+        "bodyActionClip": "character.seojin.basic_attack.combo.hit2.body",
+        "bodyPresentationCalibration": "skill.character.seojin.basic_attack.combo.body.hit2.calibration",
+        "vfxPresentationCalibration": "skill.character.seojin.3.basic_attack.combo.vfx.hit2.calibration",
+        "vfxClip": "skill.character.seojin.3.basic_attack.basic_attack.combo.2.visual.loop",
+        "visualClip": "skill.character.seojin.3.basic_attack.basic_attack.visual.loop",
+        "startTime": 0.44,
+        "hitTime": 0.58,
+        "activeEnd": 0.64,
+        "recoveryEnd": 0.7,
+        "damageWeight": 0.45,
+        "lungeDistance": 0.16
+      }
+    ]
+  },
+  "hits": [
+    {
+      "hitId": "skill.character.seojin.3.basic_attack.basic_attack.hit",
+      "maxHitCount": 999,
+      "ignoreSameRoot": true,
+      "repeatInterval": 0.25,
+      "hitStartTime": 0,
+      "deactivateAfterFirstHit": false,
+      "targetLayerMask": "Enemy",
+      "damage": {
+        "skillId": "skill.character.seojin.3.basic_attack.basic_attack.damage",
+        "damageType": "Normal",
+        "baseDamage": 45,
+        "firstHitBaseDamage": 0,
+        "attackPercentDamage": 1,
+        "canCritical": true,
+        "ignoreDefense": false
+      },
+      "buffEffects": [
+
+      ],
+      "debuffEffects": [
+
+      ],
+      "split": {
+        "useSplitMultiHitDamage": false,
+        "splitHitCount": 4,
+        "splitHitInterval": 0.1
+      }
+    },
+    {
+      "hitId": "skill.character.seojin.3.basic_attack.basic_attack.combo.0.hit",
+      "maxHitCount": 3,
+      "ignoreSameRoot": true,
+      "repeatInterval": 0,
+      "hitStartTime": 0,
+      "deactivateAfterFirstHit": false,
+      "targetLayerMask": "Enemy",
+      "damage": {
+        "skillId": "skill.character.seojin.3.basic_attack.basic_attack.combo.0.damage",
+        "damageType": "Normal",
+        "baseDamage": 45,
+        "firstHitBaseDamage": 0,
+        "attackPercentDamage": 1,
+        "canCritical": true,
+        "ignoreDefense": false
+      },
+      "buffEffects": [
+
+      ],
+      "debuffEffects": [
+        {
+          "effect": {
+            "effectId": "skill.character.seojin.3.basic_attack.basic_attack.combo.0.effect.debuff.1",
+            "effectType": "Knockback",
+            "effectName": "전열베기 1타 넉백",
+            "force": 2.5,
+            "directionType": "PushAwayFromSource",
+            "normalizeDirection": true,
+            "fallbackToProjectileDirection": true
+          },
+          "lifetimeType": "Instant",
+          "categoryType": "Debuff",
+          "duration": 0,
+          "maxApplyCount": 1
+        }
+      ],
+      "split": {
+        "useSplitMultiHitDamage": false,
+        "splitHitCount": 4,
+        "splitHitInterval": 0.1
+      }
+    },
+    {
+      "hitId": "skill.character.seojin.3.basic_attack.basic_attack.combo.1.hit",
+      "maxHitCount": 3,
+      "ignoreSameRoot": true,
+      "repeatInterval": 0,
+      "hitStartTime": 0,
+      "deactivateAfterFirstHit": false,
+      "targetLayerMask": "Enemy",
+      "damage": {
+        "skillId": "skill.character.seojin.3.basic_attack.basic_attack.combo.1.damage",
+        "damageType": "Normal",
+        "baseDamage": 45,
+        "firstHitBaseDamage": 0,
+        "attackPercentDamage": 1,
+        "canCritical": true,
+        "ignoreDefense": false
+      },
+      "buffEffects": [
+
+      ],
+      "debuffEffects": [
+        {
+          "effect": {
+            "effectId": "skill.character.seojin.3.basic_attack.basic_attack.combo.1.effect.debuff.1",
+            "effectType": "Knockback",
+            "effectName": "전열베기 2타 넉백",
+            "force": 3.5,
+            "directionType": "PushAwayFromSource",
+            "normalizeDirection": true,
+            "fallbackToProjectileDirection": true
+          },
+          "lifetimeType": "Instant",
+          "categoryType": "Debuff",
+          "duration": 0,
+          "maxApplyCount": 1
+        }
+      ],
+      "split": {
+        "useSplitMultiHitDamage": false,
+        "splitHitCount": 4,
+        "splitHitInterval": 0.1
+      }
+    },
+    {
+      "hitId": "skill.character.seojin.3.basic_attack.basic_attack.combo.2.hit",
+      "maxHitCount": 5,
+      "ignoreSameRoot": true,
+      "repeatInterval": 0,
+      "hitStartTime": 0,
+      "deactivateAfterFirstHit": false,
+      "targetLayerMask": "Enemy",
+      "damage": {
+        "skillId": "skill.character.seojin.3.basic_attack.basic_attack.combo.2.damage",
+        "damageType": "Normal",
+        "baseDamage": 45,
+        "firstHitBaseDamage": 0,
+        "attackPercentDamage": 1,
+        "canCritical": true,
+        "ignoreDefense": false
+      },
+      "buffEffects": [
+
+      ],
+      "debuffEffects": [
+        {
+          "effect": {
+            "effectId": "skill.character.seojin.3.basic_attack.basic_attack.combo.2.effect.debuff.1",
+            "effectType": "Knockback",
+            "effectName": "전열베기 마무리 넉백",
+            "force": 6,
+            "directionType": "PushAwayFromSource",
+            "normalizeDirection": true,
+            "fallbackToProjectileDirection": true
+          },
+          "lifetimeType": "Instant",
+          "categoryType": "Debuff",
+          "duration": 0,
+          "maxApplyCount": 1
+        },
+        {
+          "effect": {
+            "effectId": "skill.character.seojin.3.basic_attack.basic_attack.combo.2.effect.debuff.2",
+            "effectType": "StatModifier",
+            "effectName": "전열베기 마무리 이동 속박",
+            "config": {
+              "statType": "RootDuration",
+              "modifierType": "Flat",
+              "value": 0.2
+            }
+          },
+          "lifetimeType": "Instant",
+          "categoryType": "Debuff",
+          "duration": 0,
+          "maxApplyCount": 1
+        }
+      ],
+      "split": {
+        "useSplitMultiHitDamage": false,
+        "splitHitCount": 1,
+        "splitHitInterval": 0
+      }
+    }
+  ],
+  "baseVisual": {
+    "visualId": "skill.character.seojin.3.basic_attack.basic_attack.visual",
+    "archetype": "Melee",
+    "projectilePrefab": "melee_slash",
+    "projectileSprite": "slash_basic",
+    "animatorController": "slash_animator",
+    "idleClip": "slash_idle",
+    "castClip": "slash_cast",
+    "attackClip": "slash_attack",
+    "projectileLoopClip": "",
+    "hitClip": "slash_hit",
+    "projectileVisualType": "Default",
+    "sortingRelation": "AboveOwner"
+  },
+  "upgradeTable": {
+    "skillId": "skill.character.seojin.3.basic_attack",
+    "upgradeTableId": "upgrade.skill.character.seojin.3.basic_attack",
+    "displayName": "기본 공격 강화",
+    "entries": [
+      {
+        "level": 1,
+        "statModifiers": [
+
+        ],
+        "effectModifiers": [
+
+        ]
+      },
+      {
+        "level": 2,
+        "statModifiers": [
+          {
+            "modifierType": "BaseDamage",
+            "operationType": "Flat",
+            "value": 2.0
+          },
+          {
+            "modifierType": "AttackPercentDamage",
+            "operationType": "Flat",
+            "value": 0.05
+          }
+        ],
+        "effectModifiers": [
+
+        ]
+      },
+      {
+        "level": 3,
+        "statModifiers": [
+          {
+            "modifierType": "BaseDamage",
+            "operationType": "Flat",
+            "value": 2.0
+          },
+          {
+            "modifierType": "AttackPercentDamage",
+            "operationType": "Flat",
+            "value": 0.05
+          },
+          {
+            "modifierType": "Range",
+            "operationType": "Flat",
+            "value": 0.1
+          }
+        ],
+        "effectModifiers": [
+
+        ]
+      },
+      {
+        "level": 4,
+        "statModifiers": [
+          {
+            "modifierType": "BaseDamage",
+            "operationType": "Flat",
+            "value": 3.0
+          },
+          {
+            "modifierType": "AttackPercentDamage",
+            "operationType": "Flat",
+            "value": 0.06
+          },
+          {
+            "modifierType": "Cooldown",
+            "operationType": "Flat",
+            "value": -0.08
+          }
+        ],
+        "effectModifiers": [
+
+        ]
+      },
+      {
+        "level": 5,
+        "statModifiers": [
+          {
+            "modifierType": "BaseDamage",
+            "operationType": "Flat",
+            "value": 4.0
+          },
+          {
+            "modifierType": "AttackPercentDamage",
+            "operationType": "Flat",
+            "value": 0.07
+          },
+          {
+            "modifierType": "Range",
+            "operationType": "Flat",
+            "value": 0.1
+          },
+          {
+            "modifierType": "Cooldown",
+            "operationType": "Flat",
+            "value": -0.05
+          }
+        ],
+        "effectModifiers": [
+
+        ]
+      },
+      {
+        "level": 6,
+        "statModifiers": [
+          {
+            "modifierType": "BaseDamage",
+            "operationType": "Flat",
+            "value": 5.0
+          },
+          {
+            "modifierType": "AttackPercentDamage",
+            "operationType": "Flat",
+            "value": 0.08
+          },
+          {
+            "modifierType": "Cooldown",
+            "operationType": "Flat",
+            "value": -0.08
+          }
+        ],
+        "effectModifiers": [
+
+        ]
+      },
+      {
+        "level": 7,
+        "statModifiers": [
+          {
+            "modifierType": "BaseDamage",
+            "operationType": "Flat",
+            "value": 6.0
+          },
+          {
+            "modifierType": "AttackPercentDamage",
+            "operationType": "Flat",
+            "value": 0.09
+          },
+          {
+            "modifierType": "Range",
+            "operationType": "Flat",
+            "value": 0.15
+          }
+        ],
+        "effectModifiers": [
+
+        ]
+      },
+      {
+        "level": 8,
+        "statModifiers": [
+          {
+            "modifierType": "BaseDamage",
+            "operationType": "Flat",
+            "value": 7.0
+          },
+          {
+            "modifierType": "AttackPercentDamage",
+            "operationType": "Flat",
+            "value": 0.1
+          },
+          {
+            "modifierType": "Cooldown",
+            "operationType": "Flat",
+            "value": -0.09
+          },
+          {
+            "modifierType": "Range",
+            "operationType": "Flat",
+            "value": 0.1
+          }
+        ],
+        "effectModifiers": [
+
+        ]
+      },
+      {
+        "level": 9,
+        "statModifiers": [
+          {
+            "modifierType": "BaseDamage",
+            "operationType": "Flat",
+            "value": 8.0
+          },
+          {
+            "modifierType": "AttackPercentDamage",
+            "operationType": "Flat",
+            "value": 0.12
+          },
+          {
+            "modifierType": "Range",
+            "operationType": "Flat",
+            "value": 0.15
+          },
+          {
+            "modifierType": "Cooldown",
+            "operationType": "Flat",
+            "value": -0.08
+          }
+        ],
+        "effectModifiers": [
+
+        ]
+      },
+      {
+        "level": 10,
+        "statModifiers": [
+          {
+            "modifierType": "BaseDamage",
+            "operationType": "Flat",
+            "value": 9.0
+          },
+          {
+            "modifierType": "AttackPercentDamage",
+            "operationType": "Flat",
+            "value": 0.13
+          },
+          {
+            "modifierType": "Range",
+            "operationType": "Flat",
+            "value": 0.15
+          },
+          {
+            "modifierType": "Cooldown",
+            "operationType": "Flat",
+            "value": -0.09
+          },
+          {
+            "modifierType": "Cooldown",
+            "operationType": "Flat",
+            "value": -0.05
+          }
+        ],
+        "effectModifiers": [
+
+        ]
+      },
+      {
+        "level": 11,
+        "statModifiers": [
+          {
+            "modifierType": "BaseDamage",
+            "operationType": "Flat",
+            "value": 10.0
+          },
+          {
+            "modifierType": "AttackPercentDamage",
+            "operationType": "Flat",
+            "value": 0.14
+          },
+          {
+            "modifierType": "Range",
+            "operationType": "Flat",
+            "value": 0.15
+          }
+        ],
+        "effectModifiers": [
+
+        ]
+      },
+      {
+        "level": 12,
+        "statModifiers": [
+          {
+            "modifierType": "BaseDamage",
+            "operationType": "Flat",
+            "value": 11.0
+          },
+          {
+            "modifierType": "AttackPercentDamage",
+            "operationType": "Flat",
+            "value": 0.15
+          },
+          {
+            "modifierType": "Cooldown",
+            "operationType": "Flat",
+            "value": -0.1
+          }
+        ],
+        "effectModifiers": [
+
+        ]
+      },
+      {
+        "level": 13,
+        "statModifiers": [
+          {
+            "modifierType": "BaseDamage",
+            "operationType": "Flat",
+            "value": 12.0
+          },
+          {
+            "modifierType": "AttackPercentDamage",
+            "operationType": "Flat",
+            "value": 0.16
+          },
+          {
+            "modifierType": "Range",
+            "operationType": "Flat",
+            "value": 0.15
+          }
+        ],
+        "effectModifiers": [
+
+        ]
+      },
+      {
+        "level": 14,
+        "statModifiers": [
+          {
+            "modifierType": "BaseDamage",
+            "operationType": "Flat",
+            "value": 13.0
+          },
+          {
+            "modifierType": "AttackPercentDamage",
+            "operationType": "Flat",
+            "value": 0.17
+          },
+          {
+            "modifierType": "Cooldown",
+            "operationType": "Flat",
+            "value": -0.1
+          }
+        ],
+        "effectModifiers": [
+
+        ]
+      },
+      {
+        "level": 15,
+        "statModifiers": [
+          {
+            "modifierType": "BaseDamage",
+            "operationType": "Flat",
+            "value": 15.0
+          },
+          {
+            "modifierType": "AttackPercentDamage",
+            "operationType": "Flat",
+            "value": 0.2
+          },
+          {
+            "modifierType": "Range",
+            "operationType": "Flat",
+            "value": 0.2
+          },
+          {
+            "modifierType": "Cooldown",
+            "operationType": "Flat",
+            "value": -0.12
+          }
+        ],
+        "effectModifiers": [
+
+        ]
+      }
+    ]
+  }
+}

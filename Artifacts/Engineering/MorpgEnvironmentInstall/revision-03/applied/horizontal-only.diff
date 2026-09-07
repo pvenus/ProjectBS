@@ -1,0 +1,2569 @@
+--- a/AgentTools/MorpgEnvironmentHarness/connectivity.py
++++ b/AgentTools/MorpgEnvironmentHarness/connectivity.py
+@@ -7,12 +7,12 @@
+  vertices=z['walkable']
+  for a,b in zip(vertices,vertices[1:]+vertices[:1]):
+   dx,dy=b['x']-a['x'],b['y']-a['y']
+-  if (dx*(y-a['y'])-dy*(x-a['x']))/math.hypot(dx,dy)<.15-1e-7:return False
++  if (dx*(y-a['y'])-dy*(x-a['x']))/math.hypot(dx,dy)<.5-1e-7:return False
+  for q in z['props']:
+   if q['radius']:d=math.hypot(x-q['center'][0],y-q['center'][1])-q['radius']
+   else:
+    a,b,c,d=q['box'];d=math.hypot(max(a-x,0,x-c),max(b-y,0,y-d))
+-  if d<.15-1e-7:return False
++  if d<.5-1e-7:return False
+  return True
+ for z in p['zones']:
+  cells={(x,y) for x in range(math.ceil(min(v['x'] for v in z['walkable'])*10),math.floor(max(v['x'] for v in z['walkable'])*10)+1) for y in range(math.ceil(min(v['y'] for v in z['walkable'])*10),math.floor(max(v['y'] for v in z['walkable'])*10)+1) if free(z,x/10,y/10)}
+@@ -26,6 +26,6 @@
+   if r['zoneId']!=z['zoneId']:continue
+   near=min(cells,key=lambda c:((c[0]/10-r['position'][0])**2+(c[1]/10-r['position'][1])**2,c))
+   assert near in seen,r['reservationId'];rows.append(r['reservationId'])
+- results.append(dict(zoneId=z['zoneId'],gridStep=.1,actorInset=.15,freeCells=len(cells),reachableCells=len(seen),unreachableSpawnCount=0,reservations=rows,minWidthAccepted='see production geometry gap audit'))
+-(R/'Artifacts/Engineering/MorpgEnvironmentInstall/connectivity.json').write_text(json.dumps(results,indent=2)+'\n')
++ results.append(dict(zoneId=z['zoneId'],gridStep=.1,actorRadius=.35,actorInset=.15,freeCells=len(cells),reachableCells=len(seen),unreachableSpawnCount=0,reservations=rows,minWidthAccepted='see production geometry gap audit'))
++(R/'Artifacts/Engineering/MorpgEnvironmentInstall/revision-03/applied/connectivity.json').write_text(json.dumps(results,indent=2)+'\n')
+ print('PASS all28 spawn-to-entry connected on .10wu grid; width/egress checked by production geometry suite')
+--- a/AgentTools/MorpgEnvironmentHarness/GeometryTests.cs
++++ b/AgentTools/MorpgEnvironmentHarness/GeometryTests.cs
+@@ -18,33 +18,51 @@
+    Check(BattleMorpgDefinitionValidator.TryValidate(d,out var e),e);
+    foreach(var z in d.zones)foreach(var r in z.reservations)Check(MorpgEnvironmentGeometry.SpawnValid(p.zones[z.index],r.position),r.reservationId);
+   });
+-  Test("superseded-geometry-passes-full-profile-audit",()=>{
++  Test("horizontal-geometry-passes-full-profile-audit",()=>{
+    var errors=MorpgEnvironmentGeometry.Audit(p,d);
+-   File.WriteAllLines(root+"/Artifacts/Engineering/MorpgEnvironmentInstall/revision-02/geometry-errors.txt",errors);
++   File.WriteAllLines(root+"/Artifacts/Engineering/MorpgEnvironmentInstall/revision-03/applied/geometry-errors.txt",errors);
+    Check(errors.Count==0,string.Join("; ",errors));
+   });
+-  Test("old-wall-and-house-coordinates-still-rejected",()=>{
+-   var z=p.zones[2];var wall=z.props.Single(q=>q.id.EndsWith("wall.right"));float original=wall.box[0];wall.box[0]=14;
+-   Check(MorpgEnvironmentGeometry.Audit(p,d).Any(e=>e.Contains("landing/+X")),"old corridor conflict hidden");wall.box[0]=original;
+-   var house=z.props.Single(q=>q.id.EndsWith("house.top.right"));var box=house.box;house.box=new[]{10f,6.2f,12.5f,7.25f};
+-   Check(MorpgEnvironmentGeometry.Audit(p,d).Any(e=>e.Contains("gap below")),"old gap accepted");house.box=box;
++  Test("center-obstacle-and-narrow-box-gap-rejected",()=>{
++   var z=p.zones[2];var wall=z.props.Single(q=>q.id.EndsWith("wall.right"));var original=wall.box;var center=wall.center;
++   wall.box=new[]{z.entry[0],-1f,z.entry[0]+.2f,1f};wall.center=z.entry;
++   Check(MorpgEnvironmentGeometry.Audit(p,d).Any(e=>e.Contains("landing/+X")),"corridor conflict hidden");wall.box=original;wall.center=center;
++   var left=z.props.Single(q=>q.id.EndsWith("house.top.left"));var right=z.props.Single(q=>q.id.EndsWith("house.top.right"));var box=right.box;
++   right.box=new[]{left.box[2]+1,left.box[1],left.box[2]+3,left.box[3]};
++   Check(MorpgEnvironmentGeometry.Audit(p,d).Any(e=>e.Contains("gap below")),"narrow gap accepted");right.box=box;
+   });
+-  Test("spawn-validator-detects-original-tree-and-house-overlap",()=>{
+-   Check(!MorpgEnvironmentGeometry.SpawnValid(p.zones[0],new[]{-9f,-7f}),"tree spawn accepted");
+-   Check(!MorpgEnvironmentGeometry.SpawnValid(p.zones[2],new[]{10.25f,7f}),"house spawn accepted");
++  Test("spawn-validator-detects-tree-and-house-overlap",()=>{
++   Check(!MorpgEnvironmentGeometry.SpawnValid(p.zones[0],p.zones[0].props[0].center),"tree spawn accepted");
++   Check(!MorpgEnvironmentGeometry.SpawnValid(p.zones[2],p.zones[2].props[0].center),"house spawn accepted");
+   });
+   Test("sweep-stops-before-wall-no-tunneling",()=>{
+-   float t=MorpgEnvironmentGeometry.SweepFraction(p.zones[2],10.25f,0,30,0,.3f);
+-   float end=10.25f+(30-10.25f)*t;
+-   Check(end<=13.851f && end>=13.84f,"wall sweep endpoint "+end);
++   var z=p.zones[2];float x=z.entry[0];float target=110;
++   float t=MorpgEnvironmentGeometry.SweepFraction(z,x,0,target,0,.3f);float end=x+(target-x)*t;
++   Check(Math.Abs(end-(z.props.Single(q=>q.id.EndsWith("wall.right")).box[0]-.45f))<.002f,"wall sweep endpoint "+end);
+   });
+-  Test("sweep-respects-sloped-boundary-and-actor-radius",()=>{
+-   var z=p.zones[0];float t=MorpgEnvironmentGeometry.SweepFraction(z,-10.25f,0,-2,8,.3f);
+-   Check(t<1 && MorpgEnvironmentGeometry.Free(z,-10.25f+8.25f*t,8*t,.45f),"boundary escaped");
++  Test("sweep-respects-boundary-and-actor-radius",()=>{
++   var z=p.zones[0];float x=z.entry[0];float t=MorpgEnvironmentGeometry.SweepFraction(z,x,0,x,8,.3f);
++   Check(t<1 && MorpgEnvironmentGeometry.Free(z,x,8*t,.45f),"boundary escaped");
+   });
+   Test("landing-and-camera-derived-from-same-profile",()=>{
+-   Check(MorpgEnvironmentGeometry.LandingValid(p.zones[0]) && MorpgEnvironmentGeometry.LandingValid(p.zones[1]) && MorpgEnvironmentGeometry.LandingValid(p.zones[2]),"landings invalid");
+-   foreach(var z in p.zones)Check(z.cameraClamp[0]-16f/3>=-16 && z.cameraClamp[2]+16f/3<=16 && z.cameraClamp[1]-3>=-9 && z.cameraClamp[3]+3<=9,"camera void");
++   foreach(var z in p.zones){Check(MorpgEnvironmentGeometry.LandingValid(z),"landing invalid");
++    float hw=p.cameraOrthographicSize*16/9;Check(z.cameraClamp[0]-hw>=p.mapBounds[0]&&z.cameraClamp[2]+hw<=p.mapBounds[2]&&z.cameraClamp[1]-p.cameraOrthographicSize>=p.mapBounds[1]&&z.cameraClamp[3]+p.cameraOrthographicSize<=p.mapBounds[3],"camera void");}
++  });
++  Test("installed-exit-staging-entry-capsules-pass",()=>{
++   foreach(var z in p.zones)Check(MorpgEnvironmentGeometry.DashCorridorsValid(z),"dash capsule blocked "+z.zoneId);
++   var prior=p.zones[1].transitionStaging;p.zones[1].transitionStaging=new[]{36.1f,0};
++   Check(!MorpgEnvironmentGeometry.DashCorridorsValid(p.zones[1])&&MorpgEnvironmentGeometry.Audit(p,d).Any(e=>e.Contains("authored dash corridor")),"unsafe staging accepted");p.zones[1].transitionStaging=prior;
++  });
++  Test("horizontal-aspect-progression-and-original-identities",()=>{
++   var old=JsonUtility.FromJson<BattleMorpgZoneRewardDefinition>(File.ReadAllText(root+"/Artifacts/Engineering/MorpgEnvironmentInstall/revision-03/applied/before/Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.01.rescue_villagers.morpg-zone-reward.v1.json"));
++   for(int i=0;i<3;i++){
++    var z=p.zones[i];Check(Math.Abs((z.walkable.Max(v=>v.x)-z.walkable.Min(v=>v.x))/(z.walkable.Max(v=>v.y)-z.walkable.Min(v=>v.y))-4)<.001,"aspect");
++    for(int j=0;j<d.zones[i].reservations.Length;j++){var a=d.zones[i].reservations[j];var b=old.zones[i].reservations[j];
++     Check(a.reservationId==b.reservationId&&a.unitKey==b.unitKey&&a.localDueTime==b.localDueTime&&a.positionCandidateKey==b.positionCandidateKey&&a.sourceZoneId==b.sourceZoneId,"identity/time drift");
++     Check(Math.Abs(a.position[1])>=z.egressRadius+z.actorInset+.55f-.0001f,"reservation in dash lane");
++     if(j>0)Check(a.position[0]>d.zones[i].reservations[j-1].position[0],"reverse progression");
++    }
++   }
+   });
+   Test("missing-GUID-and-reservation-audit-rejected",()=>{
+    string guid=p.assets[0].guid;p.assets[0].guid=null;Check(MorpgEnvironmentGeometry.Audit(p,d).Any(e=>e.Contains("asset reference")),"GUID accepted");p.assets[0].guid=guid;
+@@ -58,13 +76,13 @@
+   Test("authored-camera-envelope-rejects-void-and-accepts-expanded-map",()=>{
+    float camera=p.cameraOrthographicSize;var bounds=p.mapBounds;
+    p.cameraOrthographicSize=10;Check(MorpgEnvironmentGeometry.Audit(p,d).Any(e=>e.Contains("camera void")),"camera dimensions hardcoded");
+-   p.mapBounds=new[]{-100f,-20f,100f,20f};Check(!MorpgEnvironmentGeometry.Audit(p,d).Any(e=>e.Contains("camera void")),"expanded map ignored");
++   p.mapBounds=new[]{-200f,-20f,200f,20f};Check(!MorpgEnvironmentGeometry.Audit(p,d).Any(e=>e.Contains("camera void")),"expanded map ignored");
+    p.cameraOrthographicSize=camera;p.mapBounds=bounds;
+   });
+   Test("visual-clustering-cannot-hide-structural-overlap",()=>{
+    var a=p.zones[0].props[0];var b=p.zones[0].props[1];var original=b.center;b.center=a.center;
+    Check(MorpgEnvironmentGeometry.Audit(p,d).Any(e=>e.Contains("structural overlap")),"overlapping trunks accepted");b.center=original;
+   });
+-  Console.WriteLine("PASS "+count+"/"+count+" production geometry tests; superseded profile valid");
++  Console.WriteLine("PASS "+count+"/"+count+" production geometry tests; horizontal profile valid");
+  }
+ }
+--- a/AgentTools/MorpgEnvironmentHarness/install_profile.py
++++ b/AgentTools/MorpgEnvironmentHarness/install_profile.py
+@@ -4,6 +4,8 @@
+ from PIL import Image
+ R=Path('/Users/pvenus/ProjectBS');O=R/'Artifacts/Engineering/MorpgEnvironmentInstall'
+ path=R/'Assets/Resources/battle/morpg/environment/environment.v1.json'
++if path.exists() and json.loads(path.read_text()).get('cameraOrthographicSize')==4:
++ raise SystemExit('Revision03 is active; use install_horizontal_profile.py. Revision02 author is frozen.')
+ wave=R/'Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.01.rescue_villagers.morpg-zone-reward.v1.json'
+ b=O/'before'/wave.relative_to(R);b.parent.mkdir(parents=True,exist_ok=True)
+ if not b.exists():shutil.copyfile(wave,b)
+--- a/AgentTools/MorpgIntegrationHarness/Program.cs
++++ b/AgentTools/MorpgIntegrationHarness/Program.cs
+@@ -31,15 +31,9 @@
+   f.Tick(.01f);f.Tick(.01f);
+   Check(f.Route.SettlementState==MorpgFinalSettlementState.FinalSettlementPending && !f.Route.VictoryReady,"pending treated as terminal");
+  }
+- static void WithDashCorridor(Action test){
+-  var saved=Resources.Items[MorpgEnvironmentGeometry.Resource];
+-  var json=((TextAsset)saved).text;Check(StrictCanonicalJson.TryParse(json,out var parsed,out var error),error);
+-  var root=(StrictCanonicalJson.ObjectNode)parsed;var zones=(StrictCanonicalJson.ArrayNode)root["zones"];
+-  void Rectangle(int i,double x0,double x1){var z=(StrictCanonicalJson.ObjectNode)zones[i];var points=new StrictCanonicalJson.ArrayNode();foreach(var v in new[]{new[]{x0,-7.35},new[]{x1,-7.35},new[]{x1,7.35},new[]{x0,7.35}})points.Add(new StrictCanonicalJson.ObjectNode{{"x",(decimal)v[0]},{"y",(decimal)v[1]}});z["walkable"]=points;}
+-  // Test-only envelopes make the approved anchors sweepable; production profile is never rewritten.
+-  Rectangle(0,-14.5,-3.75);Rectangle(1,-5,6.25);Rectangle(2,5.5,14.5);
+-  Resources.Items[MorpgEnvironmentGeometry.Resource]=new TextAsset(StrictCanonicalJson.Canonicalize(root));
+-  try{test();}finally{Resources.Items[MorpgEnvironmentGeometry.Resource]=saved;Camera.main=null;Physics2D.Overlaps=System.Array.Empty<Collider2D>();}
++ static void WithInstalledDashProfile(Action test){
++  // No geometry mutation: normal Dash is exercised against the installed profile.
++  try{test();}finally{Camera.main=null;Physics2D.Overlaps=System.Array.Empty<Collider2D>();}
+  }
+  static void Test(string name,Action test){test();Console.WriteLine("PASS "+name);pass++;}
+  static void Main(string[] args){
+@@ -48,6 +42,8 @@
+   string environmentJson=File.ReadAllText(Path.Combine(args[0],"Assets/Resources/battle/morpg/environment/environment.v1.json"));
+   Resources.Items[MorpgEnvironmentGeometry.Resource]=new TextAsset(environmentJson);
+   var environmentProfile=JsonUtility.FromJson<MorpgEnvironmentProfile>(environmentJson);
++  float startX=environmentProfile.zones[0].entry[0],entryX=environmentProfile.zones[1].entry[0],stagingX=environmentProfile.zones[1].transitionStaging[0];
++  float sourceCameraX=environmentProfile.zones[0].cameraClamp[0],targetCameraX=environmentProfile.zones[1].cameraClamp[0];
+   Resources.Items["battle/morpg/transitions/transition-dash"]=new AnimationClip();
+   foreach(var asset in environmentProfile.assets)Resources.Items[asset.resource]=new Sprite();
+   Test("live-exact-gate-preflight-no-mutation",()=>{
+@@ -62,14 +58,14 @@
+    using var f=new Fixture();f.Clear();Check(NpcSpawnService.Instance.Spawned.Count==19,"zone1 count");
+    Check(BattleMorpgLiveRoute.IsTransitionLocked(f.Player),"transition unlocked early");
+    var dead=NpcSpawnService.Instance.Spawned[0];int gold=GameSession.Instance.StageSession.CurrencyRuntimeData.gold;dead.Die();Check(GameSession.Instance.StageSession.CurrencyRuntimeData.gold==gold,"duplicate reward");
+-   f.Tick(.5f);f.Tick(.12f);Check(f.Player.transform.position.x==0,"center warp");Check(NpcSpawnService.Instance.Spawned.Count==19,"early next wave");
++   f.Tick(.5f);f.Tick(.12f);Check(f.Player.transform.position.x==entryX,"center warp");Check(NpcSpawnService.Instance.Spawned.Count==19,"early next wave");
+    f.AdvanceTransition();Check(!BattleMorpgLiveRoute.IsTransitionLocked(f.Player),"lock leaked");f.Clear();Check(NpcSpawnService.Instance.Spawned.Count==24,"zone2 count");
+    f.AdvanceTransition();f.Clear();Check(NpcSpawnService.Instance.Spawned.Count==28,"zone3 count");
+    Check(f.Route.VictoryReady,"final victory missing");Check(GameSession.Instance.StageSession.CurrencyRuntimeData.gold==40,"gold conservation");Check(f.Player.xp==10,"raw xp conservation");Check(f.Session.BattleRuntime.rewardExperience==0,"final xp duplicate");
+    f.Tick();Check(f.Player.xp==10,"victory retry credited");
+   });
+   Test("live-pause-transition-and-teardown-unlock",()=>{
+-   using var f=new Fixture();f.Clear();Time.timeScale=0;f.Tick(100);Check(f.Player.transform.position.x==-10.25f,"paused warp");Time.timeScale=1;f.Route.Dispose();Check(!BattleMorpgLiveRoute.IsTransitionLocked(f.Player),"teardown lock leak");
++   using var f=new Fixture();f.Clear();Time.timeScale=0;f.Tick(100);Check(f.Player.transform.position.x==startX,"paused warp");Time.timeScale=1;f.Route.Dispose();Check(!BattleMorpgLiveRoute.IsTransitionLocked(f.Player),"teardown lock leak");
+   });
+   Test("live-final-frame-defeat-wins",()=>{
+    using var f=new Fixture();f.Clear();f.AdvanceTransition();f.Clear();f.AdvanceTransition();f.Tick();
+@@ -153,7 +149,7 @@
+    var owned=GameObject.All.Where(Descendant).ToArray();
+    Check(owned.Count(g=>g.GetComponent<CircleCollider2D>()!=null)==8,"trunk inventory");
+    Check(owned.Count(g=>g.GetComponent<BoxCollider2D>()!=null)==9,"fence/house/wall inventory");
+-   Check(owned.Count(g=>g.GetComponent<PolygonCollider2D>()!=null)==14,"closed boundary inventory");
++   Check(owned.Count(g=>g.GetComponent<PolygonCollider2D>()!=null)==environmentProfile.zones.Sum(z=>z.walkable.Length),"closed boundary inventory");
+    Check(owned.Where(g=>g.GetComponent<SpriteRenderer>()!=null).All(g=>g.GetComponent<Collider2D>()==null),"visual collider fringe");
+    Check(owned.Count(g=>g.GetComponent<CircleCollider2D>()!=null && g.activeInHierarchy)==8,"initial active zone mismatch");
+    f.Route.Dispose();Check(MorpgEnvironmentRuntime.Active==null && !root.activeInHierarchy,"environment teardown leaked");
+@@ -187,8 +183,8 @@
+   Test("environment-camera-frame-and-restoration",()=>{
+    Camera.main=new GameObject("camera").AddComponent<Camera>();Camera.main.orthographicSize=5;Camera.main.aspect=2;
+    using(var f=new Fixture()){
+-    f.Tick(.01f);Check(Camera.main.orthographicSize==3 && Math.Abs(Camera.main.aspect-16f/9f)<.0001f,"camera frame missing");
+-    var p=MorpgEnvironmentRuntime.Active.ClampCamera(new Vector2(-100,100));Check(Math.Abs(p.x+10.42f)<.0001f && p.y==5.25f,"zone camera clamp missing");
++    f.Tick(.01f);Check(Camera.main.orthographicSize==environmentProfile.cameraOrthographicSize && Math.Abs(Camera.main.aspect-16f/9f)<.0001f,"camera frame missing");
++    var p=MorpgEnvironmentRuntime.Active.ClampCamera(new Vector2(-100,100));Check(Math.Abs(p.x-environmentProfile.zones[0].cameraClamp[0])<.0001f && p.y==environmentProfile.zones[0].cameraClamp[3],"zone camera clamp missing");
+    }
+    Check(Camera.main.orthographicSize==5 && Camera.main.aspect==2,"camera baseline not restored");Camera.main=null;
+   });
+@@ -213,7 +209,7 @@
+   });
+   Test("sorting-foreground-fades-prop-only-and-restores",()=>{
+    using var f=new Fixture();f.Tick(.01f);var runtime=MorpgEnvironmentRuntime.Active;
+-   var body=f.Player.gameObject.AddComponent<SpriteRenderer>();body.sprite=new Sprite();body.TestBounds=new Bounds{center=new Vector3(-10.25f,0,0),size=new Vector3(1,1,0)};
++   var body=f.Player.gameObject.AddComponent<SpriteRenderer>();body.sprite=new Sprite();body.TestBounds=new Bounds{center=new Vector3(startX,0,0),size=new Vector3(1,1,0)};
+    var props=GameObject.All.Where(g=>g.activeInHierarchy && (g.name.StartsWith("prop.")||g.name.StartsWith("dressing."))).Select(g=>g.GetComponent<SpriteRenderer>()).ToArray();
+    foreach(var r in props)r.TestBounds=new Bounds{center=new Vector3(1000,1000,0),size=new Vector3(1,1,0)};
+    var foreground=props[0];foreground.TestBounds=body.TestBounds;runtime.Tick(.12f);
+@@ -234,61 +230,75 @@
+    var fs=foreign.AddComponent<Util.SortingOrderMono>();typeof(Util.SortingOrderMono).GetMethod("Awake",flags).Invoke(fs,null);Check(fs.CalculateSortingOrder()==-600,"foreign actor changed");
+    f.Route.Dispose();Check(body.sortingOrder==-600 && body.color.a==1,"dispose sorting/alpha restoration failed");
+   });
+-  Test("dash-normal-body-exit-hidden-cut-entry-settle-wave",()=>WithDashCorridor(()=>{
++  Test("dash-normal-body-exit-hidden-cut-entry-settle-wave",()=>WithInstalledDashProfile(()=>{
+    Camera.main=new GameObject("dash camera").AddComponent<Camera>();var follow=Camera.main.gameObject.AddComponent<Battle.BattlePlayerCameraFollowMono>();
+    using var f=new Fixture();var animation=f.Player.gameObject.AddComponent<AnimationMono>();var animator=f.Player.gameObject.AddComponent<Animator>();animator.applyRootMotion=true;
+    var body=f.Player.gameObject.AddComponent<SpriteRenderer>();body.sprite=new Sprite();body.flipX=true;f.Player.gameObject.AddComponent<Rigidbody2D>();
+    f.Clear();var view=f.Route.TransitionView;Check(view!=null && !view.Clock.Fallback,"valid corridor selected fallback: "+view?.FallbackReason);
+    float cameraX=Camera.main.transform.position.x;f.Tick(.5f);f.Tick(.08f);f.Tick(.1f);
+-   Check(f.Player.transform.position.x>-10.25f && Camera.main.transform.position.x==cameraX && !follow.enabled,"exit/camera ownership");
++   Check(f.Player.transform.position.x>startX && Camera.main.transform.position.x==cameraX && !follow.enabled,"exit/camera ownership");
+    float x=f.Player.transform.position.x,alpha=body.color.a;Time.timeScale=0;f.Tick(100);Check(f.Player.transform.position.x==x&&body.color.a==alpha,"pause advanced dash");Time.timeScale=1;
+    for(int i=0;i<100&&view.Clock.Phase!=MorpgDashPhase.Invisible;i++)f.Tick(.01f);
+-   Check(body.color.a==0 && f.Player.transform.position.x==-3 && Camera.main.transform.position.x==0 && NpcSpawnService.Instance.Spawned.Count==19,"cut not hidden/atomic");
++   Check(body.color.a==0 && f.Player.transform.position.x==stagingX && Math.Abs(Camera.main.transform.position.x-targetCameraX)<.001f && NpcSpawnService.Instance.Spawned.Count==19,"cut not hidden/atomic");
+    f.Tick(.01f);Check(body.color.a==0,"no invisible rendered checkpoint");f.Tick(.18f);
+-   Check(f.Player.transform.position.x>-3&&f.Player.transform.position.x<0&&Camera.main.transform.position.x==0,"entry dash/camera");
+-   f.Tick(.181f);Check(f.Player.transform.position.x==0&&body.color.a==1&&BattleMorpgLiveRoute.IsTransitionLocked(f.Player),"landing idle gate");
++   Check(f.Player.transform.position.x>stagingX&&f.Player.transform.position.x<entryX&&Math.Abs(Camera.main.transform.position.x-targetCameraX)<.001f,"entry dash/camera");
++   f.Tick(.181f);Check(f.Player.transform.position.x==entryX&&body.color.a==1&&BattleMorpgLiveRoute.IsTransitionLocked(f.Player),"landing idle gate");
+    f.Tick(.161f);Check(!BattleMorpgLiveRoute.IsTransitionLocked(f.Player)&&!follow.enabled&&animator.applyRootMotion,"unlock restoration");
+    f.Tick(.199f);Check(NpcSpawnService.Instance.Spawned.Count==19,"early wave");f.Tick(.002f);
+    Check(NpcSpawnService.Instance.Spawned.Count==20&&!follow.enabled,"wave receipt or held camera");f.Tick(.01f);Check(follow.enabled&&animation.BodyPlays==2&&body.color.a==1&&body.flipX,"camera/body exact release");
+   }));
+-  Test("dash-current-authored-invalid-corridor-safe-fallback",()=>{
+-   using var f=new Fixture();f.Player.gameObject.AddComponent<AnimationMono>();f.Player.gameObject.AddComponent<SpriteRenderer>();f.Clear();
++  Test("installed-both-dash-transitions-camera-and-wave-order",()=>WithInstalledDashProfile(()=>{
++   Camera.main=new GameObject("two leg camera").AddComponent<Camera>();var follow=Camera.main.gameObject.AddComponent<Battle.BattlePlayerCameraFollowMono>();
++   using var f=new Fixture();f.Player.gameObject.AddComponent<AnimationMono>();var sr=f.Player.gameObject.AddComponent<SpriteRenderer>();f.Player.gameObject.AddComponent<Rigidbody2D>();
++   for(int leg=0;leg<2;leg++){
++    f.Clear();var view=f.Route.TransitionView;Check(!view.Clock.Fallback,"installed leg selected fallback "+leg);
++    int count=NpcSpawnService.Instance.Spawned.Count;bool hidden=false;
++    for(int n=0;n<250&&!f.Route.WaveRunning;n++){
++     f.Tick(.01f);if(view.Clock.Phase==MorpgDashPhase.Invisible){hidden=true;Check(sr.color.a==0,"cut visible");}
++     if(view.Clock.Phase!=MorpgDashPhase.Ready)Check(NpcSpawnService.Instance.Spawned.Count==count,"early reservation");
++    }
++    Check(hidden&&f.Route.WaveRunning&&f.Player.transform.position.x==environmentProfile.zones[leg+1].entry[0],"installed leg failed");
++    Check(!follow.enabled,"camera released at receipt");f.Tick(.01f);Check(follow.enabled,"camera release missing");
++   }
++  }));
++  Test("dash-missing-runtime-anchor-safe-fallback",()=>{
++   using var f=new Fixture();f.Player.gameObject.AddComponent<AnimationMono>();f.Player.gameObject.AddComponent<SpriteRenderer>();MorpgEnvironmentRuntime.Active.Profile.zones[0].transitionExit=null;f.Clear();
+    Check(f.Route.TransitionView.Clock.Fallback&&f.Route.TransitionView.FallbackReason=="authored dash corridor blocked","unsafe authored exit swept through wall");
+-   f.Tick(.5f);f.Tick(.12f);Check(f.Route.TransitionView.Clock.ScreenOpacity==1&&f.Player.transform.position.x==0,"fallback cut exposed");f.AdvanceTransition();
+-  });
+-  Test("dash-dynamic-exit-obstruction-enters-obscured-fallback",()=>WithDashCorridor(()=>{
++   f.Tick(.5f);f.Tick(.12f);Check(f.Route.TransitionView.Clock.ScreenOpacity==1&&f.Player.transform.position.x==entryX,"fallback cut exposed");f.AdvanceTransition();
++  });
++  Test("dash-dynamic-exit-obstruction-enters-obscured-fallback",()=>WithInstalledDashProfile(()=>{
+    using var f=new Fixture();f.Player.gameObject.AddComponent<AnimationMono>();var sr=f.Player.gameObject.AddComponent<SpriteRenderer>();var rb=f.Player.gameObject.AddComponent<Rigidbody2D>();
+    f.Clear();f.Tick(.5f);f.Tick(.08f);rb.BlockCast=new GameObject("dynamic obstruction").AddComponent<BoxCollider2D>();
+    float x=f.Player.transform.position.x;f.Tick(.1f);Check(f.Route.TransitionView.Clock.Fallback&&f.Player.transform.position.x==x,"dynamic blocker penetrated");
+    rb.BlockCast=null;f.Tick(.12f);Check(sr.color.a==0&&f.Route.TransitionView.Clock.ScreenOpacity==1,"dynamic fallback exposed cut");f.AdvanceTransition();
+   }));
+-  Test("dash-entry-obstruction-falls-back-without-second-cut",()=>WithDashCorridor(()=>{
++  Test("dash-entry-obstruction-falls-back-without-second-cut",()=>WithInstalledDashProfile(()=>{
+    using var f=new Fixture();f.Player.gameObject.AddComponent<AnimationMono>();var sr=f.Player.gameObject.AddComponent<SpriteRenderer>();var rb=f.Player.gameObject.AddComponent<Rigidbody2D>();f.Clear();
+    var view=f.Route.TransitionView;for(int i=0;i<200&&view.Clock.Phase!=MorpgDashPhase.Entry;i++)f.Tick(.01f);
+    f.Tick(.1f);float x=f.Player.transform.position.x,alpha=sr.color.a;rb.BlockCast=new GameObject("entry blocker").AddComponent<BoxCollider2D>();
+    f.Tick(.01f);Check(view.Clock.Fallback&&f.Player.transform.position.x==x&&sr.color.a<=alpha,"entry fallback flashed or penetrated");
+-   rb.BlockCast=null;f.Tick(.12f);Check(sr.color.a==0&&view.Clock.ScreenOpacity==1&&f.Player.transform.position.x==0&&f.Route.ActiveZoneIndex==1,"hidden fallback landing");
++   rb.BlockCast=null;f.Tick(.12f);Check(sr.color.a==0&&view.Clock.ScreenOpacity==1&&f.Player.transform.position.x==entryX&&f.Route.ActiveZoneIndex==1,"hidden fallback landing");
+    f.AdvanceTransition();Check(f.Route.ActiveZoneIndex==1&&NpcSpawnService.Instance.Spawned.Count==20,"fallback repeated cut or wave");
+   }));
+-  Test("dash-abort-after-cut-restores-body-camera-input-once",()=>WithDashCorridor(()=>{
++  Test("dash-abort-after-cut-restores-body-camera-input-once",()=>WithInstalledDashProfile(()=>{
+    Camera.main=new GameObject("abort camera").AddComponent<Camera>();var follow=Camera.main.gameObject.AddComponent<Battle.BattlePlayerCameraFollowMono>();
+    using var f=new Fixture();f.Player.gameObject.AddComponent<AnimationMono>();var sr=f.Player.gameObject.AddComponent<SpriteRenderer>();sr.color=new Color(1,1,1,.7f);sr.flipX=true;
+    var animator=f.Player.gameObject.AddComponent<Animator>();animator.applyRootMotion=true;f.Clear();
+    for(int i=0;i<150&&f.Route.ActiveZoneIndex==0;i++)f.Tick(.01f);Check(f.Route.ActiveZoneIndex==1,"cut missing");
+    f.Route.AbortActiveTransition();f.Route.AbortActiveTransition();
+-   Check(f.Player.transform.position.x==-10.25f&&Camera.main.transform.position.x==-10.25f&&follow.enabled&&sr.color.a==.7f&&sr.flipX&&animator.applyRootMotion&&!BattleMorpgLiveRoute.IsTransitionLocked(f.Player)&&!f.Route.VictoryReady,"abort lease leak");
+-  }));
+-  Test("dash-reduced-motion-and-missing-clip-never-play-body",()=>WithDashCorridor(()=>{
++   Check(f.Player.transform.position.x==startX&&Math.Abs(Camera.main.transform.position.x-sourceCameraX)<.001f&&follow.enabled&&sr.color.a==.7f&&sr.flipX&&animator.applyRootMotion&&!BattleMorpgLiveRoute.IsTransitionLocked(f.Player)&&!f.Route.VictoryReady,"abort lease leak");
++  }));
++  Test("dash-reduced-motion-and-missing-clip-never-play-body",()=>WithInstalledDashProfile(()=>{
+    using(var f=new Fixture()){var a=f.Player.gameObject.AddComponent<AnimationMono>();f.Player.gameObject.AddComponent<SpriteRenderer>();f.Route.ReducedMotionTransitions=true;f.Clear();
+     Check(f.Route.TransitionView.FallbackReason=="reduced motion","reduced motion ignored");f.AdvanceTransition();Check(a.BodyPlays==0,"reduced motion played body");}
+    var key="battle/morpg/transitions/transition-dash";var saved=Resources.Items[key];Resources.Items.Remove(key);
+    try{using var f=new Fixture();var a=f.Player.gameObject.AddComponent<AnimationMono>();f.Player.gameObject.AddComponent<SpriteRenderer>();f.Clear();Check(f.Route.TransitionView.Clock.Fallback,"missing clip blocked route");f.AdvanceTransition();Check(a.BodyPlays==0,"missing clip played");}finally{Resources.Items[key]=saved;}
+   }));
+-  Test("dash-blocked-landing-fails-before-cut-and-restores",()=>WithDashCorridor(()=>{
++  Test("dash-blocked-landing-fails-before-cut-and-restores",()=>WithInstalledDashProfile(()=>{
+    using var f=new Fixture();f.Player.gameObject.AddComponent<AnimationMono>();var sr=f.Player.gameObject.AddComponent<SpriteRenderer>();f.Clear();
+    Physics2D.Overlaps=new[]{new GameObject("landing blocked").AddComponent<BoxCollider2D>()};
+    for(int i=0;i<200 && f.Route.SettlementState!=MorpgFinalSettlementState.Failed;i++)f.Tick(.01f);
+-   Check(f.Route.SettlementState==MorpgFinalSettlementState.Failed&&f.Player.transform.position.x==-10.25f&&sr.color.a==1&&!BattleMorpgLiveRoute.IsTransitionLocked(f.Player)&&NpcSpawnService.Instance.Spawned.Count==19,"invalid landing mutated next wave");
++   Check(f.Route.SettlementState==MorpgFinalSettlementState.Failed&&f.Player.transform.position.x==startX&&sr.color.a==1&&!BattleMorpgLiveRoute.IsTransitionLocked(f.Player)&&NpcSpawnService.Instance.Spawned.Count==19,"invalid landing mutated next wave");
+   }));
+   Console.WriteLine("PASS "+pass+"/"+pass+" live glue simulations (Unity engine stub)");
+  }
+--- a/Assets/Resources/battle/morpg/environment/environment.v1.json
++++ b/Assets/Resources/battle/morpg/environment/environment.v1.json
+@@ -1,12 +1,12 @@
+ {
+   "schemaVersion": "morpg-environment.v1",
+-  "contractSha256": "20fd0dc578f51d8218e7e222faecf94f70fa3260c41bf27346756f7decfd75b8",
++  "contractSha256": "eb9c0df227e23a34d7aa0107cf73a8fe4864feee69fe28286dde32986cf75ddf",
+   "sourceManifestSha256": "d5353184175684b7affaa9a95933c7271e3dc65addabbdbfa912c85e0bfa66fb",
+   "mapBounds": [
+-    -16,
+-    -9,
+-    16,
+-    9
++    -3,
++    -8,
++    107,
++    8
+   ],
+   "overscan": 0.25,
+   "minCorridorWidth": 2.5,
+@@ -228,40 +228,32 @@
+       "waveId": "wave.act1.chapter01.01.rescue_villagers.zone.left.01",
+       "anchorId": "anchor.act1.chapter01.01.rescue_villagers.zone.left.entry_warp",
+       "entry": [
+-        -10.25,
++        5,
+         0
+       ],
+       "walkable": [
+         {
+-          "x": -14.5,
+-          "y": -7.35
+-        },
+-        {
+-          "x": -6.1,
+-          "y": -7.35
+-        },
+-        {
+-          "x": -5.85,
+-          "y": -5.8
+-        },
+-        {
+-          "x": -5.85,
+-          "y": 5.8
+-        },
+-        {
+-          "x": -6.1,
+-          "y": 7.35
+-        },
+-        {
+-          "x": -14.5,
+-          "y": 7.35
++          "x": 0,
++          "y": -4
++        },
++        {
++          "x": 32,
++          "y": -4
++        },
++        {
++          "x": 32,
++          "y": 4
++        },
++        {
++          "x": 0,
++          "y": 4
+         }
+       ],
+       "core": [
+-        -13.65,
+-        -5.65,
+-        -6.85,
+-        5.65
++        1.7,
++        -2.5,
++        30.3,
++        2.5
+       ],
+       "spawnInset": 0.65,
+       "actorInset": 0.15,
+@@ -273,10 +265,10 @@
+         0
+       ],
+       "cameraClamp": [
+-        -10.42,
+-        -5.25,
+-        -10.08,
+-        5.25
++        7.2,
++        -0.25,
++        24.8,
++        0.25
+       ],
+       "boundaryId": "boundary.zone.act1.chapter01.01.rescue_villagers.left.combat.v1",
+       "propManifestId": "props.zone.act1.chapter01.01.rescue_villagers.left",
+@@ -289,160 +281,168 @@
+           "colliderId": "collider.prop.zone.act1.chapter01.01.rescue_villagers.left.sapling.01",
+           "asset": "z1-sapling",
+           "center": [
+-            -14,
+-            -6.8
+-          ],
+-          "radius": 0.28,
++            4,
++            -3.65
++          ],
++          "radius": 0.3,
+           "box": [],
+           "visualSize": [
+-            0.9,
+-            0.95
++            3.6,
++            2.47
+           ],
+           "visualOrigin": [
+-            -14,
+-            -7.08
+-          ],
+-          "visualRotation": 0
++            4,
++            -3.9499999999999997
++          ],
++          "visualRotation": 0,
++          "flipX": false
+         },
+         {
+           "id": "prop.zone.act1.chapter01.01.rescue_villagers.left.sapling.02",
+           "colliderId": "collider.prop.zone.act1.chapter01.01.rescue_villagers.left.sapling.02",
+           "asset": "z1-sapling",
+           "center": [
+-            -12,
+-            -7
+-          ],
+-          "radius": 0.28,
++            10,
++            -3.65
++          ],
++          "radius": 0.36,
+           "box": [],
+           "visualSize": [
+-            0.9,
+-            0.95
++            2.8,
++            1.95
+           ],
+           "visualOrigin": [
+-            -12,
+-            -7.28
+-          ],
+-          "visualRotation": 0
++            10,
++            -4.01
++          ],
++          "visualRotation": 0,
++          "flipX": true
+         },
+         {
+           "id": "prop.zone.act1.chapter01.01.rescue_villagers.left.sapling.03",
+           "colliderId": "collider.prop.zone.act1.chapter01.01.rescue_villagers.left.sapling.03",
+           "asset": "z1-sapling",
+           "center": [
+-            -9,
+-            -7
+-          ],
+-          "radius": 0.28,
++            21,
++            -3.65
++          ],
++          "radius": 0.32,
+           "box": [],
+           "visualSize": [
+-            0.9,
+-            0.95
++            4.2,
++            2.86
+           ],
+           "visualOrigin": [
+-            -9,
+-            -7.28
+-          ],
+-          "visualRotation": 0
++            21,
++            -3.9699999999999998
++          ],
++          "visualRotation": 0,
++          "flipX": false
+         },
+         {
+           "id": "prop.zone.act1.chapter01.01.rescue_villagers.left.sapling.04",
+           "colliderId": "collider.prop.zone.act1.chapter01.01.rescue_villagers.left.sapling.04",
+           "asset": "z1-sapling",
+           "center": [
+-            -6.4,
+-            -6.8
+-          ],
+-          "radius": 0.28,
++            28,
++            -3.65
++          ],
++          "radius": 0.4,
+           "box": [],
+           "visualSize": [
+-            0.9,
+-            0.95
++            2.2,
++            1.62
+           ],
+           "visualOrigin": [
+-            -6.4,
+-            -7.08
+-          ],
+-          "visualRotation": 0
++            28,
++            -4.05
++          ],
++          "visualRotation": 0,
++          "flipX": true
+         },
+         {
+           "id": "prop.zone.act1.chapter01.01.rescue_villagers.left.sapling.05",
+           "colliderId": "collider.prop.zone.act1.chapter01.01.rescue_villagers.left.sapling.05",
+           "asset": "z1-sapling",
+           "center": [
+-            -14,
+-            6.8
+-          ],
+-          "radius": 0.28,
++            4,
++            3.65
++          ],
++          "radius": 0.3,
+           "box": [],
+           "visualSize": [
+-            0.9,
+-            0.95
++            3.6,
++            3.8
+           ],
+           "visualOrigin": [
+-            -14,
+-            6.52
+-          ],
+-          "visualRotation": 0
++            4,
++            3.35
++          ],
++          "visualRotation": 0,
++          "flipX": false
+         },
+         {
+           "id": "prop.zone.act1.chapter01.01.rescue_villagers.left.sapling.06",
+           "colliderId": "collider.prop.zone.act1.chapter01.01.rescue_villagers.left.sapling.06",
+           "asset": "z1-sapling",
+           "center": [
+-            -12,
+-            7
+-          ],
+-          "radius": 0.28,
++            10,
++            3.65
++          ],
++          "radius": 0.36,
+           "box": [],
+           "visualSize": [
+-            0.9,
+-            0.95
++            2.8,
++            3
+           ],
+           "visualOrigin": [
+-            -12,
+-            6.72
+-          ],
+-          "visualRotation": 0
++            10,
++            3.29
++          ],
++          "visualRotation": 0,
++          "flipX": true
+         },
+         {
+           "id": "prop.zone.act1.chapter01.01.rescue_villagers.left.sapling.07",
+           "colliderId": "collider.prop.zone.act1.chapter01.01.rescue_villagers.left.sapling.07",
+           "asset": "z1-sapling",
+           "center": [
+-            -9,
+-            7
+-          ],
+-          "radius": 0.28,
++            21,
++            3.65
++          ],
++          "radius": 0.32,
+           "box": [],
+           "visualSize": [
+-            0.9,
+-            0.95
++            4.2,
++            4.4
+           ],
+           "visualOrigin": [
+-            -9,
+-            6.72
+-          ],
+-          "visualRotation": 0
++            21,
++            3.33
++          ],
++          "visualRotation": 0,
++          "flipX": false
+         },
+         {
+           "id": "prop.zone.act1.chapter01.01.rescue_villagers.left.sapling.08",
+           "colliderId": "collider.prop.zone.act1.chapter01.01.rescue_villagers.left.sapling.08",
+           "asset": "z1-sapling",
+           "center": [
+-            -6.4,
+-            6.8
+-          ],
+-          "radius": 0.28,
++            28,
++            3.65
++          ],
++          "radius": 0.4,
+           "box": [],
+           "visualSize": [
+-            0.9,
+-            0.95
++            2.2,
++            2.5
+           ],
+           "visualOrigin": [
+-            -6.4,
+-            6.52
+-          ],
+-          "visualRotation": 0
++            28,
++            3.25
++          ],
++          "visualRotation": 0,
++          "flipX": true
+         }
+       ],
+       "decorations": [
+@@ -450,53 +450,257 @@
+           "id": "dressing.z1-boundary-straight",
+           "asset": "z1-boundary-straight",
+           "origin": [
+-            -11,
+-            8
+-          ],
+-          "size": [
+-            2,
+-            0.7
+-          ]
++            3.75,
++            -6.25
++          ],
++          "size": [
++            3.8,
++            2.8
++          ],
++          "flipX": false,
++          "visualRotation": 0
+         },
+         {
+           "id": "dressing.z1-boundary-corner",
+           "asset": "z1-boundary-corner",
+           "origin": [
+-            -15.3,
+-            7.8
+-          ],
+-          "size": [
+-            0.8,
+-            0.8
+-          ]
++            5.65,
++            -5.8
++          ],
++          "size": [
++            2.6,
++            2
++          ],
++          "flipX": true,
++          "visualRotation": 0
+         },
+         {
+           "id": "dressing.z1-boundary-end",
+           "asset": "z1-boundary-end",
+           "origin": [
+-            -15.3,
+-            -8.5
+-          ],
+-          "size": [
+-            0.8,
+-            0.8
+-          ]
++            6.9,
++            -4.7
++          ],
++          "size": [
++            1.5,
++            1.2
++          ],
++          "flipX": false,
++          "visualRotation": 0
+         },
+         {
+           "id": "dressing.z1-boundary-gate",
+           "asset": "z1-boundary-gate",
+           "origin": [
+-            -10.25,
+-            -8.8
+-          ],
+-          "size": [
+-            2,
+-            0.8
+-          ]
++            14.75,
++            -6.25
++          ],
++          "size": [
++            3.8,
++            2.8
++          ],
++          "flipX": true,
++          "visualRotation": 0
++        },
++        {
++          "id": "dressing.z1.cluster.-1.1.1",
++          "asset": "z1-sapling",
++          "origin": [
++            16.65,
++            -5.8
++          ],
++          "size": [
++            2.6,
++            2
++          ],
++          "flipX": false,
++          "visualRotation": 0
++        },
++        {
++          "id": "dressing.z1.cluster.-1.1.2",
++          "asset": "z1-boundary-straight",
++          "origin": [
++            17.9,
++            -4.7
++          ],
++          "size": [
++            1.5,
++            1.2
++          ],
++          "flipX": true,
++          "visualRotation": 0
++        },
++        {
++          "id": "dressing.z1.cluster.-1.2.0",
++          "asset": "z1-boundary-corner",
++          "origin": [
++            25.75,
++            -6.25
++          ],
++          "size": [
++            3.8,
++            2.8
++          ],
++          "flipX": false,
++          "visualRotation": 0
++        },
++        {
++          "id": "dressing.z1.cluster.-1.2.1",
++          "asset": "z1-boundary-end",
++          "origin": [
++            27.65,
++            -5.8
++          ],
++          "size": [
++            2.6,
++            2
++          ],
++          "flipX": true,
++          "visualRotation": 0
++        },
++        {
++          "id": "dressing.z1.cluster.-1.2.2",
++          "asset": "z1-boundary-gate",
++          "origin": [
++            28.9,
++            -4.7
++          ],
++          "size": [
++            1.5,
++            1.2
++          ],
++          "flipX": false,
++          "visualRotation": 0
++        },
++        {
++          "id": "dressing.z1.cluster.1.0.0",
++          "asset": "z1-sapling",
++          "origin": [
++            3.75,
++            3.45
++          ],
++          "size": [
++            3.8,
++            2.8
++          ],
++          "flipX": true,
++          "visualRotation": 0
++        },
++        {
++          "id": "dressing.z1.cluster.1.0.1",
++          "asset": "z1-boundary-straight",
++          "origin": [
++            5.65,
++            3.8000000000000003
++          ],
++          "size": [
++            2.6,
++            2
++          ],
++          "flipX": false,
++          "visualRotation": 0
++        },
++        {
++          "id": "dressing.z1.cluster.1.0.2",
++          "asset": "z1-boundary-corner",
++          "origin": [
++            6.9,
++            3.5
++          ],
++          "size": [
++            1.5,
++            1.2
++          ],
++          "flipX": true,
++          "visualRotation": 0
++        },
++        {
++          "id": "dressing.z1.cluster.1.1.0",
++          "asset": "z1-boundary-end",
++          "origin": [
++            14.75,
++            3.45
++          ],
++          "size": [
++            3.8,
++            2.8
++          ],
++          "flipX": false,
++          "visualRotation": 0
++        },
++        {
++          "id": "dressing.z1.cluster.1.1.1",
++          "asset": "z1-boundary-gate",
++          "origin": [
++            16.65,
++            3.8000000000000003
++          ],
++          "size": [
++            2.6,
++            2
++          ],
++          "flipX": true,
++          "visualRotation": 0
++        },
++        {
++          "id": "dressing.z1.cluster.1.1.2",
++          "asset": "z1-sapling",
++          "origin": [
++            17.9,
++            3.5
++          ],
++          "size": [
++            1.5,
++            1.2
++          ],
++          "flipX": false,
++          "visualRotation": 0
++        },
++        {
++          "id": "dressing.z1.cluster.1.2.0",
++          "asset": "z1-boundary-straight",
++          "origin": [
++            25.75,
++            3.45
++          ],
++          "size": [
++            3.8,
++            2.8
++          ],
++          "flipX": true,
++          "visualRotation": 0
++        },
++        {
++          "id": "dressing.z1.cluster.1.2.1",
++          "asset": "z1-boundary-corner",
++          "origin": [
++            27.65,
++            3.8000000000000003
++          ],
++          "size": [
++            2.6,
++            2
++          ],
++          "flipX": false,
++          "visualRotation": 0
++        },
++        {
++          "id": "dressing.z1.cluster.1.2.2",
++          "asset": "z1-boundary-end",
++          "origin": [
++            28.9,
++            3.5
++          ],
++          "size": [
++            1.5,
++            1.2
++          ],
++          "flipX": true,
++          "visualRotation": 0
+         }
+       ],
+       "transitionExit": [
+-        -5.7,
++        30,
+         0
+       ]
+     },
+@@ -505,32 +709,32 @@
+       "waveId": "wave.act1.chapter01.01.rescue_villagers.zone.center.02",
+       "anchorId": "anchor.act1.chapter01.01.rescue_villagers.zone.center.entry_warp",
+       "entry": [
+-        0,
++        41,
+         0
+       ],
+       "walkable": [
+         {
+-          "x": -4.25,
+-          "y": -7.35
+-        },
+-        {
+-          "x": 4.25,
+-          "y": -7.35
+-        },
+-        {
+-          "x": 4.25,
+-          "y": 7.35
+-        },
+-        {
+-          "x": -4.25,
+-          "y": 7.35
++          "x": 36,
++          "y": -4
++        },
++        {
++          "x": 68,
++          "y": -4
++        },
++        {
++          "x": 68,
++          "y": 4
++        },
++        {
++          "x": 36,
++          "y": 4
+         }
+       ],
+       "core": [
+-        -3.55,
+-        -5.6,
+-        3.55,
+-        5.6
++        37.7,
++        -2.5,
++        66.3,
++        2.5
+       ],
+       "spawnInset": 0.65,
+       "actorInset": 0.15,
+@@ -542,10 +746,10 @@
+         0
+       ],
+       "cameraClamp": [
+-        -0.35,
+-        -5.25,
+-        0.35,
+-        5.25
++        43.2,
++        -0.25,
++        60.8,
++        0.25
+       ],
+       "boundaryId": "boundary.zone.act1.chapter01.01.rescue_villagers.center.combat.v1",
+       "propManifestId": "props.zone.act1.chapter01.01.rescue_villagers.center",
+@@ -558,100 +762,104 @@
+           "colliderId": "collider.prop.zone.act1.chapter01.01.rescue_villagers.center.fence.top.left",
+           "asset": "z2-fence-straight",
+           "center": [
+-            -2.75,
+-            7
++            45,
++            3.65
+           ],
+           "radius": 0,
+           "box": [
+-            -4.0,
+-            6.88,
+-            -1.5,
+-            7.12
++            42.5,
++            3.4699999999999998,
++            47.5,
++            3.83
+           ],
+           "visualSize": [
+-            2.5,
+-            0.95
++            5,
++            2
+           ],
+           "visualOrigin": [
+-            -2.75,
+-            6.88
+-          ],
+-          "visualRotation": 0
++            45,
++            3.4699999999999998
++          ],
++          "visualRotation": 0,
++          "flipX": false
+         },
+         {
+           "id": "prop.zone.act1.chapter01.01.rescue_villagers.center.fence.top.right",
+           "colliderId": "collider.prop.zone.act1.chapter01.01.rescue_villagers.center.fence.top.right",
+           "asset": "z2-fence-straight",
+           "center": [
+-            2.75,
+-            7
++            60,
++            3.65
+           ],
+           "radius": 0,
+           "box": [
+-            1.5,
+-            6.88,
+-            4.0,
+-            7.12
++            57.5,
++            3.4699999999999998,
++            62.5,
++            3.83
+           ],
+           "visualSize": [
+-            2.5,
+-            0.95
++            5,
++            1.6
+           ],
+           "visualOrigin": [
+-            2.75,
+-            6.88
+-          ],
+-          "visualRotation": 0
++            60,
++            3.4699999999999998
++          ],
++          "visualRotation": 0,
++          "flipX": true
+         },
+         {
+           "id": "prop.zone.act1.chapter01.01.rescue_villagers.center.fence.bottom.left",
+           "colliderId": "collider.prop.zone.act1.chapter01.01.rescue_villagers.center.fence.bottom.left",
+           "asset": "z2-fence-straight",
+           "center": [
+-            -2.75,
+-            -7
++            45,
++            -3.65
+           ],
+           "radius": 0,
+           "box": [
+-            -4.0,
+-            -7.12,
+-            -1.5,
+-            -6.88
++            42.5,
++            -3.83,
++            47.5,
++            -3.4699999999999998
+           ],
+           "visualSize": [
+-            2.5,
+-            0.95
++            5,
++            1.3
+           ],
+           "visualOrigin": [
+-            -2.75,
+-            -7.12
+-          ],
+-          "visualRotation": 0
++            45,
++            -3.83
++          ],
++          "visualRotation": 0,
++          "flipX": false
+         },
+         {
+           "id": "prop.zone.act1.chapter01.01.rescue_villagers.center.fence.bottom.right",
+           "colliderId": "collider.prop.zone.act1.chapter01.01.rescue_villagers.center.fence.bottom.right",
+           "asset": "z2-fence-straight",
+           "center": [
+-            2.75,
+-            -7
++            60,
++            -3.65
+           ],
+           "radius": 0,
+           "box": [
+-            1.5,
+-            -7.12,
+-            4.0,
+-            -6.88
++            57.5,
++            -3.83,
++            62.5,
++            -3.4699999999999998
+           ],
+           "visualSize": [
+-            2.5,
+-            0.95
++            5,
++            1.04
+           ],
+           "visualOrigin": [
+-            2.75,
+-            -7.12
+-          ],
+-          "visualRotation": 0
++            60,
++            -3.83
++          ],
++          "visualRotation": 0,
++          "flipX": true
+         }
+       ],
+       "decorations": [
+@@ -659,57 +867,261 @@
+           "id": "dressing.z2-fence-corner",
+           "asset": "z2-fence-corner",
+           "origin": [
+-            -4.7,
+-            7.8
+-          ],
+-          "size": [
+-            0.6,
+-            0.8
+-          ]
++            39.75,
++            -6.25
++          ],
++          "size": [
++            3.8,
++            2.8
++          ],
++          "flipX": true,
++          "visualRotation": 0
+         },
+         {
+           "id": "dressing.z2-fence-end",
+           "asset": "z2-fence-end",
+           "origin": [
+-            4.7,
+-            -8.5
+-          ],
+-          "size": [
+-            0.6,
+-            0.8
+-          ]
++            41.65,
++            -5.8
++          ],
++          "size": [
++            2.6,
++            2
++          ],
++          "flipX": false,
++          "visualRotation": 0
+         },
+         {
+           "id": "dressing.z2-fence-gate",
+           "asset": "z2-fence-gate",
+           "origin": [
+-            0,
+-            7.7
+-          ],
+-          "size": [
+-            2,
+-            0.9
+-          ]
++            42.9,
++            -4.7
++          ],
++          "size": [
++            1.5,
++            1.2
++          ],
++          "flipX": true,
++          "visualRotation": 0
+         },
+         {
+           "id": "dressing.z2-cart-straw",
+           "asset": "z2-cart-straw",
+           "origin": [
+-            0,
+-            -8.7
+-          ],
+-          "size": [
+-            1.4,
+-            0.8
+-          ]
++            50.75,
++            -6.25
++          ],
++          "size": [
++            3.8,
++            2.8
++          ],
++          "flipX": false,
++          "visualRotation": 0
++        },
++        {
++          "id": "dressing.z2.cluster.-1.1.1",
++          "asset": "z2-fence-straight",
++          "origin": [
++            52.65,
++            -5.8
++          ],
++          "size": [
++            2.6,
++            2
++          ],
++          "flipX": true,
++          "visualRotation": 0
++        },
++        {
++          "id": "dressing.z2.cluster.-1.1.2",
++          "asset": "z2-fence-corner",
++          "origin": [
++            53.9,
++            -4.7
++          ],
++          "size": [
++            1.5,
++            1.2
++          ],
++          "flipX": false,
++          "visualRotation": 0
++        },
++        {
++          "id": "dressing.z2.cluster.-1.2.0",
++          "asset": "z2-fence-end",
++          "origin": [
++            61.75,
++            -6.25
++          ],
++          "size": [
++            3.8,
++            2.8
++          ],
++          "flipX": true,
++          "visualRotation": 0
++        },
++        {
++          "id": "dressing.z2.cluster.-1.2.1",
++          "asset": "z2-fence-gate",
++          "origin": [
++            63.65,
++            -5.8
++          ],
++          "size": [
++            2.6,
++            2
++          ],
++          "flipX": false,
++          "visualRotation": 0
++        },
++        {
++          "id": "dressing.z2.cluster.-1.2.2",
++          "asset": "z2-cart-straw",
++          "origin": [
++            64.9,
++            -4.7
++          ],
++          "size": [
++            1.5,
++            1.2
++          ],
++          "flipX": true,
++          "visualRotation": 0
++        },
++        {
++          "id": "dressing.z2.cluster.1.0.0",
++          "asset": "z2-fence-straight",
++          "origin": [
++            39.75,
++            3.45
++          ],
++          "size": [
++            3.8,
++            2.8
++          ],
++          "flipX": false,
++          "visualRotation": 0
++        },
++        {
++          "id": "dressing.z2.cluster.1.0.1",
++          "asset": "z2-fence-corner",
++          "origin": [
++            41.65,
++            3.8000000000000003
++          ],
++          "size": [
++            2.6,
++            2
++          ],
++          "flipX": true,
++          "visualRotation": 0
++        },
++        {
++          "id": "dressing.z2.cluster.1.0.2",
++          "asset": "z2-fence-end",
++          "origin": [
++            42.9,
++            3.5
++          ],
++          "size": [
++            1.5,
++            1.2
++          ],
++          "flipX": false,
++          "visualRotation": 0
++        },
++        {
++          "id": "dressing.z2.cluster.1.1.0",
++          "asset": "z2-fence-gate",
++          "origin": [
++            50.75,
++            3.45
++          ],
++          "size": [
++            3.8,
++            2.8
++          ],
++          "flipX": true,
++          "visualRotation": 0
++        },
++        {
++          "id": "dressing.z2.cluster.1.1.1",
++          "asset": "z2-cart-straw",
++          "origin": [
++            52.65,
++            3.8000000000000003
++          ],
++          "size": [
++            2.6,
++            2
++          ],
++          "flipX": false,
++          "visualRotation": 0
++        },
++        {
++          "id": "dressing.z2.cluster.1.1.2",
++          "asset": "z2-fence-straight",
++          "origin": [
++            53.9,
++            3.5
++          ],
++          "size": [
++            1.5,
++            1.2
++          ],
++          "flipX": true,
++          "visualRotation": 0
++        },
++        {
++          "id": "dressing.z2.cluster.1.2.0",
++          "asset": "z2-fence-corner",
++          "origin": [
++            61.75,
++            3.45
++          ],
++          "size": [
++            3.8,
++            2.8
++          ],
++          "flipX": false,
++          "visualRotation": 0
++        },
++        {
++          "id": "dressing.z2.cluster.1.2.1",
++          "asset": "z2-fence-end",
++          "origin": [
++            63.65,
++            3.8000000000000003
++          ],
++          "size": [
++            2.6,
++            2
++          ],
++          "flipX": true,
++          "visualRotation": 0
++        },
++        {
++          "id": "dressing.z2.cluster.1.2.2",
++          "asset": "z2-fence-gate",
++          "origin": [
++            64.9,
++            3.5
++          ],
++          "size": [
++            1.5,
++            1.2
++          ],
++          "flipX": false,
++          "visualRotation": 0
+         }
+       ],
+       "transitionExit": [
+-        4.45,
++        66,
+         0
+       ],
+       "transitionStaging": [
+-        -3,
++        38,
+         0
+       ]
+     },
+@@ -718,32 +1130,32 @@
+       "waveId": "wave.act1.chapter01.01.rescue_villagers.zone.right.03",
+       "anchorId": "anchor.act1.chapter01.01.rescue_villagers.zone.right.entry_warp",
+       "entry": [
+-        10.25,
++        77,
+         0
+       ],
+       "walkable": [
+         {
+-          "x": 6,
+-          "y": -7.25
+-        },
+-        {
+-          "x": 14.5,
+-          "y": -7.25
+-        },
+-        {
+-          "x": 14.5,
+-          "y": 7.25
+-        },
+-        {
+-          "x": 6,
+-          "y": 7.25
++          "x": 72,
++          "y": -4
++        },
++        {
++          "x": 104,
++          "y": -4
++        },
++        {
++          "x": 104,
++          "y": 4
++        },
++        {
++          "x": 72,
++          "y": 4
+         }
+       ],
+       "core": [
+-        6.75,
+-        -5.5,
+-        13.75,
+-        5.5
++        73.7,
++        -2.5,
++        102.3,
++        2.5
+       ],
+       "spawnInset": 0.65,
+       "actorInset": 0.15,
+@@ -755,10 +1167,10 @@
+         0
+       ],
+       "cameraClamp": [
+-        10.08,
+-        -5.25,
+-        10.42,
+-        5.25
++        79.2,
++        -0.25,
++        96.8,
++        0.25
+       ],
+       "boundaryId": "boundary.zone.act1.chapter01.01.rescue_villagers.right.combat.v1",
+       "propManifestId": "props.zone.act1.chapter01.01.rescue_villagers.right",
+@@ -771,125 +1183,130 @@
+           "colliderId": "collider.prop.zone.act1.chapter01.01.rescue_villagers.right.house.top.left",
+           "asset": "z3-house-edge-end",
+           "center": [
+-            7.4,
+-            6.725
++            79,
++            3.625
+           ],
+           "radius": 0,
+           "box": [
+-            6.3,
+-            6.2,
+-            8.5,
+-            7.25
++            77,
++            3.25,
++            81,
++            4.0
+           ],
+           "visualSize": [
+-            2.2,
+-            1.8
++            4.6,
++            3
+           ],
+           "visualOrigin": [
+-            7.4,
+-            6.199999999999999
+-          ],
+-          "visualRotation": 0
++            79,
++            3.25
++          ],
++          "visualRotation": 0,
++          "flipX": false
+         },
+         {
+           "id": "prop.zone.act1.chapter01.01.rescue_villagers.right.house.top.right",
+           "colliderId": "collider.prop.zone.act1.chapter01.01.rescue_villagers.right.house.top.right",
+           "asset": "z3-house-edge-end",
+           "center": [
+-            12.25,
+-            6.725
++            96,
++            3.625
+           ],
+           "radius": 0,
+           "box": [
+-            11,
+-            6.2,
+-            13.5,
+-            7.25
++            94,
++            3.25,
++            98,
++            4.0
+           ],
+           "visualSize": [
+-            2.5,
+-            1.8
++            5.6,
++            3.6
+           ],
+           "visualOrigin": [
+-            12.25,
+-            6.199999999999999
+-          ],
+-          "visualRotation": 0
++            96,
++            3.25
++          ],
++          "visualRotation": 0,
++          "flipX": true
+         },
+         {
+           "id": "prop.zone.act1.chapter01.01.rescue_villagers.right.house.bottom.left",
+           "colliderId": "collider.prop.zone.act1.chapter01.01.rescue_villagers.right.house.bottom.left",
+           "asset": "z3-house-edge-end",
+           "center": [
+-            7.4,
+-            -6.725
++            79,
++            -3.625
+           ],
+           "radius": 0,
+           "box": [
+-            6.3,
+-            -7.25,
+-            8.5,
+-            -6.2
++            77,
++            -4.0,
++            81,
++            -3.25
+           ],
+           "visualSize": [
+-            2.2,
+-            1
++            4.6,
++            1.95
+           ],
+           "visualOrigin": [
+-            7.4,
+-            -7.25
+-          ],
+-          "visualRotation": 0
++            79,
++            -4.0
++          ],
++          "visualRotation": 0,
++          "flipX": false
+         },
+         {
+           "id": "prop.zone.act1.chapter01.01.rescue_villagers.right.house.bottom.right",
+           "colliderId": "collider.prop.zone.act1.chapter01.01.rescue_villagers.right.house.bottom.right",
+           "asset": "z3-house-edge-end",
+           "center": [
+-            12.25,
+-            -6.725
++            96,
++            -3.625
+           ],
+           "radius": 0,
+           "box": [
+-            11,
+-            -7.25,
+-            13.5,
+-            -6.2
++            94,
++            -4.0,
++            98,
++            -3.25
+           ],
+           "visualSize": [
+-            2.5,
+-            1
++            5.6,
++            2.34
+           ],
+           "visualOrigin": [
+-            12.25,
+-            -7.25
+-          ],
+-          "visualRotation": 0
++            96,
++            -4.0
++          ],
++          "visualRotation": 0,
++          "flipX": true
+         },
+         {
+           "id": "prop.zone.act1.chapter01.01.rescue_villagers.right.wall.right",
+           "colliderId": "collider.prop.zone.act1.chapter01.01.rescue_villagers.right.wall.right",
+           "asset": "z3-wall-straight",
+           "center": [
+-            14.4,
+-            0.0
++            103.825,
++            0
+           ],
+           "radius": 0,
+           "box": [
+-            14.3,
+-            -3,
+-            14.5,
+-            3
++            103.7,
++            -1,
++            103.95,
++            1
+           ],
+           "visualSize": [
+-            0.1999999999999993,
+-            6
++            0.8,
++            2
+           ],
+           "visualOrigin": [
+-            14.4,
+-            -3.0
+-          ],
+-          "visualRotation": 90
++            103.825,
++            -1
++          ],
++          "visualRotation": 90,
++          "flipX": false
+         }
+       ],
+       "decorations": [
+@@ -897,41 +1314,257 @@
+           "id": "dressing.z3-wall-corner",
+           "asset": "z3-wall-corner",
+           "origin": [
+-            15.3,
+-            7.8
+-          ],
+-          "size": [
+-            0.6,
+-            0.8
+-          ]
++            75.75,
++            -6.25
++          ],
++          "size": [
++            3.8,
++            2.8
++          ],
++          "flipX": false,
++          "visualRotation": 0
+         },
+         {
+           "id": "dressing.z3-wall-gate",
+           "asset": "z3-wall-gate",
+           "origin": [
+-            11,
+-            7.9
+-          ],
+-          "size": [
+-            2,
+-            0.8
+-          ]
++            77.65,
++            -5.8
++          ],
++          "size": [
++            2.6,
++            2
++          ],
++          "flipX": true,
++          "visualRotation": 0
+         },
+         {
+           "id": "dressing.z3-square-props",
+           "asset": "z3-square-props",
+           "origin": [
+-            13.5,
+-            -8.5
+-          ],
+-          "size": [
+-            1.2,
+-            0.6
+-          ]
++            78.9,
++            -4.7
++          ],
++          "size": [
++            1.5,
++            1.2
++          ],
++          "flipX": false,
++          "visualRotation": 0
++        },
++        {
++          "id": "dressing.z3.cluster.-1.1.0",
++          "asset": "z3-wall-straight",
++          "origin": [
++            86.75,
++            -6.25
++          ],
++          "size": [
++            3.8,
++            2.8
++          ],
++          "flipX": true,
++          "visualRotation": 0
++        },
++        {
++          "id": "dressing.z3.cluster.-1.1.1",
++          "asset": "z3-wall-corner",
++          "origin": [
++            88.65,
++            -5.8
++          ],
++          "size": [
++            2.6,
++            2
++          ],
++          "flipX": false,
++          "visualRotation": 0
++        },
++        {
++          "id": "dressing.z3.cluster.-1.1.2",
++          "asset": "z3-house-edge-end",
++          "origin": [
++            89.9,
++            -4.7
++          ],
++          "size": [
++            1.5,
++            1.2
++          ],
++          "flipX": true,
++          "visualRotation": 0
++        },
++        {
++          "id": "dressing.z3.cluster.-1.2.0",
++          "asset": "z3-wall-gate",
++          "origin": [
++            97.75,
++            -6.25
++          ],
++          "size": [
++            3.8,
++            2.8
++          ],
++          "flipX": false,
++          "visualRotation": 0
++        },
++        {
++          "id": "dressing.z3.cluster.-1.2.1",
++          "asset": "z3-square-props",
++          "origin": [
++            99.65,
++            -5.8
++          ],
++          "size": [
++            2.6,
++            2
++          ],
++          "flipX": true,
++          "visualRotation": 0
++        },
++        {
++          "id": "dressing.z3.cluster.-1.2.2",
++          "asset": "z3-wall-straight",
++          "origin": [
++            100.9,
++            -4.7
++          ],
++          "size": [
++            1.5,
++            1.2
++          ],
++          "flipX": false,
++          "visualRotation": 0
++        },
++        {
++          "id": "dressing.z3.cluster.1.0.0",
++          "asset": "z3-wall-corner",
++          "origin": [
++            75.75,
++            3.45
++          ],
++          "size": [
++            3.8,
++            2.8
++          ],
++          "flipX": true,
++          "visualRotation": 0
++        },
++        {
++          "id": "dressing.z3.cluster.1.0.1",
++          "asset": "z3-house-edge-end",
++          "origin": [
++            77.65,
++            3.8000000000000003
++          ],
++          "size": [
++            2.6,
++            2
++          ],
++          "flipX": false,
++          "visualRotation": 0
++        },
++        {
++          "id": "dressing.z3.cluster.1.0.2",
++          "asset": "z3-wall-gate",
++          "origin": [
++            78.9,
++            3.5
++          ],
++          "size": [
++            1.5,
++            1.2
++          ],
++          "flipX": true,
++          "visualRotation": 0
++        },
++        {
++          "id": "dressing.z3.cluster.1.1.0",
++          "asset": "z3-square-props",
++          "origin": [
++            86.75,
++            3.45
++          ],
++          "size": [
++            3.8,
++            2.8
++          ],
++          "flipX": false,
++          "visualRotation": 0
++        },
++        {
++          "id": "dressing.z3.cluster.1.1.1",
++          "asset": "z3-wall-straight",
++          "origin": [
++            88.65,
++            3.8000000000000003
++          ],
++          "size": [
++            2.6,
++            2
++          ],
++          "flipX": true,
++          "visualRotation": 0
++        },
++        {
++          "id": "dressing.z3.cluster.1.1.2",
++          "asset": "z3-wall-corner",
++          "origin": [
++            89.9,
++            3.5
++          ],
++          "size": [
++            1.5,
++            1.2
++          ],
++          "flipX": false,
++          "visualRotation": 0
++        },
++        {
++          "id": "dressing.z3.cluster.1.2.0",
++          "asset": "z3-house-edge-end",
++          "origin": [
++            97.75,
++            3.45
++          ],
++          "size": [
++            3.8,
++            2.8
++          ],
++          "flipX": true,
++          "visualRotation": 0
++        },
++        {
++          "id": "dressing.z3.cluster.1.2.1",
++          "asset": "z3-wall-gate",
++          "origin": [
++            99.65,
++            3.8000000000000003
++          ],
++          "size": [
++            2.6,
++            2
++          ],
++          "flipX": false,
++          "visualRotation": 0
++        },
++        {
++          "id": "dressing.z3.cluster.1.2.2",
++          "asset": "z3-square-props",
++          "origin": [
++            100.9,
++            3.5
++          ],
++          "size": [
++            1.5,
++            1.2
++          ],
++          "flipX": true,
++          "visualRotation": 0
+         }
+       ],
+       "transitionStaging": [
+-        7.25,
++        74,
+         0
+       ]
+     }
+@@ -946,8 +1579,8 @@
+         2.75
+       ],
+       "position": [
+-        -13.85,
+-        3.1
++        9.0,
++        2.1
+       ],
+       "spawnValid": true,
+       "relocated": true
+@@ -961,11 +1594,11 @@
+         -3.5
+       ],
+       "position": [
+-        -13.5,
+-        -3.5
+-      ],
+-      "spawnValid": true,
+-      "relocated": false
++        10.0,
++        -2.1
++      ],
++      "spawnValid": true,
++      "relocated": true
+     },
+     {
+       "reservationId": "rv.z1.02",
+@@ -976,11 +1609,11 @@
+         5.5
+       ],
+       "position": [
+-        -7,
+-        5.5
+-      ],
+-      "spawnValid": true,
+-      "relocated": false
++        11.0,
++        2.1
++      ],
++      "spawnValid": true,
++      "relocated": true
+     },
+     {
+       "reservationId": "rv.z1.03",
+@@ -991,8 +1624,8 @@
+         -5.75
+       ],
+       "position": [
+-        -6.5,
+-        -5.7
++        12.0,
++        -2.1
+       ],
+       "spawnValid": true,
+       "relocated": true
+@@ -1006,8 +1639,8 @@
+         5.75
+       ],
+       "position": [
+-        -13.85,
+-        5.75
++        13.0,
++        2.1
+       ],
+       "spawnValid": true,
+       "relocated": true
+@@ -1021,11 +1654,11 @@
+         4.5
+       ],
+       "position": [
+-        -12.5,
+-        4.5
+-      ],
+-      "spawnValid": true,
+-      "relocated": false
++        14.0,
++        -2.1
++      ],
++      "spawnValid": true,
++      "relocated": true
+     },
+     {
+       "reservationId": "rv.z1.06",
+@@ -1036,11 +1669,11 @@
+         -6.5
+       ],
+       "position": [
+-        -8,
+-        -6.5
+-      ],
+-      "spawnValid": true,
+-      "relocated": false
++        15.0,
++        2.1
++      ],
++      "spawnValid": true,
++      "relocated": true
+     },
+     {
+       "reservationId": "rv.z1.07",
+@@ -1051,11 +1684,11 @@
+         3.75
+       ],
+       "position": [
+-        -6.5,
+-        3.75
+-      ],
+-      "spawnValid": true,
+-      "relocated": false
++        16.0,
++        -2.1
++      ],
++      "spawnValid": true,
++      "relocated": true
+     },
+     {
+       "reservationId": "rv.z1.08",
+@@ -1066,8 +1699,8 @@
+         -1.5
+       ],
+       "position": [
+-        -13.85,
+-        -4.05
++        17.0,
++        2.1
+       ],
+       "spawnValid": true,
+       "relocated": true
+@@ -1081,8 +1714,8 @@
+         1.5
+       ],
+       "position": [
+-        -6.5,
+-        2.95
++        18.0,
++        -2.1
+       ],
+       "spawnValid": true,
+       "relocated": true
+@@ -1096,11 +1729,11 @@
+         -5.75
+       ],
+       "position": [
+-        -12.75,
+-        -5.75
+-      ],
+-      "spawnValid": true,
+-      "relocated": false
++        19.0,
++        2.1
++      ],
++      "spawnValid": true,
++      "relocated": true
+     },
+     {
+       "reservationId": "rv.z1.11",
+@@ -1111,11 +1744,11 @@
+         6.5
+       ],
+       "position": [
+-        -8.25,
+-        6.5
+-      ],
+-      "spawnValid": true,
+-      "relocated": false
++        20.0,
++        -2.1
++      ],
++      "spawnValid": true,
++      "relocated": true
+     },
+     {
+       "reservationId": "rv.z1.12",
+@@ -1126,8 +1759,8 @@
+         7
+       ],
+       "position": [
+-        -11.2,
+-        6.7
++        21.0,
++        2.1
+       ],
+       "spawnValid": true,
+       "relocated": true
+@@ -1141,8 +1774,8 @@
+         -7
+       ],
+       "position": [
+-        -9.7,
+-        -6.55
++        22.0,
++        -2.1
+       ],
+       "spawnValid": true,
+       "relocated": true
+@@ -1156,8 +1789,8 @@
+         7
+       ],
+       "position": [
+-        -7.25,
+-        6.7
++        23.0,
++        2.1
+       ],
+       "spawnValid": true,
+       "relocated": true
+@@ -1171,8 +1804,8 @@
+         -6.75
+       ],
+       "position": [
+-        -13.55,
+-        -6.1
++        24.0,
++        -2.1
+       ],
+       "spawnValid": true,
+       "relocated": true
+@@ -1186,8 +1819,8 @@
+         -2.75
+       ],
+       "position": [
+-        -6.5,
+-        -2.95
++        25.0,
++        2.1
+       ],
+       "spawnValid": true,
+       "relocated": true
+@@ -1201,8 +1834,8 @@
+         6.75
+       ],
+       "position": [
+-        -13.0,
+-        6.7
++        26.0,
++        -2.1
+       ],
+       "spawnValid": true,
+       "relocated": true
+@@ -1216,11 +1849,11 @@
+         -5.25
+       ],
+       "position": [
+-        -8.5,
+-        -5.25
+-      ],
+-      "spawnValid": true,
+-      "relocated": false
++        27.0,
++        2.1
++      ],
++      "spawnValid": true,
++      "relocated": true
+     },
+     {
+       "reservationId": "rv.z2.00",
+@@ -1231,8 +1864,8 @@
+         5
+       ],
+       "position": [
+-        -3.6,
+-        5.0
++        45.0,
++        2.1
+       ],
+       "spawnValid": true,
+       "relocated": true
+@@ -1246,8 +1879,8 @@
+         -5
+       ],
+       "position": [
+-        3.6,
+-        -5.0
++        49.5,
++        -2.1
+       ],
+       "spawnValid": true,
+       "relocated": true
+@@ -1261,8 +1894,8 @@
+         7
+       ],
+       "position": [
+-        0.0,
+-        6.7
++        54.0,
++        2.1
+       ],
+       "spawnValid": true,
+       "relocated": true
+@@ -1276,8 +1909,8 @@
+         -5.5
+       ],
+       "position": [
+-        -3.6,
+-        -5.5
++        58.5,
++        -2.1
+       ],
+       "spawnValid": true,
+       "relocated": true
+@@ -1291,8 +1924,8 @@
+         5.5
+       ],
+       "position": [
+-        3.6,
+-        5.5
++        63.0,
++        2.1
+       ],
+       "spawnValid": true,
+       "relocated": true
+@@ -1306,8 +1939,8 @@
+         5.25
+       ],
+       "position": [
+-        6.65,
+-        5.25
++        81.0,
++        2.1
+       ],
+       "spawnValid": true,
+       "relocated": true
+@@ -1321,8 +1954,8 @@
+         -5.25
+       ],
+       "position": [
+-        13.85,
+-        -5.25
++        87.0,
++        -2.1
+       ],
+       "spawnValid": true,
+       "relocated": true
+@@ -1336,8 +1969,8 @@
+         7
+       ],
+       "position": [
+-        9.45,
+-        6.6
++        93.0,
++        2.1
+       ],
+       "spawnValid": true,
+       "relocated": true
+@@ -1351,11 +1984,12 @@
+         -7
+       ],
+       "position": [
+-        9.45,
+-        -6.6
++        99.0,
++        -2.1
+       ],
+       "spawnValid": true,
+       "relocated": true
+     }
+-  ]
++  ],
++  "cameraOrthographicSize": 4
+ }
+--- a/Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.01.rescue_villagers.morpg-zone-reward.v1.json
++++ b/Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.01.rescue_villagers.morpg-zone-reward.v1.json
+@@ -6,39 +6,39 @@
+   "battleId":"battle.act1.chapter01.01.rescue_villagers",
+   "fallbackProfileId":"seq.act1.chapter01.01.rescue_villagers.solo_large_wave.v2",
+   "zones":[
+-    {"index":0,"id":"zone.act1.chapter01.01.rescue_villagers.left","waveId":"wave.act1.chapter01.01.rescue_villagers.zone.left.01","entryWarpAnchorId":"anchor.act1.chapter01.01.rescue_villagers.zone.left.entry_warp","bounds":[-15.25,-8.25,-5.25,8.25],"spawnBounds":[-14.5,-7.5,-6,7.5],"entry":[-10.25,0],"counts":{"black":15,"chain":4},"radius":[4.75,7.25],"reservations":[
+-      {"reservationId":"rv.z1.00","sourceZoneId":"zone.act1.chapter01.01.rescue_villagers.left","unitKey":"black","localDueTime":0,"positionCandidateKey":"z1.p00","position":[-13.85,3.1]},
+-      {"reservationId":"rv.z1.01","sourceZoneId":"zone.act1.chapter01.01.rescue_villagers.left","unitKey":"black","localDueTime":0.08,"positionCandidateKey":"z1.p01","position":[-13.5,-3.5]},
+-      {"reservationId":"rv.z1.02","sourceZoneId":"zone.act1.chapter01.01.rescue_villagers.left","unitKey":"chain","localDueTime":0.16,"positionCandidateKey":"z1.p02","position":[-7,5.5]},
+-      {"reservationId":"rv.z1.03","sourceZoneId":"zone.act1.chapter01.01.rescue_villagers.left","unitKey":"black","localDueTime":0.24,"positionCandidateKey":"z1.p03","position":[-6.5,-5.7]},
+-      {"reservationId":"rv.z1.04","sourceZoneId":"zone.act1.chapter01.01.rescue_villagers.left","unitKey":"black","localDueTime":0.32,"positionCandidateKey":"z1.p04","position":[-13.85,5.75]},
+-      {"reservationId":"rv.z1.05","sourceZoneId":"zone.act1.chapter01.01.rescue_villagers.left","unitKey":"black","localDueTime":0.40,"positionCandidateKey":"z1.p05","position":[-12.5,4.5]},
+-      {"reservationId":"rv.z1.06","sourceZoneId":"zone.act1.chapter01.01.rescue_villagers.left","unitKey":"black","localDueTime":0.48,"positionCandidateKey":"z1.p06","position":[-8,-6.5]},
+-      {"reservationId":"rv.z1.07","sourceZoneId":"zone.act1.chapter01.01.rescue_villagers.left","unitKey":"chain","localDueTime":0.56,"positionCandidateKey":"z1.p07","position":[-6.5,3.75]},
+-      {"reservationId":"rv.z1.08","sourceZoneId":"zone.act1.chapter01.01.rescue_villagers.left","unitKey":"black","localDueTime":0.64,"positionCandidateKey":"z1.p08","position":[-13.85,-4.05]},
+-      {"reservationId":"rv.z1.09","sourceZoneId":"zone.act1.chapter01.01.rescue_villagers.left","unitKey":"black","localDueTime":0.72,"positionCandidateKey":"z1.p09","position":[-6.5,2.95]},
+-      {"reservationId":"rv.z1.10","sourceZoneId":"zone.act1.chapter01.01.rescue_villagers.left","unitKey":"black","localDueTime":0.80,"positionCandidateKey":"z1.p10","position":[-12.75,-5.75]},
+-      {"reservationId":"rv.z1.11","sourceZoneId":"zone.act1.chapter01.01.rescue_villagers.left","unitKey":"black","localDueTime":0.88,"positionCandidateKey":"z1.p11","position":[-8.25,6.5]},
+-      {"reservationId":"rv.z1.12","sourceZoneId":"zone.act1.chapter01.01.rescue_villagers.left","unitKey":"black","localDueTime":0.96,"positionCandidateKey":"z1.p12","position":[-11.2,6.7]},
+-      {"reservationId":"rv.z1.13","sourceZoneId":"zone.act1.chapter01.01.rescue_villagers.left","unitKey":"chain","localDueTime":1.12,"positionCandidateKey":"z1.p13","position":[-9.7,-6.55]},
+-      {"reservationId":"rv.z1.14","sourceZoneId":"zone.act1.chapter01.01.rescue_villagers.left","unitKey":"black","localDueTime":1.20,"positionCandidateKey":"z1.p14","position":[-7.25,6.7]},
+-      {"reservationId":"rv.z1.15","sourceZoneId":"zone.act1.chapter01.01.rescue_villagers.left","unitKey":"black","localDueTime":1.28,"positionCandidateKey":"z1.p15","position":[-13.55,-6.1]},
+-      {"reservationId":"rv.z1.16","sourceZoneId":"zone.act1.chapter01.01.rescue_villagers.left","unitKey":"black","localDueTime":1.36,"positionCandidateKey":"z1.p16","position":[-6.5,-2.95]},
+-      {"reservationId":"rv.z1.17","sourceZoneId":"zone.act1.chapter01.01.rescue_villagers.left","unitKey":"chain","localDueTime":1.44,"positionCandidateKey":"z1.p17","position":[-13.0,6.7]},
+-      {"reservationId":"rv.z1.18","sourceZoneId":"zone.act1.chapter01.01.rescue_villagers.left","unitKey":"black","localDueTime":1.52,"positionCandidateKey":"z1.p18","position":[-8.5,-5.25]}
++    {"index":0,"id":"zone.act1.chapter01.01.rescue_villagers.left","waveId":"wave.act1.chapter01.01.rescue_villagers.zone.left.01","entryWarpAnchorId":"anchor.act1.chapter01.01.rescue_villagers.zone.left.entry_warp","bounds":[0,-4,32,4],"spawnBounds":[0.65,-3.35,31.35,3.35],"entry":[5,0],"counts":{"black":15,"chain":4},"radius":[3.25,24],"reservations":[
++      {"reservationId":"rv.z1.00","sourceZoneId":"zone.act1.chapter01.01.rescue_villagers.left","unitKey":"black","localDueTime":0,"positionCandidateKey":"z1.p00","position":[9.0,2.1]},
++      {"reservationId":"rv.z1.01","sourceZoneId":"zone.act1.chapter01.01.rescue_villagers.left","unitKey":"black","localDueTime":0.08,"positionCandidateKey":"z1.p01","position":[10.0,-2.1]},
++      {"reservationId":"rv.z1.02","sourceZoneId":"zone.act1.chapter01.01.rescue_villagers.left","unitKey":"chain","localDueTime":0.16,"positionCandidateKey":"z1.p02","position":[11.0,2.1]},
++      {"reservationId":"rv.z1.03","sourceZoneId":"zone.act1.chapter01.01.rescue_villagers.left","unitKey":"black","localDueTime":0.24,"positionCandidateKey":"z1.p03","position":[12.0,-2.1]},
++      {"reservationId":"rv.z1.04","sourceZoneId":"zone.act1.chapter01.01.rescue_villagers.left","unitKey":"black","localDueTime":0.32,"positionCandidateKey":"z1.p04","position":[13.0,2.1]},
++      {"reservationId":"rv.z1.05","sourceZoneId":"zone.act1.chapter01.01.rescue_villagers.left","unitKey":"black","localDueTime":0.40,"positionCandidateKey":"z1.p05","position":[14.0,-2.1]},
++      {"reservationId":"rv.z1.06","sourceZoneId":"zone.act1.chapter01.01.rescue_villagers.left","unitKey":"black","localDueTime":0.48,"positionCandidateKey":"z1.p06","position":[15.0,2.1]},
++      {"reservationId":"rv.z1.07","sourceZoneId":"zone.act1.chapter01.01.rescue_villagers.left","unitKey":"chain","localDueTime":0.56,"positionCandidateKey":"z1.p07","position":[16.0,-2.1]},
++      {"reservationId":"rv.z1.08","sourceZoneId":"zone.act1.chapter01.01.rescue_villagers.left","unitKey":"black","localDueTime":0.64,"positionCandidateKey":"z1.p08","position":[17.0,2.1]},
++      {"reservationId":"rv.z1.09","sourceZoneId":"zone.act1.chapter01.01.rescue_villagers.left","unitKey":"black","localDueTime":0.72,"positionCandidateKey":"z1.p09","position":[18.0,-2.1]},
++      {"reservationId":"rv.z1.10","sourceZoneId":"zone.act1.chapter01.01.rescue_villagers.left","unitKey":"black","localDueTime":0.80,"positionCandidateKey":"z1.p10","position":[19.0,2.1]},
++      {"reservationId":"rv.z1.11","sourceZoneId":"zone.act1.chapter01.01.rescue_villagers.left","unitKey":"black","localDueTime":0.88,"positionCandidateKey":"z1.p11","position":[20.0,-2.1]},
++      {"reservationId":"rv.z1.12","sourceZoneId":"zone.act1.chapter01.01.rescue_villagers.left","unitKey":"black","localDueTime":0.96,"positionCandidateKey":"z1.p12","position":[21.0,2.1]},
++      {"reservationId":"rv.z1.13","sourceZoneId":"zone.act1.chapter01.01.rescue_villagers.left","unitKey":"chain","localDueTime":1.12,"positionCandidateKey":"z1.p13","position":[22.0,-2.1]},
++      {"reservationId":"rv.z1.14","sourceZoneId":"zone.act1.chapter01.01.rescue_villagers.left","unitKey":"black","localDueTime":1.20,"positionCandidateKey":"z1.p14","position":[23.0,2.1]},
++      {"reservationId":"rv.z1.15","sourceZoneId":"zone.act1.chapter01.01.rescue_villagers.left","unitKey":"black","localDueTime":1.28,"positionCandidateKey":"z1.p15","position":[24.0,-2.1]},
++      {"reservationId":"rv.z1.16","sourceZoneId":"zone.act1.chapter01.01.rescue_villagers.left","unitKey":"black","localDueTime":1.36,"positionCandidateKey":"z1.p16","position":[25.0,2.1]},
++      {"reservationId":"rv.z1.17","sourceZoneId":"zone.act1.chapter01.01.rescue_villagers.left","unitKey":"chain","localDueTime":1.44,"positionCandidateKey":"z1.p17","position":[26.0,-2.1]},
++      {"reservationId":"rv.z1.18","sourceZoneId":"zone.act1.chapter01.01.rescue_villagers.left","unitKey":"black","localDueTime":1.52,"positionCandidateKey":"z1.p18","position":[27.0,2.1]}
+     ]},
+-    {"index":1,"id":"zone.act1.chapter01.01.rescue_villagers.center","waveId":"wave.act1.chapter01.01.rescue_villagers.zone.center.02","entryWarpAnchorId":"anchor.act1.chapter01.01.rescue_villagers.zone.center.entry_warp","bounds":[-5,-8.25,5,8.25],"spawnBounds":[-4.25,-7.5,4.25,7.5],"entry":[0,0],"counts":{"black":4,"chain":1},"radius":[5,7.25],"reservations":[
+-      {"reservationId":"rv.z2.00","sourceZoneId":"zone.act1.chapter01.01.rescue_villagers.center","unitKey":"black","localDueTime":0,"positionCandidateKey":"z2.p00","position":[-3.6,5.0]},
+-      {"reservationId":"rv.z2.01","sourceZoneId":"zone.act1.chapter01.01.rescue_villagers.center","unitKey":"black","localDueTime":0.12,"positionCandidateKey":"z2.p01","position":[3.6,-5.0]},
+-      {"reservationId":"rv.z2.02","sourceZoneId":"zone.act1.chapter01.01.rescue_villagers.center","unitKey":"chain","localDueTime":0.24,"positionCandidateKey":"z2.p02","position":[0.0,6.7]},
+-      {"reservationId":"rv.z2.03","sourceZoneId":"zone.act1.chapter01.01.rescue_villagers.center","unitKey":"black","localDueTime":0.36,"positionCandidateKey":"z2.p03","position":[-3.6,-5.5]},
+-      {"reservationId":"rv.z2.04","sourceZoneId":"zone.act1.chapter01.01.rescue_villagers.center","unitKey":"black","localDueTime":0.48,"positionCandidateKey":"z2.p04","position":[3.6,5.5]}
++    {"index":1,"id":"zone.act1.chapter01.01.rescue_villagers.center","waveId":"wave.act1.chapter01.01.rescue_villagers.zone.center.02","entryWarpAnchorId":"anchor.act1.chapter01.01.rescue_villagers.zone.center.entry_warp","bounds":[36,-4,68,4],"spawnBounds":[36.65,-3.35,67.35,3.35],"entry":[41,0],"counts":{"black":4,"chain":1},"radius":[3.25,24],"reservations":[
++      {"reservationId":"rv.z2.00","sourceZoneId":"zone.act1.chapter01.01.rescue_villagers.center","unitKey":"black","localDueTime":0,"positionCandidateKey":"z2.p00","position":[45.0,2.1]},
++      {"reservationId":"rv.z2.01","sourceZoneId":"zone.act1.chapter01.01.rescue_villagers.center","unitKey":"black","localDueTime":0.12,"positionCandidateKey":"z2.p01","position":[49.5,-2.1]},
++      {"reservationId":"rv.z2.02","sourceZoneId":"zone.act1.chapter01.01.rescue_villagers.center","unitKey":"chain","localDueTime":0.24,"positionCandidateKey":"z2.p02","position":[54.0,2.1]},
++      {"reservationId":"rv.z2.03","sourceZoneId":"zone.act1.chapter01.01.rescue_villagers.center","unitKey":"black","localDueTime":0.36,"positionCandidateKey":"z2.p03","position":[58.5,-2.1]},
++      {"reservationId":"rv.z2.04","sourceZoneId":"zone.act1.chapter01.01.rescue_villagers.center","unitKey":"black","localDueTime":0.48,"positionCandidateKey":"z2.p04","position":[63.0,2.1]}
+     ]},
+-    {"index":2,"id":"zone.act1.chapter01.01.rescue_villagers.right","waveId":"wave.act1.chapter01.01.rescue_villagers.zone.right.03","entryWarpAnchorId":"anchor.act1.chapter01.01.rescue_villagers.zone.right.entry_warp","bounds":[5.25,-8.25,15.25,8.25],"spawnBounds":[6,-7.5,14.5,7.5],"entry":[10.25,0],"counts":{"black":3,"chain":1},"radius":[5.25,7.5],"reservations":[
+-      {"reservationId":"rv.z3.00","sourceZoneId":"zone.act1.chapter01.01.rescue_villagers.right","unitKey":"black","localDueTime":0,"positionCandidateKey":"z3.p00","position":[6.65,5.25]},
+-      {"reservationId":"rv.z3.01","sourceZoneId":"zone.act1.chapter01.01.rescue_villagers.right","unitKey":"black","localDueTime":0.12,"positionCandidateKey":"z3.p01","position":[13.85,-5.25]},
+-      {"reservationId":"rv.z3.02","sourceZoneId":"zone.act1.chapter01.01.rescue_villagers.right","unitKey":"chain","localDueTime":0.24,"positionCandidateKey":"z3.p02","position":[9.45,6.6]},
+-      {"reservationId":"rv.z3.03","sourceZoneId":"zone.act1.chapter01.01.rescue_villagers.right","unitKey":"black","localDueTime":0.36,"positionCandidateKey":"z3.p03","position":[9.45,-6.6]}
++    {"index":2,"id":"zone.act1.chapter01.01.rescue_villagers.right","waveId":"wave.act1.chapter01.01.rescue_villagers.zone.right.03","entryWarpAnchorId":"anchor.act1.chapter01.01.rescue_villagers.zone.right.entry_warp","bounds":[72,-4,104,4],"spawnBounds":[72.65,-3.35,103.35,3.35],"entry":[77,0],"counts":{"black":3,"chain":1},"radius":[3.25,24],"reservations":[
++      {"reservationId":"rv.z3.00","sourceZoneId":"zone.act1.chapter01.01.rescue_villagers.right","unitKey":"black","localDueTime":0,"positionCandidateKey":"z3.p00","position":[81.0,2.1]},
++      {"reservationId":"rv.z3.01","sourceZoneId":"zone.act1.chapter01.01.rescue_villagers.right","unitKey":"black","localDueTime":0.12,"positionCandidateKey":"z3.p01","position":[87.0,-2.1]},
++      {"reservationId":"rv.z3.02","sourceZoneId":"zone.act1.chapter01.01.rescue_villagers.right","unitKey":"chain","localDueTime":0.24,"positionCandidateKey":"z3.p02","position":[93.0,2.1]},
++      {"reservationId":"rv.z3.03","sourceZoneId":"zone.act1.chapter01.01.rescue_villagers.right","unitKey":"black","localDueTime":0.36,"positionCandidateKey":"z3.p03","position":[99.0,-2.1]}
+     ]}
+   ],
+   "drops":[{"unitKey":"black","gold":1,"xp":0.25},{"unitKey":"chain","gold":3,"xp":0.75}],
+--- a/Assets/Scripts/Battle/Morpg/MorpgDashTransitionView.cs
++++ b/Assets/Scripts/Battle/Morpg/MorpgDashTransitionView.cs
+@@ -49,7 +49,7 @@
+             stagingPosition=staging?.Length==2 ? new Vector3(staging[0],staging[1],sourcePosition.z) : targetPosition;
+             var exit=from.transitionExit;
+             exitPosition=exit?.Length==2 ? new Vector3(exit[0],exit[1],sourcePosition.z) : sourcePosition;
+-            CameraTarget=new Vector2((to.cameraClamp[0]+to.cameraClamp[2])/2,(to.cameraClamp[1]+to.cameraClamp[3])/2);
++            CameraTarget=new Vector2(Mathf.Clamp(to.entry[0],to.cameraClamp[0],to.cameraClamp[2]),Mathf.Clamp(to.entry[1],to.cameraClamp[1],to.cameraClamp[3]));
+             camera=Camera.main;
+             if(camera!=null)
+             {
+--- a/Assets/Scripts/Battle/Morpg/MorpgEnvironmentGeometry.cs
++++ b/Assets/Scripts/Battle/Morpg/MorpgEnvironmentGeometry.cs
+@@ -125,6 +125,20 @@
+                 if(!Free(z,z.entry[0]+z.egressLength*i/50f,z.entry[1],z.egressRadius+z.actorInset))return false;
+             return Free(z,z.entry[0],z.entry[1],z.landingRadius);
+         }
++        internal static bool DashCorridorsValid(MorpgEnvironmentProfile.Zone z)
++        {
++            bool Capsule(float[] from,float[] to)
++            {
++                if(from?.Length!=2 || to?.Length!=2)return false;
++                int steps=Math.Max(1,(int)Math.Ceiling(Distance(from,to)/.025));
++                for(int i=0;i<=steps;i++)
++                    if(!Free(z,from[0]+(to[0]-from[0])*i/steps,from[1]+(to[1]-from[1])*i/steps,z.egressRadius+z.actorInset))return false;
++                return true;
++            }
++            if(z.transitionStaging!=null && (z.transitionStaging.Length!=2 || Math.Abs(z.entry[0]-z.transitionStaging[0]-3)>.001 || Math.Abs(z.entry[1]-z.transitionStaging[1])>.001 || !Capsule(z.transitionStaging,z.entry)))return false;
++            if(z.transitionExit!=null && (z.transitionExit.Length!=2 || z.transitionExit[0]<=z.entry[0] || !Capsule(z.entry,z.transitionExit)))return false;
++            return true;
++        }
+         internal static float SweepFraction(MorpgEnvironmentProfile.Zone z, float x, float y, float endX, float endY, float radius)
+         {
+             float inset=z.actorInset+Math.Max(0,radius);
+@@ -164,7 +178,9 @@
+                    string.IsNullOrEmpty(z.boundaryId)||string.IsNullOrEmpty(z.propManifestId)||string.IsNullOrEmpty(z.colliderManifestId)||
+                    string.IsNullOrEmpty(z.backgroundBindingId)||string.IsNullOrEmpty(z.reservationAuditRef))
+                 {errors.Add("zone references invalid: "+i);continue;}
++                if(Distance(z.entry,wave.entry)>.00001)errors.Add("route/environment entry mismatch: "+z.zoneId);
+                 if(!LandingValid(z))errors.Add("landing/+X corridor blocked: "+z.zoneId);
++                if(!DashCorridorsValid(z))errors.Add("authored dash corridor blocked: "+z.zoneId);
+                 foreach(var prop in z.props)
+                 {
+                     if(!ids.Contains(prop.asset) || prop.colliderId!="collider."+prop.id)errors.Add("prop reference invalid: "+prop.id);
+--- a/AgentTools/MorpgEnvironmentHarness/audit_assets.py
++++ b/AgentTools/MorpgEnvironmentHarness/audit_assets.py
+@@ -17,10 +17,11 @@
+  meta=Path(str(file)+'.meta').read_text()
+  for token in ['spriteMode: 1','spriteAlignment: 9','spritePivot: {x: 0.5, y: 0.046875}','spritePixelsToUnits: 100','maxTextureSize: 1024','textureCompression: 0','enableMipMap: 0','filterMode: 1','wrapU: 1','physicsShape: []']:assert token in meta,(file,token)
+  audit.append(dict(id=row['id'],rgba=True,resolution=[1024,1024],borderAlphaMax=border,alphaZeroRgbNonzero=0,guidUnique=True))
++O=O/'revision-03/applied'
+ (O/'asset-audit.json').write_text(json.dumps(audit,indent=2)+'\n')
+ # Authored top-down composition preview. This is not a Unity screenshot.
+-S=90;im=Image.new('RGBA',(int(32.5*S),int(18.5*S)),(222,211,185,255));draw=ImageDraw.Draw(im)
+-def pix(x,y):return (int((x+16.25)*S),int((9.25-y)*S))
++S=45;map_left,map_bottom,map_right,map_top=p['mapBounds'];im=Image.new('RGBA',(int((map_right-map_left)*S),int((map_top-map_bottom)*S)),(222,211,185,255));draw=ImageDraw.Draw(im)
++def pix(x,y):return (int((x-map_left)*S),int((map_top-y)*S))
+ images={row['id']:Image.open(R/row['path']) for row in rows}
+ for z in p['zones']:
+  draw.polygon([pix(v['x'],v['y']) for v in z['walkable']],outline=(100,88,63))
+@@ -28,6 +29,7 @@
+   origin=a.get('visualOrigin',a.get('origin'));size=a.get('visualSize',a.get('size'))
+   raw=images[a['asset']];raw=raw.crop(raw.getchannel('A').getbbox())
+   if a.get('visualRotation')==90:raw=raw.transpose(Image.Transpose.ROTATE_90)
++  if a.get('flipX'):raw=raw.transpose(Image.Transpose.FLIP_LEFT_RIGHT)
+   tile=raw.resize((max(1,int(size[0]*S)),max(1,int(size[1]*S))),Image.Resampling.LANCZOS)
+   px,py=pix(origin[0]-size[0]/2,origin[1]+size[1]);im.alpha_composite(tile,(px,py))
+  draw=ImageDraw.Draw(im)
+@@ -41,5 +43,7 @@
+   if row['zoneId']==z['zoneId']:
+    x,y=row['position'];draw.ellipse([pix(x-.09,y+.09),pix(x+.09,y-.09)],fill=(30,90,160))
+ im.convert('RGB').save(O/'authored-layout-audit.png')
++for i,z in enumerate(p['zones']):
++ x=min(v['x'] for v in z['walkable']);im.crop((pix(x-1,8)[0],0,pix(x+33,8)[0],im.height)).convert('RGB').save(O/f'zone{i+1}-layout.png')
+ print('PASS 15/15 byte-exact RGBA1024, 48px alpha border, zero-alpha RGB, unique GUID and importer audits')
+ print('Saved authored layout audit (not Unity gameplay evidence)')
+--- a/AgentTools/MorpgIntegrationHarness/RuntimeStub.cs
++++ b/AgentTools/MorpgIntegrationHarness/RuntimeStub.cs
+@@ -76,7 +76,7 @@
+   public static void Activate(UnityEngine.Rect bounds,float inset){}
+   public static void Clear(){}
+   public static void SetActorZone(UnityEngine.Rect zone){Zone=zone;}
+-  public static UnityEngine.Vector2 ClampCameraCenter(UnityEngine.Vector2 p,UnityEngine.Camera c)=>p;
++  public static UnityEngine.Vector2 ClampCameraCenter(UnityEngine.Vector2 p,UnityEngine.Camera c)=>Morpg.MorpgEnvironmentRuntime.Active?.ClampCamera(p)??p;
+  }
+ }
+ namespace Session {
+--- a/AgentTools/MorpgIntegrationHarness/inactive_spawn_tests.py
++++ b/AgentTools/MorpgIntegrationHarness/inactive_spawn_tests.py
+@@ -19,6 +19,7 @@
+     'private void TryStartPendingSpawnReveal()', 'private System.Collections.IEnumerator PlaySpawnRevealNextFrame()'])
+ stub=(root/'AgentTools/MorpgIntegrationHarness/RuntimeStub.cs').read_text()
+ stub=stub[:stub.index('public class NpcSpawnService {')]
++stub=stub.replace('Morpg.MorpgEnvironmentRuntime.Active?.ClampCamera(p)??p','p')
+ stub=stub.replace('private float angle;', 'private float angle;public static Quaternion identity=>new();')
+ stub=stub.replace('public class CharacterManager:','public partial class CharacterManager:')
+ stub=stub.replace('public class CharacterSO {public string name;}','public class CharacterSO {public string name; public bool FailInitialization;}')
+--- /dev/null
++++ b/AgentTools/MorpgEnvironmentHarness/install_horizontal_profile.py
+@@ -0,0 +1,59 @@
++"""Deterministic revision03 author. Preserves identities and timings from task baseline."""
++from pathlib import Path
++import json,hashlib,copy,math,re
++R=Path('/Users/pvenus/ProjectBS');O=R/'Artifacts/Engineering/MorpgEnvironmentInstall/revision-03/applied';B=O/'before'
++profile_path=Path('Assets/Resources/battle/morpg/environment/environment.v1.json')
++wave_path=Path('Assets/Resources/battle/act1/chapter01/battle.act1.chapter01.01.rescue_villagers.morpg-zone-reward.v1.json')
++p=json.loads((B/profile_path).read_text());d=json.loads((B/wave_path).read_text())
++p.update(mapBounds=[-3,-8,107,8],cameraOrthographicSize=4,contractSha256=hashlib.sha256((O/'geometry-contract.txt').read_bytes()).hexdigest())
++for i,(z,w) in enumerate(zip(p['zones'],d['zones'])):
++ x=36*i;entry=[x+5,0]
++ z.update(entry=entry,walkable=[{'x':a,'y':b} for a,b in [(x,-4),(x+32,-4),(x+32,4),(x,4)]],core=[x+1.7,-2.5,x+30.3,2.5],cameraClamp=[x+7.2,-.25,x+24.8,.25])
++ z.pop('transitionExit',None);z.pop('transitionStaging',None)
++ if i<2:z['transitionExit']=[x+30,0]
++ if i>0:z['transitionStaging']=[x+2,0]
++ for j,q in enumerate(z['props']):
++  if i==0:
++   side=-1 if j<4 else 1;cx=x+[4,10,21,28][j%4];cy=side*3.65
++   q.update(center=[cx,cy],radius=[.30,.36,.32,.4][j%4],box=[],visualSize=[[3.6,3.8],[2.8,3],[4.2,4.4],[2.2,2.5]][j%4])
++  elif i==1:
++   side=1 if 'top' in q['id'] else -1;cx=x+(9 if 'left' in q['id'] else 24);cy=side*3.65
++   q.update(center=[cx,cy],radius=0,box=[cx-2.5,cy-.18,cx+2.5,cy+.18],visualSize=[5,2 if j%2==0 else 1.6])
++  elif q['id'].endswith('wall.right'):
++   q.update(center=[x+31.825,0],radius=0,box=[x+31.7,-1,x+31.95,1],visualSize=[.8,2]);side=0
++  else:
++   side=1 if 'top' in q['id'] else -1;cx=x+(7 if 'left' in q['id'] else 24);cy=side*3.625
++   q.update(center=[cx,cy],radius=0,box=[cx-2,cy-.375,cx+2,cy+.375],visualSize=[5.6 if j%2 else 4.6,3.6 if j%2 else 3])
++  q['visualRotation']=90 if q['id'].endswith('wall.right') else 0;q['flipX']=bool(j%2)
++  if side<0:q['visualSize'][1]=round(q['visualSize'][1]*.65,2)
++  contact=q['center'][1]-q['radius'] if q['radius'] else q['box'][1]
++  q['visualOrigin']=[q['center'][0],contact]
++ old=z['decorations'];mods=[a['id'] for a in p['assets'] if a['id'].startswith('z'+str(i+1)+'-')];decor=[]
++ for side in [-1,1]:
++  for cluster,center in enumerate([5,16,27]):
++   for k in range(3):
++    n=len(decor);prior=old[n] if n<len(old) else None
++    width=[3.8,2.6,1.5][k];height=[2.8,2,1.2][k];cx=x+center+[-1.25,.65,1.9][k]
++    bottom=3.35+[.1,.45,.15][k] if side>0 else -3.35-height-[.1,.45,.15][k]
++    decor.append(dict(id=prior['id'] if prior else f"dressing.z{i+1}.cluster.{side}.{cluster}.{k}",asset=prior['asset'] if prior else mods[(n+i)%len(mods)],origin=[cx,bottom],size=[width,height],flipX=bool((n+i)%2),visualRotation=0))
++ z['decorations']=decor
++ w.update(entry=entry,bounds=[x,-4,x+32,4],spawnBounds=[x+.65,-3.35,x+31.35,3.35],radius=[3.25,24])
++ for j,row in enumerate(w['reservations']):
++  row['position']=[round(x+9+18*j/(len(w['reservations'])-1),2),2.1 if j%2==0 else -2.1]
++lookup={r['reservationId']:r for w in d['zones'] for r in w['reservations']}
++for r in p['reservations']:
++ r['position']=lookup[r['reservationId']]['position'];r['relocated']=r['position']!=r['original'];r['spawnValid']=True
++(R/profile_path).write_text(json.dumps(p,indent=2)+'\n')
++# Retain the accepted route's textual shape as well as all noncoordinate fields.
++source=(B/wave_path).read_text()
++for key in ('bounds','spawnBounds','entry','radius'):
++ values=iter(z[key] for z in d['zones'])
++ source,n=re.subn(r'("'+key+r'":)\[[^\]]+\]',lambda m:m[1]+json.dumps(next(values),separators=(',',':')),source)
++ assert n==3,(key,n)
++for w in d['zones']:
++ for row in w['reservations']:
++  pattern=r'("reservationId":"'+re.escape(row['reservationId'])+r'"[^\n]*?"position":)\[[^\]]+\]'
++  source,n=re.subn(pattern,lambda m:m[1]+json.dumps(row['position'],separators=(',',':')),source);assert n==1
++assert json.loads(source)==d
++(R/wave_path).write_text(source)
++print('Authored3 horizontal32x8 zones,54 clustered decorations,17 independent blockers,28 stable reservations.')

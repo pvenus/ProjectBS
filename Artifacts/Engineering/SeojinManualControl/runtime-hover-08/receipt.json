@@ -1,0 +1,48 @@
+{
+  "revision": "runtime-hover-08",
+  "status": "complete",
+  "blocker": null,
+  "completed_at": "2026-09-07T21:19:05.463532+09:00",
+  "root_cause": "Factory instance clone dropped manual flag; Hover inferred direction instead of runtime snapshot; competing root/child rotation paths; Warp clone dropped rotation settings",
+  "body_gameplay_caster_rotation_z": 0,
+  "rotation_owner": "visual wrapper above Animator only",
+  "angle": "applyDirectionRotation ? atan2(NormalizedDirection)+rotationOffset : 0",
+  "manual_snapshot_priority": true,
+  "charge_grades_MoveSO_true": [
+    1,
+    2,
+    3
+  ],
+  "pool_exact_parent_local_pose_flip_restore": true,
+  "tests": {
+    "prior": 392,
+    "hierarchy_runtime": 229,
+    "negative_control": 1,
+    "passed": 622,
+    "failed": 0
+  },
+  "compile": {
+    "runtime_errors": 0,
+    "runtime_warnings": 31,
+    "editor_errors": 0,
+    "editor_warnings": 41
+  },
+  "checks": {
+    "diff": true,
+    "reverse_dry_run": true,
+    "protected_unchanged": 455,
+    "morpg_unchanged": true
+  },
+  "zero_runs": [
+    "Unity GUI",
+    "Unity headless",
+    "Unity Play",
+    "Unity import",
+    "staging",
+    "commit",
+    "push",
+    "actual rollback"
+  ],
+  "report": "REPORT.md",
+  "patch": "correction.patch"
+}

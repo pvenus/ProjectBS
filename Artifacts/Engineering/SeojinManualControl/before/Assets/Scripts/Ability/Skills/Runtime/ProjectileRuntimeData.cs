@@ -1,0 +1,87 @@
+
+
+using UnityEngine;
+using Skills.Dto;
+using Skill;
+using Skills.Dto.Move;
+/// <summary>
+/// 실제 투사체가 런타임에서 사용하는 최종 데이터 묶음.
+/// 원형 SO, 룬, 업그레이드, Resolver 결과를 다 반영한 뒤
+/// 투사체 Mono에 주입되는 순수 런타임 컨텍스트다.
+/// </summary>
+[System.Serializable]
+public class ProjectileRuntimeData
+{
+    [Header("Ownership")]
+    public GameObject owner;
+    public GameObject target;
+    public EquipmentSkillSO sourceEquipment;
+
+    [Header("Spawn")]
+    public Vector2 spawnPosition;
+    public Vector2 direction;
+
+    [Header("Runtime Profiles")]
+    public SkillMoveRuntimeDto moveRuntime;
+    public SkillProjectileHitDto hit;
+    public SkillDamageProfileDto damageProfile;
+
+    [Header("Lifetime")]
+    public float lifetime = 3f;
+
+    [Header("Projectile Common")]
+    public int projectileCount = 1;
+    public int spawnOrder = 0;
+    public float projectileArrangementValue = 0f;
+    public float projectileSpreadAngle = 0f;
+    public float projectileScale = 1f;
+    public float rendererScale = 1f;
+    public float projectileSpawnInterval = 0f;
+    public float projectileSpawnRadius = 0f;
+
+    [Header("Visual")]
+    public ResolvedVisualContextDto visualContext;
+
+    [Header("Effects")]
+    public EffectRuntimeSetData effectRuntimeSet;
+
+    [Header("Spawn Skill")]
+    public SpawnSkillSO spawnSkillSo;
+
+    // --- Resolved Visual Runtime (filled by resolver) ---
+    [Header("Resolved Visual Runtime")]
+    public ProjectileVisualType projectileVisualType = ProjectileVisualType.Default;
+    public SkillSortingRelation sortingRelation = SkillSortingRelation.SameAsOwner;
+    public Material material;
+    public Color color = Color.white;
+    // Optional: if true, prefer Animator triggers over direct clips
+    public bool useAnimatorTriggers;
+    public AnimationClip visualClipOverride;
+    public SkillAnimationVfxProfileSO animationVfxProfileOverride;
+    public float minimumVisualLifetime;
+    public SpritePresentationCalibrationProfileSO presentationCalibration;
+    public string comboToken;
+    public int comboIndex = -1;
+    public bool useCriticalOverride;
+    public bool criticalOverride;
+    public bool suppressVisual;
+
+    /// <summary>
+    /// owner 기준 forward가 없는 2D 환경에서 direction이 비어 있으면 fallback 판단용.
+    /// </summary>
+    public bool HasDirection => direction.sqrMagnitude > 0.0001f;
+
+    public Vector2 NormalizedDirection => HasDirection ? direction.normalized : Vector2.right;
+}
+
+/// <summary>
+/// Resolver가 계산한 최종 비주얼 컨텍스트.
+/// 실제 리소스 참조는 별도 VisualResolver/Assembler가 이 값을 보고 찾아 적용한다.
+/// </summary>
+[System.Serializable]
+public class ResolvedVisualContextDto
+{
+    [Header("Optional Runtime Keys")]
+    public string baseVisualId;
+    public string mainVisualId;
+}

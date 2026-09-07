@@ -73,7 +73,7 @@ public class EquipmentSkillResolver
         int comboIndex = -1,
         SkillHitSO hitOverride = null,
         bool suppressVisual = false,
-        float minimumVisualLifetime = 0f)
+        float minimumVisualLifetime = 0f,SkillAimMode? manualAimMode=null)
     {
         if (runtime == null)
         {
@@ -92,6 +92,18 @@ public class EquipmentSkillResolver
         TargetingType targetingType = castSo != null
             ? castSo.TargetingType
             : TargetingType.None;
+
+        if(manualAimMode.HasValue)
+        {
+            switch(manualAimMode.Value)
+            {
+                case SkillAimMode.Direction:targetingType=TargetingType.Directional;break;
+                case SkillAimMode.Target:targetingType=TargetingType.AutoTarget;break;
+                case SkillAimMode.GroundPoint:targetingType=TargetingType.Position;break;
+                case SkillAimMode.Self:targetingType=TargetingType.Self;break;
+                default:return Array.Empty<ProjectileRuntimeData>();
+            }
+        }
 
         float castRange = statResolver.ResolveStat(
             equipmentSo,
@@ -115,6 +127,7 @@ public class EquipmentSkillResolver
             targetingType,
             resolvedStatModifiers);
 
+        baseProjectileData.orientManualPresentation=manualAimMode==SkillAimMode.Direction;
         baseProjectileData.projectileSpawnInterval =
             statResolver.ResolveStat(
                 equipmentSo,
@@ -239,6 +252,7 @@ public class EquipmentSkillResolver
             target = source.target,
             spawnPosition = source.spawnPosition,
             direction = source.direction,
+            orientManualPresentation=source.orientManualPresentation,
             lifetime = source.lifetime,
             projectileCount = source.projectileCount,
             projectileSpreadAngle = source.projectileSpreadAngle,

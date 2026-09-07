@@ -71,7 +71,10 @@ public class KnockbackController : MonoBehaviour
 
         Vector2 currentPosition = targetRigidbody.position;
         Vector2 delta = _knockVelocity * Time.fixedDeltaTime;
-        targetRigidbody.MovePosition(currentPosition + delta);
+        Vector2 destination = currentPosition + delta;
+        if (Battle.Morpg.MorpgEnvironmentRuntime.Active != null)
+            destination = Battle.BattleMapBoundsContext.SweepActorStep(currentPosition, destination, targetRigidbody);
+        targetRigidbody.MovePosition(destination);
 
         _knockVelocity *= Mathf.Clamp01(dampingPerStep);
 

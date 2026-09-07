@@ -1,0 +1,118 @@
+[벼리 기획 계약 | MORPG 3-zone environment composition v1]
+Date: 2026-09-06 KST
+Status: DESIGN_ACCEPTED / USER_CHOICE0 / PROJECT_WRITE0
+Scope: battle.act1.chapter01.01.rescue_villagers, zones left/center/right
+
+1. Shared invariants
+- Map32×18, movement bounds x[-15.25,15.25]/y[-8.25,8.25], entries(-10.25,0)/(0,0)/(10.25,0), waves19/5/4 unchanged.
+- Background art has no gameplay collider. Every blocking boundary is a separate prop-level collider with stable prop/collider ID.
+- Props occupy the outer composition band only. Central combat polygon, spawn telegraphs, warp landing and route sightline remain unobstructed.
+- Minimum navigable corridor2.50wu; no concave pocket throat<2.50, dead-end depth>1.50 or collider gap0.20–1.00 that can trap actors.
+
+2. Exact zone rows
+
+Z1 `zone.act1.chapter01.01.rescue_villagers.left` — dry plain + small saplings
+- Walkable combat polygon clockwise: (-14.50,-7.35),(-6.10,-7.35),(-5.85,-5.80),(-5.85,5.80),(-6.10,7.35),(-14.50,7.35).
+- Guaranteed prop-free core rectangle x[-13.65,-6.85], y[-5.65,5.65].
+- Spawn-safe polygon is walkable polygon inset.65; reservation center must additionally be >=.65 from another reservation and >=3.25 from entry.
+- Saplings: 6–10, trunk collider radius.22–.34, canopy collider0. Only outer band within.45–1.15wu of top/bottom/left boundary; no sapling center in prop-free core or within2.50 of entry.
+- Visual ground: pale dry grass/soil, low broken ink tufts; no tall crop wall or forest read.
+
+Z2 `zone.act1.chapter01.01.rescue_villagers.center` — village-edge fence
+- Walkable polygon: (-4.25,-7.35),(4.25,-7.35),(4.25,7.35),(-4.25,7.35).
+- Prop-free core x[-3.55,3.55], y[-5.60,5.60].
+- Spawn-safe polygon inset.65; reservation distance from entry>=3.25.
+- Fence colliders are independent straight segments only along top/bottom outer bands: y±6.85–7.35, total segment length per side<=5.00, each segment1.25–2.50 long, gaps>=2.50. Left/right sides retain visual openings; closed perimeter0.
+- Fence collider thickness.18–.28, post radius<=.22. No diagonal rail entering core; no maze/corral.
+- Visual ground: packed soil with sparse wheel/foot marks; settlement begins beyond boundary, not in combat core.
+
+Z3 `zone.act1.chapter01.01.rescue_villagers.right` — village square + houses/walls outside
+- Walkable polygon: (6.00,-7.25),(14.50,-7.25),(14.50,7.25),(6.00,7.25).
+- Plaza prop-free core x[6.75,13.75], y[-5.50,5.50].
+- Spawn-safe polygon inset.65; reservation distance from entry>=3.25.
+- House footprints/wall colliders only in outer strips: top y[6.20,7.25], bottom y[-7.25,-6.20], right x[13.85,14.50]. Individual blocking footprint depth<=1.05 into zone, length1.50–3.00, gaps>=2.50.
+- Left edge toward entry remains free across y[-2.00,2.00]. No closed courtyard, center monument collider or market stall in plaza core.
+- Visual ground: broad tamped-earth square with subtle stone/ink seams; houses and low wall establish final village read without shrinking battle area.
+
+3. Warp landing and transition clearance
+- Entry/warp anchor IDs remain the accepted exact3.
+- Each landing reserves a circle radius1.50 free of blocking collider, props, active NPC, projectile, persistent effect and reward visual.
+- A forward egress capsule from anchor toward zone center, length2.50/radius1.25, must be walkable and prop-free.
+- At transition commit: destination zone boundary enables, landing+egress revalidate, player places at anchor, then old boundary disables. Validation failure aborts before teleport and enters existing transition Failed; nearest-point silent relocation0.
+
+4. Collider and movement policy
+- Stable IDs: `collider.<zoneId>.<propStableId>`. Polygon/Box/CircleCollider2D allowed; EdgeCollider/open one-way boundary0.
+- Static props only, trigger0 for blockers. Composite merging allowed only within the same prop family and must preserve individual source IDs in manifest.
+- Actor center safety inset from blocking surface.15wu. Movement destination projects to walkable polygon minus actor radius; outward velocity component removed.
+- Projectile hit geometry remains unchanged. Environment collision may terminate a projectile only if its existing collision mask already includes environment; no new damage/ricochet.
+- Knockback endpoint sweeps actor collider; stop.15 before blocker/boundary, apply remaining displacement0, damage/CC unchanged. Never warp through a prop.
+
+5. Camera clamp
+- Camera viewport remains ortho3 and full16:9. Per-zone visual envelope extends.35 beyond combat bounds so viewport never exposes void.
+- Camera center clamp:
+  Z1 x[-10.42,-10.08], y[-5.25,5.25];
+  Z2 x[-.35,.35], y[-5.25,5.25];
+  Z3 x[10.08,10.42], y[-5.25,5.25].
+- This is near-fixed horizontal framing with vertical follow. Transition uses accepted obscured snap. Zoom/pan beyond follow/rotation0.
+- Background/outer dressing must cover each clamped viewport plus.25wu overscan.
+
+6. Occlusion/readability
+- Blocking prop footprint may cover <=12% of prop-free core projection and must never overlap entry/egress or a reserved spawn point.
+- Foreground art that overlaps an actor silhouette >15% screen area fades to alpha.35 within.12s, restores within.18s after separation; collider remains visible through ground contact cue.
+- At 1080p, active NPC, cone telegraph, drop bundle and player outline retain >=3px uncluttered separation from high-contrast prop edges where positions are authored.
+- No roof/canopy/foreground wall may fully cover an actor, casting cone, zone-clear indicator or fly-to reward start.
+
+7. Machine-readable contract
+```json
+{
+ "schemaVersion":"battle-zone-environment.v1",
+ "battleId":"battle.act1.chapter01.01.rescue_villagers",
+ "zones":[
+  {"zoneId":"zone.act1.chapter01.01.rescue_villagers.left","theme":"dry_plain_saplings","walkable":[[-14.5,-7.35],[-6.1,-7.35],[-5.85,-5.8],[-5.85,5.8],[-6.1,7.35],[-14.5,7.35]],"core":[-13.65,-5.65,-6.85,5.65],"spawnInset":.65,"landingRadius":1.5,"cameraX":[-10.42,-10.08],"waveCount":19},
+  {"zoneId":"zone.act1.chapter01.01.rescue_villagers.center","theme":"village_edge_fence","walkable":[[-4.25,-7.35],[4.25,-7.35],[4.25,7.35],[-4.25,7.35]],"core":[-3.55,-5.6,3.55,5.6],"spawnInset":.65,"landingRadius":1.5,"cameraX":[-.35,.35],"waveCount":5},
+  {"zoneId":"zone.act1.chapter01.01.rescue_villagers.right","theme":"village_square_outer_houses","walkable":[[6,-7.25],[14.5,-7.25],[14.5,7.25],[6,7.25]],"core":[6.75,-5.5,13.75,5.5],"spawnInset":.65,"landingRadius":1.5,"cameraX":[10.08,10.42],"waveCount":4}
+ ],
+ "shared":{"minCorridorWidth":2.5,"entryClearance":3.25,"actorBlockerInset":.15,"blockerClearance":.4,"reservationSeparation":.65,"cameraY":[-5.25,5.25],"backtracking":false}
+}
+```
+- Required rows: zone3, entry anchors3, walkable polygons3, prop manifests3, collider manifests3, reservation-to-zone audit28, camera clamps3. Unknown/missing field FAIL; no inferred collider from background alpha.
+
+8. Acceptance/fallback
+- All accepted28 reservation centers lie inside corresponding spawn-safe polygon and outside landing/egress/prop clearance; counts19/5/4 unchanged.
+- Path sampling from every spawn to core and core to landing maintains width>=2.50; unreachable or trapped sample0.
+- Player/NPC/knockback cannot exit active zone or enter prop collider; no projectile/telegraph/drop begins inside blocker.
+- Camera at all legal player positions shows no void and no unapproved adjacent-zone combat; transition snap remains obscured.
+- Visual contacts at native/200/80 verify Z1 plain+saplings, Z2 village fence, Z3 square+outer houses as distinct first reads while core remains dominant.
+- Missing polygon/collider/prop GUID, invalid corridor/landing, reservation conflict or camera void makes environment profile preflight fail. Exact fallback is the accepted collider-free MORPG zone presentation only if movement/spawn boundary authority remains valid; otherwise whole MORPG activation uses accepted legacy v2 fallback. Mixed prop colliders0.
+- Rollback removes only environment profile/prop colliders/camera clamps and restores prior background binding; flow/reward ledger values unchanged.
+
+9. Geometry and machine-authority corrections
+- All three listed walkable vertex arrays are authoritative CCW. The earlier Z1 `clockwise` label is superseded; vertices do not change.
+- Egress axis is fixed world +X for all anchors. Capsule begins at anchor, length2.50, usable radius1.25; authored raw corridor width must be>=2.80 so .15 actor clearance on both sides leaves accepted2.50.
+- `prop-free core` means collider footprint dilated by actorBlockerInset.15 has zero intersection with core. The earlier `<=12% core projection` allowance is removed.
+- Final spawn-valid center set=`walkable polygon eroded .65` minus `union(prop collider dilated .55)` minus landing radius3.25 exclusion and reservation separation. This single set supersedes independent inset interpretations.
+- Camera no-void authority is the full32×18 environment dressing plus.25 overscan, not walkable polygon+.35. All declared clamp extrema keep viewport within map[-16,16]×[-9,9]. Adjacent inactive zone art may be visible; adjacent combat actors/VFX/spawns0.
+
+10. Exact prop/collider inventory
+- Z1 exact8 saplings IDs `prop...left.sapling.01`–`.08`, centers(-14,-6.8),(-12,-7),(-9,-7),(-6.4,-6.8),(-14,6.8),(-12,7),(-9,7),(-6.4,6.8). Radius per row must be .22–.34 and dilated collider must not intersect core.
+- Z2 exact4 fence segments: `prop...center.fence.top.left/right`, `bottom.left/right`; horizontal x[-4,-1.5] and[1.5,4], center y+7/-7, thickness.24. Center gap3.0 and side openings remain.
+- Z3 exact5 blockers: `house.top.left` footprint[6.3,6.2,8.5,7.25], `house.top.right`[10,6.2,12.5,7.25], `house.bottom.left`[6.3,-7.25,8.5,-6.2], `house.bottom.right`[10,-7.25,12.5,-6.2], `wall.right`[14,-3,14.5,3]. All IDs prefixed `prop...right.`. Core-dilated overlap0.
+- Collider ID is `collider.<fullPropStableId>`. Composite mapping manifest rows store sourcePropId/sourceColliderId/compositeColliderId; runtime cleanup and diagnostics resolve back to source IDs.
+- Non-rendered active-zone movement boundary is `boundary.<zoneId>.combat.v1`, separate from background and prop colliders. Background collider0; prop blockers never substitute for the closed zone boundary.
+
+11. Strict dependency/machine supplement
+- Upstream content dependency SHA `65f8d9593e5d56f4921ff90a6790a6cb081c16305e4864700ef44f45a866911c`; P0 addendum SHA `228dc30635046fb69e17abc5a5eac5a86cd7f322a2f102f1b7a903c73752dedc`.
+- Zone rows additionally require:
+  left waveId `wave.act1.chapter01.01.rescue_villagers.zone.left.01`, anchorId `anchor.act1.chapter01.01.rescue_villagers.zone.left.entry_warp`;
+  center `.zone.center.02`, `.zone.center.entry_warp`;
+  right `.zone.right.03`, `.zone.right.entry_warp`.
+- Required refs: propManifestId/colliderManifestId/backgroundBindingId/cameraClamp/egressAxis `[1,0]`/boundaryId/reservationAuditRef.
+- `reservationAuditRef` points to the unified exact28 reservation rows by stable reservationId and records zoneId, role, position, spawnValid boolean and environmentDigest. Counts and roles must equal19/5/4 and15+4/4+1/3+1.
+- Trap validator samples walkable free space on.10wu grid, dilates blockers by.15, and rejects any reachable neck<2.50 or dead-end geodesic depth>1.50.
+
+12. Corrected fallback and rollback
+- All environment art, prop manifests, prop colliders, three closed zone boundaries, camera dressing and reservation audit are required for this environment profile. Missing/invalid item disables the profile before player control.
+- Sole fallback is exact `seq.act1.chapter01.01.rescue_villagers.solo_large_wave.v2` with its prior map/bindings. Undefined collider-free MORPG environment fallback0.
+- Rollback order: stop environment activation; clear occlusion fades/composite-source maps; clear NPC path/reposition and knockback boundary caches; restore player/NPC destinations; remove prop+zone colliders; restore camera clamp/background; then start v2. Mixed environment0.
+
+No Unity/code/art/Git mutation performed.

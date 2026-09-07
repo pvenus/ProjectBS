@@ -1,0 +1,173 @@
+{
+  "manifestSha256": "f3ef1e10d277c7359d7cf611dfcd31e365387a803827dc3cc7b1cf2e1627a425",
+  "exactCount": 6,
+  "dimensions": [
+    1536,
+    512
+  ],
+  "opaque": true,
+  "records": [
+    {
+      "kind": "floors",
+      "name": "wave-01-floor.png",
+      "raw_size": [
+        1774,
+        887
+      ],
+      "output_size": [
+        1536,
+        512
+      ],
+      "mode": "RGB",
+      "normalization": {
+        "method": "aspect-cover Lanczos; center crop",
+        "scaled": [
+          1536,
+          768
+        ],
+        "crop": [
+          0,
+          128
+        ]
+      },
+      "raw_sha256": "c1682d35a0da3432bd73c313fbdd7707d472821454d53b7ddc0741fad8065abd",
+      "output_sha256": "ac5b8d6e131f04e9079f2cb35ca698fd723f246bc3c58d9a0ef6a7f252a5da69",
+      "edge_seam_mae_norm": 0.026356
+    },
+    {
+      "kind": "floors",
+      "name": "wave-02-floor.png",
+      "raw_size": [
+        1774,
+        887
+      ],
+      "output_size": [
+        1536,
+        512
+      ],
+      "mode": "RGB",
+      "normalization": {
+        "method": "aspect-cover Lanczos; center crop",
+        "scaled": [
+          1536,
+          768
+        ],
+        "crop": [
+          0,
+          128
+        ]
+      },
+      "raw_sha256": "596e9761b25ae60bcb94a4e7a5ceb24aa7d28987a7801b439194e5948e75725b",
+      "output_sha256": "ad64928e18e8a7e25d18b37adfa7a29eddc8a5e4c30aab0a8b4d0d35055d96c4",
+      "edge_seam_mae_norm": 0.045613
+    },
+    {
+      "kind": "floors",
+      "name": "wave-03-floor.png",
+      "raw_size": [
+        1774,
+        887
+      ],
+      "output_size": [
+        1536,
+        512
+      ],
+      "mode": "RGB",
+      "normalization": {
+        "method": "aspect-cover Lanczos; center crop",
+        "scaled": [
+          1536,
+          768
+        ],
+        "crop": [
+          0,
+          128
+        ]
+      },
+      "raw_sha256": "eed90f7bf190e7b68987067246d143c0eb60a6a909d2605321212d54f7839d66",
+      "output_sha256": "f9512df375936360dac70cdfe6cc46b0b0efb7cd3cf148c2aff8477608f465cb",
+      "edge_seam_mae_norm": 0.042696
+    },
+    {
+      "kind": "far-backgrounds",
+      "name": "wave-01-far.png",
+      "raw_size": [
+        1774,
+        887
+      ],
+      "output_size": [
+        1536,
+        512
+      ],
+      "mode": "RGB",
+      "normalization": {
+        "method": "aspect-cover Lanczos; top-aligned crop",
+        "scaled": [
+          1536,
+          768
+        ],
+        "crop": [
+          0,
+          0
+        ]
+      },
+      "raw_sha256": "4cd83a83c07eb0b8c51c5730e4c94771c59b3e8414b6ad6dc68a7f39afd66883",
+      "output_sha256": "93110187b4f3136027a06ac970b13bac70ec4005e72d2bf253c9a672c09e2c16",
+      "edge_seam_mae_norm": 0.024366
+    },
+    {
+      "kind": "far-backgrounds",
+      "name": "wave-02-far.png",
+      "raw_size": [
+        1774,
+        887
+      ],
+      "output_size": [
+        1536,
+        512
+      ],
+      "mode": "RGB",
+      "normalization": {
+        "method": "aspect-cover Lanczos; top-aligned crop",
+        "scaled": [
+          1536,
+          768
+        ],
+        "crop": [
+          0,
+          0
+        ]
+      },
+      "raw_sha256": "7eb8f2bd29ff3016edffb3b3e01d54682c2fd3cfd52c02b244b9bc9c1913b5e6",
+      "output_sha256": "f18a6e2aea8242aa55e49b3923f01486e778cbf567fa88e289e0b7d3cf6e3ad2",
+      "edge_seam_mae_norm": 0.031812
+    },
+    {
+      "kind": "far-backgrounds",
+      "name": "wave-03-far.png",
+      "raw_size": [
+        1774,
+        887
+      ],
+      "output_size": [
+        1536,
+        512
+      ],
+      "mode": "RGB",
+      "normalization": {
+        "method": "aspect-cover Lanczos; top-aligned crop",
+        "scaled": [
+          1536,
+          768
+        ],
+        "crop": [
+          0,
+          0
+        ]
+      },
+      "raw_sha256": "6421fe3d8f3f3d00355580a509a3f94d635cfd4046a1aa214b2bd00feb5fc99f",
+      "output_sha256": "585fe65b697f80f26cfe41a926bf3f970f025a38b2cfd2838e1e0d2238f47abe",
+      "edge_seam_mae_norm": 0.040579
+    }
+  ]
+}

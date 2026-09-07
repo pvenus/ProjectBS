@@ -1,0 +1,13 @@
+/private/tmp/projectbs-inactive-spawn.2kor3vj0/Stub.cs(114,102): warning CS0649: Field 'CharacterManager.statusTickService' is never assigned to, and will always have its default value null
+/private/tmp/projectbs-inactive-spawn.2kor3vj0/Stub.cs(114,67): warning CS0414: The field 'CharacterManager.lastHitAttacker' is assigned but its value is never used
+PASS black-direct-inactive-initialize-defers-reveal
+PASS black-inactive-initialize-then-enable-once
+PASS black-pooled-reuse-cancels-old-reveal-and-death-state
+PASS chain-direct-inactive-initialize-defers-reveal
+PASS chain-inactive-initialize-then-enable-once
+PASS chain-pooled-reuse-cancels-old-reveal-and-death-state
+PASS active-legacy-spawn-still-reveals
+PASS initialization-rejection-never-enters-living-registry
+PASS ownership-rejection-never-enters-living-registry
+PASS registry-observer-fault-removes-sequence-and-living-tracking
+PASS 10/10 inactive spawn lifecycle simulations

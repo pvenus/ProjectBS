@@ -1,0 +1,68 @@
+{
+  "status": "SCREENSHOT_VIEWPORT_ROOTFIX_APPLIED",
+  "compiler": {
+    "errors": 0,
+    "existingWarnings": 31
+  },
+  "tests": {
+    "live": 52,
+    "geometry": 14,
+    "clock": 9,
+    "reward": 12,
+    "spawn": 10,
+    "cast": 4,
+    "p1": 27
+  },
+  "totalPassed": 128,
+  "viewportCrops": 27,
+  "uncoveredViewportPixels": 0,
+  "sourcePngGuidMetaDiff": 0,
+  "canonicalGeometryReservationsDiff": 0,
+  "interiorPropsEnabled": false,
+  "interiorReactivation": "Set binding.json interiorPropsEnabled=true before next battle activation. Original definitions and images remain.",
+  "camera": {
+    "halfHeight": 4,
+    "halfWidth": 7.111111111111111,
+    "localCenterX": [
+      7.111111111111111,
+      24.88888888888889
+    ],
+    "centerY": [
+      -1,
+      1
+    ],
+    "targetYOffset": -0.9,
+    "clampIdempotent": true
+  },
+  "barrierVisibleBounds": {
+    "localX": [
+      0,
+      32
+    ],
+    "topY": [
+      4,
+      5
+    ],
+    "bottomY": [
+      -5,
+      -4
+    ]
+  },
+  "bindingSha256": "7a9ff0d3eccc2a846936a834c3d279883b15164e604af02ed98a8a15d45f03a8",
+  "gitIndexUnchanged": true,
+  "reversePatchCheck": "PASS",
+  "limitations": [
+    "Static asset-composited viewport crops; no Unity GUI/headless/Play Mode/GPU evidence.",
+    "Nominal fixed orthographic size4 and16:9; focused bounds tests also cover aspect2.0."
+  ],
+  "delivery": "Final receipt ready. Earlier direct send to Hangyeol was rejected by automatic approval review for unverified destination/disclosure authorization. No retry or workaround after that rejection.",
+  "legacyBackground": {
+    "normalVisible": 1,
+    "morpgSuccessVisible": 0,
+    "morpgFailureVisible": 1,
+    "lateTestSpawnSuppressed": true,
+    "ownerScoped": true,
+    "baselineRestoredOnDispose": true,
+    "assetsDeleted": 0
+  }
+}

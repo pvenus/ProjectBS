@@ -1,0 +1,25 @@
+[화감 COMPLETE | MORPG wave backgrounds + top/bottom barriers exact9]
+Date: 2026-09-07 KST
+Status: SELECTED_EXACT9_READY_INSTALL_HOLD
+
+Built-in ImageGen independent outputs exact9:
+- Wave backgrounds RGB opaque3.
+- Top barriers RGBA3 and bottom barriers RGBA3; top/bottom are independently generated, mirror reuse0.
+- All selected outputs exact1536x512, unique SHA9/9.
+
+Themes:
+- W1 dry plain, sparse saplings/grass, low earth-stone edge.
+- W2 village outskirts, weathered timber fence and dirt-road edge.
+- W3 village square, house/wall/tile/stone edge.
+- Civilization density and value structure progress W1<W2<W3; combat centers remain low contrast.
+
+Physical QA:
+- Barrier RGBA6/6, border alpha contact0, minimum margin16px, alpha0 RGB residue0, clipping suspicion0.
+- Background opaque3/3.
+- Character/NPC/monster/UI/text/VFX/collider-line0.
+- Composite contact: evidence/wave1-wave2-wave3-composite-contact.png
+- Contact SHA c6687811196449faad8f97e9f40cfa188a37553569ffd61720d801b59d750c2a
+
+Selected manifest: manifest.json in this directory.
+Only exact1536x512/ is installation-candidate content. Raw built-in outputs remain provenance.
+Existing internal prop system/assets unchanged. Project/canonical/Unity/install writes0.

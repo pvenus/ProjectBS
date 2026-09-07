@@ -14,6 +14,7 @@ namespace Skill.Service.Helper
         public Transform Target { get; set; }
         public bool UsePoint { get; set; }
         public Vector2 TargetPoint { get; set; }
+        public ManualSkillAim? ManualAim { get; set; }
         public MonoBehaviour CoroutineRunner { get; set; }
         public int SelectedHitIndex { get; set; } = -1;
         public int ComboIndex { get; set; } = -1;
@@ -115,7 +116,7 @@ namespace Skill.Service.Helper
                 context.ComboIndex,
                 context.HitOverride,
                 context.SuppressVisual,
-                context.MinimumVisualLifetime);
+                context.MinimumVisualLifetime,context.ManualAim);
         }
 
         private static bool UseSpawnSkillAndSelfEffects(
@@ -358,7 +359,7 @@ namespace Skill.Service.Helper
             int comboIndex = -1,
             SkillHitSO hitOverride = null,
             bool suppressVisual = false,
-            float minimumVisualLifetime = 0f)
+            float minimumVisualLifetime = 0f,SkillAimMode? manualAimMode=null)
         {
             if (runtime == null || caster == null)
             {
@@ -372,7 +373,7 @@ namespace Skill.Service.Helper
                     target,
                     spawnPosition,
                     direction,
-                    targetPoint,
+                    manualAimMode==SkillAimMode.Direction?(Vector2?)null:targetPoint,
                     selectedHitIndex,
                     visualClipOverride,
                     animationVfxProfileOverride,
@@ -383,7 +384,7 @@ namespace Skill.Service.Helper
                     comboIndex,
                     hitOverride,
                     suppressVisual,
-                    minimumVisualLifetime);
+                    minimumVisualLifetime,manualAimMode);
 
             if (projectileDatas == null || projectileDatas.Length == 0)
             {
@@ -520,7 +521,7 @@ namespace Skill.Service.Helper
             int comboIndex = -1,
             SkillHitSO hitOverride = null,
             bool suppressVisual = false,
-            float minimumVisualLifetime = 0f)
+            float minimumVisualLifetime = 0f,ManualSkillAim? manualAim=null)
         {
             if (runtime == null || caster == null)
             {
@@ -541,6 +542,28 @@ namespace Skill.Service.Helper
                 target,
                 true,
                 resolvedTargetPoint);
+
+            if(manualAim?.Mode==SkillAimMode.Direction)
+            {
+                direction=manualAim.Value.Direction.normalized;
+                resolvedTargetPoint=spawnPosition+direction*Mathf.Max(0f,ResolveCastSo(runtime)?.Range??0f);
+                target=null;usePoint=false;
+            }
+            else if(manualAim?.Mode==SkillAimMode.GroundPoint)
+            {
+                resolvedTargetPoint=manualAim.Value.Point;target=null;usePoint=true;
+                direction=(resolvedTargetPoint-spawnPosition).normalized;
+            }
+            else if(manualAim?.Mode==SkillAimMode.Target)
+            {
+                target=manualAim.Value.Target;if(target==null)return false;
+                resolvedTargetPoint=target.position;usePoint=false;
+                direction=(resolvedTargetPoint-spawnPosition).normalized;
+            }
+            else if(manualAim?.Mode==SkillAimMode.Self)
+            {
+                target=null;usePoint=false;resolvedTargetPoint=spawnPosition;
+            }
 
             ApplyCastSelfEffects(
                 runtime,
@@ -564,7 +587,7 @@ namespace Skill.Service.Helper
                 comboIndex,
                 hitOverride,
                 suppressVisual,
-                minimumVisualLifetime);
+                minimumVisualLifetime,manualAim?.Mode);
         }
 
         public static Vector2 ResolveTargetPoint(

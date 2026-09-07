@@ -1,0 +1,28 @@
+{
+  "status": "STATIC_AND_SIMULATION_PASS_PENDING_UNITY_PLAY_REVIEW",
+  "owner": "결합",
+  "reviewer": "한결",
+  "productionFiles": {
+    "Assets/Scripts/Actor/Character/presentation/CharacterSkillCastPresentationMono.cs": "3b8f811aa2c989ee1082d7e31b53278dd441edb7396366c4b1ad5e7e065f87b6",
+    "Assets/Scripts/Actor/Character/CharacterSkillManager.cs": "555a08f09eac8cdb9efdec554ae9a89dc451cb7a81b9c728b241c1993cf574eb",
+    "Assets/Scripts/Actor/Character/CharacterManager.cs": "dea803ed002e3e48d6f40006a47b7bbf0c8355e89ecf20adde7adfe38bbefffa",
+    "Assets/Resources/Shaders/CharacterCastProgress.shader": "c4c7459cdd8d7b91e48776ec57a595c540c123be1b186992035c610f464acf93"
+  },
+  "inactiveSpawnService": {
+    "path": "Assets/Scripts/Battle/Spawn/Sequence/service/NpcSpawnService.cs",
+    "sha256": "295c70074d5819d42e39d3147fb2d0ab53a5fc36d465fd19a75a18886622fc8e"
+  },
+  "tests": {
+    "compileErrors": 0,
+    "compileWarnings": 31,
+    "castPresenterSimulations": 4,
+    "inactiveSpawnSimulations": 8,
+    "morpgLiveSimulations": 7,
+    "p0p1Focused": 27,
+    "diffCheck": "PASS"
+  },
+  "sharedMaterialAssetEdited": false,
+  "floorTelegraphSourceEdited": false,
+  "unityGuiUsed": false,
+  "stagingCommitPushUsed": false
+}

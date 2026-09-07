@@ -1,0 +1,58 @@
+{
+  "status": "IMPLEMENTED_WITH_CURRENT_GEOMETRY_SAFE_FALLBACK",
+  "contractSha256": "d7ed28cd4f31ae36c6b9d14ab1fb7c398af0874f61fcb0090929ab08f0724f92",
+  "compile": {
+    "errors": 0,
+    "warnings": 31
+  },
+  "tests": {
+    "liveProductionWithUnityStub": 33,
+    "productionClock": 8,
+    "productionGeometry": 12,
+    "rewardQueueLedger": 12,
+    "inactiveSpawn": 10,
+    "castPresenter": 4,
+    "p1": 27
+  },
+  "totalPassed": 106,
+  "rewardAssets": "PASS",
+  "diffCheck": "PASS",
+  "reversePatchCheck": "PASS",
+  "gitIndexUnchanged": true,
+  "clipByteExact": true,
+  "waveFileUnchangedSha256": "2bb146cec2b8d80fa1cfca4b100cce57b6549a8b7389407e74fb34b97763e7b7",
+  "limitations": [
+    "Current revision02 geometry fails authored Dash corridor clearance and therefore selects obscured fallback.",
+    "Normal Dash passes only with explicitly widened test geometry; horizontal revision03 authority is unavailable.",
+    "No Unity GUI, scene run, rendered-frame screenshot or GPU evidence."
+  ],
+  "modifiedFiles": [
+    "Assets/Scripts/Battle/Morpg/BattleMorpgLiveRoute.cs",
+    "Assets/Scripts/Battle/Morpg/BattleMorpgZoneTransitionCoordinator.cs",
+    "Assets/Scripts/Battle/Morpg/MorpgEnvironmentRuntime.cs",
+    "Assets/Scripts/Battle/Morpg/MorpgEnvironmentGeometry.cs",
+    "Assets/Scripts/Battle/Spawn/Sequence/BattleSpawnManager.cs",
+    "Assets/Resources/battle/morpg/environment/environment.v1.json",
+    "AgentTools/MorpgIntegrationHarness/RuntimeStub.cs",
+    "AgentTools/MorpgIntegrationHarness/Program.cs",
+    "Artifacts/Engineering/MorpgP1Rollback/revision-02/REPRODUCE.sh",
+    "AgentTools/MorpgEnvironmentHarness/install_profile.py",
+    "AgentTools/MorpgIntegrationHarness/reward_asset_checks.py",
+    "AgentTools/MorpgIntegrationHarness/inactive_spawn_tests.py",
+    "Assets/Scripts/Actor/Character/CharacterSkillManager.cs",
+    "Assets/Scripts/Actor/Character/CharacterManager.cs"
+  ],
+  "addedFiles": [
+    "Assets/Scripts/Battle/Morpg/MorpgTransitionClock.cs",
+    "Assets/Scripts/Battle/Morpg/MorpgTransitionClock.cs.meta",
+    "Assets/Scripts/Battle/Morpg/MorpgDashTransitionView.cs",
+    "Assets/Scripts/Battle/Morpg/MorpgDashTransitionView.cs.meta",
+    "Assets/Scripts/Battle/Morpg/MorpgTransitionLateView.cs",
+    "Assets/Scripts/Battle/Morpg/MorpgTransitionLateView.cs.meta",
+    "Assets/Resources/battle/morpg/transitions.meta",
+    "Assets/Resources/battle/morpg/transitions/transition-dash.anim.meta",
+    "Assets/Resources/battle/morpg/transitions/transition-dash.anim",
+    "AgentTools/MorpgDashHarness/run-clock.sh",
+    "AgentTools/MorpgDashHarness/ClockTests.cs"
+  ]
+}

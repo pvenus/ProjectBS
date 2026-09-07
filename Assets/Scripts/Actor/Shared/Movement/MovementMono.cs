@@ -112,7 +112,7 @@ public class MovementMono : MonoBehaviour
             resolvedDistance =
                 Mathf.Min(
                     resolvedDistance,
-                    Mathf.Max(0f, hits[i].distance - 0.01f));
+                    Mathf.Max(0f, hits[i].distance - (Battle.Morpg.MorpgEnvironmentRuntime.Active != null ? .15f : .01f)));
         }
 
         if (resolvedDistance <= 0f)
@@ -121,8 +121,10 @@ public class MovementMono : MonoBehaviour
         }
 
         StopAllMotion();
-        targetRigidbody.MovePosition(
-            targetRigidbody.position + normalized * resolvedDistance);
+        Vector2 destination = targetRigidbody.position + normalized * resolvedDistance;
+        if (Battle.Morpg.MorpgEnvironmentRuntime.Active != null)
+            destination = Battle.BattleMapBoundsContext.SweepActorStep(targetRigidbody.position, destination, targetRigidbody);
+        targetRigidbody.MovePosition(destination);
         return true;
     }
 

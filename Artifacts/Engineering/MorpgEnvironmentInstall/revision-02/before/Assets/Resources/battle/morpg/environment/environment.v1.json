@@ -1,0 +1,1345 @@
+{
+  "schemaVersion": "morpg-environment.v1",
+  "contractSha256": "20fd0dc578f51d8218e7e222faecf94f70fa3260c41bf27346756f7decfd75b8",
+  "sourceManifestSha256": "d5353184175684b7affaa9a95933c7271e3dc65addabbdbfa912c85e0bfa66fb",
+  "mapBounds": [
+    -16,
+    -9,
+    16,
+    9
+  ],
+  "overscan": 0.25,
+  "minCorridorWidth": 2.5,
+  "assets": [
+    {
+      "id": "z1-boundary-straight",
+      "sourcePath": "Artifacts/GraphicsRemediation/MORPGEnvironmentProps/selected/revision-01/runtime/z1-boundary-straight.png",
+      "path": "Assets/Resources/battle/morpg/environment/z1-boundary-straight.png",
+      "resource": "battle/morpg/environment/z1-boundary-straight",
+      "sha256": "8edaf5f56876a1e759f87c56fa9cd11e734c4962b6384c56f8ee5dafaff9b2cd",
+      "guid": "6f1b3747b0f14713aa9e3bedeb22a35a",
+      "opaqueRect": [
+        0.56,
+        1.76,
+        9.09,
+        2.59
+      ]
+    },
+    {
+      "id": "z1-boundary-corner",
+      "sourcePath": "Artifacts/GraphicsRemediation/MORPGEnvironmentProps/selected/revision-01/runtime/z1-boundary-corner.png",
+      "path": "Assets/Resources/battle/morpg/environment/z1-boundary-corner.png",
+      "resource": "battle/morpg/environment/z1-boundary-corner",
+      "sha256": "6bfe55fe02ed7c888677c63813d48c80ecdd750720425e1614a9a4797c2e4f19",
+      "guid": "9e79d35a98ea4396857b5b57ca53af3d",
+      "opaqueRect": [
+        0.56,
+        0.48,
+        9.11,
+        6.16
+      ]
+    },
+    {
+      "id": "z1-boundary-end",
+      "sourcePath": "Artifacts/GraphicsRemediation/MORPGEnvironmentProps/selected/revision-01/runtime/z1-boundary-end.png",
+      "path": "Assets/Resources/battle/morpg/environment/z1-boundary-end.png",
+      "resource": "battle/morpg/environment/z1-boundary-end",
+      "sha256": "7082c0f7419c42d977d34c6cafe6cfc06630d0c969a5b4e11d38adfa67237535",
+      "guid": "88379692f48e49ca83b870eb8a6df72b",
+      "opaqueRect": [
+        1.16,
+        0.48,
+        8.52,
+        6.06
+      ]
+    },
+    {
+      "id": "z1-boundary-gate",
+      "sourcePath": "Artifacts/GraphicsRemediation/MORPGEnvironmentProps/selected/revision-01/runtime/z1-boundary-gate.png",
+      "path": "Assets/Resources/battle/morpg/environment/z1-boundary-gate.png",
+      "resource": "battle/morpg/environment/z1-boundary-gate",
+      "sha256": "0445b885e04dbc9d2707177a41aae376a2db64006162c15646cb270941041ac1",
+      "guid": "ed6e51d2601f41e0ab08ec0bbe3a8e87",
+      "opaqueRect": [
+        0.48,
+        0.48,
+        9.18,
+        6.0
+      ]
+    },
+    {
+      "id": "z1-sapling",
+      "sourcePath": "Artifacts/GraphicsRemediation/MORPGEnvironmentProps/selected/revision-01/runtime/z1-sapling.png",
+      "path": "Assets/Resources/battle/morpg/environment/z1-sapling.png",
+      "resource": "battle/morpg/environment/z1-sapling",
+      "sha256": "a19217b690d0f8fa8057cb74f8372f234d96290b17d9e3907ba439faf97cd31d",
+      "guid": "c2ffba5d73dd4bb1a80b56cc1fa44bde",
+      "opaqueRect": [
+        1.12,
+        0.66,
+        7.83,
+        5.96
+      ]
+    },
+    {
+      "id": "z2-fence-straight",
+      "sourcePath": "Artifacts/GraphicsRemediation/MORPGEnvironmentProps/selected/revision-01/runtime/z2-fence-straight.png",
+      "path": "Assets/Resources/battle/morpg/environment/z2-fence-straight.png",
+      "resource": "battle/morpg/environment/z2-fence-straight",
+      "sha256": "20ea7e729c604cf56859c8ab518d1b66a2664d9203208b3cf039ac2ac87b07b6",
+      "guid": "f16e56d2b0304be89f0c4b370d41b94d",
+      "opaqueRect": [
+        0.48,
+        0.48,
+        9.25,
+        6.14
+      ]
+    },
+    {
+      "id": "z2-fence-corner",
+      "sourcePath": "Artifacts/GraphicsRemediation/MORPGEnvironmentProps/selected/revision-01/runtime/z2-fence-corner.png",
+      "path": "Assets/Resources/battle/morpg/environment/z2-fence-corner.png",
+      "resource": "battle/morpg/environment/z2-fence-corner",
+      "sha256": "ba11a89d1a3dadbbd33425d22524691a71343e21317b760cc05df081e66f9ad5",
+      "guid": "5e07fb7e97d44a7a8c52c205157bc666",
+      "opaqueRect": [
+        0.48,
+        0.48,
+        8.93,
+        6.08
+      ]
+    },
+    {
+      "id": "z2-fence-end",
+      "sourcePath": "Artifacts/GraphicsRemediation/MORPGEnvironmentProps/selected/revision-01/runtime/z2-fence-end.png",
+      "path": "Assets/Resources/battle/morpg/environment/z2-fence-end.png",
+      "resource": "battle/morpg/environment/z2-fence-end",
+      "sha256": "a893804dc666935b5b18b3f8a982a424a8ad1a476f831440a32a9d3e36fb6a52",
+      "guid": "d9fbca181b514b4094b7d0764d13292d",
+      "opaqueRect": [
+        0.58,
+        0.48,
+        9.03,
+        6.0
+      ]
+    },
+    {
+      "id": "z2-fence-gate",
+      "sourcePath": "Artifacts/GraphicsRemediation/MORPGEnvironmentProps/selected/revision-01/runtime/z2-fence-gate.png",
+      "path": "Assets/Resources/battle/morpg/environment/z2-fence-gate.png",
+      "resource": "battle/morpg/environment/z2-fence-gate",
+      "sha256": "941ba0ac4fd99622e759071d589a822f85f211eb410fa0e0008f62456728ff3d",
+      "guid": "90e6630b327545c5be4b3df8a89694a8",
+      "opaqueRect": [
+        0.58,
+        0.59,
+        9.1,
+        5.99
+      ]
+    },
+    {
+      "id": "z2-cart-straw",
+      "sourcePath": "Artifacts/GraphicsRemediation/MORPGEnvironmentProps/selected/revision-01/runtime/z2-cart-straw.png",
+      "path": "Assets/Resources/battle/morpg/environment/z2-cart-straw.png",
+      "resource": "battle/morpg/environment/z2-cart-straw",
+      "sha256": "3431af3f2de3da861a22283bc08aafd955287b358df72cf15405b536692896a1",
+      "guid": "b27aa38ae1b04d7b97d6c2a805f8d5c6",
+      "opaqueRect": [
+        0.48,
+        0.48,
+        9.2,
+        6.05
+      ]
+    },
+    {
+      "id": "z3-wall-straight",
+      "sourcePath": "Artifacts/GraphicsRemediation/MORPGEnvironmentProps/selected/revision-01/runtime/z3-wall-straight.png",
+      "path": "Assets/Resources/battle/morpg/environment/z3-wall-straight.png",
+      "resource": "battle/morpg/environment/z3-wall-straight",
+      "sha256": "b5baa69171249b4acf1ff6510dce2305d1c31e29eef5621d79ce4faada4e4ebf",
+      "guid": "59146b93c1424482920f216ca82e289f",
+      "opaqueRect": [
+        0.64,
+        0.62,
+        8.86,
+        3.88
+      ]
+    },
+    {
+      "id": "z3-wall-corner",
+      "sourcePath": "Artifacts/GraphicsRemediation/MORPGEnvironmentProps/selected/revision-01/runtime/z3-wall-corner.png",
+      "path": "Assets/Resources/battle/morpg/environment/z3-wall-corner.png",
+      "resource": "battle/morpg/environment/z3-wall-corner",
+      "sha256": "10ca39e13307220bfb52df95a691afd10c587a99c75a2d8d79a356b839f4c277",
+      "guid": "1924e47c3b024108b058117dea3d54ad",
+      "opaqueRect": [
+        0.83,
+        0.72,
+        8.45,
+        5.76
+      ]
+    },
+    {
+      "id": "z3-house-edge-end",
+      "sourcePath": "Artifacts/GraphicsRemediation/MORPGEnvironmentProps/selected/revision-01/runtime/z3-house-edge-end.png",
+      "path": "Assets/Resources/battle/morpg/environment/z3-house-edge-end.png",
+      "resource": "battle/morpg/environment/z3-house-edge-end",
+      "sha256": "dff89d16f52a36363bb7ac11ff1937dbfb84fc0b213ebbf6f848bb174b26aa97",
+      "guid": "3951e8d1a2af48f782fb016a3f80ef91",
+      "opaqueRect": [
+        0.48,
+        0.48,
+        8.91,
+        6.16
+      ]
+    },
+    {
+      "id": "z3-wall-gate",
+      "sourcePath": "Artifacts/GraphicsRemediation/MORPGEnvironmentProps/selected/revision-01/runtime/z3-wall-gate.png",
+      "path": "Assets/Resources/battle/morpg/environment/z3-wall-gate.png",
+      "resource": "battle/morpg/environment/z3-wall-gate",
+      "sha256": "51817f3806533bb77fc4d8465ae02f313496b26b7cf32964ad7bf75ee3b2210b",
+      "guid": "1f435971be0048ce998817c00e53b2ab",
+      "opaqueRect": [
+        0.48,
+        0.48,
+        9.2,
+        6.04
+      ]
+    },
+    {
+      "id": "z3-square-props",
+      "sourcePath": "Artifacts/GraphicsRemediation/MORPGEnvironmentProps/selected/revision-01/runtime/z3-square-props.png",
+      "path": "Assets/Resources/battle/morpg/environment/z3-square-props.png",
+      "resource": "battle/morpg/environment/z3-square-props",
+      "sha256": "f0c0f4b3b3d5c0c9c08dc3951907fc597b782928d3cbaee4152320f20a542c69",
+      "guid": "9643c5ccc00e4979b3924711475d1140",
+      "opaqueRect": [
+        1.02,
+        0.81,
+        8.44,
+        5.67
+      ]
+    }
+  ],
+  "zones": [
+    {
+      "zoneId": "zone.act1.chapter01.01.rescue_villagers.left",
+      "waveId": "wave.act1.chapter01.01.rescue_villagers.zone.left.01",
+      "anchorId": "anchor.act1.chapter01.01.rescue_villagers.zone.left.entry_warp",
+      "entry": [
+        -10.25,
+        0
+      ],
+      "walkable": [
+        {
+          "x": -14.5,
+          "y": -7.35
+        },
+        {
+          "x": -6.1,
+          "y": -7.35
+        },
+        {
+          "x": -5.85,
+          "y": -5.8
+        },
+        {
+          "x": -5.85,
+          "y": 5.8
+        },
+        {
+          "x": -6.1,
+          "y": 7.35
+        },
+        {
+          "x": -14.5,
+          "y": 7.35
+        }
+      ],
+      "core": [
+        -13.65,
+        -5.65,
+        -6.85,
+        5.65
+      ],
+      "spawnInset": 0.65,
+      "actorInset": 0.15,
+      "landingRadius": 1.5,
+      "egressLength": 2.5,
+      "egressRadius": 1.4,
+      "egressAxis": [
+        1,
+        0
+      ],
+      "cameraClamp": [
+        -10.42,
+        -5.25,
+        -10.08,
+        5.25
+      ],
+      "boundaryId": "boundary.zone.act1.chapter01.01.rescue_villagers.left.combat.v1",
+      "propManifestId": "props.zone.act1.chapter01.01.rescue_villagers.left",
+      "colliderManifestId": "colliders.zone.act1.chapter01.01.rescue_villagers.left",
+      "backgroundBindingId": "battle-runtime-background.full32x18",
+      "reservationAuditRef": "environment.reservations.v1",
+      "props": [
+        {
+          "id": "prop.zone.act1.chapter01.01.rescue_villagers.left.sapling.01",
+          "colliderId": "collider.prop.zone.act1.chapter01.01.rescue_villagers.left.sapling.01",
+          "asset": "z1-sapling",
+          "center": [
+            -14,
+            -6.8
+          ],
+          "radius": 0.28,
+          "box": [],
+          "visualSize": [
+            0.9,
+            0.95
+          ],
+          "visualOrigin": [
+            -14,
+            -7.08
+          ],
+          "visualRotation": 0
+        },
+        {
+          "id": "prop.zone.act1.chapter01.01.rescue_villagers.left.sapling.02",
+          "colliderId": "collider.prop.zone.act1.chapter01.01.rescue_villagers.left.sapling.02",
+          "asset": "z1-sapling",
+          "center": [
+            -12,
+            -7
+          ],
+          "radius": 0.28,
+          "box": [],
+          "visualSize": [
+            0.9,
+            0.95
+          ],
+          "visualOrigin": [
+            -12,
+            -7.28
+          ],
+          "visualRotation": 0
+        },
+        {
+          "id": "prop.zone.act1.chapter01.01.rescue_villagers.left.sapling.03",
+          "colliderId": "collider.prop.zone.act1.chapter01.01.rescue_villagers.left.sapling.03",
+          "asset": "z1-sapling",
+          "center": [
+            -9,
+            -7
+          ],
+          "radius": 0.28,
+          "box": [],
+          "visualSize": [
+            0.9,
+            0.95
+          ],
+          "visualOrigin": [
+            -9,
+            -7.28
+          ],
+          "visualRotation": 0
+        },
+        {
+          "id": "prop.zone.act1.chapter01.01.rescue_villagers.left.sapling.04",
+          "colliderId": "collider.prop.zone.act1.chapter01.01.rescue_villagers.left.sapling.04",
+          "asset": "z1-sapling",
+          "center": [
+            -6.4,
+            -6.8
+          ],
+          "radius": 0.28,
+          "box": [],
+          "visualSize": [
+            0.9,
+            0.95
+          ],
+          "visualOrigin": [
+            -6.4,
+            -7.08
+          ],
+          "visualRotation": 0
+        },
+        {
+          "id": "prop.zone.act1.chapter01.01.rescue_villagers.left.sapling.05",
+          "colliderId": "collider.prop.zone.act1.chapter01.01.rescue_villagers.left.sapling.05",
+          "asset": "z1-sapling",
+          "center": [
+            -14,
+            6.8
+          ],
+          "radius": 0.28,
+          "box": [],
+          "visualSize": [
+            0.9,
+            0.95
+          ],
+          "visualOrigin": [
+            -14,
+            6.52
+          ],
+          "visualRotation": 0
+        },
+        {
+          "id": "prop.zone.act1.chapter01.01.rescue_villagers.left.sapling.06",
+          "colliderId": "collider.prop.zone.act1.chapter01.01.rescue_villagers.left.sapling.06",
+          "asset": "z1-sapling",
+          "center": [
+            -12,
+            7
+          ],
+          "radius": 0.28,
+          "box": [],
+          "visualSize": [
+            0.9,
+            0.95
+          ],
+          "visualOrigin": [
+            -12,
+            6.72
+          ],
+          "visualRotation": 0
+        },
+        {
+          "id": "prop.zone.act1.chapter01.01.rescue_villagers.left.sapling.07",
+          "colliderId": "collider.prop.zone.act1.chapter01.01.rescue_villagers.left.sapling.07",
+          "asset": "z1-sapling",
+          "center": [
+            -9,
+            7
+          ],
+          "radius": 0.28,
+          "box": [],
+          "visualSize": [
+            0.9,
+            0.95
+          ],
+          "visualOrigin": [
+            -9,
+            6.72
+          ],
+          "visualRotation": 0
+        },
+        {
+          "id": "prop.zone.act1.chapter01.01.rescue_villagers.left.sapling.08",
+          "colliderId": "collider.prop.zone.act1.chapter01.01.rescue_villagers.left.sapling.08",
+          "asset": "z1-sapling",
+          "center": [
+            -6.4,
+            6.8
+          ],
+          "radius": 0.28,
+          "box": [],
+          "visualSize": [
+            0.9,
+            0.95
+          ],
+          "visualOrigin": [
+            -6.4,
+            6.52
+          ],
+          "visualRotation": 0
+        }
+      ],
+      "decorations": [
+        {
+          "id": "dressing.z1-boundary-straight",
+          "asset": "z1-boundary-straight",
+          "origin": [
+            -11,
+            8
+          ],
+          "size": [
+            2,
+            0.7
+          ]
+        },
+        {
+          "id": "dressing.z1-boundary-corner",
+          "asset": "z1-boundary-corner",
+          "origin": [
+            -15.3,
+            7.8
+          ],
+          "size": [
+            0.8,
+            0.8
+          ]
+        },
+        {
+          "id": "dressing.z1-boundary-end",
+          "asset": "z1-boundary-end",
+          "origin": [
+            -15.3,
+            -8.5
+          ],
+          "size": [
+            0.8,
+            0.8
+          ]
+        },
+        {
+          "id": "dressing.z1-boundary-gate",
+          "asset": "z1-boundary-gate",
+          "origin": [
+            -10.25,
+            -8.8
+          ],
+          "size": [
+            2,
+            0.8
+          ]
+        }
+      ]
+    },
+    {
+      "zoneId": "zone.act1.chapter01.01.rescue_villagers.center",
+      "waveId": "wave.act1.chapter01.01.rescue_villagers.zone.center.02",
+      "anchorId": "anchor.act1.chapter01.01.rescue_villagers.zone.center.entry_warp",
+      "entry": [
+        0,
+        0
+      ],
+      "walkable": [
+        {
+          "x": -4.25,
+          "y": -7.35
+        },
+        {
+          "x": 4.25,
+          "y": -7.35
+        },
+        {
+          "x": 4.25,
+          "y": 7.35
+        },
+        {
+          "x": -4.25,
+          "y": 7.35
+        }
+      ],
+      "core": [
+        -3.55,
+        -5.6,
+        3.55,
+        5.6
+      ],
+      "spawnInset": 0.65,
+      "actorInset": 0.15,
+      "landingRadius": 1.5,
+      "egressLength": 2.5,
+      "egressRadius": 1.4,
+      "egressAxis": [
+        1,
+        0
+      ],
+      "cameraClamp": [
+        -0.35,
+        -5.25,
+        0.35,
+        5.25
+      ],
+      "boundaryId": "boundary.zone.act1.chapter01.01.rescue_villagers.center.combat.v1",
+      "propManifestId": "props.zone.act1.chapter01.01.rescue_villagers.center",
+      "colliderManifestId": "colliders.zone.act1.chapter01.01.rescue_villagers.center",
+      "backgroundBindingId": "battle-runtime-background.full32x18",
+      "reservationAuditRef": "environment.reservations.v1",
+      "props": [
+        {
+          "id": "prop.zone.act1.chapter01.01.rescue_villagers.center.fence.top.left",
+          "colliderId": "collider.prop.zone.act1.chapter01.01.rescue_villagers.center.fence.top.left",
+          "asset": "z2-fence-straight",
+          "center": [
+            -2.75,
+            7
+          ],
+          "radius": 0,
+          "box": [
+            -4.0,
+            6.88,
+            -1.5,
+            7.12
+          ],
+          "visualSize": [
+            2.5,
+            0.95
+          ],
+          "visualOrigin": [
+            -2.75,
+            6.88
+          ],
+          "visualRotation": 0
+        },
+        {
+          "id": "prop.zone.act1.chapter01.01.rescue_villagers.center.fence.top.right",
+          "colliderId": "collider.prop.zone.act1.chapter01.01.rescue_villagers.center.fence.top.right",
+          "asset": "z2-fence-straight",
+          "center": [
+            2.75,
+            7
+          ],
+          "radius": 0,
+          "box": [
+            1.5,
+            6.88,
+            4.0,
+            7.12
+          ],
+          "visualSize": [
+            2.5,
+            0.95
+          ],
+          "visualOrigin": [
+            2.75,
+            6.88
+          ],
+          "visualRotation": 0
+        },
+        {
+          "id": "prop.zone.act1.chapter01.01.rescue_villagers.center.fence.bottom.left",
+          "colliderId": "collider.prop.zone.act1.chapter01.01.rescue_villagers.center.fence.bottom.left",
+          "asset": "z2-fence-straight",
+          "center": [
+            -2.75,
+            -7
+          ],
+          "radius": 0,
+          "box": [
+            -4.0,
+            -7.12,
+            -1.5,
+            -6.88
+          ],
+          "visualSize": [
+            2.5,
+            0.95
+          ],
+          "visualOrigin": [
+            -2.75,
+            -7.12
+          ],
+          "visualRotation": 0
+        },
+        {
+          "id": "prop.zone.act1.chapter01.01.rescue_villagers.center.fence.bottom.right",
+          "colliderId": "collider.prop.zone.act1.chapter01.01.rescue_villagers.center.fence.bottom.right",
+          "asset": "z2-fence-straight",
+          "center": [
+            2.75,
+            -7
+          ],
+          "radius": 0,
+          "box": [
+            1.5,
+            -7.12,
+            4.0,
+            -6.88
+          ],
+          "visualSize": [
+            2.5,
+            0.95
+          ],
+          "visualOrigin": [
+            2.75,
+            -7.12
+          ],
+          "visualRotation": 0
+        }
+      ],
+      "decorations": [
+        {
+          "id": "dressing.z2-fence-corner",
+          "asset": "z2-fence-corner",
+          "origin": [
+            -4.7,
+            7.8
+          ],
+          "size": [
+            0.6,
+            0.8
+          ]
+        },
+        {
+          "id": "dressing.z2-fence-end",
+          "asset": "z2-fence-end",
+          "origin": [
+            4.7,
+            -8.5
+          ],
+          "size": [
+            0.6,
+            0.8
+          ]
+        },
+        {
+          "id": "dressing.z2-fence-gate",
+          "asset": "z2-fence-gate",
+          "origin": [
+            0,
+            7.7
+          ],
+          "size": [
+            2,
+            0.9
+          ]
+        },
+        {
+          "id": "dressing.z2-cart-straw",
+          "asset": "z2-cart-straw",
+          "origin": [
+            0,
+            -8.7
+          ],
+          "size": [
+            1.4,
+            0.8
+          ]
+        }
+      ]
+    },
+    {
+      "zoneId": "zone.act1.chapter01.01.rescue_villagers.right",
+      "waveId": "wave.act1.chapter01.01.rescue_villagers.zone.right.03",
+      "anchorId": "anchor.act1.chapter01.01.rescue_villagers.zone.right.entry_warp",
+      "entry": [
+        10.25,
+        0
+      ],
+      "walkable": [
+        {
+          "x": 6,
+          "y": -7.25
+        },
+        {
+          "x": 14.5,
+          "y": -7.25
+        },
+        {
+          "x": 14.5,
+          "y": 7.25
+        },
+        {
+          "x": 6,
+          "y": 7.25
+        }
+      ],
+      "core": [
+        6.75,
+        -5.5,
+        13.75,
+        5.5
+      ],
+      "spawnInset": 0.65,
+      "actorInset": 0.15,
+      "landingRadius": 1.5,
+      "egressLength": 2.5,
+      "egressRadius": 1.4,
+      "egressAxis": [
+        1,
+        0
+      ],
+      "cameraClamp": [
+        10.08,
+        -5.25,
+        10.42,
+        5.25
+      ],
+      "boundaryId": "boundary.zone.act1.chapter01.01.rescue_villagers.right.combat.v1",
+      "propManifestId": "props.zone.act1.chapter01.01.rescue_villagers.right",
+      "colliderManifestId": "colliders.zone.act1.chapter01.01.rescue_villagers.right",
+      "backgroundBindingId": "battle-runtime-background.full32x18",
+      "reservationAuditRef": "environment.reservations.v1",
+      "props": [
+        {
+          "id": "prop.zone.act1.chapter01.01.rescue_villagers.right.house.top.left",
+          "colliderId": "collider.prop.zone.act1.chapter01.01.rescue_villagers.right.house.top.left",
+          "asset": "z3-house-edge-end",
+          "center": [
+            7.4,
+            6.725
+          ],
+          "radius": 0,
+          "box": [
+            6.3,
+            6.2,
+            8.5,
+            7.25
+          ],
+          "visualSize": [
+            2.2,
+            1.8
+          ],
+          "visualOrigin": [
+            7.4,
+            6.199999999999999
+          ],
+          "visualRotation": 0
+        },
+        {
+          "id": "prop.zone.act1.chapter01.01.rescue_villagers.right.house.top.right",
+          "colliderId": "collider.prop.zone.act1.chapter01.01.rescue_villagers.right.house.top.right",
+          "asset": "z3-house-edge-end",
+          "center": [
+            11.25,
+            6.725
+          ],
+          "radius": 0,
+          "box": [
+            10,
+            6.2,
+            12.5,
+            7.25
+          ],
+          "visualSize": [
+            2.5,
+            1.8
+          ],
+          "visualOrigin": [
+            11.25,
+            6.199999999999999
+          ],
+          "visualRotation": 0
+        },
+        {
+          "id": "prop.zone.act1.chapter01.01.rescue_villagers.right.house.bottom.left",
+          "colliderId": "collider.prop.zone.act1.chapter01.01.rescue_villagers.right.house.bottom.left",
+          "asset": "z3-house-edge-end",
+          "center": [
+            7.4,
+            -6.725
+          ],
+          "radius": 0,
+          "box": [
+            6.3,
+            -7.25,
+            8.5,
+            -6.2
+          ],
+          "visualSize": [
+            2.2,
+            1
+          ],
+          "visualOrigin": [
+            7.4,
+            -7.25
+          ],
+          "visualRotation": 0
+        },
+        {
+          "id": "prop.zone.act1.chapter01.01.rescue_villagers.right.house.bottom.right",
+          "colliderId": "collider.prop.zone.act1.chapter01.01.rescue_villagers.right.house.bottom.right",
+          "asset": "z3-house-edge-end",
+          "center": [
+            11.25,
+            -6.725
+          ],
+          "radius": 0,
+          "box": [
+            10,
+            -7.25,
+            12.5,
+            -6.2
+          ],
+          "visualSize": [
+            2.5,
+            1
+          ],
+          "visualOrigin": [
+            11.25,
+            -7.25
+          ],
+          "visualRotation": 0
+        },
+        {
+          "id": "prop.zone.act1.chapter01.01.rescue_villagers.right.wall.right",
+          "colliderId": "collider.prop.zone.act1.chapter01.01.rescue_villagers.right.wall.right",
+          "asset": "z3-wall-straight",
+          "center": [
+            14.25,
+            0.0
+          ],
+          "radius": 0,
+          "box": [
+            14,
+            -3,
+            14.5,
+            3
+          ],
+          "visualSize": [
+            0.5,
+            6
+          ],
+          "visualOrigin": [
+            14.25,
+            -3.0
+          ],
+          "visualRotation": 90
+        }
+      ],
+      "decorations": [
+        {
+          "id": "dressing.z3-wall-corner",
+          "asset": "z3-wall-corner",
+          "origin": [
+            15.3,
+            7.8
+          ],
+          "size": [
+            0.6,
+            0.8
+          ]
+        },
+        {
+          "id": "dressing.z3-wall-gate",
+          "asset": "z3-wall-gate",
+          "origin": [
+            11,
+            7.9
+          ],
+          "size": [
+            2,
+            0.8
+          ]
+        },
+        {
+          "id": "dressing.z3-square-props",
+          "asset": "z3-square-props",
+          "origin": [
+            13.5,
+            -8.5
+          ],
+          "size": [
+            1.2,
+            0.6
+          ]
+        }
+      ]
+    }
+  ],
+  "reservations": [
+    {
+      "reservationId": "rv.z1.00",
+      "zoneId": "zone.act1.chapter01.01.rescue_villagers.left",
+      "role": "black",
+      "original": [
+        -14.25,
+        2.75
+      ],
+      "position": [
+        -13.85,
+        3.1
+      ],
+      "spawnValid": true,
+      "relocated": true
+    },
+    {
+      "reservationId": "rv.z1.01",
+      "zoneId": "zone.act1.chapter01.01.rescue_villagers.left",
+      "role": "black",
+      "original": [
+        -13.5,
+        -3.5
+      ],
+      "position": [
+        -13.5,
+        -3.5
+      ],
+      "spawnValid": true,
+      "relocated": false
+    },
+    {
+      "reservationId": "rv.z1.02",
+      "zoneId": "zone.act1.chapter01.01.rescue_villagers.left",
+      "role": "chain",
+      "original": [
+        -7,
+        5.5
+      ],
+      "position": [
+        -7,
+        5.5
+      ],
+      "spawnValid": true,
+      "relocated": false
+    },
+    {
+      "reservationId": "rv.z1.03",
+      "zoneId": "zone.act1.chapter01.01.rescue_villagers.left",
+      "role": "black",
+      "original": [
+        -6.25,
+        -5.75
+      ],
+      "position": [
+        -6.5,
+        -5.7
+      ],
+      "spawnValid": true,
+      "relocated": true
+    },
+    {
+      "reservationId": "rv.z1.04",
+      "zoneId": "zone.act1.chapter01.01.rescue_villagers.left",
+      "role": "black",
+      "original": [
+        -14,
+        5.75
+      ],
+      "position": [
+        -13.85,
+        5.75
+      ],
+      "spawnValid": true,
+      "relocated": true
+    },
+    {
+      "reservationId": "rv.z1.05",
+      "zoneId": "zone.act1.chapter01.01.rescue_villagers.left",
+      "role": "black",
+      "original": [
+        -12.5,
+        4.5
+      ],
+      "position": [
+        -12.5,
+        4.5
+      ],
+      "spawnValid": true,
+      "relocated": false
+    },
+    {
+      "reservationId": "rv.z1.06",
+      "zoneId": "zone.act1.chapter01.01.rescue_villagers.left",
+      "role": "black",
+      "original": [
+        -8,
+        -6.5
+      ],
+      "position": [
+        -8,
+        -6.5
+      ],
+      "spawnValid": true,
+      "relocated": false
+    },
+    {
+      "reservationId": "rv.z1.07",
+      "zoneId": "zone.act1.chapter01.01.rescue_villagers.left",
+      "role": "chain",
+      "original": [
+        -6.5,
+        3.75
+      ],
+      "position": [
+        -6.5,
+        3.75
+      ],
+      "spawnValid": true,
+      "relocated": false
+    },
+    {
+      "reservationId": "rv.z1.08",
+      "zoneId": "zone.act1.chapter01.01.rescue_villagers.left",
+      "role": "black",
+      "original": [
+        -14.25,
+        -1.5
+      ],
+      "position": [
+        -13.85,
+        -4.05
+      ],
+      "spawnValid": true,
+      "relocated": true
+    },
+    {
+      "reservationId": "rv.z1.09",
+      "zoneId": "zone.act1.chapter01.01.rescue_villagers.left",
+      "role": "black",
+      "original": [
+        -6.25,
+        1.5
+      ],
+      "position": [
+        -6.5,
+        2.95
+      ],
+      "spawnValid": true,
+      "relocated": true
+    },
+    {
+      "reservationId": "rv.z1.10",
+      "zoneId": "zone.act1.chapter01.01.rescue_villagers.left",
+      "role": "black",
+      "original": [
+        -12.75,
+        -5.75
+      ],
+      "position": [
+        -12.75,
+        -5.75
+      ],
+      "spawnValid": true,
+      "relocated": false
+    },
+    {
+      "reservationId": "rv.z1.11",
+      "zoneId": "zone.act1.chapter01.01.rescue_villagers.left",
+      "role": "black",
+      "original": [
+        -8.25,
+        6.5
+      ],
+      "position": [
+        -8.25,
+        6.5
+      ],
+      "spawnValid": true,
+      "relocated": false
+    },
+    {
+      "reservationId": "rv.z1.12",
+      "zoneId": "zone.act1.chapter01.01.rescue_villagers.left",
+      "role": "black",
+      "original": [
+        -11.25,
+        7
+      ],
+      "position": [
+        -11.2,
+        6.7
+      ],
+      "spawnValid": true,
+      "relocated": true
+    },
+    {
+      "reservationId": "rv.z1.13",
+      "zoneId": "zone.act1.chapter01.01.rescue_villagers.left",
+      "role": "chain",
+      "original": [
+        -9,
+        -7
+      ],
+      "position": [
+        -9.7,
+        -6.55
+      ],
+      "spawnValid": true,
+      "relocated": true
+    },
+    {
+      "reservationId": "rv.z1.14",
+      "zoneId": "zone.act1.chapter01.01.rescue_villagers.left",
+      "role": "black",
+      "original": [
+        -7,
+        7
+      ],
+      "position": [
+        -7.25,
+        6.7
+      ],
+      "spawnValid": true,
+      "relocated": true
+    },
+    {
+      "reservationId": "rv.z1.15",
+      "zoneId": "zone.act1.chapter01.01.rescue_villagers.left",
+      "role": "black",
+      "original": [
+        -14,
+        -6.75
+      ],
+      "position": [
+        -13.55,
+        -6.1
+      ],
+      "spawnValid": true,
+      "relocated": true
+    },
+    {
+      "reservationId": "rv.z1.16",
+      "zoneId": "zone.act1.chapter01.01.rescue_villagers.left",
+      "role": "black",
+      "original": [
+        -6.25,
+        -2.75
+      ],
+      "position": [
+        -6.5,
+        -2.95
+      ],
+      "spawnValid": true,
+      "relocated": true
+    },
+    {
+      "reservationId": "rv.z1.17",
+      "zoneId": "zone.act1.chapter01.01.rescue_villagers.left",
+      "role": "chain",
+      "original": [
+        -13,
+        6.75
+      ],
+      "position": [
+        -13.0,
+        6.7
+      ],
+      "spawnValid": true,
+      "relocated": true
+    },
+    {
+      "reservationId": "rv.z1.18",
+      "zoneId": "zone.act1.chapter01.01.rescue_villagers.left",
+      "role": "black",
+      "original": [
+        -8.5,
+        -5.25
+      ],
+      "position": [
+        -8.5,
+        -5.25
+      ],
+      "spawnValid": true,
+      "relocated": false
+    },
+    {
+      "reservationId": "rv.z2.00",
+      "zoneId": "zone.act1.chapter01.01.rescue_villagers.center",
+      "role": "black",
+      "original": [
+        -4,
+        5
+      ],
+      "position": [
+        -3.6,
+        5.0
+      ],
+      "spawnValid": true,
+      "relocated": true
+    },
+    {
+      "reservationId": "rv.z2.01",
+      "zoneId": "zone.act1.chapter01.01.rescue_villagers.center",
+      "role": "black",
+      "original": [
+        4,
+        -5
+      ],
+      "position": [
+        3.6,
+        -5.0
+      ],
+      "spawnValid": true,
+      "relocated": true
+    },
+    {
+      "reservationId": "rv.z2.02",
+      "zoneId": "zone.act1.chapter01.01.rescue_villagers.center",
+      "role": "chain",
+      "original": [
+        0,
+        7
+      ],
+      "position": [
+        0.0,
+        6.7
+      ],
+      "spawnValid": true,
+      "relocated": true
+    },
+    {
+      "reservationId": "rv.z2.03",
+      "zoneId": "zone.act1.chapter01.01.rescue_villagers.center",
+      "role": "black",
+      "original": [
+        -4,
+        -5.5
+      ],
+      "position": [
+        -3.6,
+        -5.5
+      ],
+      "spawnValid": true,
+      "relocated": true
+    },
+    {
+      "reservationId": "rv.z2.04",
+      "zoneId": "zone.act1.chapter01.01.rescue_villagers.center",
+      "role": "black",
+      "original": [
+        4,
+        5.5
+      ],
+      "position": [
+        3.6,
+        5.5
+      ],
+      "spawnValid": true,
+      "relocated": true
+    },
+    {
+      "reservationId": "rv.z3.00",
+      "zoneId": "zone.act1.chapter01.01.rescue_villagers.right",
+      "role": "black",
+      "original": [
+        6.25,
+        5.25
+      ],
+      "position": [
+        6.65,
+        5.25
+      ],
+      "spawnValid": true,
+      "relocated": true
+    },
+    {
+      "reservationId": "rv.z3.01",
+      "zoneId": "zone.act1.chapter01.01.rescue_villagers.right",
+      "role": "black",
+      "original": [
+        14.25,
+        -5.25
+      ],
+      "position": [
+        13.85,
+        -5.25
+      ],
+      "spawnValid": true,
+      "relocated": true
+    },
+    {
+      "reservationId": "rv.z3.02",
+      "zoneId": "zone.act1.chapter01.01.rescue_villagers.right",
+      "role": "chain",
+      "original": [
+        10.25,
+        7
+      ],
+      "position": [
+        9.45,
+        6.6
+      ],
+      "spawnValid": true,
+      "relocated": true
+    },
+    {
+      "reservationId": "rv.z3.03",
+      "zoneId": "zone.act1.chapter01.01.rescue_villagers.right",
+      "role": "black",
+      "original": [
+        10.25,
+        -7
+      ],
+      "position": [
+        9.45,
+        -6.6
+      ],
+      "spawnValid": true,
+      "relocated": true
+    }
+  ]
+}

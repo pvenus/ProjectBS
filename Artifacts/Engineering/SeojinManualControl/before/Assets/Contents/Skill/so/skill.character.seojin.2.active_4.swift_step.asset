@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63226e07ba84a4a69967ef3b8995b8d7, type: 3}
+  m_Name: skill.character.seojin.2.active_4.swift_step
+  m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
+  equipmentId: skill.character.seojin.2.active_4.swift_step
+  icon: {fileID: 21300000, guid: e4200000000000000000000000000000, type: 3}
+  baseProfileSo: {fileID: 11400000, guid: a6fd942bce1314bf7abbf9a881835cad, type: 2}
+  castSo: {fileID: 11400000, guid: af2d6d102c3ff4755a57ab97fb2adbe8, type: 2}
+  hitSos: []
+  moveSo: {fileID: 11400000, guid: 403a6ee81d48d42849779fc4e20c0b26, type: 2}
+  spawnSkillSo: {fileID: 0}
+  upgradeTableSo: {fileID: 11400000, guid: aa8030510db8a406396b6e635c7a5a64, type: 2}
+  baseVisualSo: {fileID: 11400000, guid: be2b465dbc81949a285cff6dc4f6bf23, type: 2}
+  comboProfile:
+    enabled: 0
+    duration: 0
+    totalLungeCap: 0
+    useCanonicalBodyChoreography: 0
+    segmentedBodyActionClip: {fileID: 0}
+    segmentedBodyFrameCount: 18
+    steps: []

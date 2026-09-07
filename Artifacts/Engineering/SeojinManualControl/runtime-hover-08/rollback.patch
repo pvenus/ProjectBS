@@ -1,0 +1,557 @@
+--- a/Assets/Scripts/Ability/Skills/Services/ProjectileFactory.cs
++++ b/Assets/Scripts/Ability/Skills/Services/ProjectileFactory.cs
+@@ -241,7 +241,7 @@
+             return Quaternion.identity;
+         }
+ 
+-        if (runtimeData.orientManualPresentation || !runtimeData.moveRuntime.applyDirectionRotation)
++        if (!runtimeData.moveRuntime.applyDirectionRotation)
+         {
+             return Quaternion.identity;
+         }
+@@ -700,7 +700,6 @@
+             target = source.target,
+             sourceEquipment = source.sourceEquipment,
+             spawnPosition = spawnPosition,
+-            orientManualPresentation = source.orientManualPresentation,
+             direction = ResolveProjectileDirection(
+                 source,
+                 spawnOrder),
+@@ -784,9 +783,7 @@
+ 
+         return new WarpProjectileMoveDto
+         {
+-            targetPosition = spawnPosition,
+-            applyDirectionRotation = sourceMove.applyDirectionRotation,
+-            rotationOffset = sourceMove.rotationOffset
++            targetPosition = spawnPosition
+         };
+     }
+ 
+--- a/Assets/Scripts/Ability/Skills/Projectiles/SkillProjectileMoveController.cs
++++ b/Assets/Scripts/Ability/Skills/Projectiles/SkillProjectileMoveController.cs
+@@ -62,7 +62,7 @@
+                 break;
+         }
+ 
+-        _applyDirectionRotation = moveDto.applyDirectionRotation && !movementContext.visualOnlyDirectionRotation;
++        _applyDirectionRotation = moveDto.applyDirectionRotation;
+         _rotationOffset = moveDto.rotationOffset;
+ 
+         if (_applyDirectionRotation)
+--- a/Assets/Scripts/Ability/Skills/Projectiles/ProjectileMovement.cs
++++ b/Assets/Scripts/Ability/Skills/Projectiles/ProjectileMovement.cs
+@@ -34,9 +34,6 @@
+             return;
+         }
+ 
+-        moveController?.ResetController();
+-        moveController=null;
+-        if(data.orientManualPresentation)transform.rotation=Quaternion.identity;
+         owner = ownerEntity;
+         runtimeData = data;
+         initialized = true;
+@@ -45,12 +42,6 @@
+ 
+         BuildMoveControllerIfNeeded();
+         InitializeMoveController();
+-    }
+-
+-    private void OnDisable()
+-    {
+-        moveController?.ResetController();moveController=null;
+-        initialized=false;runtimeData=null;owner=null;direction=Vector2.right;
+     }
+ 
+     private void Update()
+@@ -144,9 +135,6 @@
+             projectileTransform = transform,
+             targetTransform = targetTransform,
+             targetLayerMask = data.hit.targetLayerMask,
+-            authoritativeDirection = data.NormalizedDirection,
+-            hasAuthoritativeDirection = data.orientManualPresentation,
+-            visualOnlyDirectionRotation = data.orientManualPresentation,
+             spawnPosition = data.spawnPosition
+         };
+     }
+--- a/Assets/Scripts/Ability/Skills/Projectiles/ProjectileVisual.cs
++++ b/Assets/Scripts/Ability/Skills/Projectiles/ProjectileVisual.cs
+@@ -43,7 +43,7 @@
+     [SerializeField] private bool deactivateAfterClipFinished;
+     [SerializeField] private float currentClipPlaybackSpeed = 1f;
+ 
+-    private readonly ProjectileDirectionPresentationLease directionWrapper=new();
++    private readonly SkillDirectionPresentationLease directedVisual=new();
+     private ProjectileEntity owner;
+     private ProjectileRuntimeData runtimeData;
+     private SkillAnimationVfxFeatureObject animationVfx;
+@@ -204,7 +204,7 @@
+ 
+     private void CaptureBaselineRendererScale()
+     {
+-        Transform candidate = presentationProxyRenderer != null && presentationProxyRenderer.enabled
++        Transform candidate = presentationProxyRenderer != null && (presentationProxyRenderer.enabled || directedVisual.Active)
+             ? presentationProxyRenderer.transform
+             : spriteRenderer != null
+             ? spriteRenderer.transform
+@@ -276,7 +276,8 @@
+     {
+         ApplyRelativeSortingOrder();
+         ApplyPresentationCalibration();
+-        directionWrapper.Apply();
++        directedVisual.Apply();
++        if(directedVisual.Active&&presentationProxyRenderer!=null&&spriteRenderer!=null)spriteRenderer.enabled=false;
+     }
+ 
+     private void ApplyPresentationCalibration()
+@@ -285,7 +286,7 @@
+         {
+             return;
+         }
+-        if (presentationProxyRenderer != null && presentationProxyRenderer.enabled)
++        if (presentationProxyRenderer != null && (presentationProxyRenderer.enabled || directedVisual.Active))
+         {
+             CopyRendererPresentation(spriteRenderer, presentationProxyRenderer);
+             presentationProxyRenderer.sprite = spriteRenderer.sprite;
+@@ -428,7 +429,6 @@
+ 
+     private void OnDestroy()
+     {
+-        directionWrapper.Restore();
+         StopRainRoutine();
+         RestoreBaselineMaterial();
+         DestroyPlayableGraph();
+@@ -448,7 +448,7 @@
+             return;
+         }
+ 
+-        directionWrapper.Restore();
++        directedVisual.Restore();
+         owner = ownerEntity;
+         runtimeData = data;
+         EnsureVisualComponents();
+@@ -469,19 +469,18 @@
+ 
+         if (spriteRenderer != null) spriteRenderer.enabled = true;
+ 
+-        if(data.orientManualPresentation&&!data.suppressVisual&&animator!=null)
+-        {
+-            // Animator is below this wrapper: its root curves cannot touch gameplay rotation.
+-            directionWrapper.Begin(animator.transform,transform,spriteRenderer,
+-                data.NormalizedDirection,data.moveRuntime?.applyDirectionRotation==true,
+-                data.moveRuntime?.rotationOffset??0f);
+-        }
+         OnSpawn();
+-        directionWrapper.Apply();
++        if(data.orientManualPresentation&&SkillDirectionMath.Valid(data.direction)&&!data.suppressVisual)
++        {
++            Vector2 forward=data.sourceEquipment?.CastSo?.DirectionPresentation?.CanonicalForward??Vector2.right;
++            SkillDirectionMath.Solve(data.direction,forward,false,out float angle,out _);
++            directedVisual.Begin(presentationProxyRenderer!=null?presentationProxyRenderer:spriteRenderer,angle,false);
++            if(presentationProxyRenderer!=null&&spriteRenderer!=null)spriteRenderer.enabled=false;
++        }
+     }
+     private void OnDisable()
+     {
+-        directionWrapper.Restore();RestoreRendererScale();EndPresentationProxy();
++        directedVisual.Restore();RestoreRendererScale();EndPresentationProxy();
+     }
+ 
+     public void OnSpawn()
+@@ -539,7 +538,7 @@
+ 
+     public void OnDespawn()
+     {
+-        directionWrapper.Restore();
++        directedVisual.Restore();
+         if (!initialized)
+         {
+             return;
+--- a/Assets/Scripts/Ability/Skills/Projectiles/move/SkillProjectileHoverMovement.cs
++++ b/Assets/Scripts/Ability/Skills/Projectiles/move/SkillProjectileHoverMovement.cs
+@@ -47,12 +47,7 @@
+         _dto = dto;
+         _initialized = true;
+ 
+-        _direction = Vector2.right;
+-        if (_context.hasAuthoritativeDirection && Skill.SkillDirectionMath.Valid(_context.authoritativeDirection))
+-        {
+-            _direction = _context.authoritativeDirection.normalized;
+-        }
+-        else if (_context.owner != null)
++        if (_context.owner != null)
+         {
+             Vector2 ownerPosition = _context.owner.position;
+             Vector2 direction;
+--- a/Assets/Scripts/Ability/Skills/Projectiles/move/ISkillProjectileMovement.cs
++++ b/Assets/Scripts/Ability/Skills/Projectiles/move/ISkillProjectileMovement.cs
+@@ -7,9 +7,6 @@
+     public Transform targetTransform;
+     public LayerMask targetLayerMask;
+     public Vector2 spawnPosition;
+-    public Vector2 authoritativeDirection;
+-    public bool hasAuthoritativeDirection;
+-    public bool visualOnlyDirectionRotation;
+ }
+ 
+ public interface ISkillProjectileMovement
+--- a/AgentTools/SeojinManualHarness/audit.py
++++ b/AgentTools/SeojinManualHarness/audit.py
+@@ -26,7 +26,7 @@
+ (out/'same-path-result.json').write_text(json.dumps({'checked':len(protected),'unchanged':len(protected)-len(authorized),'authorized_design_fields':list(authorized),'changed':changed},indent=2)+'\n')
+ assert not changed,changed
+ before=json.loads((out/'before-sha.json').read_text())
+-new=[root/'Assets/Scripts/Ability/Skills/Presentation/ProjectileDirectionPresentationLease.cs',root/'Assets/Scripts/Ability/Skills/Presentation/ProjectileDirectionPresentationLease.cs.meta',root/'Assets/Scripts/Ability/Skills/Presentation/SkillDirectionPresentation.cs',root/'Assets/Scripts/Ability/Skills/Presentation/SkillDirectionPresentation.cs.meta',root/'Assets/Scripts/Ability/Skills/Definitions/equipment/SkillAimMode.cs',root/'Assets/Scripts/Ability/Skills/Definitions/equipment/SkillAimMode.cs.meta',root/'Assets/Scripts/Actor/Character/Control.meta',*sorted((root/'Assets/Scripts/Actor/Character/Control').glob('*')),*sorted((root/'AgentTools/SeojinManualHarness').glob('*'))]
++new=[root/'Assets/Scripts/Ability/Skills/Presentation/SkillDirectionPresentation.cs',root/'Assets/Scripts/Ability/Skills/Presentation/SkillDirectionPresentation.cs.meta',root/'Assets/Scripts/Ability/Skills/Definitions/equipment/SkillAimMode.cs',root/'Assets/Scripts/Ability/Skills/Definitions/equipment/SkillAimMode.cs.meta',root/'Assets/Scripts/Actor/Character/Control.meta',*sorted((root/'Assets/Scripts/Actor/Character/Control').glob('*')),*sorted((root/'AgentTools/SeojinManualHarness').glob('*'))]
+ new=[p for p in new if p.is_file()]; (out/'new-files.json').write_text(json.dumps([str(p.relative_to(root)) for p in new],indent=2)+'\n')
+ patch=[]; hashes={}
+ for name,h in before.items():
+--- a/AgentTools/SeojinManualHarness/visual_direction.py
++++ b/AgentTools/SeojinManualHarness/visual_direction.py
+@@ -13,7 +13,7 @@
+ a=(root/'Assets/Scripts/Actor/Party/AnimationMono.cs').read_text()
+ assert 'PlayDirectedSkillBodyAction' in a and 'directedBody.Apply();' in a and 'directedBody.Restore();' in a
+ v=(root/'Assets/Scripts/Ability/Skills/Projectiles/ProjectileVisual.cs').read_text()
+-assert 'data.orientManualPresentation' in v and 'directionWrapper.Restore();' in v and 'data.NormalizedDirection,data.moveRuntime?.applyDirectionRotation==true' in v
++assert 'data.orientManualPresentation' in v and 'directedVisual.Restore();' in v and 'SkillDirectionMath.Solve(data.direction' in v
+ s=(root/'Assets/Scripts/Actor/Character/service/skill/ActiveSkillService.cs').read_text()
+ assert 'manualAim.Value.Direction' in s and 'PlayDirectedSkillBodyAction' in s
+ for p,h in json.loads((root/'Artifacts/Engineering/SeojinManualControl/visual-direction-06/morpg-before-sha.json').read_text()).items():
+--- a/Artifacts/Engineering/SeojinManualControl/REPORT.md
++++ b/Artifacts/Engineering/SeojinManualControl/REPORT.md
+@@ -1,25 +1,52 @@
+-# 실제 runtime Hover 방향 rootfix 08 완료
++# visual / aim correction 07 완료
+ 
+-## 정확한 원인
++Shift Dash/Charge 몸체의 방향 회전 폴백을 제거하고 Basic 콤보를 단계별 마우스 스냅샷으로 변경했다. blocker 없음.
+ 
+-Resolver에서 설정한 orientManualPresentation이 ProjectileFactory.CreateInstanceRuntimeData 복제에서 누락됐다. 따라서 실제 생성된 projectile에서는 앞선 visual 방향 코드의 gate가 false였다. Hover 역시 runtime direction을 받지 않고 target−owner 또는 spawn−owner를 추론했으며, Charge followOffset=0에서는 owner.right로 귀결됐다. Factory spawn과 MoveController는 gameplay root에 회전을 쓰고, 앞선 ProjectileVisual 자식 회전은 MoveSO의 applyDirectionRotation/rotationOffset을 따르지 않았다. Warp instance DTO 복제도 해당 두 설정을 누락했다.
++## 몸체와 VFX
+ 
+-보존한 수정 전 Factory 메서드를 동일 하네스에 넣으면 manual flag 검증이 실패하고, 수정본은 통과한다(negative-control.log). 이번에 확인한 G1~G3 Charge 실제 clip은 rotation/euler 곡선이 비어 있고 root flip/sprite 곡선이 있다. 현재 문제를 clip rotation 덮어쓰기 때문이라고 단정하지 않는다. 새 계층은 향후 localRotation 곡선에도 방향 wrapper가 덮어써지지 않도록 분리한다.
++SkillDirectionPresentationProfile은 8방향 등록 clip, 수평 반전 가능한 clip, 좌우 facing/flip 폴백 순서로 선택한다. 몸체 폴백 angle은 항상 0이다. canonicalForward로 몸체 atan2를 계산하던 경로를 제거했다. 캐릭터 root 및 원본 body renderer Transform에 회전 쓰기를 추가하지 않았고, 몸체 표시 자식의 Z도 0이다. Shift/Charge keydown WASD 및 기존 fallback/게임플레이 이동은 유지했다.
+ 
+-## 최종 구조와 동작
++Charge VFX는 renderer 전용 자식에만 스냅샷 atan2-canonicalForward 회전을 적용한다. caster, collider, Rigidbody와 원본 renderer root의 회전은 바꾸지 않는다. Basic의 표시되는 단계 VFX도 해당 단계 Direction 데이터를 이 동일한 renderer 전용 경로에서 사용하도록 했다. 기존 Basic VFX 001 suppression은 유지한다. 반환·비활성·취소 시 rotation/flip/local transform 복원 계약은 유지했다. Self 및 비수동 projectile에는 방향 표시 flag가 없다.
+ 
+-실제 Resources/skill/ProjectileEntity.prefab은 ProjectileEntity → Scaler → Renderer(Animator + SpriteRenderer)다. 수동 Direction에서는 Scaler와 Renderer 사이에 __ProjectileDirectionRotation을 삽입한다. Animator clip의 local transform 쓰기는 Renderer에만 적용된다. wrapper world Z만 atan2(ProjectileRuntimeData.NormalizedDirection)+MoveSO.rotationOffset이며 applyDirectionRotation=false이면 offset도 무시하고 0이다.
++## Basic 단계별 스냅샷
+ 
+-Factory instance 복제가 방향 플래그를 보존한다. ProjectileMovement가 NormalizedDirection과 authoritative/visual-only 정책을 context에 전달하고 Hover는 수동 snapshot을 target/spawn 추론보다 우선한다. 수동 Direction에서 Factory spawn rotation은 identity, MoveController의 root 방향 회전은 비활성화한다. 재초기화 시 projectile root를 identity로 두고 movement controller를 재구성한다. ProjectileVisual의 이전 방향 자식 경로를 제거해 wrapper 한 곳만 각도를 소유한다. caster/collider에는 방향 회전을 적용하지 않는다.
++ManualGameplayAdapter → CharacterSkillManager → ActiveSkillService가 Func<ManualSkillAim> 공급자를 전달한다. 공급자는 각 단계의 실제 시작 시간과 generation/held gate 통과 후 한 번 호출된다. index0 A, index1 B, index2 C가 각각 local currentStepAim으로 확정된다. step hit, projectile/VFX context 및 facing lock 모두 같은 값을 사용하며 hit 시 재샘플하지 않는다.
+ 
+-Hover/Linear/Warp 수동 Direction은 동일 MoveSO flag/offset 정책을 사용한다. 비수동 Hover/Linear 등 기존 controller 경로는 유지하며 Warp clone은 flag/offset을 보존하도록 고쳤다. G1은 이름이 charge가 아닌 active_1.active_1.move.asset이며 실제 equipment MoveSO GUID를 따라 G1~G3 모두 Hover / applyDirectionRotation=true / offset=0임을 확인했다. SO/JSON/clip/prefab 자산은 편집하지 않았다.
++유효한 마우스 → 현재 WASD → 직전 단계의 정확한 facing 벡터 순서로 fallback한다. 첫 단계는 현재 AnimationMono facing을 사용하며 모두 없으면 right다. 직전 단계의 수직 벡터를 대각선 enum으로 양자화하지 않는다. release 시 다음 공급자를 호출하지 않고 현재 단계만 끝낸다. 수동 Direction combo의 공통 런타임 경로로 G1/G2/G3에 적용했다. G1 cooldown은 index2 진입, G2/G3는 기존 완료 시점 그대로다.
+ 
+-wrapper는 원래 부모/sibling/local position/rotation/scale/flip과 기존 wrapper pose를 저장해 despawn/disable/reinitialize/destroy 시 복원한다. physics root 또는 physics component를 포함한 subtree는 wrapper 대상으로 거부한다. 현재 ProjectileEntity는 실제로 Destroy 기반이며 반복 reuse 계약은 대역 하네스에서 검증했다. 공용 prefab이 없는 root-bound Animator fallback은 안전하게 wrapper를 취득하지 않는다.
++단계별 facing lock을 사용하고 clip 샘플 뒤에 원본 및 combo 표시 renderer의 flip을 함께 보정한다. 취소 및 iterator dispose에서 소유자에 해당하는 lock만 해제해 과거 generation의 정리가 새 실행을 덮어쓰지 않는다. readiness 거부는 callback/held 상태를 바꾸지 않는다.
+ 
+-## 검증
++## 검증 결과
+ 
+-기존 392 + 새로운 factory/hover/controller/wrapper assertion 229 + 수정 전 negative control 1 = 622 통과, 실패 0. 8방향 visible world forward, offset, apply=false 0, clip child rotation 쓰기, misleading target, physics/caster root 0, 반복 parent/local pose/flip 복원, legacy Hover, Warp clone 설정을 검증했다. 실제 production C# 및 추출한 Factory 메서드를 Unity primitive 대역과 실행했다. Unity 엔진 화면/Animator lifecycle 실행 검증은 아니다.
++392개 통과, 실패 0. 기존 323개 범위에 새 검증 69개를 추가했다. 이전 body 회전 폴백 검증의 기대값은 이번 upright 요구에 맞게 Z=0으로 갱신했다.
+ 
+-runtime compiler 오류 0 / 경고 31, editor 오류 0 / 경고 41. MORPG SHA 동일, 보호 자산 455개 유지, 이전 승인 설계 필드 15개 유지. diff 및 누적/revision 역패치 dry-run 통과. Unity GUI/headless/Play/import/staging/commit/push/실제 rollback 모두 0회.
++| 범위 | 개수 |
++| --- | ---: |
++| 실제 input/core/adapter 대역 실행 | 51 |
++| 실제 combo/guard 추출 실행 및 step fallback | 53 |
++| teardown | 10 |
++| aim pipeline | 15 |
++| rootfix differential replay | 1 |
++| MORPG / 환경 / dash | 62 / 14 / 9 |
++| reward / spawn / NPC cast / P1 | 12 / 10 / 4 / 27 |
++| 실제 presentation utility 및 post-sample flip 추출 실행 | 124 |
+ 
+-hierarchy-audit.json: 실제 prefab/clip/MoveSO readback. check-00~16.log: 회귀/컴파일/감사 결과. correction.patch 및 rollback.patch: 이번 변경과 역패치. 상위 scoped.patch: 전체 누적 변경.
++8방향 body root/renderer Z=0 및 VFX-only rotation, pool 복원, G1/G2/G3 A→B→C와 midstep 고정, release/취소 뒤 미호출, 원본·proxy flip 보정, invalid/epsilon fallback, cooldown 거부 시 provider 유지 등을 확인했다. 대역 기반 테스트이며 Unity 화면/전체 lifecycle 실행 검증은 아니다.
++
++실제 C# compiler: runtime 오류 0 / 경고 31, editor 오류 0 / 경고 41. MORPG 소스 SHA 동일. 보호 자산 455개 동일, 앞서 승인된 설계 필드 자산 15개 유지. 누적 scoped patch 기존 44개 / new 27개. diff, revision 및 누적 patch reverse dry-run 통과.
++
++Unity GUI/headless/Play/import, staging/commit/push, 실제 rollback 실행은 모두 0회다. Unity 화면상 최종 외관 확인은 수행하지 않았다.
++
++## 재현 및 복구
++
++check-00.log ~ check-14.log에 각 명령 결과를 보존했다. 콤보 추가 검증은 `python3 AgentTools/SeojinManualHarness/combo.py --step-aim`, 표현 검증은 `python3 AgentTools/SeojinManualHarness/visual_direction.py`로 실행한다.
++
++correction.patch는 이번 변경, rollback.patch는 이번 변경의 역패치다. before-sha.json / after-sha.json으로 파일을 확인할 수 있다. 상위 scoped.patch는 전체 누적 변경이다. 실제 rollback은 수행하지 않았다.
++
++## Close review 보강
++
++입력 공급자는 UI/focus, pause, explicit auto, transition, disable 및 현재 수동 권한을 입력 read 이전에 확인한다. 콤보 routine도 시작과 hit 직전에 live 권한을 확인한다. Core의 suspended 진입은 Clear(true)로 epoch/generation을 취소하므로 UI가 열렸다 닫혀도 과거 실행이 되살아나지 않는다. 기존 generation guard 및 소유자별 finally 정리가 유지된다.
++
++첫 provider 호출이 Fire와 같은 Time.frameCount이면 이미 확보한 initialAim을 재사용해 ray를 추가로 읽지 않는다. 첫 단계가 다음 프레임으로 지연되면 새 입력을 읽는다. 이후 각 단계는 현재 WASD를 우선하고 직전 단계의 정확한 facing을 fallback으로 사용한다. full-combo 최초 방향을 고정하지 않는다.
++
++추가 10개 검증: update 이전 UI/pause/auto/transition/disable 공급자 호출의 ray read 0, 같은 프레임 initial 재샘플 0, 지연 시작 fresh sample, hit/다음 step 권한 거부 2건, UI suspension의 실제 cancel 호출. 총 input 51, combo 53, 전체 392개 통과.
+--- a/Artifacts/Engineering/SeojinManualControl/receipt.json
++++ b/Artifacts/Engineering/SeojinManualControl/receipt.json
+@@ -1,25 +1,53 @@
+ {
+-  "revision": "runtime-hover-08",
++  "revision": "visual-aim-07",
+   "status": "complete",
+   "blocker": null,
+-  "completed_at": "2026-09-07T21:19:05.463532+09:00",
+-  "root_cause": "Factory instance clone dropped manual flag; Hover inferred direction instead of runtime snapshot; competing root/child rotation paths; Warp clone dropped rotation settings",
+-  "body_gameplay_caster_rotation_z": 0,
+-  "rotation_owner": "visual wrapper above Animator only",
+-  "angle": "applyDirectionRotation ? atan2(NormalizedDirection)+rotationOffset : 0",
+-  "manual_snapshot_priority": true,
+-  "charge_grades_MoveSO_true": [
+-    1,
+-    2,
+-    3
+-  ],
+-  "pool_exact_parent_local_pose_flip_restore": true,
++  "completed_at": "2026-09-07T20:48:42.755463+09:00",
++  "body": {
++    "rotation_z": 0,
++    "root_rotation_written": false,
++    "body_renderer_rotation_fallback": "removed",
++    "selection": "8-dir clip, mirrored clip, horizontal facing only",
++    "keydown_WASD_unchanged": true
++  },
++  "vfx": {
++    "rotation": "atan2 snapshot minus canonicalForward on renderer-only child",
++    "caster_collider_rigidbody_unchanged": true,
++    "pool_restore": true,
++    "basic_visible_step_uses_same_snapshot": true
++  },
++  "combo": {
++    "snapshot": "each admitted step start/commit",
++    "hit_facing_flip_projectile_vfx_same_source": true,
++    "midstep_immutable": true,
++    "release_no_next_capture": true,
++    "fallback": "mouse -> current WASD -> precise previous step facing (initial AnimationMono facing) -> right",
++    "grades": [
++      1,
++      2,
++      3
++    ],
++    "cooldown_reject_preserves_provider": true
++  },
+   "tests": {
+-    "prior": 392,
+-    "hierarchy_runtime": 229,
+-    "negative_control": 1,
+-    "passed": 622,
+-    "failed": 0
++    "input": 51,
++    "combo": 53,
++    "teardown": 10,
++    "pipeline": 15,
++    "replay": 1,
++    "morpg": 62,
++    "environment": 14,
++    "dash": 9,
++    "reward": 12,
++    "spawn": 10,
++    "npc_cast": 4,
++    "p1": 27,
++    "visual": 124,
++    "passed": 392,
++    "failed": 0,
++    "prior_coverage": 323,
++    "added": 69,
++    "old_body_expectation_updated_to_zero": true
+   },
+   "compile": {
+     "runtime_errors": 0,
+@@ -27,11 +55,16 @@
+     "editor_errors": 0,
+     "editor_warnings": 41
+   },
++  "preservation": {
++    "morpg_sha_unchanged": true,
++    "protected_unchanged": 455,
++    "prior_authorized_assets": 15,
++    "cumulative_existing": 44,
++    "cumulative_new": 27
++  },
+   "checks": {
+     "diff": true,
+-    "reverse_dry_run": true,
+-    "protected_unchanged": 455,
+-    "morpg_unchanged": true
++    "reverse_dry_run": true
+   },
+   "zero_runs": [
+     "Unity GUI",
+@@ -44,5 +77,14 @@
+     "actual rollback"
+   ],
+   "report": "REPORT.md",
+-  "patch": "correction.patch"
++  "patch": "correction.patch",
++  "rollback": "rollback.patch",
++  "close_review": {
++    "provider_live_authorization_before_read": true,
++    "step_and_hit_live_authorization": true,
++    "suspension_cancels_epoch": true,
++    "initial_same_frame_uses_cached_sample": true,
++    "delayed_initial_frame_resamples": true,
++    "fallback_current_WASD_then_precise_previous_step_facing": true
++  }
+ }
+--- a/Assets/Scripts/Ability/Skills/Presentation/ProjectileDirectionPresentationLease.cs
++++ /dev/null
+@@ -1,51 +0,0 @@
+-using UnityEngine;
+-namespace Skill
+-{
+-    // The live prefab is ProjectileEntity -> Scaler (collider) -> Renderer (Animator).
+-    // Insert below Scaler and above Animator; never reparent the physics hierarchy.
+-    public sealed class ProjectileDirectionPresentationLease
+-    {
+-        private Transform animated, originalParent, wrapper;
+-        private int sibling;
+-        private Vector3 position, scale, wrapperPosition, wrapperScale;
+-        private Quaternion rotation, wrapperRotation;
+-        private SpriteRenderer renderer;
+-        private bool flipX, flipY;
+-        private float angle;
+-        public bool Active {get;private set;}
+-        public bool Begin(Transform animatedRoot,Transform gameplayRoot,SpriteRenderer source,Vector2 direction,bool applyDirectionRotation,float rotationOffset)
+-        {
+-            Restore();
+-            if(animatedRoot==null||gameplayRoot==null||animatedRoot==gameplayRoot||
+-                !animatedRoot.IsChildOf(gameplayRoot)||animatedRoot.GetComponentInChildren<Collider2D>(true)!=null||
+-                animatedRoot.GetComponentInChildren<Rigidbody2D>(true)!=null)return false;
+-            animated=animatedRoot;originalParent=animated.parent;sibling=animated.GetSiblingIndex();
+-            position=animated.localPosition;rotation=animated.localRotation;scale=animated.localScale;
+-            renderer=source;if(renderer!=null){flipX=renderer.flipX;flipY=renderer.flipY;}
+-            wrapper=originalParent.Find("__ProjectileDirectionRotation");
+-            if(wrapper==null){wrapper=new GameObject("__ProjectileDirectionRotation").transform;wrapper.SetParent(originalParent,false);}
+-            wrapperPosition=wrapper.localPosition;wrapperRotation=wrapper.localRotation;wrapperScale=wrapper.localScale;
+-            wrapper.localPosition=Vector3.zero;wrapper.localScale=Vector3.one;
+-            angle=applyDirectionRotation&&SkillDirectionMath.Valid(direction)
+-                ?Mathf.Atan2(direction.y,direction.x)*Mathf.Rad2Deg+rotationOffset:0f;
+-            animated.SetParent(wrapper,false);
+-            Active=true;Apply();return true;
+-        }
+-        public void Apply()
+-        {
+-            if(Active&&wrapper!=null)wrapper.rotation=Quaternion.Euler(0f,0f,angle);
+-        }
+-        public void Restore()
+-        {
+-            if(!Active)return;
+-            if(animated!=null)
+-            {
+-                animated.SetParent(originalParent,false);animated.SetSiblingIndex(sibling);
+-                animated.localPosition=position;animated.localRotation=rotation;animated.localScale=scale;
+-            }
+-            if(renderer!=null){renderer.flipX=flipX;renderer.flipY=flipY;}
+-            if(wrapper!=null){wrapper.localPosition=wrapperPosition;wrapper.localRotation=wrapperRotation;wrapper.localScale=wrapperScale;}
+-            Active=false;animated=null;renderer=null;
+-        }
+-    }
+-}
+--- a/Assets/Scripts/Ability/Skills/Presentation/ProjectileDirectionPresentationLease.cs.meta
++++ /dev/null
+@@ -1,2 +0,0 @@
+-fileFormatVersion: 2
+-guid: 3d68f0ff00b7267b1cf69a0d9e7956a2
+--- a/AgentTools/SeojinManualHarness/hover_runtime.py
++++ /dev/null
+@@ -1,38 +0,0 @@
+-from pathlib import Path
+-import subprocess,tempfile,re,json,hashlib,sys
+-root=Path(__file__).resolve().parents[2];out=Path(tempfile.mkdtemp(prefix='hover-runtime-'))
+-def extract(path,signature):
+- s=(root/path).read_text();start=s.index(signature);a=s.index('{',start);end=a+1;depth=1
+- while depth:depth+=(s[end]=='{')-(s[end]=='}');end+=1
+- return s[start:end]
+-s=(root/'AgentTools/SeojinManualHarness/VisualDirection.template.cs').read_text().split('class ActualFacingProbe')[0]
+-s=s.replace('public struct Vector2{','public struct Vector2{public static Vector2 zero=>default;public static Vector2 operator +(Vector2 a,Vector2 b)=>new Vector2(a.x+b.x,a.y+b.y);public static Vector2 operator -(Vector2 a,Vector2 b)=>new Vector2(a.x-b.x,a.y-b.y);public static Vector2 operator *(Vector2 a,float b)=>new Vector2(a.x*b,a.y*b);public static implicit operator Vector3(Vector2 a)=>new Vector3(a.x,a.y,0);public static implicit operator Vector2(Vector3 a)=>new Vector2(a.x,a.y);')
+-s=s.replace('public struct Vector3{','public struct Vector3{public static Vector3 zero=>default;public static Vector3 one=>new Vector3(1,1,1);public static Vector3 forward=>new Vector3(0,0,1);public static Vector3 operator +(Vector3 a,Vector3 b)=>new Vector3(a.x+b.x,a.y+b.y,a.z+b.z);')
+-s=s.replace('public struct Quaternion{','public struct Quaternion{public static Quaternion identity=>default;public static Quaternion AngleAxis(float a,Vector3 v)=>Euler(0,0,a);')
+-s=s.replace('public static class Mathf{','public static class Mathf{public const float Epsilon=1e-10f;public static float Max(float a,float b)=>Math.Max(a,b);public static int Max(int a,int b)=>Math.Max(a,b);public static int RoundToInt(float a)=>(int)Math.Round(a);')
+-s=s.replace('public class Component{','public class Component{public T GetComponentInChildren<T>(bool includeInactive=false) where T:Component{var here=GetComponent<T>();if(here!=null)return here;foreach(var child in transform.children){var c=child.GetComponentInChildren<T>(includeInactive);if(c!=null)return c;}return null;}')
+-s=s.replace('public class Transform:Component{','public class Transform:Component{public Vector3 position;public Vector3 right=>new Vector3((float)Math.Cos(rotation.angle/Mathf.Rad2Deg),(float)Math.Sin(rotation.angle/Mathf.Rad2Deg),0);public int GetSiblingIndex()=>parent==null?0:parent.children.IndexOf(this);public void SetSiblingIndex(int i){if(parent==null)return;parent.children.Remove(this);parent.children.Insert(Math.Min(i,parent.children.Count),this);}public bool IsChildOf(Transform other){for(var p=parent;p!=null;p=p.parent)if(p==other)return true;return false;}')
+-s=s.replace('parent=p;p.children.Add(this);','parent?.children.Remove(this);parent=p;p?.children.Add(this);')
+-s+='\nnamespace UnityEngine{public class Collider2D:Component{}public class Rigidbody2D:Component{}public struct LayerMask{}public static class Debug{public static void LogError(string s){}public static void LogWarning(string s){}}}\n'
+-s+='\nnamespace Skill{public enum ProjectileMoveType{Linear,Warp,Hover,Orbit,Homing}}\n'
+-s+='\npublic class SkillUpgradeMono{public class SkillUpgradeData{public float projectileCountAdd;}}\n'
+-s+='\nnamespace Skills.Dto.Move{public class OrbitProjectileMoveDto:SkillMoveRuntimeDto{public override Skill.ProjectileMoveType MoveType=>Skill.ProjectileMoveType.Orbit;}public class HomingProjectileMoveDto:SkillMoveRuntimeDto{public override Skill.ProjectileMoveType MoveType=>Skill.ProjectileMoveType.Homing;}}\n'
+-s+='\nclass SkillProjectileOrbitMovement:SkillProjectileLinearMovement{public void SetRuntimeMaxProjectileCount(int i){}}class SkillProjectileHomingMovement:SkillProjectileLinearMovement{}\n'
+-factory='Assets/Scripts/Ability/Skills/Services/ProjectileFactory.cs'
+-clone=extract(('Artifacts/Engineering/SeojinManualControl/runtime-hover-08/before/'+factory) if '--before-clone' in sys.argv else factory,'private ProjectileRuntimeData CreateInstanceRuntimeData(')
+-fields=set(re.findall(r'source\.(\w+)',clone))|{'direction','spawnPosition','moveRuntime','orientManualPresentation'};types={'orientManualPresentation':'bool','spawnPosition':'Vector2','direction':'Vector2','rendererScale':'float','moveRuntime':'Skills.Dto.Move.SkillMoveRuntimeDto'}
+-s+='\nclass ProjectileRuntimeData{'+''.join('public '+types.get(f,'object')+' '+f+';' for f in sorted(fields))+'public int spawnOrder;public Vector2 NormalizedDirection=>direction.normalized;}\n'
+-s+='\nclass EquipmentBaseProfileSO{public static float NormalizeRendererScale(float f)=>f;}\n'
+-s+='\nclass FactoryProbe{public ProjectileRuntimeData Clone(ProjectileRuntimeData s)=>CreateInstanceRuntimeData(s,0);public Quaternion Rotation(ProjectileRuntimeData d)=>ResolveSpawnRotation(d);public Skills.Dto.Move.WarpProjectileMoveDto Warp(Skills.Dto.Move.WarpProjectileMoveDto d)=>CreateInstanceWarpMoveDto(d,default);private Vector2 ResolveSpawnPosition(ProjectileRuntimeData s,int i)=>s.spawnPosition;private Vector2 ResolveProjectileDirection(ProjectileRuntimeData s,int i)=>s.direction;private Skills.Dto.Move.SkillMoveRuntimeDto CreateInstanceMoveRuntimeDto(ProjectileRuntimeData s,int i,Vector2 p)=>s.moveRuntime;'+clone+extract(factory,'private Quaternion ResolveSpawnRotation(')+extract(factory,'private WarpProjectileMoveDto CreateInstanceWarpMoveDto(')+'}\n'
+-s='using Skills.Dto.Move;\n'+s+(root/'AgentTools/SeojinManualHarness/HoverRuntime.tests.cs').read_text()
+-test=out/'Test.cs';test.write_text(s)
+-sources=['Assets/Scripts/Ability/Skills/Presentation/SkillDirectionPresentation.cs','Assets/Scripts/Ability/Skills/Presentation/ProjectileDirectionPresentationLease.cs','Assets/Scripts/Ability/Skills/Projectiles/SkillProjectileMoveController.cs','Assets/Scripts/Ability/Skills/Projectiles/move/ISkillProjectileMovement.cs',*[f'Assets/Scripts/Ability/Skills/Projectiles/move/SkillProjectile{x}Movement.cs' for x in ['Hover','Linear','Warp']],*[f'Assets/Scripts/Ability/Skills/Runtime/DTO/move/{x}.cs' for x in ['SkillMoveRuntimeDto','HoverProjectileMoveDto','LinearProjectileMoveDto','WarpProjectileMoveDto']]]
+-mono=Path('/Applications/Unity/Hub/Editor/6000.3.10f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge')
+-subprocess.run([str(mono/'bin/mono'),str(mono/'lib/mono/msbuild/Current/bin/Roslyn/csc.exe'),'-nologo','-nowarn:0649,0108','-langversion:9.0','-out:'+str(out/'test.exe'),str(test),*[str(root/p) for p in sources]],check=True)
+-result=subprocess.run([str(mono/'bin/mono'),str(out/'test.exe')],text=True,capture_output=True)
+-if '--before-clone' in sys.argv:
+- assert result.returncode!=0 and 'actual Factory clone keeps manual mode' in result.stderr
+- print('PASS negative control: saved production Factory clone loses manual flag; identical hierarchy regression fails before fix')
+-else:
+- print(result.stdout,end='');assert result.returncode==0,result.stderr
+-
+--- a/AgentTools/SeojinManualHarness/hover_audit.py
++++ /dev/null
+@@ -1,26 +0,0 @@
+-from pathlib import Path
+-import re,json,hashlib
+-root=Path(__file__).resolve().parents[2];out=root/'Artifacts/Engineering/SeojinManualControl/runtime-hover-08'
+-read=lambda p:(root/p).read_text()
+-prefab='Assets/Resources/skill/ProjectileEntity.prefab';p=read(prefab)
+-blocks={m.group(2):m.group(3) for m in re.finditer(r'^--- !u!(\d+) &(\d+)\n(.*?)(?=^--- |\Z)',p,re.M|re.S)}
+-assert 'm_GameObject: {fileID: 100001}' in blocks['9500000'] and 'm_GameObject: {fileID: 100001}' in blocks['21200000']
+-assert 'm_Father: {fileID: 8472752214521235128}' in blocks['400001']
+-assert 'm_Father: {fileID: 400000}' in blocks['8472752214521235128']
+-rows=[]
+-for grade,key in [(1,'active_1'),(2,'charge'),(3,'charge')]:
+- equipment=f'Assets/Contents/Skill/so/skill.character.seojin.{grade}.active_1.{key}.asset';e=read(equipment);guid=re.search(r'moveSo: .*guid: (\w+)',e).group(1)
+- matches=[m for m in (root/'Assets/Contents/Skill/so').glob('*.asset.meta') if f'guid: {guid}' in m.read_text()];assert len(matches)==1
+- move=matches[0].with_suffix('');m=move.read_text();assert 'applyDirectionRotation: 1' in m and 'moveType: 3' in m
+- clip=f'Assets/AnimationClips/Skill/skill.character.seojin.{grade}.active_1.{key}.visual.loop.anim';c=read(clip)
+- assert 'm_RotationCurves: []' in c and 'm_EulerCurves: []' in c and 'attribute: m_FlipX' in c
+- rows.append({'grade':grade,'equipment':equipment,'move':str(move.relative_to(root)),'applyDirectionRotation':True,'rotationOffset':float(re.search(r'rotationOffset: (.+)',m).group(1)),'moveType':'Hover','clip':clip,'current_clip_rotation_curves':0,'root_flip_curve':True})
+-v=read('Assets/Scripts/Ability/Skills/Projectiles/ProjectileVisual.cs');assert 'directedVisual' not in v and 'directionWrapper.Begin(animator.transform,transform,spriteRenderer' in v
+-assert v.index('directionWrapper.Begin(')<v.index('OnSpawn();',v.index('directionWrapper.Begin('))
+-assert 'data.NormalizedDirection,data.moveRuntime?.applyDirectionRotation==true' in v
+-assert v.count('directionWrapper.Restore();')==4
+-movement=read('Assets/Scripts/Ability/Skills/Projectiles/ProjectileMovement.cs');assert 'authoritativeDirection = data.NormalizedDirection' in movement and 'hasAuthoritativeDirection = data.orientManualPresentation' in movement and 'visualOnlyDirectionRotation = data.orientManualPresentation' in movement
+-assert 'if(data.orientManualPresentation)transform.rotation=Quaternion.identity;' in movement
+-for n,h in json.loads((out/'morpg-before-sha.json').read_text()).items():assert hashlib.sha256((root/n).read_bytes()).hexdigest()==h
+-result={'prefab':prefab,'hierarchy_before':'ProjectileEntity -> Scaler -> Renderer (Animator + SpriteRenderer)','hierarchy_manual':'ProjectileEntity -> Scaler -> __ProjectileDirectionRotation -> Renderer (Animator + SpriteRenderer)','charge_move_readback':rows,'root_cause':['Factory CreateInstanceRuntimeData dropped orientManualPresentation','Hover ignored runtime direction and inferred from owner/target/spawn','Factory and MoveController used gameplay-root rotation; old visual child ignored applyDirectionRotation and rotationOffset','Warp clone dropped applyDirectionRotation/rotationOffset'],'morpg_unchanged':True,'Unity_import':False}
+-(out/'hierarchy-audit.json').write_text(json.dumps(result,indent=2)+'\n');print('PASS production prefab hierarchy, Charge G1-3 referenced MoveSO true, clip curves, runtime direction plumbing, restore sites, MORPG SHA')
+--- a/AgentTools/SeojinManualHarness/HoverRuntime.tests.cs
++++ /dev/null
+@@ -1,28 +0,0 @@
+-class HoverTests{
+- static int count;static void C(bool ok,string n){if(!ok)throw new Exception(n);count++;}static bool Near(float a,float b)=>Math.Abs(Mathf.DeltaAngle(a,b))<.001f;
+- static void Main(){
+- for(int i=0;i<8;i++)foreach(float offset in new[]{0f,27f}){
+-  var d=new Vector2((float)Math.Cos(i*Math.PI/4),(float)Math.Sin(i*Math.PI/4));
+-  var root=new GameObject("ProjectileEntity");var scaler=new GameObject("Scaler");scaler.transform.SetParent(root.transform,false);scaler.AddComponent<Collider2D>();var visual=new GameObject("Renderer Animator");visual.transform.SetParent(scaler.transform,false);var renderer=visual.AddComponent<SpriteRenderer>();visual.transform.localScale=new Vector3(2,2,2);
+-  var owner=new GameObject("caster");var target=new GameObject("misleading target");target.transform.position=new Vector3(100,0,0);
+-  var dto=new HoverProjectileMoveDto{applyDirectionRotation=true,rotationOffset=offset};var factory=new FactoryProbe();var data=factory.Clone(new ProjectileRuntimeData{orientManualPresentation=true,direction=d,moveRuntime=dto});
+-  C(data.orientManualPresentation,"actual Factory clone keeps manual mode");C(Near(factory.Rotation(data).angle,0),"actual Factory spawn root zero");
+-  var movement=new SkillProjectileHoverMovement();var controller=new SkillProjectileMoveController(movement);controller.Initialize(dto,new SkillProjectileMovementContext{owner=owner.transform,projectileTransform=root.transform,targetTransform=target.transform,authoritativeDirection=data.NormalizedDirection,hasAuthoritativeDirection=true,visualOnlyDirectionRotation=true});
+-  C(Near(Mathf.Atan2(controller.GetDirection().y,controller.GetDirection().x)*Mathf.Rad2Deg,i*45),"actual Hover prefers snapshot over target/right/position");
+-  var lease=new ProjectileDirectionPresentationLease();C(lease.Begin(visual.transform,root.transform,renderer,data.NormalizedDirection,dto.applyDirectionRotation,dto.rotationOffset),"production hierarchy wrapper admitted");var wrapper=visual.transform.parent;
+-  for(int frame=0;frame<3;frame++){visual.transform.localRotation=Quaternion.identity;target.transform.position=new Vector3(-99,33,0);controller.TickMovement(.02f);lease.Apply();C(Near(visual.transform.rotation.angle,i*45+offset)&&Near(wrapper.rotation.angle,i*45+offset),"clip root rotation write cannot erase wrapper; visible forward");C(Near(root.transform.rotation.angle,0)&&Near(scaler.transform.rotation.angle,0)&&Near(owner.transform.rotation.angle,0),"collider/caster/gameplay root unchanged");}
+-  renderer.flipX=true;lease.Restore();C(visual.transform.parent==scaler.transform&&visual.transform.GetSiblingIndex()==0&&Near(visual.transform.localRotation.angle,0)&&visual.transform.localScale.x==2&&!renderer.flipX,"pool exact parent pose flip restore");lease.Restore();C(!lease.Active,"disable/despawn idempotent");
+-  lease.Begin(visual.transform,root.transform,renderer,d,false,offset);C(Near(visual.transform.rotation.angle,0),"apply false ignores offset and stays zero");lease.Restore();
+- }
+- foreach(string kind in new[]{"Hover","Linear","Warp"})foreach(bool apply in new[]{false,true}){
+-  SkillMoveRuntimeDto dto=kind=="Hover"?(SkillMoveRuntimeDto)new HoverProjectileMoveDto():kind=="Linear"?(SkillMoveRuntimeDto)new LinearProjectileMoveDto{targetPosition=new Vector2(0,5)}:new WarpProjectileMoveDto();dto.applyDirectionRotation=apply;dto.rotationOffset=19;
+-  ISkillProjectileMovement movement=kind=="Hover"?(ISkillProjectileMovement)new SkillProjectileHoverMovement():kind=="Linear"?(ISkillProjectileMovement)new SkillProjectileLinearMovement():new SkillProjectileWarpMovement();var root=new GameObject("root");var owner=new GameObject("owner");var c=new SkillProjectileMoveController(movement);c.Initialize(dto,new SkillProjectileMovementContext{owner=owner.transform,projectileTransform=root.transform,authoritativeDirection=new Vector2(0,1),hasAuthoritativeDirection=true,visualOnlyDirectionRotation=true});c.TickMovement(.02f);C(Near(root.transform.rotation.angle,0),kind+" manual root never rotates regardless flag");
+- }
+- var legacyRoot=new GameObject("legacy");var legacyTarget=new GameObject("legacyTarget");legacyTarget.transform.position=new Vector3(0,10,0);var legacyOwner=new GameObject("legacyOwner");var legacy=new SkillProjectileMoveController(new SkillProjectileHoverMovement());legacy.Initialize(new HoverProjectileMoveDto{applyDirectionRotation=true,rotationOffset=13},new SkillProjectileMovementContext{owner=legacyOwner.transform,targetTransform=legacyTarget.transform,projectileTransform=legacyRoot.transform});C(Near(legacyRoot.transform.rotation.angle,103),"nonmanual Hover legacy direction and offset retained");legacy.ResetController();legacyRoot.transform.rotation=Quaternion.identity;legacy.TickMovement(.1f);C(Near(legacyRoot.transform.rotation.angle,0),"reset clears rotation policy");
+- var f=new FactoryProbe();foreach(bool apply in new[]{false,true}){var warp=f.Warp(new WarpProjectileMoveDto{applyDirectionRotation=apply,rotationOffset=31});C(warp.applyDirectionRotation==apply&&warp.rotationOffset==31,"actual Warp clone preserves flag offset");}
+- var unsafeRoot=new GameObject("physics");var lease2=new ProjectileDirectionPresentationLease();C(!lease2.Begin(unsafeRoot.transform,unsafeRoot.transform,null,Vector2.right,true,90),"never wrap gameplay root");var child=new GameObject("physicsChild");child.transform.SetParent(unsafeRoot.transform,false);child.AddComponent<Rigidbody2D>();C(!lease2.Begin(child.transform,unsafeRoot.transform,null,Vector2.right,true,90),"never wrap physics subtree");
+- var pooledRoot=new GameObject("pool");var pooledVisual=new GameObject("animated");pooledVisual.transform.SetParent(pooledRoot.transform,false);var pooledRenderer=pooledVisual.AddComponent<SpriteRenderer>();pooledRenderer.flipY=true;pooledVisual.transform.localPosition=new Vector3(2,3,0);pooledVisual.transform.localRotation=Quaternion.Euler(0,0,7);var existing=new GameObject("__ProjectileDirectionRotation");existing.transform.SetParent(pooledRoot.transform,false);existing.transform.localPosition=new Vector3(4,5,0);existing.transform.localScale=new Vector3(3,2,1);existing.transform.localRotation=Quaternion.Euler(0,0,11);
+- for(int cycle=0;cycle<3;cycle++){var pooled=new ProjectileDirectionPresentationLease();pooled.Begin(pooledVisual.transform,pooledRoot.transform,pooledRenderer,new Vector2(0,1),true,5);pooledVisual.transform.localRotation=Quaternion.Euler(0,0,-20);C(Near(existing.transform.rotation.angle,95),"animated child artistic rotation does not overwrite parent wrapper");pooledRenderer.flipY=false;pooled.Restore();C(pooledVisual.transform.parent==pooledRoot.transform&&pooledVisual.transform.localPosition.x==2&&Near(pooledVisual.transform.localRotation.angle,7)&&pooledRenderer.flipY,"exact original child pose flip across repeated pool cycles");C(existing.transform.localPosition.x==4&&existing.transform.localScale.x==3&&Near(existing.transform.localRotation.angle,11),"existing wrapper local pose restored exactly");}
+- Console.WriteLine("PASS "+count+" actual factory/hover/controller/wrapper assertions");
+- }
+-}

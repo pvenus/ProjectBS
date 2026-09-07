@@ -1,0 +1,64 @@
+{
+  "status": "PRODUCTION_TRUE_REEXECUTED_ACCEPTANCE_PASS",
+  "interiorPropsEnabled": true,
+  "counts": {
+    "props": 17,
+    "decorations": 54,
+    "interiorColliders": 17,
+    "waveBackgrounds": 3,
+    "barriers": 6,
+    "totalEnvironmentRenderers": 80
+  },
+  "compiler": {
+    "errors": 0,
+    "existingWarnings": 31
+  },
+  "tests": {
+    "live": 52,
+    "geometry": 14,
+    "clock": 9,
+    "reward": 12,
+    "spawn": 10,
+    "cast": 4,
+    "p1": 27
+  },
+  "totalPassed": 128,
+  "viewportCrops": 27,
+  "uncoveredViewportPixels": 0,
+  "bindingOnlyGateChanged": true,
+  "pngGuidMetaAndCanonicalGeometryReservationDiff": 0,
+  "cameraBarrierLegacySuppressionPreserved": true,
+  "gitIndexUnchanged": true,
+  "reversePatchCheck": "PASS",
+  "bindingSha256": "b8600c8b4f4a8f2159e2bcccf2157f3fe653a5175d660ca3060e74f5e0e573b1",
+  "limitations": [
+    "Static composed previews and Unity API stub behavioral tests; no Unity GUI/headless/GPU evidence."
+  ],
+  "delivery": "Final receipt prepared for Hangyeol only.",
+  "revision": "correction-01-interiors-enabled",
+  "zoneStructuralColliders": [
+    8,
+    4,
+    5
+  ],
+  "restoredBlockedPropCenters": 17,
+  "dashLegalClearPositionsSwept": 1762,
+  "spawnConnectivity": {
+    "reservations": 28,
+    "unreachable": 0,
+    "gridStep": 0.1,
+    "actorRadius": 0.35,
+    "extraInset": 0.15
+  },
+  "evidenceRerunAgainstProductionTrue": true,
+  "supersedes": "../REPORT.md and ../receipt.json (provenance-only false-gate results)",
+  "evidenceSha256": {
+    "binding.json": "b8600c8b4f4a8f2159e2bcccf2157f3fe653a5175d660ca3060e74f5e0e573b1",
+    "compile.log": "81b93119b4c459c40b07a9074c1fae10af03378bd7c4db3d9b2a4c7b7dc5e0ef",
+    "live.log": "846845b6e7aa7d7bb92d0efea049e08e0bf3f16c5d938060c5d5c3936d6ae12f",
+    "geometry.log": "d58341fbb26ca9b687642454154b2cbe20065df6223c4a7063460f162e8f46b3",
+    "connectivity.json": "68c1f27c33d38164a9991b137b777dc7873fe826af2576ff74a24c7dacbcd7f6",
+    "viewport-audit.json": "03714c3422345fe1e9a23841540dbd3aaeaefe2f4a0cfbd0515a7ffd3f3228ce",
+    "rollback-manifest.json": "352cc5072b21e1b2a22c75d91d92bc7e4afaa6471cbdaa609f866107917188f5"
+  }
+}

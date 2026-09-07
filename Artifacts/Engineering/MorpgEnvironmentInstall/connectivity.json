@@ -1,0 +1,63 @@
+[
+  {
+    "zoneId": "zone.act1.chapter01.01.rescue_villagers.left",
+    "gridStep": 0.1,
+    "actorInset": 0.15,
+    "freeCells": 11710,
+    "reachableCells": 11706,
+    "unreachableSpawnCount": 0,
+    "reservations": [
+      "rv.z1.00",
+      "rv.z1.01",
+      "rv.z1.02",
+      "rv.z1.03",
+      "rv.z1.04",
+      "rv.z1.05",
+      "rv.z1.06",
+      "rv.z1.07",
+      "rv.z1.08",
+      "rv.z1.09",
+      "rv.z1.10",
+      "rv.z1.11",
+      "rv.z1.12",
+      "rv.z1.13",
+      "rv.z1.14",
+      "rv.z1.15",
+      "rv.z1.16",
+      "rv.z1.17",
+      "rv.z1.18"
+    ],
+    "minWidthAccepted": "see production geometry gap audit"
+  },
+  {
+    "zoneId": "zone.act1.chapter01.01.rescue_villagers.center",
+    "gridStep": 0.1,
+    "actorInset": 0.15,
+    "freeCells": 11475,
+    "reachableCells": 11475,
+    "unreachableSpawnCount": 0,
+    "reservations": [
+      "rv.z2.00",
+      "rv.z2.01",
+      "rv.z2.02",
+      "rv.z2.03",
+      "rv.z2.04"
+    ],
+    "minWidthAccepted": "see production geometry gap audit"
+  },
+  {
+    "zoneId": "zone.act1.chapter01.01.rescue_villagers.right",
+    "gridStep": 0.1,
+    "actorInset": 0.15,
+    "freeCells": 10434,
+    "reachableCells": 10434,
+    "unreachableSpawnCount": 0,
+    "reservations": [
+      "rv.z3.00",
+      "rv.z3.01",
+      "rv.z3.02",
+      "rv.z3.03"
+    ],
+    "minWidthAccepted": "see production geometry gap audit"
+  }
+]

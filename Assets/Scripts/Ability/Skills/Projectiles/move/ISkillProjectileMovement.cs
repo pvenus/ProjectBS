@@ -7,6 +7,9 @@ public struct SkillProjectileMovementContext
     public Transform targetTransform;
     public LayerMask targetLayerMask;
     public Vector2 spawnPosition;
+    public Vector2 authoritativeDirection;
+    public bool hasAuthoritativeDirection;
+    public bool visualOnlyDirectionRotation;
 }
 
 public interface ISkillProjectileMovement

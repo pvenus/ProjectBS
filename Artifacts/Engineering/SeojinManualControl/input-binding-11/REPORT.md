@@ -1,0 +1,23 @@
+# Seojin Manual Input Binding 11
+
+- Status: STATIC_PASS / UNITY_RUNTIME_QA_PENDING
+- Final key map:
+  - Basic: left mouse
+  - Charge shortcut: Left Shift or Right Shift keydown
+  - General Dash / SwiftStep: Space keydown
+  - Active slots: existing number keys remain unchanged
+- Direction: keydown-time normalized WASD; zero input falls back through last movement, facing, then right
+- Shortcut SSOT: Charge resolves `SkillPoolSlotKeys.Active1`; Dash resolves `SkillPoolSlotKeys.Active4`; no shortcut slot index literal
+- Simultaneous Space + Shift: Charge priority, exactly one fire attempt
+- Rejected/busy/cooldown shortcut: non-consuming and never queued
+- Suppression: existing UI, focus, pause, CC, death, transition, Auto, and battle-end gates remain shared
+- Validation:
+  - manual input/core harness: 55/55 PASS
+  - combined input/HUD regression: 82/82 PASS
+  - visual-direction assertions: 124 PASS
+  - projectile hover/direction assertions: 229 PASS
+  - Assembly-CSharp compile: errors 0
+  - Assembly-CSharp-Editor compile: errors 0
+  - git diff --check: PASS
+- Runtime QA: Unity GUI/Play was not launched
+- Rollback: restore Shift to `DashDown`, remove `ChargeDown` and stable shortcut resolution, restore affected harness assertions

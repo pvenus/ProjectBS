@@ -1,0 +1,1522 @@
+--- a/Assets/Scripts/Ability/Skills/Definitions/equipment/EquipmentSkillSO.cs
++++ b/Assets/Scripts/Ability/Skills/Definitions/equipment/EquipmentSkillSO.cs
+@@ -13,6 +13,9 @@
+     {
+         [Header("Identity")]
+         [SerializeField] private string equipmentId;
++        [SerializeField] private SkillAimMode aimMode;
++        public SkillAimMode AimMode => SkillAimPolicy.Resolve(aimMode,castSo);
++        public void ConfigureAimMode(string value) => aimMode=SkillAimPolicy.Parse(value);
+         [SerializeField] private Sprite icon;
+ 
+         [Header("Base Profile")]
+--- a/Assets/Editor/tools/skill/EquipmentSkillJsonGenerator.cs
++++ b/Assets/Editor/tools/skill/EquipmentSkillJsonGenerator.cs
+@@ -20,6 +20,7 @@
+         public class EquipmentSkillJson
+         {
+             public string equipmentId;
++            public string aimMode;
+             public string skillName;
+             public string desc;
+             public string description;
+@@ -73,6 +74,7 @@
+         private class EquipmentSkillRootJson
+         {
+             public string equipmentId;
++            public string aimMode;
+             public string skillName;
+             public string desc;
+             public string description;
+@@ -468,6 +470,7 @@
+             ApplyComboProfile(serializedObject, combo, hitSos);
+ 
+             serializedObject.ApplyModifiedPropertiesWithoutUndo();
++            skillSo.ConfigureAimMode(data.aimMode);
+         }
+ 
+         private static void ApplyComboProfile(
+@@ -832,6 +835,7 @@
+             EquipmentSkillJson data = new EquipmentSkillJson
+             {
+                 equipmentId = root.equipmentId,
++                aimMode = root.aimMode,
+                 skillName = root.skillName,
+                 desc = root.desc,
+                 description = root.description,
+--- a/Assets/Scripts/Actor/Character/CharacterSkillManager.cs
++++ b/Assets/Scripts/Actor/Character/CharacterSkillManager.cs
+@@ -292,35 +292,36 @@
+         internal bool ManualReady(EquipmentSkillRuntimeData runtime)=>!ManualBusy&&
+             GetComponent<CharacterManager>()!=null&&GetComponent<CharacterManager>().IsTargetable&&
+             GetComponent<CharacterManager>().CanUseSkill&&skillService.IsRuntimeReady(this,runtime);
+-        internal bool FireManualAtPoint(EquipmentSkillRuntimeData runtime,Vector2 point,Func<bool> chain)
++        private ManualSkillAim? manualAim;
++        internal Transform ResolveManualTarget(EquipmentSkillRuntimeData runtime,Vector2 direction)=>skillService.ResolveManualTarget(runtime,transform,direction);
++        internal bool FireManualAim(EquipmentSkillRuntimeData runtime,ManualSkillAim aim,Func<bool> chain)
+         {
+             var owner=GetComponent<Control.SeojinManualControl>();
+-            if(owner==null||!owner.ManualAuthorized||!ManualReady(runtime)||float.IsNaN(point.x)||float.IsInfinity(point.x)||float.IsNaN(point.y)||float.IsInfinity(point.y))return false;
+-            manualExecution=true;ManualComboChain=chain;bool started=false;
++            if(owner==null||!owner.ManualAuthorized||!ManualReady(runtime)||!aim.IsValid||runtime.sourceEquipment.AimMode!=aim.Mode)return false;
++            if(aim.Mode==SkillAimMode.Target&&!skillService.IsManualTargetValid(runtime,transform,aim.Target))return false;
++            manualExecution=true;manualAim=aim;ManualComboChain=chain;
++            manualDirection=aim.Mode==SkillAimMode.Direction?aim.Direction:(Vector2?)null;
++            bool started=false;
+             try
+             {
+                 float time=ResolveCastTime(runtime.sourceEquipment.CastSo);
+-                if(time>0)started=BeginCasting(runtime,transform,null,time,point);
+-                else{hasCastTargetPointSnapshot=true;castTargetPointSnapshot=point;started=FireSkillImmediate(runtime,transform,null,true);}
++                if(time>0)started=BeginCasting(runtime,transform,aim.Target,time,aim.Mode==SkillAimMode.GroundPoint?aim.Point:(Vector2?)null,aim.Mode!=SkillAimMode.Target);
++                else started=FireSkillImmediate(runtime,transform,aim.Target,true);
+                 if(!started)skillService.MarkExecutionFailed(runtime);
+                 return started;
+             }
+-            finally{if(!IsCasting){manualExecution=false;hasCastTargetPointSnapshot=false;castTargetPointSnapshot=Vector2.zero;}}
+-        }
++            finally{if(!IsCasting){manualExecution=false;manualAim=null;manualDirection=null;}}
++        }
++        internal bool FireManualAtPoint(EquipmentSkillRuntimeData runtime,Vector2 point,Func<bool> chain)
++            =>FireManualAim(runtime,new ManualSkillAim(SkillAimMode.GroundPoint,Vector2.zero,point),chain);
+         internal bool FireManualDash(EquipmentSkillRuntimeData runtime,Vector2 direction)
+-        {
+-            var owner=GetComponent<Control.SeojinManualControl>();
+-            if(owner==null||!owner.ManualAuthorized||!ManualReady(runtime)||!IsMobility(runtime)||direction.sqrMagnitude<.0001f)return false;
+-            manualExecution=true;manualDirection=direction.normalized;
+-            try{bool result=FireSkillImmediate(runtime,transform,null,true);if(!result)skillService.MarkExecutionFailed(runtime);return result;}
+-            finally{manualDirection=null;manualExecution=false;}
+-        }
++            =>FireManualAim(runtime,new ManualSkillAim(SkillAimMode.Direction,direction.normalized,Vector2.zero),null);
+         public void CancelManualExecution()
+         {
+             manualEpoch++;manualRoutines.Clear();
+             bool combo=skillService.HasCombo(transform);
+             if(combo)GetComponentInChildren<AnimationMono>()?.StopComboAction();
+-            ManualComboChain=null;CancelCasting();skillService.CancelCombo(transform);castMoveService.StopMove();manualExecution=false;manualDirection=null;
++            ManualComboChain=null;CancelCasting();skillService.CancelCombo(transform);castMoveService.StopMove();manualExecution=false;manualAim=null;manualDirection=null;
+         }
+         public bool FireSkill(
+             EquipmentSkillRuntimeData runtime,
+@@ -356,7 +357,7 @@
+             ReleaseCastFacing();
+             castingRuntime = null;
+             castingCaster = null;
+-            manualExecution=false;
++            manualExecution=false;manualAim=null;manualDirection=null;
+             hasCastTargetPointSnapshot = false;
+             castTargetPointSnapshot = Vector2.zero;
+             EndSkillExecution();
+@@ -366,11 +367,11 @@
+             EquipmentSkillRuntimeData runtime,
+             Transform caster,
+             Transform target,
+-            float castTime,Vector2? manualPoint=null)
++            float castTime,Vector2? manualPoint=null,bool manualUntargeted=false)
+         {
+             if (castRoutine != null ||
+                 !skillService.CanBeginCast(this, runtime, caster) ||
+-                (!manualPoint.HasValue&&!IsCastTargetValid(runtime, caster, target)))
++                (!manualUntargeted&&!manualPoint.HasValue&&!IsCastTargetValid(runtime, caster, target)))
+             {
+                 return false;
+             }
+@@ -379,7 +380,7 @@
+             castingRuntime = runtime;
+             castingCaster = caster;
+             SkillCastSO castSo = runtime?.sourceEquipment?.CastSo;
+-            hasCastTargetPointSnapshot = manualPoint.HasValue || (castSo != null && castSo.SnapshotTargetPointOnCast);
++            hasCastTargetPointSnapshot = manualPoint.HasValue || (!manualAim.HasValue && castSo != null && castSo.SnapshotTargetPointOnCast);
+             if (hasCastTargetPointSnapshot)
+             {
+                 castTargetPointSnapshot = manualPoint ?? (target != null
+@@ -389,7 +390,7 @@
+                     float.IsNaN(castTargetPointSnapshot.y) || float.IsInfinity(castTargetPointSnapshot.y))
+                 {
+                     Debug.LogWarning("[CharacterSkillManager] Invalid cast target snapshot; cast cancelled.", this);
+-                    manualExecution=false;
++                    manualExecution=false;manualAim=null;manualDirection=null;
+                     hasCastTargetPointSnapshot = false;
+                     castingRuntime = null;
+                     castingCaster = null;
+@@ -492,7 +493,7 @@
+                 ReleaseCastFacing();
+                 castingRuntime = null;
+                 castingCaster = null;
+-                manualExecution=false;
++                manualExecution=false;manualAim=null;manualDirection=null;
+                 hasCastTargetPointSnapshot = false;
+                 castTargetPointSnapshot = Vector2.zero;
+                 EndSkillExecution();
+@@ -517,7 +518,7 @@
+             CastCommitted?.Invoke(runtime);
+             castingRuntime = null;
+             castingCaster = null;
+-            manualExecution=false;
++            manualExecution=false;manualAim=null;manualDirection=null;
+             hasCastTargetPointSnapshot = false;
+             castTargetPointSnapshot = Vector2.zero;
+         }
+@@ -533,7 +534,7 @@
+             ReleaseCastFacing();
+             castingRuntime = null;
+             castingCaster = null;
+-            manualExecution=false;
++            manualExecution=false;manualAim=null;manualDirection=null;
+             hasCastTargetPointSnapshot = false;
+             castTargetPointSnapshot = Vector2.zero;
+             EndSkillExecution();
+@@ -719,6 +720,8 @@
+                 return false;
+             }
+ 
++            if(manualAim.HasValue)
++                return manualAim.Value.Mode!=SkillAimMode.Target||skillService.IsManualTargetValid(runtime,caster,manualAim.Value.Target);
+             SkillCastSO castSo = runtime?.sourceEquipment?.CastSo;
+             if (hasCastTargetPointSnapshot || (castSo != null && castSo.SnapshotTargetPointOnCast))
+             {
+@@ -774,6 +777,12 @@
+             Transform target,
+             bool beginExecution)
+         {
++            if(manualAim.HasValue)
++            {
++                var aim=manualAim.Value;
++                if(aim.Mode==SkillAimMode.GroundPoint&&Vector2.Distance(caster.position,aim.Point)>runtime.resolvedRange+.0001f)return false;
++                if(aim.Mode==SkillAimMode.Target&&!skillService.IsManualTargetValid(runtime,caster,aim.Target))return false;
++            }
+             if (beginExecution)
+             {
+                 BeginSkillExecution();
+@@ -791,7 +800,9 @@
+                 return false;
+             }
+ 
+-            bool started = hasCastTargetPointSnapshot
++            bool started = manualAim.HasValue
++                ? skillService.FireManualAim(this,runtime,caster,manualAim.Value)
++                : hasCastTargetPointSnapshot
+                 ? skillService.FireSkillAtSnapshotPoint(
+                     this, runtime, caster, castTargetPointSnapshot)
+                 : skillService.FireSkill(
+@@ -895,6 +906,7 @@
+             Transform target)
+         {
+             if(manualDirection.HasValue)return manualDirection.Value;
++            if(manualAim?.Mode==SkillAimMode.GroundPoint&&caster!=null)return (manualAim.Value.Point-(Vector2)caster.position).normalized;
+             if(hasCastTargetPointSnapshot&&caster!=null){Vector2 delta=castTargetPointSnapshot-(Vector2)caster.position;if(delta.sqrMagnitude>.0001f)return delta.normalized;}
+             if (caster != null && target != null)
+             {
+--- a/Assets/Scripts/Actor/Character/service/skill/ActiveSkillService.cs
++++ b/Assets/Scripts/Actor/Character/service/skill/ActiveSkillService.cs
+@@ -416,6 +416,18 @@
+             }
+             return started;
+         }
++        internal bool FireManualAim(CharacterSkillManager manager,EquipmentSkillRuntimeData runtime,Transform caster,ManualSkillAim aim)
++        {
++            if(!aim.IsValid||runtime?.sourceEquipment?.AimMode!=aim.Mode||!CanFireRuntime(runtime,caster,manager,true))return false;
++            if(aim.Mode==SkillAimMode.Target&&!IsManualTargetValid(runtime,caster,aim.Target))return false;
++            if(aim.Mode==SkillAimMode.GroundPoint&&Vector2.Distance(caster.position,aim.Point)>runtime.resolvedRange+.0001f)return false;
++            bool mobility=runtime.sourceEquipment.BaseProfileSo.SkillComponentType==SkillComponentType.Mobility;
++            if(!mobility&&!IsRuntimeReady(manager,runtime))return false;
++            if(!mobility&&!(runtime.comboProfile!=null&&runtime.comboProfile.Enabled))UseSkill(manager,runtime);
++            bool started=StartSkillUseRoutine(manager,runtime,caster,aim.Target,aim.Mode==SkillAimMode.GroundPoint,aim.Point,aim);
++            if(started)ClearExecutionFailure(runtime);
++            return started;
++        }
+         /// <summary>
+         /// Marks a skill as actually used.
+         /// Call this only after the executor successfully fires the skill.
+@@ -516,14 +528,14 @@
+             Transform caster,
+             Transform target,
+             bool usePoint,
+-            Vector2 targetPoint)
++            Vector2 targetPoint,ManualSkillAim? manualAim=null)
+         {
+             if (skillManager == null || runtime == null || caster == null)
+             {
+                 return false;
+             }
+ 
+-            return StartSkillUseRoutineCore(skillManager, runtime, caster, target, usePoint, targetPoint);
++            return StartSkillUseRoutineCore(skillManager, runtime, caster, target, usePoint, targetPoint,manualAim);
+         }
+ 
+         private bool StartSkillUseRoutineCore(
+@@ -532,7 +544,7 @@
+             Transform caster,
+             Transform target,
+             bool usePoint,
+-            Vector2 targetPoint)
++            Vector2 targetPoint,ManualSkillAim? manualAim=null)
+         {
+             if (skillManager == null || runtime == null || caster == null)
+             {
+@@ -549,11 +561,11 @@
+ 
+                 activeComboCasters.Add(caster.GetInstanceID());
+                 int generation=++nextComboToken;comboGenerations[caster.GetInstanceID()]=generation;
+-                skillManager.StartOwnedSkillRoutine(FireComboRoutine(skillManager, runtime, caster, target,usePoint,targetPoint,skillManager.ManualExecutionAuthorized?skillManager.ManualComboChain:null,generation));
++                skillManager.StartOwnedSkillRoutine(FireComboRoutine(skillManager, runtime, caster, target,usePoint,targetPoint,skillManager.ManualExecutionAuthorized?skillManager.ManualComboChain:null,generation,manualAim));
+                 return true;
+             }
+ 
+-            bool isSelfOrNoTargetSkill = IsSelfOrNoTargetSkill(runtime);
++            bool isSelfOrNoTargetSkill = manualAim.HasValue?manualAim.Value.Mode==SkillAimMode.Self:IsSelfOrNoTargetSkill(runtime);
+             Vector2 resolvedTargetPoint = ResolveTargetPoint(
+                 runtime,
+                 caster,
+@@ -561,6 +573,7 @@
+                 usePoint,
+                 targetPoint);
+ 
++            if(manualAim?.Mode==SkillAimMode.GroundPoint)resolvedTargetPoint=manualAim.Value.Point;
+             Vector2 spawnPosition = caster.position;
+             Vector2 direction = ResolveDirection(
+                 spawnPosition,
+@@ -568,6 +581,7 @@
+                 isSelfOrNoTargetSkill ? null : target,
+                 isSelfOrNoTargetSkill || usePoint,
+                 resolvedTargetPoint);
++            if(manualAim?.Mode==SkillAimMode.Direction)direction=manualAim.Value.Direction;
+ 
+             SkillCastSO castSo = ResolveCastSo(runtime);
+             AnimationMono bodyAnimation = ResolveAnimation(caster);
+@@ -622,7 +636,7 @@
+                         isSelfOrNoTargetSkill ? null : target,
+                         isSelfOrNoTargetSkill || usePoint,
+                         resolvedTargetPoint,
+-                        contactDelay));
++                        contactDelay,manualAim));
+                 return true;
+             }
+ 
+@@ -638,7 +652,7 @@
+                         caster,
+                         isSelfOrNoTargetSkill ? null : target,
+                         isSelfOrNoTargetSkill || usePoint,
+-                        resolvedTargetPoint));
++                        resolvedTargetPoint,manualAim));
+ 
+                 return true;
+             }
+@@ -650,7 +664,7 @@
+                     caster,
+                     isSelfOrNoTargetSkill ? null : target,
+                     isSelfOrNoTargetSkill || usePoint,
+-                    resolvedTargetPoint));
++                    resolvedTargetPoint,manualAim));
+ 
+             return true;
+         }
+@@ -662,7 +676,7 @@
+             Transform target,
+             bool usePoint,
+             Vector2 targetPoint,
+-            float contactDelay)
++            float contactDelay,ManualSkillAim? manualAim=null)
+         {
+             if (contactDelay > 0f)
+             {
+@@ -670,7 +684,7 @@
+             }
+ 
+             yield return FireSkillBurstRoutine(
+-                skillManager, runtime, caster, target, usePoint, targetPoint);
++                skillManager, runtime, caster, target, usePoint, targetPoint,manualAim);
+         }
+ 
+         private IEnumerator FireSkillAtAttackTiming(
+@@ -679,7 +693,7 @@
+             Transform caster,
+             Transform target,
+             bool usePoint,
+-            Vector2 targetPoint)
++            Vector2 targetPoint,ManualSkillAim? manualAim=null)
+         {
+             yield return null;
+ 
+@@ -700,7 +714,7 @@
+                 caster,
+                 target,
+                 usePoint,
+-                targetPoint);
++                targetPoint,manualAim);
+         }
+ 
+         private IEnumerator FireSkillBurstRoutine(
+@@ -709,7 +723,7 @@
+             Transform caster,
+             Transform target,
+             bool usePoint,
+-            Vector2 targetPoint)
++            Vector2 targetPoint,ManualSkillAim? manualAim=null)
+         {
+             bool successNotified = false;
+             int burstCount = ResolveBurstCount(runtime);
+@@ -717,6 +731,7 @@
+ 
+             for (int burstIndex = 0; burstIndex < burstCount; burstIndex++)
+             {
++                if(manualAim?.Mode==SkillAimMode.Target&&!IsManualTargetValid(runtime,caster,manualAim.Value.Target)){MainCharacterSkillFocusFeature.CancelPending(caster);yield break;}
+                 if (!successNotified)
+                 {
+                     MainCharacterSkillFocusFeature.NotifySkillExecuting(skillManager, runtime, caster);
+@@ -727,7 +742,7 @@
+                     caster,
+                     target,
+                     usePoint,
+-                    targetPoint);
++                    targetPoint,manualAim:manualAim);
+ 
+                 if (burstFired && !successNotified)
+                 {
+@@ -753,7 +768,7 @@
+             CharacterSkillManager skillManager,
+             EquipmentSkillRuntimeData runtime,
+             Transform caster,
+-            Transform initialTarget,bool usePoint,Vector2 point,System.Func<bool> continueChain,int generation)
++            Transform initialTarget,bool usePoint,Vector2 point,System.Func<bool> continueChain,int generation,ManualSkillAim? manualAim=null)
+         {
+             int casterId = caster.GetInstanceID();
+             string comboToken = $"seojin-basic-combo-{++nextComboToken}";
+@@ -761,6 +776,7 @@
+             float elapsed = 0f;
+             bool anyStepFired = false;
+             Transform target = initialTarget;
++            bool freeAim=usePoint||manualAim?.Mode==SkillAimMode.Direction;
+             SkillComboStep[] steps = runtime.comboProfile.Steps;
+             bool continuousBody = runtime.comboProfile.HasCompleteSegmentedBodyRegistry;
+             int completedSteps = 0;
+@@ -817,16 +833,18 @@
+                     : 0f;
+                 float continuationRange = targetRange + (i > 0 ? 0.25f : 0f);
+                 target = NormalizeComboTarget(target);
+-                if (!usePoint&&(!IsValidComboTarget(caster, target, step.Hit) ||
++                if (!freeAim&&(!IsValidComboTarget(caster, target, step.Hit) ||
+                     !IsComboTargetInRange(caster, target, continuationRange)))
+                 {
++                    if(manualAim?.Mode==SkillAimMode.Target)break;
+                     target = ResolveComboRetarget(caster, continuationRange, step.Hit);
+                     float retargetElapsed = 0f;
+                     while (retargetElapsed < 0.12f &&
+                            (!IsValidComboTarget(caster, target, step.Hit) ||
+                             !IsComboTargetInRange(caster, target, continuationRange)))
+                     {
+-                        target = ResolveComboRetarget(caster, continuationRange, step.Hit);
++                        if(manualAim?.Mode==SkillAimMode.Target)break;
++                    target = ResolveComboRetarget(caster, continuationRange, step.Hit);
+                         if (IsValidComboTarget(caster, target, step.Hit) &&
+                             IsComboTargetInRange(caster, target, continuationRange))
+                         {
+@@ -839,7 +857,7 @@
+                     }
+                 }
+ 
+-                if (!usePoint&&(!IsValidComboTarget(caster, target, step.Hit) ||
++                if (!freeAim&&(!IsValidComboTarget(caster, target, step.Hit) ||
+                     !IsComboTargetInRange(caster, target, continuationRange)))
+                 {
+                     break;
+@@ -851,6 +869,7 @@
+                     target,
+                     usePoint,
+                     usePoint?point:(Vector2)caster.position);
++                if(manualAim?.Mode==SkillAimMode.Direction)direction=manualAim.Value.Direction;
+                 ApplyAnimationDirection(caster, direction);
+                 AnimationMono comboAnimation = ResolveAnimation(caster);
+                 if (!continuousBody)
+@@ -894,9 +913,10 @@
+                     break;
+                 }
+ 
+-                if (!usePoint&&(!IsValidComboTarget(caster, target, step.Hit) ||
++                if (!freeAim&&(!IsValidComboTarget(caster, target, step.Hit) ||
+                     !IsComboTargetInRange(caster, target, continuationRange)))
+                 {
++                    if(manualAim?.Mode==SkillAimMode.Target)break;
+                     target = ResolveComboRetarget(caster, continuationRange, step.Hit);
+                     if (!IsValidComboTarget(caster, target, step.Hit) ||
+                         !IsComboTargetInRange(caster, target, continuationRange))
+@@ -940,7 +960,7 @@
+                     step.ComboIndex,
+                     step.Hit,
+                     step.ComboIndex < 2,
+-                    step.MinimumVisualLifetime);
++                    step.MinimumVisualLifetime,manualAim);
+                 anyStepFired |= fired;
+ 
+                 float waitToRecovery = Mathf.Max(0f, step.RecoveryEnd - elapsed);
+@@ -996,7 +1016,7 @@
+             int comboIndex = -1,
+             SkillHitSO hitOverride = null,
+             bool suppressVisual = false,
+-            float minimumVisualLifetime = 0f)
++            float minimumVisualLifetime = 0f,ManualSkillAim? manualAim=null)
+         {
+             return SkillUseHelper.UseSkill(
+                 new SkillUseContext
+@@ -1006,6 +1026,7 @@
+                     Target = target,
+                     UsePoint = usePoint,
+                     TargetPoint = targetPoint,
++                    ManualAim = manualAim,
+                     CoroutineRunner = skillManager,
+                     SelectedHitIndex = selectedHitIndex,
+                     VisualClipOverride = visualClipOverride,
+@@ -1085,7 +1106,7 @@
+         private Transform ResolveComboRetarget(
+             Transform caster,
+             float radius,
+-            SkillHitSO hit)
++            SkillHitSO hit,Vector2? coneDirection=null)
+         {
+             if (caster == null || hit == null)
+             {
+@@ -1105,6 +1126,8 @@
+                     continue;
+                 }
+ 
++                Vector2 delta=(Vector2)manager.transform.position-(Vector2)caster.position;
++                if(coneDirection.HasValue&&(delta.sqrMagnitude<=.0001f||Vector2.Dot(delta.normalized,coneDirection.Value.normalized)<.70710678f))continue;
+                 if (IsValidComboTarget(caster, manager.transform, hit))
+                 {
+                     roots.Add(manager);
+@@ -1124,6 +1147,17 @@
+             return roots.Count > 0 ? roots[0].transform : null;
+         }
+ 
++        internal Transform ResolveManualTarget(EquipmentSkillRuntimeData runtime,Transform caster,Vector2 direction)
++        {
++            if(runtime?.sourceEquipment?.HitSos==null||direction.sqrMagnitude<=.0001f||float.IsNaN(runtime.resolvedRange)||float.IsInfinity(runtime.resolvedRange)||runtime.resolvedRange<0)return null;
++            SkillHitSO hit=System.Array.Find(runtime.sourceEquipment.HitSos,h=>h!=null);
++            return ResolveComboRetarget(caster,runtime.resolvedRange,hit,direction);
++        }
++        internal bool IsManualTargetValid(EquipmentSkillRuntimeData runtime,Transform caster,Transform target)
++        {
++            var hits=runtime?.sourceEquipment?.HitSos;
++            return hits!=null&&IsValidComboTarget(caster,target,System.Array.Find(hits,h=>h!=null))&&IsComboTargetInRange(caster,target,runtime.resolvedRange);
++        }
+         private bool IsComboTargetInRange(Transform caster, Transform target, float range)
+         {
+             return caster != null && target != null &&
+--- a/Assets/Scripts/Ability/Skills/Services/Helpers/SkillUseHelper.cs
++++ b/Assets/Scripts/Ability/Skills/Services/Helpers/SkillUseHelper.cs
+@@ -14,6 +14,7 @@
+         public Transform Target { get; set; }
+         public bool UsePoint { get; set; }
+         public Vector2 TargetPoint { get; set; }
++        public ManualSkillAim? ManualAim { get; set; }
+         public MonoBehaviour CoroutineRunner { get; set; }
+         public int SelectedHitIndex { get; set; } = -1;
+         public int ComboIndex { get; set; } = -1;
+@@ -115,7 +116,7 @@
+                 context.ComboIndex,
+                 context.HitOverride,
+                 context.SuppressVisual,
+-                context.MinimumVisualLifetime);
++                context.MinimumVisualLifetime,context.ManualAim);
+         }
+ 
+         private static bool UseSpawnSkillAndSelfEffects(
+@@ -358,7 +359,7 @@
+             int comboIndex = -1,
+             SkillHitSO hitOverride = null,
+             bool suppressVisual = false,
+-            float minimumVisualLifetime = 0f)
++            float minimumVisualLifetime = 0f,SkillAimMode? manualAimMode=null)
+         {
+             if (runtime == null || caster == null)
+             {
+@@ -372,7 +373,7 @@
+                     target,
+                     spawnPosition,
+                     direction,
+-                    targetPoint,
++                    manualAimMode==SkillAimMode.Direction?(Vector2?)null:targetPoint,
+                     selectedHitIndex,
+                     visualClipOverride,
+                     animationVfxProfileOverride,
+@@ -383,7 +384,7 @@
+                     comboIndex,
+                     hitOverride,
+                     suppressVisual,
+-                    minimumVisualLifetime);
++                    minimumVisualLifetime,manualAimMode);
+ 
+             if (projectileDatas == null || projectileDatas.Length == 0)
+             {
+@@ -520,7 +521,7 @@
+             int comboIndex = -1,
+             SkillHitSO hitOverride = null,
+             bool suppressVisual = false,
+-            float minimumVisualLifetime = 0f)
++            float minimumVisualLifetime = 0f,ManualSkillAim? manualAim=null)
+         {
+             if (runtime == null || caster == null)
+             {
+@@ -541,6 +542,28 @@
+                 target,
+                 true,
+                 resolvedTargetPoint);
++
++            if(manualAim?.Mode==SkillAimMode.Direction)
++            {
++                direction=manualAim.Value.Direction.normalized;
++                resolvedTargetPoint=spawnPosition+direction*Mathf.Max(0f,ResolveCastSo(runtime)?.Range??0f);
++                target=null;usePoint=false;
++            }
++            else if(manualAim?.Mode==SkillAimMode.GroundPoint)
++            {
++                resolvedTargetPoint=manualAim.Value.Point;target=null;usePoint=true;
++                direction=(resolvedTargetPoint-spawnPosition).normalized;
++            }
++            else if(manualAim?.Mode==SkillAimMode.Target)
++            {
++                target=manualAim.Value.Target;if(target==null)return false;
++                resolvedTargetPoint=target.position;usePoint=false;
++                direction=(resolvedTargetPoint-spawnPosition).normalized;
++            }
++            else if(manualAim?.Mode==SkillAimMode.Self)
++            {
++                target=null;usePoint=false;resolvedTargetPoint=spawnPosition;
++            }
+ 
+             ApplyCastSelfEffects(
+                 runtime,
+@@ -564,7 +587,7 @@
+                 comboIndex,
+                 hitOverride,
+                 suppressVisual,
+-                minimumVisualLifetime);
++                minimumVisualLifetime,manualAim?.Mode);
+         }
+ 
+         public static Vector2 ResolveTargetPoint(
+--- a/Assets/Scripts/Actor/Character/Control/ManualControlCore.cs
++++ b/Assets/Scripts/Actor/Character/Control/ManualControlCore.cs
+@@ -11,11 +11,35 @@
+         internal bool Nonzero=>X*X+Y*Y>.0001f;
+         internal ControlVector Normalized {get{float n=(float)Math.Sqrt(X*X+Y*Y);return n>.0001f&&Valid?new ControlVector(X/n,Y/n):default;}}
+     }
+-    internal readonly struct AimSnapshot
++    internal struct AimSnapshot
+     {
+-        internal readonly ControlVector Point;
++        internal ControlVector RawPoint {get;private set;}
++        internal ControlVector Origin {get;private set;}
++        internal ControlVector Direction {get;private set;}
++        internal ControlVector Point {get;private set;}
++        internal global::Skill.SkillAimMode Mode {get;private set;}
++        internal object LockedTarget {get;private set;}
+         internal AimSnapshot(ControlVector point,float left,float bottom,float right,float top)
+-        {Point=point.Valid?new ControlVector(Math.Max(left,Math.Min(right,point.X)),Math.Max(bottom,Math.Min(top,point.Y))):new ControlVector(float.NaN,float.NaN);}
++        {
++            RawPoint=point;Origin=default;Direction=default;Mode=global::Skill.SkillAimMode.Legacy;LockedTarget=null;
++            Point=point.Valid?new ControlVector(Math.Max(left,Math.Min(right,point.X)),Math.Max(bottom,Math.Min(top,point.Y))):new ControlVector(float.NaN,float.NaN);
++        }
++        internal AimSnapshot AtOrigin(ControlVector origin)
++        {
++            var copy=this;copy.Origin=origin;
++            copy.Direction=RawPoint.Valid&&origin.Valid?new ControlVector(RawPoint.X-origin.X,RawPoint.Y-origin.Y).Normalized:default;
++            return copy;
++        }
++        internal AimSnapshot Resolve(global::Skill.SkillAimMode mode,ControlVector direction,ControlVector point,object target=null)
++        {var copy=this;copy.Mode=mode;copy.Direction=direction;copy.Point=point;copy.LockedTarget=target;return copy;}
++        internal ControlVector GroundPoint(float range)
++        {
++            // Origin is inside playable bounds: shortening the segment stays inside them.
++            if(!Point.Valid||!Origin.Valid||float.IsNaN(range)||float.IsInfinity(range)||range<0)return new ControlVector(float.NaN,float.NaN);
++            var delta=new ControlVector(Point.X-Origin.X,Point.Y-Origin.Y);
++            float distance=(float)Math.Sqrt(delta.X*delta.X+delta.Y*delta.Y);
++            return distance>range?new ControlVector(Origin.X+delta.Normalized.X*range,Origin.Y+delta.Normalized.Y*range):Point;
++        }
+     }
+     internal struct ManualInputFrame
+     {
+@@ -27,6 +51,7 @@
+     }
+     internal interface IManualGameplay
+     {
++        AimSnapshot Capture(int slot,AimSnapshot aim);
+         bool Busy {get;}
+         bool Available(int slot);
+         bool Ready(int slot);
+@@ -48,8 +73,8 @@
+         internal void Reset(){initialized=false;Reason=ControlReason.Manual;Suspended=true;AttackHeld=false;hasPending=false;hasBasicAim=false;lastFacing=default;}
+         internal static ControlVector DashDirection(AimSnapshot aim,ControlVector origin,ControlVector axes,ControlVector facing)
+         {
+-            var delta=new ControlVector(aim.Point.X-origin.X,aim.Point.Y-origin.Y);
+-            if(aim.Point.Valid&&origin.Valid&&delta.Nonzero)return delta.Normalized;
++            var delta=new ControlVector(aim.RawPoint.X-origin.X,aim.RawPoint.Y-origin.Y);
++            if(aim.RawPoint.Valid&&origin.Valid&&delta.Nonzero)return delta.Normalized;
+             return axes.Valid&&axes.Nonzero?axes.Normalized:facing.Valid&&facing.Nonzero?facing.Normalized:new ControlVector(1,0);
+         }
+         internal void Tick(ManualInputFrame input,ControlReason reason,bool suspended,ControlVector facing,IManualGameplay game)
+@@ -64,16 +89,18 @@
+                 return; // handback frame consumes no input; next frame re-samples physical state.
+             }
+             if(reason!=ControlReason.Manual||suspended){AttackHeld=false;hasPending=false;hasBasicAim=false;game.Move(default);return;}
++            var snapshot=input.Aim.AtOrigin(input.CasterPosition);
+             var axes=input.Axes;if(facing.Valid&&facing.Nonzero)lastFacing=facing.Normalized;
+             if((input.DashDown||input.SlotDown>0)&&game.Available(input.DashDown?4:input.SlotDown))
+             {
+-                hasPending=true;pendingSlot=input.DashDown?4:input.SlotDown;pendingAim=input.Aim;
+-                pendingDash=DashDirection(input.Aim,input.CasterPosition,axes,lastFacing);
++                hasPending=true;pendingSlot=input.DashDown?4:input.SlotDown;
++                pendingDash=DashDirection(snapshot,input.CasterPosition,axes,lastFacing);
++                pendingAim=game.Capture(pendingSlot,snapshot.Resolve(global::Skill.SkillAimMode.Legacy,input.DashDown?pendingDash:snapshot.Direction,snapshot.Point));
+             }
+             bool wasHeld=AttackHeld;
+             AttackHeld=(input.AttackHeld||input.AttackDown)&&!hasPending;
+             if(!AttackHeld)hasBasicAim=false;
+-            else if(input.AttackDown||!wasHeld){basicAim=input.Aim;hasBasicAim=true;}
++            else if(input.AttackDown||!wasHeld){basicAim=game.Capture(0,snapshot);hasBasicAim=true;}
+             game.Move(game.Busy?default:axes);
+             if(game.Busy)return;
+             if(hasPending)
+@@ -82,8 +109,8 @@
+                 int slot=pendingSlot;var aim=pendingAim;var dash=pendingDash;hasPending=false;
+                 game.Move(default);game.Fire(slot,aim,dash,()=>false);return;
+             }
+-            var cycleAim=hasBasicAim?basicAim:input.Aim;
+-            if(AttackHeld&&cycleAim.Point.Valid&&game.Ready(0))
++            var cycleAim=hasBasicAim?basicAim:game.Capture(0,snapshot);
++            if(AttackHeld&&game.Ready(0))
+             {game.Move(default);game.Fire(0,cycleAim,default,()=>AttackHeld&&Reason==ControlReason.Manual&&!Suspended);hasBasicAim=false;}
+         }
+     }
+--- a/Assets/Scripts/Actor/Character/Control/SeojinManualControl.cs
++++ b/Assets/Scripts/Actor/Character/Control/SeojinManualControl.cs
+@@ -91,17 +91,27 @@
+         private EquipmentSkillRuntimeData Runtime(int slot)=>slot>=0&&slot<SeojinControlPolicy.Slots.Length?skills?.SkillPool?.GetRuntimeByKey(SeojinControlPolicy.Slots[slot]):null;
+         public bool Available(int slot)
+         {
+-            var r=Runtime(slot);if(r?.sourceEquipment?.CastSo==null||r.sourceEquipment.BaseProfileSo==null)return false;
++            var r=Runtime(slot);if(r?.sourceEquipment?.CastSo==null||r.sourceEquipment.BaseProfileSo==null||r.sourceEquipment.AimMode==SkillAimMode.Invalid)return false;
+             if(r.comboProfile!=null&&r.comboProfile.Enabled)return r.comboProfile.IsComplete;
+             return r.sourceEquipment.BaseProfileSo.SkillComponentType==SkillComponentType.Mobility || (r.sourceEquipment.HitSos!=null&&Array.Exists(r.sourceEquipment.HitSos,h=>h!=null));
+         }
+         public bool Ready(int slot)=>Available(slot)&&skills!=null&&skills.ManualReady(Runtime(slot));
++        public AimSnapshot Capture(int slot,AimSnapshot aim)
++        {
++            var runtime=Runtime(slot);var mode=runtime?.sourceEquipment?.AimMode??SkillAimMode.Invalid;
++            object target=null;
++            if(mode==SkillAimMode.Target&&aim.Direction.Nonzero&&skills!=null)
++                target=skills.ResolveManualTarget(runtime,new Vector2(aim.Direction.X,aim.Direction.Y));
++            var point=mode==SkillAimMode.GroundPoint?aim.GroundPoint(runtime.resolvedRange):default;
++            return aim.Resolve(mode,aim.Direction,point,target);
++        }
+         public bool Fire(int slot,AimSnapshot aim,ControlVector dash,Func<bool> chain)
+         {
+-            var runtime=Runtime(slot);if(runtime==null||(!aim.Point.Valid&&slot!=4))return false;
++            var runtime=Runtime(slot);if(runtime==null||runtime.sourceEquipment.AimMode!=aim.Mode)return false;
++            var resolved=new ManualSkillAim(aim.Mode,new Vector2(aim.Direction.X,aim.Direction.Y),new Vector2(aim.Point.X,aim.Point.Y),aim.LockedTarget as Transform);
++            if(!resolved.IsValid)return false;
+             actor.GetComponent<MovementMono>()?.StopAllMotion(false);
+-            return slot==4?skills.FireManualDash(runtime,new Vector2(dash.X,dash.Y)):
+-                skills.FireManualAtPoint(runtime,new Vector2(aim.Point.X,aim.Point.Y),slot==0?chain:null);
++            return skills.FireManualAim(runtime,resolved,slot==0?chain:null);
+         }
+         public void Move(ControlVector v){MoveInput=new Vector2(v.X,v.Y);}
+         public void Clear(bool interrupt)
+--- a/Assets/Scripts/Actor/Character/Control/SeojinInputReader.cs
++++ b/Assets/Scripts/Actor/Character/Control/SeojinInputReader.cs
+@@ -24,7 +24,7 @@
+         {
+             var f=new ManualInputFrame{Up=Input.GetKey(KeyCode.W),Down=Input.GetKey(KeyCode.S),Left=Input.GetKey(KeyCode.A),Right=Input.GetKey(KeyCode.D),AttackHeld=Input.GetMouseButton(0),AttackDown=Input.GetMouseButtonDown(0),DashDown=Input.GetKeyDown(KeyCode.LeftShift)||Input.GetKeyDown(KeyCode.RightShift)};
+             for(int i=0;i<SeojinControlPolicy.Skills.Length;i++)if(Input.GetKeyDown(SeojinControlPolicy.Skills[i])){f.SlotDown=i+1;break;}
+-            // Basic, skills and Dash share the same clamped world-point snapshot.
++            // Capture one raw world point; only GroundPoint consumes its bounds projection.
+             f.CasterPosition=new ControlVector(casterPosition.x,casterPosition.y);
+             Vector2 point=new Vector2(float.NaN,float.NaN);
+             if(camera!=null)
+--- a/AgentTools/SeojinManualHarness/Combo.template.cs
++++ b/AgentTools/SeojinManualHarness/Combo.template.cs
+@@ -1,4 +1,6 @@
+ using System; using System.Collections; using System.Collections.Generic; using System.Linq;
++enum SkillAimMode{Direction,Target,GroundPoint,Self}
++struct ManualSkillAim {public SkillAimMode Mode;public Vector2 Direction;}
+ struct Vector2 {public float x,y;public Vector2(float a,float b){x=a;y=b;}public float sqrMagnitude=>x*x+y*y;public Vector2 normalized=>new Vector2(x/(float)Math.Sqrt(sqrMagnitude),y/(float)Math.Sqrt(sqrMagnitude));public static Vector2 right=>new Vector2(1,0);public static Vector2 operator -(Vector2 a,Vector2 b)=>new Vector2(a.x-b.x,a.y-b.y);public static float Distance(Vector2 a,Vector2 b)=>1;}
+ class Transform {public Vector2 position;public Vector2 right=>Vector2.right;public int GetInstanceID()=>1;}
+ class WaitForSeconds {public float value;public WaitForSeconds(float v){value=v;}}
+@@ -14,15 +16,15 @@
+ static class MainCharacterSkillFocusFeature {public static void NotifySkillExecuting(object a,object b,object c){}public static void CancelPending(object c){}}
+ class Harness {
+  public Dictionary<int,int> comboGenerations=new();public HashSet<int> activeComboCasters=new();int nextComboToken;
+- public AnimationMono Anim=new();public float Clock;public bool Held=true;public int Cooldowns,Retargets;public List<(int index,float time,bool suppress,Vector2 point)> Hits=new();public List<float> CooldownTimes=new();
++ public AnimationMono Anim=new();public float Clock;public bool Held=true;public int Cooldowns,Retargets;public List<(int index,float time,bool suppress,Vector2 point)> Hits=new();public List<float> CooldownTimes=new();public List<SkillAimMode?> Modes=new();public List<bool> Points=new();
+  bool RollComboCritical(Transform c)=>false;AnimationMono ResolveAnimation(Transform c)=>Anim;bool CanContinueGeneration(Transform c,int g)=>comboGenerations.TryGetValue(1,out int n)&&n==g;
+  bool UseSkill(CharacterSkillManager s,EquipmentSkillRuntimeData r){Cooldowns++;CooldownTimes.Add(Clock);return true;}
+  Transform NormalizeComboTarget(Transform t)=>t;bool IsValidComboTarget(Transform c,Transform t,object h)=>t!=null;bool IsComboTargetInRange(Transform c,Transform t,float r)=>t!=null;
+  Transform ResolveComboRetarget(Transform c,float r,object h){Retargets++;return null;}/* DIRECTION */
+  /* FACING */
+  void ApplyCollisionSafeLunge(Transform c,Transform t,Vector2 d,float l){}
+- bool UseSkillOnce(CharacterSkillManager s,EquipmentSkillRuntimeData r,Transform c,Transform t,bool up,Vector2 p,int hit,object clip,object profile,object calibration,string token,bool crit,float weight,int index,object h,bool suppress,float life){Hits.Add((index,Clock,suppress,p));return true;}
+- public IEnumerator Start(EquipmentSkillRuntimeData r=null,bool point=true){comboGenerations[1]=1;activeComboCasters.Add(1);return FireComboRoutine(new(),r??new(),new(){position=new Vector2(12,8)},null,point,new Vector2(9,8),()=>Held,1);}
++ bool UseSkillOnce(CharacterSkillManager s,EquipmentSkillRuntimeData r,Transform c,Transform t,bool up,Vector2 p,int hit,object clip,object profile,object calibration,string token,bool crit,float weight,int index,object h,bool suppress,float life,ManualSkillAim? manualAim=null){Modes.Add(manualAim?.Mode);Points.Add(up);Hits.Add((index,Clock,suppress,p));return true;}
++ public IEnumerator Start(EquipmentSkillRuntimeData r=null,bool point=true,ManualSkillAim? aim=null){comboGenerations[1]=1;activeComboCasters.Add(1);return FireComboRoutine(new(),r??new(),new(){position=new Vector2(12,8)},null,point,new Vector2(9,8),()=>Held,1,aim);}
+  public void Run(IEnumerator e,Action<float> beforeResume=null){while(e.MoveNext()){Clock+=e.Current is WaitForSeconds w?w.value:Time.deltaTime;beforeResume?.Invoke(Clock);}}
+  /* COMBO */
+ }
+@@ -45,6 +47,7 @@
+  var runtime=new EquipmentSkillRuntimeData();runtime.comboProfile.HasCompleteSegmentedBodyRegistry=false;foreach(var step in runtime.comboProfile.Steps){step.BodyActionClip=null;step.VfxClip=null;}h=new();h.Run(h.Start(runtime));Check(h.Hits.Count==3&&h.Anim.Fallback==3,"missing-body-clip-retains-gameplay-fallback-null-VFX-forwarded");
+  h=new();h.Run(h.Start(point:false));Check(h.Hits.Count==0&&h.Cooldowns==0&&h.Retargets>0,"legacy-target-mode-retains-validation-fail-closed");
+  var g=new Guard();var parent=g.Wrap(Parent(),1);parent.MoveNext();var child=(IEnumerator)parent.Current;child.MoveNext();g.Cancel();var fresh=g.Wrap(Child(),2);fresh.MoveNext();Check(!child.MoveNext()&&lateHits==0,"nested-coroutine-cancel-blocks-old-delayed-hit");parent.MoveNext();Check(g.manualRoutines.Contains(2),"old-coroutine-cleanup-preserves-new-ticket");fresh.MoveNext();Check(lateHits==1&&g.manualRoutines.Count==0,"new-epoch-executes-and-releases-own-ticket");
++ h=new();h.Run(h.Start(point:false,aim:new ManualSkillAim{Mode=SkillAimMode.Direction,Direction=new Vector2(-1,0)}));Check(h.Hits.Count==3&&h.Retargets==0&&h.Points.All(x=>!x)&&h.Modes.All(x=>x==SkillAimMode.Direction)&&h.Anim.Directions.All(x=>x.x==-1&&x.y==0),"Direction-basic-three-step-facing-hit-context-no-ground-point");
+  Console.WriteLine($"PASS {count}/{count} extracted production combo/guard tests");
+  }
+ }
+--- a/AgentTools/SeojinManualHarness/audit.py
++++ b/AgentTools/SeojinManualHarness/audit.py
+@@ -3,11 +3,20 @@
+ root=Path(__file__).resolve().parents[2]; out=root/'Artifacts/Engineering/SeojinManualControl'
+ sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+ protected=json.loads((out/'same-path-before.json').read_text())
+-changed=[p for p,h in protected.items() if not (root/p).exists() or sha(root/p)!=h]
+-(out/'same-path-result.json').write_text(json.dumps({'checked':len(protected),'changed':changed},indent=2)+'\n')
++authorized=json.loads((out/'authorized-aim-assets.json').read_text()) if (out/'authorized-aim-assets.json').exists() else {}
++for name,h in authorized.items():
++ original=out/'aim-mode-03/before'/name
++ assert sha(original)==h==protected[name]
++ import re
++ assert re.sub(r'^  aimMode: [0-9]+\n','',(root/name).read_text(),flags=re.M)==original.read_text(),name
++ json_name=name.replace('/so/','/json/').replace('.asset','.json')
++ current_json=json.loads((root/json_name).read_text());current_json.pop('aimMode')
++ assert current_json==json.loads((out/'aim-mode-03/before'/json_name).read_text()),json_name
++changed=[p for p,h in protected.items() if p not in authorized and (not (root/p).exists() or sha(root/p)!=h)]
++(out/'same-path-result.json').write_text(json.dumps({'checked':len(protected),'unchanged':len(protected)-len(authorized),'authorized_aim_field_only':list(authorized),'changed':changed},indent=2)+'\n')
+ assert not changed,changed
+ before=json.loads((out/'before-sha.json').read_text())
+-new=[root/'Assets/Scripts/Actor/Character/Control.meta',*sorted((root/'Assets/Scripts/Actor/Character/Control').glob('*')),*sorted((root/'AgentTools/SeojinManualHarness').glob('*'))]
++new=[root/'Assets/Scripts/Ability/Skills/Definitions/equipment/SkillAimMode.cs',root/'Assets/Scripts/Ability/Skills/Definitions/equipment/SkillAimMode.cs.meta',root/'Assets/Scripts/Actor/Character/Control.meta',*sorted((root/'Assets/Scripts/Actor/Character/Control').glob('*')),*sorted((root/'AgentTools/SeojinManualHarness').glob('*'))]
+ new=[p for p in new if p.is_file()]; (out/'new-files.json').write_text(json.dumps([str(p.relative_to(root)) for p in new],indent=2)+'\n')
+ patch=[]; hashes={}
+ for name,h in before.items():
+@@ -20,4 +29,4 @@
+ (out/'scoped.patch').write_text(''.join(patch));(out/'after-sha.json').write_text(json.dumps(hashes,indent=2)+'\n')
+ for args,file in [(['git','apply','--reverse','--check',str(out/'scoped.patch')],'reverse-check.log'),(['git','diff','--check'],'diff-check.log')]:
+  p=subprocess.run(args,cwd=root,text=True,capture_output=True);(out/file).write_text(p.stdout+p.stderr+f'exit={p.returncode}\n');assert p.returncode==0,(file,p.stderr)
+-print(f'PASS protected hashes {len(protected)}/{len(protected)}; reverse patch and diff checks; {len(before)} existing / {len(new)} new files')
++print(f'PASS protected {len(protected)-len(authorized)} unchanged + {len(authorized)} authorized aim-only assets; reverse patch and diff checks; {len(before)} existing / {len(new)} new files')
+--- a/AgentTools/SeojinManualHarness/run.sh
++++ b/AgentTools/SeojinManualHarness/run.sh
+@@ -3,5 +3,5 @@
+ cd /Users/pvenus/ProjectBS
+ manual_mono=/Applications/Unity/Hub/Editor/6000.3.10f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge
+ manual_out=$(mktemp -d /private/tmp/projectbs-manual.XXXXXX)
+-"$manual_mono/bin/mono" "$manual_mono/lib/mono/msbuild/Current/bin/Roslyn/csc.exe" -nologo -nowarn:0649 -langversion:9.0 -out:"$manual_out/test.exe" AgentTools/SeojinManualHarness/Stub.cs AgentTools/SeojinManualHarness/Tests.cs Assets/Scripts/Actor/Character/Control/*.cs
++"$manual_mono/bin/mono" "$manual_mono/lib/mono/msbuild/Current/bin/Roslyn/csc.exe" -nologo -nowarn:0649 -langversion:9.0 -out:"$manual_out/test.exe" AgentTools/SeojinManualHarness/Stub.cs AgentTools/SeojinManualHarness/Tests.cs Assets/Scripts/Actor/Character/Control/*.cs Assets/Scripts/Ability/Skills/Definitions/equipment/SkillAimMode.cs
+ "$manual_mono/bin/mono" "$manual_out/test.exe"
+--- a/AgentTools/SeojinManualHarness/Tests.cs
++++ b/AgentTools/SeojinManualHarness/Tests.cs
+@@ -1,13 +1,13 @@
+ using System;using System.Collections.Generic;using System.Reflection;using Character.Control;using UnityEngine;
+ class ManualTests {
+  static int count;static void Check(bool v,string m){if(!v)throw new Exception(m);}static void Test(string n,Action a){a();Console.WriteLine("PASS "+n);count++;}
+- class Port:IManualGameplay{public bool Busy{get;set;}public bool ReadyNow=true;public int Calls,Clears;public int Slot;public AimSnapshot Aim;public ControlVector Dash,MoveValue;public Func<bool> Chain;public HashSet<int> Missing=new();public bool Available(int slot)=>!Missing.Contains(slot);public bool Ready(int slot)=>ReadyNow&&Available(slot);public bool Fire(int s,AimSnapshot a,ControlVector d,Func<bool> c){Calls++;Slot=s;Aim=a;Dash=d;Chain=c;Busy=true;return true;}public void Move(ControlVector d){MoveValue=d;}public void Clear(bool interrupt){Clears++;if(interrupt)Busy=false;}}
++ class Port:IManualGameplay{public AimSnapshot Capture(int slot,AimSnapshot aim)=>aim;public bool Busy{get;set;}public bool ReadyNow=true;public int Calls,Clears;public int Slot;public AimSnapshot Aim;public ControlVector Dash,MoveValue;public Func<bool> Chain;public HashSet<int> Missing=new();public bool Available(int slot)=>!Missing.Contains(slot);public bool Ready(int slot)=>ReadyNow&&Available(slot);public bool Fire(int s,AimSnapshot a,ControlVector d,Func<bool> c){Calls++;Slot=s;Aim=a;Dash=d;Chain=c;Busy=true;return true;}public void Move(ControlVector d){MoveValue=d;}public void Clear(bool interrupt){Clears++;if(interrupt)Busy=false;}}
+  static ManualInputFrame Frame()=>new ManualInputFrame{Aim=new AimSnapshot(new ControlVector(20,1),0,-4,32,4)};
+  static void Tick(ManualControlCore c,Port p,ManualInputFrame f,ControlReason r=ControlReason.Manual,bool block=false)=>c.Tick(f,r,block,new ControlVector(-1,0),p);
+  static void Update(SeojinManualControl c)=>typeof(SeojinManualControl).GetMethod("Update",BindingFlags.NonPublic|BindingFlags.Instance).Invoke(c,null);
+  static void Life(SeojinManualControl c,string name)=>typeof(SeojinManualControl).GetMethod(name,BindingFlags.NonPublic|BindingFlags.Instance).Invoke(c,null);
+  static void ResetUi(){Input.Clear();Application.isFocused=true;Time.timeScale=1;UnityEngine.EventSystems.EventSystem.current=null;Battle.Morpg.BattleMorpgLiveRoute.Locked=false;Session.GameSession.Instance=new();Camera.main=new GameObject().AddComponent<Camera>();}
+- static (SeojinManualControl control,Character.CharacterManager actor,PartyMovementMono move,Character.CharacterSkillManager skills,Character.CharacterStateManager ai,SkillBrainMono brain) Rig(){ResetUi();var g=new GameObject();var a=g.AddComponent<Character.CharacterManager>();var m=g.AddComponent<PartyMovementMono>();g.AddComponent<MovementMono>();var s=g.AddComponent<Character.CharacterSkillManager>();for(int i=0;i<5;i++)s.SkillPool.Runtimes[SeojinControlPolicy.Slots[i]]=new Skill.EquipmentSkillRuntimeData{Slot=i};var state=g.AddComponent<Character.CharacterStateManager>();var brain=g.AddComponent<SkillBrainMono>();brain.enabled=false;g.AddComponent<SkillExecutorMono>();SeojinManualControl.Bind(a);return(g.GetComponent<SeojinManualControl>(),a,m,s,state,brain);}
++ static (SeojinManualControl control,Character.CharacterManager actor,PartyMovementMono move,Character.CharacterSkillManager skills,Character.CharacterStateManager ai,SkillBrainMono brain) Rig(){ResetUi();var g=new GameObject();var a=g.AddComponent<Character.CharacterManager>();var m=g.AddComponent<PartyMovementMono>();g.AddComponent<MovementMono>();var s=g.AddComponent<Character.CharacterSkillManager>();for(int i=0;i<5;i++)s.SkillPool.Runtimes[SeojinControlPolicy.Slots[i]]=new Skill.EquipmentSkillRuntimeData{Slot=i};s.SkillPool.Runtimes[SeojinControlPolicy.Slots[0]].sourceEquipment.AimMode=Skill.SkillAimMode.Direction;s.SkillPool.Runtimes[SeojinControlPolicy.Slots[4]].sourceEquipment.AimMode=Skill.SkillAimMode.Direction;var state=g.AddComponent<Character.CharacterStateManager>();var brain=g.AddComponent<SkillBrainMono>();brain.enabled=false;g.AddComponent<SkillExecutorMono>();SeojinManualControl.Bind(a);return(g.GetComponent<SeojinManualControl>(),a,m,s,state,brain);}
+  static void Main(){
+   Test("axes-all16-opposites-diagonal-normalized",()=>{for(int mask=0;mask<16;mask++){var f=Frame();f.Up=(mask&1)!=0;f.Down=(mask&2)!=0;f.Left=(mask&4)!=0;f.Right=(mask&8)!=0;var v=f.Axes;int x=(f.Right?1:0)-(f.Left?1:0),y=(f.Up?1:0)-(f.Down?1:0);Check(Math.Sign(v.X)==Math.Sign(x)&&Math.Sign(v.Y)==Math.Sign(y),"cancellation");Check(Math.Abs(v.X*v.X+v.Y*v.Y-((x==0&&y==0)?0:1))<1e-5,"speed");}});
+   Test("aim-snapshot-clamps-and-rejects-nonfinite",()=>{var a=new AimSnapshot(new ControlVector(80,-9),0,-4,32,4);Check(a.Point.X==32&&a.Point.Y==-4,"bounds");Check(!new AimSnapshot(new ControlVector(float.NaN,1),0,0,3,3).Point.Valid,"nan");});
+@@ -18,18 +18,26 @@
+   Test("missing-slot-fails-closed-without-blocking-basic",()=>{var c=new ManualControlCore();var p=new Port();p.Missing.Add(2);Tick(c,p,Frame());var f=Frame();f.SlotDown=2;f.AttackHeld=true;Tick(c,p,f);Check(p.Calls==1&&p.Slot==0,"missing slot jams input");});
+   Test("dash-mouse-opposite-WASD-wins",()=>{var c=new ManualControlCore();var p=new Port();Tick(c,p,Frame());var f=Frame();f.DashDown=true;f.Right=true;f.CasterPosition=new ControlVector(10,0);f.Aim=new AimSnapshot(new ControlVector(1,0),0,-4,32,4);Tick(c,p,f);Check(p.Slot==4&&p.Dash.X==-1&&p.Dash.Y==0,"WASD overrode mouse");});
+   Test("dash-epsilon-invalid-aim-WASD-then-last-facing-fallback",()=>{var near=new AimSnapshot(new ControlVector(3.001f,2),0,-4,32,4);var d=ManualControlCore.DashDirection(near,new ControlVector(3,2),new ControlVector(1,1),new ControlVector(-1,0));Check(Math.Abs(d.X-.7071068f)<1e-5&&Math.Abs(d.Y-.7071068f)<1e-5,"epsilon fallback");var invalid=new AimSnapshot(new ControlVector(float.NaN,0),0,-4,32,4);d=ManualControlCore.DashDirection(invalid,default,default,new ControlVector(-1,0));Check(d.X==-1,"invalid aim facing");var c=new ManualControlCore();var p=new Port();c.Tick(Frame(),ControlReason.Manual,false,new ControlVector(0,1),p);c.Tick(Frame(),ControlReason.Manual,false,new ControlVector(0,1),p);var f=Frame();f.DashDown=true;f.Aim=invalid;c.Tick(f,ControlReason.Manual,false,default,p);Check(p.Dash.Y==1,"last valid facing lost");});
+-  Test("dash-clamped-keydown-snapshot-survives-mouse-caster-readiness-change",()=>{var c=new ManualControlCore();var p=new Port{ReadyNow=false};Tick(c,p,Frame());var f=Frame();f.DashDown=true;f.Left=true;f.CasterPosition=new ControlVector(31,4);f.Aim=new AimSnapshot(new ControlVector(999,999),0,-4,32,4);Tick(c,p,f);f=Frame();f.CasterPosition=new ControlVector(100,100);f.Aim=new AimSnapshot(new ControlVector(0,-4),0,-4,32,4);p.ReadyNow=true;Tick(c,p,f);Check(p.Dash.X==1&&p.Dash.Y==0&&p.Aim.Point.X==32&&p.Aim.Point.Y==4,"snapshot or clamp changed");});
++  Test("dash-raw-direction-snapshot-survives-mouse-caster-readiness-change",()=>{var c=new ManualControlCore();var p=new Port{ReadyNow=false};Tick(c,p,Frame());var f=Frame();f.DashDown=true;f.Left=true;f.CasterPosition=new ControlVector(31,4);f.Aim=new AimSnapshot(new ControlVector(999,999),0,-4,32,4);Tick(c,p,f);f=Frame();f.CasterPosition=new ControlVector(100,100);f.Aim=new AimSnapshot(new ControlVector(0,-4),0,-4,32,4);p.ReadyNow=true;Tick(c,p,f);Check(p.Dash.X>0&&p.Dash.Y>0&&p.Aim.Point.X==32&&p.Aim.Point.Y==4,"snapshot or clamp changed");});
+   Test("basic-press-snapshot-waits-and-each-held-cycle-resamples",()=>{var c=new ManualControlCore();var p=new Port{ReadyNow=false};Tick(c,p,Frame());var f=Frame();f.AttackDown=true;f.AttackHeld=true;Tick(c,p,f);f.AttackDown=false;f.Aim=new AimSnapshot(new ControlVector(2,3),0,-4,32,4);p.ReadyNow=true;Tick(c,p,f);Check(p.Calls==1&&p.Aim.Point.X==20,"press aim lost during cooldown");Tick(c,p,f);Check(p.Calls==1&&p.Aim.Point.X==20,"active cycle aim changed");p.Busy=false;Tick(c,p,f);Check(p.Calls==2&&p.Aim.Point.X==2&&p.Aim.Point.Y==3,"next held cycle not resampled");});
+   Test("all-forced-reasons-clear-and-manual-handback-no-ghost",()=>{foreach(var reason in new[]{ControlReason.Transition,ControlReason.Death,ControlReason.CrowdControl,ControlReason.Cutscene,ControlReason.ExplicitAuto}){var c=new ManualControlCore();var p=new Port{ReadyNow=false};Tick(c,p,Frame());var f=Frame();f.SlotDown=1;Tick(c,p,f);Tick(c,p,f,reason);Check(c.AllowsAuto==(reason==ControlReason.ExplicitAuto),"forced AI permission");p.ReadyNow=true;Tick(c,p,f);Check(p.Calls==0&&!p.MoveValue.Nonzero,"handback ghost");Tick(c,p,Frame());Check(p.Calls==0,"stale queued skill");}});
+   Test("ui-pause-buffer-clear-and-physical-state-resampled-next-frame",()=>{var c=new ManualControlCore();var p=new Port();Tick(c,p,Frame());var f=Frame();f.AttackHeld=true;f.Right=true;Tick(c,p,f,ControlReason.Manual,true);Tick(c,p,f);Check(p.Calls==0,"handback held ghost");Tick(c,p,f);Check(p.Calls==1,"next physical held lost");});
+   Test("runtime-default-manual-and-NPC-not-bound",()=>{var x=Rig();Check(x.move.Controlled&&!x.ai.enabled&&!x.brain.enabled,"baseline manual");var npc=new GameObject().AddComponent<Character.CharacterManager>();npc.RuntimeData.characterSO.CharacterType=Character.CharacterType.Npc;SeojinManualControl.Bind(npc);Check(npc.GetComponent<SeojinManualControl>()==null,"NPC changed");});
+-  Test("runtime-input-reader-shifts-and-slots-clamp",()=>{var x=Rig();Update(x.control);Input.Held.Add(KeyCode.W);Input.Held.Add(KeyCode.D);Input.Down.Add(KeyCode.LeftShift);Input.mousePosition=new Vector3(-40,-20,0);Update(x.control);Check(x.skills.Calls.Count==1&&x.skills.Calls[0].slot==4&&x.skills.Calls[0].point.x==0&&x.skills.Calls[0].point.y==-1,"reader shift");Input.Clear();Input.Down.Add(KeyCode.Alpha3);Input.mousePosition=new Vector3(99,99,0);Update(x.control);Check(x.skills.Calls[1].slot==3&&x.skills.Calls[1].point.x==32&&x.skills.Calls[1].point.y==4,"reader aim clamp");});
++  Test("runtime-input-reader-shifts-and-slots-clamp",()=>{var x=Rig();Update(x.control);Input.Held.Add(KeyCode.W);Input.Held.Add(KeyCode.D);Input.Down.Add(KeyCode.LeftShift);Input.mousePosition=new Vector3(-40,-20,0);Update(x.control);Check(x.skills.Calls.Count==1&&x.skills.Calls[0].slot==4&&x.skills.Calls[0].point.x<0&&x.skills.Calls[0].point.y<0,"reader shift");Input.Clear();Input.Down.Add(KeyCode.Alpha3);Input.mousePosition=new Vector3(99,99,0);Update(x.control);Check(x.skills.Calls[1].slot==3&&x.skills.Calls[1].point.x==32&&x.skills.Calls[1].point.y==4,"reader aim clamp");});
+   Test("runtime-UI-focus-pause-end-intents-zero",()=>{var x=Rig();Update(x.control);Input.MouseHeld=true;Input.Held.Add(KeyCode.D);UnityEngine.EventSystems.EventSystem.current=new UnityEngine.EventSystems.EventSystem{Over=true};Update(x.control);Check(x.skills.Calls.Count==0&&x.move.Input.x==0,"UI intent");UnityEngine.EventSystems.EventSystem.current=null;Time.timeScale=0;Update(x.control);Check(x.skills.Calls.Count==0,"pause");Time.timeScale=1;Session.GameSession.Instance.BattleSession.BattleRuntime.isCompleted=true;Update(x.control);Check(x.skills.Calls.Count==0,"end");});
+   Test("runtime-OnDisable-restores-captured-baselines-and-zero-movement",()=>{var x=Rig();Update(x.control);Input.Held.Add(KeyCode.D);Update(x.control);Check(x.move.Input.x==1,"move setup");x.control.enabled=false;Life(x.control,"OnDisable");Check(x.ai.enabled&&!x.brain.enabled&&!x.move.Controlled&&x.move.Input.x==0&&!SeojinManualControl.Bound(x.actor.gameObject),"baseline restore");});
+   Test("runtime-reenable-idempotent-manual-first-frame-no-held-ghost",()=>{var x=Rig();Update(x.control);x.control.enabled=false;Life(x.control,"OnDisable");x.control.enabled=true;Life(x.control,"OnEnable");Life(x.control,"OnEnable");Input.MouseHeld=true;Update(x.control);Check(x.skills.Calls.Count==0&&!x.ai.enabled&&x.move.Controlled,"re-enable state");Update(x.control);Check(x.skills.Calls.Count==1,"physical handback");x.control.enabled=false;Life(x.control,"OnDisable");Check(x.ai.enabled&&!x.brain.enabled,"idempotence lost captured baseline");});
+   Test("runtime-explicit-auto-only-forced-state-never-AI-authorized",()=>{var x=Rig();Update(x.control);x.control.SetAutoMode(true);Update(x.control);Check(x.ai.enabled&&x.control.AutoAuthorized&&!x.move.Controlled,"explicit auto");x.actor.IsStunned=true;Update(x.control);Check(!x.ai.enabled&&!x.control.AutoAuthorized&&!x.control.ManualAuthorized,"CC auto commands");x.control.enabled=false;Life(x.control,"OnDisable");Check(x.ai.enabled&&!x.control.AutoAuthorized,"cleanup forced guard");x.actor.IsStunned=false;Check(x.control.AutoAuthorized,"legacy handback stuck");});
+   Test("runtime-reenable-clears-stale-auto-authorization-before-Update",()=>{var x=Rig();Update(x.control);x.control.SetAutoMode(true);Update(x.control);x.control.enabled=false;Life(x.control,"OnDisable");x.control.enabled=true;Life(x.control,"OnEnable");Check(!x.control.AutoAuthorized&&!x.control.ManualAuthorized&&!x.ai.enabled,"stale authorization before Update");});
+   Test("runtime-slots-1-2-3-retain-clamped-point-contract",()=>{for(int i=0;i<3;i++){var x=Rig();Update(x.control);x.actor.transform.position=new Vector3(10,0,0);Input.Down.Add(SeojinControlPolicy.Skills[i]);Input.mousePosition=new Vector3(-100,100,0);Update(x.control);Check(x.skills.Calls.Count==1&&x.skills.Calls[0].slot==i+1&&x.skills.Calls[0].point.x==0&&x.skills.Calls[0].point.y==4,"slot mapping or point changed");}});
++  Test("Direction-raw-ray-is-independent-of-ground-bounds",()=>{var raw=new AimSnapshot(new ControlVector(100,1),0,-4,32,4).AtOrigin(new ControlVector(10,0));Check(raw.Direction.X>.999f&&raw.Direction.Y<.012f&&raw.Point.X==32,"direction used clamped point");});
++  Test("GroundPoint-bounds-and-range-clamp-only",()=>{var x=new AimSnapshot(new ControlVector(100,100),0,-4,32,4).AtOrigin(new ControlVector(10,0));var p=x.GroundPoint(2);Check(Math.Abs((p.X-10)*(p.X-10)+p.Y*p.Y-4)<.0001f&&p.X<=32&&p.Y<=4,"ground clamp");});
++  Test("runtime-Self-ignores-invalid-mouse-camera",()=>{var x=Rig();x.skills.SkillPool.Runtimes[SeojinControlPolicy.Slots[2]].sourceEquipment.AimMode=Skill.SkillAimMode.Self;Update(x.control);Camera.main=null;Input.Down.Add(KeyCode.Alpha2);Update(x.control);Check(x.skills.Calls.Count==1&&x.skills.Aims[0].Mode==Skill.SkillAimMode.Self,"self demanded mouse");});
++  Test("runtime-unknown-mode-has-no-fire",()=>{var x=Rig();x.skills.SkillPool.Runtimes[SeojinControlPolicy.Slots[1]].sourceEquipment.AimMode=Skill.SkillAimMode.Invalid;Update(x.control);Input.Down.Add(KeyCode.Alpha1);Update(x.control);Check(x.skills.Calls.Count==0,"unknown mode fired");});
++  Test("runtime-Target-lock-is-keydown-snapshot-through-wait",()=>{var x=Rig();x.skills.SkillPool.Runtimes[SeojinControlPolicy.Slots[1]].sourceEquipment.AimMode=Skill.SkillAimMode.Target;var locked=new GameObject().transform;x.skills.LockedTarget=locked;Update(x.control);x.skills.ManualBusy=true;Input.Down.Add(KeyCode.Alpha1);Input.mousePosition=new Vector3(8,0,0);Update(x.control);Input.Clear();x.skills.LockedTarget=new GameObject().transform;x.skills.ManualBusy=false;Input.mousePosition=new Vector3(-8,0,0);Update(x.control);Check(x.skills.Aims.Count==1&&x.skills.Aims[0].Target==locked,"target relocked during wait");});
++  Test("runtime-Target-no-unit-is-fail-closed",()=>{var x=Rig();x.skills.SkillPool.Runtimes[SeojinControlPolicy.Slots[1]].sourceEquipment.AimMode=Skill.SkillAimMode.Target;Update(x.control);Input.Down.Add(KeyCode.Alpha1);Input.mousePosition=new Vector3(8,0,0);Update(x.control);Check(x.skills.Calls.Count==0,"target converted to point");});
++  Test("runtime-slot-Direction-dispatches-direction-not-position",()=>{var x=Rig();x.skills.SkillPool.Runtimes[SeojinControlPolicy.Slots[3]].sourceEquipment.AimMode=Skill.SkillAimMode.Direction;Update(x.control);Input.Down.Add(KeyCode.Alpha3);Input.mousePosition=new Vector3(-100,0,0);Update(x.control);Check(x.skills.Aims[0].Mode==Skill.SkillAimMode.Direction&&x.skills.Aims[0].Direction.x==-1&&x.skills.Aims[0].Point.x==0,"slot mode ignored");});
++  Test("runtime-invalid-Direction-does-not-become-ground-shot",()=>{var x=Rig();Update(x.control);Camera.main=null;Input.MouseHeld=true;Update(x.control);Check(x.skills.Calls.Count==0,"invalid ray fired basic");});
+   Console.WriteLine("PASS "+count+"/"+count+" production input/core/control lifecycle tests");
+  }
+ }
+--- a/AgentTools/SeojinManualHarness/Stub.cs
++++ b/AgentTools/SeojinManualHarness/Stub.cs
+@@ -1,16 +1,17 @@
+ using System;using System.Collections.Generic;using System.Linq;
+ namespace UnityEngine {
++ public struct LayerMask{public int value;public static implicit operator LayerMask(int x)=>new LayerMask{value=x};}
+  public class DefaultExecutionOrder:Attribute {public DefaultExecutionOrder(int n){}}public class DisallowMultipleComponent:Attribute {}public class SerializeField:Attribute {}
+- public class Object {}public class Component:Object{public GameObject gameObject;public Transform transform=>gameObject.transform;public T GetComponent<T>() where T:class=>gameObject.GetComponent<T>();public T GetComponentInChildren<T>(bool includeInactive=false) where T:class=>GetComponent<T>();public T[] GetComponentsInChildren<T>(bool all=false) where T:class=>gameObject.GetComponents<T>();}
++ public class Object {}public class Component:Object{public GameObject gameObject;public Transform transform=>gameObject.transform;public T GetComponent<T>() where T:class=>gameObject.GetComponent<T>();public T GetComponentInParent<T>() where T:class=>GetComponent<T>();public T GetComponentInChildren<T>(bool includeInactive=false) where T:class=>GetComponent<T>();public T[] GetComponentsInChildren<T>(bool all=false) where T:class=>gameObject.GetComponents<T>();}
+  public class Behaviour:Component{public bool enabled=true;public bool isActiveAndEnabled=>enabled&&gameObject.activeInHierarchy;}public class MonoBehaviour:Behaviour {}
+- public class Transform:Component{public Vector3 position;}
+- public class GameObject:Object{readonly List<Component> components=new();public bool activeInHierarchy=true;public Transform transform;public GameObject(){transform=new Transform{gameObject=this};components.Add(transform);}public T AddComponent<T>() where T:Component,new(){var t=new T{gameObject=this};components.Add(t);return t;}public T GetComponent<T>() where T:class=>components.OfType<T>().FirstOrDefault();public T[] GetComponents<T>() where T:class=>components.OfType<T>().ToArray();}
+- public struct Vector2{public float x,y;public Vector2(float x,float y){this.x=x;this.y=y;}public static Vector2 zero=>new(0,0);public static Vector2 right=>new(1,0);public static implicit operator Vector2(Vector3 p)=>new(p.x,p.y);}
++ public class Transform:Component{public Vector3 position;public Transform root=>this;public Vector2 right=>Vector2.right;public int GetInstanceID()=>gameObject.Id;}
++ public class GameObject:Object{static int next;public int Id=++next;public int layer;readonly List<Component> components=new();public bool activeInHierarchy=true;public Transform transform;public GameObject(){transform=new Transform{gameObject=this};components.Add(transform);}public T AddComponent<T>() where T:Component,new(){var t=new T{gameObject=this};components.Add(t);return t;}public T GetComponent<T>() where T:class=>components.OfType<T>().FirstOrDefault();public T[] GetComponents<T>() where T:class=>components.OfType<T>().ToArray();}
++ public struct Vector2{public float x,y;public Vector2(float x,float y){this.x=x;this.y=y;}public float sqrMagnitude=>x*x+y*y;public Vector2 normalized=>sqrMagnitude==0?zero:new Vector2(x/(float)Math.Sqrt(sqrMagnitude),y/(float)Math.Sqrt(sqrMagnitude));public static Vector2 operator -(Vector2 a,Vector2 b)=>new(a.x-b.x,a.y-b.y);public static Vector2 operator +(Vector2 a,Vector2 b)=>new(a.x+b.x,a.y+b.y);public static Vector2 operator *(Vector2 a,float b)=>new(a.x*b,a.y*b);public static float Dot(Vector2 a,Vector2 b)=>a.x*b.x+a.y*b.y;public static float Distance(Vector2 a,Vector2 b)=>(float)Math.Sqrt((a-b).sqrMagnitude);public static Vector2 zero=>new(0,0);public static Vector2 right=>new(1,0);public static implicit operator Vector2(Vector3 p)=>new(p.x,p.y);}
+  public struct Vector3{public float x,y,z;public Vector3(float x,float y,float z){this.x=x;this.y=y;this.z=z;}public static Vector3 operator +(Vector3 a,Vector3 b)=>new(a.x+b.x,a.y+b.y,a.z+b.z);public static Vector3 operator *(Vector3 a,float b)=>new(a.x*b,a.y*b,a.z*b);}
+  public struct Rect{public float xMin,yMin,xMax,yMax;public static Rect MinMaxRect(float l,float b,float r,float t)=>new Rect{xMin=l,yMin=b,xMax=r,yMax=t};}
+  public struct Ray{public Vector3 origin,direction;}
+  public class Camera:Component{public static Camera main;public float orthographicSize=5,aspect=16f/9;public Ray ScreenPointToRay(Vector3 p)=>new Ray{origin=new Vector3(p.x,p.y,-10),direction=new Vector3(0,0,1)};}
+- public static class Mathf{public static float Abs(float n)=>Math.Abs(n);}public static class Time{public static float timeScale=1;}
++ public static class Mathf{public static float Max(float a,float b)=>Math.Max(a,b);public static int Max(int a,int b)=>Math.Max(a,b);public static float Abs(float n)=>Math.Abs(n);}public static class Time{public static float timeScale=1;}
+  public enum KeyCode{W,A,S,D,Alpha1,Alpha2,Alpha3,LeftShift,RightShift}
+  public static class Input{public static HashSet<KeyCode> Held=new(),Down=new();public static bool MouseHeld,MouseDown;public static Vector3 mousePosition;public static bool GetKey(KeyCode k)=>Held.Contains(k);public static bool GetKeyDown(KeyCode k)=>Down.Contains(k);public static bool GetMouseButton(int n)=>MouseHeld;public static bool GetMouseButtonDown(int n)=>MouseDown;public static void Clear(){Held.Clear();Down.Clear();MouseHeld=MouseDown=false;}}
+  public static class Application{public static bool isFocused=true;}
+@@ -18,18 +19,20 @@
+ namespace UnityEngine.EventSystems{public class EventSystem{public static EventSystem current;public bool Over;public UnityEngine.GameObject currentSelectedGameObject;public bool IsPointerOverGameObject()=>Over;}}
+ namespace Skill{
+  public static class SkillPoolSlotKeys{public const string BasicAttack="basic",Active1="a1",Active2="a2",Active3="a3",Active4="a4";}
+- public enum SkillComponentType{Mobility,Damage}public class Profile{public SkillComponentType SkillComponentType;}
+- public class Equipment{public object CastSo=new();public Profile BaseProfileSo=new();public object[] HitSos={new object()};}
++ public class SkillHitSO{public UnityEngine.LayerMask TargetLayerMask=1;}public enum SkillComponentType{Mobility,Damage}public class Profile{public SkillComponentType SkillComponentType;}
++ public enum TargetingType{None,Self,AutoTarget,AutoTargetDirection,Directional,Position}
++ public class SkillCastSO{public TargetingType TargetingType=TargetingType.AutoTarget;public bool SnapshotTargetPointOnCast;public float Range=100;}
++ public class Equipment{public SkillAimMode AimMode=SkillAimMode.GroundPoint;public SkillCastSO CastSo=new();public Profile BaseProfileSo=new();public SkillHitSO[] HitSos={new SkillHitSO()};}
+  public class Combo{public bool Enabled,IsComplete=true;}
+- public class EquipmentSkillRuntimeData{public int Slot;public Equipment sourceEquipment=new();public Combo comboProfile;}
++ public class EquipmentSkillRuntimeData{public float resolvedRange=100;public int Slot;public Equipment sourceEquipment=new();public Combo comboProfile;}
+  public class Pool{public Dictionary<string,EquipmentSkillRuntimeData> Runtimes=new();public EquipmentSkillRuntimeData GetRuntimeByKey(string key)=>Runtimes.TryGetValue(key,out var r)?r:null;}
+ }
+ namespace Character{
+  public enum CharacterType{Player,Npc}public class CharacterSO{public CharacterType CharacterType;public string CharacterId="character.seojin.1";}
+  public class Runtime{public CharacterSO characterSO=new();public bool isDead;}
+- public class CharacterManager:UnityEngine.MonoBehaviour{public Runtime RuntimeData=new();public bool IsDying,IsStunned,IsRooted;}
++ public class CharacterManager:UnityEngine.MonoBehaviour{public bool IsTargetable=true;public Runtime RuntimeData=new();public bool IsDying,IsStunned,IsRooted;}
+  public class CharacterStateManager:UnityEngine.MonoBehaviour{public bool Forced;public int ClearCount;public void ClearState(){ClearCount++;}public bool TryGetForcedTarget(out UnityEngine.Transform t){t=null;return Forced;}}
+- public class CharacterSkillManager:UnityEngine.MonoBehaviour{public bool ManualBusy;public Skill.Pool SkillPool=new();public int Clears;public List<(int slot,UnityEngine.Vector2 point)> Calls=new();public bool ManualReady(Skill.EquipmentSkillRuntimeData r)=>r!=null&&!ManualBusy;public bool FireManualAtPoint(Skill.EquipmentSkillRuntimeData r,UnityEngine.Vector2 p,Func<bool> c){Calls.Add((r.Slot,p));return true;}public bool FireManualDash(Skill.EquipmentSkillRuntimeData r,UnityEngine.Vector2 d){Calls.Add((4,d));return true;}public void CancelManualExecution(){Clears++;ManualBusy=false;}}
++ public class CharacterSkillManager:UnityEngine.MonoBehaviour{public bool ManualBusy;public Skill.Pool SkillPool=new();public int Clears;public List<(int slot,UnityEngine.Vector2 point)> Calls=new();public List<Skill.ManualSkillAim> Aims=new();public UnityEngine.Transform LockedTarget;public UnityEngine.Transform ResolveManualTarget(Skill.EquipmentSkillRuntimeData r,UnityEngine.Vector2 d)=>LockedTarget;public bool FireManualAim(Skill.EquipmentSkillRuntimeData r,Skill.ManualSkillAim a,Func<bool> c){if(!a.IsValid)return false;Aims.Add(a);Calls.Add((r.Slot,a.Mode==Skill.SkillAimMode.Direction?a.Direction:a.Point));return true;}public bool ManualReady(Skill.EquipmentSkillRuntimeData r)=>r!=null&&!ManualBusy;public bool FireManualAtPoint(Skill.EquipmentSkillRuntimeData r,UnityEngine.Vector2 p,Func<bool> c){Calls.Add((r.Slot,p));return true;}public bool FireManualDash(Skill.EquipmentSkillRuntimeData r,UnityEngine.Vector2 d){Calls.Add((4,d));return true;}public void CancelManualExecution(){Clears++;ManualBusy=false;}}
+ }
+ public class PartyMovementMono:UnityEngine.MonoBehaviour{public bool Controlled;public UnityEngine.Vector2 Input;public bool IsMovementControlledByPlayer()=>Controlled;public void SetOwnedManualInput(bool c,UnityEngine.Vector2 i){Controlled=c;Input=i;}public void ReleaseManualControlForTeardown(bool c){Controlled=c;Input=UnityEngine.Vector2.zero;}}
+ public class MovementMono:UnityEngine.MonoBehaviour{public bool Knockback;public int Stops;public bool IsKnockingBack()=>Knockback;public void StopAllMotion(bool n=true){Stops++;}}
+--- a/Artifacts/Engineering/SeojinManualControl/REPORT.md
++++ b/Artifacts/Engineering/SeojinManualControl/REPORT.md
+@@ -1,70 +1,49 @@
+-# 서진 기본 Manual 제어 완료
++# Skill aim mode SSOT 및 수동 입력 구현 완료
+ 
+-Player 서진만 시작 시 Manual 소유자로 바인딩한다. 기존 AI 컴포넌트는 보존하며, 명시적 Auto 선택에서만 캡처한 enabled 상태대로 동작한다. MORPG 전환, 사망, 스턴·루트·넉백·강제 타깃, 컷신은 별도 제어 사유로 처리하며 일반 AI 명령을 허용하지 않는다. 대기·타깃 없음·공격 입력 해제로 Auto가 되지 않는다.
++현재 결과로 종료한다. blocker 없음. Unity GUI/headless/Play, staging/commit/push는 실행하지 않았다.
+ 
+-## 변경 동작 (마우스 Dash 교정 반영)
++## 계약
+ 
+-- WASD 8방향: 반대키 상쇄, 대각선 정규화. PartyMovementMono의 기존 이동 속도·애니메이션 경로 사용.
+-- 좌클릭: 누르고 있으면 기존 G1 0→1→2 콤보, 해제하면 현재 원자 단계의 타격·회복을 완료하고 다음 단계 중단. 최초 press의 마우스 스냅샷은 쿨다운 대기 중에도 보존한다. 완료·쿨다운 후 물리 입력이 계속 눌렸을 때 새 마우스 스냅샷으로 다음 콤보를 반복한다.
+-- Shift: 좌·우 Shift keydown 시 공통 clamp SSOT를 거친 마우스 월드 지점과 caster 위치로 정규화 방향을 고정한다. 마우스는 반대 WASD보다 우선한다. 변환 실패 또는 caster와 거리 0.01 이하일 때만 WASD 정규화 → 마지막 유효 facing → 오른쪽 기본값으로 대체한다. 대기 중 마우스와 caster가 이동해도 캡처한 방향을 바꾸지 않는다.
+-- 1/2/3: keydown 시 공통 AimSnapshot의 마우스 월드 지점을 고정한다. 현재 MORPG walkable/맵 경계로 clamp하며 이후 마우스나 타깃을 추적하지 않는다.
+-- 실행 대기 슬롯은 최대 1개이며 새 keydown으로 교체된다. 쿨다운·실행 준비를 기다리고 중복 Fire/소비를 발행하지 않는다. 없는 런타임은 입력 단계에서 거부한다.
+-- UI 포인터·선택 포커스, 앱 포커스 상실, 일시정지, 전투 종료는 입력을 0으로 만든다. 제어권 변경은 버퍼를 비우고 복귀 프레임을 0으로 소비한 뒤 다음 프레임에 물리 입력을 다시 읽는다.
+-- CC·사망·전환 취소는 실행 세대를 무효화한다. 중첩 코루틴의 이전 지연 타격과 이전 콤보의 새 콤보 정리 간섭을 막는다.
+-- OnDisable은 캡처한 AI `pair.Value`를 복원하고 이동 입력을 0으로 반환한다. OnEnable 재구성은 반복 가능하며 Update 이전의 오래된 Auto 권한도 초기화한다.
++EquipmentSkillSO의 직렬화된 aimMode가 수동 실행의 단일 기준이다. JSON root → EquipmentSkillJson DTO → ApplySkillFields → ConfigureAimMode → 직렬화 enum 필드를 연결했다. 런타임 슬롯별 aimMode ID 하드코딩은 없다.
+ 
+-## 구조와 범위
++| Mode | 입력 및 실행 |
++| --- | --- |
++| Direction (1) | 원래 mouse world point − keydown/press caster 위치의 정규화 방향. bounds clamp와 분리. 기존 caster spawn offset 및 resolved range 규칙을 사용하며 지면 위치 spawn 0. |
++| Target (2) | 마우스 방향 전방 ±45도 원뿔에서 기존 resolver의 hit layer, targetable, 범위, 거리/instance-ID 정렬을 재사용해 유닛을 한 번 잠금. 대기·cast 중 다른 유닛으로 재탐색하지 않으며 지면 위치 spawn 0. |
++| GroundPoint (3) | 명시 point 의미를 가진 스킬만 bounds 및 runtime.resolvedRange로 clamp. 실행 직전에도 범위를 검사하며 지정점 생성 허용. |
++| Self (4) | 마우스 변환 성공 여부·좌표를 무시하고 자기 중심 실행. |
+ 
+-입력 판독은 `SeojinInputReader`, 순수 입력·소유권 상태는 `ManualControlCore`, Unity 연결 및 게임플레이 호출은 `SeojinManualControl`과 어댑터로 분리했다. 기존 CharacterSkillManager/ActiveSkillService의 쿨다운, G1 시간표, body 동기화, VFX 억제 0/0/1과 3타 진입 쿨다운을 재사용한다. 수동 point 모드는 자동 타깃 재탐색을 하지 않는다. NPC에는 수동 컴포넌트를 바인딩하지 않고 기존 일반 코루틴 경로를 유지한다. 새 패키지 의존성은 없다.
++Legacy (0)는 기존 SO 및 aimMode가 없는 JSON의 호환값이다. 기존 cast metadata의 None/Self→Self, AutoTarget→Target, AutoTargetDirection/Directional→Direction, Position→GroundPoint로 결정하며 기존 SnapshotTargetPointOnCast는 GroundPoint로 보존한다. 알 수 없는 문자열·직렬화 enum·누락 cast는 Invalid로 닫는다. NPC 기존 실행은 이 수동 dispatch를 사용하지 않는다.
+ 
+-수정 기존 파일 10개와 신규 파일 15개의 정확한 목록·해시는 `before-sha.json`, `after-sha.json`, `new-files.json`에 있다. 새 Unity Control 폴더와 스크립트 메타를 포함한다. 전체 공유 작업 트리의 기존 변경을 포함하지 않는 이번 작업 전용 차이는 `scoped.patch`이다.
++Basic 최초 press는 실행 대기 중에도 snapshot을 보존하고, held의 새 combo cycle은 새 방향을 캡처한다. 콤보 3단계 facing과 hit context까지 Direction을 전달하며 타깃 탐색으로 덮지 않는다. Dash의 raw mouse 방향이 우선하며 변환 실패/거리 0.01 이하에서만 WASD→마지막 유효 facing 대체를 사용한다. 기존 제어권, UI 차단, teardown 및 3타 cadence/VFX/cooldown 계약을 유지한다.
+ 
+-## 검증
++## 서진 실제 슬롯
+ 
+-| 검사 | 통과 |
+-| --- | ---: |
+-| 실제 입력·core·owner 파일 + 엔진 스텁 | 21/21 |
+-| 실제 콤보·실행 guard 메서드 추출 실행 | 14/14 |
+-| MORPG live glue | 62/62 |
+-| 환경 geometry | 14/14 |
+-| Dash transition clock | 9/9 |
+-| 보상 delivery | 12/12 |
+-| inactive spawn | 10/10 |
+-| cast presenter | 4/4 |
+-| P1 기존 회귀 | 27/27 |
+-| 비활성 teardown 실제 메서드 | 10/10 |
+-| 합계 | 183/183 |
++| 등급 | Basic | 1 | 2 | 3 | Dash |
++| --- | --- | --- | --- | --- | --- |
++| G1 | Direction | Target | 없음 | 없음 | Direction |
++| G2 | Direction | Target | Self | 없음 | Direction |
++| G3 | Direction | Target | Self | Direction | Direction |
+ 
+-Unity 설치의 Roslyn과 실제 프로젝트 참조를 사용한 C# 컴파일: 오류 0, 기존 경고 31. 전체 컴파일 로그는 `build.log`, 각 테스트 로그는 같은 폴더에 있다. `git diff --check` 및 `git apply --reverse --check scoped.patch` 통과. NPC 소스, 서진 스킬 자산, MORPG Resources, Git index를 포함한 보호 해시 470개 모두 작업 시작 상태와 동일하다.
++CharacterSO의 기존 바인딩에서 12개 실제 슬롯을 추출했고 없는 3개 슬롯을 추가하지 않았다. 정확한 ID/JSON/SO 목록은 aim-mode-03/slot-manifest.json이다. 이 12개 JSON 및 SO YAML에는 aimMode만 추가했다. nested skill와 기존 profile/cast/hit/move/VFX 값은 보존했다.
+ 
+-Unity GUI/headless/Play는 실행하지 않았다. 입력·생명주기는 스텁 환경이며, 콤보 테스트는 실제 메서드 본문을 추출하고 타격/애니메이션 끝점을 모의한다. 따라서 실제 프레임 렌더링, VFX 표시와 물리 동작의 Play 검증 결과로 해석하지 않는다. 누락 body clip의 게임플레이 fallback 및 null VFX 전달은 모의 경계에서 확인했다.
++## 검증 결과
+ 
+-## 교정 감사
++- 런타임 C# 컴파일 오류 0, 경고 31. Editor 컴파일 오류 0, 경고 41. editor-compile.log, build.log, editor-build.log 참조.
++- 입력/core/owner 29, 콤보·guard 15, teardown 10, schema/materializer/projectile helper/cone 12, MORPG live glue 62, geometry 14, dash clock 9, reward 12, spawn 10, cast presenter 4, P1 회귀 27: 합계 204/204 통과.
++- 기존 183개 검사 범위를 유지하며 변경된 mouse 의미의 기대값을 교정했고 새 검사를 추가했다. 불필요한 추가 반복은 중단했다.
++- materialized readback: 실제 JSON parser·ApplySkillFields·EquipmentSkillSO API를 테스트용 serialization adapter로 실행했다. 12개 JSON을 각 2회 적용해 직렬화 enum 값과 AimMode가 동일하며 현재 YAML 값과 일치함을 확인했다. unknown 재적용은 Invalid, 누락 재적용은 동일 legacy 의미로 수렴한다.
++- 실제 helper 메서드에서 Direction의 explicit target point null 및 caster-offset spawn, Target의 unit lock/caster spawn, GroundPoint의 point spawn, Self의 mouse ignore를 검사했다. 기존 NPC point spawn도 그대로 통과했다.
++- NPC public FireSkillAtSnapshotPoint 메서드 본문 SHA가 작업 전과 동일하다. aim-mode-03/npc-point-audit.json 참조.
++- 보호 파일 458개 해시 동일. 별도 승인 범위인 SO 12개는 aimMode 한 줄만 변경했고 대응 JSON도 aimMode 외 기존 JSON 값이 동일하다. Git index는 동일하다.
++- git diff --check, 전체 작업 scoped.patch 및 이번 aim-mode 전용 patch의 reverse dry-run 통과. 실제 rollback·파일 삭제 없음.
+ 
+-기본 공격 경로 `FireManualAtPoint → FireSkillAtSnapshotPoint → FireComboRoutine`은 target=null과 usePoint=true로 고정한 지점을 전달한다. 각 단계의 ResolveDirection 및 ApplyAnimationDirection, UseSkillOnce까지 스냅샷을 유지하고 자동 재타깃 경로는 실행하지 않는다. G1 cast 자산의 targetingType=AutoTarget(2)와 SkillUseHelper 지점 전달도 확인했다. 기존 타깃 기반 NPC 경로와 1/2/3 슬롯 동작은 바꾸지 않았다.
++Unity engine import/AssetDatabase 저장·Play는 실행하지 않았다. 런타임 동작 검사는 스텁 및 실제 메서드 추출 방식이다. Editor 코드는 실제 Unity 참조로 컴파일했으나 materializer idempotency는 테스트 serialization adapter에서 검증한 결과이며 실제 Unity reimport 결과는 아니다.
+ 
+-추가 검사는 반대 WASD보다 마우스 우선, epsilon/변환 실패 fallback, 경계 밖 clamp, 대기 중 마우스·caster 변경에도 방향 불변, basic press 대기 스냅샷, 반복 cycle 재캡처, 실제 ResolveDirection/ApplyAnimationDirection의 3단계 좌향 전달, 슬롯 1/2/3 보존을 포함한다. 교정 전 원본과 교정 전용 역패치 dry-run은 `correction-01/`에 보존했다.
++## 범위 및 복구
+ 
+-## 비활성 teardown 교정
++이번 aim-mode 교정 원본·해시·전용 patch·report/receipt는 aim-mode-03/에 보존한다. 전체 수동 제어 작업의 누적 차이는 scoped.patch이며 공유 작업 트리의 다른 변경을 포함하지 않는다. 누적 기존 파일 38개, 신규 파일 20개. 세부 목록은 before-sha.json/after-sha.json/new-files.json이다. 복구 전 현재 SHA와 after-sha.json을 비교해야 하며 역패치 검사만 수행했다.
+ 
+-기존 `OnDisable → SetOwnedManualInput(false, zero) → ApplyMovementControl → UpdateMovementAnimation → PlayIdle → PlayState → StartCoroutine` 경로를 제거했다. `ReleaseManualControlForTeardown`은 캡처한 movement control 상태를 복원하고 입력, 최근 입력 시간, 이동 phase/timer와 velocity만 동기로 정리한다. presentation을 호출하지 않는다. 외부 이동 소유권은 CastMoveService 등 해당 소유자가 해제한다.
++재현 명령은 AgentTools/SeojinManualHarness의 run.sh, combo.py, teardown.py, aim_pipeline.py, compile_editor.py 및 audit.py이다. 모든 명령은 저장소 루트에서 실행한다.
+ 
+-Seojin OnDisable 전체를 AnimationMono의 중첩 가능한 동기 teardown 범위로 감쌌다. 활성 GameObject에서 control 컴포넌트만 끄는 경우에도 상태 Exit·cast 취소·AI 복원 콜백이 presentation 코루틴을 시작하지 못한다. finally에서 범위를 닫는다. 이미 파괴된 actor/skills/state 참조는 Unity null 검사로 건너뛴다.
+-
+-AnimationMono의 PlayIdle/PlayMove/PlayState 및 clip 검증은 `isActiveAndEnabled && gameObject.activeInHierarchy`와 teardown 범위를 확인한다. 모든 presentation coroutine 시작은 단일 최종 gate를 통과한다. 비활성 요청은 기존 코루틴을 중단하고 state=None, clip/routine=null, one-shot·cast pose·facing lock과 combo presentation을 동기 정리한다. OnDisable/OnDestroy는 같은 reset을 재사용한다. 재활성화 때 이전 clip 동일성으로 재생이 누락되지 않으며 동일 Idle/Move 요청은 한 번만 시작한다.
+-
+-인접 감사: MovementMono.StopAllMotion 및 PartyMovementExecutionService의 단일 StopMovement 경로는 velocity만 정리한다. CastMoveService.StopMove는 기존 코루틴을 중단하고 소유권을 반환하며 terminal 콜백은 위 teardown 범위 안에서 실행된다. AnimationMono의 공격 회복·콤보·CC·death 시작도 최종 gate에 포함했다.
+-
+-검증은 활성 control disable, parent inactive, animation component disable, 직접 PlayState/인접 시작 요청, 반복 disable/destroy, 첫 활성 idle/move 각 1회, 중첩 정리 및 콜백 예외 후 범위 반환, legacy inactive movement toggle 10개다. 실제 production 메서드를 추출하고 inactive StartCoroutine 시 예외를 던지는 테스트 런타임으로 검증했다. 전체 183개는 통과했고 모든 animation coroutine call site가 gate를 사용하는 추가 소스 감사도 통과했다. Unity의 실제 객체 파괴·렌더링은 실행하지 않았다.
+-
+-교정 직전 원본, 교정 전용 patch와 역패치 검사, report/receipt 사본은 `teardown-02/`에 보존했다.
+-
+-## 재현과 복구
+-
+-저장소 루트에서 `sh AgentTools/SeojinManualHarness/run.sh`, `python3 AgentTools/SeojinManualHarness/combo.py`, `python3 AgentTools/SeojinManualHarness/teardown.py`, `python3 AgentTools/MorpgIntegrationHarness/compile.py`로 신규 동작과 전체 컴파일을 재현한다. `python3 AgentTools/SeojinManualHarness/audit.py`는 보호 해시·현재 차이·역패치 적용 가능성을 검사한다.
+-
+-각 파일의 첫 수정 직전 10개 파일 원본은 `before/`에 보존했다. 복구 대상은 `scoped.patch`와 `new-files.json`으로 한정한다. 역패치 dry-run만 수행했으며 실제 복구, 파일 삭제, stage/commit/push는 하지 않았다. 후속 공유 변경이 생기면 현재 해시와 `after-sha.json`을 비교하고 충돌을 먼저 검토해야 한다.
+-
+-## 전달
+-
+-자동 승인 검토가 다른 작업으로 내부 소스 경로·상세 상태를 전송하는 동작을 목적지 공개 권한 미확인 사유로 거절했다. 상세 결과는 이 로컬 보고서와 `receipt.json`에 보존했다.
++상세 결과는 로컬 report/receipt에 보존하며 완료 알림은 한결에게만 전달한다.
+--- a/Artifacts/Engineering/SeojinManualControl/receipt.json
++++ b/Artifacts/Engineering/SeojinManualControl/receipt.json
+@@ -1,64 +1,63 @@
+ {
+-  "task": "Seojin default Manual control and bounded control ownership",
+-  "completed_at": "2026-09-07T19:02:30.218995+09:00",
++  "task": "skill aim mode SSOT + direction-first manual input",
++  "revision": "aim-mode-03",
++  "status": "complete",
++  "blocker": null,
++  "completed_at": "2026-09-07T19:29:04.442424+09:00",
+   "compile": {
+-    "errors": 0,
+-    "warnings": 31,
+-    "engine_launched": false,
+-    "log": "build.log"
++    "runtime_errors": 0,
++    "runtime_warnings": 31,
++    "editor_errors": 0,
++    "editor_warnings": 41
+   },
+   "tests": {
+-    "input_core_lifecycle": 21,
+-    "production_combo_guard_extracted": 14,
+-    "morpg_live_glue": 62,
+-    "environment_geometry": 14,
+-    "dash_clock": 9,
+-    "reward_delivery": 12,
+-    "inactive_spawn": 10,
+-    "cast_presenter": 4,
+-    "p1_regression": 27,
+-    "total_passed": 183,
+-    "failed": 0,
+-    "teardown_production_methods": 10
++    "input_core_lifecycle": 29,
++    "combo_guard": 15,
++    "teardown": 10,
++    "schema_materializer_helper_cone": 12,
++    "morpg_live": 62,
++    "geometry": 14,
++    "dash": 9,
++    "reward": 12,
++    "spawn": 10,
++    "npc_cast": 4,
++    "p1": 27,
++    "passed": 204,
++    "failed": 0
++  },
++  "materializer": {
++    "source": "EquipmentSkillJsonGenerator.ApplySkillFields -> EquipmentSkillSO.ConfigureAimMode",
++    "JSON_DTO_SO_readback": true,
++    "idempotent_slots": 12,
++    "applications_per_slot": 2,
++    "yaml_enum_match": true,
++    "adapter": "test serialization adapter; real Unity import not run"
+   },
+   "scope": {
+-    "existing_files": 10,
+-    "new_files": 15,
+-    "protected_hashes_unchanged": 470,
+-    "reverse_patch_check": true,
+-    "git_diff_check": true,
+-    "index_modified": false,
+-    "source_assets_deleted": false
++    "available_seojin_slots": 12,
++    "unavailable_slots_preserved": 3,
++    "protected_unchanged": 458,
++    "authorized_aim_only_assets": 12,
++    "cumulative_existing_files": 38,
++    "cumulative_new_files": 20,
++    "npc_point_api_body_unchanged": true,
++    "git_index_unchanged": true
+   },
+-  "limitations": [
+-    "Unity GUI/headless/Play was not launched.",
+-    "Input/lifecycle tests compile production control files against engine stubs.",
+-    "Combo/guard tests extract exact production method bodies and use mocked gameplay and animation endpoints; real rendered VFX and physics were not observed."
++  "checks": {
++    "diff_check": true,
++    "reverse_patch_dry_run": true
++  },
++  "not_run": [
++    "Unity GUI",
++    "Unity headless",
++    "Unity Play",
++    "Unity asset import/reimport",
++    "staging",
++    "commit",
++    "push",
++    "actual rollback"
+   ],
+   "report": "REPORT.md",
+-  "patch": "scoped.patch",
+-  "before": "before-sha.json",
+-  "after": "after-sha.json",
+-  "new_files": "new-files.json",
+-  "detailed_cross_task_delivery": "automatic approval review blocked; detailed report retained locally",
+-  "revision": "teardown-02 synchronous ownership cleanup and inactive presentation gate",
+-  "correction": {
+-    "mouse_over_wasd": true,
+-    "epsilon_distance": 0.01,
+-    "fallback": "normalized WASD, last valid facing, right",
+-    "dash_snapshot": "keydown clamped world point and caster-origin direction",
+-    "basic_snapshot": "press retained across readiness wait; held cycles resample at cycle start",
+-    "slots_unchanged": true,
+-    "report": "correction-01/correction.patch"
+-  },
+-  "teardown": {
+-    "dedicated_api": "PartyMovementMono.ReleaseManualControlForTeardown",
+-    "presentation_coroutine_starts_during_teardown": 0,
+-    "inactive_final_guard": "isActiveAndEnabled && gameObject.activeInHierarchy && teardown depth == 0",
+-    "reenable_idle_move_starts_per_same_state": 1,
+-    "all_animation_coroutine_sites_gated": true,
+-    "engine_lifecycle_simulated": true,
+-    "report": "teardown-02/REPORT.md",
+-    "patch": "teardown-02/teardown.patch"
+-  }
++  "manifest": "slot-manifest.json",
++  "patch": "aim-mode.patch"
+ }
+--- a/Assets/Contents/Skill/json/skill.character.seojin.2.basic_attack.basic_attack.json
++++ b/Assets/Contents/Skill/json/skill.character.seojin.2.basic_attack.basic_attack.json
+@@ -1,4 +1,5 @@
+ {
++  "aimMode": "Direction",
+   "equipmentId": "skill.character.seojin.2.basic_attack.basic_attack",
+   "slotName": "basic",
+   "skillName": "전열베기",
+--- a/Assets/Contents/Skill/json/skill.character.seojin.1.active_1.active_1.json
++++ b/Assets/Contents/Skill/json/skill.character.seojin.1.active_1.active_1.json
+@@ -1,4 +1,5 @@
+ {
++  "aimMode": "Target",
+   "equipmentId": "skill.character.seojin.1.active_1.active_1",
+   "slotName": "active_1",
+   "skillName": "돌격",
+--- a/Assets/Contents/Skill/so/skill.character.seojin.3.active_4.swift_step.asset
++++ b/Assets/Contents/Skill/so/skill.character.seojin.3.active_4.swift_step.asset
+@@ -13,6 +13,7 @@
+   m_Name: skill.character.seojin.3.active_4.swift_step
+   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
+   equipmentId: skill.character.seojin.3.active_4.swift_step
++  aimMode: 1
+   icon: {fileID: 21300000, guid: e4300000000000000000000000000000, type: 3}
+   baseProfileSo: {fileID: 11400000, guid: 95577c61ea77744e1aa2cdbb0a2f5f67, type: 2}
+   castSo: {fileID: 11400000, guid: 33b65a82c463f49b09bc6824c4f72154, type: 2}
+--- a/Assets/Contents/Skill/json/skill.character.seojin.2.active_2.crane_wing_formation.json
++++ b/Assets/Contents/Skill/json/skill.character.seojin.2.active_2.crane_wing_formation.json
+@@ -1,4 +1,5 @@
+ {
++  "aimMode": "Self",
+   "equipmentId": "skill.character.seojin.2.active_2.crane_wing_formation",
+   "slotName": "active_2",
+   "skillName": "학익진",
+--- a/Assets/Contents/Skill/so/skill.character.seojin.2.basic_attack.basic_attack.asset
++++ b/Assets/Contents/Skill/so/skill.character.seojin.2.basic_attack.basic_attack.asset
+@@ -13,6 +13,7 @@
+   m_Name: skill.character.seojin.2.basic_attack.basic_attack
+   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
+   equipmentId: skill.character.seojin.2.basic_attack.basic_attack
++  aimMode: 1
+   icon: {fileID: 21300000, guid: e7bbd5d306e9548cab7d894889df3566, type: 3}
+   baseProfileSo: {fileID: 11400000, guid: 559d014cc09e14f6ca2ddbd1c3e64148, type: 2}
+   castSo: {fileID: 11400000, guid: a949c906aa99f42d9ba8b7da5679a09d, type: 2}
+--- a/Assets/Contents/Skill/so/skill.character.seojin.3.active_3.turtle_ship_assault.asset
++++ b/Assets/Contents/Skill/so/skill.character.seojin.3.active_3.turtle_ship_assault.asset
+@@ -13,6 +13,7 @@
+   m_Name: skill.character.seojin.3.active_3.turtle_ship_assault
+   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
+   equipmentId: skill.character.seojin.3.active_3.turtle_ship_assault
++  aimMode: 1
+   icon: {fileID: 21300000, guid: d31f3bacd573e4425b4726608332d53c, type: 3}
+   baseProfileSo: {fileID: 11400000, guid: 99b9edb495a95416780be46fd6be3832, type: 2}
+   castSo: {fileID: 11400000, guid: 4edda7df09d1a4acd9d220f11df903f2, type: 2}
+--- a/Assets/Contents/Skill/so/skill.character.seojin.3.basic_attack.basic_attack.asset
++++ b/Assets/Contents/Skill/so/skill.character.seojin.3.basic_attack.basic_attack.asset
+@@ -13,6 +13,7 @@
+   m_Name: skill.character.seojin.3.basic_attack.basic_attack
+   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
+   equipmentId: skill.character.seojin.3.basic_attack.basic_attack
++  aimMode: 1
+   icon: {fileID: 21300000, guid: fc345d2bb78c742c398facfb1a8277f9, type: 3}
+   baseProfileSo: {fileID: 11400000, guid: 9c626ac00d49747ae95ca585d43ba3e5, type: 2}
+   castSo: {fileID: 11400000, guid: 451e3b2df388f41fcaea489194177a5e, type: 2}
+--- a/Assets/Contents/Skill/so/skill.character.seojin.1.active_4.swift_step.asset
++++ b/Assets/Contents/Skill/so/skill.character.seojin.1.active_4.swift_step.asset
+@@ -13,6 +13,7 @@
+   m_Name: skill.character.seojin.1.active_4.swift_step
+   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
+   equipmentId: skill.character.seojin.1.active_4.swift_step
++  aimMode: 1
+   icon: {fileID: 21300000, guid: e4100000000000000000000000000000, type: 3}
+   baseProfileSo: {fileID: 11400000, guid: 6d997903adc404cc58d66eccbdb881ba, type: 2}
+   castSo: {fileID: 11400000, guid: 0d125aef8c9464264927c8d0a2fa8729, type: 2}
+--- a/Assets/Contents/Skill/json/skill.character.seojin.3.basic_attack.basic_attack.json
++++ b/Assets/Contents/Skill/json/skill.character.seojin.3.basic_attack.basic_attack.json
+@@ -1,4 +1,5 @@
+ {
++  "aimMode": "Direction",
+   "equipmentId": "skill.character.seojin.3.basic_attack.basic_attack",
+   "slotName": "basic",
+   "skillName": "전열베기",
+--- a/Assets/Contents/Skill/json/skill.character.seojin.1.active_4.swift_step.json
++++ b/Assets/Contents/Skill/json/skill.character.seojin.1.active_4.swift_step.json
+@@ -1,4 +1,5 @@
+ {
++  "aimMode": "Direction",
+   "equipmentId": "skill.character.seojin.1.active_4.swift_step", "slotName": "active_4", "skillName": "스침걸음", "desc": "적진을 가볍게 스쳐 이동한 뒤 잠시 공격속도와 이동속도가 오른다.", "baseVisual": { "visualId": "skill.character.seojin.1.active_4.swift_step.visual", "projectileVisualType": "Default", "sortingRelation": "BelowOwner" },
+   "baseProfile": { "baseProfileId": "skill.character.seojin.1.active_4.swift_step.profile", "skillType": "Active", "skillComponentType": "Mobility", "projectileCount": 0, "projectileScale": 1, "rendererScale": 1, "projectileLifetime": 0, "projectileColliderRadius": 0, "brainMeta": { "category": "Utility", "targetType": "Self", "tacticalNeed": "Utility", "basePriority": 0.7 } },
+   "cast": {"bodyActionClipPath":"Assets/AnimationClips/Character/character.seojin.1/character.seojin.1.body_action.dash.user-manual.anim","bodyActionPlayback":{"contactTime":0.28,"duration":0.42}, "castId": "skill.character.seojin.1.active_4.swift_step.cast", "cooldown": 11, "castTime": 0, "range": 0, "targetingType": "Self", "skipAttackAnimation": true, "castMove": { "moveType": "DashForward", "distance": 2.0, "duration": 0.2, "anticipation": 0.08, "wallSkin": 0.1, "targetClearance": 0.35, "minSuccessDistance": 0.4, "stopOnWall": true }, "bodyPresentation": { "profileId": "presentation.character.seojin.1.active_4.swift_step.body.v1", "grade": 1 }, "postMoveSelfEffects": [
+--- a/Assets/Contents/Skill/json/skill.character.seojin.2.active_4.swift_step.json
++++ b/Assets/Contents/Skill/json/skill.character.seojin.2.active_4.swift_step.json
+@@ -1,4 +1,5 @@
+ {
++  "aimMode": "Direction",
+   "equipmentId":"skill.character.seojin.2.active_4.swift_step","slotName":"active_4","skillName":"스침걸음","desc":"적진을 가볍게 스쳐 이동한 뒤 잠시 공격속도와 이동속도가 오른다.","baseVisual":{"visualId":"skill.character.seojin.2.active_4.swift_step.visual","projectileVisualType":"Default","sortingRelation":"BelowOwner"},
+   "baseProfile":{"baseProfileId":"skill.character.seojin.2.active_4.swift_step.profile","skillType":"Active","skillComponentType":"Mobility","projectileCount":0,"projectileScale":1,"rendererScale":1,"projectileLifetime":0,"projectileColliderRadius":0,"brainMeta":{"category":"Utility","targetType":"Self","tacticalNeed":"Utility","basePriority":0.7}},
+   "cast":{"bodyActionClipPath":"Assets/AnimationClips/Character/character.seojin.1/character.seojin.1.body_action.dash.user-manual.anim","bodyActionPlayback":{"contactTime":0.28,"duration":0.42},"castId":"skill.character.seojin.2.active_4.swift_step.cast","cooldown":10,"castTime":0,"range":0,"targetingType":"Self","skipAttackAnimation":true,"castMove":{"moveType":"DashForward","distance":2.5,"duration":0.2,"anticipation":0.08,"wallSkin":0.1,"targetClearance":0.35,"minSuccessDistance":0.4,"stopOnWall":true},"bodyPresentation":{"profileId":"presentation.character.seojin.2.active_4.swift_step.body.v1","grade":2},"postMoveSelfEffects":[
+--- a/Assets/Contents/Skill/so/skill.character.seojin.1.basic_attack.basic_attack.asset
++++ b/Assets/Contents/Skill/so/skill.character.seojin.1.basic_attack.basic_attack.asset
+@@ -13,6 +13,7 @@
+   m_Name: skill.character.seojin.1.basic_attack.basic_attack
+   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
+   equipmentId: skill.character.seojin.1.basic_attack.basic_attack
++  aimMode: 1
+   icon: {fileID: 21300000, guid: 2dce23810664544b4b273d1e4f7ad889, type: 3}
+   baseProfileSo: {fileID: 11400000, guid: f92cdaae63dff4142a23c5c65660f0bb, type: 2}
+   castSo: {fileID: 11400000, guid: 72015cdc3054b4b7685dd35aad397864, type: 2}
+--- a/Assets/Contents/Skill/so/skill.character.seojin.3.active_1.charge.asset
++++ b/Assets/Contents/Skill/so/skill.character.seojin.3.active_1.charge.asset
+@@ -13,6 +13,7 @@
+   m_Name: skill.character.seojin.3.active_1.charge
+   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
+   equipmentId: skill.character.seojin.3.active_1.charge
++  aimMode: 2
+   icon: {fileID: 21300000, guid: 5259a6866d3ab4239ab88a6056cc7026, type: 3}
+   baseProfileSo: {fileID: 11400000, guid: 8689eefd13d5d48adb2d36daeba88827, type: 2}
+   castSo: {fileID: 11400000, guid: c457d72c2d12a41d2a2d29fbc25dca26, type: 2}
+--- a/Assets/Contents/Skill/json/skill.character.seojin.3.active_4.swift_step.json
++++ b/Assets/Contents/Skill/json/skill.character.seojin.3.active_4.swift_step.json
+@@ -1,4 +1,5 @@
+ {
++  "aimMode": "Direction",
+   "equipmentId":"skill.character.seojin.3.active_4.swift_step","slotName":"active_4","skillName":"스침걸음","desc":"적진을 가볍게 스쳐 이동한 뒤 잠시 공격속도와 이동속도가 오른다.","baseVisual":{"visualId":"skill.character.seojin.3.active_4.swift_step.visual","projectileVisualType":"Default","sortingRelation":"BelowOwner"},
+   "baseProfile":{"baseProfileId":"skill.character.seojin.3.active_4.swift_step.profile","skillType":"Active","skillComponentType":"Mobility","projectileCount":0,"projectileScale":1,"rendererScale":1,"projectileLifetime":0,"projectileColliderRadius":0,"brainMeta":{"category":"Utility","targetType":"Self","tacticalNeed":"Utility","basePriority":0.7}},
+   "cast":{"bodyActionClipPath":"Assets/AnimationClips/Character/character.seojin.1/character.seojin.1.body_action.dash.user-manual.anim","bodyActionPlayback":{"contactTime":0.28,"duration":0.42},"castId":"skill.character.seojin.3.active_4.swift_step.cast","cooldown":9,"castTime":0,"range":0,"targetingType":"Self","skipAttackAnimation":true,"castMove":{"moveType":"DashForward","distance":3.0,"duration":0.2,"anticipation":0.08,"wallSkin":0.1,"targetClearance":0.35,"minSuccessDistance":0.4,"stopOnWall":true},"bodyPresentation":{"profileId":"presentation.character.seojin.3.active_4.swift_step.body.v1","grade":3},"postMoveSelfEffects":[
+--- a/Assets/Contents/Skill/so/skill.character.seojin.1.active_1.active_1.asset
++++ b/Assets/Contents/Skill/so/skill.character.seojin.1.active_1.active_1.asset
+@@ -13,6 +13,7 @@
+   m_Name: skill.character.seojin.1.active_1.active_1
+   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
+   equipmentId: skill.character.seojin.1.active_1.active_1
++  aimMode: 2
+   icon: {fileID: 21300000, guid: 1f0fc28296260427d99593d8b53b16a1, type: 3}
+   baseProfileSo: {fileID: 11400000, guid: 7511e18e37d0e413397cc2e3b4f5226b, type: 2}
+   castSo: {fileID: 11400000, guid: 15356dd23767a4ec8b4f60f52f85dc42, type: 2}
+--- a/Assets/Contents/Skill/json/skill.character.seojin.1.basic_attack.basic_attack.json
++++ b/Assets/Contents/Skill/json/skill.character.seojin.1.basic_attack.basic_attack.json
+@@ -1,4 +1,5 @@
+ {
++  "aimMode": "Direction",
+   "equipmentId": "skill.character.seojin.1.basic_attack.basic_attack",
+   "slotName": "basic",
+   "skillName": "전열베기",
+--- a/Assets/Contents/Skill/json/skill.character.seojin.3.active_1.charge.json
++++ b/Assets/Contents/Skill/json/skill.character.seojin.3.active_1.charge.json
+@@ -1,4 +1,5 @@
+ {
++  "aimMode": "Target",
+   "equipmentId": "skill.character.seojin.3.active_1.charge",
+   "slotName": "active_1",
+   "skillName": "돌격",
+--- a/Assets/Contents/Skill/so/skill.character.seojin.2.active_1.charge.asset
++++ b/Assets/Contents/Skill/so/skill.character.seojin.2.active_1.charge.asset
+@@ -13,6 +13,7 @@
+   m_Name: skill.character.seojin.2.active_1.charge
+   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
+   equipmentId: skill.character.seojin.2.active_1.charge
++  aimMode: 2
+   icon: {fileID: 21300000, guid: 5ce616754bacf4a2c9e350b7b5a28d36, type: 3}
+   baseProfileSo: {fileID: 11400000, guid: 9115711f502564c729ebfb2061818558, type: 2}
+   castSo: {fileID: 11400000, guid: 631db3f5f8ad7486a96596c2cabd7c79, type: 2}
+--- a/Assets/Contents/Skill/so/skill.character.seojin.2.active_2.crane_wing_formation.asset
++++ b/Assets/Contents/Skill/so/skill.character.seojin.2.active_2.crane_wing_formation.asset
+@@ -13,6 +13,7 @@
+   m_Name: skill.character.seojin.2.active_2.crane_wing_formation
+   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
+   equipmentId: skill.character.seojin.2.active_2.crane_wing_formation
++  aimMode: 4
+   icon: {fileID: 21300000, guid: 70aea5bcafb524f398774c841d3ea3cc, type: 3}
+   baseProfileSo: {fileID: 11400000, guid: 0492de5402ca54b7ba22e033a63a8fed, type: 2}
+   castSo: {fileID: 11400000, guid: f0f1ece43cd5347bd8935669581d44ca, type: 2}
+--- a/Assets/Contents/Skill/so/skill.character.seojin.2.active_4.swift_step.asset
++++ b/Assets/Contents/Skill/so/skill.character.seojin.2.active_4.swift_step.asset
+@@ -13,6 +13,7 @@
+   m_Name: skill.character.seojin.2.active_4.swift_step
+   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
+   equipmentId: skill.character.seojin.2.active_4.swift_step
++  aimMode: 1
+   icon: {fileID: 21300000, guid: e4200000000000000000000000000000, type: 3}
+   baseProfileSo: {fileID: 11400000, guid: a6fd942bce1314bf7abbf9a881835cad, type: 2}
+   castSo: {fileID: 11400000, guid: af2d6d102c3ff4755a57ab97fb2adbe8, type: 2}
+--- a/Assets/Contents/Skill/so/skill.character.seojin.3.active_2.crane_wing_formation.asset
++++ b/Assets/Contents/Skill/so/skill.character.seojin.3.active_2.crane_wing_formation.asset
+@@ -13,6 +13,7 @@
+   m_Name: skill.character.seojin.3.active_2.crane_wing_formation
+   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
+   equipmentId: skill.character.seojin.3.active_2.crane_wing_formation
++  aimMode: 4
+   icon: {fileID: 21300000, guid: 065f2247b5a704c3980f0df8979ad7c3, type: 3}
+   baseProfileSo: {fileID: 11400000, guid: 5588fd72fb79b46cdb9bd25c0398519b, type: 2}
+   castSo: {fileID: 11400000, guid: e5ac5a5db39c143a9a6ff6d72e1106b6, type: 2}
+--- a/Assets/Contents/Skill/json/skill.character.seojin.3.active_3.turtle_ship_assault.json
++++ b/Assets/Contents/Skill/json/skill.character.seojin.3.active_3.turtle_ship_assault.json
+@@ -1,4 +1,5 @@
+ {
++  "aimMode": "Direction",
+   "equipmentId": "skill.character.seojin.3.active_3.turtle_ship_assault",
+   "slotName": "active_3",
+   "skillName": "거북선 출진",
+--- a/Assets/Contents/Skill/json/skill.character.seojin.3.active_2.crane_wing_formation.json
++++ b/Assets/Contents/Skill/json/skill.character.seojin.3.active_2.crane_wing_formation.json
+@@ -1,4 +1,5 @@
+ {
++  "aimMode": "Self",
+   "equipmentId": "skill.character.seojin.3.active_2.crane_wing_formation",
+   "slotName": "active_2",
+   "skillName": "학익진",
+--- a/Assets/Contents/Skill/json/skill.character.seojin.2.active_1.charge.json
++++ b/Assets/Contents/Skill/json/skill.character.seojin.2.active_1.charge.json
+@@ -1,4 +1,5 @@
+ {
++  "aimMode": "Target",
+   "equipmentId": "skill.character.seojin.2.active_1.charge",
+   "slotName": "active_1",
+   "skillName": "돌격",
+--- a/Assets/Scripts/Ability/Skills/Services/EquipmentSkillResolver.cs
++++ b/Assets/Scripts/Ability/Skills/Services/EquipmentSkillResolver.cs
+@@ -73,7 +73,7 @@
+         int comboIndex = -1,
+         SkillHitSO hitOverride = null,
+         bool suppressVisual = false,
+-        float minimumVisualLifetime = 0f)
++        float minimumVisualLifetime = 0f,SkillAimMode? manualAimMode=null)
+     {
+         if (runtime == null)
+         {
+@@ -92,6 +92,18 @@
+         TargetingType targetingType = castSo != null
+             ? castSo.TargetingType
+             : TargetingType.None;
++
++        if(manualAimMode.HasValue)
++        {
++            switch(manualAimMode.Value)
++            {
++                case SkillAimMode.Direction:targetingType=TargetingType.Directional;break;
++                case SkillAimMode.Target:targetingType=TargetingType.AutoTarget;break;
++                case SkillAimMode.GroundPoint:targetingType=TargetingType.Position;break;
++                case SkillAimMode.Self:targetingType=TargetingType.Self;break;
++                default:return Array.Empty<ProjectileRuntimeData>();
++            }
++        }
+ 
+         float castRange = statResolver.ResolveStat(
+             equipmentSo,
+--- /dev/null
++++ b/Assets/Scripts/Ability/Skills/Definitions/equipment/SkillAimMode.cs
+@@ -0,0 +1,38 @@
++using System;
++using UnityEngine;
++namespace Skill
++{
++    // Zero preserves serialized assets predating aimMode. Unknown values fail closed.
++    public enum SkillAimMode { Legacy=0, Direction=1, Target=2, GroundPoint=3, Self=4, Invalid=255 }
++    public static class SkillAimPolicy
++    {
++        public static SkillAimMode Parse(string value)
++        {
++            if(value==null)return SkillAimMode.Legacy;
++            switch(value){case "Direction":return SkillAimMode.Direction;case "Target":return SkillAimMode.Target;case "GroundPoint":return SkillAimMode.GroundPoint;case "Self":return SkillAimMode.Self;default:return SkillAimMode.Invalid;}
++        }
++        public static SkillAimMode Resolve(SkillAimMode mode,SkillCastSO cast)
++        {
++            if(mode!=SkillAimMode.Legacy)return mode>=SkillAimMode.Direction&&mode<=SkillAimMode.Self?mode:SkillAimMode.Invalid;
++            if(cast==null)return SkillAimMode.Invalid;
++            switch(cast.TargetingType)
++            {
++                case TargetingType.None:case TargetingType.Self:return SkillAimMode.Self;
++                case TargetingType.AutoTarget:return cast.SnapshotTargetPointOnCast?SkillAimMode.GroundPoint:SkillAimMode.Target;
++                case TargetingType.AutoTargetDirection:case TargetingType.Directional:return SkillAimMode.Direction;
++                case TargetingType.Position:return SkillAimMode.GroundPoint;
++                default:return SkillAimMode.Invalid;
++            }
++        }
++    }
++    public readonly struct ManualSkillAim
++    {
++        public readonly SkillAimMode Mode;
++        public readonly Vector2 Direction,Point;
++        public readonly Transform Target;
++        public ManualSkillAim(SkillAimMode mode,Vector2 direction,Vector2 point,Transform target=null){Mode=mode;Direction=direction;Point=point;Target=target;}
++        public bool IsValid=>Mode==SkillAimMode.Self || Mode==SkillAimMode.Target&&Target!=null ||
++            Mode==SkillAimMode.Direction&&Finite(Direction)&&Direction.sqrMagnitude>.0001f || Mode==SkillAimMode.GroundPoint&&Finite(Point);
++        private static bool Finite(Vector2 v)=>!float.IsNaN(v.x)&&!float.IsInfinity(v.x)&&!float.IsNaN(v.y)&&!float.IsInfinity(v.y);
++    }
++}
+--- /dev/null
++++ b/Assets/Scripts/Ability/Skills/Definitions/equipment/SkillAimMode.cs.meta
+@@ -0,0 +1,2 @@
++fileFormatVersion: 2
++guid: e54b8a9013a15ccd85943cc22e8cd446
+--- /dev/null
++++ b/AgentTools/SeojinManualHarness/AimPipeline.template.cs
+@@ -0,0 +1,51 @@
++using System;using System.Collections.Generic;using System.Reflection;using System.IO;using System.Linq;using UnityEngine;using Skill;using Character;
++namespace UnityEngine {
++ public class Header:Attribute{public Header(string s){}}public class Min:Attribute{public Min(float x){}}public class Range:Attribute{public Range(float a,float b){}}public class CreateAssetMenu:Attribute{public string fileName,menuName;}public class ScriptableObject{}public class Sprite{}public class AnimationClip{}
++ public static class JsonUtility{public static T FromJson<T>(string s)=>new System.Web.Script.Serialization.JavaScriptSerializer().Deserialize<T>(s);}
++ public class Collider2D:Component{}public static class Physics2D{public static Collider2D[] Candidates=Array.Empty<Collider2D>();public static Collider2D[] OverlapCircleAll(Vector2 c,float r)=>Candidates.Where(x=>Vector2.Distance(c,x.transform.position)<=r).ToArray();}
++}
++namespace String {public class StringManager{public static StringManager Instance=new();public string Get(string a,string b)=>a;}}
++namespace Skill {
++ public class EquipmentBaseProfileSO{public float BasePriority;}public class SkillMoveSO{}public class SpawnSkillSO{}public class EquipmentUpgradeTableSO{}public class BaseVisualSO{}public class SkillAnimationVfxProfileSO{}public class SpritePresentationCalibrationProfileSO{}
++}
++class SerializedObject {public EquipmentSkillSO value;public SerializedObject(EquipmentSkillSO s){value=s;}public void ApplyModifiedPropertiesWithoutUndo(){}}
++class Generator {
++ class ComboJson{}
++ static Sprite FindSpriteById(string s)=>null;static void SetString(SerializedObject s,string n,string v)=>Set(s,n,v);static void SetObjectReference(SerializedObject s,string n,object v)=>Set(s,n,v);static void SetObjectArray(SerializedObject s,string n,object v)=>Set(s,n,v);static void Set(SerializedObject s,string n,object v)=>typeof(EquipmentSkillSO).GetField(n,BindingFlags.Instance|BindingFlags.NonPublic).SetValue(s.value,v);static void ApplyComboProfile(SerializedObject s,ComboJson c,SkillHitSO[] h){}
++ public static void Materialize(string json,EquipmentSkillSO so,SkillCastSO cast){var dto=ParseEquipmentSkillJson(json);ApplySkillFields(so,dto,new(),cast,null,new[]{new SkillHitSO()},null,null,null,null);}
++ /* GENERATOR */
++}
++class MoveData{public Vector2 targetPosition;}
++class ProjectileRuntimeData{public Vector2 spawnPosition;public MoveData moveRuntime=new();}
++class ProjectileEntity{}
++class ProjectileFactory {public List<ProjectileRuntimeData> Spawned=new();public ProjectileEntity SpawnOriented(ProjectileRuntimeData d){Spawned.Add(d);return new();}}
++class Resolver {
++ public Vector2? ExplicitPoint;public SkillAimMode? Mode;public Vector2 Direction;public GameObject Target;
++ public ProjectileRuntimeData[] ResolveProjectileRuntime(EquipmentSkillRuntimeData r,GameObject caster,GameObject target,Vector2 spawn,Vector2 direction,Vector2? point,int index,AnimationClip clip,SkillAnimationVfxProfileSO visual,SpritePresentationCalibrationProfileSO calibration,string token,bool? crit,float weight,int combo,SkillHitSO hit,bool suppress,float life,SkillAimMode? mode){ExplicitPoint=point;Mode=mode;Direction=direction;Target=target;return new[]{new ProjectileRuntimeData{spawnPosition=spawn+direction*.2f}};}
++}
++class Helper {
++ static Resolver skillResolver=new();static ProjectileFactory factory=new();static ProjectileFactory GetProjectileFactory()=>factory;static SkillCastSO ResolveCastSo(EquipmentSkillRuntimeData r)=>r.sourceEquipment.CastSo;static void ApplyCastSelfEffects(EquipmentSkillRuntimeData r,GameObject c){}
++ public static (Vector2 spawn,Resolver resolver) Fire(ManualSkillAim? aim,bool legacyPoint=false){factory=new();skillResolver=new();var g=new GameObject();g.transform.position=new Vector3(5,3,0);var r=new EquipmentSkillRuntimeData();r.sourceEquipment.CastSo.Range=4;var target=aim?.Target;bool result=UseSkillProjectilesAndSelfEffects(r,g.transform,target,legacyPoint||aim?.Mode==SkillAimMode.GroundPoint,aim?.Point??new Vector2(99,99),manualAim:aim);if(!result)throw new Exception("fire failed");return(factory.Spawned[0].spawnPosition,skillResolver);}
++ /* HELPER */
++}
++class TargetResolver {
++ /* TARGET */
++}
++static class Tests {
++ static int count;static void T(string n,Action a){a();count++;Console.WriteLine("PASS "+n);}static void C(bool b){if(!b)throw new Exception("assertion");}
++ static void Main(){
++ T("unknown-and-invalid-serialized-mode-fail-closed",()=>{C(SkillAimPolicy.Parse("direction")==SkillAimMode.Invalid&&SkillAimPolicy.Parse("garbage")==SkillAimMode.Invalid&&SkillAimPolicy.Resolve((SkillAimMode)99,new())==SkillAimMode.Invalid);});
++ T("deterministic-legacy-cast-migration",()=>{foreach(TargetingType t in Enum.GetValues(typeof(TargetingType))){var expected=t==TargetingType.None||t==TargetingType.Self?SkillAimMode.Self:t==TargetingType.AutoTarget?SkillAimMode.Target:t==TargetingType.Position?SkillAimMode.GroundPoint:SkillAimMode.Direction;C(SkillAimPolicy.Resolve(SkillAimMode.Legacy,new SkillCastSO{TargetingType=t})==expected);}C(SkillAimPolicy.Resolve(SkillAimMode.Legacy,new SkillCastSO{SnapshotTargetPointOnCast=true})==SkillAimMode.GroundPoint);});
++ T("JSON-DTO-production-materializer-SO-idempotent-twelve-slots",()=>{var rows=new System.Web.Script.Serialization.JavaScriptSerializer().Deserialize<List<Dictionary<string,object>>>(File.ReadAllText("Artifacts/Engineering/SeojinManualControl/aim-mode-03/slot-manifest.json"));int n=0;foreach(var row in rows){if(!row.ContainsKey("json"))continue;string json=File.ReadAllText((string)row["json"]);var so=new EquipmentSkillSO();Generator.Materialize(json,so,new());var first=so.AimMode;Generator.Materialize(json,so,new());C(so.AimMode==first&&first==SkillAimPolicy.Parse((string)row["aimMode"]));var field=typeof(EquipmentSkillSO).GetField("aimMode",BindingFlags.NonPublic|BindingFlags.Instance);string yaml=File.ReadAllText((string)row["asset"]);C(yaml.Contains("  aimMode: "+(int)(SkillAimMode)field.GetValue(so)));n++;}C(n==12);});
++ T("JSON-unknown-replaces-prior-mode-with-invalid",()=>{var so=new EquipmentSkillSO();Generator.Materialize("{\"equipmentId\":\"x\",\"aimMode\":\"Direction\"}",so,new());Generator.Materialize("{\"equipmentId\":\"x\",\"aimMode\":\"bad\"}",so,new());C(so.AimMode==SkillAimMode.Invalid);});
++ T("JSON-missing-mode-legacy-repeat-preserves-cast-semantics",()=>{var so=new EquipmentSkillSO();var cast=new SkillCastSO{TargetingType=TargetingType.Self};Generator.Materialize("{\"equipmentId\":\"x\"}",so,cast);C(so.AimMode==SkillAimMode.Self);Generator.Materialize("{\"equipmentId\":\"x\"}",so,cast);C(so.AimMode==SkillAimMode.Self);});
++ T("Direction-real-helper-no-ground-spawn-no-explicit-point-override",()=>{var x=Helper.Fire(new ManualSkillAim(SkillAimMode.Direction,new Vector2(-1,0),new Vector2(999,999)));C(x.spawn.x==4.8f&&x.spawn.y==3&&x.resolver.ExplicitPoint==null&&x.resolver.Target==null&&x.resolver.Mode==SkillAimMode.Direction&&x.resolver.Direction.x==-1);});
++ T("Target-real-helper-lock-unit-no-ground-spawn",()=>{var g=new GameObject();g.transform.position=new Vector3(9,3,0);var x=Helper.Fire(new ManualSkillAim(SkillAimMode.Target,Vector2.right,new Vector2(999,999),g.transform));C(x.spawn.x==5.2f&&x.resolver.Target==g&&x.resolver.ExplicitPoint.Value.x==9);});
++ T("GroundPoint-real-helper-is-only-point-spawn",()=>{var x=Helper.Fire(new ManualSkillAim(SkillAimMode.GroundPoint,default,new Vector2(7,4)));C(x.spawn.x==7&&x.spawn.y==4&&x.resolver.Mode==SkillAimMode.GroundPoint);});
++ T("Self-real-helper-ignores-mouse",()=>{var x=Helper.Fire(new ManualSkillAim(SkillAimMode.Self,new Vector2(-1,0),new Vector2(999,999)));C(x.spawn.x==5.2f&&x.spawn.y==3&&x.resolver.Target==null&&x.resolver.ExplicitPoint.Value.x==5);});
++ T("legacy-NPC-point-path-still-relocates-to-point",()=>{var x=Helper.Fire(null,true);C(x.resolver.Mode==null&&x.spawn.x==99&&x.spawn.y==99);});
++ T("existing-resolver-cone-filters-rear-side-dead-and-range",()=>{var caster=new GameObject().transform;var list=new List<Collider2D>();foreach(var p in new[]{new Vector3(-.1f,0,0),new Vector3(0,.2f,0),new Vector3(2,0,0),new Vector3(3,0,0),new Vector3(20,0,0)}){var g=new GameObject();g.transform.position=p;g.AddComponent<CharacterManager>();list.Add(g.AddComponent<Collider2D>());}list[2].GetComponent<CharacterManager>().IsTargetable=false;Physics2D.Candidates=list.ToArray();var r=new EquipmentSkillRuntimeData();r.sourceEquipment.CastSo.Range=5;r.resolvedRange=5;C(new TargetResolver().ResolveManualTarget(r,caster,Vector2.right)==list[3].transform);});
++ T("cone-resolver-tie-break-and-no-target-fail-closed",()=>{var a=new GameObject();a.transform.position=new Vector3(2,0,0);a.AddComponent<CharacterManager>();var b=new GameObject();b.transform.position=a.transform.position;b.AddComponent<CharacterManager>();Physics2D.Candidates=new[]{b.AddComponent<Collider2D>(),a.AddComponent<Collider2D>()};var r=new EquipmentSkillRuntimeData();var resolver=new TargetResolver();C(resolver.ResolveManualTarget(r,new GameObject().transform,Vector2.right)==a.transform);Physics2D.Candidates=Array.Empty<Collider2D>();C(resolver.ResolveManualTarget(r,new GameObject().transform,Vector2.right)==null);});
++ Console.WriteLine($"PASS {count}/{count} production schema/materializer/helper/cone tests");
++ }
++}
+--- /dev/null
++++ b/AgentTools/SeojinManualHarness/aim_pipeline.py
+@@ -0,0 +1,15 @@
++from pathlib import Path
++import subprocess,tempfile
++root=Path(__file__).resolve().parents[2]
++def method(path,sig):
++ s=(root/path).read_text();a=s.index(sig);indent=s[s.rfind('\n',0,a)+1:a];b=s.index('{',a)
++ end=s.index('\n'+indent+'}',b)+len(indent)+2
++ return s[a:end]
++g='Assets/Editor/tools/skill/EquipmentSkillJsonGenerator.cs';h='Assets/Scripts/Ability/Skills/Services/Helpers/SkillUseHelper.cs';a='Assets/Scripts/Actor/Character/service/skill/ActiveSkillService.cs'
++s=(root/'AgentTools/SeojinManualHarness/AimPipeline.template.cs').read_text()
++for key,path,sigs in [('GENERATOR',g,['public class EquipmentSkillJson','private class EquipmentSkillRootJson','private static EquipmentSkillJson ParseEquipmentSkillJson(','private static string ExtractJsonValue(','private static int FindTopLevelProperty(','private static string ExtractBalancedJson(','private static void ApplySkillFields(']),('HELPER',h,['public static bool UseSkillProjectilesAndSelfEffects(','public static bool FireProjectiles(','public static Vector2 ResolveDirection(','public static Vector2 ResolveTargetPoint(']),('TARGET',a,['private Transform NormalizeComboTarget(','private bool IsValidComboTarget(','private Transform ResolveComboRetarget(','internal Transform ResolveManualTarget('])]:
++ s=s.replace('/* '+key+' */','\n'.join(method(path,sig) for sig in sigs))
++out=Path(tempfile.mkdtemp(prefix='projectbs-aim-pipeline-'));(out/'Tests.cs').write_text(s)
++mono=Path('/Applications/Unity/Hub/Editor/6000.3.10f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge')
++subprocess.run([str(mono/'bin/mono'),str(mono/'lib/mono/msbuild/Current/bin/Roslyn/csc.exe'),'-nologo','-nowarn:0649,0414','-langversion:9.0','-r:'+str(mono/'lib/mono/4.5/System.Web.Extensions.dll'),'-out:'+str(out/'test.exe'),str(out/'Tests.cs'),str(root/'AgentTools/SeojinManualHarness/Stub.cs'),str(root/'Assets/Scripts/Ability/Skills/Definitions/equipment/SkillAimMode.cs'),str(root/'Assets/Scripts/Ability/Skills/Definitions/equipment/EquipmentSkillSO.cs')],check=True)
++subprocess.run([str(mono/'bin/mono'),str(out/'test.exe')],cwd=root,check=True)
+--- /dev/null
++++ b/AgentTools/SeojinManualHarness/compile_editor.py
+@@ -0,0 +1,19 @@
++from pathlib import Path
++import subprocess,tempfile
++root=Path(__file__).resolve().parents[2]
++unity=Path('/Applications/Unity/Hub/Editor/6000.3.10f1/Unity.app/Contents/Resources/Scripting')
++out=Path(tempfile.mkdtemp(prefix='projectbs-aim-compile-',dir='/private/tmp'))
++for name in ['Assembly-CSharp','Assembly-CSharp-Editor']:
++ lines=[x for x in (root/f'Library/Bee/artifacts/200b0aEDbg.dag/{name}.rsp').read_text(encoding='utf-8-sig').splitlines() if not x.startswith(('-out:','-refout:','-analyzer:'))]
++ if name=='Assembly-CSharp':
++  sources={x.strip('"') for x in lines if x.strip('"').endswith('.cs')}
++  for p in (root/'Assets/Scripts').rglob('*.cs'):
++   rel=p.relative_to(root)
++   if rel.parts[2]!='Progression' and str(rel) not in sources:lines.append('"'+str(rel)+'"')
++ else:
++  lines=['-r:"'+str(out/'Assembly-CSharp.dll')+'"' if x.startswith('-r:') and x.endswith('/Assembly-CSharp.ref.dll"') else x for x in lines]
++ lines.append('-out:"'+str(out/(name+'.dll'))+'"');rsp=out/(name+'.rsp');rsp.write_text('\n'.join(lines))
++ r=subprocess.run([str(unity/'NetCoreRuntime/dotnet'),str(unity/'DotNetSdkRoslyn/csc.dll'),'@'+str(rsp)],cwd=root,text=True,capture_output=True)
++ log=root/'Artifacts/Engineering/SeojinManualControl'/('build.log' if name=='Assembly-CSharp' else 'editor-build.log');log.write_text(r.stdout+r.stderr)
++ print(f'{name}: exit={r.returncode}, errors={r.stdout.count(": error CS")}, warnings={r.stdout.count(": warning CS")}')
++ if r.returncode:raise SystemExit(r.returncode)

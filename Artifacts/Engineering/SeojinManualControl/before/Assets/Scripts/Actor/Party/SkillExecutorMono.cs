@@ -1,0 +1,848 @@
+using UnityEngine;
+using System.Reflection;
+using System.Collections.Generic;
+using Character;
+using Stat;
+using Skill;
+using Npc.Service;
+
+public class SkillExecutorMono : MonoBehaviour, ISkillExecutor
+{
+
+
+    [SerializeField] private bool debugLog = false;
+
+    [Header("Range Check")]
+    [SerializeField] private bool useClosestPointForRangeCheck = true;
+    private const float skillRangeCheckInset = 0f;
+
+    [Header("Fallback")]
+    [SerializeField] private bool enableBasicAttackFallback = true;
+    [Header("Skill Loadout")]
+    [SerializeField] private SkillLoadoutMono skillLoadout;
+
+    [Header("Execution Mode")]
+    [SerializeField] private bool manualExecutionMode = false;
+
+    public bool ManualExecutionMode => manualExecutionMode;
+
+    public void SetManualExecutionMode(bool enabled)
+    {
+        manualExecutionMode = enabled;
+    }
+
+    private bool _hasPendingRequest;
+    private SkillExecutionRequest _pendingRequest;
+    private readonly Dictionary<ScriptableObject, float> _cooldowns = new Dictionary<ScriptableObject, float>();
+    private AnimationMono _animationMono;
+    private EquipmentSkillResolver _equipmentSkillResolver;
+    private ProjectileFactory _projectileFactory;
+    private CharacterManager _characterManager;
+    private void Awake()
+    {
+        if (skillLoadout == null)
+            skillLoadout = GetComponent<SkillLoadoutMono>();
+
+        _animationMono = GetComponentInChildren<AnimationMono>();
+        _equipmentSkillResolver = new EquipmentSkillResolver();
+        _projectileFactory = new ProjectileFactory();
+        _characterManager = GetComponent<CharacterManager>();
+
+        if (_characterManager == null)
+            _characterManager = GetComponentInParent<CharacterManager>();
+    }
+
+	public bool Execute(SkillBrainOutput output, Transform caster)
+	{
+		if (output.skill == null)
+		{
+			Debug.LogWarning("[SkillExecutorMonoExecutor] Output skill is null.");
+			return false;
+		}
+
+		ExecuteBrainOutput(output, caster);
+		return true;
+	}
+
+	public bool ExecuteBrainOutput(SkillBrainOutput output, Transform caster)
+    {
+        if (!output.HasSkill || caster == null)
+            return false;
+
+        SkillExecutionRequest req = new SkillExecutionRequest
+        {
+            Skill = output.skill,
+            Caster = caster
+        };
+
+        switch (output.targetMode)
+        {
+            case SkillOutputTargetMode.Target:
+                if (output.target == null)
+                    return false;
+
+                req.Target = output.target;
+                req.UseTarget = true;
+                break;
+
+            case SkillOutputTargetMode.Point:
+                req.TargetPoint = output.point;
+                req.UsePoint = true;
+                break;
+
+            case SkillOutputTargetMode.Self:
+            default:
+                break;
+        }
+
+        if (debugLog)
+        {
+            string targetLabel = output.targetMode switch
+            {
+                SkillOutputTargetMode.Target => output.target != null ? output.target.name : "null",
+                SkillOutputTargetMode.Point => output.point.ToString(),
+                SkillOutputTargetMode.Self => caster.name,
+                _ => "none"
+            };
+
+            Debug.Log($"[SkillExecutor] brain output received skill={output.skill.name} mode={output.targetMode} target={targetLabel} score={output.score:0.00} reason={output.reason}");
+        }
+
+        return SetRequest(req);
+    }
+
+    public bool SetRequest(SkillExecutionRequest req)
+    {
+        _pendingRequest = req;
+        _hasPendingRequest = (req.Skill != null && req.Caster != null);
+
+        if (debugLog && _hasPendingRequest)
+            Debug.Log($"[SkillExecutor] request set skill={req.Skill.name} caster={req.Caster.name}");
+
+        if (!_hasPendingRequest)
+            return false;
+        
+        if (manualExecutionMode)
+            return true;
+
+        return TryExecutePending();
+    }
+
+    public void ClearRequest()
+    {
+        if (debugLog && _hasPendingRequest)
+            Debug.Log($"[SkillExecutor] request cleared skill={_pendingRequest.Skill?.name}");
+
+        _hasPendingRequest = false;
+        _pendingRequest = default;
+    }
+
+    public bool HasPendingRequest => _hasPendingRequest;
+
+    public SkillExecutionRequest PendingRequest => _pendingRequest;
+
+    public bool TryGetPendingRequest(out SkillExecutionRequest request)
+    {
+        request = _pendingRequest;
+        return _hasPendingRequest;
+    }
+
+    /// <summary>
+    /// Non-consuming enemy AI snapshot. It never clears, submits, or executes a request.
+    /// </summary>
+    public EnemyOffensiveRecoverySignal GetEnemyOffensiveRecoverySignal(
+        Transform caster,
+        Transform target)
+    {
+        ScriptableObject basic = GetBasicAttackSkill();
+        if (basic == null || caster == null || !isActiveAndEnabled || IsCasterSkillBlocked(caster))
+            return new EnemyOffensiveRecoverySignal(EnemyOffensiveRecoveryState.Disabled, false, 0f);
+
+        bool inRange = target != null && IsInSkillRange(basic, caster, target);
+        float remaining = GetRemainingCooldown(basic);
+        bool pendingBasic = _hasPendingRequest && _pendingRequest.Skill == basic && _pendingRequest.Caster == caster;
+        bool playingAttack = _animationMono != null && _animationMono.IsPlayingAttack();
+
+        if (playingAttack)
+        {
+            return new EnemyOffensiveRecoverySignal(
+                pendingBasic && remaining <= 0f
+                    ? EnemyOffensiveRecoveryState.Windup
+                    : EnemyOffensiveRecoveryState.Recovery,
+                inRange,
+                remaining);
+        }
+
+        if (pendingBasic && remaining <= 0f)
+            return new EnemyOffensiveRecoverySignal(EnemyOffensiveRecoveryState.Windup, inRange, remaining);
+        if (remaining > 0f)
+            return new EnemyOffensiveRecoverySignal(EnemyOffensiveRecoveryState.Cooldown, inRange, remaining);
+        return new EnemyOffensiveRecoverySignal(EnemyOffensiveRecoveryState.Ready, inRange, 0f);
+    }
+
+    public bool TryExecutePending()
+    {
+        if (!_hasPendingRequest)
+            return false;
+
+        var req = _pendingRequest;
+        if (req.Skill == null || req.Caster == null)
+        {
+            _hasPendingRequest = false;
+            return false;
+        }
+
+        if (IsCasterSkillBlocked(req.Caster))
+        {
+            if (debugLog)
+                Debug.Log($"[SkillExecutor] skill blocked skill={req.Skill.name} caster={req.Caster.name}");
+
+            return false;
+        }
+
+        if (IsOnCooldown(req.Skill))
+        {
+            if (debugLog)
+                Debug.Log($"[SkillExecutor] cooldown block skill={req.Skill.name} remain={GetRemainingCooldown(req.Skill):0.##}");
+
+            return TryExecuteBasicFallback(req, "cooldown");
+        }
+
+        if (TryExecuteSkillRequest(req, req.Skill, failedReason: null))
+            return true;
+
+        return TryExecuteBasicFallback(req, "execute-fail");
+    }
+
+    private bool TryExecuteBasicFallback(SkillExecutionRequest failedRequest, string reason)
+    {
+        if (!enableBasicAttackFallback || failedRequest.Caster == null)
+            return false;
+
+        ScriptableObject basicAttackSkill = GetBasicAttackSkill();
+        if (basicAttackSkill == null)
+            return false;
+
+        if (basicAttackSkill == failedRequest.Skill)
+            return false;
+
+        if (IsOnCooldown(basicAttackSkill))
+        {
+            if (debugLog)
+                Debug.Log($"[SkillExecutor] basic fallback blocked by cooldown skill={basicAttackSkill.name} remain={GetRemainingCooldown(basicAttackSkill):0.##}");
+            return false;
+        }
+
+        return TryExecuteSkillRequest(failedRequest, basicAttackSkill, reason);
+    }
+    private bool TryExecuteSkillRequest(SkillExecutionRequest request, ScriptableObject skill, string failedReason)
+    {
+        if (request.Caster == null || skill == null)
+            return false;
+
+        if (IsCasterSkillBlocked(request.Caster))
+            return false;
+
+        if (skill is EquipmentSkillSO castEquipment &&
+            castEquipment.CastSo != null &&
+            CharacterSkillManager.NormalizeCastTime(castEquipment.CastSo.CastTime) > 0f)
+        {
+            // This legacy executor owns a separate cooldown/projectile pipeline and
+            // cannot provide atomic cast cancellation. Never silently treat a positive
+            // cast time as instant; generated character content uses CharacterSkillManager.
+            Debug.LogError(
+                $"[SkillExecutor] Positive castTime requires CharacterSkillManager. " +
+                $"skill={skill.name} castTime={castEquipment.CastSo.CastTime:0.###}");
+            return false;
+        }
+
+        if (IsBasicAttackSkill(skill) && !HasValidBasicAttackTargetInRange(skill, request))
+        {
+            if (debugLog)
+            {
+                string prefix = string.IsNullOrEmpty(failedReason) ? string.Empty : $" fallback reason={failedReason}";
+                Debug.Log($"[SkillExecutor] basic attack blocked by no target in range{prefix} skill={skill.name} caster={request.Caster.name}");
+            }
+
+            return false;
+        }
+
+        bool used = false;
+
+        if (request.UseTarget && request.Target != null)
+        {
+            if (!IsInSkillRange(skill, request.Caster, request.Target))
+            {
+                if (debugLog)
+                {
+                    string prefix = string.IsNullOrEmpty(failedReason) ? string.Empty : $" fallback reason={failedReason}";
+                    Debug.Log($"[SkillExecutor] range block{prefix} skill={skill.name} caster={request.Caster.name} target={request.Target.name}");
+                }
+                return false;
+            }
+
+            used = ExecuteEquipmentSkill(request, skill, request.Target, false);
+
+            if (debugLog)
+            {
+                string modeLabel = string.IsNullOrEmpty(failedReason) ? "target execute" : $"basic fallback target reason={failedReason}";
+                Debug.Log($"[SkillExecutor] {modeLabel} skill={skill.name} used={used} caster={request.Caster.name} target={request.Target.name}");
+            }
+        }
+        else if (request.UsePoint)
+        {
+            used = ExecuteEquipmentSkill(request, skill, null, true);
+
+            if (debugLog)
+            {
+                string modeLabel = string.IsNullOrEmpty(failedReason) ? "point execute" : $"basic fallback point reason={failedReason}";
+                Debug.Log($"[SkillExecutor] {modeLabel} skill={skill.name} used={used} caster={request.Caster.name} point={request.TargetPoint}");
+            }
+        }
+        else
+        {
+            used = ExecuteEquipmentSkill(request, skill, null, false);
+
+            if (debugLog)
+            {
+                string modeLabel = string.IsNullOrEmpty(failedReason) ? "self execute" : $"basic fallback self reason={failedReason}";
+                Debug.Log($"[SkillExecutor] {modeLabel} skill={skill.name} used={used} caster={request.Caster.name}");
+            }
+        }
+
+        if (!used)
+            return false;
+
+        TryPlayBasicAttackAnimation(skill);
+
+        float cooldown = GetResolvedCooldown(skill, request.Caster);
+
+        if (IsBasicAttackSkill(skill))
+        {
+            cooldown = ApplyAttackSpeedCooldown(cooldown);
+        }
+        else
+        {
+            cooldown = ApplyCooldownReduction(cooldown);
+        }
+
+        if (cooldown > 0f)
+            _cooldowns[skill] = cooldown;
+
+        return true;
+    }
+
+    private bool HasValidBasicAttackTargetInRange(
+        ScriptableObject skill,
+        SkillExecutionRequest request)
+    {
+        if (skill == null || request.Caster == null)
+        {
+            return false;
+        }
+
+        if (!request.UseTarget || request.Target == null)
+        {
+            return false;
+        }
+
+        return IsInSkillRange(
+            skill,
+            request.Caster,
+            request.Target);
+    }
+
+    private bool IsCasterSkillBlocked(Transform caster)
+    {
+        CharacterManager characterManager = null;
+
+        if (caster != null)
+        {
+            characterManager = caster.GetComponent<CharacterManager>();
+
+            if (characterManager == null)
+                characterManager = caster.GetComponentInParent<CharacterManager>();
+        }
+
+        if (characterManager == null)
+            characterManager = GetCharacterManager();
+
+        return characterManager != null && !characterManager.CanUseSkill;
+    }
+
+    private CharacterManager GetCharacterManager()
+    {
+        if (_characterManager == null)
+        {
+            _characterManager = GetComponent<CharacterManager>();
+
+            if (_characterManager == null)
+                _characterManager = GetComponentInParent<CharacterManager>();
+        }
+
+        return _characterManager;
+    }
+
+    private float ApplyAttackSpeedCooldown(float cooldown)
+    {
+        if (cooldown <= 0f)
+            return 0f;
+
+        CharacterManager characterManager =
+            GetCharacterManager();
+
+        if (characterManager == null)
+            return cooldown;
+
+        float attackSpeed =
+            characterManager.GetStatValue(StatType.AttackSpeed);
+
+        if (attackSpeed <= 0f)
+            attackSpeed = 1f;
+
+        return cooldown / attackSpeed;
+    }
+
+    private float ApplyCooldownReduction(float cooldown)
+    {
+        if (cooldown <= 0f)
+            return 0f;
+
+        CharacterManager characterManager =
+            GetCharacterManager();
+
+        if (characterManager == null)
+            return cooldown;
+
+        float cooldownReduction =
+            characterManager.GetStatValue(StatType.CooldownReduction);
+
+        if (cooldownReduction <= 0f)
+            return cooldown;
+
+        cooldownReduction =
+            Mathf.Clamp(cooldownReduction, 0f, 95f);
+
+        return cooldown * (1f - cooldownReduction / 100f);
+    }
+
+    public ScriptableObject GetBasicAttackSkill()
+    {
+        if (skillLoadout == null)
+            return null;
+
+        SkillPoolSlotData entry = skillLoadout.BasicAttack;
+        return entry != null ? entry.SkillSo : null;
+    }
+
+    private bool ExecuteEquipmentSkill(SkillExecutionRequest request, ScriptableObject skill, Transform explicitTarget, bool usePoint)
+    {
+        if (request.Caster == null || skill == null)
+            return false;
+
+        if (!(skill is EquipmentSkillSO equipmentSkill))
+            return false;
+
+        if (_equipmentSkillResolver == null)
+            _equipmentSkillResolver = new EquipmentSkillResolver();
+
+        if (_projectileFactory == null)
+            _projectileFactory = new ProjectileFactory();
+
+        SkillPoolSlotData entry = FindLoadoutEntry(skill);
+        EquipmentSkillRuntimeData runtime = entry != null ? entry.RuntimeData : null;
+        if (runtime == null)
+        {
+            EquipmentSkillInstanceData instanceData = new EquipmentSkillInstanceData();
+
+            if (entry != null)
+            {
+                instanceData.equipmentId = equipmentSkill.EquipmentId;
+            }
+
+            runtime = _equipmentSkillResolver.Resolve(equipmentSkill, instanceData);
+        }
+
+        if (runtime == null)
+            return false;
+
+        Vector2 spawnPosition = request.Caster.position;
+        Vector2 direction = ResolveExecutionDirection(request, explicitTarget);
+        TrySetAnimationDirection(direction);
+        GameObject targetObject = explicitTarget != null ? explicitTarget.gameObject : null;
+
+        ProjectileRuntimeData[] projectileDatas = _equipmentSkillResolver.ResolveProjectileRuntime(
+            runtime,
+            request.Caster.gameObject,
+            targetObject,
+            spawnPosition,
+            direction,
+            usePoint ? request.TargetPoint : null);
+
+        if (projectileDatas == null || projectileDatas.Length == 0)
+            return false;
+
+        bool firedAny = false;
+
+        for (int i = 0; i < projectileDatas.Length; i++)
+        {
+            ProjectileRuntimeData projectileData = projectileDatas[i];
+
+            if (projectileData == null)
+                continue;
+
+            ProjectileEntity projectile = _projectileFactory.SpawnOriented(projectileData);
+
+            if (projectile != null)
+            {
+                firedAny = true;
+            }
+        }
+
+        return firedAny;
+    }
+
+    private SkillPoolSlotData FindLoadoutEntry(ScriptableObject skill)
+    {
+        if (skillLoadout == null || skill == null)
+            return null;
+
+        SkillPoolSlotData[] entries = skillLoadout.GetAllEntries();
+        if (entries == null || entries.Length == 0)
+            return null;
+
+        for (int i = 0; i < entries.Length; i++)
+        {
+            SkillPoolSlotData entry = entries[i];
+            if (entry != null && entry.SkillSo == skill)
+                return entry;
+        }
+
+        return null;
+    }
+
+    private Vector2 ResolveExecutionDirection(SkillExecutionRequest request, Transform explicitTarget)
+    {
+        if (request.Caster == null)
+            return Vector2.right;
+
+        Vector2 origin = request.Caster.position;
+
+        if (explicitTarget != null)
+        {
+            Vector2 toTarget = (Vector2)explicitTarget.position - origin;
+            if (toTarget.sqrMagnitude > 0.0001f)
+                return toTarget.normalized;
+        }
+
+        if (request.UsePoint)
+        {
+            Vector2 toPoint = request.TargetPoint - (Vector3)origin;
+            if (toPoint.sqrMagnitude > 0.0001f)
+                return toPoint.normalized;
+        }
+
+        return request.Caster.right;
+    }
+
+    private void TrySetAnimationDirection(Vector2 direction)
+    {
+        if (direction.sqrMagnitude <= 0.0001f)
+            return;
+
+        if (_animationMono == null)
+            _animationMono = GetComponentInChildren<AnimationMono>();
+
+        if (_animationMono == null)
+            return;
+
+        _animationMono.SetDirectionFromVector(direction);
+
+        if (debugLog)
+            Debug.Log($"[SkillExecutor] animation direction set direction={direction} caster={name}");
+    }
+
+    private void TryPlayBasicAttackAnimation(ScriptableObject skill)
+    {
+        if (!IsBasicAttackSkill(skill))
+            return;
+
+        if (_animationMono == null)
+            _animationMono = GetComponentInChildren<AnimationMono>();
+
+        if (_animationMono == null)
+            return;
+
+        _animationMono.PlayAttack();
+
+        if (debugLog)
+            Debug.Log($"[SkillExecutor] basic attack animation played skill={skill.name} caster={name}");
+    }
+
+    private bool IsBasicAttackSkill(ScriptableObject skill)
+    {
+        if (skill == null)
+            return false;
+
+        ScriptableObject basicAttackSkill = GetBasicAttackSkill();
+        return basicAttackSkill != null && basicAttackSkill == skill;
+    }
+
+    private void Update()
+    {
+        UpdateCooldowns();
+
+        if (!_hasPendingRequest)
+            return;
+
+        if (manualExecutionMode)
+            return;
+
+        TryExecutePending();
+    }
+
+    private void UpdateCooldowns()
+    {
+        if (_cooldowns.Count == 0)
+            return;
+
+        List<ScriptableObject> keys = new List<ScriptableObject>(_cooldowns.Keys);
+        for (int i = 0; i < keys.Count; i++)
+        {
+            ScriptableObject key = keys[i];
+            _cooldowns[key] -= Time.deltaTime;
+
+            if (_cooldowns[key] <= 0f)
+                _cooldowns.Remove(key);
+        }
+    }
+
+    public void ReduceAllCooldowns(
+        float percent,
+        float seconds)
+    {
+        if (_cooldowns.Count == 0)
+            return;
+
+        percent = Mathf.Clamp01(percent);
+        seconds = Mathf.Max(0f, seconds);
+
+        List<ScriptableObject> keys =
+            new List<ScriptableObject>(_cooldowns.Keys);
+
+        for (int i = 0; i < keys.Count; i++)
+        {
+            ScriptableObject key = keys[i];
+
+            if (!_cooldowns.TryGetValue(key, out float remain))
+                continue;
+
+            if (remain <= 0f)
+                continue;
+
+            if (percent > 0f)
+            {
+                remain *= (1f - percent);
+            }
+
+            if (seconds > 0f)
+            {
+                remain -= seconds;
+            }
+
+            remain = Mathf.Max(0f, remain);
+
+            if (remain <= 0f)
+            {
+                _cooldowns.Remove(key);
+            }
+            else
+            {
+                _cooldowns[key] = remain;
+            }
+        }
+
+        if (debugLog)
+        {
+            Debug.Log($"[SkillExecutor] cooldown reduced percent={percent:0.##} seconds={seconds:0.##}");
+        }
+    }
+
+    public void ReduceAllCooldownsByPercent(float percent)
+    {
+        ReduceAllCooldowns(percent, 0f);
+    }
+
+    public void ReduceAllCooldownsBySeconds(float seconds)
+    {
+        ReduceAllCooldowns(0f, seconds);
+    }
+
+    private bool IsOnCooldown(ScriptableObject skill)
+    {
+        if (skill == null)
+            return false;
+
+        return _cooldowns.TryGetValue(skill, out float remain) && remain > 0f;
+    }
+
+    private float GetRemainingCooldown(ScriptableObject skill)
+    {
+        if (skill == null)
+            return 0f;
+
+        return _cooldowns.TryGetValue(skill, out float remain) ? Mathf.Max(0f, remain) : 0f;
+    }
+
+    private float GetCooldownFromSkill(ScriptableObject skill)
+    {
+        if (skill == null)
+            return 0f;
+
+        if (skill is EquipmentSkillSO equipmentSkill)
+            return Mathf.Max(0f, equipmentSkill.CastSo.Cooldown);
+
+        var t = skill.GetType();
+        var flags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
+
+        string[] propNames = { "Cooldown", "cooldown", "Cd", "cd" };
+        for (int i = 0; i < propNames.Length; i++)
+        {
+            var p = t.GetProperty(propNames[i], flags);
+            if (p != null && p.CanRead)
+            {
+                object v = p.GetValue(skill);
+                if (v is float f) return Mathf.Max(0f, f);
+                if (v is int ii) return Mathf.Max(0f, ii);
+            }
+        }
+
+        string[] fieldNames = { "cooldown", "Cooldown", "cd", "Cd" };
+        for (int i = 0; i < fieldNames.Length; i++)
+        {
+            var f = t.GetField(fieldNames[i], flags);
+            if (f != null)
+            {
+                object v = f.GetValue(skill);
+                if (v is float ff) return Mathf.Max(0f, ff);
+                if (v is int ii) return Mathf.Max(0f, ii);
+            }
+        }
+
+        return 0f;
+    }
+
+    public bool IsInSkillRange(ScriptableObject skill, Transform caster, Transform target)
+    {
+        if (skill == null || caster == null || target == null)
+            return false;
+
+        float rawRange = GetSkillRange(skill);
+        if (rawRange <= 0f)
+            return true;
+
+        float usableRange = Mathf.Max(0f, rawRange - Mathf.Max(0f, skillRangeCheckInset));
+        float dist = GetRangeCheckDistance(caster, target);
+        bool inRange = dist <= usableRange;
+
+        if (debugLog)
+        {
+            Debug.Log($"[SkillExecutor] range check skill={skill.name} dist={dist:0.00} rawRange={rawRange:0.00} usableRange={usableRange:0.00} inRange={inRange} caster={caster.name} target={target.name}");
+        }
+
+        return inRange;
+    }
+
+    private float GetSkillRange(ScriptableObject skill)
+    {
+        if (skill == null)
+            return 0f;
+
+        if (skill is EquipmentSkillSO equipmentSkill)
+            return Mathf.Max(0f, equipmentSkill.CastSo.Range);
+
+        var t = skill.GetType();
+        var flags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
+
+        string[] propNames = { "Range", "range" };
+        for (int i = 0; i < propNames.Length; i++)
+        {
+            var p = t.GetProperty(propNames[i], flags);
+            if (p != null && p.CanRead)
+            {
+                object v = p.GetValue(skill);
+                if (v is float f) return Mathf.Max(0f, f);
+                if (v is int ii) return Mathf.Max(0f, ii);
+            }
+        }
+
+        string[] fieldNames = { "range", "Range" };
+        for (int i = 0; i < fieldNames.Length; i++)
+        {
+            var f = t.GetField(fieldNames[i], flags);
+            if (f != null)
+            {
+                object v = f.GetValue(skill);
+                if (v is float ff) return Mathf.Max(0f, ff);
+                if (v is int ii) return Mathf.Max(0f, ii);
+            }
+        }
+
+        return 0f;
+    }
+
+    private float GetSkillCooldown(ScriptableObject skill)
+    {
+        if (skill == null)
+            return 0f;
+
+        if (skill is EquipmentSkillSO equipmentSkill)
+            return Mathf.Max(0f, equipmentSkill.CastSo.Cooldown);
+
+        return GetCooldownFromSkill(skill);
+    }
+
+    private float GetRangeCheckDistance(Transform caster, Transform target)
+    {
+        if (!useClosestPointForRangeCheck)
+            return Vector3.Distance(caster.position, target.position);
+
+        Vector3 from = GetRangeReferencePoint(caster, target.position);
+        Vector3 to = GetRangeReferencePoint(target, from);
+        return Vector3.Distance(from, to);
+    }
+
+    private Vector3 GetRangeReferencePoint(Transform source, Vector3 fallbackTargetPoint)
+    {
+        if (source == null)
+            return fallbackTargetPoint;
+
+        Collider2D col2D = source.GetComponentInChildren<Collider2D>();
+        if (col2D != null)
+            return col2D.ClosestPoint(fallbackTargetPoint);
+
+        Collider col3D = source.GetComponentInChildren<Collider>();
+        if (col3D != null)
+            return col3D.ClosestPoint(fallbackTargetPoint);
+
+        return source.position;
+    }
+
+    private float GetResolvedCooldown(ScriptableObject skill, Transform caster)
+    {
+        float baseCooldown = GetSkillCooldown(skill);
+        if (skill == null)
+            return Mathf.Max(0f, baseCooldown);
+
+        if (caster == null)
+            return Mathf.Max(0f, baseCooldown);
+
+        SkillUpgradeMono upgradeMono = caster.GetComponentInParent<SkillUpgradeMono>();
+        if (upgradeMono == null)
+            return Mathf.Max(0f, baseCooldown);
+
+        SkillUpgradeMono.SkillUpgradeData upgrade = upgradeMono.GetUpgradeData(skill);
+        float resolvedCooldown = baseCooldown + upgrade.cooldownAdd;
+        return Mathf.Max(0f, resolvedCooldown);
+    }
+}

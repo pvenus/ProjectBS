@@ -1,0 +1,13 @@
+PASS unknown-and-invalid-serialized-mode-fail-closed
+PASS deterministic-legacy-cast-migration
+PASS JSON-DTO-production-materializer-SO-idempotent-twelve-slots
+PASS JSON-unknown-replaces-prior-mode-with-invalid
+PASS JSON-missing-mode-legacy-repeat-preserves-cast-semantics
+PASS Direction-real-helper-no-ground-spawn-no-explicit-point-override
+PASS Target-real-helper-lock-unit-no-ground-spawn
+PASS GroundPoint-real-helper-is-only-point-spawn
+PASS Self-real-helper-ignores-mouse
+PASS legacy-NPC-point-path-still-relocates-to-point
+PASS existing-resolver-cone-filters-rear-side-dead-and-range
+PASS cone-resolver-tie-break-and-no-target-fail-closed
+PASS 12/12 production schema/materializer/helper/cone tests

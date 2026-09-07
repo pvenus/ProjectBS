@@ -1,0 +1,122 @@
+--- a/Assets/Resources/battle/morpg/wave-environment-v1/binding.json
++++ b/Assets/Resources/battle/morpg/wave-environment-v1/binding.json
+@@ -2162,5 +2162,5 @@
+       ]
+     }
+   ],
+-  "interiorPropsEnabled": false
++  "interiorPropsEnabled": true
+ }
+--- a/Assets/Scripts/Battle/Morpg/MorpgWaveDressing.cs
++++ b/Assets/Scripts/Battle/Morpg/MorpgWaveDressing.cs
+@@ -9,7 +9,7 @@
+         internal const string Resource="battle/morpg/wave-environment-v1/binding";
+         public string schemaVersion,backgroundManifestSha256,barrierManifestSha256;
+         public Wave[] waves;
+-        public bool interiorPropsEnabled;
++        public bool interiorPropsEnabled=true;
+         [Serializable] internal sealed class Wave { public string zoneId;public Asset[] assets; }
+         [Serializable] internal sealed class Asset
+         {
+--- a/AgentTools/MorpgIntegrationHarness/Program.cs
++++ b/AgentTools/MorpgIntegrationHarness/Program.cs
+@@ -42,6 +42,11 @@
+   Resources.Items[MorpgWaveDressing.Resource]=new TextAsset(((TextAsset)saved).text.Replace("\"interiorPropsEnabled\": false","\"interiorPropsEnabled\": true"));
+   try{test();}finally{Resources.Items[MorpgWaveDressing.Resource]=saved;}
+  }
++ static void WithoutInteriors(Action test){
++  var saved=Resources.Items[MorpgWaveDressing.Resource];
++  Resources.Items[MorpgWaveDressing.Resource]=new TextAsset(((TextAsset)saved).text.Replace("\"interiorPropsEnabled\": true","\"interiorPropsEnabled\": false"));
++  try{test();}finally{Resources.Items[MorpgWaveDressing.Resource]=saved;}
++ }
+  static void Test(string name,Action test){test();Console.WriteLine("PASS "+name);pass++;}
+  static void Main(string[] args){
+   string resource="battle/act1/chapter01/battle.act1.chapter01.01.rescue_villagers.morpg-zone-reward";
+@@ -397,7 +402,7 @@
+     Check(!MorpgWaveDressing.TryLoad(environmentProfile,out _,out _),"combat-invading silhouette accepted");
+    }finally{Resources.Items[MorpgWaveDressing.Resource]=saved;}
+   });
+-  Test("viewport-default-gate-removes-interior-renderers-colliders-and-virtual-blocks",()=>{
++  Test("viewport-debug-off-gate-removes-interior-renderers-colliders-and-virtual-blocks",()=>WithoutInteriors(()=>{
+    using var f=new Fixture();var env=MorpgEnvironmentRuntime.Active;
+    Check(!env.Dressing.interiorPropsEnabled&&env.Profile.zones[0].props.Length==8&&env.RuntimeZone(0).props.Length==0,"definition/gate mismatch");
+    var root=GameObject.All.Last(g=>g.name=="MORPG environment"&&g.activeInHierarchy);
+@@ -406,12 +411,16 @@
+    Check(objects.Count(g=>g.GetComponent<CircleCollider2D>()!=null||g.GetComponent<BoxCollider2D>()!=null)==0,"interior collider still created");
+    var trunk=env.Profile.zones[0].props[0];Check(MorpgEnvironmentGeometry.Free(env.RuntimeZone(0),trunk.center[0],trunk.center[1],.15f),"invisible trunk still blocks");
+    Check(MorpgDashExitPath.Plan(env.RuntimeZone(0),new Vector3(28,3,0),.35f)!=null,"Dash reads disabled prop definitions");
+-  });
+-  Test("viewport-gate-can-reactivate-original-definitions",()=>WithInteriors(()=>{
++  }));
++  Test("viewport-production-default-restores17-props54-decor-and-colliders",()=>{
+    using var f=new Fixture();var env=MorpgEnvironmentRuntime.Active;
+    Check(env.RuntimeZone(0).props.Length==8&&env.Dressing.interiorPropsEnabled,"reactivation lost definitions");
++   var root=GameObject.All.Last(g=>g.name=="MORPG environment"&&g.activeInHierarchy);var objects=GameObject.All.Where(g=>g.transform.IsChildOf(root.transform)).ToArray();
++   Check(objects.Count(g=>g.GetComponent<SpriteRenderer>()!=null)==80,"expected9 dressing+17 prop+54 decor renderers");
++   Check(objects.Count(g=>g.GetComponent<CircleCollider2D>()!=null)==8&&objects.Count(g=>g.GetComponent<BoxCollider2D>()!=null)==9,"original17 structural colliders absent");
++   Check(objects.Count(g=>g.name.StartsWith("dressing.")&&g.GetComponent<SpriteRenderer>()!=null)==54,"decoration count drift");
+    var trunk=env.Profile.zones[0].props[0];Check(!MorpgEnvironmentGeometry.Free(env.RuntimeZone(0),trunk.center[0],trunk.center[1],.15f),"reactivated collision absent");
+-  }));
++  });
+   Test("viewport-extents-side-limits-and-no-background-void-all-zones",()=>WithInstalledDashProfile(()=>{
+    Camera.main=new GameObject("viewport geometry camera").AddComponent<Camera>();using var f=new Fixture();var env=MorpgEnvironmentRuntime.Active;
+    foreach(float aspect in new[]{16f/9f,2f}){
+--- a/AgentTools/MorpgWaveDressingHarness/reframe.py
++++ b/AgentTools/MorpgWaveDressingHarness/reframe.py
+@@ -1,8 +1,8 @@
+ from pathlib import Path
+ import json,os
+ from PIL import Image
+-R=Path('/Users/pvenus/ProjectBS');O=R/'Artifacts/Engineering/MorpgWaveViewportFix';P=R/'Assets/Resources/battle/morpg/wave-environment-v1/binding.json'
+-d=json.loads(P.read_text());e=json.loads((R/'Assets/Resources/battle/morpg/environment/environment.v1.json').read_text());d['interiorPropsEnabled']=False
++R=Path('/Users/pvenus/ProjectBS');O=R/'Artifacts/Engineering/MorpgInteriorRestore';P=R/'Assets/Resources/battle/morpg/wave-environment-v1/binding.json'
++d=json.loads(P.read_text());e=json.loads((R/'Assets/Resources/battle/morpg/environment/environment.v1.json').read_text());d['interiorPropsEnabled']=True
+ for w,z in zip(d['waves'],e['zones']):
+  left=min(v['x'] for v in z['walkable']);right=max(v['x'] for v in z['walkable']);bottom=min(v['y'] for v in z['walkable']);top=max(v['y'] for v in z['walkable'])
+  for a in w['assets']:
+@@ -19,4 +19,4 @@
+     if not solid and run is not None:boxes.append({'rect':[round(l+run*sx,6),round(y0,6),round(l+px*sx,6),round(y1,6)]});run=None
+   assert boxes;a['colliderRects']=boxes
+ text=json.dumps(d,indent=2)+'\n';tmp=Path(str(P)+'.tmp');tmp.write_text(text);os.replace(tmp,P);(O/'binding.json').write_text(text)
+-print('PASS bbox inner edges aligned to y+/-4; visible side edges to zone x bounds; interior runtime gate OFF')
++print('PASS bbox inner edges aligned to y+/-4; visible side edges to zone x bounds; interior production gate ON')
+--- a/AgentTools/MorpgWaveDressingHarness/viewport_audit.py
++++ b/AgentTools/MorpgWaveDressingHarness/viewport_audit.py
+@@ -1,9 +1,10 @@
+ from pathlib import Path
+ from PIL import Image,ImageDraw
+ import json,hashlib
+-R=Path('/Users/pvenus/ProjectBS');O=R/'Artifacts/Engineering/MorpgWaveViewportFix';D=R/'Assets/Resources/battle/morpg/wave-environment-v1/binding.json';d=json.loads(D.read_text());e=json.loads((R/'Assets/Resources/battle/morpg/environment/environment.v1.json').read_text());assert d['interiorPropsEnabled'] is False
++R=Path('/Users/pvenus/ProjectBS');O=R/'Artifacts/Engineering/MorpgInteriorRestore';D=R/'Assets/Resources/battle/morpg/wave-environment-v1/binding.json';d=json.loads(D.read_text());e=json.loads((R/'Assets/Resources/battle/morpg/environment/environment.v1.json').read_text());assert d['interiorPropsEnabled'] is True
+ sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+ for n,h in json.loads((O/'same-path-before.json').read_text()).items():assert sha(R/n)==h,n
++propimages={a['id']:Image.open(R/('Assets/Resources/'+a['resource']+'.png')).convert('RGBA') for a in e['assets']}
+ W,H=960,540;hh=e['cameraOrthographicSize'];hw=hh*16/9;scale=H/(hh*2);rows=[];images={};patches=0;previews=[]
+ for i,(wave,z) in enumerate(zip(d['waves'],e['zones'])):
+  left=min(v['x'] for v in z['walkable']);right=max(v['x'] for v in z['walkable']);bottom=min(v['y'] for v in z['walkable']);top=max(v['y'] for v in z['walkable']);bg=wave['assets'][0]['rect']
+@@ -22,8 +23,16 @@
+  for name,(cx,cy) in positions.items():
+   vl,vb,vr,vt=cx-hw,cy-hh,cx+hw,cy+hh;assert vl>=bg[0] and vr<=bg[2] and vb>=bg[1] and vt<=bg[3]
+   out=Image.new('RGBA',(W,H),(0,0,0,0))
+-  for a in sorted(wave['assets'],key=lambda a:a['sortingOrder']):
+-   l,b,r,t=a['rect'];tile=images[a['id']].resize((round((r-l)*scale),round((t-b)*scale)),Image.Resampling.BILINEAR)
++  drawables=[]
++  for a in wave['assets']:drawables.append((a['sortingOrder'],images[a['id']],a['rect']))
++  for a in z['props']+z['decorations']:
++   raw=propimages[a['asset']];raw=raw.crop(raw.getchannel('A').getbbox())
++   if a.get('visualRotation')==90:raw=raw.transpose(Image.Transpose.ROTATE_90)
++   if a.get('flipX'):raw=raw.transpose(Image.Transpose.FLIP_LEFT_RIGHT)
++   origin=a.get('visualOrigin',a.get('origin'));size=a.get('visualSize',a.get('size'))
++   drawables.append((-900,raw,[origin[0]-size[0]/2,origin[1],origin[0]+size[0]/2,origin[1]+size[1]]))
++  for order,raw,rect in sorted(drawables,key=lambda a:a[0]):
++   l,b,r,t=rect;tile=raw.resize((round((r-l)*scale),round((t-b)*scale)),Image.Resampling.BILINEAR)
+    out.alpha_composite(tile,(round((l-vl)*scale),round((vt-t)*scale)))
+   assert out.getchannel('A').getextrema()==(255,255),'uncovered gray-producing viewport'
+   path=O/f'wave{i+1}-viewport-{name}.png';out.convert('RGB').save(path);previews.append((i,name,out))
+@@ -32,5 +41,5 @@
+ for i,name,im in previews:
+  row=list(positions).index(name);contact.paste(im.convert('RGB').resize((480,270)),(i*480,row*294+24));draw.text((i*480+8,row*294+6),f'W{i+1} / {name} — static viewport',(30,30,30))
+ contact.save(O/'viewport-contact.png');(O/'viewport-crops.json').write_text(json.dumps(rows,indent=2)+'\n')
+-report=dict(viewportCrops=27,uncoveredPixels=0,worldSideEdgeError=0,alphaInnerEdgeError=0,opaqueSupportedPatches=patches,sourcePngShaDiff=0,protectedSamePathDiff=0,interiorCreation=False,collisionDefinitionsPreserved=True,backgroundGroundAtZoneTop=(4-bg[1])/(bg[3]-bg[1]),method='Static compositing of exact installed assets, nominal16:9 orthographic viewport; no Unity/GPU execution')
++report=dict(viewportCrops=27,uncoveredPixels=0,worldSideEdgeError=0,alphaInnerEdgeError=0,opaqueSupportedPatches=patches,sourcePngShaDiff=0,protectedSamePathDiff=0,interiorCreation=True,propRenderers=17,decorationRenderers=54,collisionDefinitionsPreserved=True,backgroundGroundAtZoneTop=(4-bg[1])/(bg[3]-bg[1]),method='Static compositing of exact installed assets, nominal16:9 orthographic viewport; no Unity/GPU execution')
+ (O/'viewport-audit.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report))

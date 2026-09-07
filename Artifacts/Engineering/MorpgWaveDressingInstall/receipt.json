@@ -1,0 +1,37 @@
+{
+  "status": "EXACT3_BACKGROUND_EXACT6_BARRIER_ATOMIC_INSTALL_PASS",
+  "backgroundManifestSha256": "a02e23e9b812768cdbb80b1aec473d1e5cdcca8019b9d43eeb6d36e7cd18338b",
+  "barrierManifestSha256": "99c0118b29104e6433779d5c54786589de7643ac4a09ed01a1e9e6325cdc66aa",
+  "bindingSha256": "56f1c025470a6a8d509a6990fd03ce471cb5011e1d36b53f81d770c3f19693fd",
+  "compiler": {
+    "errors": 0,
+    "existingWarnings": 31
+  },
+  "tests": {
+    "live": 43,
+    "horizontalGeometry": 14,
+    "dashClock": 9,
+    "reward": 12,
+    "spawn": 10,
+    "cast": 4,
+    "p1": 27
+  },
+  "totalPassed": 119,
+  "byteExactImages": 9,
+  "missingMetaOrGuid": 0,
+  "duplicateNewGuid": 0,
+  "opaqueSupportedPatches": 138,
+  "minimumAbsoluteColliderY": 4.35,
+  "maximumCameraViewY": 4.25,
+  "samePathProtectedDiff": 0,
+  "protectedFileCount": 50,
+  "gitIndexUnchanged": true,
+  "reversePatchCheck": "PASS",
+  "atomicity": "All9 resources and metadata prepared before version-directory publication; final binding activates all9 only after preflight loads every sprite. Runtime validates all9 before scene mutation.",
+  "worldTransform": "Background uniform32.5x10.8333 centered above combat; barrier width32.5xheight3.2 uses explicit independent scale axes. Manifest PPU100/pivots preserved. Manifest supplied no world rect; rects are recorded in binding.",
+  "limitations": [
+    "No Unity GUI/headless/Play Mode or GPU evidence.",
+    "Static composition previews only; on-device visual acceptance remains separate."
+  ],
+  "delivery": "BLOCKED: direct report to requesting Hangyeol task was rejected by automatic approval review because thread ownership and authorization to disclose internal paths/validation/rollback details were not verified. No workaround used."
+}

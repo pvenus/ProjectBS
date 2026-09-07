@@ -18,10 +18,15 @@ namespace Battle
 
         public static void Activate(Vector2 size, float inset)
         {
-            arena = new Rect(-size * .5f, size);
+            Activate(new Rect(-size * .5f, size), inset);
+        }
+
+        public static void Activate(Rect bounds, float inset)
+        {
+            arena = bounds;
             actorZone = null;
             movementInset = Mathf.Max(0f, inset);
-            IsActive = size.x > 0f && size.y > 0f;
+            IsActive = bounds.width > 0f && bounds.height > 0f;
         }
 
         public static void Clear()
@@ -35,6 +40,7 @@ namespace Battle
         public static Vector2 ClampActorCenter(Vector2 point, float extraInset = 0f)
         {
             if (!IsActive) return point;
+            if(Morpg.MorpgEnvironmentRuntime.Active!=null)return Morpg.MorpgEnvironmentRuntime.Active.ClampActorCenter(point,extraInset);
             float inset = (actorZone.HasValue ? 0f : movementInset) + Mathf.Max(0f, extraInset);
             Rect bounds = actorZone ?? arena;
             return new Vector2(
@@ -42,9 +48,19 @@ namespace Battle
                 Mathf.Clamp(point.y, bounds.yMin + inset, bounds.yMax - inset));
         }
 
+        public static Vector2 SweepActorStep(Vector2 from, Vector2 to, Rigidbody2D body = null)
+        {
+            var environment = Morpg.MorpgEnvironmentRuntime.Active;
+            return environment != null
+                ? environment.Sweep(from, to, Morpg.MorpgEnvironmentRuntime.ActorRadius(body))
+                : ClampActorCenter(to);
+        }
+
         public static Vector2 ClampCameraCenter(Vector2 point, Camera camera)
         {
             if (!IsActive || camera == null || !camera.orthographic) return point;
+            if (Morpg.MorpgEnvironmentRuntime.Active != null)
+                return Morpg.MorpgEnvironmentRuntime.Active.ClampCamera(point);
             float halfH = camera.orthographicSize + CameraVisualPadding;
             float halfW = camera.orthographicSize * Mathf.Max(.0001f, camera.aspect) + CameraVisualPadding;
             return new Vector2(

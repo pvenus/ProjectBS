@@ -1,0 +1,198 @@
+{
+  "schema": "morpg_wave_layered_floor_far_v1",
+  "status": "SELECTED_REVIEW_SOURCE_INSTALL0",
+  "generated_with": "built-in ImageGen",
+  "count": 6,
+  "target": [
+    1536,
+    512
+  ],
+  "layers": {
+    "far-background": "upper silhouettes plus lower blend field",
+    "floor": "full low-contrast oblique ground plane"
+  },
+  "records": [
+    {
+      "kind": "floors",
+      "name": "wave-01-floor.png",
+      "raw_size": [
+        1774,
+        887
+      ],
+      "output_size": [
+        1536,
+        512
+      ],
+      "mode": "RGB",
+      "normalization": {
+        "method": "aspect-cover Lanczos; center crop",
+        "scaled": [
+          1536,
+          768
+        ],
+        "crop": [
+          0,
+          128
+        ]
+      },
+      "raw_sha256": "c1682d35a0da3432bd73c313fbdd7707d472821454d53b7ddc0741fad8065abd",
+      "output_sha256": "ac5b8d6e131f04e9079f2cb35ca698fd723f246bc3c58d9a0ef6a7f252a5da69",
+      "edge_seam_mae_norm": 0.026356
+    },
+    {
+      "kind": "floors",
+      "name": "wave-02-floor.png",
+      "raw_size": [
+        1774,
+        887
+      ],
+      "output_size": [
+        1536,
+        512
+      ],
+      "mode": "RGB",
+      "normalization": {
+        "method": "aspect-cover Lanczos; center crop",
+        "scaled": [
+          1536,
+          768
+        ],
+        "crop": [
+          0,
+          128
+        ]
+      },
+      "raw_sha256": "596e9761b25ae60bcb94a4e7a5ceb24aa7d28987a7801b439194e5948e75725b",
+      "output_sha256": "ad64928e18e8a7e25d18b37adfa7a29eddc8a5e4c30aab0a8b4d0d35055d96c4",
+      "edge_seam_mae_norm": 0.045613
+    },
+    {
+      "kind": "floors",
+      "name": "wave-03-floor.png",
+      "raw_size": [
+        1774,
+        887
+      ],
+      "output_size": [
+        1536,
+        512
+      ],
+      "mode": "RGB",
+      "normalization": {
+        "method": "aspect-cover Lanczos; center crop",
+        "scaled": [
+          1536,
+          768
+        ],
+        "crop": [
+          0,
+          128
+        ]
+      },
+      "raw_sha256": "eed90f7bf190e7b68987067246d143c0eb60a6a909d2605321212d54f7839d66",
+      "output_sha256": "f9512df375936360dac70cdfe6cc46b0b0efb7cd3cf148c2aff8477608f465cb",
+      "edge_seam_mae_norm": 0.042696
+    },
+    {
+      "kind": "far-backgrounds",
+      "name": "wave-01-far.png",
+      "raw_size": [
+        1774,
+        887
+      ],
+      "output_size": [
+        1536,
+        512
+      ],
+      "mode": "RGB",
+      "normalization": {
+        "method": "aspect-cover Lanczos; top-aligned crop",
+        "scaled": [
+          1536,
+          768
+        ],
+        "crop": [
+          0,
+          0
+        ]
+      },
+      "raw_sha256": "4cd83a83c07eb0b8c51c5730e4c94771c59b3e8414b6ad6dc68a7f39afd66883",
+      "output_sha256": "93110187b4f3136027a06ac970b13bac70ec4005e72d2bf253c9a672c09e2c16",
+      "edge_seam_mae_norm": 0.024366
+    },
+    {
+      "kind": "far-backgrounds",
+      "name": "wave-02-far.png",
+      "raw_size": [
+        1774,
+        887
+      ],
+      "output_size": [
+        1536,
+        512
+      ],
+      "mode": "RGB",
+      "normalization": {
+        "method": "aspect-cover Lanczos; top-aligned crop",
+        "scaled": [
+          1536,
+          768
+        ],
+        "crop": [
+          0,
+          0
+        ]
+      },
+      "raw_sha256": "7eb8f2bd29ff3016edffb3b3e01d54682c2fd3cfd52c02b244b9bc9c1913b5e6",
+      "output_sha256": "f18a6e2aea8242aa55e49b3923f01486e778cbf567fa88e289e0b7d3cf6e3ad2",
+      "edge_seam_mae_norm": 0.031812
+    },
+    {
+      "kind": "far-backgrounds",
+      "name": "wave-03-far.png",
+      "raw_size": [
+        1774,
+        887
+      ],
+      "output_size": [
+        1536,
+        512
+      ],
+      "mode": "RGB",
+      "normalization": {
+        "method": "aspect-cover Lanczos; top-aligned crop",
+        "scaled": [
+          1536,
+          768
+        ],
+        "crop": [
+          0,
+          0
+        ]
+      },
+      "raw_sha256": "6421fe3d8f3f3d00355580a509a3f94d635cfd4046a1aa214b2bd00feb5fc99f",
+      "output_sha256": "585fe65b697f80f26cfe41a926bf3f970f025a38b2cfd2838e1e0d2238f47abe",
+      "edge_seam_mae_norm": 0.040579
+    }
+  ],
+  "evidence": {
+    "contact_2row": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/MORPGWaveEnvironment/selected/revision-03-layered-floor-far/evidence/contact-2row-wave1-3.png",
+    "contact_sha256": "136df94548b547c707d5611e65222272b0a53e622f628d01b5281c31fc129e07",
+    "readability_200_80_32": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/MORPGWaveEnvironment/selected/revision-03-layered-floor-far/evidence/readability-200-80-32.png",
+    "readability_sha256": "bdc69570262767721bee127627deee1a22ad0c7c5dfd115e6209d20ca27b9e8c"
+  },
+  "visual_review": {
+    "wave_lineage": "PASS: W1 rough dirt/hills; W2 compacted path/village; W3 orderly stone-drain/city wall",
+    "foreground_close_props": "0",
+    "notes": [
+      "W3 floor drainage trace remains visibly linear at small scale; retained as intended grade cue.",
+      "Edges are compositionally compatible but not mathematically tiled; edge metrics are reported without source mutation."
+    ]
+  },
+  "boundaries": {
+    "previous_revisions_preserved": true,
+    "canonical_write": false,
+    "unity_write": false,
+    "install_authority": false
+  }
+}

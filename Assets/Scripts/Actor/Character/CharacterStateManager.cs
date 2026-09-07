@@ -113,6 +113,8 @@ namespace Character
 
         private void Update()
         {
+            var manual=GetComponent<Control.SeojinManualControl>();
+            if(manual!=null&&!manual.AutoAuthorized)return;
             ResolveLateComponents();
             _context.DeltaTime = Time.deltaTime;
             TryGetForcedTarget(out _);

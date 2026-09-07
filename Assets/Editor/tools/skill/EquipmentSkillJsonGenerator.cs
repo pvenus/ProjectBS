@@ -20,6 +20,8 @@ namespace ResourceTools.Skill
         public class EquipmentSkillJson
         {
             public string equipmentId;
+            public string aimMode;
+            public string aimInputSource;
             public string skillName;
             public string desc;
             public string description;
@@ -73,6 +75,8 @@ namespace ResourceTools.Skill
         private class EquipmentSkillRootJson
         {
             public string equipmentId;
+            public string aimMode;
+            public string aimInputSource;
             public string skillName;
             public string desc;
             public string description;
@@ -468,6 +472,8 @@ namespace ResourceTools.Skill
             ApplyComboProfile(serializedObject, combo, hitSos);
 
             serializedObject.ApplyModifiedPropertiesWithoutUndo();
+            skillSo.ConfigureAimMode(data.aimMode);
+            skillSo.ConfigureAimInputSource(data.aimInputSource);
         }
 
         private static void ApplyComboProfile(
@@ -832,6 +838,8 @@ namespace ResourceTools.Skill
             EquipmentSkillJson data = new EquipmentSkillJson
             {
                 equipmentId = root.equipmentId,
+                aimMode = root.aimMode,
+                aimInputSource = root.aimInputSource,
                 skillName = root.skillName,
                 desc = root.desc,
                 description = root.description,

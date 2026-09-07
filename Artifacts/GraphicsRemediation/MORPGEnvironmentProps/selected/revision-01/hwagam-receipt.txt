@@ -1,0 +1,26 @@
+[화감 COMPLETE | Episode1 MORPG three-zone environment props]
+Date: 2026-09-06 KST
+Status: SELECTED_ART_READY_INSTALL_HOLD
+
+Authority:
+- /private/tmp/projectbs-current-byeori-morpg-zone3-environment-contract.txt
+- SHA-256 20fd0dc578f51d8218e7e222faecf94f70fa3260c41bf27346756f7decfd75b8
+
+Selected module library exact15:
+- Z1 exact5: earth/stone straight, corner, end, opening, independent sapling.
+- Z2 exact5: wood fence straight, corner, end, gate, cart+straw accessory.
+- Z3 exact5: low wall straight, corner, house-edge end, gate, jars+bench plaza accessory.
+
+Deployment contract:
+- Z1 sapling instances8; Z2 fence rows4; Z3 house/wall rows5.
+- Entry clearance3.25wu, landing radius1.5wu, +X egress raw2.8/usable2.5 remain visually and physically prop-free.
+- Sprite and collider are separate; colliders use opaque structural footprints only and exclude foliage/brush fringe.
+
+Physical:
+- Runtime candidates exact15, 1024x1024 RGBA.
+- Common bottom-center pivot intent .5/.046875, PPU100.
+- 48px safe perimeter alpha0 across all15; alpha0 RGB residue0; clipping0.
+- Sources preserved byte-for-byte under source/; normalized runtime candidates under runtime/.
+
+Manifest: manifest.json in this directory.
+Project/canonical/Unity/install writes0. Only this selected revision is installation candidate; generated defaults outside workspace are not authority.

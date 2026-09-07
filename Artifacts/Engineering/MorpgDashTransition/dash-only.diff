@@ -1,0 +1,1109 @@
+--- a/Assets/Scripts/Battle/Morpg/BattleMorpgLiveRoute.cs
++++ b/Assets/Scripts/Battle/Morpg/BattleMorpgLiveRoute.cs
+@@ -12,7 +12,7 @@
+     internal enum MorpgFinalSettlementState { NotStarted, FinalSettlementPending, Completed, Failed, Defeated, Abandoned }
+ 
+     // SpawnManager owns this attempt; BattleManager alone performs the existing victory handoff.
+-    internal sealed class BattleMorpgLiveRoute : IMorpgZoneBattleHost, IMorpgZoneWaveDriver, IDisposable
++    internal sealed class BattleMorpgLiveRoute : IMorpgZoneBattleHost, IMorpgZoneWaveDriver, IMorpgPresentedTransition, IDisposable
+     {
+         private static readonly HashSet<CharacterManager> transitionPlayers = new();
+         internal static bool IsTransitionLocked(CharacterManager character) => transitionPlayers.Contains(character);
+@@ -32,6 +32,12 @@
+         private MorpgRewardDeliveryQueue delivery;
+         private MorpgRewardHudMono rewardHud;
+         private MorpgEnvironmentRuntime environment;
++        private MorpgDashTransitionView transitionView;
++        private int abortCoverUntilFrame=-1;
++        internal bool ReducedMotionTransitions { get; set; }
++        internal int ActiveZoneIndex => coordinator.ActiveZoneIndex;
++        internal bool WaveRunning => coordinator.Phase == ZoneTransitionPhase.Idle;
++        internal MorpgDashTransitionView TransitionView => transitionView;
+         private CharacterManager player;
+         private GameObject staging;
+         private MorpgTransitionScopeToken token;
+@@ -165,6 +171,11 @@
+                 }
+                 if (failed) return;
+                 environment.Tick(delta);
++                if (coordinator.Phase == ZoneTransitionPhase.Idle && transitionView != null)
++                {
++                    if (!transitionView.Tick(delta, true, out string viewError)) { Fail(viewError); return; }
++                    if (transitionView.Finished) transitionView = null;
++                }
+                 if (player.RuntimeData.isDead)
+                 { Fail("party defeated", MorpgRouteStopReason.Defeat); return; }
+                 if (SettlementState == MorpgFinalSettlementState.FinalSettlementPending)
+@@ -174,13 +185,14 @@
+                 }
+                 coordinator.Tick(delta);
+                 if (coordinator.Phase == ZoneTransitionPhase.Failed) { Fail(coordinator.LastError); return; }
++                bool startedWave = false;
+                 if (coordinator.Phase == ZoneTransitionPhase.NextWaveReady)
+                 {
+-                    if (!coordinator.TryAcknowledgeNextWave()) Fail(coordinator.LastError);
+-                    return;
++                    if (!coordinator.TryAcknowledgeNextWave()) { Fail(coordinator.LastError); return; }
++                    startedWave = true;
+                 }
+                 if (coordinator.Phase != ZoneTransitionPhase.Idle) return;
+-                elapsed += delta;
++                elapsed += startedWave ? 0f : delta;
+                 var zone = definition.zones[coordinator.ActiveZoneIndex];
+                 while (next < zone.reservations.Length && zone.reservations[next].localDueTime <= elapsed)
+                 {
+@@ -194,9 +206,9 @@
+                 if (!TryGetMorpgZoneClearSnapshot(coordinator.ActiveHandle, out var clear, out string error))
+                 { Fail(error); return; }
+                 if (clear.SpawnFailed || clear.RewardTransactionFailed) { Fail("zone accounting failed"); return; }
+-                // Arrival-commit override: normal clear waits for all confirmed-death receipts.
+-                // This also ensures that no new zone or final handoff can outrun a pending reward.
+-                if (!clear.Eligible || (coordinator.ActiveZoneIndex != 2 && delivery.PendingCount != 0))
++                // Commit clear after the death-frame barrier; transition presentation then waits for receipts.
++                // Final victory retains its separate bounded settlement gate.
++                if (!clear.Eligible)
+                 { clearFrame = -1; return; }
+                 // Let the entire death callback/frame finish, including a simultaneous player death.
+                 if (clearFrame < 0) { clearFrame = Time.frameCount; return; }
+@@ -301,6 +313,9 @@
+                 plan.Anchor != destination.entryWarpAnchorId) return false;
+             preparedPlan = plan;
+             LockPlayer();
++            transitionView = new MorpgDashTransitionView(player, environment, coordinator.ActiveZoneIndex, ReducedMotionTransitions);
++            transitionView.Cancelled = AbortActiveTransition;
++            if (!transitionView.CanLand) { error = "transition landing invalid"; return false; }
+             // Every owned producer has already prepared disposal through the clear snapshot.
+             if (!TryStopMorpgZoneWave(plan.Source, MorpgZoneStopReason.Transition, out error)) return false;
+             return record.TryPrepare();
+@@ -312,16 +327,36 @@
+             if (token == null || !ReferenceEquals(scope, token) || !ReferenceEquals(plan, preparedPlan) ||
+                 !ReferenceEquals(source, plan.Source) || !waves.ActiveScope.Registry.IsDisposed ||
+                 record.State != TransitionRecordState.Prepared || player == null || player.RuntimeData.isDead) return false;
+-            WarpTo(record.Ordinal);
++            if (!transitionView.TargetClear()) { error="transition landing dynamically blocked"; return false; }
++            WarpTo(record.Ordinal, transitionView.WarpPosition, transitionView.CameraTarget);
+             error = null; return record.TryCommit();
+         }
+         public bool TryReleaseTransitionScope(MorpgTransitionScopeToken scope, MorpgTransitionReleaseReason reason, out string error)
+         {
+             error = "foreign release";
+             if (token == null || !ReferenceEquals(scope, token)) return false;
+-            if (reason != MorpgTransitionReleaseReason.Success) record.TryFail();
++            if (reason != MorpgTransitionReleaseReason.Success)
++            { record.TryFail(); transitionView?.Abort(); transitionView = null; abortCoverUntilFrame = Time.frameCount + 1; }
+             UnlockPlayer(); token = null; preparedPlan = null; error = null; return true;
+         }
++        public bool TickTransition(float delta, out bool warp, out bool unlock, out bool wave, out string error)
++        {
++            warp=unlock=wave=false;error=null;
++            if(transitionView==null){error="transition presentation owner missing";return false;}
++            if(coordinator.Elapsed>=FinalSettlementTimeoutSeconds && delivery.PendingCount>0 && !delivery.Flush())
++            {error=delivery.Error;return false;}
++            if(!transitionView.Tick(delta,delivery.PendingCount==0,out error))return false;
++            warp=transitionView.Clock.WarpReady;unlock=transitionView.Clock.UnlockReady;wave=transitionView.Clock.WaveReady;
++            return true;
++        }
++        public void TransitionWarped()=>transitionView?.MarkWarped();
++        public void TransitionUnlocked()=>transitionView?.UnlockBody();
++        public void TransitionWaveStarted()=>transitionView?.WaveStarted();
++        internal void AbortActiveTransition()
++        {
++            if(transitionView!=null && !disposed && !failed)Fail("transition owner disabled",MorpgRouteStopReason.Abort);
++        }
++
+         private void BeginFinalSettlement()
+         {
+             if (SettlementState != MorpgFinalSettlementState.NotStarted) return;
+@@ -404,7 +439,7 @@
+                 throw new InvalidOperationException("player movement scope already owned");
+             foreach (var behaviour in player.GetComponentsInChildren<MonoBehaviour>(true))
+             {
+-                if (!(behaviour is CharacterManager || behaviour is CharacterSkillManager ||
++                if (!(behaviour is CharacterSkillManager ||
+                     behaviour is MovementMono || behaviour is MovementController || behaviour is KnockbackController ||
+                     behaviour is PartyMovementMono || behaviour is SkillBrainMono || behaviour is SkillExecutorMono)) continue;
+                 locked[behaviour] = behaviour.enabled;
+@@ -419,30 +454,32 @@
+             foreach (var pair in locked) if (pair.Key != null && pair.Value) pair.Key.enabled = true;
+             locked.Clear();
+         }
+-        private void WarpTo(int ordinal)
++        private void WarpTo(int ordinal, Vector3? destination = null, Vector2? fixedCamera = null)
+         {
+             var zone = definition.zones[ordinal];
+-            if (!environment.TryBeginWarp(ordinal, out string environmentError))
++            if (!environment.TryBeginWarp(ordinal, out string environmentError, destination.HasValue))
+                 throw new InvalidOperationException(environmentError);
+             BattleMapBoundsContext.SetActorZone(Rect.MinMaxRect(zone.bounds[0], zone.bounds[1], zone.bounds[2], zone.bounds[3]));
+             player.GetComponent<MovementMono>()?.StopAllMotion();
+-            Vector3 position = new Vector3(zone.entry[0], zone.entry[1], player.transform.position.z);
++            Vector3 position = destination ?? new Vector3(zone.entry[0], zone.entry[1], player.transform.position.z);
+             player.transform.position = position;
+             var body = player.GetComponent<Rigidbody2D>();
+             if (body != null) { body.position = position; body.linearVelocity = Vector2.zero; body.angularVelocity = 0f; }
+-            environment.CompleteWarp(ordinal);
++            if(!destination.HasValue)environment.CompleteWarp(ordinal);
+             var camera = Camera.main;
+             if (camera != null)
+             {
+-                Vector2 center = BattleMapBoundsContext.ClampCameraCenter(position, camera);
++                Vector2 center = fixedCamera ?? BattleMapBoundsContext.ClampCameraCenter(position, camera);
+                 camera.transform.position = new Vector3(center.x, center.y, camera.transform.position.z);
+                 camera.GetComponent<BattlePlayerCameraFollowMono>()?.ResetSmoothing();
+             }
++            environment.CompleteWarp(ordinal);
+         }
+         private void Fail(string error, MorpgRouteStopReason reason = MorpgRouteStopReason.Failed)
+         {
+             if (failed) return;
+             failed = true; failure = error;
++            if(transitionView!=null){abortCoverUntilFrame=Time.frameCount+1;transitionView.Abort();transitionView=null;}
+             SettlementState = reason == MorpgRouteStopReason.Defeat ? MorpgFinalSettlementState.Defeated : MorpgFinalSettlementState.Failed;
+             // Pay confirmed kills on defeat/abort; no living or un-emitted reservation is fabricated.
+             if (delivery != null && !delivery.Close()) failure = delivery.Error;
+@@ -457,6 +494,7 @@
+         public void Dispose()
+         {
+             if (disposed) return;
++            transitionView?.Abort();transitionView=null;
+             // Settle before destroying either the view or actor/account owners.
+             if (delivery != null && !delivery.Close()) Fail(delivery.Error);
+             // Teardown settles confirmed receipts but abort wins over an uncommitted victory.
+@@ -476,12 +514,11 @@
+         internal void DrawHud()
+         {
+             if (!activated || disposed) return;
+-            if (token != null)
+-            {
+-                float t = coordinator.Elapsed;
+-                float alpha = t < .68f ? Mathf.Clamp01((t - .50f) / .18f) : Mathf.Clamp01((1.05f - t) / .37f);
++            float cover = Time.frameCount <= abortCoverUntilFrame ? 1f : transitionView?.Clock.ScreenOpacity ?? 0f;
++            if (cover > 0f)
++            {
+                 Color previous = GUI.color;
+-                GUI.color = new Color(0f, 0f, 0f, alpha);
++                GUI.color = new Color(0f, 0f, 0f, cover);
+                 GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), Texture2D.whiteTexture);
+                 GUI.color = previous;
+             }
+--- a/Assets/Scripts/Battle/Morpg/BattleMorpgZoneTransitionCoordinator.cs
++++ b/Assets/Scripts/Battle/Morpg/BattleMorpgZoneTransitionCoordinator.cs
+@@ -93,6 +93,24 @@
+             elapsed += deltaTime;
+             try
+             {
++                if (host is IMorpgPresentedTransition presentation)
++                {
++                    if (!presentation.TickTransition(deltaTime, out bool warp, out bool unlock, out bool wave, out string error))
++                    { Fail(error); return; }
++                    if (warp && (Phase == ZoneTransitionPhase.CleanupSettling || Phase == ZoneTransitionPhase.Fading))
++                    {
++                        if (!host.TryCommitWarp(token, plan, active, out error) || transition.State != TransitionRecordState.Committed)
++                        { Fail(error ?? "presentation warp not committed"); return; }
++                        ActiveZoneIndex++; Phase = ZoneTransitionPhase.Warped; presentation.TransitionWarped();
++                    }
++                    if (unlock && Phase == ZoneTransitionPhase.Warped)
++                    {
++                        if (!Release(MorpgTransitionReleaseReason.Success)) { Fail(LastError); return; }
++                        Phase = ZoneTransitionPhase.Unlocked; presentation.TransitionUnlocked();
++                    }
++                    if (wave && Phase == ZoneTransitionPhase.Unlocked) Phase = ZoneTransitionPhase.NextWaveReady;
++                    return;
++                }
+                 if (elapsed >= FadeAt && Phase == ZoneTransitionPhase.CleanupSettling) Phase = ZoneTransitionPhase.Fading;
+                 if (elapsed >= WarpAt && (Phase == ZoneTransitionPhase.CleanupSettling || Phase == ZoneTransitionPhase.Fading))
+                 {
+@@ -113,7 +131,10 @@
+         {
+             if (paused || Phase != ZoneTransitionPhase.NextWaveReady) return false;
+             active = null; clear = null; clearCommitted = false; transition = null; plan = null;
+-            Phase = ZoneTransitionPhase.Idle; return TryStartActiveWave();
++            Phase = ZoneTransitionPhase.Idle;
++            bool started = TryStartActiveWave();
++            if (started && host is IMorpgPresentedTransition presentation) presentation.TransitionWaveStarted();
++            return started;
+         }
+         internal bool TryRequestVictory()
+         {
+--- a/Assets/Scripts/Battle/Morpg/MorpgEnvironmentRuntime.cs
++++ b/Assets/Scripts/Battle/Morpg/MorpgEnvironmentRuntime.cs
+@@ -121,7 +121,7 @@
+             actors.Add(actor);
+             foreach(var sorter in actor.GetComponentsInChildren<Util.SortingOrderMono>(true))sorter.UpdateSortingOrder();
+         }
+-        internal bool TryBeginWarp(int ordinal,out string error)
++        internal bool TryBeginWarp(int ordinal,out string error,bool invisibleCut=false)
+         {
+             error="environment landing blocked";
+             if(ordinal<0 || ordinal>=3 || !MorpgEnvironmentGeometry.LandingValid(Profile.zones[ordinal]))return false;
+@@ -130,11 +130,16 @@
+                 if(actor!=null && actor.RuntimeData!=null && !actor.RuntimeData.isDead &&
+                    actor.GetComponent<MorpgOwnedObject>()!=null &&
+                    MorpgEnvironmentGeometry.Distance(new[]{actor.transform.position.x,actor.transform.position.y},z.entry)<z.landingRadius)return false;
+-            structural[ordinal].SetActive(true); // Destination first; old boundary survives through placement.
++            if(invisibleCut)
++            {
++                for(int i=0;i<3;i++)structural[i].SetActive(false);
++                current=ordinal; // Same simulation tick: old off, placement/camera, new on.
++            }
++            else structural[ordinal].SetActive(true);
+             error=null;return true;
+         }
+         internal void CompleteWarp(int ordinal)
+-        {current=ordinal;for(int i=0;i<3;i++)if(i!=ordinal)structural[i].SetActive(false);}
++        {structural[ordinal].SetActive(true);current=ordinal;for(int i=0;i<3;i++)if(i!=ordinal)structural[i].SetActive(false);}
+         internal void Tick(float delta)
+         {
+             foreach(var renderer in foreground)
+--- a/Assets/Scripts/Battle/Morpg/MorpgEnvironmentGeometry.cs
++++ b/Assets/Scripts/Battle/Morpg/MorpgEnvironmentGeometry.cs
+@@ -21,6 +21,7 @@
+             public string zoneId, waveId, anchorId, boundaryId, propManifestId, colliderManifestId, backgroundBindingId, reservationAuditRef;
+             public Point[] walkable;
+             public float[] core, entry, egressAxis, cameraClamp;
++            public float[] transitionExit, transitionStaging;
+             public float spawnInset, actorInset, landingRadius, egressLength, egressRadius;
+             public Prop[] props;
+             public Decoration[] decorations;
+@@ -50,7 +51,7 @@
+                 foreach(var row in Array(root,"reservations"))Shape(row,"reservationId,zoneId,role,original,position,spawnValid,relocated");
+                 foreach(var item in Array(root,"zones"))
+                 {
+-                    var z=Shape(item,"zoneId,waveId,anchorId,entry,walkable,core,spawnInset,actorInset,landingRadius,egressLength,egressRadius,egressAxis,cameraClamp,boundaryId,propManifestId,colliderManifestId,backgroundBindingId,reservationAuditRef,props,decorations");
++                    var z=Shape(item,"zoneId,waveId,anchorId,entry,walkable,core,spawnInset,actorInset,landingRadius,egressLength,egressRadius,egressAxis,cameraClamp,boundaryId,propManifestId,colliderManifestId,backgroundBindingId,reservationAuditRef,props,decorations","transitionExit,transitionStaging");
+                     foreach(var point in Array(z,"walkable"))Shape(point,"x,y");
+                     foreach(var prop in Array(z,"props"))Shape(prop,"id,colliderId,asset,center,radius,box,visualSize,visualOrigin,visualRotation","flipX");
+                     foreach(var decoration in Array(z,"decorations"))Shape(decoration,"id,asset,origin,size","flipX,visualRotation");
+--- a/Assets/Scripts/Battle/Spawn/Sequence/BattleSpawnManager.cs
++++ b/Assets/Scripts/Battle/Spawn/Sequence/BattleSpawnManager.cs
+@@ -51,6 +51,7 @@
+ 
+     private void OnDisable()
+     {
++        morpgRoute?.AbortActiveTransition();
+         morpgRoute?.FlushPendingRewards();
+     }
+ 
+@@ -74,6 +75,8 @@
+         largeWaveRunner?.Tick(Time.deltaTime);
+         morpgRoute?.Tick(Time.deltaTime);
+     }
++
++    [SerializeField] private bool reducedMotionTransitions;
+ 
+     public bool TryPlayMorpg(bool enabled, BattleSession session, ISpawnUnitResolver resolver)
+     {
+@@ -86,6 +89,7 @@
+         }
+         StopSequence();
+         morpgRoute = candidate;
++        morpgRoute.ReducedMotionTransitions = reducedMotionTransitions;
+         if (morpgRoute.Activate()) return true;
+         morpgRoute = null;
+         return false;
+--- a/Assets/Resources/battle/morpg/environment/environment.v1.json
++++ b/Assets/Resources/battle/morpg/environment/environment.v1.json
+@@ -494,6 +494,10 @@
+             0.8
+           ]
+         }
++      ],
++      "transitionExit": [
++        -5.7,
++        0
+       ]
+     },
+     {
+@@ -699,6 +703,14 @@
+             0.8
+           ]
+         }
++      ],
++      "transitionExit": [
++        4.45,
++        0
++      ],
++      "transitionStaging": [
++        -3,
++        0
+       ]
+     },
+     {
+@@ -917,6 +929,10 @@
+             0.6
+           ]
+         }
++      ],
++      "transitionStaging": [
++        7.25,
++        0
+       ]
+     }
+   ],
+--- a/AgentTools/MorpgIntegrationHarness/RuntimeStub.cs
++++ b/AgentTools/MorpgIntegrationHarness/RuntimeStub.cs
+@@ -15,7 +15,7 @@
+  }
+  public class Behaviour:Component { public bool enabled=true; }
+  public class MonoBehaviour:Behaviour {}
+- public class Transform:Component { public Vector3 position; public Vector3 localScale=new(1,1,1); public Quaternion rotation; public Transform parent; public void SetParent(Transform p,bool world){parent=p;} }
++ public class Transform:Component { public Vector3 position; public Vector3 localScale=new(1,1,1); public Quaternion rotation; public Transform parent; public bool IsChildOf(Transform other){for(var t=this;t!=null;t=t.parent)if(t==other)return true;return false;} public void SetParent(Transform p,bool world){parent=p;} }
+  public class GameObject:Object {
+   public static string ThrowOnAddType;
+   public static readonly List<GameObject> All=new(); public string name; public bool active=true,destroyed; public bool activeSelf=>active; public bool activeInHierarchy=>active && !destroyed && (transform.parent?.gameObject.activeInHierarchy??true); public Transform transform;
+@@ -28,23 +28,23 @@
+   public T[] GetComponentsInChildren<T>(bool inactive) where T:class=>components.OfType<T>().Concat(All.Where(g=>g.transform.parent==transform && (inactive||g.activeInHierarchy)).SelectMany(g=>g.GetComponentsInChildren<T>(inactive))).ToArray();
+  }
+  public struct Vector2 {
+- public float x,y;public Vector2(float x,float y){this.x=x;this.y=y;}public static Vector2 zero=>new(0,0);
++ public float x,y;public Vector2(float x,float y){this.x=x;this.y=y;}public static Vector2 zero=>new(0,0);public static Vector2 right=>new(1,0);public float sqrMagnitude=>x*x+y*y;public static float Distance(Vector2 a,Vector2 b)=>(a-b).magnitude;
+  public static implicit operator Vector2(Vector3 v)=>new(v.x,v.y);public float magnitude=>(float)Math.Sqrt(x*x+y*y);public Vector2 normalized=>magnitude==0?zero:this*(1/magnitude);
+  public static Vector2 operator +(Vector2 a,Vector2 b)=>new(a.x+b.x,a.y+b.y);public static Vector2 operator -(Vector2 a,Vector2 b)=>new(a.x-b.x,a.y-b.y);public static Vector2 operator *(Vector2 a,float b)=>new(a.x*b,a.y*b);
+  public static Vector2 Lerp(Vector2 a,Vector2 b,float t)=>a+(b-a)*t;
+  }
+- public struct Vector3 {public float x,y,z;public Vector3(float x,float y,float z){this.x=x;this.y=y;this.z=z;}public static Vector3 operator -(Vector3 a,Vector3 b)=>new(a.x-b.x,a.y-b.y,a.z-b.z);}
++ public struct Vector3 {public float x,y,z;public Vector3(float x,float y,float z){this.x=x;this.y=y;this.z=z;}public static Vector3 operator -(Vector3 a,Vector3 b)=>new(a.x-b.x,a.y-b.y,a.z-b.z);public static Vector3 Lerp(Vector3 a,Vector3 b,float t)=>new(a.x+(b.x-a.x)*t,a.y+(b.y-a.y)*t,a.z+(b.z-a.z)*t);}
+  public struct Quaternion {private float angle;public static Quaternion Euler(float x,float y,float z)=>new Quaternion{angle=z};public static Vector3 operator *(Quaternion q,Vector3 p){double t=q.angle*Math.PI/180;return new Vector3((float)(p.x*Math.Cos(t)-p.y*Math.Sin(t)),(float)(p.x*Math.Sin(t)+p.y*Math.Cos(t)),p.z);}}
+  public struct Bounds {public Vector3 center;public Vector3 size;public Vector3 extents=>new(size.x/2,size.y/2,size.z/2);public bool Intersects(Bounds b)=>Math.Abs(center.x-b.center.x)<=(size.x+b.size.x)/2 && Math.Abs(center.y-b.center.y)<=(size.y+b.size.y)/2;}
+  public class Sprite {public Bounds bounds=new Bounds{size=new Vector3(10.24f,10.24f,0)};}
+  public class SpriteRenderer:Behaviour {public Sprite sprite;public int sortingOrder,sortingLayerID;public bool flipX;public Bounds? TestBounds;public Color color=new Color(1,1,1,1);public Bounds bounds=>TestBounds??new Bounds{center=transform.position,size=sprite?.bounds.size??default};}
+- public class Collider2D:Behaviour {public bool isTrigger;public Bounds bounds;}
++ public class Collider2D:Behaviour {public Rigidbody2D attachedRigidbody=>GetComponent<Rigidbody2D>();public bool isTrigger;public Bounds bounds;}
+  public class CircleCollider2D:Collider2D {public float radius;}
+  public class BoxCollider2D:Collider2D {public Vector2 size;}
+  public class PolygonCollider2D:Collider2D {public Vector2[] points;}
+ 
+  public struct Rect {public float xMin,yMin,xMax,yMax;public Rect(float x,float y,float w,float h){xMin=x;yMin=y;xMax=x+w;yMax=y+h;}public static Rect MinMaxRect(float a,float b,float c,float d)=>new(a,b,c-a,d-b);}
+- public class Rigidbody2D:Component {public Vector2 position,linearVelocity;public float angularVelocity;}
++ public class Rigidbody2D:Component {public Vector2 position,linearVelocity;public float angularVelocity;public Collider2D BlockCast;public int Cast(Vector2 d,ContactFilter2D f,RaycastHit2D[] hits,float distance){if(BlockCast==null)return 0;hits[0]=new RaycastHit2D{collider=BlockCast,distance=0};return 1;}}
+  public class Camera:Behaviour {public static Camera main;public float orthographicSize=3,aspect=16f/9f;public bool orthographic=true;}
+  public static class Time {public static float timeScale=1;public static int frameCount;}
+  public static class Debug {public static void LogError(string s){}public static void LogWarning(string s){}public static void LogException(System.Exception e){} }
+@@ -58,7 +58,7 @@
+  public class CharacterRuntimeData {public bool isDead;public CharacterSO characterSO;}
+  public class CharacterManager:UnityEngine.MonoBehaviour {
+   public static event Action<CharacterManager> OnAnyCharacterDied;
+-  public CharacterRuntimeData RuntimeData=new(); public float xp;
++  public CharacterRuntimeData RuntimeData=new(); public float xp;public bool CanMove=true;
+   public float GetStatValue(Stat.StatType t)=>xp;
+   public bool ThrowNextStat;public void SetStat(Stat.StatType t,float v){xp=v;if(ThrowNextStat){ThrowNextStat=false;throw new Exception("stat callback");}}
+   public void Die(){RuntimeData.isDead=true;OnAnyCharacterDied?.Invoke(this);}
+@@ -129,3 +129,22 @@
+ namespace Character.UI {public class CharacterSkillCooldownSlot:UnityEngine.MonoBehaviour{}}
+ namespace Party.UI {public class CharacterBattleHudUI:UnityEngine.MonoBehaviour{}}
+ namespace Battle.Presentation {public class BattleCharacterAuraView:UnityEngine.MonoBehaviour{}}
++
++namespace UnityEngine {
++ public class AnimationClip {public float length=.5f;}
++ public class Animator:Behaviour {public bool applyRootMotion;}
++ public struct ContactFilter2D {public bool useTriggers,useLayerMask;}
++ public struct RaycastHit2D {public Collider2D collider;public float distance;}
++ public class DefaultExecutionOrder:Attribute {public DefaultExecutionOrder(int value){}}
++}
++namespace Character {
++ public class AnimationMono:UnityEngine.MonoBehaviour {
++  public enum DiagonalDirection {UpRight,UpLeft,DownRight,DownLeft}
++  public DiagonalDirection CurrentDirection;public bool BodyAvailable=true;public int BodyPlays,Idles;
++  public bool AcquireFacingLock(object o,UnityEngine.Vector2 d){CurrentDirection=DiagonalDirection.DownRight;return true;}
++  public bool PlaySkillBodyAction(UnityEngine.AnimationClip c,float d,bool mirror){BodyPlays++;return BodyAvailable;}
++  public void StopSkillBodyAction(){}public void PlayIdle(){Idles++;}public void ReleaseFacingLock(object o){}public void SetDirection(DiagonalDirection d){CurrentDirection=d;}
++ }
++}
++
++namespace UnityEngine {public static class Physics2D {public static Collider2D[] Overlaps=System.Array.Empty<Collider2D>();public static Collider2D[] OverlapCircleAll(Vector2 p,float r)=>Overlaps;}}
+--- a/AgentTools/MorpgIntegrationHarness/Program.cs
++++ b/AgentTools/MorpgIntegrationHarness/Program.cs
+@@ -22,13 +22,24 @@
+   }
+   public void Tick(float delta=2){Time.frameCount++;Route.Tick(delta);}
+   public void Clear(){Tick();foreach(var c in NpcSpawnService.Instance.Spawned.ToArray())if(!c.RuntimeData.isDead)c.Die();Tick();Tick();}
++  public void AdvanceTransition(){for(int i=0;i<500;i++){Tick(.01f);if(Route.WaveRunning)return;}throw new Exception("transition did not release wave");}
+   public void Dispose(){Route.Dispose();}
+  }
+  static void ReachPending(Fixture f){
+-  MorpgRewardHudMono.EnableForTests=true;f.Clear();f.Tick(1.3f);f.Clear();f.Tick(1.3f);f.Tick();
++  MorpgRewardHudMono.EnableForTests=true;f.Clear();f.AdvanceTransition();f.Clear();f.AdvanceTransition();f.Tick();
+   foreach(var c in NpcSpawnService.Instance.Spawned.ToArray())if(!c.RuntimeData.isDead)c.Die();
+   f.Tick(.01f);f.Tick(.01f);
+   Check(f.Route.SettlementState==MorpgFinalSettlementState.FinalSettlementPending && !f.Route.VictoryReady,"pending treated as terminal");
++ }
++ static void WithDashCorridor(Action test){
++  var saved=Resources.Items[MorpgEnvironmentGeometry.Resource];
++  var json=((TextAsset)saved).text;Check(StrictCanonicalJson.TryParse(json,out var parsed,out var error),error);
++  var root=(StrictCanonicalJson.ObjectNode)parsed;var zones=(StrictCanonicalJson.ArrayNode)root["zones"];
++  void Rectangle(int i,double x0,double x1){var z=(StrictCanonicalJson.ObjectNode)zones[i];var points=new StrictCanonicalJson.ArrayNode();foreach(var v in new[]{new[]{x0,-7.35},new[]{x1,-7.35},new[]{x1,7.35},new[]{x0,7.35}})points.Add(new StrictCanonicalJson.ObjectNode{{"x",(decimal)v[0]},{"y",(decimal)v[1]}});z["walkable"]=points;}
++  // Test-only envelopes make the approved anchors sweepable; production profile is never rewritten.
++  Rectangle(0,-14.5,-3.75);Rectangle(1,-5,6.25);Rectangle(2,5.5,14.5);
++  Resources.Items[MorpgEnvironmentGeometry.Resource]=new TextAsset(StrictCanonicalJson.Canonicalize(root));
++  try{test();}finally{Resources.Items[MorpgEnvironmentGeometry.Resource]=saved;Camera.main=null;Physics2D.Overlaps=System.Array.Empty<Collider2D>();}
+  }
+  static void Test(string name,Action test){test();Console.WriteLine("PASS "+name);pass++;}
+  static void Main(string[] args){
+@@ -37,6 +48,7 @@
+   string environmentJson=File.ReadAllText(Path.Combine(args[0],"Assets/Resources/battle/morpg/environment/environment.v1.json"));
+   Resources.Items[MorpgEnvironmentGeometry.Resource]=new TextAsset(environmentJson);
+   var environmentProfile=JsonUtility.FromJson<MorpgEnvironmentProfile>(environmentJson);
++  Resources.Items["battle/morpg/transitions/transition-dash"]=new AnimationClip();
+   foreach(var asset in environmentProfile.assets)Resources.Items[asset.resource]=new Sprite();
+   Test("live-exact-gate-preflight-no-mutation",()=>{
+    var s=new BattleSession{BattleSO=new Battle.BattleSO{BattleId="other"}};
+@@ -50,9 +62,9 @@
+    using var f=new Fixture();f.Clear();Check(NpcSpawnService.Instance.Spawned.Count==19,"zone1 count");
+    Check(BattleMorpgLiveRoute.IsTransitionLocked(f.Player),"transition unlocked early");
+    var dead=NpcSpawnService.Instance.Spawned[0];int gold=GameSession.Instance.StageSession.CurrencyRuntimeData.gold;dead.Die();Check(GameSession.Instance.StageSession.CurrencyRuntimeData.gold==gold,"duplicate reward");
+-   f.Tick(.7f);Check(f.Player.transform.position.x==0,"center warp");Check(NpcSpawnService.Instance.Spawned.Count==19,"early next wave");
+-   f.Tick(.6f);Check(!BattleMorpgLiveRoute.IsTransitionLocked(f.Player),"lock leaked");f.Clear();Check(NpcSpawnService.Instance.Spawned.Count==24,"zone2 count");
+-   f.Tick(1.3f);f.Clear();Check(NpcSpawnService.Instance.Spawned.Count==28,"zone3 count");
++   f.Tick(.5f);f.Tick(.12f);Check(f.Player.transform.position.x==0,"center warp");Check(NpcSpawnService.Instance.Spawned.Count==19,"early next wave");
++   f.AdvanceTransition();Check(!BattleMorpgLiveRoute.IsTransitionLocked(f.Player),"lock leaked");f.Clear();Check(NpcSpawnService.Instance.Spawned.Count==24,"zone2 count");
++   f.AdvanceTransition();f.Clear();Check(NpcSpawnService.Instance.Spawned.Count==28,"zone3 count");
+    Check(f.Route.VictoryReady,"final victory missing");Check(GameSession.Instance.StageSession.CurrencyRuntimeData.gold==40,"gold conservation");Check(f.Player.xp==10,"raw xp conservation");Check(f.Session.BattleRuntime.rewardExperience==0,"final xp duplicate");
+    f.Tick();Check(f.Player.xp==10,"victory retry credited");
+   });
+@@ -60,7 +72,7 @@
+    using var f=new Fixture();f.Clear();Time.timeScale=0;f.Tick(100);Check(f.Player.transform.position.x==-10.25f,"paused warp");Time.timeScale=1;f.Route.Dispose();Check(!BattleMorpgLiveRoute.IsTransitionLocked(f.Player),"teardown lock leak");
+   });
+   Test("live-final-frame-defeat-wins",()=>{
+-   using var f=new Fixture();f.Clear();f.Tick(1.3f);f.Clear();f.Tick(1.3f);f.Tick();
++   using var f=new Fixture();f.Clear();f.AdvanceTransition();f.Clear();f.AdvanceTransition();f.Tick();
+    foreach(var c in NpcSpawnService.Instance.Spawned.ToArray())if(!c.RuntimeData.isDead)c.Die();f.Player.Die();f.Tick();Check(!f.Route.VictoryReady,"defeat became victory");
+   });
+   Test("live-spawn-fault-no-next-wave",()=>{
+@@ -101,7 +113,7 @@
+    f.Tick(2f);Check(NpcSpawnService.Instance.Spawned.Count==19,"optional HUD error stopped battle");
+   });
+   Test("live-presented-28-deaths-settle-before-final-HUD-snapshot",()=>{
+-   using var f=new Fixture();MorpgRewardHudMono.EnableForTests=true;f.Clear();f.Tick(1.3f);f.Clear();f.Tick(1.3f);f.Clear();
++   using var f=new Fixture();MorpgRewardHudMono.EnableForTests=true;f.Clear();f.AdvanceTransition();f.Clear();f.AdvanceTransition();f.Clear();
+    Check(f.Route.VictoryReady && MorpgRewardHudMono.Last.Receipts==28 && MorpgRewardHudMono.Last.FinalGold==40 && f.Player.xp==10,"final presentation/account barrier");
+   });
+   Test("final-pending-arrival-and-duplicate-exactly-once",()=>{
+@@ -222,6 +234,62 @@
+    var fs=foreign.AddComponent<Util.SortingOrderMono>();typeof(Util.SortingOrderMono).GetMethod("Awake",flags).Invoke(fs,null);Check(fs.CalculateSortingOrder()==-600,"foreign actor changed");
+    f.Route.Dispose();Check(body.sortingOrder==-600 && body.color.a==1,"dispose sorting/alpha restoration failed");
+   });
++  Test("dash-normal-body-exit-hidden-cut-entry-settle-wave",()=>WithDashCorridor(()=>{
++   Camera.main=new GameObject("dash camera").AddComponent<Camera>();var follow=Camera.main.gameObject.AddComponent<Battle.BattlePlayerCameraFollowMono>();
++   using var f=new Fixture();var animation=f.Player.gameObject.AddComponent<AnimationMono>();var animator=f.Player.gameObject.AddComponent<Animator>();animator.applyRootMotion=true;
++   var body=f.Player.gameObject.AddComponent<SpriteRenderer>();body.sprite=new Sprite();body.flipX=true;f.Player.gameObject.AddComponent<Rigidbody2D>();
++   f.Clear();var view=f.Route.TransitionView;Check(view!=null && !view.Clock.Fallback,"valid corridor selected fallback: "+view?.FallbackReason);
++   float cameraX=Camera.main.transform.position.x;f.Tick(.5f);f.Tick(.08f);f.Tick(.1f);
++   Check(f.Player.transform.position.x>-10.25f && Camera.main.transform.position.x==cameraX && !follow.enabled,"exit/camera ownership");
++   float x=f.Player.transform.position.x,alpha=body.color.a;Time.timeScale=0;f.Tick(100);Check(f.Player.transform.position.x==x&&body.color.a==alpha,"pause advanced dash");Time.timeScale=1;
++   for(int i=0;i<100&&view.Clock.Phase!=MorpgDashPhase.Invisible;i++)f.Tick(.01f);
++   Check(body.color.a==0 && f.Player.transform.position.x==-3 && Camera.main.transform.position.x==0 && NpcSpawnService.Instance.Spawned.Count==19,"cut not hidden/atomic");
++   f.Tick(.01f);Check(body.color.a==0,"no invisible rendered checkpoint");f.Tick(.18f);
++   Check(f.Player.transform.position.x>-3&&f.Player.transform.position.x<0&&Camera.main.transform.position.x==0,"entry dash/camera");
++   f.Tick(.181f);Check(f.Player.transform.position.x==0&&body.color.a==1&&BattleMorpgLiveRoute.IsTransitionLocked(f.Player),"landing idle gate");
++   f.Tick(.161f);Check(!BattleMorpgLiveRoute.IsTransitionLocked(f.Player)&&!follow.enabled&&animator.applyRootMotion,"unlock restoration");
++   f.Tick(.199f);Check(NpcSpawnService.Instance.Spawned.Count==19,"early wave");f.Tick(.002f);
++   Check(NpcSpawnService.Instance.Spawned.Count==20&&!follow.enabled,"wave receipt or held camera");f.Tick(.01f);Check(follow.enabled&&animation.BodyPlays==2&&body.color.a==1&&body.flipX,"camera/body exact release");
++  }));
++  Test("dash-current-authored-invalid-corridor-safe-fallback",()=>{
++   using var f=new Fixture();f.Player.gameObject.AddComponent<AnimationMono>();f.Player.gameObject.AddComponent<SpriteRenderer>();f.Clear();
++   Check(f.Route.TransitionView.Clock.Fallback&&f.Route.TransitionView.FallbackReason=="authored dash corridor blocked","unsafe authored exit swept through wall");
++   f.Tick(.5f);f.Tick(.12f);Check(f.Route.TransitionView.Clock.ScreenOpacity==1&&f.Player.transform.position.x==0,"fallback cut exposed");f.AdvanceTransition();
++  });
++  Test("dash-dynamic-exit-obstruction-enters-obscured-fallback",()=>WithDashCorridor(()=>{
++   using var f=new Fixture();f.Player.gameObject.AddComponent<AnimationMono>();var sr=f.Player.gameObject.AddComponent<SpriteRenderer>();var rb=f.Player.gameObject.AddComponent<Rigidbody2D>();
++   f.Clear();f.Tick(.5f);f.Tick(.08f);rb.BlockCast=new GameObject("dynamic obstruction").AddComponent<BoxCollider2D>();
++   float x=f.Player.transform.position.x;f.Tick(.1f);Check(f.Route.TransitionView.Clock.Fallback&&f.Player.transform.position.x==x,"dynamic blocker penetrated");
++   rb.BlockCast=null;f.Tick(.12f);Check(sr.color.a==0&&f.Route.TransitionView.Clock.ScreenOpacity==1,"dynamic fallback exposed cut");f.AdvanceTransition();
++  }));
++  Test("dash-entry-obstruction-falls-back-without-second-cut",()=>WithDashCorridor(()=>{
++   using var f=new Fixture();f.Player.gameObject.AddComponent<AnimationMono>();var sr=f.Player.gameObject.AddComponent<SpriteRenderer>();var rb=f.Player.gameObject.AddComponent<Rigidbody2D>();f.Clear();
++   var view=f.Route.TransitionView;for(int i=0;i<200&&view.Clock.Phase!=MorpgDashPhase.Entry;i++)f.Tick(.01f);
++   f.Tick(.1f);float x=f.Player.transform.position.x,alpha=sr.color.a;rb.BlockCast=new GameObject("entry blocker").AddComponent<BoxCollider2D>();
++   f.Tick(.01f);Check(view.Clock.Fallback&&f.Player.transform.position.x==x&&sr.color.a<=alpha,"entry fallback flashed or penetrated");
++   rb.BlockCast=null;f.Tick(.12f);Check(sr.color.a==0&&view.Clock.ScreenOpacity==1&&f.Player.transform.position.x==0&&f.Route.ActiveZoneIndex==1,"hidden fallback landing");
++   f.AdvanceTransition();Check(f.Route.ActiveZoneIndex==1&&NpcSpawnService.Instance.Spawned.Count==20,"fallback repeated cut or wave");
++  }));
++  Test("dash-abort-after-cut-restores-body-camera-input-once",()=>WithDashCorridor(()=>{
++   Camera.main=new GameObject("abort camera").AddComponent<Camera>();var follow=Camera.main.gameObject.AddComponent<Battle.BattlePlayerCameraFollowMono>();
++   using var f=new Fixture();f.Player.gameObject.AddComponent<AnimationMono>();var sr=f.Player.gameObject.AddComponent<SpriteRenderer>();sr.color=new Color(1,1,1,.7f);sr.flipX=true;
++   var animator=f.Player.gameObject.AddComponent<Animator>();animator.applyRootMotion=true;f.Clear();
++   for(int i=0;i<150&&f.Route.ActiveZoneIndex==0;i++)f.Tick(.01f);Check(f.Route.ActiveZoneIndex==1,"cut missing");
++   f.Route.AbortActiveTransition();f.Route.AbortActiveTransition();
++   Check(f.Player.transform.position.x==-10.25f&&Camera.main.transform.position.x==-10.25f&&follow.enabled&&sr.color.a==.7f&&sr.flipX&&animator.applyRootMotion&&!BattleMorpgLiveRoute.IsTransitionLocked(f.Player)&&!f.Route.VictoryReady,"abort lease leak");
++  }));
++  Test("dash-reduced-motion-and-missing-clip-never-play-body",()=>WithDashCorridor(()=>{
++   using(var f=new Fixture()){var a=f.Player.gameObject.AddComponent<AnimationMono>();f.Player.gameObject.AddComponent<SpriteRenderer>();f.Route.ReducedMotionTransitions=true;f.Clear();
++    Check(f.Route.TransitionView.FallbackReason=="reduced motion","reduced motion ignored");f.AdvanceTransition();Check(a.BodyPlays==0,"reduced motion played body");}
++   var key="battle/morpg/transitions/transition-dash";var saved=Resources.Items[key];Resources.Items.Remove(key);
++   try{using var f=new Fixture();var a=f.Player.gameObject.AddComponent<AnimationMono>();f.Player.gameObject.AddComponent<SpriteRenderer>();f.Clear();Check(f.Route.TransitionView.Clock.Fallback,"missing clip blocked route");f.AdvanceTransition();Check(a.BodyPlays==0,"missing clip played");}finally{Resources.Items[key]=saved;}
++  }));
++  Test("dash-blocked-landing-fails-before-cut-and-restores",()=>WithDashCorridor(()=>{
++   using var f=new Fixture();f.Player.gameObject.AddComponent<AnimationMono>();var sr=f.Player.gameObject.AddComponent<SpriteRenderer>();f.Clear();
++   Physics2D.Overlaps=new[]{new GameObject("landing blocked").AddComponent<BoxCollider2D>()};
++   for(int i=0;i<200 && f.Route.SettlementState!=MorpgFinalSettlementState.Failed;i++)f.Tick(.01f);
++   Check(f.Route.SettlementState==MorpgFinalSettlementState.Failed&&f.Player.transform.position.x==-10.25f&&sr.color.a==1&&!BattleMorpgLiveRoute.IsTransitionLocked(f.Player)&&NpcSpawnService.Instance.Spawned.Count==19,"invalid landing mutated next wave");
++  }));
+   Console.WriteLine("PASS "+pass+"/"+pass+" live glue simulations (Unity engine stub)");
+  }
+ }
+--- a/Artifacts/Engineering/MorpgP1Rollback/revision-02/REPRODUCE.sh
++++ b/Artifacts/Engineering/MorpgP1Rollback/revision-02/REPRODUCE.sh
+@@ -3,7 +3,7 @@
+ cd /Users/pvenus/ProjectBS
+ p1_output=$(mktemp -d /private/tmp/projectbs-p1-reproduce.XXXXXX)
+ p1_mono=/Applications/Unity/Hub/Editor/6000.3.10f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge
+-"$p1_mono/bin/mono" "$p1_mono/lib/mono/msbuild/Current/bin/Roslyn/csc.exe" -nologo -langversion:9.0 -r:System.Web.Extensions.dll -out:"$p1_output/MorpgP1Harness.exe" AgentTools/MorpgP0Harness/Program.cs AgentTools/MorpgP0Harness/P1RuntimeTests.cs AgentTools/MorpgP0Harness/UnityEngineStub.cs Assets/Scripts/Battle/Morpg/BattleMorpgZoneRewardContracts.cs Assets/Scripts/Battle/Morpg/StrictCanonicalJson.cs Assets/Scripts/Battle/Morpg/BattleMorpgP0AddendumCodec.cs Assets/Scripts/Battle/Morpg/BattleMorpgZoneTransitionCoordinator.cs Assets/Scripts/Battle/Morpg/MorpgZoneRuntimeSlice.cs
++"$p1_mono/bin/mono" "$p1_mono/lib/mono/msbuild/Current/bin/Roslyn/csc.exe" -nologo -langversion:9.0 -r:System.Web.Extensions.dll -out:"$p1_output/MorpgP1Harness.exe" AgentTools/MorpgP0Harness/Program.cs AgentTools/MorpgP0Harness/P1RuntimeTests.cs AgentTools/MorpgP0Harness/UnityEngineStub.cs Assets/Scripts/Battle/Morpg/BattleMorpgZoneRewardContracts.cs Assets/Scripts/Battle/Morpg/StrictCanonicalJson.cs Assets/Scripts/Battle/Morpg/BattleMorpgP0AddendumCodec.cs Assets/Scripts/Battle/Morpg/BattleMorpgZoneTransitionCoordinator.cs Assets/Scripts/Battle/Morpg/MorpgZoneRuntimeSlice.cs Assets/Scripts/Battle/Morpg/MorpgTransitionClock.cs
+ "$p1_mono/bin/mono" "$p1_output/MorpgP1Harness.exe" /Users/pvenus/ProjectBS > "$p1_output/run1.log"
+ "$p1_mono/bin/mono" "$p1_output/MorpgP1Harness.exe" /Users/pvenus/ProjectBS > "$p1_output/run2.log"
+ diff -u "$p1_output/run1.log" "$p1_output/run2.log"
+--- a/AgentTools/MorpgEnvironmentHarness/install_profile.py
++++ b/AgentTools/MorpgEnvironmentHarness/install_profile.py
+@@ -54,6 +54,12 @@
+  im=Image.open(R/a['path']);x,y,xx,yy=im.getchannel('A').getbbox();a['opaqueRect']=[x/100,(1024-yy)/100,(xx-x)/100,(yy-y)/100]
+ for z in zs:
+  for a in z['props']:a['visualRotation']=90 if a['id'].endswith('wall.right') else 0
++# Preserve separately accepted presentation anchors when rebuilding revision02 geometry.
++existing=json.loads(path.read_text()) if path.exists() else {}
++by_zone={z['zoneId']:z for z in existing.get('zones',[])}
++for z in zs:
++ for key in ('transitionExit','transitionStaging'):
++  if key in by_zone.get(z['zoneId'],{}):z[key]=by_zone[z['zoneId']][key]
+ profile=dict(schemaVersion='morpg-environment.v1',contractSha256=hashlib.sha256((O/'contract.txt').read_bytes()).hexdigest(),sourceManifestSha256='d5353184175684b7affaa9a95933c7271e3dc65addabbdbfa912c85e0bfa66fb',mapBounds=[-16,-9,16,9],overscan=.25,minCorridorWidth=2.5,assets=assets,zones=zs,reservations=audit)
+ for z in zs:z['walkable']=[dict(x=v[0],y=v[1]) for v in z['walkable']]
+ path.write_text(json.dumps(profile,indent=2)+'\n');source=b.read_text()
+--- a/AgentTools/MorpgIntegrationHarness/reward_asset_checks.py
++++ b/AgentTools/MorpgIntegrationHarness/reward_asset_checks.py
+@@ -15,7 +15,7 @@
+ route=(root/'Assets/Scripts/Battle/Morpg/BattleMorpgLiveRoute.cs').read_text()
+ on_death=route.split('private void OnDied(')[1].split('private bool TryCommitArrivedReward(')[0]
+ assert 'delivery.TryReserve(' in on_death and 'ledger.TryCredit(' not in on_death
+-assert 'delivery.PendingCount != 0' in route
++assert 'transitionView.Tick(delta,delivery.PendingCount==0' in route and 'delivery.PendingCount > 0) return;' in route
+ assert 'session?.BattleSO?.BattleId != BattleMorpgDefinitionValidator.BattleId' in route
+ view=(root/'Assets/Scripts/Battle/Morpg/MorpgRewardHudMono.cs').read_text()
+ for token in ('RenderMode.ScreenSpaceOverlay','goldAnchor.position','xpAnchor.position','Camera.main.WorldToScreenPoint','/ .30f','/ .12f','coalesceAge > .10f','goldSprite = Resources.Load<Sprite>','xpSprite = Resources.Load<Sprite>'):
+--- a/AgentTools/MorpgIntegrationHarness/inactive_spawn_tests.py
++++ b/AgentTools/MorpgIntegrationHarness/inactive_spawn_tests.py
+@@ -38,7 +38,7 @@
+ stub=stub.replace('public static class Debug {public static void LogError(string s){} }','public static class Debug {public static void LogError(string s){}public static void LogException(Exception e){} }')
+ stub=stub.replace('public class EnemyRegistry {public static EnemyRegistry Instance=new();public void UnregisterEnemy(UnityEngine.GameObject root){} }','''public class EnemyRegistry {public static EnemyRegistry Instance=new();public bool ThrowAfterRegister;public readonly List<UnityEngine.GameObject> ActiveEnemies=new();public void RegisterEnemy(UnityEngine.GameObject root){ActiveEnemies.Add(root);if(ThrowAfterRegister)throw new Exception("registry observer");}public void UnregisterEnemy(UnityEngine.GameObject root){ActiveEnemies.Remove(root);}}''')
+ stub+='''
+-namespace UnityEngine {public struct Color {public Color(float r,float g,float b,float a){}} public class Texture2D {}}
++namespace UnityEngine {public struct ContactFilter2D {public bool useTriggers,useLayerMask;} public struct RaycastHit2D {public Collider2D collider;public float distance;} public struct Color {public Color(float r,float g,float b,float a){}} public class Texture2D {}}
+ public class StatusStub {public void SuspendIndomitableProjection(Character.CharacterManager c){}}
+ public class ShaderControllerMono:UnityEngine.MonoBehaviour {public int Reveals;public void PlaySpawnReveal(){Reveals++;}}
+ public class AnimationMono:UnityEngine.MonoBehaviour {public void SetDirectionFromVector(UnityEngine.Vector2 v){}}
+--- a/Assets/Scripts/Actor/Character/CharacterSkillManager.cs
++++ b/Assets/Scripts/Actor/Character/CharacterSkillManager.cs
+@@ -268,6 +268,7 @@
+             Transform caster,
+             Transform target)
+         {
++            if (Battle.Morpg.BattleMorpgLiveRoute.IsTransitionLocked(GetComponent<CharacterManager>())) return false;
+             SkillCastSO castSo = runtime?.sourceEquipment?.CastSo;
+             float castTime = ResolveCastTime(castSo);
+             if (castTime > 0f)
+--- a/Assets/Scripts/Actor/Character/CharacterManager.cs
++++ b/Assets/Scripts/Actor/Character/CharacterManager.cs
+@@ -99,7 +99,7 @@
+             return true;
+         }
+ 
+-        public bool CanUseSkill => !IsStunned;
++        public bool CanUseSkill => !IsStunned && !Battle.Morpg.BattleMorpgLiveRoute.IsTransitionLocked(this);
+ 
+         public bool IsDying => isDying;
+ 
+--- /dev/null
++++ b/Assets/Scripts/Battle/Morpg/MorpgTransitionClock.cs
+@@ -0,0 +1,68 @@
++using System;
++
++namespace Battle.Morpg
++{
++    internal interface IMorpgPresentedTransition
++    {
++        bool TickTransition(float delta, out bool warp, out bool unlock, out bool wave, out string error);
++        void TransitionWarped();
++        void TransitionUnlocked();
++        void TransitionWaveStarted();
++    }
++    internal enum MorpgDashPhase { Cleanup, Anticipation, Exit, FallbackOut, Invisible, Entry, FallbackIn, Settle, AwaitUnlock, WaveDelay, Ready }
++
++    // One phase boundary per simulation tick preserves an actual invisible frame even on large deltas.
++    internal sealed class MorpgTransitionClock
++    {
++        internal MorpgDashPhase Phase { get; private set; }
++        internal bool Fallback { get; private set; }
++        internal float Age { get; private set; }
++        internal float ExitDuration { get; }
++        internal float Progress => Phase==MorpgDashPhase.Exit ? Clamp(Age/ExitDuration) : Clamp(Age/.36f);
++        internal float Alpha { get; private set; } = 1;
++        internal float ScreenOpacity { get; private set; }
++        internal bool WarpReady => Phase==MorpgDashPhase.Invisible && !warped;
++        internal bool UnlockReady => Phase==MorpgDashPhase.AwaitUnlock;
++        internal bool WaveReady => Phase==MorpgDashPhase.Ready;
++        private bool warped;
++        private int invisibleFrame;
++        private float blockedAge, fallbackStartAlpha=1f;
++        internal MorpgTransitionClock(float distance, bool fallback)
++        { ExitDuration=Math.Max(.32f,Math.Min(.65f,distance/14f));Fallback=fallback; }
++        private static float Clamp(float v)=>Math.Max(0,Math.Min(1,v));
++        private static float Smooth(float v){v=Clamp(v);return v*v*(3-2*v);}
++        private void Enter(MorpgDashPhase phase){Phase=phase;Age=0;}
++        internal void UseFallback(float? previousAlpha=null){Alpha=Math.Min(Alpha,previousAlpha??Alpha);fallbackStartAlpha=Alpha;Fallback=true;Enter(MorpgDashPhase.FallbackOut);}
++        internal void Tick(float delta,int frame,bool rewardsReady,bool canMove)
++        {
++            if(delta<=0 || float.IsNaN(delta) || float.IsInfinity(delta))return;
++            Age+=delta;
++            switch(Phase)
++            {
++                case MorpgDashPhase.Cleanup:
++                    if(Age<.5f || !rewardsReady)return;
++                    if(!canMove && !Fallback){blockedAge+=delta;if(blockedAge<.5f)return;Fallback=true;}
++                    Enter(Fallback?MorpgDashPhase.FallbackOut:MorpgDashPhase.Anticipation);break;
++                case MorpgDashPhase.Anticipation: if(Age>=.08f)Enter(MorpgDashPhase.Exit);break;
++                case MorpgDashPhase.Exit:
++                    Alpha=1-Smooth((Progress-.55f)/.45f);
++                    if(Age>=ExitDuration){Alpha=0;invisibleFrame=frame;Enter(MorpgDashPhase.Invisible);}break;
++                case MorpgDashPhase.FallbackOut:
++                    Alpha=fallbackStartAlpha*(1-Clamp(Age/.06f));ScreenOpacity=Clamp(Age/.12f);
++                    if(Age>=.12f){Alpha=0;ScreenOpacity=1;invisibleFrame=frame;Enter(MorpgDashPhase.Invisible);}break;
++                case MorpgDashPhase.Invisible:
++                    if(warped && frame>invisibleFrame)Enter(Fallback?MorpgDashPhase.FallbackIn:MorpgDashPhase.Entry);break;
++                case MorpgDashPhase.Entry:
++                    Alpha=Clamp(Age/.22f);
++                    if(Age>=.36f){Alpha=1;Enter(MorpgDashPhase.Settle);}break;
++                case MorpgDashPhase.FallbackIn:
++                    Alpha=Clamp(Age/.16f);ScreenOpacity=1-Alpha;
++                    if(Age>=.16f){Alpha=1;ScreenOpacity=0;Enter(MorpgDashPhase.Settle);}break;
++                case MorpgDashPhase.Settle: if(Age>=(Fallback?.10f:.16f))Enter(MorpgDashPhase.AwaitUnlock);break;
++                case MorpgDashPhase.WaveDelay: if(Age>=.20f)Enter(MorpgDashPhase.Ready);break;
++            }
++        }
++        internal void MarkWarped(){warped=true;}
++        internal void MarkUnlocked(){if(UnlockReady)Enter(MorpgDashPhase.WaveDelay);}
++    }
++}
+--- /dev/null
++++ b/Assets/Scripts/Battle/Morpg/MorpgTransitionClock.cs.meta
+@@ -0,0 +1,7 @@
++fileFormatVersion: 2
++guid: a7a665ed52ba47dcbfdaa2aec7b4f822
++MonoImporter:
++  externalObjects: {}
++  serializedVersion: 2
++  defaultReferences: []
++  executionOrder: 0
+--- /dev/null
++++ b/Assets/Scripts/Battle/Morpg/MorpgDashTransitionView.cs
+@@ -0,0 +1,195 @@
++using System;
++using System.Collections.Generic;
++using Character;
++using UnityEngine;
++
++namespace Battle.Morpg
++{
++    // This animation owner never invokes a gameplay skill, consumes cooldown or applies root motion.
++    internal sealed class MorpgDashTransitionView : IDisposable
++    {
++        private sealed class Snapshot { internal SpriteRenderer Renderer; internal Color Color; internal Sprite Sprite; internal bool Flip; }
++        private readonly CharacterManager actor;
++        private readonly MorpgEnvironmentRuntime environment;
++        private readonly int sourceZone, destinationZone;
++        private readonly Vector3 sourcePosition, exitPosition, stagingPosition, targetPosition;
++        private readonly Camera camera;
++        private readonly Vector3 sourceCameraPosition;
++        private Vector3 fixedCameraPosition;
++        private readonly Quaternion sourceCameraRotation;
++        private readonly BattlePlayerCameraFollowMono follow;
++        private readonly bool followEnabled;
++        private readonly AnimationMono animation;
++        private readonly AnimationMono.DiagonalDirection facing;
++        private readonly AnimationClip clip;
++        private readonly Animator animator;
++        private readonly bool rootMotion;
++        private readonly List<Snapshot> renderers=new();
++        private readonly MorpgTransitionLateView late;
++        private bool disposed, bodyReleased, warped, ownsFacing, ownsBody;
++        private int waveFrame=-1;
++        private MorpgDashPhase previousPhase;
++        internal MorpgTransitionClock Clock { get; }
++        internal bool CanLand { get; }
++        internal string FallbackReason { get; private set; }
++        internal Vector3 WarpPosition => Clock.Fallback ? targetPosition : stagingPosition;
++        internal Vector2 CameraTarget { get; }
++        internal bool Finished => disposed;
++        internal Action Cancelled;
++
++        internal MorpgDashTransitionView(CharacterManager actor, MorpgEnvironmentRuntime environment, int source, bool reducedMotion)
++        {
++            this.actor=actor;this.environment=environment;sourceZone=source;destinationZone=source+1;
++            sourcePosition=actor.transform.position;
++            try
++            {
++            var from=environment.Profile.zones[source];var to=environment.Profile.zones[destinationZone];
++            targetPosition=new Vector3(to.entry[0],to.entry[1],sourcePosition.z);
++            var staging=to.transitionStaging;
++            stagingPosition=staging?.Length==2 ? new Vector3(staging[0],staging[1],sourcePosition.z) : targetPosition;
++            var exit=from.transitionExit;
++            exitPosition=exit?.Length==2 ? new Vector3(exit[0],exit[1],sourcePosition.z) : sourcePosition;
++            CameraTarget=new Vector2((to.cameraClamp[0]+to.cameraClamp[2])/2,(to.cameraClamp[1]+to.cameraClamp[3])/2);
++            camera=Camera.main;
++            if(camera!=null)
++            {
++                sourceCameraPosition=fixedCameraPosition=camera.transform.position;sourceCameraRotation=camera.transform.rotation;
++                follow=camera.GetComponent<BattlePlayerCameraFollowMono>();
++                if(follow!=null){followEnabled=follow.enabled;follow.enabled=false;follow.ResetSmoothing();}
++            }
++            animation=actor.GetComponent<AnimationMono>();
++            if(animation!=null)facing=animation.CurrentDirection;
++            animator=actor.GetComponent<Animator>();
++            if(animator!=null){rootMotion=animator.applyRootMotion;animator.applyRootMotion=false;}
++            foreach(var renderer in actor.GetComponentsInChildren<SpriteRenderer>(true))
++                renderers.Add(new Snapshot{Renderer=renderer,Color=renderer.color,Sprite=renderer.sprite,Flip=renderer.flipX});
++            clip=Resources.Load<AnimationClip>("battle/morpg/transitions/transition-dash");
++            float radius=MorpgEnvironmentRuntime.ActorRadius(actor.GetComponent<Rigidbody2D>());
++            CanLand=MorpgEnvironmentGeometry.Free(to,targetPosition.x,targetPosition.y,Math.Max(1.5f,radius+.15f));
++            bool path=exit?.Length==2 && staging?.Length==2 && exitPosition.x>sourcePosition.x &&
++                Math.Abs(targetPosition.x-stagingPosition.x-3f)<.001f && Math.Abs(targetPosition.y-stagingPosition.y)<.001f &&
++                Corridor(from,sourcePosition,exitPosition,Math.Max(1.4f,radius)+.15f) &&
++                Corridor(to,stagingPosition,targetPosition,Math.Max(1.4f,radius)+.15f);
++            bool fallback=reducedMotion || clip==null || animation==null || renderers.Count==0 || !path;
++            FallbackReason=reducedMotion?"reduced motion":clip==null||animation==null||renderers.Count==0?"body clip/renderer unavailable":!path?"authored dash corridor blocked":null;
++            Clock=new MorpgTransitionClock(Vector2.Distance(sourcePosition,exitPosition),fallback);
++            late=new GameObject("MORPG transition presentation owner").AddComponent<MorpgTransitionLateView>();late.Owner=this;
++            }
++            catch { Abort(); throw; }
++        }
++        private static bool Corridor(MorpgEnvironmentProfile.Zone zone, Vector3 from, Vector3 to,float inset)
++        {
++            int samples=Math.Max(1,(int)Math.Ceiling(Vector2.Distance(from,to)/.05f));
++            for(int i=0;i<=samples;i++)
++            {var p=Vector3.Lerp(from,to,(float)i/samples);if(!MorpgEnvironmentGeometry.Free(zone,p.x,p.y,inset))return false;}
++            return true;
++        }
++        internal bool Tick(float delta,bool rewardsReady,out string error)
++        {
++            error=null;
++            if(disposed){error="transition owner disposed";return false;}
++            if(actor==null || !actor.gameObject.activeInHierarchy || actor.RuntimeData.isDead){error="transition actor unavailable";return false;}
++            if(!CanLand){error="transition landing invalid";return false;}
++            if(waveFrame>=0 && Time.frameCount>waveFrame){Dispose();return true;}
++            previousPhase=Clock.Phase;float previousAlpha=Clock.Alpha;
++            Clock.Tick(delta,Time.frameCount,rewardsReady,actor.CanMove);
++            if(Clock.Phase==MorpgDashPhase.Anticipation && previousPhase!=Clock.Phase)
++            {
++                ownsFacing=animation.AcquireFacingLock(this,Vector2.right);
++                ownsBody=ownsFacing && animation.PlaySkillBodyAction(clip,.08f+Clock.ExitDuration,false);
++                if(!ownsBody){FallbackReason="body action unavailable";Clock.UseFallback(previousAlpha);}
++            }
++            if(Clock.Phase==MorpgDashPhase.Exit)
++            {
++                float t=Clock.Progress;var next=Vector3.Lerp(sourcePosition,exitPosition,t*t*t);
++                if(!TryMove(next)){FallbackReason="dynamic exit obstruction";Clock.UseFallback(previousAlpha);}
++            }
++            if(Clock.Phase==MorpgDashPhase.Invisible && previousPhase==MorpgDashPhase.Exit)
++                if(!TryMove(exitPosition)){FallbackReason="dynamic exit obstruction";Clock.UseFallback(previousAlpha);}
++            if(Clock.Phase==MorpgDashPhase.Invisible && previousPhase==MorpgDashPhase.FallbackOut && warped)
++            {
++                if(!TargetClear()){error="fallback landing dynamically blocked";return false;}
++                actor.transform.position=targetPosition;var body=actor.GetComponent<Rigidbody2D>();
++                if(body!=null){body.position=targetPosition;body.linearVelocity=Vector2.zero;body.angularVelocity=0;}
++            }
++            if(Clock.Phase==MorpgDashPhase.Entry && previousPhase!=Clock.Phase)
++                if(!animation.PlaySkillBodyAction(clip,.36f,false)){FallbackReason="entry body unavailable";Clock.UseFallback(previousAlpha);}
++            if(Clock.Phase==MorpgDashPhase.Entry)
++            {
++                float t=Clock.Progress;var next=Vector3.Lerp(stagingPosition,targetPosition,1-(1-t)*(1-t)*(1-t));
++                if(!TryMove(next)){FallbackReason="dynamic entry obstruction";Clock.UseFallback(previousAlpha);}
++            }
++            if(Clock.Phase==MorpgDashPhase.Settle && previousPhase!=Clock.Phase)
++            {
++                if(!TryMove(targetPosition)){error="landing became blocked";return false;}
++                if(ownsBody){animation.StopSkillBodyAction();animation.PlayIdle();}
++            }
++            ApplyPresentation();return true;
++        }
++        internal bool TargetClear()
++        {
++            var body=actor.GetComponent<Rigidbody2D>();
++            float radius=MorpgEnvironmentRuntime.ActorRadius(body)+.15f;
++            foreach(var collider in Physics2D.OverlapCircleAll(targetPosition,radius))
++                if(!collider.isTrigger && (body==null || collider.attachedRigidbody!=body) && !collider.transform.IsChildOf(actor.transform))return false;
++            return CanLand;
++        }
++        private bool TryMove(Vector3 target)
++        {
++            var body=actor.GetComponent<Rigidbody2D>();Vector2 from=actor.transform.position;
++            Vector2 safe=environment.Sweep(from,target,MorpgEnvironmentRuntime.ActorRadius(body));
++            if(Vector2.Distance(safe,target)>.001f)return false;
++            Vector2 delta=(Vector2)target-from;
++            if(body!=null && delta.sqrMagnitude>.000001f)
++            {
++                var hits=new RaycastHit2D[16];var filter=new ContactFilter2D{useTriggers=false,useLayerMask=false};
++                int count=body.Cast(delta.normalized,filter,hits,delta.magnitude+.15f);
++                for(int i=0;i<count;i++)if(hits[i].collider!=null && hits[i].collider.attachedRigidbody!=body && hits[i].distance<delta.magnitude+.15f)return false;
++            }
++            actor.transform.position=target;
++            if(body!=null){body.position=target;body.linearVelocity=Vector2.zero;body.angularVelocity=0;}
++            return true;
++        }
++        internal void ApplyPresentation()
++        {
++            if(disposed)return;
++            if(actor==null || !actor.gameObject.activeInHierarchy){Cancelled?.Invoke();return;}
++            if(!bodyReleased)foreach(var state in renderers)
++                if(state.Renderer!=null){var color=state.Color;color.a*=Clock.Alpha;state.Renderer.color=color;}
++            if(camera!=null){camera.transform.position=fixedCameraPosition;camera.transform.rotation=sourceCameraRotation;}
++        }
++        internal void MarkWarped()
++        {warped=true;Clock.MarkWarped();if(camera!=null)fixedCameraPosition=camera.transform.position;ApplyPresentation();}
++        internal void UnlockBody(){ReleaseBody(false);Clock.MarkUnlocked();}
++        internal void WaveStarted(){waveFrame=Time.frameCount;}
++        private void ReleaseBody(bool abort)
++        {
++            if(bodyReleased)return;bodyReleased=true;
++            if(ownsBody)animation?.StopSkillBodyAction();
++            if(ownsFacing){animation.ReleaseFacingLock(this);animation.SetDirection(facing);}
++            if(ownsBody && actor!=null && !actor.RuntimeData.isDead)animation.PlayIdle();
++            foreach(var state in renderers)if(state.Renderer!=null)
++            {state.Renderer.color=state.Color;state.Renderer.flipX=state.Flip;if(abort)state.Renderer.sprite=state.Sprite;}
++            if(animator!=null)animator.applyRootMotion=rootMotion;
++        }
++        internal void Abort()
++        {
++            if(disposed)return;
++            if(actor!=null)
++            {
++                actor.transform.position=sourcePosition;var body=actor.GetComponent<Rigidbody2D>();
++                if(body!=null){body.position=sourcePosition;body.linearVelocity=Vector2.zero;body.angularVelocity=0;}
++            }
++            environment.CompleteWarp(sourceZone);
++            fixedCameraPosition=sourceCameraPosition;
++            if(camera!=null){camera.transform.position=sourceCameraPosition;camera.transform.rotation=sourceCameraRotation;}
++            ReleaseBody(true);Dispose();
++        }
++        public void Dispose()
++        {
++            if(disposed)return;ReleaseBody(false);disposed=true;
++            if(follow!=null){follow.ResetSmoothing();follow.enabled=followEnabled;}
++            if(late!=null){late.Owner=null;UnityEngine.Object.Destroy(late.gameObject);}
++        }
++    }
++}
+--- /dev/null
++++ b/Assets/Scripts/Battle/Morpg/MorpgDashTransitionView.cs.meta
+@@ -0,0 +1,7 @@
++fileFormatVersion: 2
++guid: 0a4ae888b7734edb8479fd62b6c8c76a
++MonoImporter:
++  externalObjects: {}
++  serializedVersion: 2
++  defaultReferences: []
++  executionOrder: 0
+--- /dev/null
++++ b/Assets/Scripts/Battle/Morpg/MorpgTransitionLateView.cs
+@@ -0,0 +1,13 @@
++using UnityEngine;
++
++namespace Battle.Morpg
++{
++    [DefaultExecutionOrder(32000)]
++    internal sealed class MorpgTransitionLateView : MonoBehaviour
++    {
++        internal MorpgDashTransitionView Owner;
++        private void LateUpdate()=>Owner?.ApplyPresentation();
++        private void OnDisable()=>Owner?.Cancelled?.Invoke();
++        private void OnDestroy()=>Owner?.Cancelled?.Invoke();
++    }
++}
+--- /dev/null
++++ b/Assets/Scripts/Battle/Morpg/MorpgTransitionLateView.cs.meta
+@@ -0,0 +1,7 @@
++fileFormatVersion: 2
++guid: 7d293a83dd2940d398995b2d56fbc1ce
++MonoImporter:
++  externalObjects: {}
++  serializedVersion: 2
++  defaultReferences: []
++  executionOrder: 0
+--- /dev/null
++++ b/Assets/Resources/battle/morpg/transitions.meta
+@@ -0,0 +1,5 @@
++fileFormatVersion: 2
++guid: 6260d029476e4dbd8d2509e4a7714c34
++folderAsset: yes
++DefaultImporter:
++  externalObjects: {}
+--- /dev/null
++++ b/Assets/Resources/battle/morpg/transitions/transition-dash.anim.meta
+@@ -0,0 +1,5 @@
++fileFormatVersion: 2
++guid: 6310c520fb514f6589268f39a90578da
++NativeFormatImporter:
++  externalObjects: {}
++  mainObjectFileID: 7400000
+--- /dev/null
++++ b/Assets/Resources/battle/morpg/transitions/transition-dash.anim
+@@ -0,0 +1,132 @@
++%YAML 1.1
++%TAG !u! tag:unity3d.com,2011:
++--- !u!74 &7400000
++AnimationClip:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_Name: character.seojin.1.body_action.dash.user-manual
++  serializedVersion: 7
++  m_Legacy: 0
++  m_Compressed: 0
++  m_UseHighQualityCurve: 1
++  m_RotationCurves: []
++  m_CompressedRotationCurves: []
++  m_EulerCurves: []
++  m_PositionCurves: []
++  m_ScaleCurves: []
++  m_FloatCurves:
++  - serializedVersion: 2
++    curve:
++      serializedVersion: 2
++      m_Curve:
++      - serializedVersion: 3
++        time: 0
++        value: 0
++        inSlope: 0
++        outSlope: 0
++        tangentMode: 0
++        weightedMode: 0
++        inWeight: 0
++        outWeight: 0
++      - serializedVersion: 3
++        time: 0.41666666
++        value: 0
++        inSlope: 0
++        outSlope: 0
++        tangentMode: 0
++        weightedMode: 0
++        inWeight: 0
++        outWeight: 0
++      m_PreInfinity: 2
++      m_PostInfinity: 2
++      m_RotationOrder: 4
++    attribute: m_FlipX
++    path: 
++    classID: 212
++    script: {fileID: 0}
++    flags: 16
++  m_PPtrCurves:
++  - serializedVersion: 2
++    curve:
++    - time: 0
++      value: {fileID: 21300000, guid: 7e089b82fef90c21424b44587e5b006e, type: 3}
++    - time: 0.083333336
++      value: {fileID: 21300000, guid: b3891acf890f8232a1f6522334c8788e, type: 3}
++    - time: 0.16666667
++      value: {fileID: 21300000, guid: f036ed232ba5b0218524381767873019, type: 3}
++    - time: 0.25
++      value: {fileID: 21300000, guid: e0c914358534c88c84fb0aeb9ac57bb9, type: 3}
++    - time: 0.33333334
++      value: {fileID: 21300000, guid: 20f473371a8c8b9ac34ae3e7d1a7aebe, type: 3}
++    - time: 0.4166667
++      value: {fileID: 21300000, guid: 9ee20d7a2cd28259b53ee0190d717c22, type: 3}
++    attribute: m_Sprite
++    path: 
++    classID: 212
++    script: {fileID: 0}
++    flags: 2
++  m_SampleRate: 12
++  m_WrapMode: 0
++  m_Bounds:
++    m_Center: {x: 0, y: 0, z: 0}
++    m_Extent: {x: 0, y: 0, z: 0}
++  m_ClipBindingConstant:
++    genericBindings: []
++    pptrCurveMapping: []
++  m_AnimationClipSettings:
++    serializedVersion: 2
++    m_AdditiveReferencePoseClip: {fileID: 0}
++    m_AdditiveReferencePoseTime: 0
++    m_StartTime: 0
++    m_StopTime: 0.5
++    m_OrientationOffsetY: 0
++    m_Level: 0
++    m_CycleOffset: 0
++    m_HasAdditiveReferencePose: 0
++    m_LoopTime: 0
++    m_LoopBlend: 0
++    m_LoopBlendOrientation: 0
++    m_LoopBlendPositionY: 0
++    m_LoopBlendPositionXZ: 0
++    m_KeepOriginalOrientation: 0
++    m_KeepOriginalPositionY: 1
++    m_KeepOriginalPositionXZ: 0
++    m_HeightFromFeet: 0
++    m_Mirror: 0
++  m_EditorCurves:
++  - serializedVersion: 2
++    curve:
++      serializedVersion: 2
++      m_Curve:
++      - serializedVersion: 3
++        time: 0
++        value: 0
++        inSlope: 0
++        outSlope: 0
++        tangentMode: 0
++        weightedMode: 0
++        inWeight: 0
++        outWeight: 0
++      - serializedVersion: 3
++        time: 0.41666666
++        value: 0
++        inSlope: 0
++        outSlope: 0
++        tangentMode: 0
++        weightedMode: 0
++        inWeight: 0
++        outWeight: 0
++      m_PreInfinity: 2
++      m_PostInfinity: 2
++      m_RotationOrder: 4
++    attribute: m_FlipX
++    path: 
++    classID: 212
++    script: {fileID: 0}
++    flags: 16
++  m_EulerEditorCurves: []
++  m_HasGenericRootTransform: 0
++  m_HasMotionFloatCurves: 0
++  m_Events: []
+--- /dev/null
++++ b/AgentTools/MorpgDashHarness/run-clock.sh
+@@ -0,0 +1,7 @@
++#!/bin/sh
++set -eu
++cd /Users/pvenus/ProjectBS
++dash_mono=/Applications/Unity/Hub/Editor/6000.3.10f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge
++dash_out=$(mktemp -d /private/tmp/projectbs-dash.XXXXXX)
++"$dash_mono/bin/mono" "$dash_mono/lib/mono/msbuild/Current/bin/Roslyn/csc.exe" -nologo -langversion:9.0 -out:"$dash_out/test.exe" AgentTools/MorpgDashHarness/ClockTests.cs Assets/Scripts/Battle/Morpg/MorpgTransitionClock.cs
++"$dash_mono/bin/mono" "$dash_out/test.exe"
+--- /dev/null
++++ b/AgentTools/MorpgDashHarness/ClockTests.cs
+@@ -0,0 +1,18 @@
++using System;
++using Battle.Morpg;
++class ClockTests
++{
++ static int count;static void Check(bool b,string e){if(!b)throw new Exception(e);}static void Test(string n,Action a){a();Console.WriteLine("PASS "+n);count++;}
++ static MorpgTransitionClock Exit(){var c=new MorpgTransitionClock(7,false);c.Tick(.5f,1,true,true);c.Tick(.08f,2,true,true);Check(c.Phase==MorpgDashPhase.Exit,"exit not started");return c;}
++ static void Main(){
++ Test("distance-speed14-duration-clamp",()=>{Check(new MorpgTransitionClock(.1f,false).ExitDuration==.32f,"min");Check(new MorpgTransitionClock(100,false).ExitDuration==.65f,"max");Check(new MorpgTransitionClock(7,false).ExitDuration==.5f,"speed");});
++ Test("settlement-gate-and-anticipation",()=>{var c=new MorpgTransitionClock(7,false);c.Tick(2,1,false,true);Check(c.Phase==MorpgDashPhase.Cleanup,"unsettled movement");c.Tick(.01f,2,true,true);Check(c.Phase==MorpgDashPhase.Anticipation,"anticipation");});
++ Test("exit-last45-percent-alpha-and-invisible-frame",()=>{var c=Exit();c.Tick(.25f,3,true,true);Check(c.Alpha==1,"early fade");c.Tick(.225f,4,true,true);Check(c.Alpha<.1f,"late fade");c.Tick(.03f,5,true,true);Check(c.Alpha==0&&c.WarpReady,"invisible cut");c.MarkWarped();c.Tick(1,5,true,true);Check(c.Phase==MorpgDashPhase.Invisible&&c.Alpha==0,"same-frame visible teleport");c.Tick(.01f,6,true,true);Check(c.Phase==MorpgDashPhase.Entry&&c.Alpha==0,"entry checkpoint");});
++ Test("entry-idle-unlock-then-delayed-wave",()=>{var c=Exit();c.Tick(1,3,true,true);c.MarkWarped();c.Tick(.01f,4,true,true);c.Tick(.22f,5,true,true);Check(c.Alpha==1&&!c.UnlockReady,"entry fade");c.Tick(.141f,6,true,true);Check(c.Phase==MorpgDashPhase.Settle,"idle");c.Tick(.159f,7,true,true);Check(!c.UnlockReady,"early unlock");c.Tick(.002f,8,true,true);Check(c.UnlockReady,"unlock missing");c.MarkUnlocked();c.Tick(.199f,9,true,true);Check(!c.WaveReady,"early wave");c.Tick(.002f,10,true,true);Check(c.WaveReady,"wave missing");});
++ Test("zero-delta-pause-freezes-all-progress",()=>{var c=Exit();c.Tick(.2f,3,true,true);float age=c.Age,alpha=c.Alpha;c.Tick(0,4,true,true);Check(c.Age==age&&c.Alpha==alpha,"pause advanced");});
++ Test("missing-motion-or-clip-obscured-fallback",()=>{var c=new MorpgTransitionClock(7,true);c.Tick(.5f,1,true,true);c.Tick(.12f,2,true,true);Check(c.WarpReady&&c.Alpha==0&&c.ScreenOpacity==1,"fallback cut not obscured");c.MarkWarped();c.Tick(.01f,3,true,true);c.Tick(.16f,4,true,true);Check(c.Alpha==1&&c.ScreenOpacity==0&&c.Phase==MorpgDashPhase.Settle,"fallback restore");});
++ Test("root-waits-bounded-without-removing-status",()=>{var c=new MorpgTransitionClock(7,false);c.Tick(.5f,1,true,false);Check(c.Fallback&&c.Phase==MorpgDashPhase.FallbackOut,"bounded root fallback");});
++ Test("no-commit-no-entry-no-wave",()=>{var c=Exit();c.Tick(1,3,true,true);c.Tick(100,4,true,true);Check(c.Phase==MorpgDashPhase.Invisible&&!c.WaveReady,"uncommitted transition advanced");});
++ Console.WriteLine("PASS "+count+"/"+count+" production transition clock tests");
++ }
++}

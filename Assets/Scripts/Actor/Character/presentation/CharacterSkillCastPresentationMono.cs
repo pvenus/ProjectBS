@@ -37,6 +37,41 @@ namespace Character
         private static readonly int CastReducedFlashId = Shader.PropertyToID("_CastReducedFlash");
         private static readonly int CastReducedMotionId = Shader.PropertyToID("_CastReducedMotion");
 
+        private static readonly int OutlineColorId = Shader.PropertyToID("_OutlineColor");
+        private static readonly int NpcOutlineEnabledId = Shader.PropertyToID("_NpcCastOutlineEnabled");
+        private bool npcAttackPalette;
+        private SpriteRenderer defaultRenderer;
+        private Material defaultMaterial;
+        private MaterialPropertyBlock defaultBlock;
+        public bool UsesNpcAttackPalette => npcAttackPalette;
+
+        public static bool SupportsNpcPalette(CharacterSO character) => character != null &&
+            character.CharacterType == CharacterType.Npc &&
+            (character.CharacterId == "character.black_cloth_raider.1" ||
+             character.CharacterId == "character.chain_axe_enforcer.2");
+
+        public void ConfigureNpcDefaults(CharacterSO character)
+        {
+            RestoreImmediate();
+            // Release the prior default lease before a pooled root is assigned a new character.
+            if (defaultRenderer != null && defaultRenderer.sharedMaterial == defaultMaterial)
+                defaultRenderer.SetPropertyBlock(defaultBlock);
+            defaultRenderer = null;
+            defaultMaterial = null;
+            npcAttackPalette = SupportsNpcPalette(character);
+            if (!npcAttackPalette) return;
+            defaultRenderer = ResolveRenderer();
+            if (defaultRenderer == null) return;
+            defaultMaterial = defaultRenderer.sharedMaterial;
+            defaultBlock ??= new MaterialPropertyBlock();
+            defaultRenderer.GetPropertyBlock(defaultBlock);
+            activeBlock ??= new MaterialPropertyBlock();
+            defaultRenderer.GetPropertyBlock(activeBlock);
+            activeBlock.SetColor(OutlineColorId, Color.white);
+            defaultRenderer.SetPropertyBlock(activeBlock);
+            GetComponent<ShaderMono>()?.Reload();
+        }
+
         private SpriteRenderer targetRenderer;
         private Material baselineMaterial;
         private Material castMaterial;
@@ -115,8 +150,13 @@ namespace Character
             activeBlock.SetFloat(CastEnabledId, 1f);
             activeBlock.SetFloat(CastProgressId, currentProgress);
             activeBlock.SetFloat(CastTimeId, presentationTime);
-            activeBlock.SetColor(CastBaseColorId, new Color32(0x86, 0xAF, 0xC8, 0xFF));
-            activeBlock.SetColor(CastAccentColorId, new Color32(0xD4, 0x6A, 0x45, 0xFF));
+            activeBlock.SetColor(CastBaseColorId, npcAttackPalette ? new Color32(0xFF, 0x24, 0x24, 0xFF) : new Color32(0x86, 0xAF, 0xC8, 0xFF));
+            activeBlock.SetColor(CastAccentColorId, npcAttackPalette ? new Color32(0xFF, 0x48, 0x30, 0xFF) : new Color32(0xD4, 0x6A, 0x45, 0xFF));
+            if (npcAttackPalette)
+            {
+                activeBlock.SetColor(OutlineColorId, Color.red);
+                activeBlock.SetFloat(NpcOutlineEnabledId, 1f);
+            }
             activeBlock.SetFloat(CastPulseMinId, MinimumPulseHz);
             activeBlock.SetFloat(CastPulseMaxId, MaximumPulseHz);
             activeBlock.SetFloat(CastEdgeMinId, .08f);
@@ -132,11 +172,13 @@ namespace Character
 
         public void CancelPresentation()
         {
+            if (npcAttackPalette) { RestoreImmediate(); return; }
             BeginRestore(CancelFadeSeconds, ++presentationGeneration);
         }
 
         public void CompletePresentation()
         {
+            if (npcAttackPalette) { RestoreImmediate(); return; }
             SetProgress(1f);
             if (restoreRoutine != null) StopCoroutine(restoreRoutine);
             if (!CanRunPresentationCoroutine())
@@ -160,13 +202,27 @@ namespace Character
             if (targetRenderer != null)
             {
                 // Do not roll back a newer death/hit/body presentation owner.
-                if (targetRenderer.sharedMaterial == castMaterial)
+                bool ownsMaterial = targetRenderer.sharedMaterial == castMaterial;
+                if (ownsMaterial)
                     targetRenderer.sharedMaterial = baselineMaterial;
 
                 activeBlock ??= new MaterialPropertyBlock();
                 targetRenderer.GetPropertyBlock(activeBlock);
                 ClearOwnedProperties(activeBlock);
-                targetRenderer.SetPropertyBlock(activeBlock);
+                if (npcAttackPalette)
+                {
+                    // The NPC lease restores its complete pre-cast MPB when it still owns the material.
+                    // A newer material owner keeps its other properties, with only our cue removed.
+                    if (ownsMaterial) targetRenderer.SetPropertyBlock(baselineBlock);
+                    else
+                    {
+                        activeBlock.SetColor(OutlineColorId, Color.white);
+                        activeBlock.SetFloat(NpcOutlineEnabledId, 0f);
+                        targetRenderer.SetPropertyBlock(activeBlock);
+                    }
+                    GetComponent<ShaderMono>()?.Reload();
+                }
+                else targetRenderer.SetPropertyBlock(activeBlock);
             }
 
             if (castMaterial != null)
@@ -272,6 +328,7 @@ namespace Character
         private static void ClearOwnedProperties(MaterialPropertyBlock block)
         {
             if (block == null) return;
+            block.SetFloat(NpcOutlineEnabledId, 0f);
             block.SetFloat(CastEnabledId, 0f);
             block.SetFloat(CastProgressId, 0f);
             block.SetFloat(CastTimeId, 0f);
@@ -302,13 +359,26 @@ namespace Character
             return null;
         }
 
+        private void OnEnable()
+        {
+            CharacterManager.OnAnyCharacterDied += HandleCharacterDied;
+        }
+
+        private void HandleCharacterDied(CharacterManager character)
+        {
+            if (npcAttackPalette && character != null && character.gameObject == gameObject)
+                RestoreImmediate();
+        }
+
         private void OnDisable()
         {
+            CharacterManager.OnAnyCharacterDied -= HandleCharacterDied;
             RestoreImmediate();
         }
 
         private void OnDestroy()
         {
+            CharacterManager.OnAnyCharacterDied -= HandleCharacterDied;
             RestoreImmediate();
         }
     }

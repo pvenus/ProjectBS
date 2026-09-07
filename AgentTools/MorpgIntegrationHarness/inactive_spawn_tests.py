@@ -19,6 +19,8 @@ methods='\n'.join(method(s) for s in ['private void OnEnable()', 'private void O
     'private void TryStartPendingSpawnReveal()', 'private System.Collections.IEnumerator PlaySpawnRevealNextFrame()'])
 stub=(root/'AgentTools/MorpgIntegrationHarness/RuntimeStub.cs').read_text()
 stub=stub[:stub.index('public class NpcSpawnService {')]
+stub=stub.replace('Morpg.MorpgEnvironmentRuntime.Active?.ClampCamera(p)??p','p')
+stub=stub.replace('private float angle;', 'private float angle;public static Quaternion identity=>new();')
 stub=stub.replace('public class CharacterManager:','public partial class CharacterManager:')
 stub=stub.replace('public class CharacterSO {public string name;}','public class CharacterSO {public string name; public bool FailInitialization;}')
 stub=stub.replace('public class MonoBehaviour:Behaviour {}','''public class Coroutine { public System.Collections.IEnumerator routine; }
@@ -30,15 +32,14 @@ stub=stub.replace('public class MonoBehaviour:Behaviour {}','''public class Coro
   public void NextFrame(){foreach(var c in Routines.ToArray())if(!c.routine.MoveNext())Routines.Remove(c);}
  }''')
 stub=stub.replace('public Transform parent; public void SetParent(Transform p,bool world){parent=p;}', 'public Transform parent; public void SetParent(Transform p,bool world){bool was=gameObject.activeInHierarchy;parent=p;gameObject.NotifyLifecycle(was);}')
-stub=stub.replace('public void SetActive(bool a){active=a;}', '''public bool activeInHierarchy=>active&&(transform.parent==null||transform.parent.gameObject.activeInHierarchy);
-  public void NotifyLifecycle(bool was){if(was==activeInHierarchy)return;foreach(var c in components){var m=c.GetType().GetMethod(activeInHierarchy?"OnEnable":"OnDisable",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic);m?.Invoke(c,null);}}
+stub=stub.replace('public void SetActive(bool a){active=a;}', '''public void NotifyLifecycle(bool was){if(was==activeInHierarchy)return;foreach(var c in components){var m=c.GetType().GetMethod(activeInHierarchy?"OnEnable":"OnDisable",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic);m?.Invoke(c,null);}}
   public void SetActive(bool a){bool was=activeInHierarchy;active=a;NotifyLifecycle(was);}
   public int GetInstanceID()=>All.IndexOf(this)+1;
   public T GetComponentInChildren<T>() where T:class=>GetComponent<T>();''')
 stub=stub.replace('public static class Debug {public static void LogError(string s){} }','public static class Debug {public static void LogError(string s){}public static void LogException(Exception e){} }')
 stub=stub.replace('public class EnemyRegistry {public static EnemyRegistry Instance=new();public void UnregisterEnemy(UnityEngine.GameObject root){} }','''public class EnemyRegistry {public static EnemyRegistry Instance=new();public bool ThrowAfterRegister;public readonly List<UnityEngine.GameObject> ActiveEnemies=new();public void RegisterEnemy(UnityEngine.GameObject root){ActiveEnemies.Add(root);if(ThrowAfterRegister)throw new Exception("registry observer");}public void UnregisterEnemy(UnityEngine.GameObject root){ActiveEnemies.Remove(root);}}''')
 stub+='''
-namespace UnityEngine {public struct Color {} public class Texture2D {} public struct Quaternion {public static Quaternion identity=>new();}}
+namespace UnityEngine {public struct ContactFilter2D {public bool useTriggers,useLayerMask;} public struct RaycastHit2D {public Collider2D collider;public float distance;} public struct Color {public Color(float r,float g,float b,float a){}} public class Texture2D {}}
 public class StatusStub {public void SuspendIndomitableProjection(Character.CharacterManager c){}}
 public class ShaderControllerMono:UnityEngine.MonoBehaviour {public int Reveals;public void PlaySpawnReveal(){Reveals++;}}
 public class AnimationMono:UnityEngine.MonoBehaviour {public void SetDirectionFromVector(UnityEngine.Vector2 v){}}
@@ -73,26 +74,31 @@ class Program {
  static void Test(string s,Action a){EnemyRegistry.Instance=new EnemyRegistry();a();pass++;Console.WriteLine("PASS "+s);}
  static void Main(){
  foreach(string role in new[]{"black","chain"}){
+ Test(role+"-direct-inactive-initialize-defers-reveal",()=>{
+ var root=new GameObject("inactive direct");var cm=root.AddComponent<CharacterManager>();root.SetActive(false);
+ cm.InitializeFromSO(new CharacterSO{name=role});Check(cm.Starts==0&&cm.Routines.Count==0,"inactive direct coroutine");
+ root.SetActive(true);Check(cm.Starts==1&&cm.Routines.Count==1,"deferred reveal not unique");
+ });
  Test(role+"-inactive-initialize-then-enable-once",()=>{
  var stage=new GameObject("staging");stage.SetActive(false);var so=new CharacterSO{name=role};bool prepared=false;
  var root=NpcSpawnService.Instance.SpawnNpc(so,new Vector3(3,4,0),0,null,stage.transform,g=>{
- var c=g.GetComponent<CharacterManager>();Check(!g.activeInHierarchy&&c.Starts==0,"coroutine started under inactive parent");Check(c.RuntimeData.characterSO==so,"ownership before initialization");prepared=true;return true;});
- Check(root!=null&&prepared&&root.activeInHierarchy,"spawn failed");var cm=root.GetComponent<CharacterManager>();Check(cm.Starts==1,"enable did not schedule exactly once");Check(EnemyRegistry.Instance.ActiveEnemies.Count==1,"living registry");cm.NextFrame();Check(cm.Routines.Count==0,"reveal not completed");
+ var c=g.GetComponent<CharacterManager>();Check(!g.activeInHierarchy&&c.Starts==0,"coroutine started under inactive parent");Check(EnemyRegistry.Instance.ActiveEnemies.Count==0,"ownership published living NPC early");prepared=true;return true;});
+ Check(root!=null&&prepared&&root.activeInHierarchy,"spawn failed");var cm=root.GetComponent<CharacterManager>();Check(cm.RuntimeData.characterSO==so,"returned NPC not initialized");Check(cm.Starts==1,"enable did not schedule exactly once");Check(EnemyRegistry.Instance.ActiveEnemies.Count==1,"living registry");cm.NextFrame();Check(cm.Routines.Count==0,"reveal not completed");
  });
  Test(role+"-pooled-reuse-cancels-old-reveal-and-death-state",()=>{
  var pooled=new GameObject("pool");var cm=pooled.AddComponent<CharacterManager>();var shader=pooled.AddComponent<ShaderControllerMono>();cm.InitializeFromSO(new CharacterSO{name="prior"});cm.SeedDying();pooled.SetActive(false);CharacterBuilder.Pooled=pooled;
  var stage=new GameObject("stage");stage.SetActive(false);var so=new CharacterSO{name=role};
  var root=NpcSpawnService.Instance.SpawnNpc(so,new Vector3(8,9,0),0,null,stage.transform,g=>true);
- Check(root==pooled&&cm.RuntimeData.characterSO==so&&!cm.IsDying,"pooled state stale");Check(cm.Routines.Count==1&&cm.Starts==2,"duplicate or missing reveal");cm.NextFrame();Check(shader.Reveals==1,"old reveal survived reuse");Check(root.transform.position.x==8,"pooled position stale");
+ Check(root==pooled&&cm.RuntimeData.characterSO==so&&!cm.IsDying,"pooled state stale");Check(cm.Routines.Count==1,"duplicate or missing reveal");cm.NextFrame();Check(shader.Reveals==1,"old reveal survived reuse");Check(root.transform.position.x==8,"pooled position stale");
  });
  }
  Test("active-legacy-spawn-still-reveals",()=>{
  var root=NpcSpawnService.Instance.SpawnNpc(new CharacterSO{name="legacy"},new Vector3(),0,null);Check(root!=null&&root.GetComponent<CharacterManager>().Starts==1,"legacy changed");
  });
  Test("initialization-rejection-never-enters-living-registry",()=>{
- var stage=new GameObject("stage");stage.SetActive(false);bool prepared=false;
- var root=NpcSpawnService.Instance.SpawnNpc(new CharacterSO{name="bad",FailInitialization=true},new Vector3(),0,null,stage.transform,g=>{prepared=true;return true;});
- Check(root==null&&!prepared&&EnemyRegistry.Instance.ActiveEnemies.Count==0&&CharacterBuilder.Last.destroyed,"partial initialization published");
+ var stage=new GameObject("stage");stage.SetActive(false);
+ var root=NpcSpawnService.Instance.SpawnNpc(new CharacterSO{name="bad",FailInitialization=true},new Vector3(),0,null,stage.transform,g=>true);
+ Check(root==null&&EnemyRegistry.Instance.ActiveEnemies.Count==0&&CharacterBuilder.Last.destroyed,"partial initialization published");
  });
  Test("ownership-rejection-never-enters-living-registry",()=>{
  var stage=new GameObject("stage");stage.SetActive(false);var root=NpcSpawnService.Instance.SpawnNpc(new CharacterSO{name="black"},new Vector3(),0,null,stage.transform,g=>false);

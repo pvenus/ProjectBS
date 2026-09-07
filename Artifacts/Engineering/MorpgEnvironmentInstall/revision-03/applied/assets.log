@@ -1,0 +1,4 @@
+/Users/pvenus/ProjectBS/AgentTools/MorpgEnvironmentHarness/audit_assets.py:15: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  assert not any((r or g or b) and alpha==0 for r,g,b,alpha in im.getdata())
+PASS 15/15 byte-exact RGBA1024, 48px alpha border, zero-alpha RGB, unique GUID and importer audits
+Saved authored layout audit (not Unity gameplay evidence)

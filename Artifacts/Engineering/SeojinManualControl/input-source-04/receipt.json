@@ -1,0 +1,73 @@
+{
+  "revision": "input-source-04",
+  "status": "complete",
+  "blocker": null,
+  "completed_at": "2026-09-07T19:48:18.711330+09:00",
+  "contracts": {
+    "charge_G1_G3": "Direction / MouseDirection; target lookup and ground spawn 0",
+    "basic_G1_G3_cooldown_seconds": 1.0,
+    "basic_cadence_body_vfx_cooldown_start_preserved": true,
+    "swiftstep_G1_G3": "Direction / KeyboardMoveDirection; WASD -> last movement -> current facing -> right; mouse ignored"
+  },
+  "schema": {
+    "additive": true,
+    "legacy": "MouseDirection",
+    "unknown": "Invalid/fail-closed",
+    "JSON_DTO_SO_runtime_connected": true
+  },
+  "materialized_readback": {
+    "equipment_slots": 12,
+    "applications_each": 2,
+    "aim_mode_and_source_exact": true,
+    "basic_casts_exact_1_000": 3,
+    "adapter": "actual production methods with test serialization adapter; Unity import not run"
+  },
+  "tests": {
+    "input": 33,
+    "pipeline": 15,
+    "combo": 15,
+    "teardown": 10,
+    "morpg": 62,
+    "geometry": 14,
+    "dash": 9,
+    "reward": 12,
+    "spawn": 10,
+    "npc_cast": 4,
+    "p1": 27,
+    "passed": 211,
+    "failed": 0
+  },
+  "compile": {
+    "runtime_errors": 0,
+    "runtime_warnings": 31,
+    "editor_errors": 0,
+    "editor_warnings": 41
+  },
+  "scope": {
+    "protected_unchanged": 455,
+    "authorized_equipment_metadata_only": 12,
+    "authorized_basic_cooldown_only": 3,
+    "index_unchanged": true,
+    "cumulative_existing": 41,
+    "cumulative_new": 20
+  },
+  "checks": {
+    "diff": true,
+    "reverse_patch_dry_run": true,
+    "npc_point_api_unchanged": true,
+    "damage_helper_unchanged": true
+  },
+  "not_run": [
+    "Unity GUI",
+    "Unity headless",
+    "Unity Play",
+    "Unity import/reimport",
+    "staging",
+    "commit",
+    "push",
+    "actual rollback"
+  ],
+  "report": "REPORT.md",
+  "manifest": "slot-manifest.json",
+  "patch": "input-source.patch"
+}

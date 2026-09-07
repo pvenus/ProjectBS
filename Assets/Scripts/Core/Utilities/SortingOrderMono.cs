@@ -41,6 +41,8 @@ namespace Util
             }
         }
 
+        private bool appliedMorpgOrder;
+
         private void LateUpdate()
         {
             UpdateSortingOrder();
@@ -54,6 +56,8 @@ namespace Util
             }
 
             int order = CalculateSortingOrder();
+            appliedMorpgOrder = Battle.Morpg.MorpgEnvironmentRuntime.OwnsActor(
+                GetComponentInParent<Character.CharacterManager>());
 
             foreach (var spriteRenderer in spriteRenderers)
             {
@@ -66,10 +70,21 @@ namespace Util
             }
         }
 
+        private void OnDisable()
+        {
+            if (!appliedMorpgOrder || spriteRenderers == null) return;
+            Transform pivot = sortPivot != null ? sortPivot : transform;
+            int legacyOrder = sortingOffset - Mathf.RoundToInt(pivot.position.y * sortingScale);
+            foreach (var renderer in spriteRenderers) if (renderer != null) renderer.sortingOrder = legacyOrder;
+            appliedMorpgOrder = false;
+        }
+
         public int CalculateSortingOrder()
         {
             Transform pivot = sortPivot != null ? sortPivot : transform;
-            return sortingOffset - Mathf.RoundToInt(pivot.position.y * sortingScale);
+            int legacyOrder = sortingOffset - Mathf.RoundToInt(pivot.position.y * sortingScale);
+            return Battle.Morpg.MorpgEnvironmentRuntime.OwnsActor(GetComponentInParent<Character.CharacterManager>())
+                ? Battle.BattlePresentationSortingPolicy.MorpgBodyOrder(legacyOrder) : legacyOrder;
         }
     }
 }

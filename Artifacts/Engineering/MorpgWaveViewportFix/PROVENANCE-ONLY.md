@@ -1,0 +1,1 @@
+Root-level REPORT/receipt/binding/live logs are the historical false-gate snapshot. Do not use them to evaluate current production. Current true-gate compile, live tests, counts, connectivity, viewport crops and rollback receipt are in correction-01-interiors-enabled/. Original false files remain as provenance and were not silently rewritten into true evidence.

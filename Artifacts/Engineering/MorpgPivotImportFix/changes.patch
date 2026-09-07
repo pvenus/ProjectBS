@@ -1,0 +1,289 @@
+--- a/Assets/Resources/battle/morpg/wave-environment-v1/binding.json
++++ b/Assets/Resources/battle/morpg/wave-environment-v1/binding.json
+@@ -39,7 +39,7 @@
+           "sha256": "d02039d2fea5293f4cba30cd432a679f04f1958eeecb079e399a820e05fb52f8",
+           "pivot": [
+             0.5,
+-            1
++            0.5
+           ],
+           "rect": [
+             -0.3404255319148936,
+@@ -257,7 +257,7 @@
+           "sha256": "3247ca56be01723fa705d178c13437a8b77c5affccec2b838f5e7424dd51959a",
+           "pivot": [
+             0.5,
+-            0
++            0.5
+           ],
+           "rect": [
+             -0.3404255319148936,
+@@ -665,7 +665,7 @@
+           "sha256": "a24eda5c13c3cc23eacf9e303f1839d8149c5d7e76e1ecf5d395fb30a4f53b7b",
+           "pivot": [
+             0.5,
+-            1
++            0.5
+           ],
+           "rect": [
+             35.659574468085104,
+@@ -1067,7 +1067,7 @@
+           "sha256": "be7f8227be241a963b8df27d2301f364796a0fb6b9414ce5fb6876d1fb5c25f5",
+           "pivot": [
+             0.5,
+-            0
++            0.5
+           ],
+           "rect": [
+             35.659574468085104,
+@@ -1699,7 +1699,7 @@
+           "sha256": "fd96222ce0c43e3cefd858f48ee23d02a64b8fe49804dea8c5c619b71b938712",
+           "pivot": [
+             0.5,
+-            1
++            0.5
+           ],
+           "rect": [
+             71.65957446808511,
+@@ -1877,7 +1877,7 @@
+           "sha256": "2e13074f74f02bff732bb893d257aa92bb1267199e4ff78354f539bfb7331160",
+           "pivot": [
+             0.5,
+-            0
++            0.5
+           ],
+           "rect": [
+             71.65957446808511,
+--- a/Assets/Scripts/Battle/Morpg/MorpgWaveDressing.cs
++++ b/Assets/Scripts/Battle/Morpg/MorpgWaveDressing.cs
+@@ -52,7 +52,7 @@
+                         var a=wave.assets[j];string kind=new[]{"background","top","bottom"}[j];
+                         if(a.kind!=kind || a.id!=$"wave{i+1}.{kind}" || !ids.Add(a.id) || string.IsNullOrEmpty(a.resource) || !resources.Add(a.resource) ||
+                            a.guid?.Length!=32 || !guids.Add(a.guid) || a.sha256?.Length!=64 || !RectValid(a.rect) || !RectValid(a.alphaRect) || a.alphaRect[0]<0 || a.alphaRect[1]<0 || a.alphaRect[2]>1536 || a.alphaRect[3]>512 || a.pivot?.Length!=2 || a.pivot[0]!=.5f ||
+-                           a.pivot[1]!=(j==0?.5f:j==1?1f:0f) || a.sortingOrder!=new[]{-1000,-900,50}[j] || a.colliderRects==null)
++                           a.pivot[1]!=.5f || a.sortingOrder!=new[]{-1000,-900,50}[j] || a.colliderRects==null)
+                             throw new InvalidOperationException("wave dressing asset: "+a.id);
+                         if(j==0)
+                         {
+@@ -84,10 +84,11 @@
+                         a.Sprite=Resources.Load<Sprite>(a.resource);
+                         if(a.Sprite==null)throw new InvalidOperationException("wave dressing sprite missing: "+a.id);
+                         if(Math.Abs(a.Sprite.rect.width-1536)>.01f || Math.Abs(a.Sprite.rect.height-512)>.01f || Math.Abs(a.Sprite.pixelsPerUnit-100)>.001f ||
+-                           Math.Abs(a.Sprite.pivot.x-a.pivot[0]*1536)>.01f || Math.Abs(a.Sprite.pivot.y-a.pivot[1]*512)>.01f)
+-                            throw new InvalidOperationException("wave dressing imported canvas/pivot mismatch: "+a.id);
++                           Math.Abs(a.Sprite.pivot.x-768f)>.01f || Math.Abs(a.Sprite.pivot.y-256f)>.01f)
++                            throw new InvalidOperationException($"wave dressing imported canvas/pivot mismatch: {a.id}; actual rect={a.Sprite.rect.width}x{a.Sprite.rect.height}, PPU={a.Sprite.pixelsPerUnit}, pivot=({a.Sprite.pivot.x},{a.Sprite.pivot.y}); expected1536x512/100/(768,256). Refresh imports and restart Play.");
+                     }
+                 }
++                Debug.Log("[MORPG dressing] Imported canvas1536x512/PPU100/center pivot verified9/9");
+                 profile=candidate;return true;
+             }
+             catch(Exception e){error=e.Message;return false;}
+--- a/Assets/Scripts/Battle/Morpg/MorpgEnvironmentRuntime.cs
++++ b/Assets/Scripts/Battle/Morpg/MorpgEnvironmentRuntime.cs
+@@ -95,7 +95,7 @@
+         {
+             var go=Child(visualParent,asset.id);var renderer=go.AddComponent<SpriteRenderer>();renderer.sprite=asset.Sprite;
+             float width=asset.rect[2]-asset.rect[0],height=asset.rect[3]-asset.rect[1];
+-            go.transform.position=new Vector3(asset.rect[0]+width*asset.pivot[0],asset.rect[1]+height*asset.pivot[1],0);
++            go.transform.position=new Vector3(asset.rect[0]+width*.5f,asset.rect[1]+height*.5f,0);
+             go.transform.localScale=new Vector3(width/(1536f/100f),height/(512f/100f),1);
+             renderer.sortingLayerID=BattlePresentationSortingPolicy.MorpgSortingLayerId;renderer.sortingOrder=asset.sortingOrder;
+             if(asset.colliderRects.Length==0)return;
+--- a/AgentTools/MorpgIntegrationHarness/Program.cs
++++ b/AgentTools/MorpgIntegrationHarness/Program.cs
+@@ -489,6 +489,30 @@
+    Check(File.ReadAllText(Path.Combine(args[0],"Assets/Scripts/Battle/Core/BattleManager.cs")).Contains("MorpgLegacyBackground.Register(battleRuntime,renderer)"),"production registration missing");
+    Check(File.ReadAllText(Path.Combine(args[0],"Assets/Scripts/Battle/Spawn/Sequence/BattleSpawnManager.cs")).Contains("MorpgLegacyBackground.Register(runtime,renderer)"),"test registration missing");
+   });
++  Test("center-pivot-canvas-PPU-strict-for-every-wave-slot",()=>{
++   foreach(var wave in dressing.waves)foreach(var a in wave.assets){
++    Check(a.pivot[0]==.5f&&a.pivot[1]==.5f,"binding not canonical center");var sprite=(Sprite)Resources.Items[a.resource];var rect=sprite.rect;float ppu=sprite.pixelsPerUnit;var pivot=sprite.pivot;
++    try{
++     sprite.rect=new Rect(0,0,1535,512);Check(!MorpgWaveDressing.TryLoad(environmentProfile,out _,out _),"wrong canvas accepted");sprite.rect=rect;
++     sprite.pixelsPerUnit=99;Check(!MorpgWaveDressing.TryLoad(environmentProfile,out _,out _),"wrong PPU accepted");sprite.pixelsPerUnit=ppu;
++     sprite.pivot=new Vector2(768,512);Check(!MorpgWaveDressing.TryLoad(environmentProfile,out _,out var error)&&error.Contains("actual rect=")&&error.Contains("pivot=("),"wrong pivot accepted or evidence missing");sprite.pivot=pivot;
++    }finally{sprite.rect=rect;sprite.pixelsPerUnit=ppu;sprite.pivot=pivot;}
++   }
++   Check(MorpgWaveDressing.TryLoad(environmentProfile,out _,out var good),good);
++  });
++  Test("center-pivot-failure-legacy1-then-success-wave1-and-barriers2-legacy0",()=>{
++   GameSession.Instance=new GameSession();var session=new BattleSession{BattleSO=new Battle.BattleSO{BattleId=BattleMorpgDefinitionValidator.BattleId}};
++   var legacy=new GameObject("Background").AddComponent<SpriteRenderer>();MorpgLegacyBackground.Register(session.BattleRuntime,legacy);
++   var sprite=(Sprite)Resources.Items[dressing.waves[0].assets[1].resource];var original=sprite.pivot;
++   try{sprite.pivot=new Vector2(768,512);Check(!BattleMorpgLiveRoute.TryCreate(true,session,new Resolver(),null,out _,out _)&&legacy.enabled,"pivot failure suppressed legacy");}finally{sprite.pivot=original;}
++   Check(BattleMorpgLiveRoute.TryCreate(true,session,new Resolver(),null,out var route,out var error),error);
++   using(route){Check(route.Activate()&&!legacy.enabled,"canonical center did not activate MORPG");
++    Check(GameObject.All.Count(g=>g.activeInHierarchy&&g.name=="wave1.background"&&g.GetComponent<SpriteRenderer>().enabled)==1,"wave1 background duplicate");
++    Check(GameObject.All.Count(g=>g.activeInHierarchy&&(g.name=="wave1.top"||g.name=="wave1.bottom")&&g.GetComponent<SpriteRenderer>().enabled)==2,"wave1 barriers missing");
++    Check(MorpgEnvironmentRuntime.Active.Dressing.interiorPropsEnabled,"interiors disabled");
++   }
++   Check(legacy.enabled,"legacy lease not restored");
++  });
+   File.WriteAllLines(Path.Combine(args[0],"Artifacts/Engineering/MorpgDashConsistency/diagnostics.log"),Debug.Messages);
+   Console.WriteLine("PASS "+pass+"/"+pass+" live glue simulations (Unity engine stub)");
+  }
+--- a/AgentTools/MorpgWaveDressingHarness/install.py
++++ b/AgentTools/MorpgWaveDressingHarness/install.py
+@@ -15,11 +15,11 @@
+  for kind in ['background','top','bottom']:
+   if kind=='background':source=B/a['selected'][i]['path'];expected=a['selected'][i]['sha256'];pivot=[.5,.5];w=32.5;h=w/3;rect=[x-.25,-4.5,x+32.25,-4.5+h];order=-1000
+   else:
+-   name=kind+'Barrier';source=V/v['waves'][i][name][0];expected=v['waves'][i][name][1];pivot=[.5,1 if kind=='top' else 0];rect=[x-.25,2.5 if kind=='top' else -5.7,x+32.25,5.7 if kind=='top' else -2.5];order=-900 if kind=='top' else 50
++   name=kind+'Barrier';source=V/v['waves'][i][name][0];expected=v['waves'][i][name][1];pivot=[.5,.5];rect=[x-.25,2.5 if kind=='top' else -5.7,x+32.25,5.7 if kind=='top' else -2.5];order=-900 if kind=='top' else 50
+   assert sha(source)==expected
+   name=f'wave{i+1}-{kind}.png';shutil.copyfile(source,stage/name)
+   im=Image.open(source);assert im.size==(1536,512) and im.mode==('RGB' if kind=='background' else 'RGBA')
+-  meta=metaTemplate.replace('spriteMeshType: 1','spriteMeshType: 0').replace('c2ffba5d73dd4bb1a80b56cc1fa44bde',guid(name)).replace('c0dda6c412834b238ec4e0155046527d',guid(name+'/sprite')).replace('maxTextureSize: 1024','maxTextureSize: 2048').replace('spritePivot: {x: 0.5, y: 0.046875}',f'spritePivot: {{x: 0.5, y: {pivot[1]}}}')
++  meta=metaTemplate.replace('spriteAlignment: 9','spriteAlignment: 0').replace('spriteMeshType: 1','spriteMeshType: 0').replace('c2ffba5d73dd4bb1a80b56cc1fa44bde',guid(name)).replace('c0dda6c412834b238ec4e0155046527d',guid(name+'/sprite')).replace('maxTextureSize: 1024','maxTextureSize: 2048').replace('spritePivot: {x: 0.5, y: 0.046875}',f'spritePivot: {{x: 0.5, y: {pivot[1]}}}')
+   (stage/(name+'.meta')).write_text(meta)
+   boxes=[]
+   if kind!='background':
+--- a/AgentTools/MorpgWaveDressingHarness/reframe.py
++++ b/AgentTools/MorpgWaveDressingHarness/reframe.py
+@@ -6,6 +6,7 @@
+ for w,z in zip(d['waves'],e['zones']):
+  left=min(v['x'] for v in z['walkable']);right=max(v['x'] for v in z['walkable']);bottom=min(v['y'] for v in z['walkable']);top=max(v['y'] for v in z['walkable'])
+  for a in w['assets']:
++  a['pivot']=[.5,.5]
+   im=Image.open(R/('Assets/Resources/'+a['resource']+'.png'));bb=im.getchannel('A').getbbox() if im.mode=='RGBA' else (0,0,1536,512);a['alphaRect']=list(bb)
+   if a['kind']=='background':a['rect']=[left-2,bottom-1.2,right+2,bottom-1.2+(right-left+4)/3];continue
+   sx=(right-left)/(bb[2]-bb[0]);sy=1.0/(bb[3]-bb[1]);l=left-bb[0]*sx;t=top+bb[3]*sy if a['kind']=='top' else bottom+bb[1]*sy
+--- a/Assets/Resources/battle/morpg/wave-environment-v1/wave2-bottom.png.meta
++++ b/Assets/Resources/battle/morpg/wave-environment-v1/wave2-bottom.png.meta
+@@ -19,8 +19,8 @@
+   textureCompression: 0
+   spriteMode: 1
+   spriteMeshType: 0
+-  spriteAlignment: 9
+-  spritePivot: {x: 0.5, y: 0}
++  spriteAlignment: 0
++  spritePivot: {x: 0.5, y: 0.5}
+   spritePixelsToUnits: 100
+   alphaIsTransparency: 1
+   textureType: 8
+--- a/Assets/Resources/battle/morpg/wave-environment-v1/wave1-top.png.meta
++++ b/Assets/Resources/battle/morpg/wave-environment-v1/wave1-top.png.meta
+@@ -19,8 +19,8 @@
+   textureCompression: 0
+   spriteMode: 1
+   spriteMeshType: 0
+-  spriteAlignment: 9
+-  spritePivot: {x: 0.5, y: 1}
++  spriteAlignment: 0
++  spritePivot: {x: 0.5, y: 0.5}
+   spritePixelsToUnits: 100
+   alphaIsTransparency: 1
+   textureType: 8
+--- a/Assets/Resources/battle/morpg/wave-environment-v1/wave3-bottom.png.meta
++++ b/Assets/Resources/battle/morpg/wave-environment-v1/wave3-bottom.png.meta
+@@ -19,8 +19,8 @@
+   textureCompression: 0
+   spriteMode: 1
+   spriteMeshType: 0
+-  spriteAlignment: 9
+-  spritePivot: {x: 0.5, y: 0}
++  spriteAlignment: 0
++  spritePivot: {x: 0.5, y: 0.5}
+   spritePixelsToUnits: 100
+   alphaIsTransparency: 1
+   textureType: 8
+--- a/Assets/Resources/battle/morpg/wave-environment-v1/wave2-top.png.meta
++++ b/Assets/Resources/battle/morpg/wave-environment-v1/wave2-top.png.meta
+@@ -19,8 +19,8 @@
+   textureCompression: 0
+   spriteMode: 1
+   spriteMeshType: 0
+-  spriteAlignment: 9
+-  spritePivot: {x: 0.5, y: 1}
++  spriteAlignment: 0
++  spritePivot: {x: 0.5, y: 0.5}
+   spritePixelsToUnits: 100
+   alphaIsTransparency: 1
+   textureType: 8
+--- a/Assets/Resources/battle/morpg/wave-environment-v1/wave1-bottom.png.meta
++++ b/Assets/Resources/battle/morpg/wave-environment-v1/wave1-bottom.png.meta
+@@ -19,8 +19,8 @@
+   textureCompression: 0
+   spriteMode: 1
+   spriteMeshType: 0
+-  spriteAlignment: 9
+-  spritePivot: {x: 0.5, y: 0}
++  spriteAlignment: 0
++  spritePivot: {x: 0.5, y: 0.5}
+   spritePixelsToUnits: 100
+   alphaIsTransparency: 1
+   textureType: 8
+--- a/Assets/Resources/battle/morpg/wave-environment-v1/wave3-top.png.meta
++++ b/Assets/Resources/battle/morpg/wave-environment-v1/wave3-top.png.meta
+@@ -19,8 +19,8 @@
+   textureCompression: 0
+   spriteMode: 1
+   spriteMeshType: 0
+-  spriteAlignment: 9
+-  spritePivot: {x: 0.5, y: 1}
++  spriteAlignment: 0
++  spritePivot: {x: 0.5, y: 0.5}
+   spritePixelsToUnits: 100
+   alphaIsTransparency: 1
+   textureType: 8
+--- a/Assets/Resources/battle/morpg/wave-environment-v1/wave2-background.png.meta
++++ b/Assets/Resources/battle/morpg/wave-environment-v1/wave2-background.png.meta
+@@ -19,7 +19,7 @@
+   textureCompression: 0
+   spriteMode: 1
+   spriteMeshType: 0
+-  spriteAlignment: 9
++  spriteAlignment: 0
+   spritePivot: {x: 0.5, y: 0.5}
+   spritePixelsToUnits: 100
+   alphaIsTransparency: 1
+--- a/Assets/Resources/battle/morpg/wave-environment-v1/wave3-background.png.meta
++++ b/Assets/Resources/battle/morpg/wave-environment-v1/wave3-background.png.meta
+@@ -19,7 +19,7 @@
+   textureCompression: 0
+   spriteMode: 1
+   spriteMeshType: 0
+-  spriteAlignment: 9
++  spriteAlignment: 0
+   spritePivot: {x: 0.5, y: 0.5}
+   spritePixelsToUnits: 100
+   alphaIsTransparency: 1
+--- a/Assets/Resources/battle/morpg/wave-environment-v1/wave1-background.png.meta
++++ b/Assets/Resources/battle/morpg/wave-environment-v1/wave1-background.png.meta
+@@ -19,7 +19,7 @@
+   textureCompression: 0
+   spriteMode: 1
+   spriteMeshType: 0
+-  spriteAlignment: 9
++  spriteAlignment: 0
+   spritePivot: {x: 0.5, y: 0.5}
+   spritePixelsToUnits: 100
+   alphaIsTransparency: 1
+--- /dev/null
++++ b/AgentTools/MorpgWaveDressingHarness/pivot_audit.py
+@@ -0,0 +1,24 @@
++from pathlib import Path
++import json,hashlib,re
++from PIL import Image
++R=Path('/Users/pvenus/ProjectBS');O=R/'Artifacts/Engineering/MorpgPivotImportFix';B=O/'before';sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
++path='Assets/Resources/battle/morpg/wave-environment-v1/binding.json';old=json.loads((B/path).read_text());current=json.loads((R/path).read_text());assert current['interiorPropsEnabled'] is True
++before=json.loads((O/'before-file-dependencies.json').read_text());rows=[]
++for ow,nw in zip(old['waves'],current['waves']):
++ for a,b in zip(ow['assets'],nw['assets']):
++  a['pivot']=[.5,.5];assert a==b,'anchor/geometry changed'
++  image=R/('Assets/Resources/'+b['resource']+'.png');meta=Path(str(image)+'.meta');im=Image.open(image);assert im.size==(1536,512)
++  src=meta.read_text();prior=(B/meta.relative_to(R)).read_text();guid=re.search(r'^guid: (\w+)',src,re.M)[1];assert guid==b['guid']==re.search(r'^guid: (\w+)',prior,re.M)[1]
++  for token in ['spriteAlignment: 0','spritePivot: {x: 0.5, y: 0.5}','spritePixelsToUnits: 100','maxTextureSize: 2048','spriteMeshType: 0']:assert token in src,(meta,token)
++  assert sha(image)==b['sha256']==before[str(image.relative_to(R))]['sha256']
++  for p in [image,meta]:assert p.stat().st_mtime_ns>before[str(p.relative_to(R))]['mtimeNs'],('dependency timestamp not refreshed',p)
++  l,bot,r,t=b['rect'];w,h=r-l,t-bot
++  for px,py in [(b['alphaRect'][0],b['alphaRect'][1]),(b['alphaRect'][2],b['alphaRect'][3])]:
++   x=l+w*.5+(px-768)/100*(w/15.36);y=bot+h*.5+(512-py-256)/100*(h/5.12)
++   assert abs(x-(l+w*px/1536))<1e-6 and abs(y-(t-h*py/512))<1e-6
++  rows.append(dict(id=b['id'],guid=guid,metaSha256=sha(meta),sourceSha256=sha(image),spriteAlignment=0,normalizedPivot=[.5,.5],expectedImportedPivotPixels=[768,256],canvas=[1536,512],ppu=100,sourceMtimeNs=image.stat().st_mtime_ns,metaMtimeNs=meta.stat().st_mtime_ns,sourceMtimeBeforeNs=before[str(image.relative_to(R))]['mtimeNs'],metaMtimeBeforeNs=before[str(meta.relative_to(R))]['mtimeNs']))
++assert old==current
++for n,h in json.loads((O/'same-path-before.json').read_text()).items():assert sha(R/n)==h,n
++(O/'meta-readback-and-dependencies.json').write_text(json.dumps(rows,indent=2)+'\n')
++print('PASS canonical center import settings9/9; GUID+PNG unchanged9/9; source/meta mtime advanced18/18; binding rect/alpha/collider/interior geometry diff0')
++print('Actual post-reimport Sprite values require next Play; no Unity runtime query was performed.')

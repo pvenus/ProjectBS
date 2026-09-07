@@ -1,0 +1,38 @@
+{
+  "status": "PRODUCTION_INTERIOR_PROPS_RESTORED",
+  "interiorPropsEnabled": true,
+  "counts": {
+    "props": 17,
+    "decorations": 54,
+    "interiorColliders": 17,
+    "waveBackgrounds": 3,
+    "barriers": 6,
+    "totalEnvironmentRenderers": 80
+  },
+  "compiler": {
+    "errors": 0,
+    "existingWarnings": 31
+  },
+  "tests": {
+    "live": 52,
+    "geometry": 14,
+    "clock": 9,
+    "reward": 12,
+    "spawn": 10,
+    "cast": 4,
+    "p1": 27
+  },
+  "totalPassed": 128,
+  "viewportCrops": 27,
+  "uncoveredViewportPixels": 0,
+  "bindingOnlyGateChanged": true,
+  "pngGuidMetaAndCanonicalGeometryReservationDiff": 0,
+  "cameraBarrierLegacySuppressionPreserved": true,
+  "gitIndexUnchanged": true,
+  "reversePatchCheck": "PASS",
+  "bindingSha256": "b8600c8b4f4a8f2159e2bcccf2157f3fe653a5175d660ca3060e74f5e0e573b1",
+  "limitations": [
+    "Static composed previews and Unity API stub behavioral tests; no Unity GUI/headless/GPU evidence."
+  ],
+  "delivery": "Minimal completion notification successfully sent to requesting Hangyeol task. No internal paths, metrics or detailed receipt were transmitted; detailed receipt remains local because earlier approval review rejected those disclosures."
+}

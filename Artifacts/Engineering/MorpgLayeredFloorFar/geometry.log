@@ -1,0 +1,15 @@
+PASS exact-15-assets-17-blockers-3-zones
+PASS all-28-reservations-safe-count-role-id-preserved
+PASS horizontal-geometry-passes-full-profile-audit
+PASS center-obstacle-and-narrow-box-gap-rejected
+PASS spawn-validator-detects-tree-and-house-overlap
+PASS sweep-stops-before-wall-no-tunneling
+PASS sweep-respects-boundary-and-actor-radius
+PASS landing-and-camera-derived-from-same-profile
+PASS installed-exit-staging-entry-capsules-pass
+PASS horizontal-aspect-progression-and-original-identities
+PASS missing-GUID-and-reservation-audit-rejected
+PASS strict-JSON-rejects-unknown-and-missing-fields
+PASS authored-camera-envelope-rejects-void-and-accepts-expanded-map
+PASS visual-clustering-cannot-hide-structural-overlap
+PASS 14/14 production geometry tests; horizontal profile valid

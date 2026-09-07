@@ -197,7 +197,9 @@ namespace Character
                 // Reapply on every acquire so a pooled/domain-reloaded renderer
                 // cannot retain an unrelated presentation order.
                 meshRenderer.sortingLayerID = 0;
-                meshRenderer.sortingOrder = Battle.BattlePresentationSortingPolicy.GroundTelegraph;
+                meshRenderer.sortingOrder = Battle.Morpg.MorpgEnvironmentRuntime.Active != null
+                    ? Battle.BattlePresentationSortingPolicy.MorpgGroundTelegraph
+                    : Battle.BattlePresentationSortingPolicy.GroundTelegraph;
                 return true;
             }
             catch (System.Exception exception)

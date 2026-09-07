@@ -1,0 +1,41 @@
+{
+  "revision": "visual-direction-06",
+  "status": "complete",
+  "blocker": null,
+  "completed_at": "2026-09-07T20:24:14.697163+09:00",
+  "tests": {
+    "prior": 219,
+    "visual_assertions": 104,
+    "passed": 323,
+    "failed": 0,
+    "new_lifecycle_validation": "source audit; utility runtime with Unity primitive stubs"
+  },
+  "compile": {
+    "runtime_errors": 0,
+    "runtime_warnings": 31,
+    "editor_errors": 0,
+    "editor_warnings": 41
+  },
+  "preservation": {
+    "morpg_sources_unchanged": true,
+    "protected_unchanged": 455,
+    "existing": 44,
+    "new": 26
+  },
+  "checks": {
+    "diff": true,
+    "reverse_dry_run": true
+  },
+  "not_run": [
+    "Unity GUI",
+    "Unity headless",
+    "Unity Play",
+    "Unity import",
+    "staging",
+    "commit",
+    "push",
+    "actual rollback"
+  ],
+  "report": "REPORT.md",
+  "patch": "visual-direction.patch"
+}

@@ -1,0 +1,40 @@
+using System;using System.Collections.Generic;using System.Linq;
+namespace UnityEngine {
+ public class DefaultExecutionOrder:Attribute {public DefaultExecutionOrder(int n){}}public class DisallowMultipleComponent:Attribute {}public class SerializeField:Attribute {}
+ public class Object {}public class Component:Object{public GameObject gameObject;public Transform transform=>gameObject.transform;public T GetComponent<T>() where T:class=>gameObject.GetComponent<T>();public T GetComponentInChildren<T>() where T:class=>GetComponent<T>();public T[] GetComponentsInChildren<T>(bool all=false) where T:class=>gameObject.GetComponents<T>();}
+ public class Behaviour:Component{public bool enabled=true;public bool isActiveAndEnabled=>enabled&&gameObject.activeInHierarchy;}public class MonoBehaviour:Behaviour {}
+ public class Transform:Component{public Vector3 position;}
+ public class GameObject:Object{readonly List<Component> components=new();public bool activeInHierarchy=true;public Transform transform;public GameObject(){transform=new Transform{gameObject=this};components.Add(transform);}public T AddComponent<T>() where T:Component,new(){var t=new T{gameObject=this};components.Add(t);return t;}public T GetComponent<T>() where T:class=>components.OfType<T>().FirstOrDefault();public T[] GetComponents<T>() where T:class=>components.OfType<T>().ToArray();}
+ public struct Vector2{public float x,y;public Vector2(float x,float y){this.x=x;this.y=y;}public static Vector2 zero=>new(0,0);public static Vector2 right=>new(1,0);public static implicit operator Vector2(Vector3 p)=>new(p.x,p.y);}
+ public struct Vector3{public float x,y,z;public Vector3(float x,float y,float z){this.x=x;this.y=y;this.z=z;}public static Vector3 operator +(Vector3 a,Vector3 b)=>new(a.x+b.x,a.y+b.y,a.z+b.z);public static Vector3 operator *(Vector3 a,float b)=>new(a.x*b,a.y*b,a.z*b);}
+ public struct Rect{public float xMin,yMin,xMax,yMax;public static Rect MinMaxRect(float l,float b,float r,float t)=>new Rect{xMin=l,yMin=b,xMax=r,yMax=t};}
+ public struct Ray{public Vector3 origin,direction;}
+ public class Camera:Component{public static Camera main;public float orthographicSize=5,aspect=16f/9;public Ray ScreenPointToRay(Vector3 p)=>new Ray{origin=new Vector3(p.x,p.y,-10),direction=new Vector3(0,0,1)};}
+ public static class Mathf{public static float Abs(float n)=>Math.Abs(n);}public static class Time{public static float timeScale=1;}
+ public enum KeyCode{W,A,S,D,Alpha1,Alpha2,Alpha3,LeftShift,RightShift}
+ public static class Input{public static HashSet<KeyCode> Held=new(),Down=new();public static bool MouseHeld,MouseDown;public static Vector3 mousePosition;public static bool GetKey(KeyCode k)=>Held.Contains(k);public static bool GetKeyDown(KeyCode k)=>Down.Contains(k);public static bool GetMouseButton(int n)=>MouseHeld;public static bool GetMouseButtonDown(int n)=>MouseDown;public static void Clear(){Held.Clear();Down.Clear();MouseHeld=MouseDown=false;}}
+ public static class Application{public static bool isFocused=true;}
+}
+namespace UnityEngine.EventSystems{public class EventSystem{public static EventSystem current;public bool Over;public UnityEngine.GameObject currentSelectedGameObject;public bool IsPointerOverGameObject()=>Over;}}
+namespace Skill{
+ public static class SkillPoolSlotKeys{public const string BasicAttack="basic",Active1="a1",Active2="a2",Active3="a3",Active4="a4";}
+ public enum SkillComponentType{Mobility,Damage}public class Profile{public SkillComponentType SkillComponentType;}
+ public class Equipment{public object CastSo=new();public Profile BaseProfileSo=new();public object[] HitSos={new object()};}
+ public class Combo{public bool Enabled,IsComplete=true;}
+ public class EquipmentSkillRuntimeData{public int Slot;public Equipment sourceEquipment=new();public Combo comboProfile;}
+ public class Pool{public Dictionary<string,EquipmentSkillRuntimeData> Runtimes=new();public EquipmentSkillRuntimeData GetRuntimeByKey(string key)=>Runtimes.TryGetValue(key,out var r)?r:null;}
+}
+namespace Character{
+ public enum CharacterType{Player,Npc}public class CharacterSO{public CharacterType CharacterType;public string CharacterId="character.seojin.1";}
+ public class Runtime{public CharacterSO characterSO=new();public bool isDead;}
+ public class CharacterManager:UnityEngine.MonoBehaviour{public Runtime RuntimeData=new();public bool IsDying,IsStunned,IsRooted;}
+ public class CharacterStateManager:UnityEngine.MonoBehaviour{public bool Forced;public int ClearCount;public void ClearState(){ClearCount++;}public bool TryGetForcedTarget(out UnityEngine.Transform t){t=null;return Forced;}}
+ public class CharacterSkillManager:UnityEngine.MonoBehaviour{public bool ManualBusy;public Skill.Pool SkillPool=new();public int Clears;public List<(int slot,UnityEngine.Vector2 point)> Calls=new();public bool ManualReady(Skill.EquipmentSkillRuntimeData r)=>r!=null&&!ManualBusy;public bool FireManualAtPoint(Skill.EquipmentSkillRuntimeData r,UnityEngine.Vector2 p,Func<bool> c){Calls.Add((r.Slot,p));return true;}public bool FireManualDash(Skill.EquipmentSkillRuntimeData r,UnityEngine.Vector2 d){Calls.Add((4,d));return true;}public void CancelManualExecution(){Clears++;ManualBusy=false;}}
+}
+public class PartyMovementMono:UnityEngine.MonoBehaviour{public bool Controlled;public UnityEngine.Vector2 Input;public bool IsMovementControlledByPlayer()=>Controlled;public void SetOwnedManualInput(bool c,UnityEngine.Vector2 i){Controlled=c;Input=i;}}
+public class MovementMono:UnityEngine.MonoBehaviour{public bool Knockback;public int Stops;public bool IsKnockingBack()=>Knockback;public void StopAllMotion(bool n=true){Stops++;}}
+public class SkillBrainMono:UnityEngine.MonoBehaviour{}public class SkillExecutorMono:UnityEngine.MonoBehaviour{public int Clears;public void ClearRequest(){Clears++;}}
+public class AnimationMono:UnityEngine.MonoBehaviour{public enum DiagonalDirection{UpLeft,UpRight,DownLeft,DownRight}public DiagonalDirection CurrentDirection;}
+namespace Session{public class GameSession{public static GameSession Instance=new();public BattleSession BattleSession=new();}public class BattleSession{public BattleRuntime BattleRuntime=new();}public class BattleRuntime{public bool isCompleted;}}
+namespace Battle{public static class BattleMapBoundsContext{public static bool IsActive=true;public static UnityEngine.Rect Arena=UnityEngine.Rect.MinMaxRect(0,-4,32,4);}}
+namespace Battle.Morpg{public static class BattleMorpgLiveRoute{public static bool Locked;public static bool IsTransitionLocked(Character.CharacterManager c)=>Locked;}public class MorpgEnvironmentRuntime{public static MorpgEnvironmentRuntime Active;public ZoneData Zone;public class Point{public float x,y;}public class ZoneData{public Point[] walkable;}}}

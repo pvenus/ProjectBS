@@ -1,0 +1,3 @@
+/Users/pvenus/ProjectBS/AgentTools/MorpgWaveDressingHarness/native_tiles.py:13: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  rows=[y for y in range(512) if sum(v>=192 for v in alpha.crop((16,y,1520,y+1)).getdata())>752]
+native templates baked; source images/importers unchanged

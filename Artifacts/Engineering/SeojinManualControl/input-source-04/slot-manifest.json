@@ -1,0 +1,134 @@
+[
+  {
+    "grade": 1,
+    "slot": "active_1",
+    "equipmentId": "skill.character.seojin.1.active_1.active_1",
+    "aimMode": "Direction",
+    "asset": "Assets/Contents/Skill/so/skill.character.seojin.1.active_1.active_1.asset",
+    "json": "Assets/Contents/Skill/json/skill.character.seojin.1.active_1.active_1.json",
+    "aimInputSource": "MouseDirection"
+  },
+  {
+    "grade": 1,
+    "slot": "active_2",
+    "available": false,
+    "reason": "No binding in existing CharacterSO; left unavailable."
+  },
+  {
+    "grade": 1,
+    "slot": "active_3",
+    "available": false,
+    "reason": "No binding in existing CharacterSO; left unavailable."
+  },
+  {
+    "grade": 1,
+    "slot": "active_4",
+    "equipmentId": "skill.character.seojin.1.active_4.swift_step",
+    "aimMode": "Direction",
+    "asset": "Assets/Contents/Skill/so/skill.character.seojin.1.active_4.swift_step.asset",
+    "json": "Assets/Contents/Skill/json/skill.character.seojin.1.active_4.swift_step.json",
+    "aimInputSource": "KeyboardMoveDirection"
+  },
+  {
+    "grade": 1,
+    "slot": "basic_attack",
+    "equipmentId": "skill.character.seojin.1.basic_attack.basic_attack",
+    "aimMode": "Direction",
+    "asset": "Assets/Contents/Skill/so/skill.character.seojin.1.basic_attack.basic_attack.asset",
+    "json": "Assets/Contents/Skill/json/skill.character.seojin.1.basic_attack.basic_attack.json",
+    "aimInputSource": "MouseDirection",
+    "cooldown": 1.0,
+    "castAsset": "Assets/Contents/Skill/so/skill.character.seojin.1.basic_attack.basic_attack.cast.asset"
+  },
+  {
+    "grade": 2,
+    "slot": "active_1",
+    "equipmentId": "skill.character.seojin.2.active_1.charge",
+    "aimMode": "Direction",
+    "asset": "Assets/Contents/Skill/so/skill.character.seojin.2.active_1.charge.asset",
+    "json": "Assets/Contents/Skill/json/skill.character.seojin.2.active_1.charge.json",
+    "aimInputSource": "MouseDirection"
+  },
+  {
+    "grade": 2,
+    "slot": "active_2",
+    "equipmentId": "skill.character.seojin.2.active_2.crane_wing_formation",
+    "aimMode": "Self",
+    "asset": "Assets/Contents/Skill/so/skill.character.seojin.2.active_2.crane_wing_formation.asset",
+    "json": "Assets/Contents/Skill/json/skill.character.seojin.2.active_2.crane_wing_formation.json",
+    "aimInputSource": "MouseDirection"
+  },
+  {
+    "grade": 2,
+    "slot": "active_3",
+    "available": false,
+    "reason": "No binding in existing CharacterSO; left unavailable."
+  },
+  {
+    "grade": 2,
+    "slot": "active_4",
+    "equipmentId": "skill.character.seojin.2.active_4.swift_step",
+    "aimMode": "Direction",
+    "asset": "Assets/Contents/Skill/so/skill.character.seojin.2.active_4.swift_step.asset",
+    "json": "Assets/Contents/Skill/json/skill.character.seojin.2.active_4.swift_step.json",
+    "aimInputSource": "KeyboardMoveDirection"
+  },
+  {
+    "grade": 2,
+    "slot": "basic_attack",
+    "equipmentId": "skill.character.seojin.2.basic_attack.basic_attack",
+    "aimMode": "Direction",
+    "asset": "Assets/Contents/Skill/so/skill.character.seojin.2.basic_attack.basic_attack.asset",
+    "json": "Assets/Contents/Skill/json/skill.character.seojin.2.basic_attack.basic_attack.json",
+    "aimInputSource": "MouseDirection",
+    "cooldown": 1.0,
+    "castAsset": "Assets/Contents/Skill/so/skill.character.seojin.2.basic_attack.basic_attack.cast.asset"
+  },
+  {
+    "grade": 3,
+    "slot": "active_1",
+    "equipmentId": "skill.character.seojin.3.active_1.charge",
+    "aimMode": "Direction",
+    "asset": "Assets/Contents/Skill/so/skill.character.seojin.3.active_1.charge.asset",
+    "json": "Assets/Contents/Skill/json/skill.character.seojin.3.active_1.charge.json",
+    "aimInputSource": "MouseDirection"
+  },
+  {
+    "grade": 3,
+    "slot": "active_2",
+    "equipmentId": "skill.character.seojin.3.active_2.crane_wing_formation",
+    "aimMode": "Self",
+    "asset": "Assets/Contents/Skill/so/skill.character.seojin.3.active_2.crane_wing_formation.asset",
+    "json": "Assets/Contents/Skill/json/skill.character.seojin.3.active_2.crane_wing_formation.json",
+    "aimInputSource": "MouseDirection"
+  },
+  {
+    "grade": 3,
+    "slot": "active_3",
+    "equipmentId": "skill.character.seojin.3.active_3.turtle_ship_assault",
+    "aimMode": "Direction",
+    "asset": "Assets/Contents/Skill/so/skill.character.seojin.3.active_3.turtle_ship_assault.asset",
+    "json": "Assets/Contents/Skill/json/skill.character.seojin.3.active_3.turtle_ship_assault.json",
+    "aimInputSource": "MouseDirection"
+  },
+  {
+    "grade": 3,
+    "slot": "active_4",
+    "equipmentId": "skill.character.seojin.3.active_4.swift_step",
+    "aimMode": "Direction",
+    "asset": "Assets/Contents/Skill/so/skill.character.seojin.3.active_4.swift_step.asset",
+    "json": "Assets/Contents/Skill/json/skill.character.seojin.3.active_4.swift_step.json",
+    "aimInputSource": "KeyboardMoveDirection"
+  },
+  {
+    "grade": 3,
+    "slot": "basic_attack",
+    "equipmentId": "skill.character.seojin.3.basic_attack.basic_attack",
+    "aimMode": "Direction",
+    "asset": "Assets/Contents/Skill/so/skill.character.seojin.3.basic_attack.basic_attack.asset",
+    "json": "Assets/Contents/Skill/json/skill.character.seojin.3.basic_attack.basic_attack.json",
+    "aimInputSource": "MouseDirection",
+    "cooldown": 1.0,
+    "castAsset": "Assets/Contents/Skill/so/skill.character.seojin.3.basic_attack.basic_attack.cast.asset"
+  }
+]

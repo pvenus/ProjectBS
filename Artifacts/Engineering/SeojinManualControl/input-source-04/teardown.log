@@ -1,0 +1,12 @@
+PASS active-component-disable-scope-zero-presentation-starts
+PASS parent-inactive-owner-teardown-no-exception-no-coroutine
+PASS animation-disabled-direct-idle-move-state-final-guard
+PASS inactive-parent-direct-idle-and-adjacent-coroutine-final-guard
+PASS repeat-disable-destroy-idempotent-without-start
+PASS reenable-first-idle-one-start-no-stale-clip-dedup
+PASS reenable-first-move-one-start-no-stale-oneshot
+PASS teardown-scope-balanced-after-callback-exception
+PASS nested-teardown-blocks-until-outer-release
+PASS legacy-inactive-movement-toggle-does-not-call-presentation
+PASS 10/10 production teardown-method simulations
+PASS all animation coroutine call sites use final active/teardown gate; disable/destroy share synchronous reset

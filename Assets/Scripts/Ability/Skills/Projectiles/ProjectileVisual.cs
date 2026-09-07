@@ -43,6 +43,7 @@ public class ProjectileVisual : MonoBehaviour
     [SerializeField] private bool deactivateAfterClipFinished;
     [SerializeField] private float currentClipPlaybackSpeed = 1f;
 
+    private readonly ProjectileDirectionPresentationLease directionWrapper=new();
     private ProjectileEntity owner;
     private ProjectileRuntimeData runtimeData;
     private SkillAnimationVfxFeatureObject animationVfx;
@@ -275,6 +276,7 @@ public class ProjectileVisual : MonoBehaviour
     {
         ApplyRelativeSortingOrder();
         ApplyPresentationCalibration();
+        directionWrapper.Apply();
     }
 
     private void ApplyPresentationCalibration()
@@ -426,6 +428,7 @@ public class ProjectileVisual : MonoBehaviour
 
     private void OnDestroy()
     {
+        directionWrapper.Restore();
         StopRainRoutine();
         RestoreBaselineMaterial();
         DestroyPlayableGraph();
@@ -445,6 +448,7 @@ public class ProjectileVisual : MonoBehaviour
             return;
         }
 
+        directionWrapper.Restore();
         owner = ownerEntity;
         runtimeData = data;
         EnsureVisualComponents();
@@ -465,7 +469,19 @@ public class ProjectileVisual : MonoBehaviour
 
         if (spriteRenderer != null) spriteRenderer.enabled = true;
 
+        if(data.orientManualPresentation&&!data.suppressVisual&&animator!=null)
+        {
+            // Animator is below this wrapper: its root curves cannot touch gameplay rotation.
+            directionWrapper.Begin(animator.transform,transform,spriteRenderer,
+                data.NormalizedDirection,data.moveRuntime?.applyDirectionRotation==true,
+                data.moveRuntime?.rotationOffset??0f);
+        }
         OnSpawn();
+        directionWrapper.Apply();
+    }
+    private void OnDisable()
+    {
+        directionWrapper.Restore();RestoreRendererScale();EndPresentationProxy();
     }
 
     public void OnSpawn()
@@ -523,6 +539,7 @@ public class ProjectileVisual : MonoBehaviour
 
     public void OnDespawn()
     {
+        directionWrapper.Restore();
         if (!initialized)
         {
             return;

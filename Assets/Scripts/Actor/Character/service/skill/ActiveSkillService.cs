@@ -68,6 +68,9 @@ namespace Character.Skill
         private readonly Dictionary<string, float> failedSkillRetryEndTimes = new();
         private readonly HashSet<int> activeComboCasters = new();
         private static int nextComboToken;
+        private readonly Dictionary<int,int> comboGenerations=new();
+        private readonly Dictionary<int,object> comboFacingOwners=new();
+        public bool HasCombo(Transform caster)=>caster!=null&&activeComboCasters.Contains(caster.GetInstanceID());
 
         /// <summary>
         /// Selects an active skill that is ready to use.
@@ -259,7 +262,10 @@ namespace Character.Skill
         {
             if (caster != null)
             {
+                if(comboFacingOwners.TryGetValue(caster.GetInstanceID(),out var facingOwner))
+                {ResolveAnimation(caster)?.ReleaseFacingLock(facingOwner);comboFacingOwners.Remove(caster.GetInstanceID());}
                 activeComboCasters.Remove(caster.GetInstanceID());
+                comboGenerations.Remove(caster.GetInstanceID());
             }
         }
 
@@ -314,7 +320,7 @@ namespace Character.Skill
             return IsCooldownReady(skillManager.SkillRuntimeData, skillId);
         }
 
-        private bool IsRuntimeReady(
+        internal bool IsRuntimeReady(
             CharacterSkillManager skillManager,
             EquipmentSkillRuntimeData runtime)
         {
@@ -411,6 +417,18 @@ namespace Character.Skill
             {
                 ClearExecutionFailure(runtime);
             }
+            return started;
+        }
+        internal bool FireManualAim(CharacterSkillManager manager,EquipmentSkillRuntimeData runtime,Transform caster,ManualSkillAim aim)
+        {
+            if(!aim.IsValid||runtime?.sourceEquipment?.AimInputSource==AimInputSource.Invalid||runtime?.sourceEquipment?.AimMode!=aim.Mode||!CanFireRuntime(runtime,caster,manager,true))return false;
+            if(aim.Mode==SkillAimMode.Target&&!IsManualTargetValid(runtime,caster,aim.Target))return false;
+            if(aim.Mode==SkillAimMode.GroundPoint&&Vector2.Distance(caster.position,aim.Point)>runtime.resolvedRange+.0001f)return false;
+            bool mobility=runtime.sourceEquipment.BaseProfileSo.SkillComponentType==SkillComponentType.Mobility;
+            if(!mobility&&!IsRuntimeReady(manager,runtime))return false;
+            if(!mobility&&!(runtime.comboProfile!=null&&runtime.comboProfile.Enabled))UseSkill(manager,runtime);
+            bool started=StartSkillUseRoutine(manager,runtime,caster,aim.Target,aim.Mode==SkillAimMode.GroundPoint,aim.Point,aim);
+            if(started)ClearExecutionFailure(runtime);
             return started;
         }
         /// <summary>
@@ -513,14 +531,14 @@ namespace Character.Skill
             Transform caster,
             Transform target,
             bool usePoint,
-            Vector2 targetPoint)
+            Vector2 targetPoint,ManualSkillAim? manualAim=null)
         {
             if (skillManager == null || runtime == null || caster == null)
             {
                 return false;
             }
 
-            return StartSkillUseRoutineCore(skillManager, runtime, caster, target, usePoint, targetPoint);
+            return StartSkillUseRoutineCore(skillManager, runtime, caster, target, usePoint, targetPoint,manualAim);
         }
 
         private bool StartSkillUseRoutineCore(
@@ -529,7 +547,7 @@ namespace Character.Skill
             Transform caster,
             Transform target,
             bool usePoint,
-            Vector2 targetPoint)
+            Vector2 targetPoint,ManualSkillAim? manualAim=null)
         {
             if (skillManager == null || runtime == null || caster == null)
             {
@@ -545,11 +563,12 @@ namespace Character.Skill
                 }
 
                 activeComboCasters.Add(caster.GetInstanceID());
-                skillManager.StartCoroutine(FireComboRoutine(skillManager, runtime, caster, target));
+                int generation=++nextComboToken;comboGenerations[caster.GetInstanceID()]=generation;
+                skillManager.StartOwnedSkillRoutine(FireComboRoutine(skillManager, runtime, caster, target,usePoint,targetPoint,skillManager.ManualExecutionAuthorized?skillManager.ManualComboChain:null,generation,manualAim,skillManager.ManualExecutionAuthorized?skillManager.ManualComboStepAim:null));
                 return true;
             }
 
-            bool isSelfOrNoTargetSkill = IsSelfOrNoTargetSkill(runtime);
+            bool isSelfOrNoTargetSkill = manualAim.HasValue?manualAim.Value.Mode==SkillAimMode.Self:IsSelfOrNoTargetSkill(runtime);
             Vector2 resolvedTargetPoint = ResolveTargetPoint(
                 runtime,
                 caster,
@@ -557,6 +576,7 @@ namespace Character.Skill
                 usePoint,
                 targetPoint);
 
+            if(manualAim?.Mode==SkillAimMode.GroundPoint)resolvedTargetPoint=manualAim.Value.Point;
             Vector2 spawnPosition = caster.position;
             Vector2 direction = ResolveDirection(
                 spawnPosition,
@@ -564,6 +584,7 @@ namespace Character.Skill
                 isSelfOrNoTargetSkill ? null : target,
                 isSelfOrNoTargetSkill || usePoint,
                 resolvedTargetPoint);
+            if(manualAim?.Mode==SkillAimMode.Direction)direction=manualAim.Value.Direction;
 
             SkillCastSO castSo = ResolveCastSo(runtime);
             AnimationMono bodyAnimation = ResolveAnimation(caster);
@@ -593,7 +614,9 @@ namespace Character.Skill
                     ? castSo.BodyActionPlayback.Duration(resolvedBodyClip)
                     : Mathf.Max(.01f, resolvedBodyClip.length / bodyPlaybackSpeed);
                 if (bodyAnimation == null ||
-                    !bodyAnimation.PlaySkillBodyAction(resolvedBodyClip, duration, bodyMirrorWithFacing))
+                    !(manualAim?.Mode==SkillAimMode.Direction
+                        ? bodyAnimation.PlayDirectedSkillBodyAction(resolvedBodyClip,duration,manualAim.Value.Direction,castSo?.DirectionPresentation)
+                        : bodyAnimation.PlaySkillBodyAction(resolvedBodyClip, duration, bodyMirrorWithFacing)))
                 {
                     if (bodyFallback == CharacterAnimationFallbackPolicy.Rendererless)
                     {
@@ -610,7 +633,7 @@ namespace Character.Skill
                 float contactDelay = castSo != null && castSo.BodyActionClip == resolvedBodyClip
                     ? castSo.BodyActionPlayback.ContactTime
                     : 0f;
-                skillManager.StartCoroutine(
+                skillManager.StartOwnedSkillRoutine(
                     FireSkillBodyActionTiming(
                         skillManager,
                         runtime,
@@ -618,7 +641,7 @@ namespace Character.Skill
                         isSelfOrNoTargetSkill ? null : target,
                         isSelfOrNoTargetSkill || usePoint,
                         resolvedTargetPoint,
-                        contactDelay));
+                        contactDelay,manualAim));
                 return true;
             }
 
@@ -627,26 +650,26 @@ namespace Character.Skill
                 ApplyAnimationDirection(caster, direction);
                 PlayAttackAnimation(caster);
 
-                skillManager.StartCoroutine(
+                skillManager.StartOwnedSkillRoutine(
                     FireSkillAtAttackTiming(
                         skillManager,
                         runtime,
                         caster,
                         isSelfOrNoTargetSkill ? null : target,
                         isSelfOrNoTargetSkill || usePoint,
-                        resolvedTargetPoint));
+                        resolvedTargetPoint,manualAim));
 
                 return true;
             }
 
-            skillManager.StartCoroutine(
+            skillManager.StartOwnedSkillRoutine(
                 FireSkillBurstRoutine(
                     skillManager,
                     runtime,
                     caster,
                     isSelfOrNoTargetSkill ? null : target,
                     isSelfOrNoTargetSkill || usePoint,
-                    resolvedTargetPoint));
+                    resolvedTargetPoint,manualAim));
 
             return true;
         }
@@ -658,7 +681,7 @@ namespace Character.Skill
             Transform target,
             bool usePoint,
             Vector2 targetPoint,
-            float contactDelay)
+            float contactDelay,ManualSkillAim? manualAim=null)
         {
             if (contactDelay > 0f)
             {
@@ -666,7 +689,7 @@ namespace Character.Skill
             }
 
             yield return FireSkillBurstRoutine(
-                skillManager, runtime, caster, target, usePoint, targetPoint);
+                skillManager, runtime, caster, target, usePoint, targetPoint,manualAim);
         }
 
         private IEnumerator FireSkillAtAttackTiming(
@@ -675,7 +698,7 @@ namespace Character.Skill
             Transform caster,
             Transform target,
             bool usePoint,
-            Vector2 targetPoint)
+            Vector2 targetPoint,ManualSkillAim? manualAim=null)
         {
             yield return null;
 
@@ -696,7 +719,7 @@ namespace Character.Skill
                 caster,
                 target,
                 usePoint,
-                targetPoint);
+                targetPoint,manualAim);
         }
 
         private IEnumerator FireSkillBurstRoutine(
@@ -705,7 +728,7 @@ namespace Character.Skill
             Transform caster,
             Transform target,
             bool usePoint,
-            Vector2 targetPoint)
+            Vector2 targetPoint,ManualSkillAim? manualAim=null)
         {
             bool successNotified = false;
             int burstCount = ResolveBurstCount(runtime);
@@ -713,6 +736,7 @@ namespace Character.Skill
 
             for (int burstIndex = 0; burstIndex < burstCount; burstIndex++)
             {
+                if(manualAim?.Mode==SkillAimMode.Target&&!IsManualTargetValid(runtime,caster,manualAim.Value.Target)){MainCharacterSkillFocusFeature.CancelPending(caster);yield break;}
                 if (!successNotified)
                 {
                     MainCharacterSkillFocusFeature.NotifySkillExecuting(skillManager, runtime, caster);
@@ -723,7 +747,7 @@ namespace Character.Skill
                     caster,
                     target,
                     usePoint,
-                    targetPoint);
+                    targetPoint,manualAim:manualAim);
 
                 if (burstFired && !successNotified)
                 {
@@ -749,7 +773,7 @@ namespace Character.Skill
             CharacterSkillManager skillManager,
             EquipmentSkillRuntimeData runtime,
             Transform caster,
-            Transform initialTarget)
+            Transform initialTarget,bool usePoint,Vector2 point,System.Func<bool> continueChain,int generation,ManualSkillAim? manualAim=null,System.Func<ManualSkillAim> stepAim=null)
         {
             int casterId = caster.GetInstanceID();
             string comboToken = $"seojin-basic-combo-{++nextComboToken}";
@@ -757,6 +781,7 @@ namespace Character.Skill
             float elapsed = 0f;
             bool anyStepFired = false;
             Transform target = initialTarget;
+            bool freeAim=usePoint||manualAim?.Mode==SkillAimMode.Direction;
             SkillComboStep[] steps = runtime.comboProfile.Steps;
             bool continuousBody = runtime.comboProfile.HasCompleteSegmentedBodyRegistry;
             int completedSteps = 0;
@@ -777,6 +802,10 @@ namespace Character.Skill
                     null);
             }
 
+            object facingOwner=new object();
+            if(manualAim?.Mode==SkillAimMode.Direction)comboFacingOwners[casterId]=facingOwner;
+            try
+            {
             for (int i = 0; i < steps.Length; i++)
             {
                 SkillComboStep step = steps[i];
@@ -787,9 +816,19 @@ namespace Character.Skill
                     elapsed += waitToStart;
                 }
 
-                if (!CanContinueCombo(caster))
+                if (!CanContinueGeneration(caster,generation)||(manualAim.HasValue&&!skillManager.ManualComboAuthorized))
                 {
                     break;
+                }
+
+                if(i>0&&continueChain!=null&&!continueChain())break;
+                // Capture only after this step has been admitted. No resampling at hit time.
+                ManualSkillAim? currentStepAim=manualAim;
+                if(manualAim?.Mode==SkillAimMode.Direction&&stepAim!=null)
+                {
+                    var captured=stepAim();
+                    if(!captured.IsValid||captured.Mode!=SkillAimMode.Direction)break;
+                    currentStepAim=captured;
                 }
 
                 // G1 Basic commits its one-per-combo cooldown when the third step
@@ -811,16 +850,18 @@ namespace Character.Skill
                     : 0f;
                 float continuationRange = targetRange + (i > 0 ? 0.25f : 0f);
                 target = NormalizeComboTarget(target);
-                if (!IsValidComboTarget(caster, target, step.Hit) ||
-                    !IsComboTargetInRange(caster, target, continuationRange))
+                if (!freeAim&&(!IsValidComboTarget(caster, target, step.Hit) ||
+                    !IsComboTargetInRange(caster, target, continuationRange)))
                 {
+                    if(manualAim?.Mode==SkillAimMode.Target)break;
                     target = ResolveComboRetarget(caster, continuationRange, step.Hit);
                     float retargetElapsed = 0f;
                     while (retargetElapsed < 0.12f &&
                            (!IsValidComboTarget(caster, target, step.Hit) ||
                             !IsComboTargetInRange(caster, target, continuationRange)))
                     {
-                        target = ResolveComboRetarget(caster, continuationRange, step.Hit);
+                        if(manualAim?.Mode==SkillAimMode.Target)break;
+                    target = ResolveComboRetarget(caster, continuationRange, step.Hit);
                         if (IsValidComboTarget(caster, target, step.Hit) &&
                             IsComboTargetInRange(caster, target, continuationRange))
                         {
@@ -833,8 +874,8 @@ namespace Character.Skill
                     }
                 }
 
-                if (!IsValidComboTarget(caster, target, step.Hit) ||
-                    !IsComboTargetInRange(caster, target, continuationRange))
+                if (!freeAim&&(!IsValidComboTarget(caster, target, step.Hit) ||
+                    !IsComboTargetInRange(caster, target, continuationRange)))
                 {
                     break;
                 }
@@ -843,8 +884,9 @@ namespace Character.Skill
                     caster.position,
                     caster,
                     target,
-                    false,
-                    caster.position);
+                    usePoint,
+                    usePoint?point:(Vector2)caster.position);
+                if(currentStepAim?.Mode==SkillAimMode.Direction)direction=currentStepAim.Value.Direction;
                 ApplyAnimationDirection(caster, direction);
                 AnimationMono comboAnimation = ResolveAnimation(caster);
                 if (!continuousBody)
@@ -870,6 +912,10 @@ namespace Character.Skill
                         comboAnimation?.RestartAttack();
                     }
                 }
+                if(currentStepAim?.Mode==SkillAimMode.Direction&&comboAnimation!=null)
+                {
+                    if(!comboAnimation.RefreshFacingLock(facingOwner,direction))comboAnimation.AcquireFacingLock(facingOwner,direction);
+                }
                 if (target != null &&
                     Vector2.Distance(caster.position, target.position) > 0.05f)
                 {
@@ -883,14 +929,15 @@ namespace Character.Skill
                     elapsed += waitToHit;
                 }
 
-                if (!CanContinueCombo(caster))
+                if (!CanContinueGeneration(caster,generation)||(manualAim.HasValue&&!skillManager.ManualComboAuthorized))
                 {
                     break;
                 }
 
-                if (!IsValidComboTarget(caster, target, step.Hit) ||
-                    !IsComboTargetInRange(caster, target, continuationRange))
+                if (!freeAim&&(!IsValidComboTarget(caster, target, step.Hit) ||
+                    !IsComboTargetInRange(caster, target, continuationRange)))
                 {
+                    if(manualAim?.Mode==SkillAimMode.Target)break;
                     target = ResolveComboRetarget(caster, continuationRange, step.Hit);
                     if (!IsValidComboTarget(caster, target, step.Hit) ||
                         !IsComboTargetInRange(caster, target, continuationRange))
@@ -922,8 +969,8 @@ namespace Character.Skill
                     runtime,
                     caster,
                     target,
-                    false,
-                    target != null ? (Vector2)target.position : (Vector2)caster.position,
+                    usePoint,
+                    usePoint?point:target != null ? (Vector2)target.position : (Vector2)caster.position,
                     0,
                     step.VfxClip,
                     step.VfxProfileOverride,
@@ -934,7 +981,7 @@ namespace Character.Skill
                     step.ComboIndex,
                     step.Hit,
                     step.ComboIndex < 2,
-                    step.MinimumVisualLifetime);
+                    step.MinimumVisualLifetime,currentStepAim);
                 anyStepFired |= fired;
 
                 float waitToRecovery = Mathf.Max(0f, step.RecoveryEnd - elapsed);
@@ -945,6 +992,8 @@ namespace Character.Skill
                 }
                 completedSteps++;
             }
+
+            if(!comboGenerations.TryGetValue(casterId,out var terminalGeneration)||terminalGeneration!=generation)yield break;
 
             if (continuousBody && completedSteps != steps.Length)
             {
@@ -968,7 +1017,13 @@ namespace Character.Skill
                 MainCharacterSkillFocusFeature.CancelPending(caster);
             }
 
-            activeComboCasters.Remove(casterId);
+            if(comboGenerations.TryGetValue(casterId,out var endingGeneration)&&endingGeneration==generation){activeComboCasters.Remove(casterId);comboGenerations.Remove(casterId);}
+            }
+            finally
+            {
+                continuousAnimation?.ReleaseFacingLock(facingOwner);
+                if(comboFacingOwners.TryGetValue(casterId,out var owner)&&ReferenceEquals(owner,facingOwner))comboFacingOwners.Remove(casterId);
+            }
         }
 
         private bool UseSkillOnce(
@@ -988,7 +1043,7 @@ namespace Character.Skill
             int comboIndex = -1,
             SkillHitSO hitOverride = null,
             bool suppressVisual = false,
-            float minimumVisualLifetime = 0f)
+            float minimumVisualLifetime = 0f,ManualSkillAim? manualAim=null)
         {
             return SkillUseHelper.UseSkill(
                 new SkillUseContext
@@ -998,6 +1053,7 @@ namespace Character.Skill
                     Target = target,
                     UsePoint = usePoint,
                     TargetPoint = targetPoint,
+                    ManualAim = manualAim,
                     CoroutineRunner = skillManager,
                     SelectedHitIndex = selectedHitIndex,
                     VisualClipOverride = visualClipOverride,
@@ -1024,6 +1080,7 @@ namespace Character.Skill
             return chance > 0f && Random.value <= chance / 100f;
         }
 
+        private bool CanContinueGeneration(Transform caster,int generation)=>caster!=null&&comboGenerations.TryGetValue(caster.GetInstanceID(),out int current)&&current==generation&&CanContinueCombo(caster);
         private bool CanContinueCombo(Transform caster)
         {
             if (caster == null || !caster.gameObject.activeInHierarchy)
@@ -1076,7 +1133,7 @@ namespace Character.Skill
         private Transform ResolveComboRetarget(
             Transform caster,
             float radius,
-            SkillHitSO hit)
+            SkillHitSO hit,Vector2? coneDirection=null)
         {
             if (caster == null || hit == null)
             {
@@ -1096,6 +1153,8 @@ namespace Character.Skill
                     continue;
                 }
 
+                Vector2 delta=(Vector2)manager.transform.position-(Vector2)caster.position;
+                if(coneDirection.HasValue&&(delta.sqrMagnitude<=.0001f||Vector2.Dot(delta.normalized,coneDirection.Value.normalized)<.70710678f))continue;
                 if (IsValidComboTarget(caster, manager.transform, hit))
                 {
                     roots.Add(manager);
@@ -1115,6 +1174,17 @@ namespace Character.Skill
             return roots.Count > 0 ? roots[0].transform : null;
         }
 
+        internal Transform ResolveManualTarget(EquipmentSkillRuntimeData runtime,Transform caster,Vector2 direction)
+        {
+            if(runtime?.sourceEquipment?.HitSos==null||direction.sqrMagnitude<=.0001f||float.IsNaN(runtime.resolvedRange)||float.IsInfinity(runtime.resolvedRange)||runtime.resolvedRange<0)return null;
+            SkillHitSO hit=System.Array.Find(runtime.sourceEquipment.HitSos,h=>h!=null);
+            return ResolveComboRetarget(caster,runtime.resolvedRange,hit,direction);
+        }
+        internal bool IsManualTargetValid(EquipmentSkillRuntimeData runtime,Transform caster,Transform target)
+        {
+            var hits=runtime?.sourceEquipment?.HitSos;
+            return hits!=null&&IsValidComboTarget(caster,target,System.Array.Find(hits,h=>h!=null))&&IsComboTargetInRange(caster,target,runtime.resolvedRange);
+        }
         private bool IsComboTargetInRange(Transform caster, Transform target, float range)
         {
             return caster != null && target != null &&

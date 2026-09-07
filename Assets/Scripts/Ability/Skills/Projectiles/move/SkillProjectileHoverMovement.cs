@@ -47,7 +47,12 @@ public class SkillProjectileHoverMovement : ISkillProjectileMovement
         _dto = dto;
         _initialized = true;
 
-        if (_context.owner != null)
+        _direction = Vector2.right;
+        if (_context.hasAuthoritativeDirection && Skill.SkillDirectionMath.Valid(_context.authoritativeDirection))
+        {
+            _direction = _context.authoritativeDirection.normalized;
+        }
+        else if (_context.owner != null)
         {
             Vector2 ownerPosition = _context.owner.position;
             Vector2 direction;

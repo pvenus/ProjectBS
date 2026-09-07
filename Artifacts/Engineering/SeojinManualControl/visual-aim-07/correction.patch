@@ -1,0 +1,641 @@
+--- a/Assets/Scripts/Ability/Skills/Presentation/SkillDirectionPresentation.cs
++++ b/Assets/Scripts/Ability/Skills/Presentation/SkillDirectionPresentation.cs
+@@ -25,7 +25,8 @@
+             int mirrored=(4-octant+8)%8;
+             if(allowBodyFlip)foreach(var entry in directionalClips??Array.Empty<SkillDirectionalClip>())
+                 if(entry!=null&&entry.Octant==mirrored&&entry.Clip!=null){angle=0;flip=true;return entry.Clip;}
+-            SkillDirectionMath.Solve(direction,CanonicalForward,allowBodyFlip,out angle,out flip);
++            // Upright body art: missing directional clips use horizontal facing only.
++            angle=0f;flip=allowBodyFlip&&direction.x<0f;
+             return fallback;
+         }
+     }
+--- a/Assets/Scripts/Actor/Character/Control/SeojinManualControl.cs
++++ b/Assets/Scripts/Actor/Character/Control/SeojinManualControl.cs
+@@ -24,7 +24,7 @@
+             (GetComponent<MovementMono>()?.IsKnockingBack()??false)||(state!=null&&state.TryGetForcedTarget(out _))||
+             Battle.Morpg.BattleMorpgLiveRoute.IsTransitionLocked(actor)||scriptedCutscene||Time.timeScale<=0||
+             GameSession.Instance?.BattleSession?.BattleRuntime==null||GameSession.Instance.BattleSession.BattleRuntime.isCompleted;
+-        internal bool ManualAuthorized=>isActiveAndEnabled&&!ForcedBlocked&&core.Reason==ControlReason.Manual&&!core.Suspended;
++        internal bool ManualAuthorized=>isActiveAndEnabled&&!explicitAutoMode&&!SeojinInputReader.UiBlocked&&!ForcedBlocked&&core.Reason==ControlReason.Manual&&!core.Suspended;
+         internal bool AutoAuthorized=>!ForcedBlocked&&(!isActiveAndEnabled||core.AllowsAuto);
+         public void SetAutoMode(bool value)=>explicitAutoMode=value;
+         public void SetScriptedCutscene(bool active)=>scriptedCutscene=active;
+@@ -112,8 +112,44 @@
+         {
+             var runtime=Runtime(slot);if(runtime==null||runtime.sourceEquipment.AimMode!=aim.Mode||runtime.sourceEquipment.AimInputSource!=aim.InputSource)return false;
+             var resolved=new ManualSkillAim(aim.Mode,new Vector2(aim.Direction.X,aim.Direction.Y),new Vector2(aim.Point.X,aim.Point.Y),aim.LockedTarget as Transform);
++            bool combo=slot==0&&aim.Mode==SkillAimMode.Direction&&runtime.comboProfile!=null&&runtime.comboProfile.Enabled;
++            // Initial validation also uses current input, never an obsolete press snapshot.
++            Func<ManualSkillAim> captureStep=null;
++            if(combo)
++            {
++                resolved=CaptureComboStepAim();
++                Vector2 lastStepDirection=resolved.Direction;
++                var initialAim=resolved;int initialFrame=Time.frameCount;bool firstCapture=true;
++                captureStep=()=>
++                {
++                    if(actor==null||actor.GetComponent<SeojinManualControl>()?.ManualAuthorized!=true)return default;
++                    if(firstCapture)
++                    {
++                        firstCapture=false;
++                        if(Time.frameCount==initialFrame)return initialAim;
++                    }
++                    var next=CaptureComboStepAim(lastStepDirection);
++                    lastStepDirection=next.Direction;
++                    return next;
++                };
++            }
+             if(!resolved.IsValid)return false;
+-            return skills.FireManualAim(runtime,resolved,slot==0?chain:null);
++            return skills.FireManualAim(runtime,resolved,slot==0?chain:null,captureStep);
++        }
++        internal static ControlVector ResolveComboStepDirection(ControlVector mouse,ControlVector axes,ControlVector facing)
++            =>mouse.Valid&&mouse.Nonzero?mouse.Normalized:ManualControlCore.KeyboardMoveDirection(axes,default,facing);
++        private ManualSkillAim CaptureComboStepAim(Vector2? previousDirection=null)
++        {
++            if(actor==null||actor.GetComponent<SeojinManualControl>()?.ManualAuthorized!=true)return default;
++            var input=SeojinInputReader.Read(Camera.main,default,actor.transform.position);
++            var raw=input.Aim.AtOrigin(input.CasterPosition).Direction;
++            var animation=actor.GetComponentInChildren<AnimationMono>();
++            var facing=animation!=null?animation.CurrentDirection:AnimationMono.DiagonalDirection.DownRight;
++            var lastFacing=new ControlVector(facing==AnimationMono.DiagonalDirection.UpLeft||facing==AnimationMono.DiagonalDirection.DownLeft?-1:1,
++                facing==AnimationMono.DiagonalDirection.UpLeft||facing==AnimationMono.DiagonalDirection.UpRight?1:-1);
++            if(previousDirection.HasValue)lastFacing=new ControlVector(previousDirection.Value.x,previousDirection.Value.y);
++            var direction=ResolveComboStepDirection(raw,input.Axes,lastFacing);
++            return new ManualSkillAim(SkillAimMode.Direction,new Vector2(direction.X,direction.Y),Vector2.zero);
+         }
+         public void Move(ControlVector v){MoveInput=new Vector2(v.X,v.Y);}
+         public void Clear(bool interrupt)
+--- a/Assets/Scripts/Actor/Character/CharacterSkillManager.cs
++++ b/Assets/Scripts/Actor/Character/CharacterSkillManager.cs
+@@ -286,7 +286,9 @@
+         }
+         private Vector2? manualDirection;
+         internal bool ManualExecutionAuthorized=>manualExecution;
++        internal bool ManualComboAuthorized=>GetComponent<Control.SeojinManualControl>()?.ManualAuthorized==true;
+         internal Func<bool> ManualComboChain {get;private set;}
++        internal Func<ManualSkillAim> ManualComboStepAim {get;private set;}
+         internal bool ManualBusy=>manualRoutines.Count>0||IsCasting||castMoveService.IsMoving||skillService.HasCombo(transform)||
+             (GetComponentInChildren<AnimationMono>()?.IsPlayingAttack()??false);
+         internal bool ManualReady(EquipmentSkillRuntimeData runtime)=>!ManualBusy&&
+@@ -294,12 +296,12 @@
+             GetComponent<CharacterManager>().CanUseSkill&&skillService.IsRuntimeReady(this,runtime);
+         private ManualSkillAim? manualAim;
+         internal Transform ResolveManualTarget(EquipmentSkillRuntimeData runtime,Vector2 direction)=>skillService.ResolveManualTarget(runtime,transform,direction);
+-        internal bool FireManualAim(EquipmentSkillRuntimeData runtime,ManualSkillAim aim,Func<bool> chain)
++        internal bool FireManualAim(EquipmentSkillRuntimeData runtime,ManualSkillAim aim,Func<bool> chain,Func<ManualSkillAim> stepAim=null)
+         {
+             var owner=GetComponent<Control.SeojinManualControl>();
+             if(owner==null||!owner.ManualAuthorized||!ManualReady(runtime)||!aim.IsValid||runtime.sourceEquipment.AimInputSource==AimInputSource.Invalid||runtime.sourceEquipment.AimMode!=aim.Mode)return false;
+             if(aim.Mode==SkillAimMode.Target&&!skillService.IsManualTargetValid(runtime,transform,aim.Target))return false;
+-            manualExecution=true;manualAim=aim;ManualComboChain=chain;
++            manualExecution=true;manualAim=aim;ManualComboChain=chain;ManualComboStepAim=stepAim;
+             manualDirection=aim.Mode==SkillAimMode.Direction?aim.Direction:(Vector2?)null;
+             bool started=false;
+             try
+@@ -322,7 +324,7 @@
+             GetComponentInChildren<AnimationMono>()?.CancelDirectedSkillPresentation();
+             bool combo=skillService.HasCombo(transform);
+             if(combo)GetComponentInChildren<AnimationMono>()?.StopComboAction();
+-            ManualComboChain=null;CancelCasting();skillService.CancelCombo(transform);castMoveService.StopMove();manualExecution=false;manualAim=null;manualDirection=null;
++            ManualComboChain=null;ManualComboStepAim=null;CancelCasting();skillService.CancelCombo(transform);castMoveService.StopMove();manualExecution=false;manualAim=null;manualDirection=null;
+         }
+         public bool FireSkill(
+             EquipmentSkillRuntimeData runtime,
+--- a/Assets/Scripts/Actor/Character/service/skill/ActiveSkillService.cs
++++ b/Assets/Scripts/Actor/Character/service/skill/ActiveSkillService.cs
+@@ -69,6 +69,7 @@
+         private readonly HashSet<int> activeComboCasters = new();
+         private static int nextComboToken;
+         private readonly Dictionary<int,int> comboGenerations=new();
++        private readonly Dictionary<int,object> comboFacingOwners=new();
+         public bool HasCombo(Transform caster)=>caster!=null&&activeComboCasters.Contains(caster.GetInstanceID());
+ 
+         /// <summary>
+@@ -261,6 +262,8 @@
+         {
+             if (caster != null)
+             {
++                if(comboFacingOwners.TryGetValue(caster.GetInstanceID(),out var facingOwner))
++                {ResolveAnimation(caster)?.ReleaseFacingLock(facingOwner);comboFacingOwners.Remove(caster.GetInstanceID());}
+                 activeComboCasters.Remove(caster.GetInstanceID());
+                 comboGenerations.Remove(caster.GetInstanceID());
+             }
+@@ -561,7 +564,7 @@
+ 
+                 activeComboCasters.Add(caster.GetInstanceID());
+                 int generation=++nextComboToken;comboGenerations[caster.GetInstanceID()]=generation;
+-                skillManager.StartOwnedSkillRoutine(FireComboRoutine(skillManager, runtime, caster, target,usePoint,targetPoint,skillManager.ManualExecutionAuthorized?skillManager.ManualComboChain:null,generation,manualAim));
++                skillManager.StartOwnedSkillRoutine(FireComboRoutine(skillManager, runtime, caster, target,usePoint,targetPoint,skillManager.ManualExecutionAuthorized?skillManager.ManualComboChain:null,generation,manualAim,skillManager.ManualExecutionAuthorized?skillManager.ManualComboStepAim:null));
+                 return true;
+             }
+ 
+@@ -770,7 +773,7 @@
+             CharacterSkillManager skillManager,
+             EquipmentSkillRuntimeData runtime,
+             Transform caster,
+-            Transform initialTarget,bool usePoint,Vector2 point,System.Func<bool> continueChain,int generation,ManualSkillAim? manualAim=null)
++            Transform initialTarget,bool usePoint,Vector2 point,System.Func<bool> continueChain,int generation,ManualSkillAim? manualAim=null,System.Func<ManualSkillAim> stepAim=null)
+         {
+             int casterId = caster.GetInstanceID();
+             string comboToken = $"seojin-basic-combo-{++nextComboToken}";
+@@ -799,6 +802,10 @@
+                     null);
+             }
+ 
++            object facingOwner=new object();
++            if(manualAim?.Mode==SkillAimMode.Direction)comboFacingOwners[casterId]=facingOwner;
++            try
++            {
+             for (int i = 0; i < steps.Length; i++)
+             {
+                 SkillComboStep step = steps[i];
+@@ -809,12 +816,20 @@
+                     elapsed += waitToStart;
+                 }
+ 
+-                if (!CanContinueGeneration(caster,generation))
++                if (!CanContinueGeneration(caster,generation)||(manualAim.HasValue&&!skillManager.ManualComboAuthorized))
+                 {
+                     break;
+                 }
+ 
+                 if(i>0&&continueChain!=null&&!continueChain())break;
++                // Capture only after this step has been admitted. No resampling at hit time.
++                ManualSkillAim? currentStepAim=manualAim;
++                if(manualAim?.Mode==SkillAimMode.Direction&&stepAim!=null)
++                {
++                    var captured=stepAim();
++                    if(!captured.IsValid||captured.Mode!=SkillAimMode.Direction)break;
++                    currentStepAim=captured;
++                }
+ 
+                 // G1 Basic commits its one-per-combo cooldown when the third step
+                 // actually begins (.780s), before target revalidation or its F4 hit.
+@@ -871,7 +886,7 @@
+                     target,
+                     usePoint,
+                     usePoint?point:(Vector2)caster.position);
+-                if(manualAim?.Mode==SkillAimMode.Direction)direction=manualAim.Value.Direction;
++                if(currentStepAim?.Mode==SkillAimMode.Direction)direction=currentStepAim.Value.Direction;
+                 ApplyAnimationDirection(caster, direction);
+                 AnimationMono comboAnimation = ResolveAnimation(caster);
+                 if (!continuousBody)
+@@ -897,6 +912,10 @@
+                         comboAnimation?.RestartAttack();
+                     }
+                 }
++                if(currentStepAim?.Mode==SkillAimMode.Direction&&comboAnimation!=null)
++                {
++                    if(!comboAnimation.RefreshFacingLock(facingOwner,direction))comboAnimation.AcquireFacingLock(facingOwner,direction);
++                }
+                 if (target != null &&
+                     Vector2.Distance(caster.position, target.position) > 0.05f)
+                 {
+@@ -910,7 +929,7 @@
+                     elapsed += waitToHit;
+                 }
+ 
+-                if (!CanContinueGeneration(caster,generation))
++                if (!CanContinueGeneration(caster,generation)||(manualAim.HasValue&&!skillManager.ManualComboAuthorized))
+                 {
+                     break;
+                 }
+@@ -962,7 +981,7 @@
+                     step.ComboIndex,
+                     step.Hit,
+                     step.ComboIndex < 2,
+-                    step.MinimumVisualLifetime,manualAim);
++                    step.MinimumVisualLifetime,currentStepAim);
+                 anyStepFired |= fired;
+ 
+                 float waitToRecovery = Mathf.Max(0f, step.RecoveryEnd - elapsed);
+@@ -999,6 +1018,12 @@
+             }
+ 
+             if(comboGenerations.TryGetValue(casterId,out var endingGeneration)&&endingGeneration==generation){activeComboCasters.Remove(casterId);comboGenerations.Remove(casterId);}
++            }
++            finally
++            {
++                continuousAnimation?.ReleaseFacingLock(facingOwner);
++                if(comboFacingOwners.TryGetValue(casterId,out var owner)&&ReferenceEquals(owner,facingOwner))comboFacingOwners.Remove(casterId);
++            }
+         }
+ 
+         private bool UseSkillOnce(
+--- a/Assets/Scripts/Ability/Skills/Services/EquipmentSkillResolver.cs
++++ b/Assets/Scripts/Ability/Skills/Services/EquipmentSkillResolver.cs
+@@ -127,7 +127,7 @@
+             targetingType,
+             resolvedStatModifiers);
+ 
+-        baseProjectileData.orientManualPresentation=manualAimMode==SkillAimMode.Direction&&!(runtime.comboProfile!=null&&runtime.comboProfile.Enabled);
++        baseProjectileData.orientManualPresentation=manualAimMode==SkillAimMode.Direction;
+         baseProjectileData.projectileSpawnInterval =
+             statResolver.ResolveStat(
+                 equipmentSo,
+--- a/Assets/Scripts/Actor/Party/AnimationMono.cs
++++ b/Assets/Scripts/Actor/Party/AnimationMono.cs
+@@ -1396,6 +1396,8 @@
+             targetSpriteRenderer.flipX =
+                 _facingLockDirection == DiagonalDirection.UpLeft ||
+                 _facingLockDirection == DiagonalDirection.DownLeft;
++            if(_comboPresentationActive&&_comboPresentationRenderer!=null)
++                _comboPresentationRenderer.flipX=targetSpriteRenderer.flipX;
+         }
+ 
+         private bool IsAttackDisabledByCc()
+@@ -1538,6 +1540,7 @@
+ 
+         private void ApplyComboPresentation()
+         {
++            ApplyFacingLockAfterAnimationSample();
+             if (!_comboPresentationActive) return;
+             if (_comboPresentationRenderer == null || targetSpriteRenderer == null)
+             {
+--- a/AgentTools/SeojinManualHarness/Combo.template.cs
++++ b/AgentTools/SeojinManualHarness/Combo.template.cs
+@@ -1,6 +1,6 @@
+ using System; using System.Collections; using System.Collections.Generic; using System.Linq;
+ enum SkillAimMode{Direction,Target,GroundPoint,Self}
+-struct ManualSkillAim {public SkillAimMode Mode;public Vector2 Direction;}
++struct ManualSkillAim {public SkillAimMode Mode;public Vector2 Direction;public bool IsValid=>Direction.sqrMagnitude>.0001f;}
+ struct Vector2 {public float x,y;public Vector2(float a,float b){x=a;y=b;}public float sqrMagnitude=>x*x+y*y;public Vector2 normalized=>new Vector2(x/(float)Math.Sqrt(sqrMagnitude),y/(float)Math.Sqrt(sqrMagnitude));public static Vector2 right=>new Vector2(1,0);public static Vector2 operator -(Vector2 a,Vector2 b)=>new Vector2(a.x-b.x,a.y-b.y);public static float Distance(Vector2 a,Vector2 b)=>1;}
+ class Transform {public Vector2 position;public Vector2 right=>Vector2.right;public int GetInstanceID()=>1;}
+ class WaitForSeconds {public float value;public WaitForSeconds(float v){value=v;}}
+@@ -11,20 +11,20 @@
+ class SkillComboStep {public int ComboIndex;public float StartTime,HitTime,RecoveryEnd,LungeDistance=.12f,DamageWeight,MinimumVisualLifetime=.15f;public object Hit=new(),BodyActionClip=new(),BodyPresentationCalibration,VfxClip=new(),VfxProfileOverride,VfxPresentationCalibration;}
+ class Profile {public bool HasCompleteSegmentedBodyRegistry=true,UseCanonicalBodyChoreography;public object SegmentedBodyActionClip=new();public int SegmentedBodyFrameCount=18;public SkillComboStep[] Steps={new(){ComboIndex=0,StartTime=0,HitTime=.16f,RecoveryEnd=.28f,DamageWeight=.25f},new(){ComboIndex=1,StartTime=.48f,HitTime=.64f,RecoveryEnd=.68f,DamageWeight=.3f},new(){ComboIndex=2,StartTime=.78f,HitTime=.94f,RecoveryEnd=1.06f,DamageWeight=.45f}};}
+ class EquipmentSkillRuntimeData {public Profile comboProfile=new();public Equipment sourceEquipment=new();}
+-class CharacterSkillManager {public int Success;public void NotifySkillUseSucceeded(EquipmentSkillRuntimeData r){Success++;}}
+-class AnimationMono {public int Stops,Fallback,Sync,Starts;public List<Vector2> Directions=new();public void SetDirectionFromVector(Vector2 d){Directions.Add(d);}public void RestartContinuousComboAction(object c,Profile p,object n){Starts++;}public void RestartCanonicalComboChoreography(int i,float a,float b){}public void RestartComboAction(object c,float a,float b,object d){}public void RestartAttack(){Fallback++;}public void SynchronizeContinuousComboContact(object c,SkillComboStep s,int f){Sync++;}public void StopComboAction(){Stops++;}}
++class CharacterSkillManager {public bool ManualComboAuthorized=true;public int Success;public void NotifySkillUseSucceeded(EquipmentSkillRuntimeData r){Success++;}}
++class AnimationMono {public object FacingOwner;public List<Vector2> Locks=new();public bool AcquireFacingLock(object owner,Vector2 d){if(FacingOwner!=null&&FacingOwner!=owner)return false;FacingOwner=owner;Locks.Add(d);return true;}public bool RefreshFacingLock(object owner,Vector2 d){if(FacingOwner!=owner)return false;Locks.Add(d);return true;}public void ReleaseFacingLock(object owner){if(FacingOwner==owner)FacingOwner=null;} public int Stops,Fallback,Sync,Starts;public List<Vector2> Directions=new();public void SetDirectionFromVector(Vector2 d){Directions.Add(d);}public void RestartContinuousComboAction(object c,Profile p,object n){Starts++;}public void RestartCanonicalComboChoreography(int i,float a,float b){}public void RestartComboAction(object c,float a,float b,object d){}public void RestartAttack(){Fallback++;}public void SynchronizeContinuousComboContact(object c,SkillComboStep s,int f){Sync++;}public void StopComboAction(){Stops++;}}
+ static class MainCharacterSkillFocusFeature {public static void NotifySkillExecuting(object a,object b,object c){}public static void CancelPending(object c){}}
+ class Harness {
+- public Dictionary<int,int> comboGenerations=new();public HashSet<int> activeComboCasters=new();int nextComboToken;
+- public AnimationMono Anim=new();public float Clock;public bool Held=true;public int Cooldowns,Retargets;public List<(int index,float time,bool suppress,Vector2 point)> Hits=new();public List<float> CooldownTimes=new();public List<SkillAimMode?> Modes=new();public List<bool> Points=new();
++ public Dictionary<int,int> comboGenerations=new();public Dictionary<int,object> comboFacingOwners=new();public HashSet<int> activeComboCasters=new();int nextComboToken;
++ public CharacterSkillManager Manager=new();public AnimationMono Anim=new();public float Clock;public bool Held=true;public int Cooldowns,Retargets;public List<(int index,float time,bool suppress,Vector2 point)> Hits=new();public List<float> CooldownTimes=new();public List<SkillAimMode?> Modes=new();public List<bool> Points=new();public List<Vector2> HitDirections=new();
+  bool RollComboCritical(Transform c)=>false;AnimationMono ResolveAnimation(Transform c)=>Anim;bool CanContinueGeneration(Transform c,int g)=>comboGenerations.TryGetValue(1,out int n)&&n==g;
+  bool UseSkill(CharacterSkillManager s,EquipmentSkillRuntimeData r){Cooldowns++;CooldownTimes.Add(Clock);return true;}
+  Transform NormalizeComboTarget(Transform t)=>t;bool IsValidComboTarget(Transform c,Transform t,object h)=>t!=null;bool IsComboTargetInRange(Transform c,Transform t,float r)=>t!=null;
+  Transform ResolveComboRetarget(Transform c,float r,object h){Retargets++;return null;}/* DIRECTION */
+  /* FACING */
+  void ApplyCollisionSafeLunge(Transform c,Transform t,Vector2 d,float l){}
+- bool UseSkillOnce(CharacterSkillManager s,EquipmentSkillRuntimeData r,Transform c,Transform t,bool up,Vector2 p,int hit,object clip,object profile,object calibration,string token,bool crit,float weight,int index,object h,bool suppress,float life,ManualSkillAim? manualAim=null){Modes.Add(manualAim?.Mode);Points.Add(up);Hits.Add((index,Clock,suppress,p));return true;}
+- public IEnumerator Start(EquipmentSkillRuntimeData r=null,bool point=true,ManualSkillAim? aim=null){comboGenerations[1]=1;activeComboCasters.Add(1);return FireComboRoutine(new(),r??new(),new(){position=new Vector2(12,8)},null,point,new Vector2(9,8),()=>Held,1,aim);}
++ bool UseSkillOnce(CharacterSkillManager s,EquipmentSkillRuntimeData r,Transform c,Transform t,bool up,Vector2 p,int hit,object clip,object profile,object calibration,string token,bool crit,float weight,int index,object h,bool suppress,float life,ManualSkillAim? manualAim=null){HitDirections.Add(manualAim?.Direction??default);Modes.Add(manualAim?.Mode);Points.Add(up);Hits.Add((index,Clock,suppress,p));return true;}
++ public IEnumerator Start(EquipmentSkillRuntimeData r=null,bool point=true,ManualSkillAim? aim=null,Func<ManualSkillAim> stepAim=null){comboGenerations[1]=1;activeComboCasters.Add(1);return FireComboRoutine(Manager,r??new(),new(){position=new Vector2(12,8)},null,point,new Vector2(9,8),()=>Held,1,aim,stepAim);}
+  public void Run(IEnumerator e,Action<float> beforeResume=null){while(e.MoveNext()){Clock+=e.Current is WaitForSeconds w?w.value:Time.deltaTime;beforeResume?.Invoke(Clock);}}
+  /* COMBO */
+ }
+--- a/AgentTools/SeojinManualHarness/visual_direction.py
++++ b/AgentTools/SeojinManualHarness/visual_direction.py
+@@ -3,7 +3,12 @@
+ root=Path(__file__).resolve().parents[2]
+ out=Path(tempfile.mkdtemp(prefix='projectbs-direction-'))
+ mono=Path('/Applications/Unity/Hub/Editor/6000.3.10f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge')
+-subprocess.run([str(mono/'bin/mono'),str(mono/'lib/mono/msbuild/Current/bin/Roslyn/csc.exe'),'-nologo','-nowarn:0649','-langversion:9.0','-out:'+str(out/'test.exe'),str(root/'AgentTools/SeojinManualHarness/VisualDirection.template.cs'),str(root/'Assets/Scripts/Ability/Skills/Presentation/SkillDirectionPresentation.cs')],check=True)
++source=(root/'AgentTools/SeojinManualHarness/VisualDirection.template.cs').read_text()
++a=(root/'Assets/Scripts/Actor/Party/AnimationMono.cs').read_text()
++start=a.index('        private void ApplyFacingLockAfterAnimationSample()');end=a.index('        private bool IsAttackDisabledByCc()',start)
++source=source.replace('/* ACTUAL FACING */',a[start:end])
++test=out/'Tests.cs';test.write_text(source)
++subprocess.run([str(mono/'bin/mono'),str(mono/'lib/mono/msbuild/Current/bin/Roslyn/csc.exe'),'-nologo','-nowarn:0649','-langversion:9.0','-out:'+str(out/'test.exe'),str(test),str(root/'Assets/Scripts/Ability/Skills/Presentation/SkillDirectionPresentation.cs')],check=True)
+ subprocess.run([str(mono/'bin/mono'),str(out/'test.exe')],check=True)
+ a=(root/'Assets/Scripts/Actor/Party/AnimationMono.cs').read_text()
+ assert 'PlayDirectedSkillBodyAction' in a and 'directedBody.Apply();' in a and 'directedBody.Restore();' in a
+--- a/AgentTools/SeojinManualHarness/VisualDirection.template.cs
++++ b/AgentTools/SeojinManualHarness/VisualDirection.template.cs
+@@ -15,20 +15,42 @@
+  public class Sprite{} public class AnimationClip{} public class MaterialPropertyBlock{}
+  public class SpriteRenderer:Component{public bool enabled=true,flipX,flipY;public Sprite sprite;public object sharedMaterial,color,maskInteraction;public int sortingLayerID,sortingOrder;public void GetPropertyBlock(MaterialPropertyBlock b){}public void SetPropertyBlock(MaterialPropertyBlock b){}}
+ }
++class ActualFacingProbe {
++ public enum DiagonalDirection {UpLeft,DownLeft,UpRight,DownRight}
++ public object _facingLockOwner=new object();public SpriteRenderer targetSpriteRenderer,_comboPresentationRenderer;
++ public bool _comboPresentationActive=true;public DiagonalDirection _facingLockDirection;
++ public void Tick()=>ApplyFacingLockAfterAnimationSample();
++ /* ACTUAL FACING */
++}
+ class Tests{
+  static int count;static void Check(bool b,string n){if(!b)throw new Exception(n);count++;}
+  static bool Near(float a,float b)=>Math.Abs(Mathf.DeltaAngle(a,b))<.001;
+  static void Set(object o,string n,object v)=>o.GetType().GetField(n,BindingFlags.NonPublic|BindingFlags.Instance).SetValue(o,v);
+  static void Main(){var profile=new SkillDirectionPresentationProfile();var fallback=new AnimationClip();
+- for(int i=0;i<8;i++){float deg=i*45;var d=new Vector2((float)Math.Cos(deg/Mathf.Rad2Deg),(float)Math.Sin(deg/Mathf.Rad2Deg));var clip=profile.ResolveBody(d,fallback,out var a,out var f);Check(clip==fallback&&Near(a+(f?180:0),deg),"body fallback octant "+i);SkillDirectionMath.Solve(d,Vector2.right,false,out a,out f);Check(!f&&Near(a,deg),"VFX octant "+i);Check(SkillDirectionMath.Octant(d)==i,"octant "+i);}
++ for(int i=0;i<8;i++){float deg=i*45;var d=new Vector2((float)Math.Cos(deg/Mathf.Rad2Deg),(float)Math.Sin(deg/Mathf.Rad2Deg));var clip=profile.ResolveBody(d,fallback,out var a,out var f);Check(clip==fallback&&a==0&&f==(d.x<0),"body fallback octant "+i);SkillDirectionMath.Solve(d,Vector2.right,false,out a,out f);Check(!f&&Near(a,deg),"VFX octant "+i);Check(SkillDirectionMath.Octant(d)==i,"octant "+i);}
+  var entries=new SkillDirectionalClip[8];for(int i=0;i<8;i++){entries[i]=new SkillDirectionalClip();Set(entries[i],"octant",i);Set(entries[i],"clip",new AnimationClip());}Set(profile,"directionalClips",entries);
+  for(int i=0;i<8;i++){var d=new Vector2((float)Math.Cos(i*Math.PI/4),(float)Math.Sin(i*Math.PI/4));Check(profile.ResolveBody(d,fallback,out var a,out var f)==entries[i].Clip&&a==0&&!f,"native clip priority "+i);}
+  Set(profile,"directionalClips",new[]{entries[0]});Check(profile.ResolveBody(new Vector2(-1,0),fallback,out var angle,out var flip)==entries[0].Clip&&angle==0&&flip,"mirrored clip priority");
+- Set(profile,"canonicalForward",new Vector2(0,1));Set(profile,"directionalClips",Array.Empty<SkillDirectionalClip>());profile.ResolveBody(Vector2.right,fallback,out angle,out flip);Check(Near(angle,-90)&&!flip,"custom canonical axis");
++ Set(profile,"canonicalForward",new Vector2(0,1));Set(profile,"directionalClips",Array.Empty<SkillDirectionalClip>());profile.ResolveBody(Vector2.right,fallback,out angle,out flip);Check(angle==0&&!flip,"body ignores canonical angle and stays upright");
+  Check(!SkillDirectionMath.Valid(new Vector2(float.NaN,0))&&!SkillDirectionMath.Valid(new Vector2(0,0)),"invalid direction");
+  foreach(bool nested in new[]{false,true}){var root=new GameObject("physics");root.transform.localRotation=Quaternion.Euler(0,0,23);var go=nested?new GameObject("renderer"):root;if(nested)go.transform.SetParent(root.transform,false);var source=go.AddComponent<SpriteRenderer>();source.flipX=true;source.flipY=true;var lease=new SkillDirectionPresentationLease();
+  for(int cycle=0;cycle<8;cycle++){lease.Begin(source,cycle*45,cycle%2==0);var child=source.transform.Find("__SkillSnapshotDirection");var proxy=child.GetComponent<SpriteRenderer>();source.flipX=false;lease.Apply();Check(!source.enabled&&proxy.enabled&&proxy.flipX==(cycle%2==0)&&Near(child.rotation.angle,cycle*45),"sample overwrite and immutable angle");Check(Near(root.transform.rotation.angle,23),"physics rotation unchanged");lease.Restore();Check(source.enabled&&source.flipX&&source.flipY&&!proxy.enabled&&Near(child.localRotation.angle,0),"pool baseline restored");lease.Restore();Check(!lease.Active,"idempotent cancellation");}
+  var old=source.transform.Find("__SkillSnapshotDirection");old.localPosition=new Vector3(2,3,4);old.localScale=new Vector3(3,2,1);old.localRotation=Quaternion.Euler(0,0,17);lease.Begin(source,90,false);lease.Restore();Check(old.localPosition.x==2&&old.localScale.x==3&&Near(old.localRotation.angle,17),"existing local transform exact restore");Check(source.enabled,"scripted transition original renderer restored");}
+- var empty=new SkillDirectionPresentationLease();empty.Begin(null,90,true);empty.Apply();empty.Restore();Check(!empty.Active,"missing visual safe");Console.WriteLine("PASS "+count+" visual direction assertions");
++ var empty=new SkillDirectionPresentationLease();empty.Begin(null,90,true);empty.Apply();empty.Restore();Check(!empty.Active,"missing visual safe");
++ for(int i=0;i<8;i++){
++  var root=new GameObject("character");var body=root.AddComponent<SpriteRenderer>();var visual=new GameObject("VFX").AddComponent<SpriteRenderer>();
++  var dir=new Vector2((float)Math.Cos(i*Math.PI/4),(float)Math.Sin(i*Math.PI/4));var p=new SkillDirectionPresentationProfile();p.ResolveBody(dir,fallback,out var a,out var f);
++  var bodyLease=new SkillDirectionPresentationLease();bodyLease.Begin(body,a,f);var rendered=body.transform.Find("__SkillSnapshotDirection");
++  Check(Near(root.transform.rotation.angle,0)&&Near(body.transform.rotation.angle,0)&&Near(rendered.rotation.angle,0),"body root renderer Z zero octant "+i);
++  SkillDirectionMath.Solve(dir,Vector2.right,false,out a,out f);var vfxLease=new SkillDirectionPresentationLease();vfxLease.Begin(visual,a,f);
++  Check(Near(visual.transform.Find("__SkillSnapshotDirection").rotation.angle,i*45)&&Near(visual.transform.rotation.angle,0),"only VFX child rotates octant "+i);
++  bodyLease.Restore();vfxLease.Restore();
++ }
++ foreach(bool mirrored in new[]{false,true}){
++  var body=new GameObject("body").AddComponent<SpriteRenderer>();var proxy=new GameObject("combo").AddComponent<SpriteRenderer>();var probe=new ActualFacingProbe{targetSpriteRenderer=body,_comboPresentationRenderer=proxy,_facingLockDirection=mirrored?ActualFacingProbe.DiagonalDirection.UpLeft:ActualFacingProbe.DiagonalDirection.DownRight};
++  body.flipX=!mirrored;proxy.flipX=!mirrored;probe.Tick();Check(body.flipX==mirrored&&proxy.flipX==mirrored,"actual post-sample lock repairs original and noncanonical proxy flip");
++  probe._facingLockOwner=null;body.flipX=!mirrored;proxy.flipX=!mirrored;probe.Tick();Check(body.flipX==!mirrored&&proxy.flipX==!mirrored,"released lock leaves scripted/NPC renderer alone");
++ }
++ Console.WriteLine("PASS "+count+" visual direction assertions");
+  }
+ }
+--- a/AgentTools/SeojinManualHarness/Tests.cs
++++ b/AgentTools/SeojinManualHarness/Tests.cs
+@@ -49,6 +49,13 @@
+   Test("rootfix-only-successful-ready-skill-has-priority",()=>{var c=new ManualControlCore();var p=new Port();Tick(c,p,Frame());var f=Frame();f.AttackHeld=true;f.SlotDown=1;Tick(c,p,f);Check(p.Calls==1&&p.Slot==1&&!c.AttackHeld,"ready skill priority");p.Busy=false;f.SlotDown=0;Tick(c,p,f);Check(p.Calls==2&&p.Slot==0,"held requires repress");});
+   Test("rootfix-runtime-resource-readiness-reject-no-clear-or-motion-stop",()=>{var x=Rig();Update(x.control);x.skills.Blocked.Add(1);int cancels=x.skills.Clears,stops=x.actor.GetComponent<MovementMono>().Stops;Input.MouseHeld=true;Input.mousePosition=new Vector3(9,0,0);Input.Down.Add(KeyCode.Alpha1);Update(x.control);Check(x.skills.Aims.Count==1&&x.skills.Calls[0].slot==0&&x.skills.Clears==cancels&&x.actor.GetComponent<MovementMono>().Stops==stops,"readiness reject preempted");});
+   Test("rootfix-invalid-skill-reject-basic-held-continues-next-tick",()=>{var x=Rig();Update(x.control);x.skills.SkillPool.Runtimes[SeojinControlPolicy.Slots[1]].sourceEquipment.AimMode=Skill.SkillAimMode.Invalid;Input.MouseHeld=true;Input.mousePosition=new Vector3(9,0,0);Input.Down.Add(KeyCode.Alpha1);Update(x.control);Input.Down.Clear();Update(x.control);Check(x.skills.Aims.Count==2&&x.skills.Calls.TrueForAll(c=>c.slot==0),"invalid skill held starvation");});
++  Test("combo-adapter-reads-current-mouse-each-step",()=>{var x=Rig();x.skills.SkillPool.Runtimes[SeojinControlPolicy.Slots[0]].comboProfile=new Skill.Combo{Enabled=true};Update(x.control);Input.MouseHeld=true;Input.mousePosition=new Vector3(9,0,0);Update(x.control);var read=x.skills.StepAim;Check(read!=null&&x.skills.Aims[0].Direction.x==1,"initial source missing");Check(read().Direction.x==1,"initial commit reread input");Time.frameCount++;Input.mousePosition=new Vector3(-9,0,0);var b=read();Input.mousePosition=new Vector3(0,-9,0);var c=read();Check(b.Direction.x==-1&&b.Direction.y==0&&c.Direction.y==-1,"callback reused whole combo aim");Check(b.Direction.x==-1,"prior value mutated");});
++  Test("combo-adapter-no-camera-WASD-and-exact-last-step-fallback",()=>{var x=Rig();x.skills.SkillPool.Runtimes[SeojinControlPolicy.Slots[0]].comboProfile=new Skill.Combo{Enabled=true};Update(x.control);Input.MouseHeld=true;Camera.main=null;Input.Held.Add(KeyCode.W);Update(x.control);Check(x.skills.Aims[0].Direction.x==0&&x.skills.Aims[0].Direction.y==1,"initial invalid ray failed");Input.Held.Clear();var next=x.skills.StepAim();Check(next.Direction.x==0&&next.Direction.y==1,"fallback quantized exact up to diagonal");Input.Held.Add(KeyCode.A);next=x.skills.StepAim();Check(next.Direction.x==-1&&next.Direction.y==0,"current WASD did not override last facing");});
++  Test("combo-adapter-cooldown-reject-keeps-existing-provider",()=>{var x=Rig();x.skills.SkillPool.Runtimes[SeojinControlPolicy.Slots[0]].comboProfile=new Skill.Combo{Enabled=true};Update(x.control);Input.MouseHeld=true;Input.mousePosition=new Vector3(9,0,0);Update(x.control);var read=x.skills.StepAim;x.skills.ManualBusy=true;x.skills.Blocked.Add(1);Input.Down.Add(KeyCode.Alpha1);Input.mousePosition=new Vector3(-9,0,0);Update(x.control);Check(ReferenceEquals(read,x.skills.StepAim)&&(++Time.frameCount>0)&&read().Direction.x==-1,"rejection replaced or froze combo provider");});
++  foreach(string block in new[]{"UI","pause","auto","transition","disabled"})Test("combo-provider-immediate-"+block+"-blocks-without-input-read",()=>{var x=Rig();x.skills.SkillPool.Runtimes[SeojinControlPolicy.Slots[0]].comboProfile=new Skill.Combo{Enabled=true};Update(x.control);Input.MouseHeld=true;Input.mousePosition=new Vector3(9,0,0);Update(x.control);var camera=Camera.main;int reads=camera.RayReads;if(block=="UI")UnityEngine.EventSystems.EventSystem.current=new UnityEngine.EventSystems.EventSystem{Over=true};if(block=="pause")Time.timeScale=0;if(block=="auto")x.control.SetAutoMode(true);if(block=="transition")Battle.Morpg.BattleMorpgLiveRoute.Locked=true;if(block=="disabled")x.control.enabled=false;Check(!x.skills.StepAim().IsValid&&camera.RayReads==reads,"unauthorized provider sampled before Update");});
++  Test("combo-initial-commit-reuses-one-sample",()=>{var x=Rig();x.skills.SkillPool.Runtimes[SeojinControlPolicy.Slots[0]].comboProfile=new Skill.Combo{Enabled=true};Update(x.control);Input.MouseHeld=true;Input.mousePosition=new Vector3(9,0,0);Update(x.control);int reads=Camera.main.RayReads;Input.mousePosition=new Vector3(-9,0,0);Check(x.skills.StepAim().Direction.x==1&&Camera.main.RayReads==reads,"same commit sampled twice");Time.frameCount++;Check(x.skills.StepAim().Direction.x==-1&&Camera.main.RayReads==reads+1,"next step not sampled");});
++  Test("combo-delayed-first-commit-resamples-current-frame",()=>{var x=Rig();x.skills.SkillPool.Runtimes[SeojinControlPolicy.Slots[0]].comboProfile=new Skill.Combo{Enabled=true};Update(x.control);Input.MouseHeld=true;Input.mousePosition=new Vector3(9,0,0);Update(x.control);Time.frameCount++;Input.mousePosition=new Vector3(-9,0,0);Check(x.skills.StepAim().Direction.x==-1,"delayed first start used stale aim");});
++  Test("UI-suspension-cancels-active-generation-before-handback",()=>{var x=Rig();Update(x.control);int cancels=x.skills.Clears;UnityEngine.EventSystems.EventSystem.current=new UnityEngine.EventSystems.EventSystem{Over=true};Update(x.control);Check(x.skills.Clears==cancels+1,"UI only cleared held without canceling coroutine epoch");});
+   Console.WriteLine("PASS "+count+"/"+count+" production input/core/control lifecycle tests");
+  }
+ }
+--- a/AgentTools/SeojinManualHarness/Stub.cs
++++ b/AgentTools/SeojinManualHarness/Stub.cs
+@@ -10,8 +10,8 @@
+  public struct Vector3{public float x,y,z;public Vector3(float x,float y,float z){this.x=x;this.y=y;this.z=z;}public static Vector3 operator +(Vector3 a,Vector3 b)=>new(a.x+b.x,a.y+b.y,a.z+b.z);public static Vector3 operator *(Vector3 a,float b)=>new(a.x*b,a.y*b,a.z*b);}
+  public struct Rect{public float xMin,yMin,xMax,yMax;public static Rect MinMaxRect(float l,float b,float r,float t)=>new Rect{xMin=l,yMin=b,xMax=r,yMax=t};}
+  public struct Ray{public Vector3 origin,direction;}
+- public class Camera:Component{public static Camera main;public float orthographicSize=5,aspect=16f/9;public Ray ScreenPointToRay(Vector3 p)=>new Ray{origin=new Vector3(p.x,p.y,-10),direction=new Vector3(0,0,1)};}
+- public static class Mathf{public static float Max(float a,float b)=>Math.Max(a,b);public static int Max(int a,int b)=>Math.Max(a,b);public static float Abs(float n)=>Math.Abs(n);}public static class Time{public static float timeScale=1;}
++ public class Camera:Component{public static Camera main;public float orthographicSize=5,aspect=16f/9;public int RayReads;public Ray ScreenPointToRay(Vector3 p){RayReads++;return new Ray{origin=new Vector3(p.x,p.y,-10),direction=new Vector3(0,0,1)};}}
++ public static class Mathf{public static float Max(float a,float b)=>Math.Max(a,b);public static int Max(int a,int b)=>Math.Max(a,b);public static float Abs(float n)=>Math.Abs(n);}public static class Time{public static int frameCount;public static float timeScale=1;}
+  public enum KeyCode{W,A,S,D,Alpha1,Alpha2,Alpha3,LeftShift,RightShift}
+  public static class Input{public static HashSet<KeyCode> Held=new(),Down=new();public static bool MouseHeld,MouseDown;public static Vector3 mousePosition;public static bool GetKey(KeyCode k)=>Held.Contains(k);public static bool GetKeyDown(KeyCode k)=>Down.Contains(k);public static bool GetMouseButton(int n)=>MouseHeld;public static bool GetMouseButtonDown(int n)=>MouseDown;public static void Clear(){Held.Clear();Down.Clear();MouseHeld=MouseDown=false;}}
+  public static class Application{public static bool isFocused=true;}
+@@ -32,7 +32,7 @@
+  public class Runtime{public CharacterSO characterSO=new();public bool isDead;}
+  public class CharacterManager:UnityEngine.MonoBehaviour{public bool IsTargetable=true;public Runtime RuntimeData=new();public bool IsDying,IsStunned,IsRooted;}
+  public class CharacterStateManager:UnityEngine.MonoBehaviour{public bool Forced;public int ClearCount;public void ClearState(){ClearCount++;}public bool TryGetForcedTarget(out UnityEngine.Transform t){t=null;return Forced;}}
+- public class CharacterSkillManager:UnityEngine.MonoBehaviour{public HashSet<int> Blocked=new();public bool ManualBusy;public Skill.Pool SkillPool=new();public int Clears;public List<(int slot,UnityEngine.Vector2 point)> Calls=new();public List<Skill.ManualSkillAim> Aims=new();public int TargetLookups;public UnityEngine.Transform LockedTarget;public UnityEngine.Transform ResolveManualTarget(Skill.EquipmentSkillRuntimeData r,UnityEngine.Vector2 d){TargetLookups++;return LockedTarget;}public bool FireManualAim(Skill.EquipmentSkillRuntimeData r,Skill.ManualSkillAim a,Func<bool> c){if(!a.IsValid)return false;Aims.Add(a);Calls.Add((r.Slot,a.Mode==Skill.SkillAimMode.Direction?a.Direction:a.Point));return true;}public bool ManualReady(Skill.EquipmentSkillRuntimeData r)=>r!=null&&!ManualBusy&&!Blocked.Contains(r.Slot);public bool FireManualAtPoint(Skill.EquipmentSkillRuntimeData r,UnityEngine.Vector2 p,Func<bool> c){Calls.Add((r.Slot,p));return true;}public bool FireManualDash(Skill.EquipmentSkillRuntimeData r,UnityEngine.Vector2 d){Calls.Add((4,d));return true;}public void CancelManualExecution(){Clears++;ManualBusy=false;}}
++ public class CharacterSkillManager:UnityEngine.MonoBehaviour{public HashSet<int> Blocked=new();public bool ManualBusy;public Skill.Pool SkillPool=new();public int Clears;public List<(int slot,UnityEngine.Vector2 point)> Calls=new();public List<Skill.ManualSkillAim> Aims=new();public Func<Skill.ManualSkillAim> StepAim;public int TargetLookups;public UnityEngine.Transform LockedTarget;public UnityEngine.Transform ResolveManualTarget(Skill.EquipmentSkillRuntimeData r,UnityEngine.Vector2 d){TargetLookups++;return LockedTarget;}public bool FireManualAim(Skill.EquipmentSkillRuntimeData r,Skill.ManualSkillAim a,Func<bool> c,Func<Skill.ManualSkillAim> next=null){StepAim=next;if(!a.IsValid)return false;Aims.Add(a);Calls.Add((r.Slot,a.Mode==Skill.SkillAimMode.Direction?a.Direction:a.Point));return true;}public bool ManualReady(Skill.EquipmentSkillRuntimeData r)=>r!=null&&!ManualBusy&&!Blocked.Contains(r.Slot);public bool FireManualAtPoint(Skill.EquipmentSkillRuntimeData r,UnityEngine.Vector2 p,Func<bool> c){Calls.Add((r.Slot,p));return true;}public bool FireManualDash(Skill.EquipmentSkillRuntimeData r,UnityEngine.Vector2 d){Calls.Add((4,d));return true;}public void CancelManualExecution(){Clears++;ManualBusy=false;}}
+ }
+ public class PartyMovementMono:UnityEngine.MonoBehaviour{public bool Controlled;public UnityEngine.Vector2 Input;public bool IsMovementControlledByPlayer()=>Controlled;public void SetOwnedManualInput(bool c,UnityEngine.Vector2 i){Controlled=c;Input=i;}public void ReleaseManualControlForTeardown(bool c){Controlled=c;Input=UnityEngine.Vector2.zero;}}
+ public class MovementMono:UnityEngine.MonoBehaviour{public bool Knockback;public int Stops;public bool IsKnockingBack()=>Knockback;public void StopAllMotion(bool n=true){Stops++;}}
+--- a/AgentTools/SeojinManualHarness/combo.py
++++ b/AgentTools/SeojinManualHarness/combo.py
+@@ -1,5 +1,5 @@
+ from pathlib import Path
+-import subprocess, tempfile
++import subprocess, tempfile, sys
+ root=Path(__file__).resolve().parents[2]
+ def method(path,name):
+  s=(root/path).read_text(); start=s.index('        private '+name); a=s.index('{',start); depth=1; end=a+1
+@@ -9,6 +9,15 @@
+ combo=method('Assets/Scripts/Actor/Character/service/skill/ActiveSkillService.cs','IEnumerator FireComboRoutine(')
+ guard=method('Assets/Scripts/Actor/Character/CharacterSkillManager.cs','System.Collections.IEnumerator GuardManualRoutine(')
+ s=(root/'AgentTools/SeojinManualHarness/Combo.template.cs').read_text().replace('/* COMBO */',combo).replace('/* GUARD */',guard).replace('/* DIRECTION */',method('Assets/Scripts/Actor/Character/service/skill/ActiveSkillService.cs','Vector2 ResolveDirection(')).replace('/* FACING */',method('Assets/Scripts/Actor/Character/service/skill/ActiveSkillService.cs','void ApplyAnimationDirection('))
++if '--step-aim' in sys.argv:
++ extra=(root/'AgentTools/SeojinManualHarness/StepAim.tests.cs').read_text()
++ s=s.replace(' Console.WriteLine($"PASS {count}/{count}',extra+'\n Console.WriteLine($"PASS {count}/{count}')
++ core=(root/'Assets/Scripts/Actor/Character/Control/ManualControlCore.cs').read_text()
++ start=core.index('    internal readonly struct ControlVector');end=core.index('    internal struct AimSnapshot',start)
++ s+='\n'+core[start:end]
++ for file,signature,cls in [('Assets/Scripts/Actor/Character/Control/ManualControlCore.cs','internal static ControlVector KeyboardMoveDirection','ManualControlCore'),('Assets/Scripts/Actor/Character/Control/SeojinManualControl.cs','internal static ControlVector ResolveComboStepDirection','ManualGameplayAdapter')]:
++  code=(root/file).read_text();start=code.index(signature);end=code.index(';',start)+1
++  s+='\nclass '+cls+' {'+code[start:end]+'}'
+ out=Path(tempfile.mkdtemp(prefix='projectbs-manual-combo-'));src=out/'Tests.cs';src.write_text(s)
+ mono=Path('/Applications/Unity/Hub/Editor/6000.3.10f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge')
+ subprocess.run([str(mono/'bin/mono'),str(mono/'lib/mono/msbuild/Current/bin/Roslyn/csc.exe'),'-nologo','-langversion:9.0','-out:'+str(out/'test.exe'),str(src)],check=True)
+--- a/Artifacts/Engineering/SeojinManualControl/REPORT.md
++++ b/Artifacts/Engineering/SeojinManualControl/REPORT.md
+@@ -1,30 +1,52 @@
+-# Charge / SwiftStep 방향 표현 수정
++# visual / aim correction 07 완료
+ 
+-게임플레이 입력 시점의 방향 스냅샷을 몸체와 Charge VFX 표현에 전달했다. blocker 없음.
++Shift Dash/Charge 몸체의 방향 회전 폴백을 제거하고 Basic 콤보를 단계별 마우스 스냅샷으로 변경했다. blocker 없음.
+ 
+-## 원인과 변경
++## 몸체와 VFX
+ 
+-몸체는 SetDirectionFromVector 뒤에 body clip의 m_FlipX 샘플 및 재생 옵션이 반전을 덮어썼다. AnimationMono의 방향 몸체 API는 serialized SkillDirectionPresentationProfile의 8방향 클립, 수평 반전 가능한 클립, canonicalForward 기준 회전/반전 폴백 순서로 선택한다. 기본 canonicalForward는 오른쪽이다. 원본 renderer에서 애니메이션을 계속 샘플하고 전용 자식 renderer에 표시하므로 flip 곡선이 최종 방향을 덮어쓰지 않는다.
++SkillDirectionPresentationProfile은 8방향 등록 clip, 수평 반전 가능한 clip, 좌우 facing/flip 폴백 순서로 선택한다. 몸체 폴백 angle은 항상 0이다. canonicalForward로 몸체 atan2를 계산하던 경로를 제거했다. 캐릭터 root 및 원본 body renderer Transform에 회전 쓰기를 추가하지 않았고, 몸체 표시 자식의 Z도 0이다. Shift/Charge keydown WASD 및 기존 fallback/게임플레이 이동은 유지했다.
+ 
+-VFX는 ProjectileRuntimeData.direction을 갖고도 표시 회전에 사용하지 않았다. 수동 Direction 비콤보 실행에만 orientManualPresentation을 전달하고, renderer 전용 자식에 스냅샷 atan2와 canonicalForward의 각도 차를 적용한다. Rigidbody, collider, 원본 Transform 또는 게임플레이 방향을 변경하지 않는다. Self/일반 projectile/Basic combo에는 적용하지 않는다.
++Charge VFX는 renderer 전용 자식에만 스냅샷 atan2-canonicalForward 회전을 적용한다. caster, collider, Rigidbody와 원본 renderer root의 회전은 바꾸지 않는다. Basic의 표시되는 단계 VFX도 해당 단계 Direction 데이터를 이 동일한 renderer 전용 경로에서 사용하도록 했다. 기존 Basic VFX 001 suppression은 유지한다. 반환·비활성·취소 시 rotation/flip/local transform 복원 계약은 유지했다. Self 및 비수동 projectile에는 방향 표시 flag가 없다.
+ 
+-표현 lease는 시작 시 enabled/flip과 표시 자식의 로컬 위치·회전·스케일을 저장한다. 종료·취소·비활성·풀 반환 시 이를 복원한다. CharacterSkillManager.CancelManualExecution에서 몸체 표시를 먼저 복원하므로 MORPG scripted transition sampler가 원본 renderer를 사용한다. MORPG 소스의 변경 전후 SHA는 동일하다. 시각 리소스가 없으면 표현을 취득하지 않고 기존 게임플레이 경로가 계속된다.
++## Basic 단계별 스냅샷
+ 
+-프로필은 SkillCastSO의 직렬화 필드로 추가했다. 이번 변경에서 기존 SO/JSON/clip 자산은 수정하지 않았다. 기본 폴백이 기존 오른쪽 기준 클립을 처리하며, 별도 방향 클립을 연결하면 우선 사용한다.
++ManualGameplayAdapter → CharacterSkillManager → ActiveSkillService가 Func<ManualSkillAim> 공급자를 전달한다. 공급자는 각 단계의 실제 시작 시간과 generation/held gate 통과 후 한 번 호출된다. index0 A, index1 B, index2 C가 각각 local currentStepAim으로 확정된다. step hit, projectile/VFX context 및 facing lock 모두 같은 값을 사용하며 hit 시 재샘플하지 않는다.
+ 
+-## 검증
++유효한 마우스 → 현재 WASD → 직전 단계의 정확한 facing 벡터 순서로 fallback한다. 첫 단계는 현재 AnimationMono facing을 사용하며 모두 없으면 right다. 직전 단계의 수직 벡터를 대각선 enum으로 양자화하지 않는다. release 시 다음 공급자를 호출하지 않고 현재 단계만 끝낸다. 수동 Direction combo의 공통 런타임 경로로 G1/G2/G3에 적용했다. G1 cooldown은 index2 진입, G2/G3는 기존 완료 시점 그대로다.
+ 
+-- 실제 SkillDirectionPresentation.cs를 Unity primitive 대역과 컴파일해 104개 assertion 통과: 8방향 몸체/VFX, 방향 클립 우선순위, mirror, custom axis, 샘플 flip 덮어쓰기, 방향 snapshot, root/child renderer, 반복 풀 복원, cancellation, missing renderer.
+-- 기존 입력·pipeline·combo·teardown·MORPG·환경·dash·reward·spawn·NPC cast·P1·rootfix replay 219개 회귀 검증 통과. 합계 323개 assertion/test, 실패 0.
+-- 연결부는 source audit로 확인했다. 새로운 AnimationMono/ProjectileVisual 전체 Unity lifecycle 실행 테스트는 수행하지 않았다.
+-- 실제 런타임 C# 컴파일 오류 0 / 경고 31, 에디터 오류 0 / 경고 41.
+-- 보호 자산 455개 동일, 이전 승인 설계 필드 자산 15개 유지. 누적 patch 기존 44개/new 26개. diff 및 reverse dry-run 통과.
++단계별 facing lock을 사용하고 clip 샘플 뒤에 원본 및 combo 표시 renderer의 flip을 함께 보정한다. 취소 및 iterator dispose에서 소유자에 해당하는 lock만 해제해 과거 generation의 정리가 새 실행을 덮어쓰지 않는다. readiness 거부는 callback/held 상태를 바꾸지 않는다.
+ 
+-Unity GUI/headless/Play/import, git staging/commit/push, 실제 rollback은 실행하지 않았다. 화면상 최종 외관은 Unity 실행 확인이 남아 있다.
++## 검증 결과
+ 
+-## 산출물
++392개 통과, 실패 0. 기존 323개 범위에 새 검증 69개를 추가했다. 이전 body 회전 폴백 검증의 기대값은 이번 upright 요구에 맞게 Z=0으로 갱신했다.
+ 
+-- visual-direction.patch / rollback.patch: 이번 revision 범위 및 역패치.
+-- regression-00.log ~ regression-11.log: 기존 회귀 실행 결과.
+-- visual-tests.log / compile.log / receipt.json.
+-- 상위 scoped.patch: 전체 누적 변경.
++| 범위 | 개수 |
++| --- | ---: |
++| 실제 input/core/adapter 대역 실행 | 51 |
++| 실제 combo/guard 추출 실행 및 step fallback | 53 |
++| teardown | 10 |
++| aim pipeline | 15 |
++| rootfix differential replay | 1 |
++| MORPG / 환경 / dash | 62 / 14 / 9 |
++| reward / spawn / NPC cast / P1 | 12 / 10 / 4 / 27 |
++| 실제 presentation utility 및 post-sample flip 추출 실행 | 124 |
++
++8방향 body root/renderer Z=0 및 VFX-only rotation, pool 복원, G1/G2/G3 A→B→C와 midstep 고정, release/취소 뒤 미호출, 원본·proxy flip 보정, invalid/epsilon fallback, cooldown 거부 시 provider 유지 등을 확인했다. 대역 기반 테스트이며 Unity 화면/전체 lifecycle 실행 검증은 아니다.
++
++실제 C# compiler: runtime 오류 0 / 경고 31, editor 오류 0 / 경고 41. MORPG 소스 SHA 동일. 보호 자산 455개 동일, 앞서 승인된 설계 필드 자산 15개 유지. 누적 scoped patch 기존 44개 / new 27개. diff, revision 및 누적 patch reverse dry-run 통과.
++
++Unity GUI/headless/Play/import, staging/commit/push, 실제 rollback 실행은 모두 0회다. Unity 화면상 최종 외관 확인은 수행하지 않았다.
++
++## 재현 및 복구
++
++check-00.log ~ check-14.log에 각 명령 결과를 보존했다. 콤보 추가 검증은 `python3 AgentTools/SeojinManualHarness/combo.py --step-aim`, 표현 검증은 `python3 AgentTools/SeojinManualHarness/visual_direction.py`로 실행한다.
++
++correction.patch는 이번 변경, rollback.patch는 이번 변경의 역패치다. before-sha.json / after-sha.json으로 파일을 확인할 수 있다. 상위 scoped.patch는 전체 누적 변경이다. 실제 rollback은 수행하지 않았다.
++
++## Close review 보강
++
++입력 공급자는 UI/focus, pause, explicit auto, transition, disable 및 현재 수동 권한을 입력 read 이전에 확인한다. 콤보 routine도 시작과 hit 직전에 live 권한을 확인한다. Core의 suspended 진입은 Clear(true)로 epoch/generation을 취소하므로 UI가 열렸다 닫혀도 과거 실행이 되살아나지 않는다. 기존 generation guard 및 소유자별 finally 정리가 유지된다.
++
++첫 provider 호출이 Fire와 같은 Time.frameCount이면 이미 확보한 initialAim을 재사용해 ray를 추가로 읽지 않는다. 첫 단계가 다음 프레임으로 지연되면 새 입력을 읽는다. 이후 각 단계는 현재 WASD를 우선하고 직전 단계의 정확한 facing을 fallback으로 사용한다. full-combo 최초 방향을 고정하지 않는다.
++
++추가 10개 검증: update 이전 UI/pause/auto/transition/disable 공급자 호출의 ray read 0, 같은 프레임 initial 재샘플 0, 지연 시작 fresh sample, hit/다음 step 권한 거부 2건, UI suspension의 실제 cancel 호출. 총 input 51, combo 53, 전체 392개 통과.
+--- a/Artifacts/Engineering/SeojinManualControl/receipt.json
++++ b/Artifacts/Engineering/SeojinManualControl/receipt.json
+@@ -1,14 +1,53 @@
+ {
+-  "revision": "visual-direction-06",
++  "revision": "visual-aim-07",
+   "status": "complete",
+   "blocker": null,
+-  "completed_at": "2026-09-07T20:24:14.697163+09:00",
++  "completed_at": "2026-09-07T20:48:42.755463+09:00",
++  "body": {
++    "rotation_z": 0,
++    "root_rotation_written": false,
++    "body_renderer_rotation_fallback": "removed",
++    "selection": "8-dir clip, mirrored clip, horizontal facing only",
++    "keydown_WASD_unchanged": true
++  },
++  "vfx": {
++    "rotation": "atan2 snapshot minus canonicalForward on renderer-only child",
++    "caster_collider_rigidbody_unchanged": true,
++    "pool_restore": true,
++    "basic_visible_step_uses_same_snapshot": true
++  },
++  "combo": {
++    "snapshot": "each admitted step start/commit",
++    "hit_facing_flip_projectile_vfx_same_source": true,
++    "midstep_immutable": true,
++    "release_no_next_capture": true,
++    "fallback": "mouse -> current WASD -> precise previous step facing (initial AnimationMono facing) -> right",
++    "grades": [
++      1,
++      2,
++      3
++    ],
++    "cooldown_reject_preserves_provider": true
++  },
+   "tests": {
+-    "prior": 219,
+-    "visual_assertions": 104,
+-    "passed": 323,
++    "input": 51,
++    "combo": 53,
++    "teardown": 10,
++    "pipeline": 15,
++    "replay": 1,
++    "morpg": 62,
++    "environment": 14,
++    "dash": 9,
++    "reward": 12,
++    "spawn": 10,
++    "npc_cast": 4,
++    "p1": 27,
++    "visual": 124,
++    "passed": 392,
+     "failed": 0,
+-    "new_lifecycle_validation": "source audit; utility runtime with Unity primitive stubs"
++    "prior_coverage": 323,
++    "added": 69,
++    "old_body_expectation_updated_to_zero": true
+   },
+   "compile": {
+     "runtime_errors": 0,
+@@ -17,16 +56,17 @@
+     "editor_warnings": 41
+   },
+   "preservation": {
+-    "morpg_sources_unchanged": true,
++    "morpg_sha_unchanged": true,
+     "protected_unchanged": 455,
+-    "existing": 44,
+-    "new": 26
++    "prior_authorized_assets": 15,
++    "cumulative_existing": 44,
++    "cumulative_new": 27
+   },
+   "checks": {
+     "diff": true,
+     "reverse_dry_run": true
+   },
+-  "not_run": [
++  "zero_runs": [
+     "Unity GUI",
+     "Unity headless",
+     "Unity Play",
+@@ -37,5 +77,14 @@
+     "actual rollback"
+   ],
+   "report": "REPORT.md",
+-  "patch": "visual-direction.patch"
++  "patch": "correction.patch",
++  "rollback": "rollback.patch",
++  "close_review": {
++    "provider_live_authorization_before_read": true,
++    "step_and_hit_live_authorization": true,
++    "suspension_cancels_epoch": true,
++    "initial_same_frame_uses_cached_sample": true,
++    "delayed_initial_frame_resamples": true,
++    "fallback_current_WASD_then_precise_previous_step_facing": true
++  }
+ }
+--- a/Assets/Scripts/Actor/Character/Control/ManualControlCore.cs
++++ b/Assets/Scripts/Actor/Character/Control/ManualControlCore.cs
+@@ -88,7 +88,7 @@
+             if(changed)
+             {
+                 AttackHeld=false;hasBasicAim=false;lastMovement=default;
+-                game.Clear(reason!=ControlReason.Manual||prior!=ControlReason.Manual);game.Move(default);
++                game.Clear(suspended||reason!=ControlReason.Manual||prior!=ControlReason.Manual);game.Move(default);
+                 return; // handback frame consumes no input; next frame re-samples physical state.
+             }
+             if(reason!=ControlReason.Manual||suspended){AttackHeld=false;hasBasicAim=false;game.Move(default);return;}
+--- /dev/null
++++ b/AgentTools/SeojinManualHarness/StepAim.tests.cs
+@@ -0,0 +1,33 @@
++ // Additional tests execute the actual production combo coroutine and direction fallback.
++ foreach(int grade in new[]{1,2,3}){
++  var r=new EquipmentSkillRuntimeData();r.sourceEquipment.EquipmentId=$"skill.character.seojin.{grade}.basic_attack.basic_attack";
++  h=new();var mouse=new Vector2(1,0);int captures=0;var times=new List<float>();
++  Func<ManualSkillAim> capture=()=>{captures++;times.Add(h.Clock);return new ManualSkillAim{Mode=SkillAimMode.Direction,Direction=mouse};};
++  h.Run(h.Start(r,false,new ManualSkillAim{Mode=SkillAimMode.Direction,Direction=Vector2.right},capture),t=>{
++   if(t>=.94f)mouse=new Vector2(1,1);else if(t>=.64f)mouse=new Vector2(0,-1);else if(t>=.16f)mouse=new Vector2(-1,0);
++  });
++  Check(captures==3&&Near(times[0],0)&&Near(times[1],.48f)&&Near(times[2],.78f),$"G{grade} captures only actual step starts");
++  Check(h.HitDirections[0].x==1&&h.HitDirections[1].x==-1&&h.HitDirections[2].y==-1,$"G{grade} A B C hit snapshots immutable through contact");
++  Check(h.Anim.Directions.Zip(h.HitDirections,(a,b)=>a.x==b.x&&a.y==b.y).All(x=>x),$"G{grade} facing and hit/projectile/VFX context share step direction");
++  Check(h.Anim.Locks.Count==3&&h.Anim.Locks.Zip(h.HitDirections,(a,b)=>a.x==b.x&&a.y==b.y).All(x=>x),$"G{grade} flip lock uses same immutable source");
++  Check(h.Anim.FacingOwner==null&&h.comboFacingOwners.Count==0,$"G{grade} completion releases own facing lease");
++  Check(h.Cooldowns==1&&Near(h.CooldownTimes[0],grade==1?.78f:1.06f),$"G{grade} cooldown timing preserved");
++ }
++ foreach(float release in new[]{.16f,.64f}){
++  h=new();int captures=0;h.Run(h.Start(point:false,aim:new ManualSkillAim{Mode=SkillAimMode.Direction,Direction=Vector2.right},stepAim:()=>{captures++;return new ManualSkillAim{Mode=SkillAimMode.Direction,Direction=Vector2.right};}),t=>{if(t>=release)h.Held=false;});
++  Check(captures==(release<.5f?1:2)&&h.Hits.Count==captures,"release does not read next snapshot but completes current hit");Check(h.Anim.FacingOwner==null,"release restores facing lease");
++ }
++ h=new();int canceledReads=0;var canceled=h.Start(point:false,aim:new ManualSkillAim{Mode=SkillAimMode.Direction,Direction=Vector2.right},stepAim:()=>{canceledReads++;return new ManualSkillAim{Mode=SkillAimMode.Direction,Direction=Vector2.right};});canceled.MoveNext();var firstOwner=h.Anim.FacingOwner;h.comboGenerations[1]=2;h.Anim.ReleaseFacingLock(firstOwner);var nextOwner=new object();h.Anim.AcquireFacingLock(nextOwner,new Vector2(-1,0));h.comboFacingOwners[1]=nextOwner;h.Run(canceled);Check(canceledReads==1&&h.Hits.Count==0,"canceled generation cannot capture next aim or hit");Check(h.Anim.FacingOwner==nextOwner&&h.comboFacingOwners[1]==nextOwner,"old finally cannot release new facing owner");
++ h=new();int invalidReads=0;h.Run(h.Start(point:false,aim:new ManualSkillAim{Mode=SkillAimMode.Direction,Direction=Vector2.right},stepAim:()=>{invalidReads++;return new ManualSkillAim{Mode=SkillAimMode.Direction,Direction=invalidReads==3?default:Vector2.right};}));Check(h.Hits.Count==2&&h.Cooldowns==0&&invalidReads==3,"invalid provider fails closed before third cooldown commit");
++ h=new();var disposable=h.Start(point:false,aim:new ManualSkillAim{Mode=SkillAimMode.Direction,Direction=Vector2.right});disposable.MoveNext();((IDisposable)disposable).Dispose();Check(h.Anim.FacingOwner==null&&h.comboFacingOwners.Count==0,"guard disposal releases manual facing on teardown");
++ foreach(var bad in new[]{new ControlVector(0,0),new ControlVector(.001f,.001f),new ControlVector(float.NaN,0),new ControlVector(float.PositiveInfinity,0)}){
++  var d=ManualGameplayAdapter.ResolveComboStepDirection(bad,new ControlVector(-1,1),new ControlVector(1,-1));Check(d.X<0&&d.Y>0,"epsilon or invalid mouse uses current WASD");
++  d=ManualGameplayAdapter.ResolveComboStepDirection(bad,default,new ControlVector(-1,-1));Check(d.X<0&&d.Y<0,"no WASD uses last facing at this step");
++ }
++ var valid=ManualGameplayAdapter.ResolveComboStepDirection(new ControlVector(0,4),new ControlVector(-1,0),new ControlVector(-1,-1));Check(valid.X==0&&valid.Y==1,"valid mouse wins over WASD per step");
++ var noInput=ManualGameplayAdapter.ResolveComboStepDirection(default,default,default);Check(noInput.X==1&&noInput.Y==0,"missing all directions safe right fallback");
++
++ foreach(float blockedAt in new[]{.16f,.48f}){
++  h=new();int reads=0;h.Run(h.Start(point:false,aim:new ManualSkillAim{Mode=SkillAimMode.Direction,Direction=Vector2.right},stepAim:()=>{reads++;return new ManualSkillAim{Mode=SkillAimMode.Direction,Direction=Vector2.right};}),t=>{if(t>=blockedAt)h.Manager.ManualComboAuthorized=false;});
++  Check(reads==1&&h.Hits.Count==(blockedAt<.2f?0:1)&&h.Anim.FacingOwner==null,"live authorization blocks hit or next capture even before core cancellation");
++ }

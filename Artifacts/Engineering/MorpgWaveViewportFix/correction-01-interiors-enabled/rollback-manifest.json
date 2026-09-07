@@ -1,0 +1,36 @@
+{
+  "modified": [
+    {
+      "path": "Assets/Resources/battle/morpg/wave-environment-v1/binding.json",
+      "beforeSha256": "7a9ff0d3eccc2a846936a834c3d279883b15164e604af02ed98a8a15d45f03a8",
+      "afterSha256": "b8600c8b4f4a8f2159e2bcccf2157f3fe653a5175d660ca3060e74f5e0e573b1",
+      "backup": "Artifacts/Engineering/MorpgWaveViewportFix/correction-01-interiors-enabled/before/Assets/Resources/battle/morpg/wave-environment-v1/binding.json"
+    },
+    {
+      "path": "Assets/Scripts/Battle/Morpg/MorpgWaveDressing.cs",
+      "beforeSha256": "e564a0045f45137c94b2bac71d3879c1ab5935d5414bfdf2f2001de5c718a5ee",
+      "afterSha256": "5bf3c2917a70a2de945d19a774104c01deb61c1962f085454ffa576400643dcd",
+      "backup": "Artifacts/Engineering/MorpgWaveViewportFix/correction-01-interiors-enabled/before/Assets/Scripts/Battle/Morpg/MorpgWaveDressing.cs"
+    },
+    {
+      "path": "AgentTools/MorpgIntegrationHarness/Program.cs",
+      "beforeSha256": "e7c550b09be25d55fad522ae3a15d615b1f5941781cc6eadbab52ef34c9ed5c1",
+      "afterSha256": "66aec22f83475cb68846367336285135b6ce2ab9d70dbbcecefc36e4a490e9d8",
+      "backup": "Artifacts/Engineering/MorpgWaveViewportFix/correction-01-interiors-enabled/before/AgentTools/MorpgIntegrationHarness/Program.cs"
+    },
+    {
+      "path": "AgentTools/MorpgWaveDressingHarness/reframe.py",
+      "beforeSha256": "a3a729ab6ff157b9cc1003072921b1837eb3e6629239c14da012db00aeb05f7a",
+      "afterSha256": "c435313183b218d3bb72a1d1815fad473cfcac8790e8c5418c52b3d7919d4b62",
+      "backup": "Artifacts/Engineering/MorpgWaveViewportFix/correction-01-interiors-enabled/before/AgentTools/MorpgWaveDressingHarness/reframe.py"
+    },
+    {
+      "path": "AgentTools/MorpgWaveDressingHarness/viewport_audit.py",
+      "beforeSha256": "653bdefdaa2f53a36afd43c3fedea32bd2e42f8dc9d06de6d7880be2ae536c81",
+      "afterSha256": "6110d1885e134a347c489e8b624eeedd057c0df7d8f82d95b1d2d789044e14ca",
+      "backup": "Artifacts/Engineering/MorpgWaveViewportFix/correction-01-interiors-enabled/before/AgentTools/MorpgWaveDressingHarness/viewport_audit.py"
+    }
+  ],
+  "added": [],
+  "rollback": "Match hashes and reverse interior-restore-only.diff only. No rollback has been applied. Note rollback returns production gate to false; current user-authorized state is true."
+}

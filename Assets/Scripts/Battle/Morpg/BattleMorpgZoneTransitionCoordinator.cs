@@ -93,6 +93,24 @@ namespace Battle.Morpg
             elapsed += deltaTime;
             try
             {
+                if (host is IMorpgPresentedTransition presentation)
+                {
+                    if (!presentation.TickTransition(deltaTime, out bool warp, out bool unlock, out bool wave, out string error))
+                    { Fail(error); return; }
+                    if (warp && (Phase == ZoneTransitionPhase.CleanupSettling || Phase == ZoneTransitionPhase.Fading))
+                    {
+                        if (!host.TryCommitWarp(token, plan, active, out error) || transition.State != TransitionRecordState.Committed)
+                        { Fail(error ?? "presentation warp not committed"); return; }
+                        ActiveZoneIndex++; Phase = ZoneTransitionPhase.Warped; presentation.TransitionWarped();
+                    }
+                    if (unlock && Phase == ZoneTransitionPhase.Warped)
+                    {
+                        if (!Release(MorpgTransitionReleaseReason.Success)) { Fail(LastError); return; }
+                        Phase = ZoneTransitionPhase.Unlocked; presentation.TransitionUnlocked();
+                    }
+                    if (wave && Phase == ZoneTransitionPhase.Unlocked) Phase = ZoneTransitionPhase.NextWaveReady;
+                    return;
+                }
                 if (elapsed >= FadeAt && Phase == ZoneTransitionPhase.CleanupSettling) Phase = ZoneTransitionPhase.Fading;
                 if (elapsed >= WarpAt && (Phase == ZoneTransitionPhase.CleanupSettling || Phase == ZoneTransitionPhase.Fading))
                 {
@@ -113,7 +131,10 @@ namespace Battle.Morpg
         {
             if (paused || Phase != ZoneTransitionPhase.NextWaveReady) return false;
             active = null; clear = null; clearCommitted = false; transition = null; plan = null;
-            Phase = ZoneTransitionPhase.Idle; return TryStartActiveWave();
+            Phase = ZoneTransitionPhase.Idle;
+            bool started = TryStartActiveWave();
+            if (started && host is IMorpgPresentedTransition presentation) presentation.TransitionWaveStarted();
+            return started;
         }
         internal bool TryRequestVictory()
         {

@@ -106,6 +106,9 @@ namespace Character
 
         public void InitializeSkills(CharacterSO characterSO)
         {
+            // Reinitializing a pooled NPC caster must release its preceding presentation lease.
+            if (castPresentation != null && castPresentation.UsesNpcAttackPalette)
+                CancelCasting();
             EnsureRuntimeData();
             skillService.ResetExecutionFailures();
 
@@ -260,11 +263,77 @@ namespace Character
             //    skillExecutionLockCount - 1);
         }
 
+        private bool manualExecution;
+        private int manualEpoch,manualTicket;
+        private readonly HashSet<int> manualRoutines=new();
+        internal Coroutine StartOwnedSkillRoutine(System.Collections.IEnumerator routine)
+        {
+            if(GetComponent<Control.SeojinManualControl>()==null)return StartCoroutine(routine);
+            int ticket=++manualTicket;manualRoutines.Add(ticket);
+            return StartCoroutine(GuardManualRoutine(routine,manualEpoch,ticket,true));
+        }
+        private System.Collections.IEnumerator GuardManualRoutine(System.Collections.IEnumerator routine,int epoch,int ticket,bool root)
+        {
+            try
+            {
+                while(epoch==manualEpoch&&routine.MoveNext())
+                {
+                    if(routine.Current is System.Collections.IEnumerator child)yield return GuardManualRoutine(child,epoch,ticket,false);
+                    else yield return routine.Current;
+                }
+            }
+            finally{(routine as IDisposable)?.Dispose();if(root)manualRoutines.Remove(ticket);}
+        }
+        private Vector2? manualDirection;
+        internal bool ManualExecutionAuthorized=>manualExecution;
+        internal bool ManualComboAuthorized=>GetComponent<Control.SeojinManualControl>()?.ManualAuthorized==true;
+        internal Func<bool> ManualComboChain {get;private set;}
+        internal Func<ManualSkillAim> ManualComboStepAim {get;private set;}
+        internal bool ManualBusy=>manualRoutines.Count>0||IsCasting||castMoveService.IsMoving||skillService.HasCombo(transform)||
+            (GetComponentInChildren<AnimationMono>()?.IsPlayingAttack()??false);
+        internal bool ManualReady(EquipmentSkillRuntimeData runtime)=>!ManualBusy&&
+            GetComponent<CharacterManager>()!=null&&GetComponent<CharacterManager>().IsTargetable&&
+            GetComponent<CharacterManager>().CanUseSkill&&skillService.IsRuntimeReady(this,runtime);
+        private ManualSkillAim? manualAim;
+        internal Transform ResolveManualTarget(EquipmentSkillRuntimeData runtime,Vector2 direction)=>skillService.ResolveManualTarget(runtime,transform,direction);
+        internal bool FireManualAim(EquipmentSkillRuntimeData runtime,ManualSkillAim aim,Func<bool> chain,Func<ManualSkillAim> stepAim=null)
+        {
+            var owner=GetComponent<Control.SeojinManualControl>();
+            if(owner==null||!owner.ManualAuthorized||!ManualReady(runtime)||!aim.IsValid||runtime.sourceEquipment.AimInputSource==AimInputSource.Invalid||runtime.sourceEquipment.AimMode!=aim.Mode)return false;
+            if(aim.Mode==SkillAimMode.Target&&!skillService.IsManualTargetValid(runtime,transform,aim.Target))return false;
+            manualExecution=true;manualAim=aim;ManualComboChain=chain;ManualComboStepAim=stepAim;
+            manualDirection=aim.Mode==SkillAimMode.Direction?aim.Direction:(Vector2?)null;
+            bool started=false;
+            try
+            {
+                float time=ResolveCastTime(runtime.sourceEquipment.CastSo);
+                if(time>0)started=BeginCasting(runtime,transform,aim.Target,time,aim.Mode==SkillAimMode.GroundPoint?aim.Point:(Vector2?)null,aim.Mode!=SkillAimMode.Target);
+                else started=FireSkillImmediate(runtime,transform,aim.Target,true);
+                if(!started)skillService.MarkExecutionFailed(runtime);
+                return started;
+            }
+            finally{if(!IsCasting){manualExecution=false;manualAim=null;manualDirection=null;}}
+        }
+        internal bool FireManualAtPoint(EquipmentSkillRuntimeData runtime,Vector2 point,Func<bool> chain)
+            =>FireManualAim(runtime,new ManualSkillAim(SkillAimMode.GroundPoint,Vector2.zero,point),chain);
+        internal bool FireManualDash(EquipmentSkillRuntimeData runtime,Vector2 direction)
+            =>FireManualAim(runtime,new ManualSkillAim(SkillAimMode.Direction,direction.normalized,Vector2.zero),null);
+        public void CancelManualExecution()
+        {
+            manualEpoch++;manualRoutines.Clear();
+            GetComponentInChildren<AnimationMono>()?.CancelDirectedSkillPresentation();
+            bool combo=skillService.HasCombo(transform);
+            if(combo)GetComponentInChildren<AnimationMono>()?.StopComboAction();
+            ManualComboChain=null;ManualComboStepAim=null;CancelCasting();skillService.CancelCombo(transform);castMoveService.StopMove();manualExecution=false;manualAim=null;manualDirection=null;
+        }
         public bool FireSkill(
             EquipmentSkillRuntimeData runtime,
             Transform caster,
             Transform target)
         {
+            var manual=GetComponent<Control.SeojinManualControl>();
+            if(manual!=null&&!manual.AutoAuthorized)return false;
+            if (Battle.Morpg.BattleMorpgLiveRoute.IsTransitionLocked(GetComponent<CharacterManager>())) return false;
             SkillCastSO castSo = runtime?.sourceEquipment?.CastSo;
             float castTime = ResolveCastTime(castSo);
             if (castTime > 0f)
@@ -291,6 +360,7 @@ namespace Character
             ReleaseCastFacing();
             castingRuntime = null;
             castingCaster = null;
+            manualExecution=false;manualAim=null;manualDirection=null;
             hasCastTargetPointSnapshot = false;
             castTargetPointSnapshot = Vector2.zero;
             EndSkillExecution();
@@ -300,11 +370,11 @@ namespace Character
             EquipmentSkillRuntimeData runtime,
             Transform caster,
             Transform target,
-            float castTime)
+            float castTime,Vector2? manualPoint=null,bool manualUntargeted=false)
         {
             if (castRoutine != null ||
                 !skillService.CanBeginCast(this, runtime, caster) ||
-                !IsCastTargetValid(runtime, caster, target))
+                (!manualUntargeted&&!manualPoint.HasValue&&!IsCastTargetValid(runtime, caster, target)))
             {
                 return false;
             }
@@ -313,16 +383,17 @@ namespace Character
             castingRuntime = runtime;
             castingCaster = caster;
             SkillCastSO castSo = runtime?.sourceEquipment?.CastSo;
-            hasCastTargetPointSnapshot = castSo != null && castSo.SnapshotTargetPointOnCast;
+            hasCastTargetPointSnapshot = manualPoint.HasValue || (!manualAim.HasValue && castSo != null && castSo.SnapshotTargetPointOnCast);
             if (hasCastTargetPointSnapshot)
             {
-                castTargetPointSnapshot = target != null
+                castTargetPointSnapshot = manualPoint ?? (target != null
                     ? (Vector2)target.position
-                    : new Vector2(float.NaN, float.NaN);
+                    : new Vector2(float.NaN, float.NaN));
                 if (float.IsNaN(castTargetPointSnapshot.x) || float.IsInfinity(castTargetPointSnapshot.x) ||
                     float.IsNaN(castTargetPointSnapshot.y) || float.IsInfinity(castTargetPointSnapshot.y))
                 {
                     Debug.LogWarning("[CharacterSkillManager] Invalid cast target snapshot; cast cancelled.", this);
+                    manualExecution=false;manualAim=null;manualDirection=null;
                     hasCastTargetPointSnapshot = false;
                     castingRuntime = null;
                     castingCaster = null;
@@ -406,18 +477,26 @@ namespace Character
             castRoutine = null;
             castClock = null;
             RefreshCastFacing(caster);
-            castPresentation?.CompletePresentation();
+            bool restoreNpcAfterFire = castPresentation != null && castPresentation.UsesNpcAttackPalette;
+            if (!restoreNpcAfterFire) castPresentation?.CompletePresentation();
             castWorldHud?.HideAndReset();
             npcCastGroundCone?.CompleteAndHide();
 
             // Commit through the pre-existing immediate path exactly once. Cost,
             // cooldown, body action and gameplay objects are all downstream of this call.
-            if (!FireSkillImmediate(runtime, caster, target, false))
+            bool fired;
+            try { fired = FireSkillImmediate(runtime, caster, target, false); }
+            finally
+            {
+                if (restoreNpcAfterFire) castPresentation?.RestoreImmediate();
+            }
+            if (!fired)
             {
                 ReleaseCastBodyPose();
                 ReleaseCastFacing();
                 castingRuntime = null;
                 castingCaster = null;
+                manualExecution=false;manualAim=null;manualDirection=null;
                 hasCastTargetPointSnapshot = false;
                 castTargetPointSnapshot = Vector2.zero;
                 EndSkillExecution();
@@ -442,6 +521,7 @@ namespace Character
             CastCommitted?.Invoke(runtime);
             castingRuntime = null;
             castingCaster = null;
+            manualExecution=false;manualAim=null;manualDirection=null;
             hasCastTargetPointSnapshot = false;
             castTargetPointSnapshot = Vector2.zero;
         }
@@ -457,6 +537,7 @@ namespace Character
             ReleaseCastFacing();
             castingRuntime = null;
             castingCaster = null;
+            manualExecution=false;manualAim=null;manualDirection=null;
             hasCastTargetPointSnapshot = false;
             castTargetPointSnapshot = Vector2.zero;
             EndSkillExecution();
@@ -642,8 +723,10 @@ namespace Character
                 return false;
             }
 
+            if(manualAim.HasValue)
+                return manualAim.Value.Mode!=SkillAimMode.Target||skillService.IsManualTargetValid(runtime,caster,manualAim.Value.Target);
             SkillCastSO castSo = runtime?.sourceEquipment?.CastSo;
-            if (castSo != null && castSo.SnapshotTargetPointOnCast)
+            if (hasCastTargetPointSnapshot || (castSo != null && castSo.SnapshotTargetPointOnCast))
             {
                 return hasCastTargetPointSnapshot;
             }
@@ -697,6 +780,12 @@ namespace Character
             Transform target,
             bool beginExecution)
         {
+            if(manualAim.HasValue)
+            {
+                var aim=manualAim.Value;
+                if(aim.Mode==SkillAimMode.GroundPoint&&Vector2.Distance(caster.position,aim.Point)>runtime.resolvedRange+.0001f)return false;
+                if(aim.Mode==SkillAimMode.Target&&!skillService.IsManualTargetValid(runtime,caster,aim.Target))return false;
+            }
             if (beginExecution)
             {
                 BeginSkillExecution();
@@ -714,7 +803,9 @@ namespace Character
                 return false;
             }
 
-            bool started = hasCastTargetPointSnapshot
+            bool started = manualAim.HasValue
+                ? skillService.FireManualAim(this,runtime,caster,manualAim.Value)
+                : hasCastTargetPointSnapshot
                 ? skillService.FireSkillAtSnapshotPoint(
                     this, runtime, caster, castTargetPointSnapshot)
                 : skillService.FireSkill(
@@ -817,6 +908,9 @@ namespace Character
             Transform caster,
             Transform target)
         {
+            if(manualDirection.HasValue)return manualDirection.Value;
+            if(manualAim?.Mode==SkillAimMode.GroundPoint&&caster!=null)return (manualAim.Value.Point-(Vector2)caster.position).normalized;
+            if(hasCastTargetPointSnapshot&&caster!=null){Vector2 delta=castTargetPointSnapshot-(Vector2)caster.position;if(delta.sqrMagnitude>.0001f)return delta.normalized;}
             if (caster != null && target != null)
             {
                 Vector2 direction = target.position - caster.position;

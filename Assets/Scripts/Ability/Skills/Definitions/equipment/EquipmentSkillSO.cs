@@ -13,6 +13,12 @@ namespace Skill
     {
         [Header("Identity")]
         [SerializeField] private string equipmentId;
+        [SerializeField] private SkillAimMode aimMode;
+        [SerializeField] private AimInputSource aimInputSource;
+        public AimInputSource AimInputSource => SkillAimPolicy.ResolveInputSource(aimInputSource);
+        public void ConfigureAimInputSource(string value) => aimInputSource=SkillAimPolicy.ParseInputSource(value);
+        public SkillAimMode AimMode => SkillAimPolicy.Resolve(aimMode,castSo);
+        public void ConfigureAimMode(string value) => aimMode=SkillAimPolicy.Parse(value);
         [SerializeField] private Sprite icon;
 
         [Header("Base Profile")]

@@ -1,0 +1,78 @@
+{
+  "schemaVersion": "morpg_wave_background_foreground_empty_v2",
+  "status": "SELECTED_BACKGROUND_EXACT3_READY_INSTALL_HOLD",
+  "dateKst": "2026-09-07",
+  "scope": "background replacement only; revision-01 barriers and internal prop system remain unchanged",
+  "method": "Codex built-in ImageGen, one independent call per wave; deterministic top-aligned 3:1 normalization",
+  "root": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/MORPGWaveEnvironment/selected/revision-02-foreground-empty",
+  "outputContract": {
+    "count": 3,
+    "dimensions": [1536, 512],
+    "aspect": "3:1",
+    "mode": "RGB",
+    "opaque": true,
+    "pivot": [0.5, 0.5],
+    "pixelsPerUnit": 100,
+    "filter": "Bilinear",
+    "wrap": "Clamp",
+    "mipmaps": false
+  },
+  "selected": [
+    {
+      "wave": 1,
+      "theme": "dry plain; distant low hills and faint sapling grove only",
+      "path": "exact1536x512/wave1-background.1536x512.png",
+      "sha256": "c685e23983f40d39459e89617928dda6d834631a040c62b3b369e4733aac2cf8",
+      "raw": ["raw/wave1-background.raw.png", "201a4682078626e22b7179da6a3d2a9f893934e67ae987d16aa66ad23e8ce224", [1774,887]]
+    },
+    {
+      "wave": 2,
+      "theme": "compacted village-outskirts dirt; tiny distant roofs and palisade only",
+      "path": "exact1536x512/wave2-background.1536x512.png",
+      "sha256": "8c49291a2092f022278ad44c9fb58303477322f21f649bc4a74e989b75ebe877",
+      "raw": ["raw/wave2-background.raw.png", "67f7291cb7da320a4c9288ca2578a81c8ce6f2a5a238cd9aaa1ebbee00ec0fab", [1774,887]]
+    },
+    {
+      "wave": 3,
+      "theme": "empty muted stone and packed-earth square; tiny distant tiled skyline only",
+      "path": "exact1536x512/wave3-background.1536x512.png",
+      "sha256": "d9610fe01ba7de17eb2318a4d4c447999a60ea2350b1b03846d31274f3738a74",
+      "raw": ["raw/wave3-background.raw.png", "e998e79f561d12eb33fce9c7460b1403fecea8dbb13e6e44fb7d96ec1bd245c6", [1952,806]]
+    }
+  ],
+  "normalization": {
+    "script": ["build_revision02.py", "bf67ce7c2480566c6431a3a7518b3f38bbbf2b3d8b80708c9781fb3bc9fa7d75"],
+    "operation": "width-normalize to1536 with aspect preserved, then top-aligned vertical crop to512",
+    "reason": "preserve distant horizon in upper20-30 percent and retain empty lower ground",
+    "warp": false,
+    "contentSynthesis": false
+  },
+  "compositionQa": {
+    "foregroundAndCombatPlane": "lower approximately75-80 percent contains continuous ground texture only",
+    "distantIdentityBand": "upper approximately20-25 percent, low contrast and atmospheric",
+    "independentForegroundProps": 0,
+    "closeTreesFencesHousesWallsRockPiles": 0,
+    "characterNpcMonsterUiTextVfxColliderMarks": 0,
+    "civilizationDensity": "wave1 < wave2 < wave3",
+    "telegraphReadability": "PASS by low-contrast empty combat center",
+    "dimensions": "1536x512 exact3/3",
+    "uniqueSha": "3/3"
+  },
+  "evidence": {
+    "backgroundContact": ["evidence/backgrounds-wave1-wave2-wave3.png", "fd2027ad4e2cb3c071c19368d36b44fecd894c815fd73c950cbc833136ee1a4d"],
+    "compositeWithPreservedBarriers": ["evidence/backgrounds-with-revision01-barriers.png", "886eab128218a1134572243fcb88040d066b779b8095478fca228a28c312e4f6"]
+  },
+  "preservedDependencies": {
+    "barrierManifest": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/MORPGWaveEnvironment/selected/revision-01/manifest.json",
+    "barrierManifestSha256": "99c0118b29104e6433779d5c54786589de7643ac4a09ed01a1e9e6325cdc66aa",
+    "barrierAssets": "revision-01 top3 + bottom3 byte-unchanged",
+    "internalProps": "unchanged"
+  },
+  "boundaries": {
+    "revision01OverwriteOrDelete": false,
+    "projectCanonicalWrite": false,
+    "unityWrite": false,
+    "installAuthority": false,
+    "rollback": "remove revision-02-foreground-empty only"
+  }
+}

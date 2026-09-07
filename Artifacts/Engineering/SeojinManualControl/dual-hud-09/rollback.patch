@@ -1,0 +1,1417 @@
+--- a/Assets/Scripts/Actor/Character/Control/SeojinManualControl.cs
++++ b/Assets/Scripts/Actor/Character/Control/SeojinManualControl.cs
+@@ -39,7 +39,6 @@
+             actor=owner;skills=GetComponent<CharacterSkillManager>();movement=GetComponent<PartyMovementMono>()??gameObject.AddComponent<PartyMovementMono>();state=GetComponent<CharacterStateManager>();
+             if(!baselineCaptured){baselineCaptured=true;baselineMovement=movement.IsMovementControlledByPlayer();}
+             core.Reset();adapter=new ManualGameplayAdapter(actor,movement,skills);
+-            SeojinDualDirectionHud.Ensure(this,actor);
+             foreach(var b in GetComponentsInChildren<MonoBehaviour>(true))
+                 if(b is CharacterStateManager||b is SkillBrainMono||b is SkillExecutorMono)
+                 {if(!ai.ContainsKey(b))ai[b]=b.enabled;b.enabled=false;}
+--- a/AgentTools/SeojinManualHarness/AimPipeline.template.cs
++++ b/AgentTools/SeojinManualHarness/AimPipeline.template.cs
+@@ -1,6 +1,6 @@
+ using System;using System.Collections.Generic;using System.Reflection;using System.IO;using System.Linq;using UnityEngine;using Skill;using Character;
+ namespace UnityEngine {
+- public class Header:Attribute{public Header(string s){}}public class Min:Attribute{public Min(float x){}}public class Range:Attribute{public Range(float a,float b){}}public class CreateAssetMenu:Attribute{public string fileName,menuName;}public class ScriptableObject{}public class AnimationClip{}
++ public class Header:Attribute{public Header(string s){}}public class Min:Attribute{public Min(float x){}}public class Range:Attribute{public Range(float a,float b){}}public class CreateAssetMenu:Attribute{public string fileName,menuName;}public class ScriptableObject{}public class Sprite{}public class AnimationClip{}
+  public static class JsonUtility{public static T FromJson<T>(string s)=>new System.Web.Script.Serialization.JavaScriptSerializer().Deserialize<T>(s);}
+  public class Collider2D:Component{}public static class Physics2D{public static Collider2D[] Candidates=Array.Empty<Collider2D>();public static Collider2D[] OverlapCircleAll(Vector2 c,float r)=>Candidates.Where(x=>Vector2.Distance(c,x.transform.position)<=r).ToArray();}
+ }
+--- a/AgentTools/SeojinManualHarness/audit.py
++++ b/AgentTools/SeojinManualHarness/audit.py
+@@ -26,9 +26,7 @@
+ (out/'same-path-result.json').write_text(json.dumps({'checked':len(protected),'unchanged':len(protected)-len(authorized),'authorized_design_fields':list(authorized),'changed':changed},indent=2)+'\n')
+ assert not changed,changed
+ before=json.loads((out/'before-sha.json').read_text())
+-hud_manifest=out/'dual-hud-09/installed-files.json'
+-hud_files=[root/n for n in json.loads(hud_manifest.read_text())] if hud_manifest.exists() else []
+-new=[*hud_files,root/'Assets/Scripts/Ability/Skills/Presentation/ProjectileDirectionPresentationLease.cs',root/'Assets/Scripts/Ability/Skills/Presentation/ProjectileDirectionPresentationLease.cs.meta',root/'Assets/Scripts/Ability/Skills/Presentation/SkillDirectionPresentation.cs',root/'Assets/Scripts/Ability/Skills/Presentation/SkillDirectionPresentation.cs.meta',root/'Assets/Scripts/Ability/Skills/Definitions/equipment/SkillAimMode.cs',root/'Assets/Scripts/Ability/Skills/Definitions/equipment/SkillAimMode.cs.meta',root/'Assets/Scripts/Actor/Character/Control.meta',*sorted((root/'Assets/Scripts/Actor/Character/Control').glob('*')),*sorted((root/'AgentTools/SeojinManualHarness').glob('*'))]
++new=[root/'Assets/Scripts/Ability/Skills/Presentation/ProjectileDirectionPresentationLease.cs',root/'Assets/Scripts/Ability/Skills/Presentation/ProjectileDirectionPresentationLease.cs.meta',root/'Assets/Scripts/Ability/Skills/Presentation/SkillDirectionPresentation.cs',root/'Assets/Scripts/Ability/Skills/Presentation/SkillDirectionPresentation.cs.meta',root/'Assets/Scripts/Ability/Skills/Definitions/equipment/SkillAimMode.cs',root/'Assets/Scripts/Ability/Skills/Definitions/equipment/SkillAimMode.cs.meta',root/'Assets/Scripts/Actor/Character/Control.meta',*sorted((root/'Assets/Scripts/Actor/Character/Control').glob('*')),*sorted((root/'AgentTools/SeojinManualHarness').glob('*'))]
+ new=[p for p in new if p.is_file()]; (out/'new-files.json').write_text(json.dumps([str(p.relative_to(root)) for p in new],indent=2)+'\n')
+ patch=[]; hashes={}
+ for name,h in before.items():
+@@ -37,9 +35,7 @@
+  patch.extend(difflib.unified_diff(original.read_text().splitlines(True),current.read_text().splitlines(True),fromfile='a/'+name,tofile='b/'+name))
+ for p in new:
+  name=str(p.relative_to(root)); hashes[name]=sha(p)
+- if p.suffix=='.png':
+-  result=subprocess.run(['git','diff','--no-index','--binary','--','/dev/null',name],cwd=root,text=True,capture_output=True);assert result.returncode==1;patch.append(result.stdout)
+- else:patch.extend(difflib.unified_diff([],p.read_text().splitlines(True),fromfile='/dev/null',tofile='b/'+name))
++ patch.extend(difflib.unified_diff([],p.read_text().splitlines(True),fromfile='/dev/null',tofile='b/'+name))
+ (out/'scoped.patch').write_text(''.join(patch));(out/'after-sha.json').write_text(json.dumps(hashes,indent=2)+'\n')
+ for args,file in [(['git','apply','--reverse','--check',str(out/'scoped.patch')],'reverse-check.log'),(['git','diff','--check'],'diff-check.log')]:
+  p=subprocess.run(args,cwd=root,text=True,capture_output=True);(out/file).write_text(p.stdout+p.stderr+f'exit={p.returncode}\n');assert p.returncode==0,(file,p.stderr)
+--- a/AgentTools/SeojinManualHarness/run.sh
++++ b/AgentTools/SeojinManualHarness/run.sh
+@@ -3,5 +3,5 @@
+ cd /Users/pvenus/ProjectBS
+ manual_mono=/Applications/Unity/Hub/Editor/6000.3.10f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge
+ manual_out=$(mktemp -d /private/tmp/projectbs-manual.XXXXXX)
+-"$manual_mono/bin/mono" "$manual_mono/lib/mono/msbuild/Current/bin/Roslyn/csc.exe" -nologo -nowarn:0649 -langversion:9.0 -out:"$manual_out/test.exe" AgentTools/SeojinManualHarness/Stub.cs AgentTools/SeojinManualHarness/Tests.cs Assets/Scripts/Actor/Character/Control/*.cs Assets/Scripts/Ability/Skills/Definitions/equipment/SkillAimMode.cs Assets/Scripts/Battle/Presentation/BattlePresentationSortingPolicy.cs
++"$manual_mono/bin/mono" "$manual_mono/lib/mono/msbuild/Current/bin/Roslyn/csc.exe" -nologo -nowarn:0649 -langversion:9.0 -out:"$manual_out/test.exe" AgentTools/SeojinManualHarness/Stub.cs AgentTools/SeojinManualHarness/Tests.cs Assets/Scripts/Actor/Character/Control/*.cs Assets/Scripts/Ability/Skills/Definitions/equipment/SkillAimMode.cs
+ "$manual_mono/bin/mono" "$manual_out/test.exe"
+--- a/AgentTools/SeojinManualHarness/Stub.cs
++++ b/AgentTools/SeojinManualHarness/Stub.cs
+@@ -4,14 +4,14 @@
+  public class DefaultExecutionOrder:Attribute {public DefaultExecutionOrder(int n){}}public class DisallowMultipleComponent:Attribute {}public class SerializeField:Attribute {}
+  public class Object {}public class Component:Object{public GameObject gameObject;public Transform transform=>gameObject.transform;public T GetComponent<T>() where T:class=>gameObject.GetComponent<T>();public T GetComponentInParent<T>() where T:class=>GetComponent<T>();public T GetComponentInChildren<T>(bool includeInactive=false) where T:class=>GetComponent<T>();public T[] GetComponentsInChildren<T>(bool all=false) where T:class=>gameObject.GetComponents<T>();}
+  public class Behaviour:Component{public bool enabled=true;public bool isActiveAndEnabled=>enabled&&gameObject.activeInHierarchy;}public class MonoBehaviour:Behaviour {}
+- public class Transform:Component{public Transform parent;public Vector3 localPosition,localScale=Vector3.one;public Quaternion localRotation;public void SetParent(Transform p,bool w){parent=p;}public Vector3 position;public Transform root=>this;public Vector2 right=>Vector2.right;public int GetInstanceID()=>gameObject.Id;}
+- public class GameObject:Object{static int next;public int Id=++next;public int layer;readonly List<Component> components=new();public bool activeInHierarchy=true;public Transform transform;public string name;public GameObject(string n=""){name=n;transform=new Transform{gameObject=this};components.Add(transform);}public T AddComponent<T>() where T:Component,new(){var t=new T{gameObject=this};components.Add(t);return t;}public T GetComponent<T>() where T:class=>components.OfType<T>().FirstOrDefault();public T[] GetComponents<T>() where T:class=>components.OfType<T>().ToArray();}
+- public struct Vector2{public static Vector2 one=>new(1,1);public static Vector2 operator /(Vector2 a,float b)=>new(a.x/b,a.y/b);public float x,y;public Vector2(float x,float y){this.x=x;this.y=y;}public float sqrMagnitude=>x*x+y*y;public Vector2 normalized=>sqrMagnitude==0?zero:new Vector2(x/(float)Math.Sqrt(sqrMagnitude),y/(float)Math.Sqrt(sqrMagnitude));public static Vector2 operator -(Vector2 a,Vector2 b)=>new(a.x-b.x,a.y-b.y);public static Vector2 operator +(Vector2 a,Vector2 b)=>new(a.x+b.x,a.y+b.y);public static Vector2 operator *(Vector2 a,float b)=>new(a.x*b,a.y*b);public static float Dot(Vector2 a,Vector2 b)=>a.x*b.x+a.y*b.y;public static float Distance(Vector2 a,Vector2 b)=>(float)Math.Sqrt((a-b).sqrMagnitude);public static Vector2 zero=>new(0,0);public static Vector2 right=>new(1,0);public static implicit operator Vector2(Vector3 p)=>new(p.x,p.y);}
+- public struct Vector3{public static Vector3 zero=>default;public static Vector3 one=>new(1,1,1);public float x,y,z;public Vector3(float x,float y,float z){this.x=x;this.y=y;this.z=z;}public static Vector3 operator +(Vector3 a,Vector3 b)=>new(a.x+b.x,a.y+b.y,a.z+b.z);public static Vector3 operator *(Vector3 a,float b)=>new(a.x*b,a.y*b,a.z*b);}
+- public struct Rect{public Vector2 size=>new(xMax-xMin,yMax-yMin);public float xMin,yMin,xMax,yMax;public static Rect MinMaxRect(float l,float b,float r,float t)=>new Rect{xMin=l,yMin=b,xMax=r,yMax=t};}
++ public class Transform:Component{public Vector3 position;public Transform root=>this;public Vector2 right=>Vector2.right;public int GetInstanceID()=>gameObject.Id;}
++ public class GameObject:Object{static int next;public int Id=++next;public int layer;readonly List<Component> components=new();public bool activeInHierarchy=true;public Transform transform;public GameObject(){transform=new Transform{gameObject=this};components.Add(transform);}public T AddComponent<T>() where T:Component,new(){var t=new T{gameObject=this};components.Add(t);return t;}public T GetComponent<T>() where T:class=>components.OfType<T>().FirstOrDefault();public T[] GetComponents<T>() where T:class=>components.OfType<T>().ToArray();}
++ public struct Vector2{public float x,y;public Vector2(float x,float y){this.x=x;this.y=y;}public float sqrMagnitude=>x*x+y*y;public Vector2 normalized=>sqrMagnitude==0?zero:new Vector2(x/(float)Math.Sqrt(sqrMagnitude),y/(float)Math.Sqrt(sqrMagnitude));public static Vector2 operator -(Vector2 a,Vector2 b)=>new(a.x-b.x,a.y-b.y);public static Vector2 operator +(Vector2 a,Vector2 b)=>new(a.x+b.x,a.y+b.y);public static Vector2 operator *(Vector2 a,float b)=>new(a.x*b,a.y*b);public static float Dot(Vector2 a,Vector2 b)=>a.x*b.x+a.y*b.y;public static float Distance(Vector2 a,Vector2 b)=>(float)Math.Sqrt((a-b).sqrMagnitude);public static Vector2 zero=>new(0,0);public static Vector2 right=>new(1,0);public static implicit operator Vector2(Vector3 p)=>new(p.x,p.y);}
++ public struct Vector3{public float x,y,z;public Vector3(float x,float y,float z){this.x=x;this.y=y;this.z=z;}public static Vector3 operator +(Vector3 a,Vector3 b)=>new(a.x+b.x,a.y+b.y,a.z+b.z);public static Vector3 operator *(Vector3 a,float b)=>new(a.x*b,a.y*b,a.z*b);}
++ public struct Rect{public float xMin,yMin,xMax,yMax;public static Rect MinMaxRect(float l,float b,float r,float t)=>new Rect{xMin=l,yMin=b,xMax=r,yMax=t};}
+  public struct Ray{public Vector3 origin,direction;}
+- public class Camera:Behaviour{public static Camera main;public float orthographicSize=5,aspect=16f/9;public int RayReads;public Ray ScreenPointToRay(Vector3 p){RayReads++;return new Ray{origin=new Vector3(p.x,p.y,-10),direction=new Vector3(0,0,1)};}}
+- public static class Mathf{public const float Rad2Deg=57.295779513f;public static float Atan2(float y,float x)=>(float)Math.Atan2(y,x);public static float Max(float a,float b)=>Math.Max(a,b);public static int Max(int a,int b)=>Math.Max(a,b);public static float Abs(float n)=>Math.Abs(n);}public static class Time{public static int frameCount;public static float unscaledTime;public static float timeScale=1;}
++ public class Camera:Component{public static Camera main;public float orthographicSize=5,aspect=16f/9;public int RayReads;public Ray ScreenPointToRay(Vector3 p){RayReads++;return new Ray{origin=new Vector3(p.x,p.y,-10),direction=new Vector3(0,0,1)};}}
++ public static class Mathf{public static float Max(float a,float b)=>Math.Max(a,b);public static int Max(int a,int b)=>Math.Max(a,b);public static float Abs(float n)=>Math.Abs(n);}public static class Time{public static int frameCount;public static float timeScale=1;}
+  public enum KeyCode{W,A,S,D,Alpha1,Alpha2,Alpha3,LeftShift,RightShift}
+  public static class Input{public static HashSet<KeyCode> Held=new(),Down=new();public static bool MouseHeld,MouseDown;public static Vector3 mousePosition;public static bool GetKey(KeyCode k)=>Held.Contains(k);public static bool GetKeyDown(KeyCode k)=>Down.Contains(k);public static bool GetMouseButton(int n)=>MouseHeld;public static bool GetMouseButtonDown(int n)=>MouseDown;public static void Clear(){Held.Clear();Down.Clear();MouseHeld=MouseDown=false;}}
+  public static class Application{public static bool isFocused=true;}
+@@ -41,15 +41,3 @@
+ namespace Session{public class GameSession{public static GameSession Instance=new();public BattleSession BattleSession=new();}public class BattleSession{public BattleRuntime BattleRuntime=new();}public class BattleRuntime{public bool isCompleted;}}
+ namespace Battle{public static class BattleMapBoundsContext{public static bool IsActive=true;public static UnityEngine.Rect Arena=UnityEngine.Rect.MinMaxRect(0,-4,32,4);}}
+ namespace Battle.Morpg{public static class BattleMorpgLiveRoute{public static bool Locked;public static bool IsTransitionLocked(Character.CharacterManager c)=>Locked;}public class MorpgEnvironmentRuntime{public static MorpgEnvironmentRuntime Active;public ZoneData Zone;public class Point{public float x,y;}public class ZoneData{public Point[] walkable;}}}
+-
+-namespace UnityEngine{
+- public struct Quaternion{public float angle;public static Quaternion identity=>default;public static Quaternion Euler(float x,float y,float z)=>new(){angle=z};}
+- public struct Color{public static Color white=>default;}
+- public class Sprite{public Rect rect=Rect.MinMaxRect(0,0,512,512);public float pixelsPerUnit=100;}
+- public class SpriteRenderer:Behaviour{public Sprite sprite;public Color color;public int sortingLayerID,sortingOrder;}
+- public static class Resources{public static int Loads;public static bool Missing;public static T Load<T>(string path) where T:new(){Loads++;return Missing?default:new T();}}
+-}
+-namespace Battle.Presentation{
+- public class BattleCharacterAuraBinding:UnityEngine.MonoBehaviour{public BattleCharacterAuraView AuraView;}
+- public class BattleCharacterAuraView:UnityEngine.MonoBehaviour{public UnityEngine.SpriteRenderer BackArcRenderer,FrontArcRenderer;public void SetSelectionActive(bool selected){enabled=selected;}public UnityEngine.Vector3 PositionOffset=new(0,-.25f,0);public UnityEngine.Vector2 VisualScale=new(.2058f,.15435f);}
+-}
+--- a/Artifacts/Engineering/SeojinManualControl/REPORT.md
++++ b/Artifacts/Engineering/SeojinManualControl/REPORT.md
+@@ -1,41 +1,25 @@
+-# Seojin dual direction HUD install 09 완료
++# 실제 runtime Hover 방향 rootfix 08 완료
+ 
+-선정된 두 source PNG를 versioned Resources 경로에 원본 바이트 그대로 설치하고 기존 selection aura 아래에 독립 HUD 계층을 연결했다. 기존 aura prefab/loop/animation은 변경하지 않았다.
++## 정확한 원인
+ 
+-## 설치와 표시
++Resolver에서 설정한 orientManualPresentation이 ProjectileFactory.CreateInstanceRuntimeData 복제에서 누락됐다. 따라서 실제 생성된 projectile에서는 앞선 visual 방향 코드의 gate가 false였다. Hover 역시 runtime direction을 받지 않고 target−owner 또는 spawn−owner를 추론했으며, Charge followOffset=0에서는 owner.right로 귀결됐다. Factory spawn과 MoveController는 gameplay root에 회전을 쓰고, 앞선 ProjectileVisual 자식 회전은 MoveSO의 applyDirectionRotation/rotationOffset을 따르지 않았다. Warp instance DTO 복제도 해당 두 설정을 누락했다.
+ 
+-Source manifest SHA: 99737281257a6c67b77eb4ac418ff97689d1d2b2850db11096e282d34703a5dd. exact2 PNG SHA, RGBA 512×512, Sprite Single, pivot(.5,.5), PPU100, 무압축/alpha/고유 GUID metadata를 확인했다. 실제 Unity import는 실행하지 않았다.
++보존한 수정 전 Factory 메서드를 동일 하네스에 넣으면 manual flag 검증이 실패하고, 수정본은 통과한다(negative-control.log). 이번에 확인한 G1~G3 Charge 실제 clip은 rotation/euler 곡선이 비어 있고 root flip/sprite 곡선이 있다. 현재 문제를 clip rotation 덮어쓰기 때문이라고 단정하지 않는다. 새 계층은 향후 localRotation 곡선에도 방향 wrapper가 덮어써지지 않도록 분리한다.
+ 
+-설치 경로: Assets/Resources/battle/Presentation/SeojinDualDirectionCrescent/revision-01. 기존 파일 덮어쓰기 없이 두 PNG와 metadata를 새로 추가했다.
++## 최종 구조와 동작
+ 
+-SeojinManualControl.Configure에서 이미 생성된 AuraView root에 HUD를 한 번 연결한다. SeojinDirectionGround 아래 MouseRedPivot/WasdBluePivot 및 각각의 SpriteRenderer를 만든다. 색상은 원본 그대로 white tint이며 파랑 반경 1, 빨강 반경 1.15로 같은 방향에서도 분리된다. PPU100과 실제 aura sprite rect/VisualScale로 outer-ring 크기를 계산한다. 지면 타원 비율을 역보정한 방향에 atan2를 적용해 표시 끝이 월드 입력 방향을 가리킨다. 회전 쓰기는 두 HUD pivot의 local Z뿐이다.
++실제 Resources/skill/ProjectileEntity.prefab은 ProjectileEntity → Scaler → Renderer(Animator + SpriteRenderer)다. 수동 Direction에서는 Scaler와 Renderer 사이에 __ProjectileDirectionRotation을 삽입한다. Animator clip의 local transform 쓰기는 Renderer에만 적용된다. wrapper world Z만 atan2(ProjectileRuntimeData.NormalizedDirection)+MoveSO.rotationOffset이며 applyDirectionRotation=false이면 offset도 무시하고 0이다.
+ 
+-빨강은 live mouse ray, 파랑은 현재 normalized WASD만 사용한다. 파랑은 release/상쇄 키에서 즉시 숨고 last-facing fallback이 없다. invalid mouse는 빨강만 숨기며 유효한 WASD 파랑은 표시할 수 있다.
++Factory instance 복제가 방향 플래그를 보존한다. ProjectileMovement가 NormalizedDirection과 authoritative/visual-only 정책을 context에 전달하고 Hover는 수동 snapshot을 target/spawn 추론보다 우선한다. 수동 Direction에서 Factory spawn rotation은 identity, MoveController의 root 방향 회전은 비활성화한다. 재초기화 시 projectile root를 identity로 두고 movement controller를 재구성한다. ProjectileVisual의 이전 방향 자식 경로를 제거해 wrapper 한 곳만 각도를 소유한다. caster/collider에는 방향 회전을 적용하지 않는다.
+ 
+-## 숨김·선택·재사용
++Hover/Linear/Warp 수동 Direction은 동일 MoveSO flag/offset 정책을 사용한다. 비수동 Hover/Linear 등 기존 controller 경로는 유지하며 Warp clone은 flag/offset을 보존하도록 고쳤다. G1은 이름이 charge가 아닌 active_1.active_1.move.asset이며 실제 equipment MoveSO GUID를 따라 G1~G3 모두 Hover / applyDirectionRotation=true / offset=0임을 확인했다. SO/JSON/clip/prefab 자산은 편집하지 않았다.
+ 
+-Aura SetSelectionActive의 enabled 상태와 실제 arc renderer visibility를 모두 확인한다. manual 소유권, UI, pause, CC/rooted, death, transition, explicit Auto, battle end, disable 시 두 표시를 숨긴다. UI는 기존 SeojinManualControl의 global no-intent 정책을 따른다. 따라서 pointer-over UI도 빨강·파랑 모두 숨긴다. 이는 파랑이 마우스 방향을 사용하는 것이 아니라, UI 동안 전체 manual input이 정지하는 기존 계약을 반영한다.
++wrapper는 원래 부모/sibling/local position/rotation/scale/flip과 기존 wrapper pose를 저장해 despawn/disable/reinitialize/destroy 시 복원한다. physics root 또는 physics component를 포함한 subtree는 wrapper 대상으로 거부한다. 현재 ProjectileEntity는 실제로 Destroy 기반이며 반복 reuse 계약은 대역 하네스에서 검증했다. 공용 prefab이 없는 root-bound Animator fallback은 안전하게 wrapper를 취득하지 않는다.
+ 
+-Resources는 bind에서 캐시하고 hierarchy는 한 번 생성한다. LateUpdate에는 managed collection/GameObject 생성 및 Resources.Load가 없다. 카메라는 캐시 후 비활성/null/1초 갱신 때 확인한다. disable은 renderer/pivot을 숨김 상태로 돌리고 camera cache를 비운다. sprite 누락 시 한 번 만든 빈 renderer는 계속 숨겨지며 매 프레임 생성/재시도하지 않는다. 재bind에서 sprite가 복구되면 기존 자식 renderer에 다시 연결된다.
++## 검증
+ 
+-## 정렬
++기존 392 + 새로운 factory/hover/controller/wrapper assertion 229 + 수정 전 negative control 1 = 622 통과, 실패 0. 8방향 visible world forward, offset, apply=false 0, clip child rotation 쓰기, misleading target, physics/caster root 0, 반복 parent/local pose/flip 복원, legacy Hover, Warp clone 설정을 검증했다. 실제 production C# 및 추출한 Factory 메서드를 Unity primitive 대역과 실행했다. Unity 엔진 화면/Animator lifecycle 실행 검증은 아니다.
+ 
+-MORPG Default layer: background(-1000) < back props(-900) < HUD(-850) < body(-800..0) < foreground occluding props(50) < telegraph(100) < world health HUD(200+). 기존 전경 소품의 가림 규칙은 유지한다. 일반 전투는 background(-1000) < 새 HUD(-999) < ground telegraph(-998)로 전용 정렬 슬롯을 추가했다. 기존 일반 ground telegraph의 상대적 우선순위를 유지하면서 절대 order를 1 높였다.
++runtime compiler 오류 0 / 경고 31, editor 오류 0 / 경고 41. MORPG SHA 동일, 보호 자산 455개 유지, 이전 승인 설계 필드 15개 유지. diff 및 누적/revision 역패치 dry-run 통과. Unity GUI/headless/Play/import/staging/commit/push/실제 rollback 모두 0회.
+ 
+-## 검증과 한계
+-
+-기존 622 + HUD 27 = 649 통과, 실패 0. input/HUD production 대역 실행 78개 중 기존 input 51, HUD 27이다. 8방향 visible world direction, 동시 lane, release/opposites, UI pointer/focus, selection/renderer 숨김, pause/CC/death/transition/Auto/end, missing sprite/rebind, 반복 hierarchy/resource 안정성, sorting을 검증했다. Unity GC profiler 측정은 아니다.
+-
+-runtime compiler 오류 0 / 경고 31; editor 오류 0 / 경고 41. 보호 자산 455개 동일, 이전 승인 설계 필드 15개 유지. 기존 aura SHA 동일. 누적 patch 기존 50개 / new 43개. diff 및 revision/누적 binary-aware reverse dry-run 통과.
+-
+-static-preview.svg/png는 원본 이미지와 실제 오라 크기를 사용한 정적 합성이다. PNG를 로컬 SVG 렌더러로 생성해 시각 확인했다. Unity 화면이나 Play 결과가 아니다. QuickLook thumbnail 실행은 sandbox 초기화 오류, browser file URL 확인은 URL 정책으로 거부되어 해당 UI 경로는 사용하지 않았다.
+-
+-Unity GUI/headless/Play/import, staging/commit/push, 실제 rollback은 모두 0회. 실제 Unity runtime 외관과 import 결과 확인은 미수행이다.
+-
+-## 산출물
+-
+-asset-audit.json / source-manifest.json / installed-files.json: 원본·설치·metadata 근거.
+-check-00~18.log: 실행 결과. static-preview.png/svg: 정적 합성.
+-correction.patch / rollback.patch: 이번 변경과 binary PNG 포함 역패치. 상위 scoped.patch: 전체 누적 변경.
+-
+-앞선 Hover08 report 전송은 자동 검토가 목적지 공개 권한 미확인을 이유로 거부했다. 이후 read_thread로 같은 ProjectBS의 [개발팀] 한결 — 팀장 task임을 확인했다. 작업 산출물은 로컬에 보존했다.
++hierarchy-audit.json: 실제 prefab/clip/MoveSO readback. check-00~16.log: 회귀/컴파일/감사 결과. correction.patch 및 rollback.patch: 이번 변경과 역패치. 상위 scoped.patch: 전체 누적 변경.
+--- a/Artifacts/Engineering/SeojinManualControl/receipt.json
++++ b/Artifacts/Engineering/SeojinManualControl/receipt.json
+@@ -1,34 +1,24 @@
+ {
+-  "revision": "dual-hud-09",
++  "revision": "runtime-hover-08",
+   "status": "complete",
+   "blocker": null,
+-  "completed_at": "2026-09-07T21:33:41.406674+09:00",
+-  "source_manifest_sha256": "99737281257a6c67b77eb4ac418ff97689d1d2b2850db11096e282d34703a5dd",
+-  "exact2_installed": true,
+-  "sprite_single": true,
+-  "RGBA": [
+-    512,
+-    512,
+-    8
++  "completed_at": "2026-09-07T21:19:05.463532+09:00",
++  "root_cause": "Factory instance clone dropped manual flag; Hover inferred direction instead of runtime snapshot; competing root/child rotation paths; Warp clone dropped rotation settings",
++  "body_gameplay_caster_rotation_z": 0,
++  "rotation_owner": "visual wrapper above Animator only",
++  "angle": "applyDirectionRotation ? atan2(NormalizedDirection)+rotationOffset : 0",
++  "manual_snapshot_priority": true,
++  "charge_grades_MoveSO_true": [
++    1,
++    2,
++    3
+   ],
+-  "PPU": 100,
+-  "pivot": [
+-    0.5,
+-    0.5
+-  ],
+-  "existing_aura_unchanged": true,
+-  "red": "live mouse direction",
+-  "blue": "live normalized WASD only; release/opposites hide",
+-  "UI_policy": "both hidden: existing owner global no-intent policy",
+-  "selection_gate": "aura enabled and arc renderer visible",
+-  "rotation_owner": "HUD pivots only; inverse floor ellipse projection then atan2",
+-  "camera_cached": true,
+-  "frame_object_or_resource_load": false,
+-  "missing_sprite_hidden_rebind_recovery": true,
++  "pool_exact_parent_local_pose_flip_restore": true,
+   "tests": {
+-    "prior": 622,
+-    "HUD": 27,
+-    "passed": 649,
++    "prior": 392,
++    "hierarchy_runtime": 229,
++    "negative_control": 1,
++    "passed": 622,
+     "failed": 0
+   },
+   "compile": {
+@@ -40,11 +30,9 @@
+   "checks": {
+     "diff": true,
+     "reverse_dry_run": true,
+-    "existing_files": 50,
+-    "new_files": 43,
+-    "protected_unchanged": 455
++    "protected_unchanged": 455,
++    "morpg_unchanged": true
+   },
+-  "preview": "static-preview.png",
+   "zero_runs": [
+     "Unity GUI",
+     "Unity headless",
+--- a/Assets/Scripts/Battle/Presentation/BattlePresentationSortingPolicy.cs
++++ b/Assets/Scripts/Battle/Presentation/BattlePresentationSortingPolicy.cs
+@@ -7,14 +7,12 @@
+     public static class BattlePresentationSortingPolicy
+     {
+         public const int Background = -1000;
+-        public const int GroundDirectionHud = Background + 1;
+-        public const int GroundTelegraph = GroundDirectionHud + 1;
++        public const int GroundTelegraph = Background + 1;
+ 
+         // Exact MORPG route only. Default layer: background < back props < Y-sorted bodies
+         // < occluding props < telegraphs < existing world health HUD (200+) < overlay rewards.
+         public const int MorpgSortingLayerId = 0;
+         public const int MorpgBackProps = -900;
+-        public const int MorpgGroundDirectionHud = MorpgBackProps + 50;
+         public const int MorpgBodyCenter = -400;
+         public const int MorpgForegroundProps = 50;
+         public const int MorpgGroundTelegraph = 100;
+--- a/Assets/Resources/battle/Presentation/SeojinDualDirectionCrescent.meta
++++ /dev/null
+@@ -1,5 +0,0 @@
+-fileFormatVersion: 2
+-guid: 4d5cb694c6890ffe78a5b8b43faea513
+-folderAsset: yes
+-DefaultImporter:
+-  externalObjects: {}
+--- a/Assets/Resources/battle/Presentation/SeojinDualDirectionCrescent/revision-01.meta
++++ /dev/null
+@@ -1,5 +0,0 @@
+-fileFormatVersion: 2
+-guid: 4c534814191c0b6b756be4df223b5641
+-folderAsset: yes
+-DefaultImporter:
+-  externalObjects: {}
+diff --git a/Assets/Resources/battle/Presentation/SeojinDualDirectionCrescent/revision-01/attack-mouse-red.png b/Assets/Resources/battle/Presentation/SeojinDualDirectionCrescent/revision-01/attack-mouse-red.png
+deleted file mode 100644
+index 0399a3096875271c6d2a5ffe280077c8cf88ec93..0000000000000000000000000000000000000000
+GIT binary patch
+literal 0
+HcmV?d00001
+
+literal 19176
+zcmeIai8s{!8$Uem?)J!}5S0w2MQO~~v&0~2xZMm5p~5gUq_K-}-$f%^xWkOCsKF40
+z>|3&xu}%_WDPpoOW8da^58vN;{)Oi}=jR+poim@$d%a%Qb-k|FHKBhQ>GK~DI{<+|
+z_zkY3{)RyQ0RQ|0vTqOgv*7b}4Fb85XMnn9=F>aXKNdA$;U%#`Y^|)G!qQVLOOELh
+zUVlB(b+GGRv6Wr3QBcjl^64T%IF$3y=~jDOyQo7u=_6z*_0Ao?_5_Rl_g}uzQ<l?9
+zI7h7;E_va)sNFN}N{G82>f(OhyvuY^wt8xSIJ!Igt8-)Pc;V{NY6-39=WhHvtHZbK
+z-=@BN8wO_de}Dczv;#q;!woVJNDx<$J2abq^|GOJ%kTP@><~G5)(H(h2xMcuZzGSJ
+zYj04?>A##eX+?AV(&U&;c$9Gb?8=`I$m~r1+~C%-5vIR(=wHJa6pi_J<lCHg0h{8P
+zFri4W&O3(>aG9D$*>loa%`pr{gO$`VnP~FDXoQv5JS8KddeL85Kx;Sn;L@`dO>SNa
+zW6if1alIhN7^NF?mO_?Ra_gJF`1EjTysgT`L7NiezxcJlhl4898({$mE2FTXJ5+~*
+z$u@Z|xYdt3dt-|5{duI3^UL*i`XeJ2twYy?+W*`Kfgp0Xrt-WM#%p9gCqY|;dh*E=
+zPiPL95m70X8K0?dVwWz-nP}e}-251|a{oibFvN^Eb76kt&A7wp*mn;G6w!k!-FBnC
+z@heYNHwQiqtZ(|79Ew3sE%{Ye5PDzdxKuMm$)3BxenD_8y&Sm*rrn)p3QuVYurK%a
+z5j70TP=&vakSdrn>T$2fBw?15ZEcHn2GdC^v29nUY)Fd=*Y<5M>v%zF)wNc&Fu0Qw
+z)m-O3MuB^CpYn6z)mUtX53D7Bo$T~krCZHoR_lG>rk?y|!>54|?ZaSDMjUs_(0I<t
+zB{5d|7=kF4<`}Iauj*tUreUy#^Q!T!W-v}r%`qPwMz5ph{*hX)FTI+f`DoaGp)GJ-
+zqH`u?T~cG*`pd8o1X7dxA+eZDX821a5itYj^$6C3Mbaw2LZ`!E#MX72@VS@9vDc`M
+zCxzqM_hi!?j>^2(?CuUW(jRNhIgZ?&#sePja<1LtkxGx1Yc{>bQHf=^hzkQUk>smk
+zvPU|g_fllicH=Y{49-n6cyl2kQ4d8Ovlm<I&)xbdK3Gsq@mx*qwtKR(tiF**P0!k`
+zYRy2Mi82A-3{z^4ISW~Qk7c9SHT6A21vg#L6d1oEgij&8phU5C-JeiI3S=k1TTfVF
+zqtCei-n+f4*qXsLb(fa^$U_ZNEVMOdxGd+Jj(Bb%n)na-hH0`;Gzzt*flirR@RzCo
+zY}dN}0%^$3zuIOYATfV1SwIM?y^W`ge-RnR9Z`e6#-Znm(59=>J=Dm?;_>_nLF(wg
+z6bxL?eLx6$sl1MKrX^oUV@|)mbXRiP?+@t2Q=~}~?pk)<{{Ow_`mrC3F;lOt;jr<f
+zgYX9VnWGalFL=nT%zJ(k9d2}Q-(-anLhbqJ>SttgieU75=T$3@0naaZ$_f9KYsEr;
+z>|AN@(n0lQoi*y~t8LmN9yjdu3}P~gxso(J)E=?nYq+JM6N$b58pk|gxZ=NtHrzUB
+zXcgzsSMAmlxbca&uuhsO{_WkiDTw|DSO?^R(mH$b`&OGNDPGYv7kb>Jcrff0|3`+U
+zJc7NcanA+^6NchObyI0KafvA8F&TbnJw3;xYOtGkheB2%Po%(0683v-WC?Znb}O?p
+ztP($=5tU*(kID(u8KDkO*b%lmoOl6dyo%gB=01Oi`evQIhqEbdF#jf?dF%U^XB8V?
+zuvaC*!D}GMU7HZpYyDK8tKmgO)HKtZc4Tn^^R|4KL@;er1KMB3(SE6PZ(0VsX5TTP
+zehqa|%=3J6zN=|B9^0KdaHu9;7rZ3s_<lYB9nXrpU6tsnuH$}h3Dm=^vMrlKbA&P?
+zA}E1^wLjBRkVnHVokQfk_ARPm)X&MBA~v216r9<88oZ%KHaG}a=gC-Ue8AAfRB0=e
+zhfaEx1a)*T&I`|$P+;HILq$3Cx5gS!!EIg-h*{7PpD$hYCEa(}ZLtdq-f$;GJLnW?
+z992^4mu}EmC|@wuUZj*r-!iaLBH7a|G!R^p5z5Fud5B{`Jux>RCr>QSn(!Ezl_X6^
+zD4pE7EbaFdc3(d6z58~lPw4^4`-+|cS?9B7FtKA?ah+S6H#KX1N*h+kc&kRO0wb*u
+zCtvSo%)j{bRO954C&tgf93Y6!!&<1h_Mb0sB`Qhs96uIP1iiTT6@D<BkWeSuqtaNn
+z@!;F}s&VG8gsdszz;cT$ck;EC8Q(r4csK}m?|OSx)Me)2#)pg+ZDi%+n=f>~S1dQ9
+z3iHdqy=$uRwWW?<LL@f`Qju-FKS%#!uLtxOKWq<V|LVRX0XYU<QNpTR7&@qjn(LH_
+z7fW5a(9#J#m=~;=<d!(Pm*y4B_^#qeQ<Z5AxHRLLD(JqRyiCNI3!11V$DK<5m$drV
+zLq6b|WS17*_CZ%&L^Q^zJ*VZKJ=QSLi1&Opc#|`!6zV&mk^%qo?5M<x^f}Fg=yfC0
+z?(T7V?|mxn25J#lt6Y*wzzy$6(f`c`Q8STOMYH<!wurzARmOs8+*7|)EkRu}MmDH6
+zG}Ya=Un&J=cU0zSvUeD)6Ck`n-k^86#jZIO-kApB($CNKuv3|`ZI*YlGKN2&Yw)Se
+znn(pFQvHljBFNHeRgoI4@>%|XY}1@c($qrjf{lCl_4AI^7?p2o62z^&y6smnW_*zv
+zb3PUG9l@$0*HNhcz*KD~(vT%rYrJnuv^I@1kk%6|ZI}u#;P1L+)EJweHBlsMSUEer
+z?gx;=-j*8@FxtTPavN|tT{TisC-@DhNSt}@prts1^R~z}@QBU|_RxD1j3h3D9;Lz#
+z491=sUnn!AeH&X`AM-&jB{H*kW|w1}2^Ln9W5!2rGS9O<jH*jElEf8FCEXT4bL^lh
+znQ)EK*e5qX7#dY29b5h2tZIE&GCU*JpuD6|R3J)5^^#%#*j}yOL09&I*ZiJN;h$BL
+zsn)xA_{6K9Q=Tx`_@aNG;#(1@KJFycTLSL+C?+#&35#l)jH3{IXPS%ftWWv^d-Zcj
+zD-Fw&!1+S7lzD5ShNeTx^Zl#~uDWCl8+0kQoP}CTrFml(r7#h2Jz@6sq!WhulK>%4
+zHHF=K#heiK#J(|HkK26z;@Hi7C|*E;%RF+Yn!6kr#zVZ<lAWFNM<^GB;05ob(vIOy
+z`OFw#h{Dr?bGSoyvk9zc3~Cu&hm@O<x0$V}eQf)(B)qZMl^U>BdL1>j^v(R3_V@dV
+zqx6QAf_5Y+O)~OccrENKZ267vk^;Nm4wiop_t+>eaYXlLmCt16rw>{nID#a=*%lTG
+zXr`WB5;>Ojia*|L(fHoJ8JF;XD3pZY1PSB($*i0viF0NB4zO`W&tw7NJ=46XMHI3f
+zNn}az9EF<2E~a0Ff>@)VYjDw~a>%S{m>&Z9R+$}6Q5))K>;B3lPe#E77_t&k4ZnA5
+zfnkHN3-cEpr^*Mp*G{KhXee>ObtkM=7U8!TW)q_SHYKMA1z?LgD(?9)BK0xGF;&zz
+z6Q5rBuf8bQ$H(&qSL`s5iDSAqJ74#laz*QiyB4GUJIqKlx{{svwCp6KRC&1+*%n3Z
+zc~x<450SXJ(QF)uUrvT>4}JU|xK{j1Pu<^@{Iynhm_@@X6nG;WQjc_)VL~YshQKrL
+zRO8NHfn6oCt&7w$BN5@f`5Yq%9kM;LAtvZzcDJX$%SGTsx(X}$6<dNuYY%I)0tKmx
+zN1~y`@d}dkrDu((zH3m5R2nQKp=$XXOCWDI49vS`()!?6j)ZM^`rEe+GJ#(er{0PV
+zt&0sWqdmLKdQ==yg_9L(KP%M6E3A%0Pxsx?NH#LuhT8uPZZ!!EyP#v~`qRWuXIt{8
+zL~A2Nhy3Ylu7}=-!t=>j;Da;Fg@diDpIX=d$r4^)x+HTjY}YlN)4c1-_>u5q*f_cU
+zW9{jID&Oo-xPaXui<^rX_C;k(K_`@%G}f;#<1?Jyf6x3^a)qgMWgw|oQjl-woX5@u
+zk#l4XkIA&yUrl+Um;;XaT*FFA!>tCv1PVGyEy44doHX9=bm1!rou>S&%WC|<Yww(t
+z2hlFGGEmdQzf#_SNr)&D(^)x=utgxsIM-h~4E3>@S4n25Jt(uUm={ZH0s5$LJIMCM
+ze4oDU+#1tO81of911I8eMOpB`Ou8n#;5}U)dY*FfK`1w$a`Jpxzi$LQkLK|3Xa6$v
+zk1d4nBe2{Rmpg3DDp4h+kZVc*VWXqw(@IWJM=wEr$>fxqo&Vhnw?S#dA6t#5(gz+6
+z#P=f!Zv7?4L!FinZ%6vLHwR`XIc@k1(<e5?R`r5<o)|)%pj@3`E2Y;fyaQf9>DiKQ
+zu4<}H4U;^PnN3%_CHmSzqwI&f)XsLjJMh3^v21CrvW9_iVqNMg5$;{u1uJu+%fcEM
+z6yw;v`Ds3<4VXHu>nfNQJ(d({bm6@0*7kmdVS-*fl{jQT{q~A~*x6EmvI-13g%V*G
+z4q`4S)~I0eI@NJKi5SM{qew7Fy$6HxLc!@m5azp2!}<q$4{*W`zTpIB6R50Lc#Xo$
+zY_)2)x}<WXZ@bLr0DRmfwV8D~b#X0V8H9U3|7XSS%I&LBat&iXebgT5!n@WOIr_M-
+z>02+?Kd(Sf-U!=(BCI~oKe~oe?JB$(nRDVu-~Up9z)M#QVpT)loz$ri>s`t~dDJr)
+zD*E={?4o5JQBNo^9iU_0>mdDL{aUoJ{p7bKAzn4R9|HN2r_R^cQ`!6?>az5~X2ayE
+zmY+8|rZlh%Wo@g-RkSc=uoNn2CmyKWe`?c~K4+}-?OWcl<a?%==9$gUtSJgJ!y|(Z
+z$>iBn&WYV8e1AFRWYeMSBJyubC+af!_kpRKd!=D*wNWc|5)N^}M#W5i!gZx@O0#-9
+zQSw8bA0Ait!~V`{;Kx+HmJB?qlcT}WtI_^8^{7=QP{n`=yEtFiJyV(-|3}BcAl~K{
+zSnfV2!=zo#c4r}#bXeetTVaILP&n*HU8#Potbdb?fxaE%S=y|wNt1TQr_4W2gNJIu
+z&H3hyI)wYDks&3=bxJbfHh*=UZMe?JVN?uee0Im#m~|BrdhJV8Jk*r_*tt0G4_rAF
+zanBm_ffB)(ENfVC6dRuEw}F_pfN?snmdiDBYzEHfXHpl~YyXz+7+7}qA4(zA5nmk?
+zvk0$fM;0+#)V{BiO-C_MsJ+R{jg0#$E%~jtt5YM3^aF{ix`-V#NCS~0K}6%K1f?{m
+z**TGtSFczhVt1P<8ce~U)`t3}bc>0n3#T4+O#Rv{t>SjcrPkazT}!M1;G2#K3a-B<
+z3pRu~5!pQEq29~^p-C9d>pJQdMjfHaU@T`~i!3d=y!O4C^eAru;Y<U&QEFi9{C3tF
+zgnNDX$8Vvi348faPYeeBL=tMP)MZR|I-&CbWiOlm-{>k_cp&vPUa5`aaaC+p>f%#-
+zgA*5aRvT8#x98yFb1(&jTfN{nvqd3(_pWK=E-{3+^^k<;z@Uguf=pW4xdVf#6V2eF
+z>}%Y4>@g<j=jauj?m(SrqvR77ye<s>B#NAAhEYT~;+EBBqR!yUl18x>7yzzKss6+0
+z9QXfYjXbnhP5Bc>Pa-CwJTP{TtaK{uapOs*FsexO@X#-^-pMP(j?{_u;CepSUE2pQ
+zYtEMvu%&X65anSPkgiZ*aOkI(X}3g3k-8&Y3gdwD8tR9$H-}rx1F$K}NavzbxJSbN
+zAaG?Mh}*kw-L?!LvF}ajA!ENG8={bP6R5hno3ipVvA^IjOOq}>1RH>QHRAaH!RGe|
+z9&j4oDxVP0vBr2hvD^>2qcLs`f=w#=4B4UnXXJ8C17>|rlO|!$Bc22O-#&hOs$&I4
+z(lDSF;c4)YONjDoD5mJY36%Fuf5*IuQk^kRD2;!eWn6HxHAy4*mDculJm&cyCJ5vr
+zV&_T}3bH8t=tWg1fpQ#C5Q9yz?|BS+sEKF`E<zV8KAr9pcN+@c4l-UIuRL-c)jP4Q
+zGjN{fi6uCP$KRaF*NgDpx`uPlH%?Of6>Hzhn0L*aFxKE8^>*=cwHjHAKfZOlK6SSI
+zHq`enYa;9wen6(+eM3{LibHf@jN`@Da$npu&Nn63+PXg(?B4eN72Mjby!CZ|znJR>
+zv0>?u5@DT{mjtSd*wFMs4GJ~wJs@$DlVfX?p^J(8y!PO?AVd%hbw{rf1ep_Ui;p=~
+ziUrYn)()e_<jhd`e5*+fAA8dTm*O~Tv`<pK#I2`tYurV7j}~|+2%GZ<h}*va^uAP<
+z97kyu{Ui+SKRvpivL7K1^?XFVDm}F1xxQ(X!p7$f5)+x{zg^w-YbJ`xapv)u2LoL=
+zMfn1Zyp<I081x?QZnTuf+%mKy<M5xG<MGBX4{rm4Q;6dqh3IqwvxvZqL@$<6tR>U*
+zFcfk)MWn9uSeNqYG^22MOV}Uj|7@po=IZMkL}9x^(SLEiHq@TCqP2}QRU`riLlg*v
+z^|1r;>tNQV&9veDJ9`XinI#0#@Ujh=uLu*)mah2lcpYXgKKv}~3*++V&SUNmOMZKd
+zc3y4%La%kYvpsu<L~)%<84mZy%isl5Wpvks9tZyS`~*Xkv~0fS=lo;BHa80jSreX2
+zU`G;G*pKjS$ZeMu_)|=P5O`NGAO?w3oYTODN#0f{2&K%m-V9QKVmmU!P+tuTWT(8!
+zbD8J=;^S>Fg!<7gsAcSHL%PZRan-L5n2>fb!ECYN5M2xujx(|zI(!COb{(aTX^9t@
+zBt8!QM+&z3_Ff8aBOtgYVEmJfGZl{MQzpL`%3fp<T)s|-4M&KkH;8^Vt7j~Q5ijE7
+zTA(KHef`y~%RijWt6mf1ZfUL%c*Gh67k<e@wKsL*X&GHiIECJzfGGdMIMc7P=MExK
+zBzhg=2{(w1)I<AkruZ+dvR4uZw*)Tmo<rI-LfSOANdRkAj~i=So4=rdz(G?wO&q7!
+z>VI#v@66U+Q#HZfc66t73#ZT8XF0%ktX||VUND_df1zeB!|3-$?P=8+7gKSejxz`~
+zH=JZc6XPc1QB%feDEqdO0h1vUdhyv%3JE5<9f7O<8Lppx%R_Cd6<!n4;1f!w(Z<O=
+zWEIEJW5Ov)1${CDGI+nX!+&b?rbiulr3DU<ka)HTZ6(xkF62QhxyVbz2j``M=3(})
+zii=eGl7_)AV7oBh0}SWgKYk&MU98RDU(OD}HZUGFe|3cyOjih8zdUC+)OQUwzAA0d
+zz+$=Hbw4dv{m`6ePY_(;fxqJ3oW*wn5~@K^3B7n0UcAI<{AV-<ss1ZKK97!#p<PCs
+zY7p0s_Gbs|01^iiR7QVG=sgE}LE*<Nic!#Bq*U@lgc_qZ%z%27z?AkiDIvO5__i(W
+zcvnWEk>NzkvK<SFK6Ez?Ze!6!K-fXy2+rlXi>SguMj0*6L3es)<bBOHbaA}aAu&h-
+zwgg!)@t(gswCP?r3ddj^)G$~QGLbWg^{DtTwMN|ZUsB!nkL@<Ucah<i;qV4QanqB|
+z;oZo(>!=Fi$#=s{kB=(0NBeV^4Td^pW4mnw`1N^fE}-MZ$~`&ehX^cr&VOXr#GWS%
+zGNnr;zO3%>qakK{QC02*wve3RV?Gd_LLe;<r0!&x*0qP2V+=8s4uG^m!L;cYKmri+
+z`crMLl9CK8(t8c^fM;}9!T`sp%^qb-9qfKZkg@kNwYx2q_D=jrg70VF>fcGmiDgR~
+zbE!*wr@@CIjF*6jcEMov*teOAQ-xU*p0F}!oM(8nZXMYvCHSz)Oql`Io;g=Hv&7fu
+z5)s7P9WDP?&{>ekDfXViXLKKg{hiq3b?9dqC88-D(?!m_Gy3TjKS#r0z6c-lw&hj1
+z$odX$=Diy$EG)vO8OKn`4LC1TofAh8q2y4qOxmv2^1wrI<4)w~{F}nUdzbtEhXbdm
+zd+(r7!&8I^Npn;o9%rS-grG4LiU`X74o%mIWiL-DL848z&B1}dbYdb+P~+`IIyf7t
+z0ztc@P!rgA7_qr^HPSdnx*5SvvfHuNcqsG(p<PgWDrxZVE~~oRYV7F^4dPSXrO?<&
+z;$@1&p*r8T<zB7Ryxn|RsR(_?nnJN}n_6^9hrGkl?Jy3QGx8Tv_B{;0A?d6yf1{r8
+zl4}2P2QA(M-%TU0J~T_Dbxgf|tA#R+nDcV#MMp%V>c~9>O&U-NGZSy!ZIm=ysx+{j
+z)d%60_tlJ!vhAoe$(f_apoEYj>o5YD?#!4ZJ7F;*bq3#36N#T9&?>78=0b}bX)lk3
+z3c~X9(VfxEx`*-vimx<G94CD9MJO5T^P|ERSy1a6{~CV*RVP=u^2avN6o^3t`beq5
+zy3l|js|d>@9g5K12-eB{ef_2T+q*KcREMqF@|j`Y;RfMKptImVR^cXg<bQ$<BizHt
+z7jQTj3}-~~4JD5T#2h7t9jxk}DF+uPjOTlUuo#OEi=(6WoLDbS4265{jE2&w<OI4Z
+z6uW?zccbZ=ntxvFC18JhOjDHjwq0o6dtPqYoO=5!vROO)m10+$(Vx<=dkArIlUAJr
+z+In4Q`Q)f$Dk*XY>P&cWJH@It=D5l@eSJw6if~V+*o8;et2_*yN$k;5!08qb7b!h`
+zC}+JJ#hX!2-{{PL<5LrZE5Z5dq>1J2L|8PP@YXGplM9VLA9kOLC1&gn3Z)!mZ~jZZ
+zs4X7zX4m>_=J_2!I`ij-FMy{wD($^%wL~nEfcelNnt?j%CC(Rm?o8TlwzXWtbF`kF
+zehH74(JE-4;~u<wM@bNP_-EtvBGJdrU!9yUAuMR-GmJk@3%d{Xoq+O_Glzv{qBK2+
+zQhbj#4eNuwUi#9SO8#E86=6(zWpXL;;yndQ5zajSfi6QDmP3~{8og!zBWXsSn7=ls
+zyE+{;SbK@Lw(|bgm4UYDKGI#j)JQ!X?rp;@dCrsRL%U#5Nf^~`^dIH1LNp+GF952a
+z2Oc%nRqI@jM>EZNNh8VEG*UID%KZRfQnDIOw?-iAqAB&FQrQ;@u0N%)bze7?pPY$B
+zO~0_<+l~-$hTOr8C2tMujZm_%>dC;(u5KUvl^@G;j~=n(f~fefXG5+i7C@o($rm88
+z*q;?M<<jR-((VJF{oN`rWrD#W?ftBk<<2m<joP7Vr08t)3!Qw86J;63fmritwVQN$
+zYq@#45ytaAu7lyTjK2dLZz!6o6Z{+MPU?XFu`_)q@3|R|1JiAbBX#jrr$4p4V%;7T
+z#Nkq<Kgv|ecZFtsK-JN2Fk~6G1%VCA3%gsG=cV(W)bjS`49Ydlhr11woUuyO=>}1^
+zO?CWN%*c4YJi_Icy{yp<VR$(Qd0L2Qf%1dJC}EP5Rysxg<QW*GOf8Df#&2%-dRQR0
+zX_tPJZzD)PV{q8c)YN5s-0`rlUhI7@d&l^$M3^+?oKB0Rdj$+Jk<ER;uK%kX*hl8Q
+zqu}=Lm!QVdGwQL17cF@>cEFdty7t1Q^XrGhuh1--yS+K3=X+WlaP}&lnYBiKfQKP3
+z)R)2xVt>_q+>9jGRc-NK<Gm;W>f%zYxjFH9>3f)v8*aQpf`TRB3K9F7P_NlXNY|5C
+z`lv92IM2O?VXNZYaoY@kl|N7O9-Ioc<MAQ{z-}}d4E6Xo4n4`H#~|BeTjYPLo#cLD
+zywE)Zy<0^TdU<DbJyteA`O^F+G-fI>Qif=(;R&nuT^)DbcZY{-U_(+N8cVZ}^-zWH
+z-T_$lO}Pj)ae6FBq{C@-Cqh-~L|Z@(F^RPg)=jxHYKP4r`nbB^HNdR*2g=!QuH4HP
+z(Sh)eg|T)MqDEZ%FIgfgGuPRLbw_d!GZTlS!RZuT==r4O{RiWRUdsbg6krJ1BlNd&
+zSdySjRGr|oVg7wAW}SHO@x~W@kr?1gTY9>y-#h*bIkoE#NDxJUul(SAj56@^7bkj0
+zwF}Ge_oy_Jq(2cD#6i@5VZ;|%uJ6f%*uCB&3%g-{&nOBl9F*MxKBc@U*Y~b(XxyI1
+zYn8<V0*$GvPyifPVENVewV>NKQ10nlm)F5R+auLCUIGYpLef6l*K!{FHp;#MT;u@A
+zg~OA)?c^r}i83KSZaqPv%oc;70rh7zgk*e8&3&ots<$q_8)3%by=7T$HdSI<Er$b-
+z8duJG!=UG(J*jyI7}}@rY%qYSp7N8?YOS23d8qC_EWF3{s@VE!@HIVDvQb|7FXqA(
+zM5;$9mmjKfgAtrXL;VVfc}Jgb4SFew;8L=xj!}7>3cPU2(n=}4j85ORJlLIMZ5@HZ
+zHY6&!)`MH{HZ^M>1Ld&I1%EeO*ciWX(h3WOJ$oF?7ojgD44n%d#6>fFNd`I<r?VJB
+z9d~iAI!sHaUgV{R4_ia&m&2~>hYAN!8TE<`wVAwx9yEe=VxUa@RFq!Ca@Cl}vv+HA
+z^~!xG8bA)b$jkiNp2U!5{P%3*z{WAmA2xv_IlMZiQN|BYC99&w859pTb6g!y!<JX2
+zeZv!s$+5Ar59`b-_0UP)k-E1~*Fo+A1L=N2>hqrR_x$nnv4t`{Yed1@GWuEA-^com
+z{6}I9@4maTa$oTKl+e56#c$KJ(?4c;*6;s$CTT;Aw8d$}kNhL$F;*)xne>-it})s=
+zc6k8ld}s6vBjl#p5fft+u)4{Di8QhxqJXkU{tbc8fU1%1YdhLW+!8EOH{mmx0~3kp
+zI8J#7jUR@SHXPZj<(ezd0Pt$=TW%Y#Xt^C$Y|%H&;ceC2!-4Be&kewOm)UO4?*}v1
+zD3naKwPa|smO!=JmrEvZP<@tlp}s-7qux}$v4U$s<eL~NC;{5>LbP_oPkvLm@Mi#`
+z{8t5QA3^P;TLcx4RYZNgf8VtT?rdd`y(J+)AgX@wj93z>ygS=%!oQ<7_%Aht$}3YP
+z00qJluVB%wQCjCq{X2zy+d~b75~hAjTK)oyq#$6e=$Werq+5LvcCfU5O^yHp#4@Qw
+z*ZMPox+oCr?LnlAYF}u5lkD19o-FtgRrGM>dBCI91DX~2+QDL}{_7bVjhg;X12<aB
+zH@f7m&f&X;;;o@tz_NqX9lhb3$+5P>cB%ePE?ciW34=MZPpGj=2;%OoDyh;b<Rk7e
+zaANn@wFS-|-@CZpslDId&<Ca~PM7?yuyt<*^*aBvUbJ4q1nn=(+(0(5^|DQw_S3_Y
+z#Rk~<kDKe6sUo){WXz}?u8@_99d2LCzf>ZK?87_bsUe3}PEx?onHG7;0_3In+ja~}
+zsXtpmYb+6~jjP=lJFgP9FPlE=m_T`sjVBAhInX)R&~V{oVgPQb_Jkc7ZctG#ddAq)
+z9JBVTS7Dvg71V!vw)qgGWDjuG%i*H`)(dv6sx{jxq&zofI?-<!{Q>W0^gYMkz(tZ#
+zm=-U;KeWT^7%0YMl2jQ}{71_qnG<N+F~e`iv@zsNR+i=X4fUm-F?i^5^^~!z+x`E<
+ztyq}6b3OsehXCKD{%ztSI)fMBJ>5zh*rvW9zcuk!1g8Y{THdzw01-|>S`*q+3zTN5
+zr;e~A*XktfqNNxW3~!sg404lD!Igq{`-GsZRujmS*<Q03$wX<G7u!6@!@#FQCXn=P
+z>S*olL}y);Ww(O&vwx|yH}2TZkFFL<8K(565`|%jYR=`&sfspko92do^?x^ZP_^<|
+zDA^XsIi@`hw1(AUnDY3EvxtHePT*;nAwK2gz34NzX{d>_x7QX!b8v*ynrG10w%p>q
+zXU~y(!QTiWNQ+85lp_y)OKz%R$lrCxQrC=9{9*H1%N5pfF;|F2j7Glz%Oi~mJWb22
+z#b1A(h6REQc>yGp4_V0Gu|;i69LDBoam)B`)#Ud7Uf9WW_zosurPChMsDdU(S`rx7
+zG2Vt;@2xB8$;-REqWHY_Zhgfmh7w9{M>e=c78eg@Pxuj(`@|A^el_%3dfvg8uKikD
+zRHO#)r<@%3;3ixAxt%?%M3F9k2k;~-1g#e({H)QKXjzOPH_3#C6!A~mJ3C9k#MIa~
+zaIT>}WXe=43$lRMd3ikgxXKI~CEK7jwF_lN8SiQ@bc;`)lZaAO;=a4kED_I~ham=+
+z2HcEk%uY31+e%-=K9iiSf9tt3TqbGWFmZp-0bn$fi|l_F0pUFyT>sBo+v;ncSd)zI
+zf+E+<-=1ilLzm|ip!o3jI^JiwZ`2a)aX3lXS=__c<NYe@)x<yVC@K^r()~1$Q+o;4
+zwucD*I_U%9l6}H5R*8w9ZX{SC!jjYW4d;K|D{!)thyT1-E}X1EfNVT|*u0%A&RYE7
+zu@Tjvr0oR?A_nQbeYHXN$hEZ^g>StF)FP<zoD<NK(rJ9~3^gLet8Ju3r4g<-koBh-
+z&dV@8(4Ib1FL=35Ft-Rz%)XpWz?^h*BgAi(2EK5_-Woj7!1{D4;77Y8?|1EI*Ttnz
+zZnp3Wo;A(dHW|uQ)u8I|RC#EJ$5nTYIbZ6pU}d05+AVA&nf8<na*g~p2IO=ZLcqs+
+z&H`3uz+fxX9i*+@J@hlb0hCDI^_VRxLeb55tfTL@z6$q?x61<6H6Hwap5pg&<~v}K
+z^+4ec8oimHw<!ts8Pc!Q4e_>k=+){D=!6-s7#jTmdozi0NvPv7V?za|s*PGTvXCH+
+zVzk2GViX0`!h6alN~fYvu?2%D7iPWt_LVoB_P!V7uLM@nL~+Pm@0#E3-yXn^(vwLe
+zvTt2Bf@8S0GDwiJ*Vx!>tnv=^;7pYqHd-y!M}m6RdjJ&fLMbysGm-C`Hc?;u`45(d
+zag7|SV?g>m=LoNx38ATXn{^peRzK0`JT*^2E<HkY_<DLAPxS%9+NZGQTEJ8dxyBAo
+z50Q#@fPZK<)mVgUcUbc`D8HAmYz7}B7I!mCKfZjhUrwGQ={_wf?E9Rt=HaM(ikaL|
+zjq;{$hLiQ`HlUQvAo9R|bb(m!ySwP}GeZsNelt(&V&DPX(+pzHLC03RFlq+&6Jld>
+zti>6x4OVyc$LdLuoy@@4?|->K+Btj9C^b9#OPk!~*J2;o6`-j2E6{!VntY;6+JCwy
+z`m@4kY^Geuzd?QCA3b$_hNjDxc}vr79o%sl{NEqYEa&i_fZlHeWDUN&Z7W43z}fpU
+zgr~8n10pB?F?J)=L+R??Z6%HW7m&of2sU~ezh{@mg9p{(t^(HK9Z-`aIyTbyd@a;P
+z)WQ|$l+@^Ds6+YioOkXr;RvtRP^?gwO6gf`M;2$}Rc>%{F32#whL@&FO5tA@f3{bx
+z4;N1YHp5S8YL=Ju1WkXWX<FVoah>WAGZOI{I~wLH6DGM-SNadRuZ?k7o&$p(gAFaV
+zwo6DAcw#oAvv}KR(UlE^Wx~<!;qR$dmWSK|xlh+XNpNa<ehPuuyCT=yHAo24?5IvZ
+z0mzCgF6^yxQ!cNrE-rhh4=5KdE)TMc6&1r=t2O0};+R)8e;(lul8KGp(_1oyrfW(C
+zgowGMtW9y4U*7p<7kb%QSo&wD+t#HXZ`1)Ra069V{$nsAOpTZ8KWI}a%7=j>OisUL
+ztW9+zpl&j-arA~HivQ)gz4fIIxXa`wo*$%Qbx{(69adt)Pf;F^$sw)lV;;!d!+j)M
+z{~ufHL(`F5*Z!VuZe88+74xT2#!6vXGA#?~IThyG7*>LuIBE^;(ML6-{%cP5A|ViG
+z(k49Ek=%8ZheF|$o@sY%$Aj|y@FxMwZ_hz{WaZYLsDRmN`RA=h0n5H>$37vVD;fLw
+zD;yD~EHlmQ_Kt7Lam1z3U(>a5cBTQEML##&i!8L6ITo>FOHL)~$7B{eWKJC}G+i3J
+zICzjp`8Y-Ot!KRX7{o-5e6VtfaiAze2P9Fy%oO^4e>X-`1Ur%&G)FNAf0>4r_muv7
+z(U*i%o`}*xIfCG=2bnp~Q)L8UZ8t)Hi!^f$Vm2zoQz<N3bWRCkq}!~L;@d-660yq(
+z{q5}3>w@xV_N}%?)4E!^#9ILC`lQlqX`9FEbs6CX8?gu1);CvG3e<E0n!eVys&g4>
+zeq{wK2+9kb;?d~4EToXUi?G0?i-^Ev*v8vIX60JTHu@G!GyAtZEPMSW9$hD}wrV5Q
+z8+_P@QdN#chbM#BVR<kDWtQbkd5wQdp97Q(%dvcOo3H*oeV$9=um)E><_43D2m#84
+z!2F%|S_ojRyTx?ck!{*;xr0Zdox&+}n(&Kz;pJf!R4f`5K?yFx4}o2@;3afH<zJ_F
+zsi_q#hmv`D*tlhL{#U?u=!k2pP^iX2?gKKkxam=HvZj*o2V|F*s@PcPtH=I<bG&tf
+zNKf?=p-{auV10S)O_XNnD}odhYaN$H4^=iGQxbeL&eYsMh$muWy;c1<^O)Z32ogYj
+z$h-JQmb<?v8AXtPe;N0*uJlsBA0<=9c`dgpEg8|lY}4n;Qz#)NXw-0#Ywz5*B1O-)
+zJRWA71uALY*j>&sCItj~VgTW$VkIFk^>J@xLW3IL9miA8nVCI~)V=BSNNtu;l6M5%
+znTcHLk=nhp(uyMwK+W8$d*$HCjiD!@WIJ-J83J~rJ~VV6Gg&I=J>`X%!ouj9U*02G
+z-UHuFCGQl&AFxXYjGywsiM6nkWyC+V{2Vp3q|@|JVu&yt&J!cP?Nu1Awl(1Rd}JW|
+z4jz<wC<7^J8-TQn8X{cG?7o+HvbHv&Yi)uJf_OAh-`+d6+&$dY6v+CT60gWTJRGHd
+zBYi3wfK0*FHcF{63Y6~2w=m)`v0&QUd*r*WcVB|Ue<t+6cIG_!A*9Awh3$hM%vWX~
+zK}=+hR~X0kualfj8gWH$=_AvHHH$wVwAu1W*Yd8(qzRyp^8gCaax3XLM&Ge$K7^WZ
+zPcq*XSlZn~uMQBzdubhQO9C%>N$wRpFPlB~>?GpA8`(~ov?>amGL^z{Yg7!+hvk_m
+ze8o5{*RE>v07lDy(NhbSCfg=m_|fI-ZM!6;g6WK?y%Y-Nh3svYuU_7JYATOFwvVhg
+z?C@@0(ZYyn_ROd;H1=QJxVrLb*Ih3u=MnMnx*~#Dgyip5DXk~GK&a;a5E6|=DL?rU
+zi);yXx~9YMV*inV719w!5Z};WX(n_77h%A=MG(X|FF>R^{Ec}b0+r}(mrUb>o@w=$
+zf)!)}Y7o(IWj}#6P*UdC)(6o79}iM5T?Y)3F!Yq{Wo5SY1=vaGSb5z+D5W8jUiOCW
+zG9V)b#S6y?FWRhK-@c_X1UEt{jb2Fv89Z_5cB=OP<SeX9RO#lF7l=o#yQeBWb_;Gp
+zklX+S5KK(u3&DRaA}D&vBGCh_3z~`r<`}nnQ9W4aq?*T-2GJ=SpFP|4m!%va=lKN`
+zIbfd|s+Z@QQC~CEc0<mlou?3<m6T<<h`SM(mGg(L@Q!2>o1FGT+Mv#NCYfW6(<nsj
+z3L;-m@V$YuqQ9RrIHI7ZwpKU1^#3x#h3#Xr9Zw}*Bhksmj~W;UQH8dcdKG<?y_lyJ
+z=Be0+PSJEq4<P2y<;MGYxDIK*&(CKmcE|@v3b4@`ulNJl{Ra?oGfP~GbGxWpSku{q
+z@t~m5`;v*rleno{LfdJslincYciUnB3kl|Q2X|Pgqk^1CkD*|2MQ2+Hp(Qs^)X(-u
+zKxMXY>so2>_Q4(+l5H!wa4{8!l`&wR5mvc_tDg=hMOZ>REI|R<iAB$y@KU|BXj8@)
+z#G6)O{1-0I>H)5UrBECgeGY)sWcTc+91n{<4<(SBP)T30alyOxE>D!{No`wr4-wcm
+z$WU4?9ZDig4@t|UMUt<_&>9$Z3>Hn*KKfz4x~p2HjVK{%!NwVa;tkX5;s&{&>vr9=
+z+Xi*Sbb?Gw?%$&YH9@cr5!7;;^Cw%D6Ga~bx$BdGi*At9;DMTyd0uv=mi%wB_le$b
+zVX=%efdgi0bvNO9=3QE-Vv4U}9p)9kWZ^Y@hURuX_D(|uh+`JEf}>Q>reh0!p~NaV
+z*wdtCb@zFWOc3jVTH#%_LPD1!+G$*jcb$T8g?!J+KHQ-+Bsw;;At^YX{F@K<B_JjN
+zm}7)CYXD3QpGfOb=WaWnmlSnwe5sAaJu-OlozY#g4<9%#X+|GU>>-#|er7OfuD$I=
+zKzZsV7bq7caU9^<t`g>XpOL13Tmtp0OqD+4sjmIUGXwYb)xzM4Q@o(e{clIzQven~
+zwh+*!0NIwm7g~Jbf_UO)quorbG@{@i;}|K~7?SEA-*cWx_MJ@w(L0_+3)S>r4&X`d
+z%DMd8CxV>^lA*a4@nUHMQ(Fs6w0%#SvUd;zlvZSGX{w=way^s~`?i%)vyc7Aa}f1?
+z*`fN?D*#K}p&wP+UX-=0p;QnsWFOj}(VT=QC%)nrhu2+rA~-6tXYLD7VdnGg*x=#+
+zxcC5N59Zu=89Y^WMy+*y7Yf<N5Z3u2s_m4Biy$l38@#|_oyILeu3K(VeUb_eCkR)u
+z0m^Itm|;c$+?dX+$v(QSBl|rR8hs0>%S)VbiOjjzXVcn|5&hXCB;L)xGfFVZn6J?}
+zJX_nD2JV+~F$#5YvQ7r?jH<&G)iadHPOPtA9$GfEMEq2@+S1>aY@Q^|eK(mmfT68r
+zbc>k|qmNOAq~Z-@6rEnIE&ff1=c)*Kg9oDm$2fj+BxT+>LAce`LD{zNzA|EV!a7MJ
+zY=Oky8peO*1WLAO?P7b8I0~6Xr$@khE4Mbcizzs7uA@=vkWKZ>H`l(K%&QYuI2!Ce
+zouSvUud_OnSGhW-m1*?i#IjQv_})`M{v@5|zqBF2yKlH}yrKY)Nwr|g0}*X7+3LZ7
+zdXrJ)5fD;ekvHX^b3QcpH;|(oa=+SpDwy}d=@AZzcfK#Nm$-5ssv9FR)xVy(%J36d
+zBGH?&^O?Hpb+8)@dz=FcnVQ*vf%P)f>I*fy4<|Cm)GODwV+U-#zPZ5XrEhWKQF^{q
+z2X%znb==_u>}Zk{>>;X<2DfR?oS>`bX4BQ@n@p@N7PgHK(sFOLTC+R8j2;l@fRCXC
+zq@I0xJLW_mc7;Mt3-M78@rfm$ZC$6~#m>M2K#hEQ6%ynU#Phn!n{JE4VH-8?pT2pU
+z_#b(XhCw8mxJy_Ob4)(5K{PKkw&kyo3xx#HsD?S<lG8Q6ml$M%1wz^<)wc?~T+rkB
+zHyJs@Le-N;xPk}0>r{?G&!$a%FS5{K3FxrC;p2j*=1|~btv`NvP#>}a2gptR*huo*
+zOi2uHz#h7*#W+mu-G!2FRWZkeN!nn#3~`E#`A5Bq=vyitT5U-hZ&sf0oQ_t3_ZA6s
+z5WP8fAXP*+DmdzSkI3iy*HC7d9!3LgEmE)2+1YC7buZAWs11|;Y2O8&L7K9;+Neh$
+zz>4>N7ETsU7=hjklrAJtg-hvlnKaO4@F-KPJJjj#cuYZ+N_h9T?!}ACD~p=j*ZFKE
+zP@4XYZbqdGGxC2`_>;+TBduMUXVaYMsZQbDEZWIc(BhPT$nfA}^2B!Zb|um0-IWK)
+zHcBpuwA9z115>5-AH^KiK;OiighnWg%fRd27UAh{BU*qeZ5Tw!Kh`98evCoo25db~
+z0y3%NQ4Ka24zg`+sPCC_@z9Z(M=^rXXo_`|<ZVUfRK+>EG`hF`P5lZG`@Ub<PCasX
+zdIu+9-IalI@B)|t^B-mJYO<_6$91*3LsSz#v8LzrsU(+9|Lw)%vD~2A($5(tZRc^g
+z2P;vJRzJ%D(Ih$ZblMsB=|I?cJ{bxH<!Yzii)hSYjOS!U-r#Ca`A?9;4@^XHPlM^!
+zFfMKJv<c+v^!%ITbH<&o*%g|yMyCX4l8BM__6a90-B7=jN9_@YqGg8N%L}iNf%Vl6
+z8E><M2pmY2x}xODX!w{n0qYMDR<j24R}d1XVL-Z80DN5(2B=Dg%~g`W0hQ~CfT6kT
+zsB_%yauxEi95+JWu8raA#PVhLLlOR0LvAV0v@pIi6t!74_(ZQ{^4WoP+*Pr=+c7w}
+zX7gM?bDRa(ys%bTr#1+cF{CXiL)E2?WE-yA3*QsJ99&d+0hWj|0|FDiSnf7j=<!59
+z|A_>fcFE2ht&~Pvkbjp@_`MRjWGB(yrK<&feV4eP_Am!@9O<hwazD2vn68W8gI#j(
+zEW!RJH=S<jl!DD;*nOlI_C1ec&eGtP_dl)Da;n-G5?vTi;$2^S#Rrx9BFi&j=eR;U
+zSnE9726XJlWiLykG2Ssq>l+1=lBu**nKTD>a@GZ*4lfo`g4%PYtAs|6b+(+=*mzu@
+zx}6~*O&^m0LF(b6)Gf~r81yAQPmpjN)u*TsL2nWe27eRf=H$|?x(ZM5Kebv+-54_-
+zT6;jQm*AD~ULJq6IKwL$YRrY|B?FN>R7DTfJd|878chB|qigOb_@nLmE@U_)zro)U
+z>r>(CukJk8<G(1^A}`YWT%MCe&LI<*!@Pk6rH*l*{^@&ByuvskRa%H`tyX=7oUri}
+z3<N1qS&CmL29yRaTE@IKxNIaG`a2N8s%9=4qh5;*0nv3AEmw&}%ld*pKCtz<?LYFq
+z@@)`Jxbz5g#+;Em07{b}{^FntVMeFqyCRh{)FfY;bw$}7>Q3-gK5l$rCZHTCTIU&Y
+zYlC;Q?|k#(?iHB!R>~c`9%hsgJF;3Ojh0X-NY^kp!ak98A#wbJXst10l4=|?<(g+D
+zoSbG2a-}ySwpx(W+w4^M)Ru(m(sRer+Zd4~@5A{`u|P?3#8|C`#3J->oC}$?IpiK7
+zf6Dlqo7>lkPj`I)CHr7`$72vC-7?NSvNq2m=Eje#0-lE>J5MIhw*JzLkbHEscS%NU
+zkw%XciHoB@wA|ydwbL@W<i!Q4h#ZK`C?gsM!b#rC>qzzKq>1vnL`rCukv20Wicr$=
+zb<wHtgSAoP@Dj)kJ+`*(|4_<iGf>{G5d%`ap9w&x9HaGbtz7dO;sM8dIv_i5A9&TD
+zlkI%Lhzb;&8sKXCtnA%(ZL^c9ho`N)B>PI2Q;)4efq+ujlS1~|%SDO}`O254nJ6hZ
+z_e?B*nx2*zA?@@W+ORdDXJDOClDV(3OQHzP3j+=s2FQlr=tWBwQq#2S;wyrZ$kHW@
+zg`AB5PqwwSNm?_Wh4UEXAZ+huHNaD&bR5u$jU*5K)iI$l#9Rm)>X#ILFZxH~_&MZM
+z>GzOSbYrXwy8k{2bjdsb-DNjWOM6Fzy|_FNaK*5k`?0oWaddq*V#d2wb13%L6XoT7
+z&^Mq1C(V4jRm&KN@F~8J$@Kq&lCwJ~IkjaAYHJe<eg>vpo6=~Y+BtQM9ho=|L&VY#
+z!1L+_2O=eH!X;geWMZ9_PlWsrDSu9;Zo3gg(K=7D`@D?anbWimd-zw9|E;7Gl0XZ#
+zKg$`}b?_B_D<^9LG|Cw<3$1|)RR5I9v+Ny@kZsDP(pxD7zQP*6Vt?@=61}&WStP6X
+z{1QL_@2FeVp@@Fr{cI_glUm1J@3UHpD$bRH2yXY$>UnKP`Ji6{xF@Q&sx=hrHK17s
+z1AK%K)D9<A&<xy{pj}B-rOJsehpwBAu@6Az59e?-lRwFT9k(qCkg$&9{$!BY-_M0f
+zF2o|$pM$=FHR)CU_?5j$poKS>T%^;#Vd6wp`uuy`L%!!!R72MTV)kZB^=6{zy5Tkf
+z)YG$h5c;{L*+K|<{!t7ldV>D5)YEC{bxC!i6iOnnBW>1}a^aM-3MJC)gX-4T&{0s@
+z8@H%h^iSB(-+sk$zgae@NI%NxMu%o59$S6*?Yu@K!}xtu1u>FLMlU{8zeEzHF5Nri
+zZi>ms?sh8zY8EPpcn^ea=hIho*jw|Uz1N{oeV%b!8ejI(MB-s<0EK)?8exusrGf4`
+zO@6e0Ro2AfL-}NZr=N<N@@E-?YvQ*yc5a>}5om7fnfS5#Qie*mVdt;EV&0@W%Gkov
+zYJJ^kUqIay)ClqjRB?LQC8KdpeBKif-A7QkyeOw8yni(Vkkm7g0n<>;lTjRLbUdoh
+zguNM0SrvrO*sP0x@Z2<wSlbVMTQAt)Yf_kDv!WJFZeMxI%k0|0)0!X&btML<FB|YQ
+z$5j<96-ihWf>_JYL&1?#Ptlm_lf6s8e#FJa6GuSXQB92mFMdq;*ia4n`Zj!s35#o+
+zmk|;R_<3E}+A)}=$3P-QSAIS7?S$q5!g>m&|Ca5bXcxvhmAeA-;_h^2zVGLj$Xc@s
+z$DB&K77g;{F3vYTirFY5U;TBYjef!2>k@KGB191+*>7EQ-R^s;>W-mmKRc#03`K#V
+zAqcM}x$314d8#<0f~%=Y1?#9^7a1G7y<(JSE;TsO*RGjj+!{r5Etn6>2|A@-{*?iv
+zZkrM0dCl!;=KC}kaB*rgk6=ci3%YO2Q(_svhJjIu1KD&{dDbEHx{YafHqb36_LwCk
+zz6rjD>ehU<7YvJY85#uY5D!m`%+Tv|s>!7lrYDy0YuT6Q4zJ590QD2|d&psG{+d=D
+zA#?l|YTTw;Bsa&V(PhWd!Xijv&4v_Wu09Gh(2_dOY@Np$d7a$~&9ZR;t%o?Tj+@2#
+zS5pruJ#FzOZJ1xxJoR&O2eRvVq&Z-k#_hr><b{0LAb`@wx>8%aQC(pZ%rVpCB2Uh+
+zXswzjrhnk}V1la~0fSBXfI2$YE3q^0jIkN8Vh~&ZZ90MTtx6?puw#BH)qNgDNrQ?M
+z4fI|fKyx0`=y_{(ZpU=t5pYF-5MrPjp$yK89mGqvhAD$KOuw_O!onhIu>2(Zu}`4O
+zG<I}#@TiQTh5^IO`p{fu5#1)cd3=+Wo2SZFbh}+`;_4Pv`(>9tOqjIIXE7S4xwrD<
+zCK7d&loE_}_HmMJX0+niQI5KE$AmSs7&N*zqu6fWpj+aSwo3BA{X{Ppc`*yNob7(i
+z3cuZ9JEzxaNE*)fxcF2+nr4|W{s%%+x;5E8IvvP|?$dhf6gLV};$}b;1Nd;skcWgR
+zFV@8aN$Wy>;P~!%&4L(4WxfWgk2;TNJA?OYKeJ`1flj^mGuQYC2BTQOL1Q*+7?+_P
+z1a=>pJkH6^{t4;|%F8>c;7HYWw8nGXXzL7Er(x$p5NFyah9(p0q+(!-!APdvz5gi@
+zjj0sxT`D8G0wqNpo~p<TF6%V6P3BEKcf~GhjfU@Zt+rT^#@^`s)ltFP^qiZ9$NQLI
+z&Zdd#_+)3%XI#D-kJBw(5^?^jm$CuY|9mg8vw^KIG<gahpcjp=6MWVl5}d~JZO<5U
+zdpDa$CZ1#`)r<C+4d!KxROd90Kc>sNJ!^{NRKe1gc(LHzVV+xc(hJ#q1X5ak)aM6w
+z>EIGyi(>;q!??6gQwK$CEfux%u=mPJi6h;LAMuy1P&{Q^G(o4wO791KgNxEPcKn=>
+z8VLrg@?E75_I+n`BB#QduCe=vHP9q$l)$^|ed^0@^tHWR9%};7{u6Ey4Pti5(gy2H
+zjtESQyH6cV;)>ctW3cz2w{CIlYka3crw6<xe{YPezh2U#e-iNQSE+)m+1Pd@8#(R}
+zp(>qrp}AlwN@L@%ZiS&YI~)0e$OT;D`QeW5K=QTB9v#*FRR!9P$1AuBxM^iJgOSwW
+z^FGCh^j)##DbCBT<h_bf=W7-2T>T1AvYngW*okUz!X)os|44;WMkJrCN}~lt`lk)p
+zn{KKzOKLOTc^lSmGe#te(VQh87Y|R%xK9ClmoQ2eZgoJ`XcP(p!0jYVSeTpaDTTEy
+zPi_<hv-m59X1s<BFskrx@^zzMz<Iq*xycP~Sm}Q#zgfaRwdR9N0iCn6yuA?SRtJU~
+zgWcf%6Q(H?UG4QV7JQ+?KgueTNhJ9hFC%aw$*;2}Ww(Zl=(dFEs|&<eNjJes#}RXF
+zd{;ikkspji?Gzz8=8SpWXy4rO9K*uGDqp8g+l@BH%5GW>^~JUh9$&J<3A1L6Ofj0E
+zU3A_D+51-)Xts4_DLw(6XJ(Hu+gGb^llP?$XJOsQh?zw{tobhveU7)KvaJDKzTHqL
+z0&zCYczkRj!r3xKPKFr)RNyGH!CU1gc`Y2R+f|J_APnN^JSD)F0<6x;%qY)1DtmN?
+z)TmMnT6{i%*1!5v6?SEVXfVU|YwVarx5FZnmg}Z~M)dZbFxNFHL>+y%GHAW?9Ul&F
+zNCMaPgdNPynt1)&OI5Z)Q|_4^wwT!IyX+M6=5ok$p$<ROE|MAgESE-LMVT#nVa<mh
+zTAITfRu%?*&dwJH9{yiY*f%oZKS4MP1D&I*^&=y<6)uCuMcWvMRH5i&>`i3I^CKKR
+zt1k99el;(dBk{!R;c&xZV!CuGg3Vnqm3jBSEY^t?2gLsiYnwL}F5CMClBjI`(BF_S
+zGgKiO^{I$Hn0=Nh0h%OBE;J_&&)Kg7z2TRO@wtTnx6TBPSZUVo_^pCFfXFDUaHCLq
+zpe8?)Y>hY@r`3*=i3(7(*@sBU!1iy8ZTAjYB$nC8WsGFz(wzgQyp*fU=v<!(Rbi60
+z&}op1lSQT0rGMr$S)2dTr8)+9#gK__h^{EqC*T0O?B~rDF3CMr?2Cj)GI9XL_7kjO
+z2vnT^w+`8??A{pUPib_ra=hw{F6sum?_7hjVprIr{aP%IE+^D6HRpspE>Ju^HD&T>
+zIN961e;YM$9a4kq@xnSt_sHbsp(C~`Gx~H@#V+v?pZRNGz{DOs77|F-3}ud}Cc|!;
+zMUdaE>_F}w2i;RlS!SE;);+qX0wt1F)&qk5b1<f;T|uFnN~FG&I(JT&$M+m9C)HZ<
+zu%Wz{v`}rYVXz0@;A`4K|6E8v%fzcBn-f@y*tp#|fx*o=D?OASpo{<8+D@kA_Hl;|
+zlSS_prx;}=-PCbn-N9YMbg77V3zI(W?7Kf>_N$x2h{pw*bL<?d;A%lwe6CZpgIAzu
+z7l^!c|Cf|SmCh9#gK8%I;h~QSJ)rSC12}-Cp;3(N#uMJm-t9fP!FGI0jZ^JAF+TNy
+zrPy~Ou#5u&gCPH!a@$pYvnU?G{@<Vf|Lwq?yfrT00^`aL(~-m)-tr7|jZnGTcmDl<
+E0I8Z58~^|S
+
+--- a/Assets/Resources/battle/Presentation/SeojinDualDirectionCrescent/revision-01/attack-mouse-red.png.meta
++++ /dev/null
+@@ -1,156 +0,0 @@
+-fileFormatVersion: 2
+-guid: 7f383b5a3056e8098995e2a060a547f3
+-TextureImporter:
+-  internalIDToNameTable: []
+-  externalObjects: {}
+-  serializedVersion: 13
+-  mipmaps:
+-    mipMapMode: 0
+-    enableMipMap: 0
+-    sRGBTexture: 1
+-    linearTexture: 0
+-    fadeOut: 0
+-    borderMipMap: 0
+-    mipMapsPreserveCoverage: 0
+-    alphaTestReferenceValue: 0.5
+-    mipMapFadeDistanceStart: 1
+-    mipMapFadeDistanceEnd: 3
+-  bumpmap:
+-    convertToNormalMap: 0
+-    externalNormalMap: 0
+-    heightScale: 0.25
+-    normalMapFilter: 0
+-    flipGreenChannel: 0
+-  isReadable: 0
+-  streamingMipmaps: 0
+-  streamingMipmapsPriority: 0
+-  vTOnly: 0
+-  ignoreMipmapLimit: 0
+-  grayScaleToAlpha: 0
+-  generateCubemap: 6
+-  cubemapConvolution: 0
+-  seamlessCubemap: 0
+-  textureFormat: 1
+-  maxTextureSize: 512
+-  textureSettings:
+-    serializedVersion: 2
+-    filterMode: 1
+-    aniso: 1
+-    mipBias: 0
+-    wrapU: 1
+-    wrapV: 1
+-    wrapW: 1
+-  nPOTScale: 0
+-  lightmap: 0
+-  compressionQuality: 100
+-  spriteMode: 1
+-  spriteExtrude: 1
+-  spriteMeshType: 1
+-  alignment: 0
+-  spritePivot: {x: 0.5, y: 0.5}
+-  spritePixelsToUnits: 100
+-  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+-  spriteGenerateFallbackPhysicsShape: 0
+-  alphaUsage: 1
+-  alphaIsTransparency: 1
+-  spriteTessellationDetail: -1
+-  textureType: 8
+-  textureShape: 1
+-  singleChannelComponent: 0
+-  flipbookRows: 1
+-  flipbookColumns: 1
+-  maxTextureSizeSet: 0
+-  compressionQualitySet: 0
+-  textureFormatSet: 0
+-  ignorePngGamma: 0
+-  applyGammaDecoding: 0
+-  swizzle: 50462976
+-  cookieLightType: 0
+-  platformSettings:
+-  - serializedVersion: 4
+-    buildTarget: DefaultTexturePlatform
+-    maxTextureSize: 512
+-    resizeAlgorithm: 0
+-    textureFormat: -1
+-    textureCompression: 0
+-    compressionQuality: 100
+-    crunchedCompression: 0
+-    allowsAlphaSplitting: 0
+-    overridden: 0
+-    ignorePlatformSupport: 0
+-    androidETC2FallbackOverride: 0
+-    forceMaximumCompressionQuality_BC6H_BC7: 0
+-  - serializedVersion: 4
+-    buildTarget: Standalone
+-    maxTextureSize: 512
+-    resizeAlgorithm: 0
+-    textureFormat: -1
+-    textureCompression: 0
+-    compressionQuality: 100
+-    crunchedCompression: 0
+-    allowsAlphaSplitting: 0
+-    overridden: 0
+-    ignorePlatformSupport: 0
+-    androidETC2FallbackOverride: 0
+-    forceMaximumCompressionQuality_BC6H_BC7: 0
+-  - serializedVersion: 4
+-    buildTarget: WebGL
+-    maxTextureSize: 512
+-    resizeAlgorithm: 0
+-    textureFormat: -1
+-    textureCompression: 0
+-    compressionQuality: 100
+-    crunchedCompression: 0
+-    allowsAlphaSplitting: 0
+-    overridden: 0
+-    ignorePlatformSupport: 0
+-    androidETC2FallbackOverride: 0
+-    forceMaximumCompressionQuality_BC6H_BC7: 0
+-  - serializedVersion: 4
+-    buildTarget: Android
+-    maxTextureSize: 512
+-    resizeAlgorithm: 0
+-    textureFormat: -1
+-    textureCompression: 0
+-    compressionQuality: 100
+-    crunchedCompression: 0
+-    allowsAlphaSplitting: 0
+-    overridden: 0
+-    ignorePlatformSupport: 0
+-    androidETC2FallbackOverride: 0
+-    forceMaximumCompressionQuality_BC6H_BC7: 0
+-  - serializedVersion: 4
+-    buildTarget: WindowsStoreApps
+-    maxTextureSize: 512
+-    resizeAlgorithm: 0
+-    textureFormat: -1
+-    textureCompression: 0
+-    compressionQuality: 100
+-    crunchedCompression: 0
+-    allowsAlphaSplitting: 0
+-    overridden: 0
+-    ignorePlatformSupport: 0
+-    androidETC2FallbackOverride: 0
+-    forceMaximumCompressionQuality_BC6H_BC7: 0
+-  spriteSheet:
+-    serializedVersion: 2
+-    sprites: []
+-    outline: []
+-    customData: 
+-    physicsShape: []
+-    bones: []
+-    spriteID: ade5a1deb703ca567ad4cda73364f638
+-    internalID: 0
+-    vertices: []
+-    indices: 
+-    edges: []
+-    weights: []
+-    secondaryTextures: []
+-    spriteCustomMetadata:
+-      entries: []
+-    nameFileIdTable: {}
+-  mipmapLimitGroupName: 
+-  pSDRemoveMatte: 0
+-  userData: 
+-  assetBundleName: 
+-  assetBundleVariant: 
+diff --git a/Assets/Resources/battle/Presentation/SeojinDualDirectionCrescent/revision-01/movement-keyboard-blue.png b/Assets/Resources/battle/Presentation/SeojinDualDirectionCrescent/revision-01/movement-keyboard-blue.png
+deleted file mode 100644
+index 1ddd73c221ea643797539fe218824ea47ef55e9c..0000000000000000000000000000000000000000
+GIT binary patch
+literal 0
+HcmV?d00001
+
+literal 19240
+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
+C>;Reo
+
+--- a/Assets/Resources/battle/Presentation/SeojinDualDirectionCrescent/revision-01/movement-keyboard-blue.png.meta
++++ /dev/null
+@@ -1,156 +0,0 @@
+-fileFormatVersion: 2
+-guid: 7360eff4be5a00c1e23c88cd424c9859
+-TextureImporter:
+-  internalIDToNameTable: []
+-  externalObjects: {}
+-  serializedVersion: 13
+-  mipmaps:
+-    mipMapMode: 0
+-    enableMipMap: 0
+-    sRGBTexture: 1
+-    linearTexture: 0
+-    fadeOut: 0
+-    borderMipMap: 0
+-    mipMapsPreserveCoverage: 0
+-    alphaTestReferenceValue: 0.5
+-    mipMapFadeDistanceStart: 1
+-    mipMapFadeDistanceEnd: 3
+-  bumpmap:
+-    convertToNormalMap: 0
+-    externalNormalMap: 0
+-    heightScale: 0.25
+-    normalMapFilter: 0
+-    flipGreenChannel: 0
+-  isReadable: 0
+-  streamingMipmaps: 0
+-  streamingMipmapsPriority: 0
+-  vTOnly: 0
+-  ignoreMipmapLimit: 0
+-  grayScaleToAlpha: 0
+-  generateCubemap: 6
+-  cubemapConvolution: 0
+-  seamlessCubemap: 0
+-  textureFormat: 1
+-  maxTextureSize: 512
+-  textureSettings:
+-    serializedVersion: 2
+-    filterMode: 1
+-    aniso: 1
+-    mipBias: 0
+-    wrapU: 1
+-    wrapV: 1
+-    wrapW: 1
+-  nPOTScale: 0
+-  lightmap: 0
+-  compressionQuality: 100
+-  spriteMode: 1
+-  spriteExtrude: 1
+-  spriteMeshType: 1
+-  alignment: 0
+-  spritePivot: {x: 0.5, y: 0.5}
+-  spritePixelsToUnits: 100
+-  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+-  spriteGenerateFallbackPhysicsShape: 0
+-  alphaUsage: 1
+-  alphaIsTransparency: 1
+-  spriteTessellationDetail: -1
+-  textureType: 8
+-  textureShape: 1
+-  singleChannelComponent: 0
+-  flipbookRows: 1
+-  flipbookColumns: 1
+-  maxTextureSizeSet: 0
+-  compressionQualitySet: 0
+-  textureFormatSet: 0
+-  ignorePngGamma: 0
+-  applyGammaDecoding: 0
+-  swizzle: 50462976
+-  cookieLightType: 0
+-  platformSettings:
+-  - serializedVersion: 4
+-    buildTarget: DefaultTexturePlatform
+-    maxTextureSize: 512
+-    resizeAlgorithm: 0
+-    textureFormat: -1
+-    textureCompression: 0
+-    compressionQuality: 100
+-    crunchedCompression: 0
+-    allowsAlphaSplitting: 0
+-    overridden: 0
+-    ignorePlatformSupport: 0
+-    androidETC2FallbackOverride: 0
+-    forceMaximumCompressionQuality_BC6H_BC7: 0
+-  - serializedVersion: 4
+-    buildTarget: Standalone
+-    maxTextureSize: 512
+-    resizeAlgorithm: 0
+-    textureFormat: -1
+-    textureCompression: 0
+-    compressionQuality: 100
+-    crunchedCompression: 0
+-    allowsAlphaSplitting: 0
+-    overridden: 0
+-    ignorePlatformSupport: 0
+-    androidETC2FallbackOverride: 0
+-    forceMaximumCompressionQuality_BC6H_BC7: 0
+-  - serializedVersion: 4
+-    buildTarget: WebGL
+-    maxTextureSize: 512
+-    resizeAlgorithm: 0
+-    textureFormat: -1
+-    textureCompression: 0
+-    compressionQuality: 100
+-    crunchedCompression: 0
+-    allowsAlphaSplitting: 0
+-    overridden: 0
+-    ignorePlatformSupport: 0
+-    androidETC2FallbackOverride: 0
+-    forceMaximumCompressionQuality_BC6H_BC7: 0
+-  - serializedVersion: 4
+-    buildTarget: Android
+-    maxTextureSize: 512
+-    resizeAlgorithm: 0
+-    textureFormat: -1
+-    textureCompression: 0
+-    compressionQuality: 100
+-    crunchedCompression: 0
+-    allowsAlphaSplitting: 0
+-    overridden: 0
+-    ignorePlatformSupport: 0
+-    androidETC2FallbackOverride: 0
+-    forceMaximumCompressionQuality_BC6H_BC7: 0
+-  - serializedVersion: 4
+-    buildTarget: WindowsStoreApps
+-    maxTextureSize: 512
+-    resizeAlgorithm: 0
+-    textureFormat: -1
+-    textureCompression: 0
+-    compressionQuality: 100
+-    crunchedCompression: 0
+-    allowsAlphaSplitting: 0
+-    overridden: 0
+-    ignorePlatformSupport: 0
+-    androidETC2FallbackOverride: 0
+-    forceMaximumCompressionQuality_BC6H_BC7: 0
+-  spriteSheet:
+-    serializedVersion: 2
+-    sprites: []
+-    outline: []
+-    customData: 
+-    physicsShape: []
+-    bones: []
+-    spriteID: 014b2436d8217202aa0af1f9ef5bc598
+-    internalID: 0
+-    vertices: []
+-    indices: 
+-    edges: []
+-    weights: []
+-    secondaryTextures: []
+-    spriteCustomMetadata:
+-      entries: []
+-    nameFileIdTable: {}
+-  mipmapLimitGroupName: 
+-  pSDRemoveMatte: 0
+-  userData: 
+-  assetBundleName: 
+-  assetBundleVariant: 
+--- a/Assets/Scripts/Actor/Character/Control/SeojinDualDirectionHud.cs
++++ /dev/null
+@@ -1,90 +0,0 @@
+-using UnityEngine;
+-using Battle.Presentation;
+-namespace Character.Control
+-{
+-    [DefaultExecutionOrder(1100)]
+-    [DisallowMultipleComponent]
+-    public sealed class SeojinDualDirectionHud:MonoBehaviour
+-    {
+-        private const string ResourceRoot="battle/Presentation/SeojinDualDirectionCrescent/revision-01/";
+-        private SeojinManualControl control;
+-        private CharacterManager actor;
+-        private BattleCharacterAuraView aura;
+-        private Transform ground,redPivot,bluePivot;
+-        private SpriteRenderer red,blue;
+-        private Camera cachedCamera;
+-        private float cameraRefresh;
+-        private Vector2 auraSpriteSize;
+-        private static Sprite redSprite,blueSprite;
+-
+-        internal static void Ensure(SeojinManualControl owner,CharacterManager character)
+-        {
+-            var view=character.GetComponent<BattleCharacterAuraBinding>()?.AuraView;
+-            if(view==null)return;
+-            var hud=view.GetComponent<SeojinDualDirectionHud>()??view.gameObject.AddComponent<SeojinDualDirectionHud>();
+-            hud.Bind(owner,character,view);
+-        }
+-        private void Bind(SeojinManualControl owner,CharacterManager character,BattleCharacterAuraView view)
+-        {
+-            control=owner;actor=character;aura=view;
+-            if(redSprite==null)redSprite=Resources.Load<Sprite>(ResourceRoot+"attack-mouse-red");
+-            if(blueSprite==null)blueSprite=Resources.Load<Sprite>(ResourceRoot+"movement-keyboard-blue");
+-            if(ground==null)
+-            {
+-                ground=new GameObject("SeojinDirectionGround").transform;ground.SetParent(transform,false);
+-                red=CreateArc("MouseRed",redSprite,1.15f,out redPivot);
+-                blue=CreateArc("WasdBlue",blueSprite,1f,out bluePivot);
+-            }
+-            red.sprite=redSprite;blue.sprite=blueSprite;
+-            var baseSprite=aura.BackArcRenderer!=null?aura.BackArcRenderer.sprite:null;
+-            auraSpriteSize=baseSprite!=null?baseSprite.rect.size/baseSprite.pixelsPerUnit:new Vector2(2.56f,1.28f);
+-            Hide();cachedCamera=null;cameraRefresh=0f;
+-        }
+-        private SpriteRenderer CreateArc(string name,Sprite sprite,float radius,out Transform pivot)
+-        {
+-            pivot=new GameObject(name+"Pivot").transform;pivot.SetParent(ground,false);
+-            var child=new GameObject(name).transform;child.SetParent(pivot,false);child.localScale=Vector3.one*radius;
+-            var renderer=child.gameObject.AddComponent<SpriteRenderer>();renderer.sprite=sprite;renderer.color=Color.white;renderer.enabled=false;
+-            return renderer;
+-        }
+-        private void LateUpdate()
+-        {
+-            // The owner suspends all manual intent over UI, so both HUD lanes hide together.
+-            if(aura==null||!aura.isActiveAndEnabled||
+-                !((aura.BackArcRenderer!=null&&aura.BackArcRenderer.enabled)||(aura.FrontArcRenderer!=null&&aura.FrontArcRenderer.enabled))||
+-                SeojinInputReader.UiBlocked||control==null||!control.ManualAuthorized||actor==null)
+-            {Hide();return;}
+-            if(cachedCamera==null||!cachedCamera.isActiveAndEnabled||Time.unscaledTime>=cameraRefresh)
+-            {cachedCamera=Camera.main;cameraRefresh=Time.unscaledTime+1f;}
+-            var input=SeojinInputReader.Read(cachedCamera,default,actor.transform.position);
+-            var mouse=input.Aim.AtOrigin(input.CasterPosition).Direction;
+-            // Same ground projection as the aura, with the red radial lane outside blue.
+-            ground.localPosition=aura.PositionOffset;
+-            ground.localScale=new Vector3(auraSpriteSize.x*Mathf.Abs(aura.VisualScale.x)*1.2f/5.12f,
+-                auraSpriteSize.y*Mathf.Abs(aura.VisualScale.y)*1.2f/5.12f,1f);
+-            // Undo the floor ellipse before atan2 so the visible tip still points at the world input.
+-            UpdateArc(red,redPivot,ProjectToGround(mouse,ground.localScale));
+-            UpdateArc(blue,bluePivot,ProjectToGround(input.Axes,ground.localScale));
+-            bool morpg=Battle.Morpg.MorpgEnvironmentRuntime.Active!=null;
+-            int order=morpg?Battle.BattlePresentationSortingPolicy.MorpgGroundDirectionHud:
+-                Battle.BattlePresentationSortingPolicy.GroundDirectionHud;
+-            red.sortingLayerID=blue.sortingLayerID=Battle.BattlePresentationSortingPolicy.MorpgSortingLayerId;
+-            red.sortingOrder=blue.sortingOrder=order;
+-        }
+-        internal static ControlVector ProjectToGround(ControlVector direction,Vector3 scale)
+-            =>Mathf.Abs(scale.x)>.0001f&&Mathf.Abs(scale.y)>.0001f
+-                ?new ControlVector(direction.X/scale.x,direction.Y/scale.y):default;
+-        internal static void UpdateArc(SpriteRenderer renderer,Transform pivot,ControlVector direction)
+-        {
+-            if(renderer==null||pivot==null)return;
+-            bool visible=renderer.sprite!=null&&direction.Valid&&direction.Nonzero;
+-            renderer.enabled=visible;
+-            pivot.localRotation=visible?Quaternion.Euler(0f,0f,Mathf.Atan2(direction.Y,direction.X)*Mathf.Rad2Deg):Quaternion.identity;
+-        }
+-        private void Hide()
+-        {
+-            UpdateArc(red,redPivot,default);UpdateArc(blue,bluePivot,default);
+-        }
+-        private void OnDisable(){Hide();cachedCamera=null;cameraRefresh=0f;}
+-    }
+-}
+--- a/Assets/Scripts/Actor/Character/Control/SeojinDualDirectionHud.cs.meta
++++ /dev/null
+@@ -1,2 +0,0 @@
+-fileFormatVersion: 2
+-guid: 391827a4bce92840d02237fa72daefe0
+--- a/AgentTools/SeojinManualHarness/hud.py
++++ /dev/null
+@@ -1,8 +0,0 @@
+-from pathlib import Path
+-import subprocess,tempfile
+-root=Path(__file__).resolve().parents[2];out=Path(tempfile.mkdtemp(prefix='seojin-hud-'))
+-methods,cases=(root/'AgentTools/SeojinManualHarness/Hud.tests.cs').read_text().split('// CASES')
+-s=(root/'AgentTools/SeojinManualHarness/Tests.cs').read_text().replace(' static void Main(){',methods+'\n static void Main(){').replace('  Console.WriteLine("PASS "+count+',cases+'\n  Console.WriteLine("PASS "+count+');p=out/'Tests.cs';p.write_text(s)
+-mono=Path('/Applications/Unity/Hub/Editor/6000.3.10f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge')
+-subprocess.run([str(mono/'bin/mono'),str(mono/'lib/mono/msbuild/Current/bin/Roslyn/csc.exe'),'-nologo','-nowarn:0649','-langversion:9.0','-out:'+str(out/'test.exe'),str(root/'AgentTools/SeojinManualHarness/Stub.cs'),str(p),*[str(p) for p in (root/'Assets/Scripts/Actor/Character/Control').glob('*.cs')],str(root/'Assets/Scripts/Ability/Skills/Definitions/equipment/SkillAimMode.cs'),str(root/'Assets/Scripts/Battle/Presentation/BattlePresentationSortingPolicy.cs')],check=True)
+-subprocess.run([str(mono/'bin/mono'),str(out/'test.exe')],check=True)
+--- a/AgentTools/SeojinManualHarness/hud_assets.py
++++ /dev/null
+@@ -1,24 +0,0 @@
+-from pathlib import Path
+-import hashlib,json,re,struct,base64,math
+-root=Path(__file__).resolve().parents[2];out=root/'Artifacts/Engineering/SeojinManualControl/dual-hud-09';src=root/'Artifacts/GraphicsRemediation/HUD/SeojinDualDirectionCrescent/selected/revision-01/manifest.json';manifest=json.loads(src.read_text());assert hashlib.sha256(src.read_bytes()).hexdigest()=='99737281257a6c67b77eb4ac418ff97689d1d2b2850db11096e282d34703a5dd'
+-dest=root/'Assets/Resources/battle/Presentation/SeojinDualDirectionCrescent/revision-01';assert len(list(dest.glob('*.png')))==len(manifest['records'])==2
+-rows=[]
+-for rec in manifest['records']:
+- p=dest/Path(rec['path']).name;b=p.read_bytes();assert hashlib.sha256(b).hexdigest()==rec['sha256']==hashlib.sha256(Path(rec['path']).read_bytes()).hexdigest();w,h,depth,mode=struct.unpack('>IIBB',b[16:26]);assert (w,h,depth,mode)==(512,512,8,6)
+- meta=Path(str(p)+'.meta').read_text();assert all(x in meta for x in ['spriteMode: 1','spritePixelsToUnits: 100','spritePivot: {x: 0.5, y: 0.5}','textureType: 8','alphaIsTransparency: 1','textureCompression: 0']);guid=re.search(r'guid: (\w+)',meta).group(1);rows.append({'path':str(p.relative_to(root)),'sha256':rec['sha256'],'guid':guid,'RGBA':[w,h,depth],'PPU':100,'pivot':[.5,.5],'Sprite':'Single'})
+-for row in rows:
+- matches=[p for p in (root/'Assets').rglob('*.meta') if ('guid: '+row['guid']) in p.read_text(errors='replace')];assert len(matches)==1
+-for n,h in json.loads((out/'aura-before-sha.json').read_text()).items():assert hashlib.sha256((root/n).read_bytes()).hexdigest()==h,n
+-code=(root/'Assets/Scripts/Actor/Character/Control/SeojinDualDirectionHud.cs').read_text();late=code[code.index('private void LateUpdate()'):code.index('internal static void UpdateArc')];assert 'new GameObject' not in late and 'Resources.Load' not in late and 'GetComponents' not in late
+-(out/'asset-audit.json').write_text(json.dumps({'manifest_verified':True,'exact2':rows,'existing_aura_unchanged':True,'Unity_import':False,'per_frame_managed_collection_or_object_creation':False},indent=2)+'\n')
+-def uri(p):return 'data:image/png;base64,'+base64.b64encode(p.read_bytes()).decode()
+-red=uri(dest/'attack-mouse-red.png');blue=uri(dest/'movement-keyboard-blue.png');back=uri(root/'Assets/ImagesGenerated/Battle/character/player-character-aura-loop-f/back/frame_01.png');front=uri(root/'Assets/ImagesGenerated/Battle/character/player-character-aura-loop-f/front/frame_01.png')
+-aw,ah=struct.unpack('>II',(root/'Assets/ImagesGenerated/Battle/character/player-character-aura-loop-f/back/frame_01.png').read_bytes()[16:24]);width=aw/100*.2058*400;height=ah/100*.15435*400;ratio=height/width
+-svg=['<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="640" viewBox="0 0 1200 640"><rect width="1200" height="640" fill="#151d28"/><text x="40" y="45" fill="#e7ecf2" font-size="24" font-family="sans-serif">Seojin • dual direction HUD / static composition</text><text x="40" y="75" fill="#abb8c8" font-size="15" font-family="sans-serif">Approved source pixels unchanged · red outer lane / blue inner lane · Unity not run</text>']
+-for index,(a,b,label) in enumerate([(0,0,'Same direction'),(180,0,'Opposite directions'),(45,-45,'Independent diagonals'),(90,180,'Mouse up / WASD left')]):
+- x=300+(index%2)*600;y=215+(index//2)*275;svg.append(f'<g transform="translate({x} {y})"><text x="0" y="-85" text-anchor="middle" fill="#e7ecf2" font-size="18" font-family="sans-serif">{label}</text>')
+- for img in [back,front]:svg.append(f'<image href="{img}" x="{-width/2}" y="{-height/2}" width="{width}" height="{height}"/>')
+- svg.append(f'<g transform="scale(1 {ratio})">')
+- for img,angle,size in [(red,math.degrees(math.atan2(math.sin(math.radians(a))/ratio,math.cos(math.radians(a)))),width*1.2*1.15),(blue,math.degrees(math.atan2(math.sin(math.radians(b))/ratio,math.cos(math.radians(b)))),width*1.2)]:svg.append(f'<g transform="rotate({-angle})"><image href="{img}" x="{-size/2}" y="{-size/2}" width="{size}" height="{size}"/></g>')
+- svg.append('</g><path d="M -4 0 H 4 M 0 -4 V 4" stroke="#e7ecf2" opacity=".5"/></g>')
+-svg.append('</svg>');(out/'static-preview.svg').write_text(''.join(svg));print('PASS exact2 source/hash/RGBA512/metadata/GUID uniqueness, existing aura unchanged, allocation source audit; static preview generated')
+--- a/AgentTools/SeojinManualHarness/Hud.tests.cs
++++ /dev/null
+@@ -1,17 +0,0 @@
+- static T HudField<T>(SeojinDualDirectionHud h,string n)=>(T)typeof(SeojinDualDirectionHud).GetField(n,BindingFlags.Instance|BindingFlags.NonPublic).GetValue(h);
+- static void HudTick(SeojinDualDirectionHud h,string n="LateUpdate")=>typeof(SeojinDualDirectionHud).GetMethod(n,BindingFlags.Instance|BindingFlags.NonPublic).Invoke(h,null);
+- static (SeojinManualControl control,Character.CharacterManager actor,Battle.Presentation.BattleCharacterAuraView aura,SeojinDualDirectionHud hud) HudRig(){var x=Rig();Update(x.control);var a=new GameObject("Aura").AddComponent<Battle.Presentation.BattleCharacterAuraView>();a.BackArcRenderer=a.gameObject.AddComponent<SpriteRenderer>();a.BackArcRenderer.sprite=new Sprite{rect=Rect.MinMaxRect(0,0,256,128)};x.actor.gameObject.AddComponent<Battle.Presentation.BattleCharacterAuraBinding>().AuraView=a;SeojinDualDirectionHud.Ensure(x.control,x.actor);return(x.control,x.actor,a,a.GetComponent<SeojinDualDirectionHud>());}
+-// CASES
+- for(int dir=0;dir<8;dir++){int i=dir;Test("HUD actual pivot octant "+i,()=>{var x=HudRig();Input.mousePosition=new Vector3((float)Math.Cos(i*Math.PI/4)*9,(float)Math.Sin(i*Math.PI/4)*9,0);HudTick(x.hud);var r=HudField<SpriteRenderer>(x.hud,"red");var p=HudField<Transform>(x.hud,"redPivot");var plane=HudField<Transform>(x.hud,"ground").localScale;float visible=(float)Math.Atan2(Math.Sin(p.localRotation.angle/Mathf.Rad2Deg)*plane.y,Math.Cos(p.localRotation.angle/Mathf.Rad2Deg)*plane.x)*Mathf.Rad2Deg;Check(r.enabled&&Math.Abs(Math.Abs(visible-i*45)%360)<.001f,"visible red world direction");Check(x.actor.transform.localRotation.angle==0&&x.aura.transform.localRotation.angle==0,"root/aura rotated");});}
+- foreach(string gate in new[]{"selection","UI","pause","CC","rooted","death","transition","auto","end","disabled"})Test("HUD immediate hide "+gate,()=>{var x=HudRig();Input.mousePosition=new Vector3(9,0,0);Input.Held.Add(KeyCode.W);HudTick(x.hud);if(gate=="selection")x.aura.SetSelectionActive(false);if(gate=="UI")Application.isFocused=false;if(gate=="pause")Time.timeScale=0;if(gate=="CC")x.actor.IsStunned=true;if(gate=="rooted")x.actor.IsRooted=true;if(gate=="death")x.actor.RuntimeData.isDead=true;if(gate=="transition")Battle.Morpg.BattleMorpgLiveRoute.Locked=true;if(gate=="auto")x.control.SetAutoMode(true);if(gate=="end")Session.GameSession.Instance.BattleSession.BattleRuntime.isCompleted=true;if(gate=="disabled")x.control.enabled=false;HudTick(x.hud);Check(!HudField<SpriteRenderer>(x.hud,"red").enabled&&!HudField<SpriteRenderer>(x.hud,"blue").enabled,"gate leaked HUD");});
+- Test("HUD simultaneous lanes live mouse and WASD",()=>{var x=HudRig();Input.mousePosition=new Vector3(9,0,0);Input.Held.Add(KeyCode.D);HudTick(x.hud);var r=HudField<SpriteRenderer>(x.hud,"red");var b=HudField<SpriteRenderer>(x.hud,"blue");Check(r.enabled&&b.enabled&&r.transform.localScale.x>b.transform.localScale.x,"overlapping same-direction lanes");Input.mousePosition=new Vector3(0,9,0);HudTick(x.hud);Check(HudField<Transform>(x.hud,"redPivot").localRotation.angle==90&&HudField<Transform>(x.hud,"bluePivot").localRotation.angle==0,"live mouse or independent blue wrong");});
+- Test("HUD blue release and opposites hide without facing fallback",()=>{var x=HudRig();Input.Held.Add(KeyCode.W);HudTick(x.hud);Check(HudField<SpriteRenderer>(x.hud,"blue").enabled,"W hidden");Input.Held.Add(KeyCode.S);HudTick(x.hud);Check(!HudField<SpriteRenderer>(x.hud,"blue").enabled,"opposites shown");Input.Clear();HudTick(x.hud);Check(!HudField<SpriteRenderer>(x.hud,"blue").enabled,"release retained last movement");});
+- Test("HUD invalid mouse hides red while valid WASD remains",()=>{var x=HudRig();Camera.main=null;Input.Held.Add(KeyCode.A);HudTick(x.hud);Check(!HudField<SpriteRenderer>(x.hud,"red").enabled&&HudField<SpriteRenderer>(x.hud,"blue").enabled,"invalid camera semantics");});
+- Test("HUD repeated frame no resource load or hierarchy rebuild",()=>{var x=HudRig();Input.mousePosition=new Vector3(9,0,0);HudTick(x.hud);int loads=Resources.Loads;var pivot=HudField<Transform>(x.hud,"redPivot");for(int i=0;i<100;i++)HudTick(x.hud);Check(Resources.Loads==loads&&ReferenceEquals(pivot,HudField<Transform>(x.hud,"redPivot")),"per-frame load or allocation");SeojinDualDirectionHud.Ensure(x.control,x.actor);Check(ReferenceEquals(pivot,HudField<Transform>(x.hud,"redPivot")),"rebind duplicated hierarchy");HudTick(x.hud,"OnDisable");Check(!HudField<SpriteRenderer>(x.hud,"red").enabled&&HudField<Camera>(x.hud,"cachedCamera")==null,"pool disable state leak");});
+- Test("HUD MORPG ground sorting and aura scale",()=>{var x=HudRig();Battle.Morpg.MorpgEnvironmentRuntime.Active=new();Input.mousePosition=new Vector3(9,0,0);HudTick(x.hud);var r=HudField<SpriteRenderer>(x.hud,"red");Check(r.sortingOrder>Battle.BattlePresentationSortingPolicy.MorpgBackProps&&r.sortingOrder<Battle.BattlePresentationSortingPolicy.MorpgBodyOrder(-9999)&&r.sortingOrder<Battle.BattlePresentationSortingPolicy.MorpgGroundTelegraph,"ground order");Check(Math.Abs(HudField<Transform>(x.hud,"ground").localScale.x-.12348f)<.00001f,"aura ring fit");Battle.Morpg.MorpgEnvironmentRuntime.Active=null;});
+-
+- Test("HUD standard ground band background below telegraph",()=>{Check(Battle.BattlePresentationSortingPolicy.Background<Battle.BattlePresentationSortingPolicy.GroundDirectionHud&&Battle.BattlePresentationSortingPolicy.GroundDirectionHud<Battle.BattlePresentationSortingPolicy.GroundTelegraph,"non MORPG floor tie");});
+-
+- Test("HUD pointer-over-UI hides both per owner no-intent policy",()=>{var x=HudRig();Input.mousePosition=new Vector3(9,0,0);Input.Held.Add(KeyCode.W);UnityEngine.EventSystems.EventSystem.current=new UnityEngine.EventSystems.EventSystem{Over=true};HudTick(x.hud);Check(!HudField<SpriteRenderer>(x.hud,"red").enabled&&!HudField<SpriteRenderer>(x.hud,"blue").enabled,"pointer UI leaked intent");});
+- Test("HUD aura render visibility suppresses hidden marker",()=>{var x=HudRig();Input.mousePosition=new Vector3(9,0,0);Input.Held.Add(KeyCode.W);x.aura.BackArcRenderer.enabled=false;HudTick(x.hud);Check(!HudField<SpriteRenderer>(x.hud,"red").enabled&&!HudField<SpriteRenderer>(x.hud,"blue").enabled,"invisible aura leaked HUD");});
+- Test("HUD missing sprites stay hidden no retry allocations and rebind recovers",()=>{typeof(SeojinDualDirectionHud).GetField("redSprite",BindingFlags.Static|BindingFlags.NonPublic).SetValue(null,null);typeof(SeojinDualDirectionHud).GetField("blueSprite",BindingFlags.Static|BindingFlags.NonPublic).SetValue(null,null);Resources.Missing=true;var x=HudRig();Input.mousePosition=new Vector3(9,0,0);Input.Held.Add(KeyCode.W);var pivot=HudField<Transform>(x.hud,"redPivot");int loads=Resources.Loads;for(int i=0;i<50;i++)HudTick(x.hud);Check(!HudField<SpriteRenderer>(x.hud,"red").enabled&&!HudField<SpriteRenderer>(x.hud,"blue").enabled&&Resources.Loads==loads&&ReferenceEquals(pivot,HudField<Transform>(x.hud,"redPivot")),"missing sprite allocated/retried/shown");Resources.Missing=false;SeojinDualDirectionHud.Ensure(x.control,x.actor);HudTick(x.hud);Check(HudField<SpriteRenderer>(x.hud,"red").enabled&&HudField<SpriteRenderer>(x.hud,"blue").enabled&&ReferenceEquals(pivot,HudField<Transform>(x.hud,"redPivot")),"rebind could not recover same children");});

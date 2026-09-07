@@ -49,6 +49,12 @@ public class BattleSpawnManager : MonoBehaviour
         }
     }
 
+    private void OnDisable()
+    {
+        morpgRoute?.AbortActiveTransition();
+        morpgRoute?.FlushPendingRewards();
+    }
+
     private void OnDestroy()
     {
         StopSequence();
@@ -70,6 +76,8 @@ public class BattleSpawnManager : MonoBehaviour
         morpgRoute?.Tick(Time.deltaTime);
     }
 
+    [SerializeField] private bool reducedMotionTransitions;
+
     public bool TryPlayMorpg(bool enabled, BattleSession session, ISpawnUnitResolver resolver)
     {
         if (!Battle.Morpg.BattleMorpgLiveRoute.TryCreate(enabled, session, resolver,
@@ -81,8 +89,10 @@ public class BattleSpawnManager : MonoBehaviour
         }
         StopSequence();
         morpgRoute = candidate;
-        morpgRoute.Activate();
-        return true;
+        morpgRoute.ReducedMotionTransitions = reducedMotionTransitions;
+        if (morpgRoute.Activate()) return true;
+        morpgRoute = null;
+        return false;
     }
 
     private void OnGUI() => morpgRoute?.DrawHud();
@@ -285,6 +295,7 @@ public class BattleSpawnManager : MonoBehaviour
             renderer.sprite = runtime.backgroundSprite;
             renderer.sortingOrder = Battle.BattlePresentationSortingPolicy.Background;
 
+            Battle.Morpg.MorpgLegacyBackground.Register(runtime,renderer);
             return backgroundObject;
         }
 

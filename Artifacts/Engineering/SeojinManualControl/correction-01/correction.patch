@@ -1,0 +1,272 @@
+--- a/Assets/Scripts/Actor/Character/Control/ManualControlCore.cs
++++ b/Assets/Scripts/Actor/Character/Control/ManualControlCore.cs
+@@ -22,6 +22,7 @@
+         internal bool Up,Down,Left,Right,AttackHeld,AttackDown,DashDown;
+         internal int SlotDown;
+         internal AimSnapshot Aim;
++        internal ControlVector CasterPosition;
+         internal ControlVector Axes=>new ControlVector((Right?1:0)-(Left?1:0),(Up?1:0)-(Down?1:0)).Normalized;
+     }
+     internal interface IManualGameplay
+@@ -41,11 +42,16 @@
+         internal bool AllowsAuto=>Reason==ControlReason.ExplicitAuto&&!Suspended;
+         private bool initialized,hasPending;
+         private int pendingSlot;
+-        private AimSnapshot pendingAim;
+-        private ControlVector pendingDash,lastDirection;
+-        internal void Reset(){initialized=false;Reason=ControlReason.Manual;Suspended=true;AttackHeld=false;hasPending=false;lastDirection=default;}
+-        internal static ControlVector DashDirection(ControlVector axes,ControlVector last,ControlVector facing)
+-            =>axes.Nonzero?axes.Normalized:last.Nonzero?last.Normalized:facing.Nonzero?facing.Normalized:new ControlVector(1,0);
++        private AimSnapshot pendingAim,basicAim;
++        private bool hasBasicAim;
++        private ControlVector pendingDash,lastFacing;
++        internal void Reset(){initialized=false;Reason=ControlReason.Manual;Suspended=true;AttackHeld=false;hasPending=false;hasBasicAim=false;lastFacing=default;}
++        internal static ControlVector DashDirection(AimSnapshot aim,ControlVector origin,ControlVector axes,ControlVector facing)
++        {
++            var delta=new ControlVector(aim.Point.X-origin.X,aim.Point.Y-origin.Y);
++            if(aim.Point.Valid&&origin.Valid&&delta.Nonzero)return delta.Normalized;
++            return axes.Valid&&axes.Nonzero?axes.Normalized:facing.Valid&&facing.Nonzero?facing.Normalized:new ControlVector(1,0);
++        }
+         internal void Tick(ManualInputFrame input,ControlReason reason,bool suspended,ControlVector facing,IManualGameplay game)
+         {
+             var prior=Reason;
+@@ -53,18 +59,21 @@
+             Reason=reason;Suspended=suspended;initialized=true;
+             if(changed)
+             {
+-                AttackHeld=false;hasPending=false;lastDirection=default;
++                AttackHeld=false;hasPending=false;hasBasicAim=false;lastFacing=default;
+                 game.Clear(reason!=ControlReason.Manual||prior!=ControlReason.Manual);game.Move(default);
+                 return; // handback frame consumes no input; next frame re-samples physical state.
+             }
+-            if(reason!=ControlReason.Manual||suspended){AttackHeld=false;hasPending=false;game.Move(default);return;}
+-            var axes=input.Axes;if(axes.Nonzero)lastDirection=axes;
++            if(reason!=ControlReason.Manual||suspended){AttackHeld=false;hasPending=false;hasBasicAim=false;game.Move(default);return;}
++            var axes=input.Axes;if(facing.Valid&&facing.Nonzero)lastFacing=facing.Normalized;
+             if((input.DashDown||input.SlotDown>0)&&game.Available(input.DashDown?4:input.SlotDown))
+             {
+                 hasPending=true;pendingSlot=input.DashDown?4:input.SlotDown;pendingAim=input.Aim;
+-                pendingDash=DashDirection(axes,lastDirection,facing);
++                pendingDash=DashDirection(input.Aim,input.CasterPosition,axes,lastFacing);
+             }
++            bool wasHeld=AttackHeld;
+             AttackHeld=(input.AttackHeld||input.AttackDown)&&!hasPending;
++            if(!AttackHeld)hasBasicAim=false;
++            else if(input.AttackDown||!wasHeld){basicAim=input.Aim;hasBasicAim=true;}
+             game.Move(game.Busy?default:axes);
+             if(game.Busy)return;
+             if(hasPending)
+@@ -73,8 +82,9 @@
+                 int slot=pendingSlot;var aim=pendingAim;var dash=pendingDash;hasPending=false;
+                 game.Move(default);game.Fire(slot,aim,dash,()=>false);return;
+             }
+-            if(AttackHeld&&input.Aim.Point.Valid&&game.Ready(0))
+-            {game.Move(default);game.Fire(0,input.Aim,default,()=>AttackHeld&&Reason==ControlReason.Manual&&!Suspended);}
++            var cycleAim=hasBasicAim?basicAim:input.Aim;
++            if(AttackHeld&&cycleAim.Point.Valid&&game.Ready(0))
++            {game.Move(default);game.Fire(0,cycleAim,default,()=>AttackHeld&&Reason==ControlReason.Manual&&!Suspended);hasBasicAim=false;}
+         }
+     }
+ }
+--- a/Assets/Scripts/Actor/Character/Control/SeojinManualControl.cs
++++ b/Assets/Scripts/Actor/Character/Control/SeojinManualControl.cs
+@@ -60,7 +60,7 @@
+             if(env?.Zone!=null){var z=env.Zone;float l=z.walkable[0].x,r=l,b=z.walkable[0].y,t=b;foreach(var v in z.walkable){l=Math.Min(l,v.x);r=Math.Max(r,v.x);b=Math.Min(b,v.y);t=Math.Max(t,v.y);}bounds=Rect.MinMaxRect(l,b,r,t);}
+             var facing=GetComponentInChildren<AnimationMono>();Vector2 dir=Vector2.right;
+             if(facing!=null){var f=facing.CurrentDirection;dir=new Vector2(f==AnimationMono.DiagonalDirection.UpLeft||f==AnimationMono.DiagonalDirection.DownLeft?-1:1,f==AnimationMono.DiagonalDirection.UpLeft||f==AnimationMono.DiagonalDirection.UpRight?1:-1);}
+-            var input=blocked?default:SeojinInputReader.Read(Camera.main,bounds);
++            var input=blocked?default:SeojinInputReader.Read(Camera.main,bounds,actor.transform.position);
+             core.Tick(input,reason,blocked,new ControlVector(dir.x,dir.y),adapter);
+             if(end)skills?.CancelManualExecution();
+             bool allow=core.AllowsAuto;
+--- a/Assets/Scripts/Actor/Character/Control/SeojinInputReader.cs
++++ b/Assets/Scripts/Actor/Character/Control/SeojinInputReader.cs
+@@ -20,11 +20,12 @@
+                 return !Application.isFocused || (ui!=null&&(ui.IsPointerOverGameObject()||ui.currentSelectedGameObject!=null));
+             }
+         }
+-        internal static ManualInputFrame Read(Camera camera,Rect bounds)
++        internal static ManualInputFrame Read(Camera camera,Rect bounds,Vector2 casterPosition)
+         {
+             var f=new ManualInputFrame{Up=Input.GetKey(KeyCode.W),Down=Input.GetKey(KeyCode.S),Left=Input.GetKey(KeyCode.A),Right=Input.GetKey(KeyCode.D),AttackHeld=Input.GetMouseButton(0),AttackDown=Input.GetMouseButtonDown(0),DashDown=Input.GetKeyDown(KeyCode.LeftShift)||Input.GetKeyDown(KeyCode.RightShift)};
+             for(int i=0;i<SeojinControlPolicy.Skills.Length;i++)if(Input.GetKeyDown(SeojinControlPolicy.Skills[i])){f.SlotDown=i+1;break;}
+-            // Mouse is used only for basic/skill AimSnapshot. Dash consumes only the keyboard frame.
++            // Basic, skills and Dash share the same clamped world-point snapshot.
++            f.CasterPosition=new ControlVector(casterPosition.x,casterPosition.y);
+             Vector2 point=new Vector2(float.NaN,float.NaN);
+             if(camera!=null)
+             {
+--- a/AgentTools/SeojinManualHarness/Combo.template.cs
++++ b/AgentTools/SeojinManualHarness/Combo.template.cs
+@@ -1,6 +1,6 @@
+ using System; using System.Collections; using System.Collections.Generic; using System.Linq;
+-struct Vector2 {public float x,y;public Vector2(float a,float b){x=a;y=b;}public static float Distance(Vector2 a,Vector2 b)=>1;}
+-class Transform {public Vector2 position;public int GetInstanceID()=>1;}
++struct Vector2 {public float x,y;public Vector2(float a,float b){x=a;y=b;}public float sqrMagnitude=>x*x+y*y;public Vector2 normalized=>new Vector2(x/(float)Math.Sqrt(sqrMagnitude),y/(float)Math.Sqrt(sqrMagnitude));public static Vector2 right=>new Vector2(1,0);public static Vector2 operator -(Vector2 a,Vector2 b)=>new Vector2(a.x-b.x,a.y-b.y);public static float Distance(Vector2 a,Vector2 b)=>1;}
++class Transform {public Vector2 position;public Vector2 right=>Vector2.right;public int GetInstanceID()=>1;}
+ class WaitForSeconds {public float value;public WaitForSeconds(float v){value=v;}}
+ static class Mathf {public static float Max(float a,float b)=>Math.Max(a,b);}
+ static class Time {public static float deltaTime=.02f;}
+@@ -10,7 +10,7 @@
+ class Profile {public bool HasCompleteSegmentedBodyRegistry=true,UseCanonicalBodyChoreography;public object SegmentedBodyActionClip=new();public int SegmentedBodyFrameCount=18;public SkillComboStep[] Steps={new(){ComboIndex=0,StartTime=0,HitTime=.16f,RecoveryEnd=.28f,DamageWeight=.25f},new(){ComboIndex=1,StartTime=.48f,HitTime=.64f,RecoveryEnd=.68f,DamageWeight=.3f},new(){ComboIndex=2,StartTime=.78f,HitTime=.94f,RecoveryEnd=1.06f,DamageWeight=.45f}};}
+ class EquipmentSkillRuntimeData {public Profile comboProfile=new();public Equipment sourceEquipment=new();}
+ class CharacterSkillManager {public int Success;public void NotifySkillUseSucceeded(EquipmentSkillRuntimeData r){Success++;}}
+-class AnimationMono {public int Stops,Fallback,Sync,Starts;public void RestartContinuousComboAction(object c,Profile p,object n){Starts++;}public void RestartCanonicalComboChoreography(int i,float a,float b){}public void RestartComboAction(object c,float a,float b,object d){}public void RestartAttack(){Fallback++;}public void SynchronizeContinuousComboContact(object c,SkillComboStep s,int f){Sync++;}public void StopComboAction(){Stops++;}}
++class AnimationMono {public int Stops,Fallback,Sync,Starts;public List<Vector2> Directions=new();public void SetDirectionFromVector(Vector2 d){Directions.Add(d);}public void RestartContinuousComboAction(object c,Profile p,object n){Starts++;}public void RestartCanonicalComboChoreography(int i,float a,float b){}public void RestartComboAction(object c,float a,float b,object d){}public void RestartAttack(){Fallback++;}public void SynchronizeContinuousComboContact(object c,SkillComboStep s,int f){Sync++;}public void StopComboAction(){Stops++;}}
+ static class MainCharacterSkillFocusFeature {public static void NotifySkillExecuting(object a,object b,object c){}public static void CancelPending(object c){}}
+ class Harness {
+  public Dictionary<int,int> comboGenerations=new();public HashSet<int> activeComboCasters=new();int nextComboToken;
+@@ -18,9 +18,11 @@
+  bool RollComboCritical(Transform c)=>false;AnimationMono ResolveAnimation(Transform c)=>Anim;bool CanContinueGeneration(Transform c,int g)=>comboGenerations.TryGetValue(1,out int n)&&n==g;
+  bool UseSkill(CharacterSkillManager s,EquipmentSkillRuntimeData r){Cooldowns++;CooldownTimes.Add(Clock);return true;}
+  Transform NormalizeComboTarget(Transform t)=>t;bool IsValidComboTarget(Transform c,Transform t,object h)=>t!=null;bool IsComboTargetInRange(Transform c,Transform t,float r)=>t!=null;
+- Transform ResolveComboRetarget(Transform c,float r,object h){Retargets++;return null;}Vector2 ResolveDirection(Vector2 p,Transform c,Transform t,bool point,Vector2 target)=>target;void ApplyAnimationDirection(Transform c,Vector2 d){}void ApplyCollisionSafeLunge(Transform c,Transform t,Vector2 d,float l){}
++ Transform ResolveComboRetarget(Transform c,float r,object h){Retargets++;return null;}/* DIRECTION */
++ /* FACING */
++ void ApplyCollisionSafeLunge(Transform c,Transform t,Vector2 d,float l){}
+  bool UseSkillOnce(CharacterSkillManager s,EquipmentSkillRuntimeData r,Transform c,Transform t,bool up,Vector2 p,int hit,object clip,object profile,object calibration,string token,bool crit,float weight,int index,object h,bool suppress,float life){Hits.Add((index,Clock,suppress,p));return true;}
+- public IEnumerator Start(EquipmentSkillRuntimeData r=null,bool point=true){comboGenerations[1]=1;activeComboCasters.Add(1);return FireComboRoutine(new(),r??new(),new(),null,point,new Vector2(9,8),()=>Held,1);}
++ public IEnumerator Start(EquipmentSkillRuntimeData r=null,bool point=true){comboGenerations[1]=1;activeComboCasters.Add(1);return FireComboRoutine(new(),r??new(),new(){position=new Vector2(12,8)},null,point,new Vector2(9,8),()=>Held,1);}
+  public void Run(IEnumerator e,Action<float> beforeResume=null){while(e.MoveNext()){Clock+=e.Current is WaitForSeconds w?w.value:Time.deltaTime;beforeResume?.Invoke(Clock);}}
+  /* COMBO */
+ }
+@@ -36,6 +38,7 @@
+  static void Main(){
+  var h=new Harness();h.Run(h.Start(),t=>{if(t>=.1f)h.Held=false;});Check(h.Hits.Count==1&&Near(h.Hits[0].time,.16f)&&h.Cooldowns==0&&h.Anim.Stops==1,"tap-release-completes-current-hit-no-second-step-no-cooldown");
+  h=new();h.Run(h.Start());Check(h.Hits.Select(x=>x.index).SequenceEqual(new[]{0,1,2})&&h.Hits.Select(x=>x.suppress).SequenceEqual(new[]{true,true,false})&&Near(h.Hits[2].time,.94f)&&Near(h.Clock,1.06f)&&h.Anim.Sync==1,"held-authoritative-cadence-body-contact-VFX-001");Check(h.Cooldowns==1&&Near(h.CooldownTimes[0],.78f),"cooldown-on-third-step-entry-once");Check(h.Retargets==0&&h.Hits.All(x=>x.point.x==9&&x.point.y==8),"snapshot-all-three-hits-no-target-following");
++ Check(h.Anim.Directions.Count==3&&h.Anim.Directions.All(d=>d.x==-1&&d.y==0),"basic-mouse-snapshot-controls-all-three-production-facing-calls");
+  h=new();h.Run(h.Start(),t=>{if(t>=.6f)h.Held=false;});Check(h.Hits.Count==2&&h.Cooldowns==0,"release-during-second-hit-finishes-second-only");
+  h=new();h.Run(h.Start(),t=>{if(t>=.8f){h.comboGenerations.Remove(1);}});Check(h.Cooldowns==1&&h.Hits.Count==2,"cancel-after-third-entry-no-refund-no-delayed-hit");
+  h=new();var old=h.Start();Check(old.MoveNext(),"old-combo-reaches-hit-wait");h.comboGenerations[1]=2;h.Run(old);Check(h.Hits.Count==0&&h.Anim.Stops==0&&h.comboGenerations[1]==2,"old-generation-cannot-hit-stop-or-clear-new-combo");
+--- a/AgentTools/SeojinManualHarness/Tests.cs
++++ b/AgentTools/SeojinManualHarness/Tests.cs
+@@ -16,18 +16,20 @@
+   Test("held-repeat-after-recovery-and-cooldown-without-dedup-error",()=>{var c=new ManualControlCore();var p=new Port();Tick(c,p,Frame());var f=Frame();f.AttackHeld=true;Tick(c,p,f);for(int i=0;i<50;i++)Tick(c,p,f);Check(p.Calls==1,"busy duplicates");p.Busy=false;p.ReadyNow=false;for(int i=0;i<50;i++)Tick(c,p,f);Check(p.Calls==1,"cooldown duplicates");p.ReadyNow=true;Tick(c,p,f);Check(p.Calls==2,"held no repeat");});
+   Test("skills-pending-point-is-snapshot-latest-mouse-does-not-follow",()=>{var c=new ManualControlCore();var p=new Port{ReadyNow=false};Tick(c,p,Frame());var f=Frame();f.SlotDown=2;Tick(c,p,f);f=Frame();f.Aim=new AimSnapshot(new ControlVector(1,2),0,-4,32,4);Tick(c,p,f);p.ReadyNow=true;Tick(c,p,f);Check(p.Calls==1&&p.Slot==2&&p.Aim.Point.X==20,"snapshot changed");});
+   Test("missing-slot-fails-closed-without-blocking-basic",()=>{var c=new ManualControlCore();var p=new Port();p.Missing.Add(2);Tick(c,p,Frame());var f=Frame();f.SlotDown=2;f.AttackHeld=true;Tick(c,p,f);Check(p.Calls==1&&p.Slot==0,"missing slot jams input");});
+-  Test("dash-cardinal-diagonal-mouse-independent",()=>{foreach(var v in new[]{new ControlVector(1,0),new ControlVector(0,-1),new ControlVector(-1,1)}){var c=new ManualControlCore();var p=new Port();Tick(c,p,Frame());var f=Frame();f.Right=v.X>0;f.Left=v.X<0;f.Up=v.Y>0;f.Down=v.Y<0;f.DashDown=true;f.Aim=new AimSnapshot(new ControlVector(-100,-100),-100,-100,100,100);Tick(c,p,f);var n=v.Normalized;Check(p.Slot==4&&Math.Abs(p.Dash.X-n.X)<1e-5&&Math.Abs(p.Dash.Y-n.Y)<1e-5,"mouse dash or diagonal speed");}});
+-  Test("dash-no-input-last-movement-then-facing",()=>{var c=new ManualControlCore();var p=new Port();Tick(c,p,Frame());var f=Frame();f.Up=true;Tick(c,p,f);f=Frame();f.DashDown=true;Tick(c,p,f);Check(p.Dash.X==0&&p.Dash.Y==1,"last movement");var d=ManualControlCore.DashDirection(default,default,new ControlVector(-1,0));Check(d.X==-1,"facing");});
+-  Test("dash-keydown-snapshot-survives-readiness-wait",()=>{var c=new ManualControlCore();var p=new Port{ReadyNow=false};Tick(c,p,Frame());var f=Frame();f.DashDown=true;f.Right=true;Tick(c,p,f);f=Frame();f.Left=true;p.ReadyNow=true;Tick(c,p,f);Check(p.Dash.X==1,"dash direction tracked held change");});
++  Test("dash-mouse-opposite-WASD-wins",()=>{var c=new ManualControlCore();var p=new Port();Tick(c,p,Frame());var f=Frame();f.DashDown=true;f.Right=true;f.CasterPosition=new ControlVector(10,0);f.Aim=new AimSnapshot(new ControlVector(1,0),0,-4,32,4);Tick(c,p,f);Check(p.Slot==4&&p.Dash.X==-1&&p.Dash.Y==0,"WASD overrode mouse");});
++  Test("dash-epsilon-invalid-aim-WASD-then-last-facing-fallback",()=>{var near=new AimSnapshot(new ControlVector(3.001f,2),0,-4,32,4);var d=ManualControlCore.DashDirection(near,new ControlVector(3,2),new ControlVector(1,1),new ControlVector(-1,0));Check(Math.Abs(d.X-.7071068f)<1e-5&&Math.Abs(d.Y-.7071068f)<1e-5,"epsilon fallback");var invalid=new AimSnapshot(new ControlVector(float.NaN,0),0,-4,32,4);d=ManualControlCore.DashDirection(invalid,default,default,new ControlVector(-1,0));Check(d.X==-1,"invalid aim facing");var c=new ManualControlCore();var p=new Port();c.Tick(Frame(),ControlReason.Manual,false,new ControlVector(0,1),p);c.Tick(Frame(),ControlReason.Manual,false,new ControlVector(0,1),p);var f=Frame();f.DashDown=true;f.Aim=invalid;c.Tick(f,ControlReason.Manual,false,default,p);Check(p.Dash.Y==1,"last valid facing lost");});
++  Test("dash-clamped-keydown-snapshot-survives-mouse-caster-readiness-change",()=>{var c=new ManualControlCore();var p=new Port{ReadyNow=false};Tick(c,p,Frame());var f=Frame();f.DashDown=true;f.Left=true;f.CasterPosition=new ControlVector(31,4);f.Aim=new AimSnapshot(new ControlVector(999,999),0,-4,32,4);Tick(c,p,f);f=Frame();f.CasterPosition=new ControlVector(100,100);f.Aim=new AimSnapshot(new ControlVector(0,-4),0,-4,32,4);p.ReadyNow=true;Tick(c,p,f);Check(p.Dash.X==1&&p.Dash.Y==0&&p.Aim.Point.X==32&&p.Aim.Point.Y==4,"snapshot or clamp changed");});
++  Test("basic-press-snapshot-waits-and-each-held-cycle-resamples",()=>{var c=new ManualControlCore();var p=new Port{ReadyNow=false};Tick(c,p,Frame());var f=Frame();f.AttackDown=true;f.AttackHeld=true;Tick(c,p,f);f.AttackDown=false;f.Aim=new AimSnapshot(new ControlVector(2,3),0,-4,32,4);p.ReadyNow=true;Tick(c,p,f);Check(p.Calls==1&&p.Aim.Point.X==20,"press aim lost during cooldown");Tick(c,p,f);Check(p.Calls==1&&p.Aim.Point.X==20,"active cycle aim changed");p.Busy=false;Tick(c,p,f);Check(p.Calls==2&&p.Aim.Point.X==2&&p.Aim.Point.Y==3,"next held cycle not resampled");});
+   Test("all-forced-reasons-clear-and-manual-handback-no-ghost",()=>{foreach(var reason in new[]{ControlReason.Transition,ControlReason.Death,ControlReason.CrowdControl,ControlReason.Cutscene,ControlReason.ExplicitAuto}){var c=new ManualControlCore();var p=new Port{ReadyNow=false};Tick(c,p,Frame());var f=Frame();f.SlotDown=1;Tick(c,p,f);Tick(c,p,f,reason);Check(c.AllowsAuto==(reason==ControlReason.ExplicitAuto),"forced AI permission");p.ReadyNow=true;Tick(c,p,f);Check(p.Calls==0&&!p.MoveValue.Nonzero,"handback ghost");Tick(c,p,Frame());Check(p.Calls==0,"stale queued skill");}});
+   Test("ui-pause-buffer-clear-and-physical-state-resampled-next-frame",()=>{var c=new ManualControlCore();var p=new Port();Tick(c,p,Frame());var f=Frame();f.AttackHeld=true;f.Right=true;Tick(c,p,f,ControlReason.Manual,true);Tick(c,p,f);Check(p.Calls==0,"handback held ghost");Tick(c,p,f);Check(p.Calls==1,"next physical held lost");});
+   Test("runtime-default-manual-and-NPC-not-bound",()=>{var x=Rig();Check(x.move.Controlled&&!x.ai.enabled&&!x.brain.enabled,"baseline manual");var npc=new GameObject().AddComponent<Character.CharacterManager>();npc.RuntimeData.characterSO.CharacterType=Character.CharacterType.Npc;SeojinManualControl.Bind(npc);Check(npc.GetComponent<SeojinManualControl>()==null,"NPC changed");});
+-  Test("runtime-input-reader-shifts-and-slots-clamp",()=>{var x=Rig();Update(x.control);Input.Held.Add(KeyCode.W);Input.Held.Add(KeyCode.D);Input.Down.Add(KeyCode.LeftShift);Input.mousePosition=new Vector3(-40,-20,0);Update(x.control);Check(x.skills.Calls.Count==1&&x.skills.Calls[0].slot==4&&x.skills.Calls[0].point.x>0&&x.skills.Calls[0].point.y>0,"reader shift");Input.Clear();Input.Down.Add(KeyCode.Alpha3);Input.mousePosition=new Vector3(99,99,0);Update(x.control);Check(x.skills.Calls[1].slot==3&&x.skills.Calls[1].point.x==32&&x.skills.Calls[1].point.y==4,"reader aim clamp");});
++  Test("runtime-input-reader-shifts-and-slots-clamp",()=>{var x=Rig();Update(x.control);Input.Held.Add(KeyCode.W);Input.Held.Add(KeyCode.D);Input.Down.Add(KeyCode.LeftShift);Input.mousePosition=new Vector3(-40,-20,0);Update(x.control);Check(x.skills.Calls.Count==1&&x.skills.Calls[0].slot==4&&x.skills.Calls[0].point.x==0&&x.skills.Calls[0].point.y==-1,"reader shift");Input.Clear();Input.Down.Add(KeyCode.Alpha3);Input.mousePosition=new Vector3(99,99,0);Update(x.control);Check(x.skills.Calls[1].slot==3&&x.skills.Calls[1].point.x==32&&x.skills.Calls[1].point.y==4,"reader aim clamp");});
+   Test("runtime-UI-focus-pause-end-intents-zero",()=>{var x=Rig();Update(x.control);Input.MouseHeld=true;Input.Held.Add(KeyCode.D);UnityEngine.EventSystems.EventSystem.current=new UnityEngine.EventSystems.EventSystem{Over=true};Update(x.control);Check(x.skills.Calls.Count==0&&x.move.Input.x==0,"UI intent");UnityEngine.EventSystems.EventSystem.current=null;Time.timeScale=0;Update(x.control);Check(x.skills.Calls.Count==0,"pause");Time.timeScale=1;Session.GameSession.Instance.BattleSession.BattleRuntime.isCompleted=true;Update(x.control);Check(x.skills.Calls.Count==0,"end");});
+   Test("runtime-OnDisable-restores-captured-baselines-and-zero-movement",()=>{var x=Rig();Update(x.control);Input.Held.Add(KeyCode.D);Update(x.control);Check(x.move.Input.x==1,"move setup");x.control.enabled=false;Life(x.control,"OnDisable");Check(x.ai.enabled&&!x.brain.enabled&&!x.move.Controlled&&x.move.Input.x==0&&!SeojinManualControl.Bound(x.actor.gameObject),"baseline restore");});
+   Test("runtime-reenable-idempotent-manual-first-frame-no-held-ghost",()=>{var x=Rig();Update(x.control);x.control.enabled=false;Life(x.control,"OnDisable");x.control.enabled=true;Life(x.control,"OnEnable");Life(x.control,"OnEnable");Input.MouseHeld=true;Update(x.control);Check(x.skills.Calls.Count==0&&!x.ai.enabled&&x.move.Controlled,"re-enable state");Update(x.control);Check(x.skills.Calls.Count==1,"physical handback");x.control.enabled=false;Life(x.control,"OnDisable");Check(x.ai.enabled&&!x.brain.enabled,"idempotence lost captured baseline");});
+   Test("runtime-explicit-auto-only-forced-state-never-AI-authorized",()=>{var x=Rig();Update(x.control);x.control.SetAutoMode(true);Update(x.control);Check(x.ai.enabled&&x.control.AutoAuthorized&&!x.move.Controlled,"explicit auto");x.actor.IsStunned=true;Update(x.control);Check(!x.ai.enabled&&!x.control.AutoAuthorized&&!x.control.ManualAuthorized,"CC auto commands");x.control.enabled=false;Life(x.control,"OnDisable");Check(x.ai.enabled&&!x.control.AutoAuthorized,"cleanup forced guard");x.actor.IsStunned=false;Check(x.control.AutoAuthorized,"legacy handback stuck");});
+   Test("runtime-reenable-clears-stale-auto-authorization-before-Update",()=>{var x=Rig();Update(x.control);x.control.SetAutoMode(true);Update(x.control);x.control.enabled=false;Life(x.control,"OnDisable");x.control.enabled=true;Life(x.control,"OnEnable");Check(!x.control.AutoAuthorized&&!x.control.ManualAuthorized&&!x.ai.enabled,"stale authorization before Update");});
++  Test("runtime-slots-1-2-3-retain-clamped-point-contract",()=>{for(int i=0;i<3;i++){var x=Rig();Update(x.control);x.actor.transform.position=new Vector3(10,0,0);Input.Down.Add(SeojinControlPolicy.Skills[i]);Input.mousePosition=new Vector3(-100,100,0);Update(x.control);Check(x.skills.Calls.Count==1&&x.skills.Calls[0].slot==i+1&&x.skills.Calls[0].point.x==0&&x.skills.Calls[0].point.y==4,"slot mapping or point changed");}});
+   Console.WriteLine("PASS "+count+"/"+count+" production input/core/control lifecycle tests");
+  }
+ }
+--- a/AgentTools/SeojinManualHarness/combo.py
++++ b/AgentTools/SeojinManualHarness/combo.py
+@@ -8,7 +8,7 @@
+  return s[start:end]
+ combo=method('Assets/Scripts/Actor/Character/service/skill/ActiveSkillService.cs','IEnumerator FireComboRoutine(')
+ guard=method('Assets/Scripts/Actor/Character/CharacterSkillManager.cs','System.Collections.IEnumerator GuardManualRoutine(')
+-s=(root/'AgentTools/SeojinManualHarness/Combo.template.cs').read_text().replace('/* COMBO */',combo).replace('/* GUARD */',guard)
++s=(root/'AgentTools/SeojinManualHarness/Combo.template.cs').read_text().replace('/* COMBO */',combo).replace('/* GUARD */',guard).replace('/* DIRECTION */',method('Assets/Scripts/Actor/Character/service/skill/ActiveSkillService.cs','Vector2 ResolveDirection(')).replace('/* FACING */',method('Assets/Scripts/Actor/Character/service/skill/ActiveSkillService.cs','void ApplyAnimationDirection('))
+ out=Path(tempfile.mkdtemp(prefix='projectbs-manual-combo-'));src=out/'Tests.cs';src.write_text(s)
+ mono=Path('/Applications/Unity/Hub/Editor/6000.3.10f1/Unity.app/Contents/Resources/Scripting/MonoBleedingEdge')
+ subprocess.run([str(mono/'bin/mono'),str(mono/'lib/mono/msbuild/Current/bin/Roslyn/csc.exe'),'-nologo','-langversion:9.0','-out:'+str(out/'test.exe'),str(src)],check=True)
+--- a/Artifacts/Engineering/SeojinManualControl/REPORT.md
++++ b/Artifacts/Engineering/SeojinManualControl/REPORT.md
+@@ -2,11 +2,11 @@
+ 
+ Player 서진만 시작 시 Manual 소유자로 바인딩한다. 기존 AI 컴포넌트는 보존하며, 명시적 Auto 선택에서만 캡처한 enabled 상태대로 동작한다. MORPG 전환, 사망, 스턴·루트·넉백·강제 타깃, 컷신은 별도 제어 사유로 처리하며 일반 AI 명령을 허용하지 않는다. 대기·타깃 없음·공격 입력 해제로 Auto가 되지 않는다.
+ 
+-## 변경 동작
++## 변경 동작 (마우스 Dash 교정 반영)
+ 
+ - WASD 8방향: 반대키 상쇄, 대각선 정규화. PartyMovementMono의 기존 이동 속도·애니메이션 경로 사용.
+-- 좌클릭: 누르고 있으면 기존 G1 0→1→2 콤보, 해제하면 현재 원자 단계의 타격·회복을 완료하고 다음 단계 중단. 완료·쿨다운 후 물리 입력이 계속 눌렸을 때 반복한다.
+-- Shift: 좌·우 Shift keydown 시 WASD 방향을 고정한다. 무입력은 마지막 유효 이동 방향, 그 다음 현재 facing. 마우스를 사용하지 않는다.
++- 좌클릭: 누르고 있으면 기존 G1 0→1→2 콤보, 해제하면 현재 원자 단계의 타격·회복을 완료하고 다음 단계 중단. 최초 press의 마우스 스냅샷은 쿨다운 대기 중에도 보존한다. 완료·쿨다운 후 물리 입력이 계속 눌렸을 때 새 마우스 스냅샷으로 다음 콤보를 반복한다.
++- Shift: 좌·우 Shift keydown 시 공통 clamp SSOT를 거친 마우스 월드 지점과 caster 위치로 정규화 방향을 고정한다. 마우스는 반대 WASD보다 우선한다. 변환 실패 또는 caster와 거리 0.01 이하일 때만 WASD 정규화 → 마지막 유효 facing → 오른쪽 기본값으로 대체한다. 대기 중 마우스와 caster가 이동해도 캡처한 방향을 바꾸지 않는다.
+ - 1/2/3: keydown 시 공통 AimSnapshot의 마우스 월드 지점을 고정한다. 현재 MORPG walkable/맵 경계로 clamp하며 이후 마우스나 타깃을 추적하지 않는다.
+ - 실행 대기 슬롯은 최대 1개이며 새 keydown으로 교체된다. 쿨다운·실행 준비를 기다리고 중복 Fire/소비를 발행하지 않는다. 없는 런타임은 입력 단계에서 거부한다.
+ - UI 포인터·선택 포커스, 앱 포커스 상실, 일시정지, 전투 종료는 입력을 0으로 만든다. 제어권 변경은 버퍼를 비우고 복귀 프레임을 0으로 소비한 뒤 다음 프레임에 물리 입력을 다시 읽는다.
+@@ -23,8 +23,8 @@
+ 
+ | 검사 | 통과 |
+ | --- | ---: |
+-| 실제 입력·core·owner 파일 + 엔진 스텁 | 19/19 |
+-| 실제 콤보·실행 guard 메서드 추출 실행 | 13/13 |
++| 실제 입력·core·owner 파일 + 엔진 스텁 | 21/21 |
++| 실제 콤보·실행 guard 메서드 추출 실행 | 14/14 |
+ | MORPG live glue | 62/62 |
+ | 환경 geometry | 14/14 |
+ | Dash transition clock | 9/9 |
+@@ -32,11 +32,17 @@
+ | inactive spawn | 10/10 |
+ | cast presenter | 4/4 |
+ | P1 기존 회귀 | 27/27 |
+-| 합계 | 170/170 |
++| 합계 | 173/173 |
+ 
+ Unity 설치의 Roslyn과 실제 프로젝트 참조를 사용한 C# 컴파일: 오류 0, 기존 경고 31. 전체 컴파일 로그는 `build.log`, 각 테스트 로그는 같은 폴더에 있다. `git diff --check` 및 `git apply --reverse --check scoped.patch` 통과. NPC 소스, 서진 스킬 자산, MORPG Resources, Git index를 포함한 보호 해시 470개 모두 작업 시작 상태와 동일하다.
+ 
+ Unity GUI/headless/Play는 실행하지 않았다. 입력·생명주기는 스텁 환경이며, 콤보 테스트는 실제 메서드 본문을 추출하고 타격/애니메이션 끝점을 모의한다. 따라서 실제 프레임 렌더링, VFX 표시와 물리 동작의 Play 검증 결과로 해석하지 않는다. 누락 body clip의 게임플레이 fallback 및 null VFX 전달은 모의 경계에서 확인했다.
++
++## 교정 감사
++
++기본 공격 경로 `FireManualAtPoint → FireSkillAtSnapshotPoint → FireComboRoutine`은 target=null과 usePoint=true로 고정한 지점을 전달한다. 각 단계의 ResolveDirection 및 ApplyAnimationDirection, UseSkillOnce까지 스냅샷을 유지하고 자동 재타깃 경로는 실행하지 않는다. G1 cast 자산의 targetingType=AutoTarget(2)와 SkillUseHelper 지점 전달도 확인했다. 기존 타깃 기반 NPC 경로와 1/2/3 슬롯 동작은 바꾸지 않았다.
++
++추가 검사는 반대 WASD보다 마우스 우선, epsilon/변환 실패 fallback, 경계 밖 clamp, 대기 중 마우스·caster 변경에도 방향 불변, basic press 대기 스냅샷, 반복 cycle 재캡처, 실제 ResolveDirection/ApplyAnimationDirection의 3단계 좌향 전달, 슬롯 1/2/3 보존을 포함한다. 교정 전 원본과 교정 전용 역패치 dry-run은 `correction-01/`에 보존했다.
+ 
+ ## 재현과 복구
+ 
+--- a/Artifacts/Engineering/SeojinManualControl/receipt.json
++++ b/Artifacts/Engineering/SeojinManualControl/receipt.json
+@@ -1,6 +1,6 @@
+ {
+   "task": "Seojin default Manual control and bounded control ownership",
+-  "completed_at": "2026-09-07T18:28:08.578089+09:00",
++  "completed_at": "2026-09-07T18:50:45.270135+09:00",
+   "compile": {
+     "errors": 0,
+     "warnings": 31,
+@@ -8,8 +8,8 @@
+     "log": "build.log"
+   },
+   "tests": {
+-    "input_core_lifecycle": 19,
+-    "production_combo_guard_extracted": 13,
++    "input_core_lifecycle": 21,
++    "production_combo_guard_extracted": 14,
+     "morpg_live_glue": 62,
+     "environment_geometry": 14,
+     "dash_clock": 9,
+@@ -17,7 +17,7 @@
+     "inactive_spawn": 10,
+     "cast_presenter": 4,
+     "p1_regression": 27,
+-    "total_passed": 170,
++    "total_passed": 173,
+     "failed": 0
+   },
+   "scope": {
+@@ -39,5 +39,15 @@
+   "before": "before-sha.json",
+   "after": "after-sha.json",
+   "new_files": "new-files.json",
+-  "detailed_cross_task_delivery": "automatic approval review blocked; detailed report retained locally"
++  "detailed_cross_task_delivery": "automatic approval review blocked; detailed report retained locally",
++  "revision": "correction-01 mouse-authoritative Dash and basic cycle snapshots",
++  "correction": {
++    "mouse_over_wasd": true,
++    "epsilon_distance": 0.01,
++    "fallback": "normalized WASD, last valid facing, right",
++    "dash_snapshot": "keydown clamped world point and caster-origin direction",
++    "basic_snapshot": "press retained across readiness wait; held cycles resample at cycle start",
++    "slots_unchanged": true,
++    "report": "correction-01/correction.patch"
++  }
+ }

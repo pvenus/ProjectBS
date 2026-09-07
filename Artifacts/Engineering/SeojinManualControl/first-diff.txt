@@ -1,0 +1,27 @@
+ AgentTools/MorpgIntegrationHarness/Program.cs      | 580 ++++++++++++++++++++-
+ AgentTools/MorpgIntegrationHarness/RuntimeStub.cs  |  92 +++-
+ .../inactive_spawn_tests.py                        |  24 +-
+ AgentTools/MorpgIntegrationHarness/run.sh          |   2 +-
+ Artifacts/Engineering/MorpgIntegration/build.log   |  24 +-
+ .../MorpgP1Rollback/revision-02/REPRODUCE.sh       |   2 +-
+ .../Resources/Shaders/CharacterCastProgress.shader |  24 +
+ .../battle/Presentation/PlayerCharacterAura.prefab |  12 +-
+ ...1.01.rescue_villagers.morpg-zone-reward.v1.json |  62 +--
+ Assets/Scripts/Actor/Character/CharacterManager.cs |  12 +-
+ .../Actor/Character/CharacterSkillManager.cs       |  15 +-
+ .../CharacterSkillCastPresentationMono.cs          |  78 ++-
+ .../presentation/NpcCastGroundConeTelegraphMono.cs |   4 +-
+ Assets/Scripts/Actor/Party/AnimationMono.cs        |   3 +
+ .../Actor/Shared/Movement/KnockbackController.cs   |   5 +-
+ .../Actor/Shared/Movement/MovementController.cs    |   6 +-
+ .../Scripts/Actor/Shared/Movement/MovementMono.cs  |   8 +-
+ Assets/Scripts/Battle/Core/BattleManager.cs        |   2 +
+ .../Scripts/Battle/Map/BattleMapBoundsContext.cs   |  20 +-
+ .../Scripts/Battle/Morpg/BattleMorpgLiveRoute.cs   | 282 ++++++++--
+ .../Morpg/BattleMorpgZoneTransitionCoordinator.cs  |  23 +-
+ .../BattlePresentationSortingPolicy.cs             |  10 +
+ .../Battle/Spawn/Sequence/BattleSpawnManager.cs    |  15 +-
+ .../Spawn/Sequence/service/NpcSpawnService.cs      |  12 +-
+ Assets/Scripts/Core/Utilities/SortingOrderMono.cs  |  17 +-
+ .../LiberationSans SDF - Fallback.asset            |  45 +-
+ 26 files changed, 1198 insertions(+), 181 deletions(-)
