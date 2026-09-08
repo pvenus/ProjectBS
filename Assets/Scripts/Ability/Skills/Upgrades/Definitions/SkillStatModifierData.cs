@@ -35,16 +35,30 @@ public class SkillStatModifierData
 
     public float Apply(float baseValue)
     {
+        return UpgradeModifierValueEvaluator.Apply(
+            baseValue,
+            operationType,
+            value);
+    }
+}
+
+public static class UpgradeModifierValueEvaluator
+{
+    public static float Apply(
+        float currentValue,
+        SkillStatModifierOperationType operationType,
+        float modifierValue)
+    {
         switch (operationType)
         {
             case SkillStatModifierOperationType.Flat:
-                return baseValue + value;
+                return currentValue + modifierValue;
             case SkillStatModifierOperationType.Percent:
-                return baseValue * (1f + value);
+                return currentValue * (1f + modifierValue);
             case SkillStatModifierOperationType.Override:
-                return value;
+                return modifierValue;
             default:
-                return baseValue;
+                return currentValue;
         }
     }
 }

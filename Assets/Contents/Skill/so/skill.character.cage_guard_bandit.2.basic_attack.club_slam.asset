@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: skill.character.cage_guard_bandit.2.basic_attack.club_slam
   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
   equipmentId: skill.character.cage_guard_bandit.2.basic_attack.club_slam
+  aimMode: 0
+  aimInputSource: 0
   icon: {fileID: 21300000, guid: 70c89ed0adc904f3195873a5688484a2, type: 3}
   baseProfileSo: {fileID: 11400000, guid: f95fd6af4326a4a22a662febfb19db80, type: 2}
   castSo: {fileID: 11400000, guid: d9547462c469947ef8a6f53900c1ba99, type: 2}
@@ -24,6 +26,10 @@ MonoBehaviour:
   baseVisualSo: {fileID: 11400000, guid: 802be8570efb549c481ee387e00984a3, type: 2}
   comboProfile:
     enabled: 0
+    inputDriven: 0
     duration: 0
     totalLungeCap: 0
+    useCanonicalBodyChoreography: 0
+    segmentedBodyActionClip: {fileID: 0}
+    segmentedBodyFrameCount: 18
     steps: []

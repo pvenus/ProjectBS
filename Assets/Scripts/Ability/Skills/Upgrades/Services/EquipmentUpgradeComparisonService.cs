@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class EquipmentUpgradeComparisonService
 {
+    private const int MaxVisibleChangeRows = 3;
     private readonly EquipmentUpgradeStatComparisonResolver statResolver = new();
     private readonly EquipmentUpgradeEffectComparisonResolver effectResolver = new();
 
@@ -33,6 +34,7 @@ public class EquipmentUpgradeComparisonService
                 skillSo.EquipmentId);
 
         StringBuilder builder = new();
+        builder.AppendLine($"[{ResolveSkillLabel(skillSo)}]");
 
         string statText = statResolver.BuildComparisonText(
             skillSo,
@@ -45,6 +47,7 @@ public class EquipmentUpgradeComparisonService
         }
 
         string effectText = effectResolver.BuildComparisonText(
+            skillSo,
             currentData?.effectModifiers,
             nextData?.effectModifiers);
 
@@ -53,6 +56,35 @@ public class EquipmentUpgradeComparisonService
             builder.Append(effectText);
         }
 
-        return builder.ToString();
+        return BoundForCard(builder.ToString());
+    }
+
+    private static string BoundForCard(string value)
+    {
+        if (string.IsNullOrWhiteSpace(value)) return string.Empty;
+
+        string[] rows = value.Split(
+            new[] { '\r', '\n' },
+            System.StringSplitOptions.RemoveEmptyEntries);
+        int detailCount = Mathf.Max(0, rows.Length - 1);
+        if (detailCount <= MaxVisibleChangeRows) return value.TrimEnd();
+
+        StringBuilder bounded = new();
+        bounded.AppendLine(rows[0]);
+        for (int i = 1; i <= MaxVisibleChangeRows; i++)
+            bounded.AppendLine(rows[i]);
+        bounded.Append($"외 {detailCount - MaxVisibleChangeRows}개");
+        return bounded.ToString();
+    }
+
+    private static string ResolveSkillLabel(EquipmentSkillSO skillSo)
+    {
+        if (skillSo == null) return "스킬";
+        string displayName = StringManager.Instance != null
+            ? skillSo.DisplayName
+            : string.Empty;
+        return string.IsNullOrWhiteSpace(displayName)
+            ? "스킬"
+            : displayName;
     }
 }

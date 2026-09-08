@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: skill.character.ritual_bell_handler.2.active_1.agitate_caged_beasts
   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
   equipmentId: skill.character.ritual_bell_handler.2.active_1.agitate_caged_beasts
+  aimMode: 0
+  aimInputSource: 0
   icon: {fileID: 21300000, guid: 689b620a5db8d4f60911f8a141cd5b66, type: 3}
   baseProfileSo: {fileID: 11400000, guid: f5a156a1b48e74d1381cd24b126fa44f, type: 2}
   castSo: {fileID: 11400000, guid: cab077ff755bd4cbc94f06e74b5d5705, type: 2}
@@ -23,6 +25,10 @@ MonoBehaviour:
   baseVisualSo: {fileID: 11400000, guid: 3ed10e936d63b4966a623a363d51ddeb, type: 2}
   comboProfile:
     enabled: 0
+    inputDriven: 0
     duration: 0
     totalLungeCap: 0
+    useCanonicalBodyChoreography: 0
+    segmentedBodyActionClip: {fileID: 0}
+    segmentedBodyFrameCount: 18
     steps: []

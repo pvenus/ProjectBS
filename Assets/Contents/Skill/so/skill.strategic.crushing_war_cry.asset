@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: skill.strategic.crushing_war_cry
   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
   equipmentId: skill.strategic.crushing_war_cry
+  aimMode: 0
+  aimInputSource: 0
   icon: {fileID: 21300000, guid: 13877c10c12dd4ea8bd7c7fdfae33356, type: 3}
   baseProfileSo: {fileID: 11400000, guid: 1d855be3b347b49128be2f70e41ddfa9, type: 2}
   castSo: {fileID: 11400000, guid: 42109c205f3d445c3a67f1551322640f, type: 2}
@@ -24,6 +26,10 @@ MonoBehaviour:
   baseVisualSo: {fileID: 11400000, guid: f2be1fbf465ca46578e4d8e21acc2915, type: 2}
   comboProfile:
     enabled: 0
+    inputDriven: 0
     duration: 0
     totalLungeCap: 0
+    useCanonicalBodyChoreography: 0
+    segmentedBodyActionClip: {fileID: 0}
+    segmentedBodyFrameCount: 18
     steps: []

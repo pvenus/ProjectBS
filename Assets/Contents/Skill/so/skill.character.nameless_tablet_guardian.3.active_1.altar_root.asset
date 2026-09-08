@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: skill.character.nameless_tablet_guardian.3.active_1.altar_root
   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
   equipmentId: skill.character.nameless_tablet_guardian.3.active_1.altar_root
+  aimMode: 0
+  aimInputSource: 0
   icon: {fileID: 21300000, guid: 56890e8be61b248a19863f17aa597cc2, type: 3}
   baseProfileSo: {fileID: 11400000, guid: 2855ecfd2538d4ec989d3c9bf4083d5b, type: 2}
   castSo: {fileID: 11400000, guid: b9e2b8073441e459588a553fd81fb642, type: 2}
@@ -24,6 +26,10 @@ MonoBehaviour:
   baseVisualSo: {fileID: 11400000, guid: 8fc075bf8b4234a6e95eeea7419a6a04, type: 2}
   comboProfile:
     enabled: 0
+    inputDriven: 0
     duration: 0
     totalLungeCap: 0
+    useCanonicalBodyChoreography: 0
+    segmentedBodyActionClip: {fileID: 0}
+    segmentedBodyFrameCount: 18
     steps: []

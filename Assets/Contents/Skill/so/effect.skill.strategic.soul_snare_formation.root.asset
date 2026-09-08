@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: effect.skill.strategic.soul_snare_formation.root
   m_EditorClassIdentifier: Assembly-CSharp::Effect.EffectSO
   effectId: effect.skill.strategic.soul_snare_formation.root
+  authoredDisplayName: "effect.skill.strategic.soul_snare_formation.root"
   icon: {fileID: 0}
   config:
-    rid: 666566856101331871
+    rid: 666566976232489193
   references:
     version: 2
     RefIds:
-    - rid: 666566856101331871
+    - rid: 666566976232489193
       type: {class: StatModifierEffectConfig, ns: Effect, asm: Assembly-CSharp}
       data:
         targetStat: 1347

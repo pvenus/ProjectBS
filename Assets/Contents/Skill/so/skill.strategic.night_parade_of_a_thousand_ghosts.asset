@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: skill.strategic.night_parade_of_a_thousand_ghosts
   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
   equipmentId: skill.strategic.night_parade_of_a_thousand_ghosts
+  aimMode: 0
+  aimInputSource: 0
   icon: {fileID: 21300000, guid: 5029b0cd2cd9848298de0b31eec139ed, type: 3}
   baseProfileSo: {fileID: 11400000, guid: b6543ed2fc8e14bcbad90b3ebef98023, type: 2}
   castSo: {fileID: 11400000, guid: afed90c18b9044808ab09daf2a388553, type: 2}
@@ -24,6 +26,10 @@ MonoBehaviour:
   baseVisualSo: {fileID: 11400000, guid: 44a8f2986af3f43f788d02b441e22bd0, type: 2}
   comboProfile:
     enabled: 0
+    inputDriven: 0
     duration: 0
     totalLungeCap: 0
+    useCanonicalBodyChoreography: 0
+    segmentedBodyActionClip: {fileID: 0}
+    segmentedBodyFrameCount: 18
     steps: []

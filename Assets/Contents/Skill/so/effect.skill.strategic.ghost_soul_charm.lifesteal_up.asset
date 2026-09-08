@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: effect.skill.strategic.ghost_soul_charm.lifesteal_up
   m_EditorClassIdentifier: Assembly-CSharp::Effect.EffectSO
   effectId: effect.skill.strategic.ghost_soul_charm.lifesteal_up
+  authoredDisplayName: "effect.skill.strategic.ghost_soul_charm.lifesteal_up"
   icon: {fileID: 0}
   config:
-    rid: 666566856101331862
+    rid: 666566976232489184
   references:
     version: 2
     RefIds:
-    - rid: 666566856101331862
+    - rid: 666566976232489184
       type: {class: StatModifierEffectConfig, ns: Effect, asm: Assembly-CSharp}
       data:
         targetStat: 1255

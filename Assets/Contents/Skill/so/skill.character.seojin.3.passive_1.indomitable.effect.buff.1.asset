@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: skill.character.seojin.3.passive_1.indomitable.effect.buff.1
   m_EditorClassIdentifier: Assembly-CSharp::Effect.EffectSO
   effectId: skill.character.seojin.3.passive_1.indomitable.effect.buff.1
+  authoredDisplayName: "불퇴전 공격 증가"
   icon: {fileID: 0}
   config:
-    rid: 666566856101331820
+    rid: 666566976232489142
   references:
     version: 2
     RefIds:
-    - rid: 666566856101331820
+    - rid: 666566976232489142
       type: {class: StatModifierEffectConfig, ns: Effect, asm: Assembly-CSharp}
       data:
         targetStat: 1380

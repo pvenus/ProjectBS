@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: skill.character.seojin.1.passive_1.indomitable
   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
   equipmentId: skill.character.seojin.1.passive_1.indomitable
+  aimMode: 0
+  aimInputSource: 0
   icon: {fileID: 21300000, guid: 047b58f22344c44108e5fb8d932b1512, type: 3}
   baseProfileSo: {fileID: 11400000, guid: 9d6c6c33352cf4b189adb2b74e865f79, type: 2}
   castSo: {fileID: 11400000, guid: 73d955487af3343e3865628727250d07, type: 2}
@@ -23,6 +25,7 @@ MonoBehaviour:
   baseVisualSo: {fileID: 11400000, guid: 73d3c37ea71af40eea4dd7cb472a8817, type: 2}
   comboProfile:
     enabled: 0
+    inputDriven: 0
     duration: 0
     totalLungeCap: 0
     useCanonicalBodyChoreography: 0

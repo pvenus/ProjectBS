@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: skill.strategic.taeul_healing_formation
   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
   equipmentId: skill.strategic.taeul_healing_formation
+  aimMode: 0
+  aimInputSource: 0
   icon: {fileID: 21300000, guid: 8f321525c8b4b4840b1a078335c8128b, type: 3}
   baseProfileSo: {fileID: 11400000, guid: 43f599592b891492d8cffc8acfcdfaf6, type: 2}
   castSo: {fileID: 11400000, guid: 95ed79dfe9ee24ec1b29ca1da2419d58, type: 2}
@@ -24,6 +26,10 @@ MonoBehaviour:
   baseVisualSo: {fileID: 11400000, guid: 22e444ef45245454c9fe2d9eb4f5495c, type: 2}
   comboProfile:
     enabled: 0
+    inputDriven: 0
     duration: 0
     totalLungeCap: 0
+    useCanonicalBodyChoreography: 0
+    segmentedBodyActionClip: {fileID: 0}
+    segmentedBodyFrameCount: 18
     steps: []

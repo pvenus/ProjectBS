@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: effect.skill.character.nameless_tablet_guardian.3.passive_1.grudge_shell.low_hp_defense_bonus
   m_EditorClassIdentifier: Assembly-CSharp::Effect.EffectSO
   effectId: effect.skill.character.nameless_tablet_guardian.3.passive_1.grudge_shell.low_hp_defense_bonus
+  authoredDisplayName: ""
   icon: {fileID: 0}
   config:
-    rid: 666566856101331771
+    rid: 666566976232489081
   references:
     version: 2
     RefIds:
-    - rid: 666566856101331771
+    - rid: 666566976232489081
       type: {class: StatModifierEffectConfig, ns: Effect, asm: Assembly-CSharp}
       data:
         targetStat: 1370

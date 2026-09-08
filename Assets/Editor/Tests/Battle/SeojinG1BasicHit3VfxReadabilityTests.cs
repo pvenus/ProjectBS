@@ -47,6 +47,65 @@ public sealed class SeojinG1BasicHit3VfxReadabilityTests
     }
 
     [Test]
+    public void ChargeExactThreeUseIsolatedSourceReadableProfileForFullLoop()
+    {
+        const string id = "skillAnimationVfx.seojinChargeHoverNeonReadable.v1";
+        const string guid = "ca3c41a6078d49c5a2fc9e78e0d3a5b1";
+        string profile = File.ReadAllText(
+            "Assets/Contents/Skill/vfx/vfx-seojin-charge-hover-neon-readable.asset");
+        string material = File.ReadAllText(
+            "Assets/Contents/Skill/material/skill-animation-vfx-seojin-charge-hover-neon-readable.mat");
+        Assert.That(profile, Does.Contain($"profileId: {id}"));
+        Assert.That(profile, Does.Contain("fadeIn: 0.03"));
+        Assert.That(profile, Does.Contain("hold: 0.77"));
+        Assert.That(profile, Does.Contain("fadeOut: 0.04"));
+        Assert.That(profile, Does.Contain("bodyOpacityGain: 0.4"));
+        Assert.That(profile, Does.Contain("tintStrength: 0"));
+        Assert.That(profile, Does.Contain("colorShiftStrength: 0"));
+        Assert.That(profile, Does.Contain("inkDensity: 0"));
+        Assert.That(profile, Does.Contain("emissionIntensity: 0.06"));
+        Assert.That(material, Does.Contain("guid: 9b0c41a6078d49c5a2fc9e78e0d3a5b1"));
+
+        string[] skills =
+        {
+            "skill.character.seojin.1.active_1.active_1",
+            "skill.character.seojin.2.active_1.charge",
+            "skill.character.seojin.3.active_1.charge"
+        };
+        foreach (string skill in skills)
+        {
+            string json = File.ReadAllText($"Assets/Contents/Skill/json/{skill}.json");
+            string visual = File.ReadAllText($"Assets/Contents/Skill/so/{skill}.visual.asset");
+            Assert.That(json, Does.Contain($"\"animationVfxProfile\": \"{id}\""), skill);
+            Assert.That(visual, Does.Contain($"animationVfxProfile: {{fileID: 11400000, guid: {guid}, type: 2}}"), skill);
+        }
+
+        string builder = File.ReadAllText(
+            "Assets/Editor/tools/skill/builder/SkillBaseVisualAssetBuilder.cs");
+        Assert.That(builder, Does.Contain("public string animationVfxProfile;"));
+        Assert.That(builder, Does.Contain("ResolveAnimationVfxProfile(json.animationVfxProfile)"));
+        Assert.That(builder, Does.Contain("Duplicate animation VFX profile"));
+        Assert.That(builder, Does.Contain("Missing animation VFX profile"));
+    }
+
+    [Test]
+    public void ChargeReadableProfileResetCannotLeakAcrossPooledProjectiles()
+    {
+        string controller = File.ReadAllText(
+            "Assets/Scripts/Ability/Skills/Presentation/SkillAnimationVfxControllerMono.cs");
+        string feature = File.ReadAllText(
+            "Assets/Scripts/Ability/Skills/Presentation/SkillAnimationVfxFeatureObject.cs");
+        string visual = File.ReadAllText(
+            "Assets/Scripts/Ability/Skills/Projectiles/ProjectileVisual.cs");
+        Assert.That(controller, Does.Contain("block.Clear();"));
+        Assert.That(controller, Does.Contain("target.SetPropertyBlock(block);"));
+        Assert.That(feature, Does.Contain("private void OnDisable() => StopImmediate();"));
+        Assert.That(visual, Does.Contain("animationVfx?.StopImmediate();"));
+        Assert.That(visual, Does.Contain("materialTargetRenderer.sharedMaterial = baselineSharedMaterial;"));
+        Assert.That(visual, Does.Contain("RestoreBaselineMaterial();"));
+    }
+
+    [Test]
     public void OverrideSurvivesResolverAndPoolCloneAndFallsBackWhenNull()
     {
         string resolver = File.ReadAllText(

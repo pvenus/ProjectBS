@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: skill.strategic.blackwind_bomb
   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
   equipmentId: skill.strategic.blackwind_bomb
+  aimMode: 0
+  aimInputSource: 0
   icon: {fileID: 21300000, guid: 90041c664f5e34a1eb03e771acebae5a, type: 3}
   baseProfileSo: {fileID: 11400000, guid: 5a3cd2b83c6e44e6ea117e79f9c38959, type: 2}
   castSo: {fileID: 11400000, guid: cd9d6ff5caa6c4416b7b0a0cd1c2648a, type: 2}
@@ -24,6 +26,10 @@ MonoBehaviour:
   baseVisualSo: {fileID: 11400000, guid: 03d5056f752a442f2a1fe43d83212ad1, type: 2}
   comboProfile:
     enabled: 0
+    inputDriven: 0
     duration: 0
     totalLungeCap: 0
+    useCanonicalBodyChoreography: 0
+    segmentedBodyActionClip: {fileID: 0}
+    segmentedBodyFrameCount: 18
     steps: []

@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: skill.character.seojin.1.active_4.swift_step.effect.self.attack_speed
   m_EditorClassIdentifier: Assembly-CSharp::Effect.EffectSO
   effectId: skill.character.seojin.1.active_4.swift_step.effect.self.attack_speed
+  authoredDisplayName: "스침걸음 공격속도"
   icon: {fileID: 0}
   config:
-    rid: 666566905177047275
+    rid: 666566976232489098
   references:
     version: 2
     RefIds:
-    - rid: 666566905177047275
+    - rid: 666566976232489098
       type: {class: StatModifierEffectConfig, ns: Effect, asm: Assembly-CSharp}
       data:
         targetStat: 1230

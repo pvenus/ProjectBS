@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: skill.character.sangui_abandoned_child.3.basic_attack.grudge_scratch
   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
   equipmentId: skill.character.sangui_abandoned_child.3.basic_attack.grudge_scratch
+  aimMode: 0
+  aimInputSource: 0
   icon: {fileID: 21300000, guid: 1805ebc2d67634a0e95c3799074eb27e, type: 3}
   baseProfileSo: {fileID: 11400000, guid: 329caae66a9514b4fab257c5fd2b539a, type: 2}
   castSo: {fileID: 11400000, guid: 389a0f021e0f042bfbed9c622a694942, type: 2}
@@ -24,6 +26,10 @@ MonoBehaviour:
   baseVisualSo: {fileID: 11400000, guid: 44c94e53d02214feb9db4dd385e97725, type: 2}
   comboProfile:
     enabled: 0
+    inputDriven: 0
     duration: 0
     totalLungeCap: 0
+    useCanonicalBodyChoreography: 0
+    segmentedBodyActionClip: {fileID: 0}
+    segmentedBodyFrameCount: 18
     steps: []

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: skill.character.seojin.1.basic_attack.basic_attack.cast
   m_EditorClassIdentifier: Assembly-CSharp::Skill.SkillCastSO
   castId: skill.character.seojin.1.basic_attack.basic_attack.cast
-  cooldown: 1.000
+  cooldown: 1
   castTime: 0
   range: 0.6
   targetingType: 2
@@ -33,7 +33,7 @@ MonoBehaviour:
   postMoveSelfEffects: []
   mobilityVfxClip: {fileID: 0}
   mobilityBodyPresentation:
-    profileId:
+    profileId: 
     grade: 1
     reducedMotion: 0
     disablePresentation: 0
@@ -41,4 +41,9 @@ MonoBehaviour:
   bodyActionPlayback:
     contactTime: 0
     duration: 0
+  directionPresentation:
+    canonicalForward: {x: 1, y: 0}
+    allowBodyFlip: 1
+    directionalClips: []
   skipAttackAnimation: 0
+  snapshotTargetPointOnCast: 0

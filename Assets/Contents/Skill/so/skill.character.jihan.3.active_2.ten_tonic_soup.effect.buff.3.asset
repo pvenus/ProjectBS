@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: skill.character.jihan.3.active_2.ten_tonic_soup.effect.buff.3
   m_EditorClassIdentifier: Assembly-CSharp::Effect.EffectSO
   effectId: skill.character.jihan.3.active_2.ten_tonic_soup.effect.buff.3
+  authoredDisplayName: "십전대보탕 피해 감소"
   icon: {fileID: 0}
   config:
-    rid: 666566856101331755
+    rid: 666566976232489065
   references:
     version: 2
     RefIds:
-    - rid: 666566856101331755
+    - rid: 666566976232489065
       type: {class: StatModifierEffectConfig, ns: Effect, asm: Assembly-CSharp}
       data:
         targetStat: 1300

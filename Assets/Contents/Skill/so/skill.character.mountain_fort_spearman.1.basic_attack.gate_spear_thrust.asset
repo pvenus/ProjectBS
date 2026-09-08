@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: skill.character.mountain_fort_spearman.1.basic_attack.gate_spear_thrust
   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
   equipmentId: skill.character.mountain_fort_spearman.1.basic_attack.gate_spear_thrust
+  aimMode: 0
+  aimInputSource: 0
   icon: {fileID: 21300000, guid: 6b9546ad937714fbeb3300ba4db3a341, type: 3}
   baseProfileSo: {fileID: 11400000, guid: fc14c65d23e384f2f955883168b89018, type: 2}
   castSo: {fileID: 11400000, guid: 4071e07bc5cdb4d8ab7d7273cf114604, type: 2}
@@ -24,6 +26,10 @@ MonoBehaviour:
   baseVisualSo: {fileID: 11400000, guid: 996e392c27b7345ae8b1b92e509a7710, type: 2}
   comboProfile:
     enabled: 0
+    inputDriven: 0
     duration: 0
     totalLungeCap: 0
+    useCanonicalBodyChoreography: 0
+    segmentedBodyActionClip: {fileID: 0}
+    segmentedBodyFrameCount: 18
     steps: []

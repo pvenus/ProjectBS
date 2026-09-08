@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: skill.character.sangui_abandoned_child.3.active_1.cold_mountain_call
   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
   equipmentId: skill.character.sangui_abandoned_child.3.active_1.cold_mountain_call
+  aimMode: 0
+  aimInputSource: 0
   icon: {fileID: 21300000, guid: 291466a3bd1e34c45b74564d5e65347d, type: 3}
   baseProfileSo: {fileID: 11400000, guid: deefb6d59688b4b74a149957caa77a1c, type: 2}
   castSo: {fileID: 11400000, guid: c057d1996e65f460fa3c488513c554b4, type: 2}
@@ -24,6 +26,10 @@ MonoBehaviour:
   baseVisualSo: {fileID: 11400000, guid: a45233e6c58d04642b55525167504d69, type: 2}
   comboProfile:
     enabled: 0
+    inputDriven: 0
     duration: 0
     totalLungeCap: 0
+    useCanonicalBodyChoreography: 0
+    segmentedBodyActionClip: {fileID: 0}
+    segmentedBodyFrameCount: 18
     steps: []

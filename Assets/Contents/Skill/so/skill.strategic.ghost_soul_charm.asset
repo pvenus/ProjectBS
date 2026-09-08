@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: skill.strategic.ghost_soul_charm
   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
   equipmentId: skill.strategic.ghost_soul_charm
+  aimMode: 0
+  aimInputSource: 0
   icon: {fileID: 21300000, guid: a146d1f91b6924620a979c8a9371e32f, type: 3}
   baseProfileSo: {fileID: 11400000, guid: 38b6acce8d284454cab5779e49948f05, type: 2}
   castSo: {fileID: 11400000, guid: a55d6838cd36447398dabdc945daf0f6, type: 2}
@@ -24,6 +26,10 @@ MonoBehaviour:
   baseVisualSo: {fileID: 11400000, guid: 86e0917dc9edb44a0aa162e092927899, type: 2}
   comboProfile:
     enabled: 0
+    inputDriven: 0
     duration: 0
     totalLungeCap: 0
+    useCanonicalBodyChoreography: 0
+    segmentedBodyActionClip: {fileID: 0}
+    segmentedBodyFrameCount: 18
     steps: []

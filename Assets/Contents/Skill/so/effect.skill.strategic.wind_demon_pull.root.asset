@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: effect.skill.strategic.wind_demon_pull.root
   m_EditorClassIdentifier: Assembly-CSharp::Effect.EffectSO
   effectId: effect.skill.strategic.wind_demon_pull.root
+  authoredDisplayName: "effect.skill.strategic.wind_demon_pull.root"
   icon: {fileID: 0}
   config:
-    rid: 666566856101331881
+    rid: 666566976232489203
   references:
     version: 2
     RefIds:
-    - rid: 666566856101331881
+    - rid: 666566976232489203
       type: {class: StatModifierEffectConfig, ns: Effect, asm: Assembly-CSharp}
       data:
         targetStat: 1347

@@ -29,6 +29,7 @@ MonoBehaviour:
   baseVisualSo: {fileID: 11400000, guid: 21f2a59a4186e4d91824790a661cd3ff, type: 2}
   comboProfile:
     enabled: 1
+    inputDriven: 1
     duration: 1.06
     totalLungeCap: 0.36
     useCanonicalBodyChoreography: 0
@@ -41,28 +42,36 @@ MonoBehaviour:
       bodySegmentStartFrame: 0
       bodySegmentEndFrame: 5
       visualClip: {fileID: 7400000, guid: 11a81539e323648bcbc4d876eac27830, type: 2}
-      bodyPresentationCalibration: {fileID: 11400000, guid: d2000000000000000000000000000000, type: 2}
+      vfxProfileOverride: {fileID: 0}
+      minimumVisualLifetime: 0
+      bodyPresentationCalibration: {fileID: 0}
       vfxPresentationCalibration: {fileID: 0}
       startTime: 0
       hitTime: 0.16
       activeEnd: 0.21
       recoveryEnd: 0.28
+      postActionHoldTime: 0.2
       damageWeight: 0.25
       lungeDistance: 0.12
+      nextComboActivationTime: 1
     - comboIndex: 1
       hit: {fileID: 11400000, guid: a1000000000000000000000000000013, type: 2}
       bodyActionClip: {fileID: 7400000, guid: e11fffffffffffffffffffffffffffff, type: 2}
       bodySegmentStartFrame: 6
       bodySegmentEndFrame: 11
       visualClip: {fileID: 7400000, guid: dd7b58f805007239b84f3b9eefacda7c, type: 2}
-      bodyPresentationCalibration: {fileID: 11400000, guid: d2000000000000000000000000000001, type: 2}
+      vfxProfileOverride: {fileID: 0}
+      minimumVisualLifetime: 0
+      bodyPresentationCalibration: {fileID: 0}
       vfxPresentationCalibration: {fileID: 11400000, guid: d2100000000000000000000000000011, type: 2}
       startTime: 0.48
       hitTime: 0.64
       activeEnd: 0.66
       recoveryEnd: 0.68
+      postActionHoldTime: 0.2
       damageWeight: 0.3
       lungeDistance: 0.12
+      nextComboActivationTime: 1
     - comboIndex: 2
       hit: {fileID: 11400000, guid: a1000000000000000000000000000001, type: 2}
       bodyActionClip: {fileID: 7400000, guid: e11fffffffffffffffffffffffffffff, type: 2}
@@ -71,11 +80,13 @@ MonoBehaviour:
       visualClip: {fileID: 7400000, guid: f1829639c23dd9280696619f9fd3caff, type: 2}
       vfxProfileOverride: {fileID: 11400000, guid: 9b2c41a6078d49c5a2fc9e78e0d3a5b1, type: 2}
       minimumVisualLifetime: 0.15
-      bodyPresentationCalibration: {fileID: 11400000, guid: d2000000000000000000000000000002, type: 2}
+      bodyPresentationCalibration: {fileID: 0}
       vfxPresentationCalibration: {fileID: 0}
       startTime: 0.78
       hitTime: 0.94
       activeEnd: 0.99
       recoveryEnd: 1.06
+      postActionHoldTime: 0.2
       damageWeight: 0.45
       lungeDistance: 0.12
+      nextComboActivationTime: 0

@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: skill.character.jihan.3.active_3.divine_acupuncture.effect.buff.2
   m_EditorClassIdentifier: Assembly-CSharp::Effect.EffectSO
   effectId: skill.character.jihan.3.active_3.divine_acupuncture.effect.buff.2
+  authoredDisplayName: "신의 침술 부활"
   icon: {fileID: 0}
   config:
-    rid: 666566856101331758
+    rid: 666566976232489068
   references:
     version: 2
     RefIds:
-    - rid: 666566856101331758
+    - rid: 666566976232489068
       type: {class: StatModifierEffectConfig, ns: Effect, asm: Assembly-CSharp}
       data:
         targetStat: 1565

@@ -527,6 +527,12 @@ namespace Character
                 isCritical);
         }
 
+        public float TakeLethalDamage(CharacterManager attacker = null)
+        {
+            damageService ??= new CharacterDamageService();
+            return damageService.TakeLethalDamage(this, attacker);
+        }
+
         public void PlayDamagePresentation(
             float damage,
             bool isCritical)

@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: skill.strategic.nine_heavens_thunderfall_formation
   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
   equipmentId: skill.strategic.nine_heavens_thunderfall_formation
+  aimMode: 0
+  aimInputSource: 0
   icon: {fileID: 21300000, guid: 86727418324654e9a965b77750e2efd2, type: 3}
   baseProfileSo: {fileID: 11400000, guid: 13e01fd997d824682ac7aa3da5636727, type: 2}
   castSo: {fileID: 11400000, guid: 200012f58242b4431be50398e9207c4d, type: 2}
@@ -24,6 +26,10 @@ MonoBehaviour:
   baseVisualSo: {fileID: 11400000, guid: 77b1ec29604ba405ea2d7df3fec5af54, type: 2}
   comboProfile:
     enabled: 0
+    inputDriven: 0
     duration: 0
     totalLungeCap: 0
+    useCanonicalBodyChoreography: 0
+    segmentedBodyActionClip: {fileID: 0}
+    segmentedBodyFrameCount: 18
     steps: []

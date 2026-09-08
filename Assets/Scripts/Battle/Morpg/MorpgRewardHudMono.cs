@@ -214,9 +214,20 @@ namespace Battle.Morpg
         private void RenderNumbers()
         {
             goldText.text = Math.Round(shownGold).ToString("N0");
-            // RawExperienceOnly addendum: no invented level/next-level threshold.
-            xpText.text = "XP " + shownXp.ToString("0.##") + "  (+" + (earnedQuarters / 4m).ToString("0.##") + ")";
-            xpFill.rectTransform.sizeDelta = new Vector2(600f * Mathf.Clamp01(shownQuarters / 40f), 28f);
+            if (BattleManager.Instance != null
+                && BattleManager.Instance.TryGetBattleExperienceProgress(
+                    out float current,
+                    out float required))
+            {
+                xpText.text = $"XP {current:0.##} / {required:0.##}";
+                xpFill.rectTransform.sizeDelta = new Vector2(
+                    600f * Mathf.Clamp01(current / Mathf.Max(1f, required)),
+                    28f);
+                return;
+            }
+
+            xpText.text = "XP " + shownXp.ToString("0.##");
+            xpFill.rectTransform.sizeDelta = Vector2.zero;
         }
         internal void SnapToAuthoritative(int gold, float xp)
         {

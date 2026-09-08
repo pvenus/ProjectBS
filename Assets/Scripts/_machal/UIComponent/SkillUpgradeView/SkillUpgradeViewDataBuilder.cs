@@ -12,6 +12,7 @@ public struct SkillUpgradeOptionContext
     public EquipmentSkillInstanceData skillInstance;
     public EquipmentSkillSO skillSo;
     public CharacterSkillManager skillManager;
+    public int maxSkillLevel;
 }
 
 public struct SkillUpgradeBuildResult
@@ -40,6 +41,7 @@ public static class SkillUpgradeViewDataBuilder
         if (!HasRuntimeApplicableUpgrade(skillSo, next)) return null;
         return new SkillUpgradeOptionData
         {
+            equipmentId = skillSo.EquipmentId,
             characterPortrait = owner.characterSO.Portrait,
             characterName = owner.characterSO.DisplayName,
             currentLevel = current,
@@ -52,13 +54,20 @@ public static class SkillUpgradeViewDataBuilder
     public static SkillUpgradeBuildResult Build(
         IReadOnlyList<CharacterManager> characterManagers, 
         int randomOptionCount = 3, 
-        int maxSkillLevel = 10)
+        int maxSkillLevel = int.MaxValue)
     {
         List<SkillUpgradeOptionData> optionDatas = new List<SkillUpgradeOptionData>();
         List<SkillUpgradeOptionContext> contexts = new List<SkillUpgradeOptionContext>();
 
         // 1. Collect all candidates
         List<SkillUpgradeOptionContext> allCandidates = CollectCandidates(characterManagers, maxSkillLevel);
+
+        if (allCandidates.Count < randomOptionCount)
+        {
+            Debug.LogWarning(
+                $"[SkillUpgradeViewDataBuilder] Requested {randomOptionCount} unique options, "
+                + $"but only {allCandidates.Count} owned skills have a valid next upgrade entry.");
+        }
 
         // 2. Shuffle and select candidates
         List<SkillUpgradeOptionContext> selectedCandidates = SelectRandom(allCandidates, randomOptionCount);
@@ -69,7 +78,7 @@ public static class SkillUpgradeViewDataBuilder
             EquipmentSkillSO skillSo = candidate.skillSo;
             
             int currentLevel = Mathf.Max(1, candidate.skillInstance.currentLevel);
-            int nextLevel = Mathf.Min(maxSkillLevel, currentLevel + 1);
+            int nextLevel = Mathf.Min(candidate.maxSkillLevel, currentLevel + 1);
 
             string characterName = string.Empty;
             Sprite characterPortrait = null;
@@ -85,6 +94,7 @@ public static class SkillUpgradeViewDataBuilder
 
             optionDatas.Add(new SkillUpgradeOptionData
             {
+                equipmentId = skillSo?.EquipmentId ?? candidate.skillInstance.equipmentId,
                 characterPortrait = characterPortrait,
                 characterName = !string.IsNullOrEmpty(characterName) ? characterName : "Character",
                 currentLevel = currentLevel,
@@ -97,6 +107,12 @@ public static class SkillUpgradeViewDataBuilder
                     candidate.skillInstance,
                     nextLevel)
             });
+
+            Debug.Log(
+                $"[SkillUpgradeViewDataBuilder] card={optionDatas.Count - 1}, "
+                + $"equipmentId={candidate.skillInstance.equipmentId}, "
+                + $"level={currentLevel}->{nextLevel}, "
+                + $"comparison={optionDatas[optionDatas.Count - 1].statComparisonText.Replace('\n', '|')}");
 
             contexts.Add(candidate);
         }
@@ -139,9 +155,6 @@ public static class SkillUpgradeViewDataBuilder
             for (int skillIndex = 0; skillIndex < runtimeData.skillInstances.Count; skillIndex++)
             {
                 EquipmentSkillInstanceData skillInstance = runtimeData.skillInstances[skillIndex];
-                if (!CanUpgrade(skillInstance, maxSkillLevel))
-                    continue;
-
                 EquipmentSkillSO skillSo = ResolveSkillSo(
                     skillManager,
                     skillInstance.equipmentId);
@@ -153,11 +166,16 @@ public static class SkillUpgradeViewDataBuilder
                 }
 
                 int currentLevel = Mathf.Max(1, skillInstance.currentLevel);
+                int tableMaxLevel = GetRuntimeUpgradeMaxLevel(skillSo);
+                int effectiveMaxLevel = Mathf.Min(maxSkillLevel, tableMaxLevel);
+                if (!CanUpgrade(skillInstance, effectiveMaxLevel))
+                    continue;
+
                 int nextLevel = currentLevel + 1;
                 if (!HasRuntimeApplicableUpgrade(skillSo, nextLevel))
                 {
                     Debug.LogWarning(
-                        $"[SkillUpgradeViewDataBuilder] Skill '{skillSo.EquipmentId}' has no runtime-applicable stat upgrade for level {nextLevel}.");
+                        $"[SkillUpgradeViewDataBuilder] Skill '{skillSo.EquipmentId}' has no runtime-applicable stat/effect upgrade for level {nextLevel}.");
                     continue;
                 }
 
@@ -165,7 +183,8 @@ public static class SkillUpgradeViewDataBuilder
                 {
                     skillInstance = skillInstance,
                     skillSo = skillSo,
-                    skillManager = skillManager
+                    skillManager = skillManager,
+                    maxSkillLevel = effectiveMaxLevel
                 });
             }
         }
@@ -221,7 +240,23 @@ public static class SkillUpgradeViewDataBuilder
         return null;
     }
 
-    private static bool HasRuntimeApplicableUpgrade(
+    public static int GetRuntimeUpgradeMaxLevel(EquipmentSkillSO skillSo)
+    {
+        IReadOnlyList<EquipmentUpgradeEntry> entries = skillSo?.UpgradeTableSo?.Entries;
+        int maxLevel = 0;
+        if (entries == null) return maxLevel;
+
+        for (int i = 0; i < entries.Count; i++)
+        {
+            EquipmentUpgradeEntry entry = entries[i];
+            if (entry != null && entry.HasAnyModifier)
+                maxLevel = Mathf.Max(maxLevel, entry.Level);
+        }
+
+        return maxLevel;
+    }
+
+    public static bool HasRuntimeApplicableUpgrade(
         EquipmentSkillSO skillSo,
         int nextLevel)
     {
@@ -236,8 +271,7 @@ public static class SkillUpgradeViewDataBuilder
             if (entry == null || entry.Level != nextLevel)
                 continue;
 
-            return entry.StatModifiers != null
-                && entry.StatModifiers.Count > 0;
+            return entry.HasAnyModifier;
         }
 
         return false;
@@ -279,10 +313,10 @@ public static class SkillUpgradeViewDataBuilder
 public sealed class BattleEndSkillUpgradePresenter
 {
     private const int DefaultOptionCount = 3;
-    private const int DefaultMaxSkillLevel = 10;
 
     private SkillUpgradeView activeView;
     private IReadOnlyList<SkillUpgradeOptionContext> activeContexts;
+    private IReadOnlyList<string> activeOptionIds;
     private Action completionCallback;
     private bool isOpen;
     private float previousTimeScale = 1f;
@@ -299,8 +333,7 @@ public sealed class BattleEndSkillUpgradePresenter
         SkillUpgradeBuildResult buildResult =
             SkillUpgradeViewDataBuilder.Build(
                 characterManagers,
-                DefaultOptionCount,
-                DefaultMaxSkillLevel);
+                DefaultOptionCount);
 
         if (buildResult.viewData?.options == null
             || buildResult.viewData.options.Count == 0
@@ -331,6 +364,10 @@ public sealed class BattleEndSkillUpgradePresenter
 
         activeView = view;
         activeContexts = buildResult.contexts;
+        List<string> optionIds = new();
+        for (int i = 0; i < buildResult.viewData.options.Count; i++)
+            optionIds.Add(buildResult.viewData.options[i]?.equipmentId ?? string.Empty);
+        activeOptionIds = optionIds;
         completionCallback = onCompleted;
 
         activeView.SetData(buildResult.viewData);
@@ -363,6 +400,21 @@ public sealed class BattleEndSkillUpgradePresenter
         SkillUpgradeOptionContext context =
             activeContexts[optionIndex];
 
+        string displayedEquipmentId = activeOptionIds != null
+            && optionIndex < activeOptionIds.Count
+                ? activeOptionIds[optionIndex]
+                : string.Empty;
+        if (!string.Equals(
+                displayedEquipmentId,
+                context.skillInstance?.equipmentId,
+                System.StringComparison.Ordinal))
+        {
+            Debug.LogError(
+                $"[BattleEndSkillUpgradePresenter] Card/apply identity mismatch at {optionIndex}: "
+                + $"displayed='{displayedEquipmentId}', apply='{context.skillInstance?.equipmentId}'.");
+            return;
+        }
+
         if (context.skillManager == null
             || context.skillInstance == null)
         {
@@ -374,7 +426,7 @@ public sealed class BattleEndSkillUpgradePresenter
         bool upgraded =
             context.skillManager.TryUpgradeSkill(
                 context.skillInstance,
-                DefaultMaxSkillLevel);
+                context.maxSkillLevel);
 
         if (!upgraded)
         {
@@ -415,6 +467,7 @@ public sealed class BattleEndSkillUpgradePresenter
 
         activeView = null;
         activeContexts = null;
+        activeOptionIds = null;
         completionCallback = null;
         isOpen = false;
     }

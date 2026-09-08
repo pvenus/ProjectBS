@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: skill.strategic.gale_step
   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
   equipmentId: skill.strategic.gale_step
+  aimMode: 0
+  aimInputSource: 0
   icon: {fileID: 21300000, guid: 8226aea2347a24869a4d9e2fb22c873f, type: 3}
   baseProfileSo: {fileID: 11400000, guid: 2d28583a6563b4d638470af4750d9370, type: 2}
   castSo: {fileID: 11400000, guid: 43733aed138804d3fa4726364c5f0ffa, type: 2}
@@ -24,6 +26,10 @@ MonoBehaviour:
   baseVisualSo: {fileID: 11400000, guid: 0d52c267070a04aaaa66ddc22739449a, type: 2}
   comboProfile:
     enabled: 0
+    inputDriven: 0
     duration: 0
     totalLungeCap: 0
+    useCanonicalBodyChoreography: 0
+    segmentedBodyActionClip: {fileID: 0}
+    segmentedBodyFrameCount: 18
     steps: []

@@ -43,4 +43,9 @@ MonoBehaviour:
   bodyActionPlayback:
     contactTime: 0.28
     duration: 0.42
+  directionPresentation:
+    canonicalForward: {x: 1, y: 0}
+    allowBodyFlip: 1
+    directionalClips: []
   skipAttackAnimation: 1
+  snapshotTargetPointOnCast: 0

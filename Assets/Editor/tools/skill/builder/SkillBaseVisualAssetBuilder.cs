@@ -17,6 +17,10 @@ namespace ResourceTools.Skill
         public string projectileVisualType;
 
         public string sortingRelation;
+
+        // Optional, explicit source-of-truth binding. Missing keeps the legacy
+        // profile already serialized on BaseVisualSO.
+        public string animationVfxProfile;
     }
 
     /// <summary>
@@ -143,12 +147,37 @@ namespace ResourceTools.Skill
                 projectileVisualType,
                 sortingRelation,
                 animationClips);
+            if (!string.IsNullOrWhiteSpace(json.animationVfxProfile))
+            {
+                visualSo.ApplyAnimationVfxProfileEditor(
+                    ResolveAnimationVfxProfile(json.animationVfxProfile));
+            }
             if (intentionalNone)
             {
                 // None is an authored policy, not a missing-asset condition. Clear
                 // stale clip/profile references so regeneration stays idempotent.
                 visualSo.DisableProjectilePresentationEditor();
             }
+        }
+
+        private static SkillAnimationVfxProfileSO ResolveAnimationVfxProfile(string profileId)
+        {
+            string[] guids = AssetDatabase.FindAssets("t:SkillAnimationVfxProfileSO");
+            Array.Sort(guids, StringComparer.Ordinal);
+            SkillAnimationVfxProfileSO resolved = null;
+            for (int i = 0; i < guids.Length; i++)
+            {
+                SkillAnimationVfxProfileSO candidate = AssetDatabase.LoadAssetAtPath<SkillAnimationVfxProfileSO>(
+                    AssetDatabase.GUIDToAssetPath(guids[i]));
+                if (candidate == null || !string.Equals(candidate.ProfileId, profileId, StringComparison.Ordinal))
+                    continue;
+                if (resolved != null && resolved != candidate)
+                    throw new InvalidOperationException($"Duplicate animation VFX profile '{profileId}'.");
+                resolved = candidate;
+            }
+            if (resolved == null)
+                throw new InvalidOperationException($"Missing animation VFX profile '{profileId}'.");
+            return resolved;
         }
 
         private static SkillSortingRelation ResolveSortingRelation(string value)

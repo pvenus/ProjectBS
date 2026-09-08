@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: skill.character.seojin.3.active_3.turtle_ship_assault.effect.debuff.1
   m_EditorClassIdentifier: Assembly-CSharp::Effect.EffectSO
   effectId: skill.character.seojin.3.active_3.turtle_ship_assault.effect.debuff.1
+  authoredDisplayName: "거북선 출정 방어 감소"
   icon: {fileID: 0}
   config:
-    rid: 666566905177047299
+    rid: 666566976232489131
   references:
     version: 2
     RefIds:
-    - rid: 666566905177047299
+    - rid: 666566976232489131
       type: {class: StatModifierEffectConfig, ns: Effect, asm: Assembly-CSharp}
       data:
         targetStat: 1300

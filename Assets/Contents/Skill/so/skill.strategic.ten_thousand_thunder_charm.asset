@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: skill.strategic.ten_thousand_thunder_charm
   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
   equipmentId: skill.strategic.ten_thousand_thunder_charm
+  aimMode: 0
+  aimInputSource: 0
   icon: {fileID: 21300000, guid: e3f03a1bc52d2425db1b0b5d7f93d757, type: 3}
   baseProfileSo: {fileID: 11400000, guid: ea5b53c6647e347f7a652c9f95dfaba6, type: 2}
   castSo: {fileID: 11400000, guid: c53e6f13afd4548028b9b24383ee7eaf, type: 2}
@@ -24,6 +26,10 @@ MonoBehaviour:
   baseVisualSo: {fileID: 11400000, guid: 01ff87ca390d745dd87cfb4bf5d05088, type: 2}
   comboProfile:
     enabled: 0
+    inputDriven: 0
     duration: 0
     totalLungeCap: 0
+    useCanonicalBodyChoreography: 0
+    segmentedBodyActionClip: {fileID: 0}
+    segmentedBodyFrameCount: 18
     steps: []

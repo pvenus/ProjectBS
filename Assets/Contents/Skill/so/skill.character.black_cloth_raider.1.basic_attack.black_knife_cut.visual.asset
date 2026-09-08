@@ -18,12 +18,12 @@ MonoBehaviour:
   animationClips: []
   animationVfxProfile: {fileID: 0}
   animationVfxPalette:
-    paletteCode:
-    signatureColor: {r: 0, g: 0, b: 0, a: 0}
-    auxiliaryColor: {r: 0, g: 0, b: 0, a: 0}
-    neutralPeakColor: {r: 0, g: 0, b: 0, a: 0}
-    signatureHoldCoverage: 0
-    auxiliaryHoldCoverage: 0
-    auxiliaryPeakCoverage: 0
-    neutralPeakCoverage: 0
-    neutralPeakDuration: 0
+    paletteCode: 
+    signatureColor: {r: 1, g: 1, b: 1, a: 1}
+    auxiliaryColor: {r: 0, g: 0, b: 0, a: 1}
+    neutralPeakColor: {r: 1, g: 1, b: 1, a: 1}
+    signatureHoldCoverage: 0.8
+    auxiliaryHoldCoverage: 0.18
+    auxiliaryPeakCoverage: 0.28
+    neutralPeakCoverage: 0.04
+    neutralPeakDuration: 0.05

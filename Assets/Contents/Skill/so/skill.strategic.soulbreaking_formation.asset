@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: skill.strategic.soulbreaking_formation
   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
   equipmentId: skill.strategic.soulbreaking_formation
+  aimMode: 0
+  aimInputSource: 0
   icon: {fileID: 21300000, guid: cd14faac2b0fe46528cd82fd7c81e8fe, type: 3}
   baseProfileSo: {fileID: 11400000, guid: e85a1995351e44052b3ce82a71e5df08, type: 2}
   castSo: {fileID: 11400000, guid: 078d5ac9ed1724d8eb7de78e7b7f454b, type: 2}
@@ -24,6 +26,10 @@ MonoBehaviour:
   baseVisualSo: {fileID: 11400000, guid: a23abb653228b4fb7a6e2984708ad7e7, type: 2}
   comboProfile:
     enabled: 0
+    inputDriven: 0
     duration: 0
     totalLungeCap: 0
+    useCanonicalBodyChoreography: 0
+    segmentedBodyActionClip: {fileID: 0}
+    segmentedBodyFrameCount: 18
     steps: []

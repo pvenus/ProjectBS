@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: skill.character.sangui_abandoned_child.3.passive_1.left_alone_again
   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
   equipmentId: skill.character.sangui_abandoned_child.3.passive_1.left_alone_again
+  aimMode: 0
+  aimInputSource: 0
   icon: {fileID: 21300000, guid: 8f15cefd75c3b4e36919578bc9d63891, type: 3}
   baseProfileSo: {fileID: 11400000, guid: 29eccee7432674f22bdfcfc6088533a0, type: 2}
   castSo: {fileID: 11400000, guid: bde8a5ad676e84b1db6a7a0105595924, type: 2}
@@ -23,6 +25,10 @@ MonoBehaviour:
   baseVisualSo: {fileID: 11400000, guid: 00eeb69d4f8364fe29288c4fb041dfed, type: 2}
   comboProfile:
     enabled: 0
+    inputDriven: 0
     duration: 0
     totalLungeCap: 0
+    useCanonicalBodyChoreography: 0
+    segmentedBodyActionClip: {fileID: 0}
+    segmentedBodyFrameCount: 18
     steps: []

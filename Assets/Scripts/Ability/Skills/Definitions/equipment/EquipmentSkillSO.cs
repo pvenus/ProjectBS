@@ -72,6 +72,7 @@ namespace Skill
     public sealed class SkillComboProfile
     {
         [SerializeField] private bool enabled;
+        [SerializeField] private bool inputDriven;
         [SerializeField, Min(0f)] private float duration;
         [SerializeField, Min(0f)] private float totalLungeCap;
         [SerializeField] private bool useCanonicalBodyChoreography;
@@ -80,6 +81,7 @@ namespace Skill
         [SerializeField] private SkillComboStep[] steps = System.Array.Empty<SkillComboStep>();
 
         public bool Enabled => enabled;
+        public bool InputDriven => inputDriven;
         public float Duration => Mathf.Max(0f, duration);
         public float TotalLungeCap => Mathf.Max(0f, totalLungeCap);
         public bool UseCanonicalBodyChoreography => useCanonicalBodyChoreography;
@@ -130,8 +132,10 @@ namespace Skill
         [SerializeField, Min(0f)] private float hitTime;
         [SerializeField, Min(0f)] private float activeEnd;
         [SerializeField, Min(0f)] private float recoveryEnd;
+        [SerializeField, Min(0f)] private float postActionHoldTime;
         [SerializeField, Range(0f, 1f)] private float damageWeight;
         [SerializeField, Min(0f)] private float lungeDistance;
+        [SerializeField, Min(0f)] private float nextComboActivationTime;
 
         public int ComboIndex => comboIndex;
         public SkillHitSO Hit => hit;
@@ -148,8 +152,10 @@ namespace Skill
         public float HitTime => hitTime;
         public float ActiveEnd => activeEnd;
         public float RecoveryEnd => recoveryEnd;
+        public float PostActionHoldTime => Mathf.Max(0f, postActionHoldTime);
         public float DamageWeight => damageWeight;
         public float LungeDistance => lungeDistance;
+        public float NextComboActivationTime => Mathf.Max(0f, nextComboActivationTime);
         public bool IsComplete(int expectedIndex) => comboIndex == expectedIndex && hit != null &&
             startTime <= hitTime && hitTime <= activeEnd && activeEnd <= recoveryEnd;
 

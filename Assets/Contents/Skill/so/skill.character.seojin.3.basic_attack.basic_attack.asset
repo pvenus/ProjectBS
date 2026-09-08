@@ -29,6 +29,7 @@ MonoBehaviour:
   baseVisualSo: {fileID: 11400000, guid: 8c627e8ba8b45435aacaad618e1bc45a, type: 2}
   comboProfile:
     enabled: 1
+    inputDriven: 0
     duration: 0.7
     totalLungeCap: 0.48
     useCanonicalBodyChoreography: 1
@@ -41,6 +42,8 @@ MonoBehaviour:
       bodySegmentStartFrame: -1
       bodySegmentEndFrame: -1
       visualClip: {fileID: 7400000, guid: 7ceeea2d1758f436bb9dbcca9b172322, type: 2}
+      vfxProfileOverride: {fileID: 0}
+      minimumVisualLifetime: 0
       bodyPresentationCalibration: {fileID: 11400000, guid: d2000000000000000000000000000000, type: 2}
       vfxPresentationCalibration: {fileID: 0}
       startTime: 0
@@ -49,12 +52,15 @@ MonoBehaviour:
       recoveryEnd: 0.22
       damageWeight: 0.25
       lungeDistance: 0.16
+      nextComboActivationTime: 0
     - comboIndex: 1
       hit: {fileID: 11400000, guid: c3000000000000000000000000000013, type: 2}
       bodyActionClip: {fileID: 7400000, guid: a903ea1a4024a5e1eaec3f60e63c2be3, type: 2}
       bodySegmentStartFrame: -1
       bodySegmentEndFrame: -1
       visualClip: {fileID: 7400000, guid: c8fbf084613f66fd28be7a54f1affcf5, type: 2}
+      vfxProfileOverride: {fileID: 0}
+      minimumVisualLifetime: 0
       bodyPresentationCalibration: {fileID: 11400000, guid: d2000000000000000000000000000001, type: 2}
       vfxPresentationCalibration: {fileID: 11400000, guid: d2300000000000000000000000000011, type: 2}
       startTime: 0.22
@@ -63,12 +69,15 @@ MonoBehaviour:
       recoveryEnd: 0.44
       damageWeight: 0.3
       lungeDistance: 0.16
+      nextComboActivationTime: 0
     - comboIndex: 2
       hit: {fileID: 11400000, guid: c3000000000000000000000000000001, type: 2}
       bodyActionClip: {fileID: 7400000, guid: 394f5ea110c3b4bc680b9b9c7be429ec, type: 2}
       bodySegmentStartFrame: -1
       bodySegmentEndFrame: -1
       visualClip: {fileID: 7400000, guid: b4d27071f6ac7a6e2fd30ef5962c72f7, type: 2}
+      vfxProfileOverride: {fileID: 0}
+      minimumVisualLifetime: 0
       bodyPresentationCalibration: {fileID: 11400000, guid: d2000000000000000000000000000002, type: 2}
       vfxPresentationCalibration: {fileID: 11400000, guid: d2300000000000000000000000000012, type: 2}
       startTime: 0.44
@@ -77,3 +86,4 @@ MonoBehaviour:
       recoveryEnd: 0.7
       damageWeight: 0.45
       lungeDistance: 0.16
+      nextComboActivationTime: 0

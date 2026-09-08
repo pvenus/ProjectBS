@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: skill.strategic.golden_chain_formation
   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
   equipmentId: skill.strategic.golden_chain_formation
+  aimMode: 0
+  aimInputSource: 0
   icon: {fileID: 21300000, guid: 94f9095dced9b4b618fc57c5a3d260a1, type: 3}
   baseProfileSo: {fileID: 11400000, guid: eb5aefff0efb346b5b349b101f728a81, type: 2}
   castSo: {fileID: 11400000, guid: 7bcfb71d78dc74770a2832b6590a44ce, type: 2}
@@ -24,6 +26,10 @@ MonoBehaviour:
   baseVisualSo: {fileID: 11400000, guid: 35545532f57924200b6ffbb4e24c3b42, type: 2}
   comboProfile:
     enabled: 0
+    inputDriven: 0
     duration: 0
     totalLungeCap: 0
+    useCanonicalBodyChoreography: 0
+    segmentedBodyActionClip: {fileID: 0}
+    segmentedBodyFrameCount: 18
     steps: []

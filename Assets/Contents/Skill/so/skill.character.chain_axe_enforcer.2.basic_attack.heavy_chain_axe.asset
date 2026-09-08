@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: skill.character.chain_axe_enforcer.2.basic_attack.heavy_chain_axe
   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
   equipmentId: skill.character.chain_axe_enforcer.2.basic_attack.heavy_chain_axe
+  aimMode: 0
+  aimInputSource: 0
   icon: {fileID: 21300000, guid: 1e8d7cffea66d4d4fb8937f610c7e610, type: 3}
   baseProfileSo: {fileID: 11400000, guid: cac6553f01263420fb410d1dfaee6d73, type: 2}
   castSo: {fileID: 11400000, guid: be5d394c4e9b0461fb14702e43c9aa2e, type: 2}
@@ -24,6 +26,10 @@ MonoBehaviour:
   baseVisualSo: {fileID: 11400000, guid: 68b41cdf5b6fc4233b30a20b9e7a3a76, type: 2}
   comboProfile:
     enabled: 0
+    inputDriven: 0
     duration: 0
     totalLungeCap: 0
+    useCanonicalBodyChoreography: 0
+    segmentedBodyActionClip: {fileID: 0}
+    segmentedBodyFrameCount: 18
     steps: []

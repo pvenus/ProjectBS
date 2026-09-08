@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: skill.strategic.wind_demon_pull
   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
   equipmentId: skill.strategic.wind_demon_pull
+  aimMode: 0
+  aimInputSource: 0
   icon: {fileID: 21300000, guid: dcaec6e30647c4d5395c39e93cc354c1, type: 3}
   baseProfileSo: {fileID: 11400000, guid: 96060c190489b419091ad2eb0c31a07e, type: 2}
   castSo: {fileID: 11400000, guid: ab7d82e94cdb14bf0a50e6ba9b1fef01, type: 2}
@@ -24,6 +26,10 @@ MonoBehaviour:
   baseVisualSo: {fileID: 11400000, guid: 569440a83f80b4de2aa35fa1c2f9d80f, type: 2}
   comboProfile:
     enabled: 0
+    inputDriven: 0
     duration: 0
     totalLungeCap: 0
+    useCanonicalBodyChoreography: 0
+    segmentedBodyActionClip: {fileID: 0}
+    segmentedBodyFrameCount: 18
     steps: []

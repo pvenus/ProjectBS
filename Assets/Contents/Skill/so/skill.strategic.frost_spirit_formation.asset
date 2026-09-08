@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: skill.strategic.frost_spirit_formation
   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
   equipmentId: skill.strategic.frost_spirit_formation
+  aimMode: 0
+  aimInputSource: 0
   icon: {fileID: 21300000, guid: c7fb119a365e24a38b2898b4ec57d656, type: 3}
   baseProfileSo: {fileID: 11400000, guid: a485b9efc2e0141db858e7ca45dfe775, type: 2}
   castSo: {fileID: 11400000, guid: 4439b22da29e94d3e8bc292ec1a247d7, type: 2}
@@ -24,6 +26,10 @@ MonoBehaviour:
   baseVisualSo: {fileID: 11400000, guid: 6f49147aee520452cae25419b560d538, type: 2}
   comboProfile:
     enabled: 0
+    inputDriven: 0
     duration: 0
     totalLungeCap: 0
+    useCanonicalBodyChoreography: 0
+    segmentedBodyActionClip: {fileID: 0}
+    segmentedBodyFrameCount: 18
     steps: []

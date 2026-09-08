@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: skill.character.jihan.1.basic_attack.basic_attack
   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
   equipmentId: skill.character.jihan.1.basic_attack.basic_attack
+  aimMode: 0
+  aimInputSource: 0
   icon: {fileID: 21300000, guid: 8b26bd59036734fb6a10e964bc526ba5, type: 3}
   baseProfileSo: {fileID: 11400000, guid: 9590d497619314ce7b38b760aad0d1f9, type: 2}
   castSo: {fileID: 11400000, guid: 3761063a9cd884f5fad5f98effc3f7d8, type: 2}
@@ -25,6 +27,10 @@ MonoBehaviour:
   baseVisualSo: {fileID: 11400000, guid: c97f4fe62883a40a29c04bfe9f381d13, type: 2}
   comboProfile:
     enabled: 0
+    inputDriven: 0
     duration: 0
     totalLungeCap: 0
+    useCanonicalBodyChoreography: 0
+    segmentedBodyActionClip: {fileID: 0}
+    segmentedBodyFrameCount: 18
     steps: []

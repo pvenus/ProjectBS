@@ -1,8 +1,12 @@
+using System.Collections.Generic;
 using Session;
 using Party;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Battle.Presentation;
+using Battle.Progression;
+using Stat;
+using Character;
 
 namespace Battle
 {
@@ -25,6 +29,14 @@ namespace Battle
         private bool isDebugSkillUpgradeOpen;
         private bool shouldEndBattleAfterCurrentUpgrade;
         private BattleEndSkillUpgradePresenter battleEndSkillUpgradePresenter;
+        private BattleExperienceProgression experienceProgression;
+        private readonly BattleSkillUpgradeRewardQueue upgradeRewardQueue = new();
+        private CharacterManager observedExperienceOwner;
+        private float observedTotalExperience;
+        private bool hasObservedExperience;
+        private bool queuedRewardInFlight;
+        private bool battleEndDispatched;
+        private bool debugKillSnapshotInProgress;
         [SerializeField] private bool enableMorpgZoneRoute = true;
 
         public BattleSession BattleSession => battleSession;
@@ -48,6 +60,8 @@ namespace Battle
 
         private void Update()
         {
+            ObserveBattleExperience();
+            ProcessSkillUpgradeRewardQueue();
             UpdateVictoryRule();
         }
 
@@ -87,6 +101,8 @@ namespace Battle
             }
 
             EnsureBattleRuntime();
+            experienceProgression = new BattleExperienceProgression(
+                BattleExperienceLevelConfig.Load());
             EnsurePlayerCameraFollow();
             SpawnInitialPrefabs();
         }
@@ -465,9 +481,121 @@ namespace Battle
                 return;
             }
 
+            AwardBattleClearExperience();
             battleSession.BattleRuntime.isCompleted = true;
+            upgradeRewardQueue.TryEnqueue(new SkillUpgradeRewardRequest(
+                SkillUpgradeRewardSource.BattleClear,
+                $"battle-clear:{battleSession.BattleRuntime.battleId}",
+                "battle_clear"));
+            ProcessSkillUpgradeRewardQueue();
+        }
 
-            OpenBattleEndUpgradeOrEndBattle();
+        public bool TryGetBattleExperienceProgress(
+            out float currentExperience,
+            out float requiredExperience)
+        {
+            currentExperience = experienceProgression?.CurrentExperience ?? 0f;
+            requiredExperience = experienceProgression?.RequiredExperience ?? 1f;
+            return experienceProgression != null;
+        }
+
+        private CharacterManager ResolvePrimaryExperienceOwner()
+        {
+            IReadOnlyList<CharacterManager> members = PartyManager.Instance?.Members;
+            if (members == null) return null;
+            for (int i = 0; i < members.Count; i++)
+            {
+                CharacterManager member = members[i];
+                if (member?.RuntimeData?.characterSO != null
+                    && member.RuntimeData.characterSO.CharacterType == CharacterType.Player)
+                    return member;
+            }
+
+            return null;
+        }
+
+        private void ObserveBattleExperience()
+        {
+            CharacterManager owner = ResolvePrimaryExperienceOwner();
+            if (owner == null || experienceProgression == null) return;
+
+            float total = Mathf.Max(0f, owner.GetStatValue(StatType.Experience));
+            if (!hasObservedExperience || observedExperienceOwner != owner)
+            {
+                observedExperienceOwner = owner;
+                observedTotalExperience = total;
+                hasObservedExperience = true;
+                return;
+            }
+
+            float gained = total - observedTotalExperience;
+            observedTotalExperience = total;
+            if (gained <= 0f) return;
+
+            int previousLevel = experienceProgression.Level;
+            int levelsGained = experienceProgression.Add(gained);
+            for (int i = 1; i <= levelsGained; i++)
+            {
+                int level = previousLevel + i;
+                upgradeRewardQueue.TryEnqueue(new SkillUpgradeRewardRequest(
+                    SkillUpgradeRewardSource.ExperienceLevel,
+                    $"xp-level:{battleSession?.BattleRuntime?.battleId}:{level}",
+                    $"experience_level_{level}"));
+            }
+        }
+
+        private void AwardBattleClearExperience()
+        {
+            CharacterManager owner = ResolvePrimaryExperienceOwner();
+            float reward = battleSession?.BattleRuntime?.rewardExperience ?? 0f;
+            if (owner == null || reward <= 0f) return;
+
+            ObserveBattleExperience();
+            owner.GainExperience(reward);
+            ObserveBattleExperience();
+            battleSession.BattleRuntime.rewardExperience = 0f;
+        }
+
+        private void ProcessSkillUpgradeRewardQueue()
+        {
+            if (queuedRewardInFlight || isWaitingForBattleEndUpgrade)
+                return;
+
+            if (!upgradeRewardQueue.TryPeek(out SkillUpgradeRewardRequest request))
+            {
+                if (battleSession?.BattleRuntime?.isCompleted == true
+                    && !battleEndDispatched)
+                {
+                    battleEndDispatched = true;
+                    EndBattle();
+                }
+                return;
+            }
+
+            SkillUpgradeOpenResult result = TryOpenSkillUpgrade(
+                () => CompleteQueuedSkillUpgradeReward(request));
+            if (result == SkillUpgradeOpenResult.Opened)
+            {
+                queuedRewardInFlight = true;
+                return;
+            }
+
+            if (result == SkillUpgradeOpenResult.AlreadyOpen)
+                return;
+
+            Debug.LogWarning(
+                $"[BattleManager] Skill upgrade reward settled without selection. "
+                + $"source={request.Source}, reason={request.Reason}, result={result}.",
+                this);
+            upgradeRewardQueue.TryComplete(request.IdempotencyKey);
+        }
+
+        private void CompleteQueuedSkillUpgradeReward(SkillUpgradeRewardRequest request)
+        {
+            isWaitingForBattleEndUpgrade = false;
+            queuedRewardInFlight = false;
+            upgradeRewardQueue.TryComplete(request.IdempotencyKey);
+            ProcessSkillUpgradeRewardQueue();
         }
 
         private void OpenBattleEndUpgradeOrEndBattle()
@@ -710,6 +838,77 @@ namespace Battle
                         this);
                     break;
             }
+        }
+
+        public int KillCurrentSpawnedEnemiesForDebug()
+        {
+            if (debugKillSnapshotInProgress
+                || battleSession?.BattleRuntime == null
+                || battleSession.BattleRuntime.isCompleted)
+                return 0;
+
+            IReadOnlyList<GameObject> registered = EnemyRegistry.Instance.ActiveEnemies;
+            if (registered == null || registered.Count == 0)
+            {
+                Debug.Log("[BattleManager][Debug] F3 kill snapshot has no active enemies.", this);
+                return 0;
+            }
+
+            List<CharacterManager> snapshot = new();
+            HashSet<int> uniqueRoots = new();
+            for (int i = 0; i < registered.Count; i++)
+            {
+                GameObject enemyObject = registered[i];
+                if (enemyObject == null || !enemyObject.activeInHierarchy) continue;
+
+                CharacterManager enemy = enemyObject.GetComponent<CharacterManager>()
+                    ?? enemyObject.GetComponentInParent<CharacterManager>()
+                    ?? enemyObject.GetComponentInChildren<CharacterManager>();
+                CharacterRuntimeData data = enemy?.RuntimeData;
+                if (enemy == null
+                    || data?.characterSO == null
+                    || data.isDead
+                    || enemy.IsDying
+                    || !enemy.gameObject.activeInHierarchy
+                    || (data.characterSO.CharacterType != CharacterType.Npc
+                        && data.characterSO.CharacterType != CharacterType.Boss)
+                    || !uniqueRoots.Add(enemy.GetInstanceID()))
+                    continue;
+
+                snapshot.Add(enemy);
+            }
+
+            if (snapshot.Count == 0)
+            {
+                Debug.Log("[BattleManager][Debug] F3 kill snapshot has no eligible living enemies.", this);
+                return 0;
+            }
+
+            debugKillSnapshotInProgress = true;
+            int killed = 0;
+            CharacterManager attacker = ResolvePrimaryExperienceOwner();
+            try
+            {
+                for (int i = 0; i < snapshot.Count; i++)
+                {
+                    CharacterManager enemy = snapshot[i];
+                    if (enemy == null || enemy.RuntimeData == null || enemy.RuntimeData.isDead)
+                        continue;
+
+                    enemy.TakeLethalDamage(attacker);
+                    if (enemy.RuntimeData.isDead) killed++;
+                }
+            }
+            finally
+            {
+                debugKillSnapshotInProgress = false;
+            }
+
+            Debug.Log(
+                $"[BattleManager][Debug] F3 authoritative kill snapshot completed: "
+                + $"eligible={snapshot.Count}, killed={killed}.",
+                this);
+            return killed;
         }
 
         private void HandleDebugSkillUpgradeCompleted()

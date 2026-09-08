@@ -32,6 +32,9 @@ public class UISkillUpgradeButton : UIComponent
 
     // ── 런타임 상태 ──────────────────────────────────────────────
     private Action onClickCallback;
+    private string boundEquipmentId;
+
+    public string BoundEquipmentId => boundEquipmentId;
 
     // ── 생명주기 ─────────────────────────────────────────────────
     private void Awake()
@@ -48,12 +51,13 @@ public class UISkillUpgradeButton : UIComponent
     public void Bind(SkillUpgradeOptionData data, Action onClick)
     {
         onClickCallback = onClick;
+        boundEquipmentId = data?.equipmentId ?? string.Empty;
 
         SetCharacterPortrait(data?.characterPortrait);
         SetCharacterName(data?.characterName ?? string.Empty);
         SetLevelText(data?.currentLevel ?? 1, data?.nextLevel ?? 2);
-        SetStatComparison(data?.statComparisonText ?? string.Empty);
         SetContent(data?.content);
+        SetStatComparison(data?.statComparisonText ?? string.Empty);
     }
 
     // ── 내부 구현 ─────────────────────────────────────────────────
@@ -96,11 +100,17 @@ public class UISkillUpgradeButton : UIComponent
 
     private void SetStatComparison(string comparisonText)
     {
-        if (statComparisonText == null)
-            return;
+        // The shipped card prefab keeps the legacy content description visible,
+        // while its former comparison Body is intentionally inactive. Replace
+        // that authoritative visible description after Bind instead of writing
+        // into an inactive child.
+        contentInfoView?.SetDescriptionOverride(comparisonText);
 
-        statComparisonText.text = comparisonText;
-        statComparisonText.gameObject.SetActive(!string.IsNullOrWhiteSpace(comparisonText));
+        if (statComparisonText != null)
+        {
+            statComparisonText.text = string.Empty;
+            statComparisonText.gameObject.SetActive(false);
+        }
     }
 
     private void OnClicked()

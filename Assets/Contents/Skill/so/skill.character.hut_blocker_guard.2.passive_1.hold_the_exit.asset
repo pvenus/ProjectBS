@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: skill.character.hut_blocker_guard.2.passive_1.hold_the_exit
   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
   equipmentId: skill.character.hut_blocker_guard.2.passive_1.hold_the_exit
+  aimMode: 0
+  aimInputSource: 0
   icon: {fileID: 21300000, guid: b6a3b35f86d17479fb0081468c1b24d9, type: 3}
   baseProfileSo: {fileID: 11400000, guid: f6e4eaca93d4c40a78c29cc5485348f2, type: 2}
   castSo: {fileID: 11400000, guid: 1ebc100c6acd54abea70cad94d2fc35a, type: 2}
@@ -23,6 +25,10 @@ MonoBehaviour:
   baseVisualSo: {fileID: 11400000, guid: 13c4f4d2c9e0545e5a83bc0584f992da, type: 2}
   comboProfile:
     enabled: 0
+    inputDriven: 0
     duration: 0
     totalLungeCap: 0
+    useCanonicalBodyChoreography: 0
+    segmentedBodyActionClip: {fileID: 0}
+    segmentedBodyFrameCount: 18
     steps: []

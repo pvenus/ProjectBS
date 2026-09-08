@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: skill.character.track_eraser_scout.1.basic_attack.short_spear_probe
   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
   equipmentId: skill.character.track_eraser_scout.1.basic_attack.short_spear_probe
+  aimMode: 0
+  aimInputSource: 0
   icon: {fileID: 21300000, guid: 319fca6f3d109484084e9c76710c4702, type: 3}
   baseProfileSo: {fileID: 11400000, guid: d67ed40a123a5467d97ae5bc48586cb0, type: 2}
   castSo: {fileID: 11400000, guid: ad974557be4664490a565bb5cd4732e2, type: 2}
@@ -24,6 +26,10 @@ MonoBehaviour:
   baseVisualSo: {fileID: 11400000, guid: 828b1bc0aa0554fd680957aaa9cf982b, type: 2}
   comboProfile:
     enabled: 0
+    inputDriven: 0
     duration: 0
     totalLungeCap: 0
+    useCanonicalBodyChoreography: 0
+    segmentedBodyActionClip: {fileID: 0}
+    segmentedBodyFrameCount: 18
     steps: []

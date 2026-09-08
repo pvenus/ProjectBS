@@ -29,6 +29,8 @@ public class UIPopupViewController : MonoBehaviour
         }
     }
 
+    public bool HasOpenPopup => openedPopups.Count > 0;
+
     // ── 직렬화 필드 ───────────────────────────────────────────────
 
     [SerializeField] private PopupViewRegistrySO registry;

@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: skill.character.marked_pack_leader.2.active_1.pack_howl
   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
   equipmentId: skill.character.marked_pack_leader.2.active_1.pack_howl
+  aimMode: 0
+  aimInputSource: 0
   icon: {fileID: 21300000, guid: 2241fa775351c4a7eb3f75e61050983f, type: 3}
   baseProfileSo: {fileID: 11400000, guid: 90a49f16e8b604c589eb67afa90de499, type: 2}
   castSo: {fileID: 11400000, guid: b05b06985082a454a85fef14f4489157, type: 2}
@@ -23,6 +25,10 @@ MonoBehaviour:
   baseVisualSo: {fileID: 11400000, guid: c8703a4e23f0345d299ea2d9ea4dabad, type: 2}
   comboProfile:
     enabled: 0
+    inputDriven: 0
     duration: 0
     totalLungeCap: 0
+    useCanonicalBodyChoreography: 0
+    segmentedBodyActionClip: {fileID: 0}
+    segmentedBodyFrameCount: 18
     steps: []

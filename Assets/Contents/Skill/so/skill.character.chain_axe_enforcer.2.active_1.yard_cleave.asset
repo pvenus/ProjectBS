@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: skill.character.chain_axe_enforcer.2.active_1.yard_cleave
   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
   equipmentId: skill.character.chain_axe_enforcer.2.active_1.yard_cleave
+  aimMode: 0
+  aimInputSource: 0
   icon: {fileID: 21300000, guid: bea35b37043d04a1aa5dc4d5c606e5e5, type: 3}
   baseProfileSo: {fileID: 11400000, guid: 4bca9b72042164fecaa6e9e369e0c5c3, type: 2}
   castSo: {fileID: 11400000, guid: 5dfa9f7b9bfbe45cda7e1371ccd4617e, type: 2}
@@ -24,6 +26,10 @@ MonoBehaviour:
   baseVisualSo: {fileID: 11400000, guid: c85974c76de77435f82a3edd894e3dbe, type: 2}
   comboProfile:
     enabled: 0
+    inputDriven: 0
     duration: 0
     totalLungeCap: 0
+    useCanonicalBodyChoreography: 0
+    segmentedBodyActionClip: {fileID: 0}
+    segmentedBodyFrameCount: 18
     steps: []

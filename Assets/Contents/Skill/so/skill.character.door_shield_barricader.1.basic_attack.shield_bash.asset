@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: skill.character.door_shield_barricader.1.basic_attack.shield_bash
   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
   equipmentId: skill.character.door_shield_barricader.1.basic_attack.shield_bash
+  aimMode: 0
+  aimInputSource: 0
   icon: {fileID: 21300000, guid: b45c09325386342fda58b8802f2c72fa, type: 3}
   baseProfileSo: {fileID: 11400000, guid: d309153459cd64b6eb9c80c29862b715, type: 2}
   castSo: {fileID: 11400000, guid: dfe080ba75d614840b4e84d14efffd1f, type: 2}
@@ -24,6 +26,10 @@ MonoBehaviour:
   baseVisualSo: {fileID: 11400000, guid: cd55450f5f385488ba34adcc8fa0c64c, type: 2}
   comboProfile:
     enabled: 0
+    inputDriven: 0
     duration: 0
     totalLungeCap: 0
+    useCanonicalBodyChoreography: 0
+    segmentedBodyActionClip: {fileID: 0}
+    segmentedBodyFrameCount: 18
     steps: []

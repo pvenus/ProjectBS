@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: skill.character.mud_hood_polehooker.1.basic_attack.hook_poke
   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
   equipmentId: skill.character.mud_hood_polehooker.1.basic_attack.hook_poke
+  aimMode: 0
+  aimInputSource: 0
   icon: {fileID: 21300000, guid: 3f563c5c532254e59aee12cd0c2a14fb, type: 3}
   baseProfileSo: {fileID: 11400000, guid: 99cce5be66ad640dbaf4a30b0d5f5578, type: 2}
   castSo: {fileID: 11400000, guid: 0b10ed9e18e9146e6bd3acd5ab59870b, type: 2}
@@ -24,6 +26,10 @@ MonoBehaviour:
   baseVisualSo: {fileID: 11400000, guid: 05cc7219fae2644c48a3705ff6149e8d, type: 2}
   comboProfile:
     enabled: 0
+    inputDriven: 0
     duration: 0
     totalLungeCap: 0
+    useCanonicalBodyChoreography: 0
+    segmentedBodyActionClip: {fileID: 0}
+    segmentedBodyFrameCount: 18
     steps: []

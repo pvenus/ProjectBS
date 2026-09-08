@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: effect.skill.strategic.blood_meridian_release.cooldown_reduce
   m_EditorClassIdentifier: Assembly-CSharp::Effect.EffectSO
   effectId: effect.skill.strategic.blood_meridian_release.cooldown_reduce
+  authoredDisplayName: "effect.skill.strategic.blood_meridian_release.cooldown_reduce"
   icon: {fileID: 0}
   config:
-    rid: 666566856101331848
+    rid: 666566976232489170
   references:
     version: 2
     RefIds:
-    - rid: 666566856101331848
+    - rid: 666566976232489170
       type: {class: CooldownReduceEffectConfig, ns: Effect, asm: Assembly-CSharp}
       data:
         reduceType: 0

@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: effect.skill.strategic.blackwind_bomb.knockback
   m_EditorClassIdentifier: Assembly-CSharp::Effect.EffectSO
   effectId: effect.skill.strategic.blackwind_bomb.knockback
+  authoredDisplayName: "effect.skill.strategic.blackwind_bomb.knockback"
   icon: {fileID: 0}
   config:
-    rid: 666566856101331845
+    rid: 666566976232489167
   references:
     version: 2
     RefIds:
-    - rid: 666566856101331845
+    - rid: 666566976232489167
       type: {class: KnockbackEffectConfig, ns: Effect, asm: Assembly-CSharp}
       data:
         force: 5

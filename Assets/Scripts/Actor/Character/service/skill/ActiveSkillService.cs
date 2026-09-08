@@ -70,6 +70,14 @@ namespace Character.Skill
         private static int nextComboToken;
         private readonly Dictionary<int,int> comboGenerations=new();
         private readonly Dictionary<int,object> comboFacingOwners=new();
+        private sealed class TimedComboProgress
+        {
+            public int nextStepIndex;
+            public float continuationExpiresAt;
+            public string comboToken;
+            public bool sharedCritical;
+        }
+        private readonly Dictionary<int,TimedComboProgress> timedComboProgressByCaster=new();
         public bool HasCombo(Transform caster)=>caster!=null&&activeComboCasters.Contains(caster.GetInstanceID());
 
         /// <summary>
@@ -266,6 +274,7 @@ namespace Character.Skill
                 {ResolveAnimation(caster)?.ReleaseFacingLock(facingOwner);comboFacingOwners.Remove(caster.GetInstanceID());}
                 activeComboCasters.Remove(caster.GetInstanceID());
                 comboGenerations.Remove(caster.GetInstanceID());
+                timedComboProgressByCaster.Remove(caster.GetInstanceID());
             }
         }
 
@@ -564,7 +573,14 @@ namespace Character.Skill
 
                 activeComboCasters.Add(caster.GetInstanceID());
                 int generation=++nextComboToken;comboGenerations[caster.GetInstanceID()]=generation;
-                skillManager.StartOwnedSkillRoutine(FireComboRoutine(skillManager, runtime, caster, target,usePoint,targetPoint,skillManager.ManualExecutionAuthorized?skillManager.ManualComboChain:null,generation,manualAim,skillManager.ManualExecutionAuthorized?skillManager.ManualComboStepAim:null));
+                IEnumerator routine = combo.InputDriven
+                    ? FireTimedComboStepRoutine(skillManager, runtime, caster, target,
+                        usePoint, targetPoint, generation, manualAim)
+                    : FireComboRoutine(skillManager, runtime, caster, target,usePoint,targetPoint,
+                        skillManager.ManualExecutionAuthorized?skillManager.ManualComboChain:null,
+                        generation,manualAim,
+                        skillManager.ManualExecutionAuthorized?skillManager.ManualComboStepAim:null);
+                skillManager.StartOwnedSkillRoutine(routine);
                 return true;
             }
 
@@ -1023,6 +1039,156 @@ namespace Character.Skill
             {
                 continuousAnimation?.ReleaseFacingLock(facingOwner);
                 if(comboFacingOwners.TryGetValue(casterId,out var owner)&&ReferenceEquals(owner,facingOwner))comboFacingOwners.Remove(casterId);
+            }
+        }
+
+        private IEnumerator FireTimedComboStepRoutine(
+            CharacterSkillManager skillManager,
+            EquipmentSkillRuntimeData runtime,
+            Transform caster,
+            Transform initialTarget,
+            bool usePoint,
+            Vector2 point,
+            int generation,
+            ManualSkillAim? manualAim = null)
+        {
+            int casterId = caster.GetInstanceID();
+            SkillComboProfile combo = runtime.comboProfile;
+            TimedComboProgress progress;
+            if (!timedComboProgressByCaster.TryGetValue(casterId, out progress) ||
+                progress == null || progress.nextStepIndex < 1 ||
+                progress.nextStepIndex > 2 || Time.time > progress.continuationExpiresAt)
+            {
+                progress = new TimedComboProgress
+                {
+                    nextStepIndex = 0,
+                    continuationExpiresAt = 0f,
+                    comboToken = $"seojin-basic-input-combo-{++nextComboToken}",
+                    sharedCritical = RollComboCritical(caster)
+                };
+                timedComboProgressByCaster[casterId] = progress;
+            }
+
+            int stepIndex = progress.nextStepIndex;
+            SkillComboStep step = combo.Steps[stepIndex];
+            bool completed = false;
+            object facingOwner = new object();
+            try
+            {
+                if (!CanContinueGeneration(caster, generation) ||
+                    (manualAim.HasValue && !skillManager.ManualComboAuthorized))
+                    yield break;
+
+                if (stepIndex == 2)
+                {
+                    // G1 Basic cooldown is committed once when the third input admits
+                    // comboIndex2. Earlier steps are governed only by their input window.
+                    if (!UseSkill(skillManager, runtime))
+                        yield break;
+                    skillManager.NotifySkillUseSucceeded(runtime);
+                }
+
+                MainCharacterSkillFocusFeature.NotifySkillExecuting(
+                    skillManager, runtime, caster);
+
+                bool freeAim = usePoint || manualAim?.Mode == SkillAimMode.Direction;
+                Transform target = NormalizeComboTarget(initialTarget);
+                float targetRange = runtime.sourceEquipment.CastSo != null
+                    ? runtime.sourceEquipment.CastSo.Range
+                    : 0f;
+                float continuationRange = targetRange + (stepIndex > 0 ? 0.25f : 0f);
+                if (!freeAim && (!IsValidComboTarget(caster, target, step.Hit) ||
+                    !IsComboTargetInRange(caster, target, continuationRange)))
+                {
+                    target = ResolveComboRetarget(caster, continuationRange, step.Hit);
+                }
+                if (!freeAim && (!IsValidComboTarget(caster, target, step.Hit) ||
+                    !IsComboTargetInRange(caster, target, continuationRange)))
+                    yield break;
+
+                Vector2 direction = ResolveDirection(caster.position, caster, target,
+                    usePoint, usePoint ? point : (Vector2)caster.position);
+                if (manualAim?.Mode == SkillAimMode.Direction)
+                    direction = manualAim.Value.Direction;
+                ApplyAnimationDirection(caster, direction);
+
+                AnimationMono animation = ResolveAnimation(caster);
+                if (manualAim?.Mode == SkillAimMode.Direction && animation != null)
+                {
+                    comboFacingOwners[casterId] = facingOwner;
+                    animation.AcquireFacingLock(facingOwner, direction);
+                }
+
+                float localHitTime = Mathf.Max(0f, step.HitTime - step.StartTime);
+                float localRecoveryEnd = Mathf.Max(localHitTime,
+                    step.RecoveryEnd - step.StartTime);
+                bool bodyStarted = combo.HasCompleteSegmentedBodyRegistry &&
+                    animation != null && animation.RestartContinuousComboSegment(
+                        combo.SegmentedBodyActionClip, step,
+                        combo.SegmentedBodyFrameCount, localHitTime,
+                        localRecoveryEnd - localHitTime,
+                        step.PostActionHoldTime,
+                        step.BodyPresentationCalibration);
+                if (!bodyStarted)
+                {
+                    // Missing presentation never cancels the admitted gameplay step.
+                    animation?.RestartAttack();
+                }
+
+                if (target != null && Vector2.Distance(caster.position, target.position) > 0.05f)
+                    ApplyCollisionSafeLunge(caster, target, direction, step.LungeDistance);
+
+                if (localHitTime > 0f)
+                    yield return new WaitForSeconds(localHitTime);
+                if (!CanContinueGeneration(caster, generation) ||
+                    (manualAim.HasValue && !skillManager.ManualComboAuthorized))
+                    yield break;
+
+                bool fired = UseSkillOnce(
+                    skillManager, runtime, caster, target, usePoint,
+                    usePoint ? point : target != null ? (Vector2)target.position : (Vector2)caster.position,
+                    0, step.VfxClip, step.VfxProfileOverride,
+                    step.VfxPresentationCalibration, progress.comboToken,
+                    progress.sharedCritical, step.DamageWeight, step.ComboIndex,
+                    step.Hit, step.ComboIndex < 2, step.MinimumVisualLifetime, manualAim);
+                if (!fired)
+                    yield break;
+
+                float recoveryDelay = localRecoveryEnd - localHitTime;
+                if (recoveryDelay > 0f)
+                    yield return new WaitForSeconds(recoveryDelay);
+                // Busy remains owned by this admitted step throughout the hold.
+                // ManualControlCore coalesces held/fresh input to one continuation,
+                // and the combo window is opened only after this delay completes.
+                if (step.PostActionHoldTime > 0f)
+                    yield return new WaitForSeconds(step.PostActionHoldTime);
+                if (!CanContinueGeneration(caster, generation))
+                    yield break;
+
+                completed = true;
+                if (stepIndex < 2 && step.NextComboActivationTime > 0f)
+                {
+                    progress.nextStepIndex = stepIndex + 1;
+                    progress.continuationExpiresAt = Time.time + step.NextComboActivationTime;
+                }
+                else
+                {
+                    timedComboProgressByCaster.Remove(casterId);
+                }
+            }
+            finally
+            {
+                ResolveAnimation(caster)?.ReleaseFacingLock(facingOwner);
+                if (comboFacingOwners.TryGetValue(casterId, out object owner) &&
+                    ReferenceEquals(owner, facingOwner))
+                    comboFacingOwners.Remove(casterId);
+                if (!completed)
+                    timedComboProgressByCaster.Remove(casterId);
+                if (comboGenerations.TryGetValue(casterId, out int current) && current == generation)
+                {
+                    activeComboCasters.Remove(casterId);
+                    comboGenerations.Remove(casterId);
+                }
             }
         }
 

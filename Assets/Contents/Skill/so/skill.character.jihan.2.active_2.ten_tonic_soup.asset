@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: skill.character.jihan.2.active_2.ten_tonic_soup
   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
   equipmentId: skill.character.jihan.2.active_2.ten_tonic_soup
+  aimMode: 0
+  aimInputSource: 0
   icon: {fileID: 21300000, guid: 7856f6cd1a4914115aa99867c0557166, type: 3}
   baseProfileSo: {fileID: 11400000, guid: 796fba8af01f84fe79f4d0780c6d6629, type: 2}
   castSo: {fileID: 11400000, guid: 5e910097f058e405f8eb8c0a416f7772, type: 2}
@@ -24,6 +26,10 @@ MonoBehaviour:
   baseVisualSo: {fileID: 11400000, guid: 756c72df03ab54fd5a65930d2d9753b3, type: 2}
   comboProfile:
     enabled: 0
+    inputDriven: 0
     duration: 0
     totalLungeCap: 0
+    useCanonicalBodyChoreography: 0
+    segmentedBodyActionClip: {fileID: 0}
+    segmentedBodyFrameCount: 18
     steps: []

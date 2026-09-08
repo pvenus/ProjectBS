@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: skill.character.mountain_path_archer.1.basic_attack.hidden_arrow
   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
   equipmentId: skill.character.mountain_path_archer.1.basic_attack.hidden_arrow
+  aimMode: 0
+  aimInputSource: 0
   icon: {fileID: 21300000, guid: 4f15149f2bc4c49329bf12f1fce020f1, type: 3}
   baseProfileSo: {fileID: 11400000, guid: 5cd6aae296a284c328620162ad9fa8f1, type: 2}
   castSo: {fileID: 11400000, guid: 94a865ffc65f043be818f93b9bfeb5cc, type: 2}
@@ -24,6 +26,10 @@ MonoBehaviour:
   baseVisualSo: {fileID: 11400000, guid: 23a303c6543a941fbb50d79781204611, type: 2}
   comboProfile:
     enabled: 0
+    inputDriven: 0
     duration: 0
     totalLungeCap: 0
+    useCanonicalBodyChoreography: 0
+    segmentedBodyActionClip: {fileID: 0}
+    segmentedBodyFrameCount: 18
     steps: []

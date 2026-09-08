@@ -33,7 +33,7 @@ MonoBehaviour:
   postMoveSelfEffects: []
   mobilityVfxClip: {fileID: 0}
   mobilityBodyPresentation:
-    profileId:
+    profileId: 
     grade: 1
     reducedMotion: 0
     disablePresentation: 0
@@ -41,5 +41,9 @@ MonoBehaviour:
   bodyActionPlayback:
     contactTime: 0.18
     duration: 0.45
+  directionPresentation:
+    canonicalForward: {x: 1, y: 0}
+    allowBodyFlip: 1
+    directionalClips: []
   skipAttackAnimation: 0
   snapshotTargetPointOnCast: 1

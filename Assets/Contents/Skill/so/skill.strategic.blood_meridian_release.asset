@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: skill.strategic.blood_meridian_release
   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
   equipmentId: skill.strategic.blood_meridian_release
+  aimMode: 0
+  aimInputSource: 0
   icon: {fileID: 21300000, guid: a510c9e9715a64574834a8eb6d73ac2f, type: 3}
   baseProfileSo: {fileID: 11400000, guid: 0e811177c1c9a4462b38ac382f93ccf4, type: 2}
   castSo: {fileID: 11400000, guid: 9af5347fe1e4241669c6af281ffd1fc7, type: 2}
@@ -24,6 +26,10 @@ MonoBehaviour:
   baseVisualSo: {fileID: 11400000, guid: 8abbf09c155434e128b25e8142b2051a, type: 2}
   comboProfile:
     enabled: 0
+    inputDriven: 0
     duration: 0
     totalLungeCap: 0
+    useCanonicalBodyChoreography: 0
+    segmentedBodyActionClip: {fileID: 0}
+    segmentedBodyFrameCount: 18
     steps: []

@@ -50,6 +50,11 @@ public class BaseVisualSO : ScriptableObject
         animationVfxProfile = null;
         animationVfxPalette = default;
     }
+
+    public void ApplyAnimationVfxProfileEditor(SkillAnimationVfxProfileSO profile)
+    {
+        animationVfxProfile = profile;
+    }
 #endif
 }
 

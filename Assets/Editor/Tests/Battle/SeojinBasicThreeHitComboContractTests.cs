@@ -20,6 +20,39 @@ public sealed class SeojinBasicThreeHitComboContractTests
     };
 
     [Test]
+    public void GradeOneFinisherHasExactlyOneHalfSecondRootAndEarlierStepsHaveNone()
+    {
+        string json = File.ReadAllText(Paths[0]);
+        const string effectId =
+            "skill.character.seojin.1.basic_attack.basic_attack.combo.2.effect.debuff.2";
+
+        Assert.That(Count(json, "\"statType\": \"RootDuration\""), Is.EqualTo(1),
+            "G1 Basic may root only from comboIndex2");
+        Assert.That(Count(json, $"\"effectId\": \"{effectId}\""), Is.EqualTo(1));
+        Assert.That(json, Does.Contain(
+            "\"statType\": \"RootDuration\",\n              \"modifierType\": \"Flat\",\n              \"value\": 0.5"));
+
+        string effect = File.ReadAllText(
+            $"Assets/Contents/Skill/so/{effectId}.asset");
+        Assert.That(effect, Does.Contain($"effectId: {effectId}"));
+        Assert.That(effect, Does.Contain("targetStat: 1347"));
+        Assert.That(effect, Does.Contain("value: 0.5"));
+
+        string entry = File.ReadAllText(
+            $"Assets/Contents/Skill/so/{effectId}.entry.asset");
+        Assert.That(entry, Does.Contain("maxApplyCount: 1"));
+        Assert.That(entry, Does.Contain("lifetimeType: 0"));
+
+        for (int grade = 1; grade < Paths.Length; grade++)
+        {
+            string untouchedJson = File.ReadAllText(Paths[grade]);
+            Assert.That(untouchedJson, Does.Contain(
+                "\"statType\": \"RootDuration\",\n              \"modifierType\": \"Flat\",\n              \"value\": 0.2"),
+                $"G{grade + 1} is outside this G1-only correction");
+        }
+    }
+
+    [Test]
     public void CanonicalBodyChoreographyIsProxyOnlyBoundedAndExact3Enabled()
     {
         string animation = File.ReadAllText("Assets/Scripts/Actor/Party/AnimationMono.cs");
@@ -193,6 +226,7 @@ public sealed class SeojinBasicThreeHitComboContractTests
     private sealed class Combo
     {
         public bool enabled;
+        public bool inputDriven;
         public float duration;
         public float totalLungeCap;
         public Step[] steps;
@@ -212,8 +246,78 @@ public sealed class SeojinBasicThreeHitComboContractTests
         public float hitTime;
         public float activeEnd;
         public float recoveryEnd;
+        public float postActionHoldTime;
         public float damageWeight;
         public float lungeDistance;
+        public float nextComboActivationTime;
+    }
+
+    [Test]
+    public void GradeOneComboIsInputDrivenWithOneSecondRecoveryWindowsAndSegmentOnlyPlayback()
+    {
+        Combo combo = ParseCombo(Paths[0]);
+        Assert.That(combo.inputDriven, Is.True);
+        Assert.That(combo.steps[0].nextComboActivationTime, Is.EqualTo(1f));
+        Assert.That(combo.steps[1].nextComboActivationTime, Is.EqualTo(1f));
+        Assert.That(combo.steps[2].nextComboActivationTime, Is.Zero);
+
+        for (int i = 0; i < combo.steps.Length; i++)
+        {
+            Assert.That(combo.steps[i].postActionHoldTime, Is.EqualTo(.2f).Within(.0001f),
+                $"G1 comboIndex{i} must hold its final body frame for exactly 0.2 seconds");
+        }
+
+        for (int grade = 1; grade < Paths.Length; grade++)
+        {
+            Combo legacyCombo = ParseCombo(Paths[grade]);
+            for (int i = 0; i < legacyCombo.steps.Length; i++)
+            {
+                Assert.That(legacyCombo.steps[i].postActionHoldTime, Is.Zero,
+                    $"G{grade + 1} comboIndex{i} must retain the legacy zero-hold default");
+            }
+        }
+
+        Assert.That(combo.steps[0].hitTime - combo.steps[0].startTime, Is.EqualTo(.16f).Within(.0001f));
+        Assert.That(combo.steps[0].recoveryEnd - combo.steps[0].startTime, Is.EqualTo(.28f).Within(.0001f));
+        Assert.That(combo.steps[1].hitTime - combo.steps[1].startTime, Is.EqualTo(.16f).Within(.0001f));
+        Assert.That(combo.steps[1].recoveryEnd - combo.steps[1].startTime, Is.EqualTo(.20f).Within(.0001f));
+        Assert.That(combo.steps[2].hitTime - combo.steps[2].startTime, Is.EqualTo(.16f).Within(.0001f));
+        Assert.That(combo.steps[2].recoveryEnd - combo.steps[2].startTime, Is.EqualTo(.28f).Within(.0001f));
+
+        string service = File.ReadAllText(
+            "Assets/Scripts/Actor/Character/service/skill/ActiveSkillService.cs");
+        Assert.That(service, Does.Contain("combo.InputDriven"));
+        Assert.That(service, Does.Contain("Time.time > progress.continuationExpiresAt"));
+        Assert.That(service, Does.Contain("Time.time + step.NextComboActivationTime"));
+        Assert.That(service, Does.Contain("stepIndex == 2"));
+        Assert.That(service, Does.Contain("RestartContinuousComboSegment"));
+        Assert.That(service, Does.Contain("step.PostActionHoldTime"));
+        int holdWait = service.IndexOf(
+            "yield return new WaitForSeconds(step.PostActionHoldTime)",
+            StringComparison.Ordinal);
+        int windowOpen = service.IndexOf(
+            "progress.continuationExpiresAt = Time.time + step.NextComboActivationTime",
+            StringComparison.Ordinal);
+        Assert.That(holdWait, Is.GreaterThanOrEqualTo(0));
+        Assert.That(windowOpen, Is.GreaterThan(holdWait),
+            "the one-second continuation window must begin after the post-action hold");
+
+        string input = File.ReadAllText(
+            "Assets/Scripts/Actor/Character/Control/ManualControlCore.cs");
+        Assert.That(input, Does.Contain("bool newBasicPress=input.AttackDown||(input.AttackHeld&&!wasHeld)"));
+        Assert.That(input, Does.Contain("basicPressPending=true"));
+        Assert.That(input, Does.Contain("if(AttackHeld&&!basicPressPending)"),
+            "held input must coalesce exactly one continuation during recovery");
+        Assert.That(input, Does.Contain("if(!basicPressPending&&AttackHeld&&game.Ready(0))"),
+            "held input must restart from step 0 only after cooldown readiness returns");
+
+        string animation = File.ReadAllText("Assets/Scripts/Actor/Party/AnimationMono.cs");
+        Assert.That(animation, Does.Contain("PlayContinuousComboSegmentRoutine"));
+        Assert.That(animation, Does.Contain("step.BodySegmentStartFrame / denominator"));
+        Assert.That(animation, Does.Contain("step.BodySegmentEndFrame / denominator"));
+        Assert.That(animation, Does.Contain("while (holdElapsed < postActionHoldTime)"));
+        Assert.That(animation, Does.Contain("clip.SampleAnimation(gameObject, clip.length * end)"),
+            "F5 must be re-sampled throughout the hold instead of exposing locomotion/idle");
     }
 
     [TestCase(0, 1.06f, .36f, .16f, .64f, .94f, .12f)]
@@ -510,8 +614,16 @@ public sealed class SeojinBasicThreeHitComboContractTests
             Combo combo = ParseCombo(Paths[grade]);
             for (int step = 0; step < 3; step++)
             {
-                Assert.That(combo.steps[step].bodyPresentationCalibration,
-                    Is.EqualTo($"skill.character.seojin.basic_attack.combo.body.hit{step}.calibration"));
+                if (grade == 0)
+                {
+                    Assert.That(combo.steps[step].bodyPresentationCalibration, Is.Null.Or.Empty,
+                        "G1 input-driven continuous18 uses canonical local scale 1");
+                }
+                else
+                {
+                    Assert.That(combo.steps[step].bodyPresentationCalibration,
+                        Is.EqualTo($"skill.character.seojin.basic_attack.combo.body.hit{step}.calibration"));
+                }
                 if (step == 0)
                 {
                     Assert.That(combo.steps[step].vfxPresentationCalibration, Is.Null.Or.Empty,

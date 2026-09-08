@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: effect.skill.strategic.soulbreaking_formation.move_speed_down
   m_EditorClassIdentifier: Assembly-CSharp::Effect.EffectSO
   effectId: effect.skill.strategic.soulbreaking_formation.move_speed_down
+  authoredDisplayName: "effect.skill.strategic.soulbreaking_formation.move_speed_down"
   icon: {fileID: 0}
   config:
-    rid: 666566856101331873
+    rid: 666566976232489195
   references:
     version: 2
     RefIds:
-    - rid: 666566856101331873
+    - rid: 666566976232489195
       type: {class: StatModifierEffectConfig, ns: Effect, asm: Assembly-CSharp}
       data:
         targetStat: 1237

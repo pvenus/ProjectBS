@@ -59,10 +59,10 @@ public sealed class PlayerCharacterAuraLoopContractTests
         Assert.That(prefab, Does.Not.Contain("8d999b956ebb4c87b15aae1b7612c6d8"));
         Assert.That(prefab, Does.Contain("m_Sprite: {fileID: 21300000, guid: 0b6651605802d09810aa12f5fb35b978, type: 3}"));
         Assert.That(prefab, Does.Contain("m_Sprite: {fileID: 21300000, guid: 641d97593183c1cb1fb25816b1431343, type: 3}"));
-        Assert.That(prefab, Does.Contain("visualScale: {x: 0.2058, y: 0.15435}"));
-        Assert.That(prefab, Does.Contain("positionOffset: {x: 0, y: -0.25, z: 0}"));
-        Assert.That(Count(prefab, "m_LocalPosition: {x: 0, y: -0.25, z: 0}"), Is.EqualTo(2));
-        Assert.That(Count(prefab, "m_LocalScale: {x: 0.2058, y: 0.15435, z: 1}"), Is.EqualTo(2));
+        Assert.That(prefab, Does.Contain("visualScale: {x: 0.14406, y: 0.108045}"));
+        Assert.That(prefab, Does.Contain("positionOffset: {x: 0, y: -0.15, z: 0}"));
+        Assert.That(Count(prefab, "m_LocalPosition: {x: 0, y: -0.15, z: 0}"), Is.EqualTo(2));
+        Assert.That(Count(prefab, "m_LocalScale: {x: 0.14406, y: 0.108045, z: 1}"), Is.EqualTo(2));
     }
 
     [Test]

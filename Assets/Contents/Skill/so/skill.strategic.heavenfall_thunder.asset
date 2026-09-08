@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: skill.strategic.heavenfall_thunder
   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
   equipmentId: skill.strategic.heavenfall_thunder
+  aimMode: 0
+  aimInputSource: 0
   icon: {fileID: 21300000, guid: 1e48dbbd2a83d4ada96ac65adc6befe9, type: 3}
   baseProfileSo: {fileID: 11400000, guid: a90b4ad01e75d4f5ab3bd82208f2b388, type: 2}
   castSo: {fileID: 11400000, guid: d20289585a68d4c0db6cd59a66d39788, type: 2}
@@ -24,6 +26,10 @@ MonoBehaviour:
   baseVisualSo: {fileID: 11400000, guid: 8c7357b314e0744f49d328ff840a77d2, type: 2}
   comboProfile:
     enabled: 0
+    inputDriven: 0
     duration: 0
     totalLungeCap: 0
+    useCanonicalBodyChoreography: 0
+    segmentedBodyActionClip: {fileID: 0}
+    segmentedBodyFrameCount: 18
     steps: []

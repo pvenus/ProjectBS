@@ -76,6 +76,11 @@ namespace UI
             RefreshScrollLayout();
         }
 
+        public void SetDescriptionOverride(string value)
+        {
+            SetOptionalText(descriptionText, value);
+        }
+
         private void BindTags(ContentPresentationData content)
         {
             if (tagRoot == null || tagPrefab == null)

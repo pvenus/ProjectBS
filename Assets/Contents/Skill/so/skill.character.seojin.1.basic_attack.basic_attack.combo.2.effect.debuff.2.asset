@@ -13,15 +13,16 @@ MonoBehaviour:
   m_Name: skill.character.seojin.1.basic_attack.basic_attack.combo.2.effect.debuff.2
   m_EditorClassIdentifier: Assembly-CSharp::Effect.EffectSO
   effectId: skill.character.seojin.1.basic_attack.basic_attack.combo.2.effect.debuff.2
+  authoredDisplayName: "전열베기 마무리 이동 속박"
   icon: {fileID: 0}
   config:
-    rid: 666566905177047281
+    rid: 666566976232489104
   references:
     version: 2
     RefIds:
-    - rid: 666566905177047281
+    - rid: 666566976232489104
       type: {class: StatModifierEffectConfig, ns: Effect, asm: Assembly-CSharp}
       data:
         targetStat: 1347
         modifierType: 0
-        value: 0.2
+        value: 0.5

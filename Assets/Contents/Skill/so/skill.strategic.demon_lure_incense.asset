@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: skill.strategic.demon_lure_incense
   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
   equipmentId: skill.strategic.demon_lure_incense
+  aimMode: 0
+  aimInputSource: 0
   icon: {fileID: 21300000, guid: 5a5e2065be0ab43f38b97d7579faadb8, type: 3}
   baseProfileSo: {fileID: 11400000, guid: 9f8df7ec5d63b41bd9dc4adf3f20ece7, type: 2}
   castSo: {fileID: 11400000, guid: 3dc59eb74f7304a928c7fff8a6071974, type: 2}
@@ -24,6 +26,10 @@ MonoBehaviour:
   baseVisualSo: {fileID: 11400000, guid: 26f6048217b2c47f09b02edb96dc82a5, type: 2}
   comboProfile:
     enabled: 0
+    inputDriven: 0
     duration: 0
     totalLungeCap: 0
+    useCanonicalBodyChoreography: 0
+    segmentedBodyActionClip: {fileID: 0}
+    segmentedBodyFrameCount: 18
     steps: []

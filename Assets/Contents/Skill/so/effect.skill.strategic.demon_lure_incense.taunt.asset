@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: effect.skill.strategic.demon_lure_incense.taunt
   m_EditorClassIdentifier: Assembly-CSharp::Effect.EffectSO
   effectId: effect.skill.strategic.demon_lure_incense.taunt
+  authoredDisplayName: "effect.skill.strategic.demon_lure_incense.taunt"
   icon: {fileID: 0}
   config:
-    rid: 666566856101331852
+    rid: 666566976232489174
   references:
     version: 2
     RefIds:
-    - rid: 666566856101331852
+    - rid: 666566976232489174
       type: {class: TauntEffectConfig, ns: Effect, asm: Assembly-CSharp}
       data: 

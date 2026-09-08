@@ -8,6 +8,8 @@ using Battle;
 using System;
 using Progression;
 using Progression.RandomGrowth;
+using UnityEngine.Serialization;
+using UnityEngine.EventSystems;
 
 namespace Session
 {
@@ -33,7 +35,8 @@ namespace Session
 
         [SerializeField] private KeyCode battleTestKey = KeyCode.F1;
         [SerializeField] private KeyCode returnStageTestKey = KeyCode.F2;
-        [SerializeField] private KeyCode skillUpgradeTestKey = KeyCode.F3;
+        [FormerlySerializedAs("skillUpgradeTestKey")]
+        [SerializeField] private KeyCode killCurrentWaveTestKey = KeyCode.F3;
 
         [SerializeField] private string battleSceneName = "BattleScene";
 
@@ -115,24 +118,38 @@ namespace Session
                 BattleSession.EndBattle();
             }
 
-            if (Input.GetKeyDown(skillUpgradeTestKey))
+            if (Input.GetKeyDown(killCurrentWaveTestKey))
             {
-                OpenSkillUpgradeWindowForDebug();
+                KillCurrentBattleEnemiesForDebug();
             }
         }
 
-        private void OpenSkillUpgradeWindowForDebug()
+        private void KillCurrentBattleEnemiesForDebug()
         {
+            if (BattleSession == null
+                || !BattleSession.IsBattleActive
+                || !string.Equals(
+                    SceneManager.GetActiveScene().name,
+                    battleSceneName,
+                    StringComparison.Ordinal)
+                || Time.timeScale <= 0f
+                || (UIPopupViewController.Instance != null
+                    && UIPopupViewController.Instance.HasOpenPopup)
+                || (EventSystem.current != null
+                    && (EventSystem.current.currentSelectedGameObject != null
+                        || EventSystem.current.IsPointerOverGameObject())))
+                return;
+
             BattleManager battleManager = BattleManager.Instance;
             if (battleManager == null)
             {
                 Debug.LogWarning(
-                    "[GameSession][Debug] Cannot open skill upgrade UI. "
+                    "[GameSession][Debug] Cannot kill current enemies. "
                     + "BattleManager is not available.");
                 return;
             }
 
-            battleManager.OpenSkillUpgradeForDebug();
+            battleManager.KillCurrentSpawnedEnemiesForDebug();
         }
 
         private IEnumerator ApplyStartProfileDelayed()

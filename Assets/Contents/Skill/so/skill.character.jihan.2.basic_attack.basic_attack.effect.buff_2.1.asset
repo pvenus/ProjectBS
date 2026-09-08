@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: skill.character.jihan.2.basic_attack.basic_attack.effect.buff_2.1
   m_EditorClassIdentifier: Assembly-CSharp::Effect.EffectSO
   effectId: skill.character.jihan.2.basic_attack.basic_attack.effect.buff_2.1
+  authoredDisplayName: "기파술 회복"
   icon: {fileID: 0}
   config:
-    rid: 666566856101331748
+    rid: 666566976232489058
   references:
     version: 2
     RefIds:
-    - rid: 666566856101331748
+    - rid: 666566976232489058
       type: {class: HealEffectConfig, ns: Effect, asm: Assembly-CSharp}
       data:
         useMaxHpPercent: 0

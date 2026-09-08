@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: skill.character.abandoned_shrine_wraith.2.active_1.lost_child_cry
   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
   equipmentId: skill.character.abandoned_shrine_wraith.2.active_1.lost_child_cry
+  aimMode: 0
+  aimInputSource: 0
   icon: {fileID: 21300000, guid: 8a64ad19d3c1646ad9ec4aa4be08b7df, type: 3}
   baseProfileSo: {fileID: 11400000, guid: 9ef03972df2ee4d49849da66f8f75dab, type: 2}
   castSo: {fileID: 11400000, guid: e5c568af807d84466a4f6ee2e19e376d, type: 2}
@@ -24,6 +26,10 @@ MonoBehaviour:
   baseVisualSo: {fileID: 11400000, guid: cc395c423fa524ead917d0590fd52dce, type: 2}
   comboProfile:
     enabled: 0
+    inputDriven: 0
     duration: 0
     totalLungeCap: 0
+    useCanonicalBodyChoreography: 0
+    segmentedBodyActionClip: {fileID: 0}
+    segmentedBodyFrameCount: 18
     steps: []

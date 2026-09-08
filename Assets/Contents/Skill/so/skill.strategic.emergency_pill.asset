@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: skill.strategic.emergency_pill
   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
   equipmentId: skill.strategic.emergency_pill
+  aimMode: 0
+  aimInputSource: 0
   icon: {fileID: 21300000, guid: 192a9d25018d64dbab0ddfe77c11e679, type: 3}
   baseProfileSo: {fileID: 11400000, guid: 43735f4db9b214551bd69974c134dab0, type: 2}
   castSo: {fileID: 11400000, guid: 859ee93541af04bcb925a43bc409fc0c, type: 2}
@@ -24,6 +26,10 @@ MonoBehaviour:
   baseVisualSo: {fileID: 11400000, guid: 2d9f22fc26b6644bcb5770e1a0427034, type: 2}
   comboProfile:
     enabled: 0
+    inputDriven: 0
     duration: 0
     totalLungeCap: 0
+    useCanonicalBodyChoreography: 0
+    segmentedBodyActionClip: {fileID: 0}
+    segmentedBodyFrameCount: 18
     steps: []

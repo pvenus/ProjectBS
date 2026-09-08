@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: skill.character.red_doll_hexer.2.basic_attack.charm_toss
   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
   equipmentId: skill.character.red_doll_hexer.2.basic_attack.charm_toss
+  aimMode: 0
+  aimInputSource: 0
   icon: {fileID: 21300000, guid: a8cf267849c0e4b5ca870570f8647765, type: 3}
   baseProfileSo: {fileID: 11400000, guid: 32d3b13799a67451eb141bb545b0dd02, type: 2}
   castSo: {fileID: 11400000, guid: 6cc8c0ee251fd460395828085e4c7bf1, type: 2}
@@ -24,6 +26,10 @@ MonoBehaviour:
   baseVisualSo: {fileID: 11400000, guid: 319705d468353453cb5f0fa4ac93bec0, type: 2}
   comboProfile:
     enabled: 0
+    inputDriven: 0
     duration: 0
     totalLungeCap: 0
+    useCanonicalBodyChoreography: 0
+    segmentedBodyActionClip: {fileID: 0}
+    segmentedBodyFrameCount: 18
     steps: []

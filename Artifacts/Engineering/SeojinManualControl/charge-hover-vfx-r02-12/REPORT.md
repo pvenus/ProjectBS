@@ -1,0 +1,24 @@
+# Seojin Charge Hover VFX revision-02 install
+
+- Status: STATIC_PASS / UNITY_IMPORT_AND_RUNTIME_QA_PENDING
+- Source receipt SHA-256: `08dc5835f43424cf6af68f38328ca807b1dd35d87b1001bce0eb95acf6f3075f`
+- Manifest SHA-256: `536c625c0be8a1d11a9f005dc7204bbf9f015ea703d6105a5eda75d2e3d35681`
+- QA manifest SHA-256: `42ea3e03c50e0025e030cf1f0c5ec0c840b7b4609bf648af98d08cc6d8f6f9f5`
+- QA receipt SHA-256: `cafc38ea32cba54bda881c0430d4723190f56d7e11acd40f344baf7160e1a6a7`
+- Installed: PNG exact18 only, six frames each for Seojin Charge G1/G2/G3 canonical visual directories
+- Source-output byte comparison: 18/18 PASS
+- Preserved:
+  - existing PNG `.meta` files and all GUID/fileID identities
+  - clip3 references, keys `0/.07/.16/.40/.66/.75`, loop1 and existing stop contract
+  - MoveSO3 `applyDirectionRotation=1`, `rotationOffset=0`
+  - renderer-only direction wrapper and keyboard direction snapshot
+  - materials/shaders, body animation, gameplay, collider, cooldown, distance and speed
+- Validation:
+  - Hover/factory/controller/wrapper assertions: 229 PASS
+  - Assembly-CSharp compile: errors0
+  - Assembly-CSharp-Editor compile: errors0
+  - `git diff --check`: PASS
+- Rollback:
+  - revision-01 pre-r02 set: `/private/tmp/projectbs-seojin-charge-hover-r02-pre.RZM2lu`
+  - original pre-revision-01 set: `/private/tmp/projectbs-seojin-charge-hover.dlukFQ`
+- Unity GUI/import/Play was not invoked.

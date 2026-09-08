@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: skill.character.black_cloth_raider.1.basic_attack.black_knife_cut
   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
   equipmentId: skill.character.black_cloth_raider.1.basic_attack.black_knife_cut
+  aimMode: 0
+  aimInputSource: 0
   icon: {fileID: 21300000, guid: 9038339180396476093ce780119f0a5d, type: 3}
   baseProfileSo: {fileID: 11400000, guid: 84870f486ff1749fd983d23b4602ed10, type: 2}
   castSo: {fileID: 11400000, guid: f4341d4d927c34dd58f539b66d9c9a97, type: 2}
@@ -24,6 +26,7 @@ MonoBehaviour:
   baseVisualSo: {fileID: 11400000, guid: 1a1056b62354842bcabba0dff4011c80, type: 2}
   comboProfile:
     enabled: 0
+    inputDriven: 0
     duration: 0
     totalLungeCap: 0
     useCanonicalBodyChoreography: 0

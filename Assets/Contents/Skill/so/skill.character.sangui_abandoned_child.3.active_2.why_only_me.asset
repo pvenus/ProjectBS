@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: skill.character.sangui_abandoned_child.3.active_2.why_only_me
   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
   equipmentId: skill.character.sangui_abandoned_child.3.active_2.why_only_me
+  aimMode: 0
+  aimInputSource: 0
   icon: {fileID: 21300000, guid: 2fc6ad4ca2a4a48d5a10b33db9829cfd, type: 3}
   baseProfileSo: {fileID: 11400000, guid: 4bc252c217c164063a29afc613dec711, type: 2}
   castSo: {fileID: 11400000, guid: b6e16921a4b7e4c498d1e0a60a6ef22a, type: 2}
@@ -24,6 +26,10 @@ MonoBehaviour:
   baseVisualSo: {fileID: 11400000, guid: fcf7460b6f6554826b1f36899fec83c2, type: 2}
   comboProfile:
     enabled: 0
+    inputDriven: 0
     duration: 0
     totalLungeCap: 0
+    useCanonicalBodyChoreography: 0
+    segmentedBodyActionClip: {fileID: 0}
+    segmentedBodyFrameCount: 18
     steps: []

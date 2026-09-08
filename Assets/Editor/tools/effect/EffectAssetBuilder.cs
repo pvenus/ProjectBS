@@ -505,7 +505,7 @@ namespace ResourceTools.Effect
             }
 
             SerializedProperty effectNameProperty =
-                serializedObject.FindProperty("effectName");
+                serializedObject.FindProperty("authoredDisplayName");
 
             if (effectNameProperty != null)
             {

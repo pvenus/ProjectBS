@@ -180,19 +180,23 @@ public class UIEquipmentUpgradeMono : MonoBehaviour
                 for (int skillIndex = 0; skillIndex < characterRuntimeData.skillInstances.Count; skillIndex++)
                 {
                     EquipmentSkillInstanceData skillInstance = characterRuntimeData.skillInstances[skillIndex];
-                    if (!CanUpgrade(skillInstance))
+                    EquipmentSkillSO skillSo = ResolveSkillSo(skillManager, skillInstance.equipmentId);
+                    int tableMaxLevel = SkillUpgradeViewDataBuilder.GetRuntimeUpgradeMaxLevel(skillSo);
+                    int currentLevel = Mathf.Max(1, skillInstance?.currentLevel ?? 1);
+                    if (skillSo == null
+                        || currentLevel >= tableMaxLevel
+                        || !SkillUpgradeViewDataBuilder.HasRuntimeApplicableUpgrade(skillSo, currentLevel + 1))
                     {
                         continue;
                     }
-
-                    EquipmentSkillSO skillSo = ResolveSkillSo(skillInstance.equipmentId);
 
                     candidates.Add(
                         new SkillUpgradeOption(
                             characterRuntimeData,
                             skillInstance,
                             skillSo,
-                            skillManager));
+                            skillManager,
+                            tableMaxLevel));
                 }
             }
         }
@@ -200,6 +204,14 @@ public class UIEquipmentUpgradeMono : MonoBehaviour
         int optionCount = Mathf.Min(
             Mathf.Max(1, randomOptionCount),
             candidates.Count);
+
+        if (candidates.Count < Mathf.Max(1, randomOptionCount))
+        {
+            Debug.LogWarning(
+                $"[SkillUpgradeUI] Requested {Mathf.Max(1, randomOptionCount)} unique options, "
+                + $"but only {candidates.Count} owned skills have a valid next upgrade entry.",
+                this);
+        }
 
         for (int i = 0; i < optionCount; i++)
         {
@@ -297,7 +309,7 @@ public class UIEquipmentUpgradeMono : MonoBehaviour
             : option.SkillInstance.equipmentId;
 
         int currentLevel = Mathf.Max(1, option.SkillInstance.currentLevel);
-        int nextLevel = Mathf.Min(maxSkillLevel, currentLevel + 1);
+        int nextLevel = Mathf.Min(option.MaxSkillLevel, currentLevel + 1);
 
         StringBuilder builder = new();
         builder.AppendLine($"{index + 1}. {characterName}");
@@ -654,17 +666,22 @@ public class UIEquipmentUpgradeMono : MonoBehaviour
         }
     }
 
-    private EquipmentSkillSO ResolveSkillSo(string equipmentId)
+    private static EquipmentSkillSO ResolveSkillSo(
+        CharacterSkillManager skillManager,
+        string equipmentId)
     {
         if (string.IsNullOrWhiteSpace(equipmentId))
         {
             return null;
         }
 
-        EquipmentSkillSO[] skills = Resources.LoadAll<EquipmentSkillSO>(string.Empty);
-        for (int i = 0; i < skills.Length; i++)
+        IReadOnlyList<SkillPoolSlotData> slots = skillManager?.SkillPool?.Slots;
+        if (slots == null)
+            return null;
+
+        for (int i = 0; i < slots.Count; i++)
         {
-            EquipmentSkillSO skill = skills[i];
+            EquipmentSkillSO skill = slots[i]?.SkillSo;
             if (skill != null && skill.EquipmentId == equipmentId)
             {
                 return skill;
@@ -682,11 +699,11 @@ public class UIEquipmentUpgradeMono : MonoBehaviour
         }
 
         int currentLevel = Mathf.Max(1, option.SkillInstance.currentLevel);
-        int nextLevel = Mathf.Min(maxSkillLevel, currentLevel + 1);
+        int nextLevel = Mathf.Min(option.MaxSkillLevel, currentLevel + 1);
 
         bool upgraded = option.SkillManager.TryUpgradeSkill(
             option.SkillInstance,
-            maxSkillLevel);
+            option.MaxSkillLevel);
 
         if (!upgraded)
         {
@@ -831,17 +848,20 @@ public class UIEquipmentUpgradeMono : MonoBehaviour
             CharacterRuntimeData characterRuntimeData,
             EquipmentSkillInstanceData skillInstance,
             EquipmentSkillSO skillSo,
-            CharacterSkillManager skillManager)
+            CharacterSkillManager skillManager,
+            int maxSkillLevel)
         {
             CharacterRuntimeData = characterRuntimeData;
             SkillInstance = skillInstance;
             SkillSo = skillSo;
             SkillManager = skillManager;
+            MaxSkillLevel = maxSkillLevel;
         }
 
         public CharacterRuntimeData CharacterRuntimeData { get; }
         public EquipmentSkillInstanceData SkillInstance { get; }
         public EquipmentSkillSO SkillSo { get; }
         public CharacterSkillManager SkillManager { get; }
+        public int MaxSkillLevel { get; }
     }
 }

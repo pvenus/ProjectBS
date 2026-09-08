@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: skill.character.child_snatcher_netman.1.basic_attack.weighted_net_cast
   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
   equipmentId: skill.character.child_snatcher_netman.1.basic_attack.weighted_net_cast
+  aimMode: 0
+  aimInputSource: 0
   icon: {fileID: 21300000, guid: 944896dd9af274ff0935b262a874614e, type: 3}
   baseProfileSo: {fileID: 11400000, guid: af82339ccaab5415e8d29c38ac03c040, type: 2}
   castSo: {fileID: 11400000, guid: b66bcc4a548b84669a519e8d1c1db0d2, type: 2}
@@ -24,6 +26,10 @@ MonoBehaviour:
   baseVisualSo: {fileID: 11400000, guid: 47f4a3d50cdfa4280b1cedf088c77907, type: 2}
   comboProfile:
     enabled: 0
+    inputDriven: 0
     duration: 0
     totalLungeCap: 0
+    useCanonicalBodyChoreography: 0
+    segmentedBodyActionClip: {fileID: 0}
+    segmentedBodyFrameCount: 18
     steps: []

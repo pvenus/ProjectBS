@@ -584,6 +584,36 @@ namespace Character
             return true;
         }
 
+        public bool RestartContinuousComboSegment(
+            AnimationClip clip,
+            SkillComboStep step,
+            int totalFrames,
+            float startToHitDuration,
+            float hitToRecoveryDuration,
+            float postActionHoldTime,
+            SpritePresentationCalibrationProfileSO calibration = null)
+        {
+            if (_isDead || clip == null || step == null || targetSpriteRenderer == null ||
+                totalFrames < 2 ||
+                !step.HasBodySegment(step.BodySegmentStartFrame, step.BodySegmentEndFrame, totalFrames))
+            {
+                return false;
+            }
+
+            StopOneShotRoutine();
+            StopPlayRoutine();
+            _isPlayingOneShot = true;
+            _currentState = AnimationState.Attack;
+            _currentClip = clip;
+            BeginComboPresentation(calibration);
+            _playRoutine = StartPresentationRoutine(PlayContinuousComboSegmentRoutine(
+                clip, step, totalFrames,
+                Mathf.Max(.001f, startToHitDuration),
+                Mathf.Max(.001f, hitToRecoveryDuration),
+                Mathf.Max(0f, postActionHoldTime)));
+            return true;
+        }
+
         public bool SynchronizeContinuousComboContact(
             AnimationClip clip,
             SkillComboStep step,
@@ -1119,6 +1149,58 @@ namespace Character
             _isPlayingOneShot = false;
             _currentClip = null;
             _continuousComboMinimumNormalizedFrame = 0f;
+        }
+
+        private IEnumerator PlayContinuousComboSegmentRoutine(
+            AnimationClip clip,
+            SkillComboStep step,
+            int totalFrames,
+            float startToHitDuration,
+            float hitToRecoveryDuration,
+            float postActionHoldTime)
+        {
+            float denominator = totalFrames - 1f;
+            float start = step.BodySegmentStartFrame / denominator;
+            float contact = (step.BodySegmentStartFrame + 4f) / denominator;
+            float end = step.BodySegmentEndFrame / denominator;
+            float elapsed = 0f;
+            while (elapsed < startToHitDuration)
+            {
+                clip.SampleAnimation(gameObject,
+                    clip.length * Mathf.Lerp(start, contact,
+                        Mathf.Clamp01(elapsed / startToHitDuration)));
+                ApplyComboPresentation();
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+            clip.SampleAnimation(gameObject, clip.length * contact);
+            ApplyComboPresentation();
+            elapsed = 0f;
+            while (elapsed < hitToRecoveryDuration)
+            {
+                clip.SampleAnimation(gameObject,
+                    clip.length * Mathf.Lerp(contact, end,
+                        Mathf.Clamp01(elapsed / hitToRecoveryDuration)));
+                ApplyComboPresentation();
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+            clip.SampleAnimation(gameObject, clip.length * end);
+            ApplyComboPresentation();
+            float holdElapsed = 0f;
+            while (holdElapsed < postActionHoldTime)
+            {
+                // Re-sample F5 so no competing locomotion sampler can expose Idle
+                // during the authored post-action recovery.
+                clip.SampleAnimation(gameObject, clip.length * end);
+                ApplyComboPresentation();
+                holdElapsed += Time.deltaTime;
+                yield return null;
+            }
+            EndComboPresentation();
+            _playRoutine = null;
+            _isPlayingOneShot = false;
+            _currentClip = null;
         }
 
         private IEnumerator PlayCanonicalComboChoreographyRoutine(

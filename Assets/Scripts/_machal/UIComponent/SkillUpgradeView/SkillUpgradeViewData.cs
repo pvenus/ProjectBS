@@ -21,6 +21,7 @@ namespace UIFramework.Data
     [Serializable]
     public class SkillUpgradeOptionData
     {
+        public string equipmentId;
         public Sprite characterPortrait;
         public string characterName;
         public int currentLevel;

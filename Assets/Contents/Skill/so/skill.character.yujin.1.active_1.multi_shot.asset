@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: skill.character.yujin.1.active_1.multi_shot
   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
   equipmentId: skill.character.yujin.1.active_1.multi_shot
+  aimMode: 0
+  aimInputSource: 0
   icon: {fileID: 21300000, guid: 6426a80b7a00f48fb84b47ec317d49e2, type: 3}
   baseProfileSo: {fileID: 11400000, guid: 7174b87543cad45f5b8305dcf2e60940, type: 2}
   castSo: {fileID: 11400000, guid: c9917a1c668f44cae8baeb089eeb5294, type: 2}
@@ -24,6 +26,10 @@ MonoBehaviour:
   baseVisualSo: {fileID: 11400000, guid: a19ff93d11d4f47e4b94f0ab36cae277, type: 2}
   comboProfile:
     enabled: 0
+    inputDriven: 0
     duration: 0
     totalLungeCap: 0
+    useCanonicalBodyChoreography: 0
+    segmentedBodyActionClip: {fileID: 0}
+    segmentedBodyFrameCount: 18
     steps: []

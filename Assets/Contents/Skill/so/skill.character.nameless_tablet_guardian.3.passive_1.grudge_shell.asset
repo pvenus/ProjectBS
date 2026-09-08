@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: skill.character.nameless_tablet_guardian.3.passive_1.grudge_shell
   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
   equipmentId: skill.character.nameless_tablet_guardian.3.passive_1.grudge_shell
+  aimMode: 0
+  aimInputSource: 0
   icon: {fileID: 21300000, guid: 3f031d237049647818b0b3fcf4491234, type: 3}
   baseProfileSo: {fileID: 11400000, guid: ecff1218a7f67443fbfdcb09e437a50d, type: 2}
   castSo: {fileID: 11400000, guid: 5d5ab32ef087845a3bdd948838e524cd, type: 2}
@@ -23,6 +25,10 @@ MonoBehaviour:
   baseVisualSo: {fileID: 11400000, guid: f84ce2dbface64916bb29a5904183ed6, type: 2}
   comboProfile:
     enabled: 0
+    inputDriven: 0
     duration: 0
     totalLungeCap: 0
+    useCanonicalBodyChoreography: 0
+    segmentedBodyActionClip: {fileID: 0}
+    segmentedBodyFrameCount: 18
     steps: []

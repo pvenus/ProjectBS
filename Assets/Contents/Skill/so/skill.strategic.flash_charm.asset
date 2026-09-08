@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: skill.strategic.flash_charm
   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
   equipmentId: skill.strategic.flash_charm
+  aimMode: 0
+  aimInputSource: 0
   icon: {fileID: 21300000, guid: 5c5348b9e0342437ea74fc8374a259da, type: 3}
   baseProfileSo: {fileID: 11400000, guid: bb3856771dcf04bc5b0fd826539ea1b4, type: 2}
   castSo: {fileID: 11400000, guid: 78f03dd62e19f4b6d9bfad8d0d30c52e, type: 2}
@@ -24,6 +26,10 @@ MonoBehaviour:
   baseVisualSo: {fileID: 11400000, guid: 81ef6d25460d0493a8d4f747870f4eb2, type: 2}
   comboProfile:
     enabled: 0
+    inputDriven: 0
     duration: 0
     totalLungeCap: 0
+    useCanonicalBodyChoreography: 0
+    segmentedBodyActionClip: {fileID: 0}
+    segmentedBodyFrameCount: 18
     steps: []

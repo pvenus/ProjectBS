@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: effect.skill.strategic.ironbody_call.defense_up
   m_EditorClassIdentifier: Assembly-CSharp::Effect.EffectSO
   effectId: effect.skill.strategic.ironbody_call.defense_up
+  authoredDisplayName: "effect.skill.strategic.ironbody_call.defense_up"
   icon: {fileID: 0}
   config:
-    rid: 666566856101331867
+    rid: 666566976232489189
   references:
     version: 2
     RefIds:
-    - rid: 666566856101331867
+    - rid: 666566976232489189
       type: {class: StatModifierEffectConfig, ns: Effect, asm: Assembly-CSharp}
       data:
         targetStat: 1300

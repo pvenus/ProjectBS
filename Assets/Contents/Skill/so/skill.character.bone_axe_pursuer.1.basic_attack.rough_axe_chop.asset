@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: skill.character.bone_axe_pursuer.1.basic_attack.rough_axe_chop
   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
   equipmentId: skill.character.bone_axe_pursuer.1.basic_attack.rough_axe_chop
+  aimMode: 0
+  aimInputSource: 0
   icon: {fileID: 21300000, guid: e81b2b888316540678c4537a6b510bb5, type: 3}
   baseProfileSo: {fileID: 11400000, guid: 419262e85921f4adb841edcdc7420837, type: 2}
   castSo: {fileID: 11400000, guid: 28a7890eb006843e686bd11bb31e4896, type: 2}
@@ -24,6 +26,10 @@ MonoBehaviour:
   baseVisualSo: {fileID: 11400000, guid: 5100d505ea68042c996db6e4b96a579b, type: 2}
   comboProfile:
     enabled: 0
+    inputDriven: 0
     duration: 0
     totalLungeCap: 0
+    useCanonicalBodyChoreography: 0
+    segmentedBodyActionClip: {fileID: 0}
+    segmentedBodyFrameCount: 18
     steps: []

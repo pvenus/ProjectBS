@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: skill.character.seojin.1.active_1.active_1.effect.debuff.1
   m_EditorClassIdentifier: Assembly-CSharp::Effect.EffectSO
   effectId: skill.character.seojin.1.active_1.active_1.effect.debuff.1
+  authoredDisplayName: "넉백"
   icon: {fileID: 0}
   config:
-    rid: 666566905177047272
+    rid: 666566976232489095
   references:
     version: 2
     RefIds:
-    - rid: 666566905177047272
+    - rid: 666566976232489095
       type: {class: KnockbackEffectConfig, ns: Effect, asm: Assembly-CSharp}
       data:
         force: 15

@@ -100,10 +100,16 @@ namespace Effect
                     if (modifier == null ||
                         !string.Equals(modifier.TargetEffectId, effectId, System.StringComparison.Ordinal))
                         continue;
-                    if (modifier.OperationType != global::Skill.SkillStatModifierOperationType.Flat)
-                        return null;
-                    if (modifier.FieldType == EffectModifierFieldType.Value) value += modifier.Value;
-                    else if (modifier.FieldType == EffectModifierFieldType.Duration) duration += modifier.Value;
+                    if (modifier.FieldType == EffectModifierFieldType.Value)
+                        value = global::UpgradeModifierValueEvaluator.Apply(
+                            value,
+                            modifier.OperationType,
+                            modifier.Value);
+                    else if (modifier.FieldType == EffectModifierFieldType.Duration)
+                        duration = global::UpgradeModifierValueEvaluator.Apply(
+                            duration,
+                            modifier.OperationType,
+                            modifier.Value);
                     else return null;
                 }
             }

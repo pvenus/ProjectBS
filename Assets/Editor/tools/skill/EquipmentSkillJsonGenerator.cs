@@ -41,6 +41,7 @@ namespace ResourceTools.Skill
         private sealed class ComboJson
         {
             public bool enabled;
+            public bool inputDriven;
             public float duration;
             public float totalLungeCap;
             public bool useCanonicalBodyChoreography;
@@ -67,8 +68,10 @@ namespace ResourceTools.Skill
             public float hitTime;
             public float activeEnd;
             public float recoveryEnd;
+            public float postActionHoldTime;
             public float damageWeight;
             public float lungeDistance;
+            public float nextComboActivationTime;
         }
 
         [Serializable]
@@ -488,6 +491,7 @@ namespace ResourceTools.Skill
             }
 
             profile.FindPropertyRelative("enabled").boolValue = combo != null && combo.enabled;
+            profile.FindPropertyRelative("inputDriven").boolValue = combo != null && combo.inputDriven;
             profile.FindPropertyRelative("duration").floatValue = combo != null ? Mathf.Max(0f, combo.duration) : 0f;
             profile.FindPropertyRelative("totalLungeCap").floatValue = combo != null ? Mathf.Max(0f, combo.totalLungeCap) : 0f;
             profile.FindPropertyRelative("useCanonicalBodyChoreography").boolValue =
@@ -530,8 +534,12 @@ namespace ResourceTools.Skill
                 step.FindPropertyRelative("hitTime").floatValue = source.hitTime;
                 step.FindPropertyRelative("activeEnd").floatValue = source.activeEnd;
                 step.FindPropertyRelative("recoveryEnd").floatValue = source.recoveryEnd;
+                step.FindPropertyRelative("postActionHoldTime").floatValue =
+                    Mathf.Max(0f, source.postActionHoldTime);
                 step.FindPropertyRelative("damageWeight").floatValue = source.damageWeight;
                 step.FindPropertyRelative("lungeDistance").floatValue = source.lungeDistance;
+                step.FindPropertyRelative("nextComboActivationTime").floatValue =
+                    Mathf.Max(0f, source.nextComboActivationTime);
             }
         }
 

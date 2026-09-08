@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: skill.character.ritual_bell_handler.2.basic_attack.bell_charm_throw
   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
   equipmentId: skill.character.ritual_bell_handler.2.basic_attack.bell_charm_throw
+  aimMode: 0
+  aimInputSource: 0
   icon: {fileID: 21300000, guid: 4e67edcbf0639442985e2f7d82fe047d, type: 3}
   baseProfileSo: {fileID: 11400000, guid: 26c1d7269cdd0442e9ac64bd51807df0, type: 2}
   castSo: {fileID: 11400000, guid: 065922196ae5d48e2982f9e628b8aee9, type: 2}
@@ -24,6 +26,10 @@ MonoBehaviour:
   baseVisualSo: {fileID: 11400000, guid: e4f4bfb79e6a04a7c8c8aa3cec698eeb, type: 2}
   comboProfile:
     enabled: 0
+    inputDriven: 0
     duration: 0
     totalLungeCap: 0
+    useCanonicalBodyChoreography: 0
+    segmentedBodyActionClip: {fileID: 0}
+    segmentedBodyFrameCount: 18
     steps: []

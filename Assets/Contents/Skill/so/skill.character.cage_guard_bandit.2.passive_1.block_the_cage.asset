@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: skill.character.cage_guard_bandit.2.passive_1.block_the_cage
   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
   equipmentId: skill.character.cage_guard_bandit.2.passive_1.block_the_cage
+  aimMode: 0
+  aimInputSource: 0
   icon: {fileID: 21300000, guid: de4ccf0aa840d43618d1796925eaf1ea, type: 3}
   baseProfileSo: {fileID: 11400000, guid: 5eb068ab841e547a796ef42feddf1251, type: 2}
   castSo: {fileID: 11400000, guid: 3e5a8cb34d46147d7955b7f12f9f7fa9, type: 2}
@@ -23,6 +25,10 @@ MonoBehaviour:
   baseVisualSo: {fileID: 11400000, guid: 75dd4680ab4c24c62904a33bf2e1bc15, type: 2}
   comboProfile:
     enabled: 0
+    inputDriven: 0
     duration: 0
     totalLungeCap: 0
+    useCanonicalBodyChoreography: 0
+    segmentedBodyActionClip: {fileID: 0}
+    segmentedBodyFrameCount: 18
     steps: []

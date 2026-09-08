@@ -1,0 +1,482 @@
+{
+  "schema": "seojin_charge_hover_vfx_exact18_v2",
+  "status": "SELECTED_SOURCE_INSTALL0",
+  "supersedes_for_review": "revision-01 remains preserved",
+  "generator": "built-in ImageGen",
+  "selection": {
+    "G1": "single thin cyan core + one short tail",
+    "G2": "double branch + 2-3 long trails",
+    "G3": "triple/wing lead + 4+ layered trails + restrained violet accent",
+    "judgment": "grade distinction PASS at 80px by length, width, branch and tail count"
+  },
+  "source_boards": {
+    "G1": {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/seojin-charge-hover-revision-02-v20260908/G1/source-board.png",
+      "sha256": "ad4aa4c047c6d9da20dbc3821df2c89df1503d03a97a28965c1816bdb86a556c"
+    },
+    "G2": {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/seojin-charge-hover-revision-02-v20260908/G2/source-board.png",
+      "sha256": "01dee133e1c97814270ae7101b4fdfc1aaa187927307de73e25f65b4ae9d7aed"
+    },
+    "G3": {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/seojin-charge-hover-revision-02-v20260908/G3/source-board.png",
+      "sha256": "60aba07488001e29aa2c29884e61131bff6c6a4d6fb73714e592d9541dccc643"
+    }
+  },
+  "registry": {
+    "G1": "skill.character.seojin.1.active_1.active_1",
+    "G2": "skill.character.seojin.2.active_1.charge",
+    "G3": "skill.character.seojin.3.active_1.charge"
+  },
+  "canvas": [
+    256,
+    256
+  ],
+  "pivot": [
+    0.5,
+    0.5
+  ],
+  "canonical_forward": "right",
+  "timing": {
+    "keys": [
+      0,
+      0.07,
+      0.16,
+      0.4,
+      0.66,
+      0.75
+    ],
+    "stop": 0.8333333,
+    "loop": true,
+    "gif_delays_ms_quantized": [
+      70,
+      90,
+      240,
+      260,
+      90,
+      80
+    ]
+  },
+  "target_occupancy": {
+    "G1_width_pct": "55-60",
+    "G2_width_pct": "72-78",
+    "G3_width_pct": "88-94"
+  },
+  "records": [
+    {
+      "grade": 1,
+      "frame": 0,
+      "timestamp": 0,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinChargeHoverVFX/selected/revision-02-grade-distinct/frames/G1/frame-0.png",
+      "sha256": "ad972d5baefbfe9224c7511286cd046e188e334dca2d22b079bdc4c84278ebe9",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_bbox": [
+        53,
+        103,
+        205,
+        152
+      ],
+      "occupancy_width_pct": 59.38,
+      "occupancy_height_pct": 19.14,
+      "border_alpha_max": 0,
+      "alpha0_rgb_residue": 0
+    },
+    {
+      "grade": 1,
+      "frame": 1,
+      "timestamp": 0.07,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinChargeHoverVFX/selected/revision-02-grade-distinct/frames/G1/frame-1.png",
+      "sha256": "7a78c7ddc9198ee9cad00c9baed7a719385f7852358f145a6aebdda9e5fe3b75",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_bbox": [
+        52,
+        109,
+        205,
+        147
+      ],
+      "occupancy_width_pct": 59.77,
+      "occupancy_height_pct": 14.84,
+      "border_alpha_max": 0,
+      "alpha0_rgb_residue": 0
+    },
+    {
+      "grade": 1,
+      "frame": 2,
+      "timestamp": 0.16,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinChargeHoverVFX/selected/revision-02-grade-distinct/frames/G1/frame-2.png",
+      "sha256": "c2ffc32f3e2d3ea244313e3f787985cf444bb06dfd5b0870e0d79ddc65d55fd9",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_bbox": [
+        52,
+        110,
+        205,
+        145
+      ],
+      "occupancy_width_pct": 59.77,
+      "occupancy_height_pct": 13.67,
+      "border_alpha_max": 0,
+      "alpha0_rgb_residue": 0
+    },
+    {
+      "grade": 1,
+      "frame": 3,
+      "timestamp": 0.4,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinChargeHoverVFX/selected/revision-02-grade-distinct/frames/G1/frame-3.png",
+      "sha256": "50e21c1cf7fdcb86eefb806aa3486abf8850cfca6f26b77792b6554cb9e00c88",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_bbox": [
+        52,
+        112,
+        205,
+        143
+      ],
+      "occupancy_width_pct": 59.77,
+      "occupancy_height_pct": 12.11,
+      "border_alpha_max": 0,
+      "alpha0_rgb_residue": 0
+    },
+    {
+      "grade": 1,
+      "frame": 4,
+      "timestamp": 0.66,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinChargeHoverVFX/selected/revision-02-grade-distinct/frames/G1/frame-4.png",
+      "sha256": "338143301828f42b3ab45f1f1a06a6fccee3de6676798e9cdf951d1a9aa8b72c",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_bbox": [
+        53,
+        108,
+        205,
+        147
+      ],
+      "occupancy_width_pct": 59.38,
+      "occupancy_height_pct": 15.23,
+      "border_alpha_max": 0,
+      "alpha0_rgb_residue": 0
+    },
+    {
+      "grade": 1,
+      "frame": 5,
+      "timestamp": 0.75,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinChargeHoverVFX/selected/revision-02-grade-distinct/frames/G1/frame-5.png",
+      "sha256": "11f6267de141a43040b84b3b286a30541ef9f3f04091d0f8fd60c30035fc9193",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_bbox": [
+        53,
+        96,
+        205,
+        160
+      ],
+      "occupancy_width_pct": 59.38,
+      "occupancy_height_pct": 25.0,
+      "border_alpha_max": 0,
+      "alpha0_rgb_residue": 0
+    },
+    {
+      "grade": 2,
+      "frame": 0,
+      "timestamp": 0,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinChargeHoverVFX/selected/revision-02-grade-distinct/frames/G2/frame-0.png",
+      "sha256": "80f7b627da8ca9357badb42ed31d04e84a4b2fde466fc6084f882c9ae735a0c8",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_bbox": [
+        32,
+        74,
+        225,
+        181
+      ],
+      "occupancy_width_pct": 75.39,
+      "occupancy_height_pct": 41.8,
+      "border_alpha_max": 0,
+      "alpha0_rgb_residue": 0
+    },
+    {
+      "grade": 2,
+      "frame": 1,
+      "timestamp": 0.07,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinChargeHoverVFX/selected/revision-02-grade-distinct/frames/G2/frame-1.png",
+      "sha256": "cd52676422c5b9fb2b91f664c1b01fe873b2d99d2520d7ba05ff1b0bbb5377c3",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_bbox": [
+        31,
+        81,
+        225,
+        175
+      ],
+      "occupancy_width_pct": 75.78,
+      "occupancy_height_pct": 36.72,
+      "border_alpha_max": 0,
+      "alpha0_rgb_residue": 0
+    },
+    {
+      "grade": 2,
+      "frame": 2,
+      "timestamp": 0.16,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinChargeHoverVFX/selected/revision-02-grade-distinct/frames/G2/frame-2.png",
+      "sha256": "6d2520cdadabac2d9fb33db8ee854868ff9c7326e8ffdc2c7f3b11c506772f8b",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_bbox": [
+        31,
+        60,
+        225,
+        196
+      ],
+      "occupancy_width_pct": 75.78,
+      "occupancy_height_pct": 53.12,
+      "border_alpha_max": 0,
+      "alpha0_rgb_residue": 0
+    },
+    {
+      "grade": 2,
+      "frame": 3,
+      "timestamp": 0.4,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinChargeHoverVFX/selected/revision-02-grade-distinct/frames/G2/frame-3.png",
+      "sha256": "b4da609ef6f256b370ed7bb95476a1d95a70291ed80e7235b6d9ce73573133a0",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_bbox": [
+        31,
+        65,
+        225,
+        191
+      ],
+      "occupancy_width_pct": 75.78,
+      "occupancy_height_pct": 49.22,
+      "border_alpha_max": 0,
+      "alpha0_rgb_residue": 0
+    },
+    {
+      "grade": 2,
+      "frame": 4,
+      "timestamp": 0.66,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinChargeHoverVFX/selected/revision-02-grade-distinct/frames/G2/frame-4.png",
+      "sha256": "43b74710170f8299cb93e35a8eef2ea0fa2f7faa898bc5423770a0bbf6a694f0",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_bbox": [
+        31,
+        64,
+        225,
+        192
+      ],
+      "occupancy_width_pct": 75.78,
+      "occupancy_height_pct": 50.0,
+      "border_alpha_max": 0,
+      "alpha0_rgb_residue": 0
+    },
+    {
+      "grade": 2,
+      "frame": 5,
+      "timestamp": 0.75,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinChargeHoverVFX/selected/revision-02-grade-distinct/frames/G2/frame-5.png",
+      "sha256": "55913b1f28374abca904fcd5c198a6cf48b5a23ff7b341f59fb303dd4adb4a32",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_bbox": [
+        31,
+        71,
+        225,
+        185
+      ],
+      "occupancy_width_pct": 75.78,
+      "occupancy_height_pct": 44.53,
+      "border_alpha_max": 0,
+      "alpha0_rgb_residue": 0
+    },
+    {
+      "grade": 3,
+      "frame": 0,
+      "timestamp": 0,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinChargeHoverVFX/selected/revision-02-grade-distinct/frames/G3/frame-0.png",
+      "sha256": "3de05d49e4564be6a2acacd22e5a3b7dcbdbb23c3f016e8cb2ef1ccc8eeeea10",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_bbox": [
+        11,
+        70,
+        246,
+        186
+      ],
+      "occupancy_width_pct": 91.8,
+      "occupancy_height_pct": 45.31,
+      "border_alpha_max": 0,
+      "alpha0_rgb_residue": 0
+    },
+    {
+      "grade": 3,
+      "frame": 1,
+      "timestamp": 0.07,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinChargeHoverVFX/selected/revision-02-grade-distinct/frames/G3/frame-1.png",
+      "sha256": "a344308b0a3e5dc271e7ea44c37f82247bcc65079aab7f1a54330d21d262db30",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_bbox": [
+        11,
+        54,
+        246,
+        201
+      ],
+      "occupancy_width_pct": 91.8,
+      "occupancy_height_pct": 57.42,
+      "border_alpha_max": 0,
+      "alpha0_rgb_residue": 0
+    },
+    {
+      "grade": 3,
+      "frame": 2,
+      "timestamp": 0.16,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinChargeHoverVFX/selected/revision-02-grade-distinct/frames/G3/frame-2.png",
+      "sha256": "69a05a01b98aec2d3698cc9ca806324dc6d04f2181c082d163f9fbb76c36c596",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_bbox": [
+        11,
+        41,
+        246,
+        214
+      ],
+      "occupancy_width_pct": 91.8,
+      "occupancy_height_pct": 67.58,
+      "border_alpha_max": 0,
+      "alpha0_rgb_residue": 0
+    },
+    {
+      "grade": 3,
+      "frame": 3,
+      "timestamp": 0.4,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinChargeHoverVFX/selected/revision-02-grade-distinct/frames/G3/frame-3.png",
+      "sha256": "40202cf881e77842d455ab84f9e7c6160e9f34efabd0711c82649a6c16014d31",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_bbox": [
+        11,
+        44,
+        246,
+        212
+      ],
+      "occupancy_width_pct": 91.8,
+      "occupancy_height_pct": 65.62,
+      "border_alpha_max": 0,
+      "alpha0_rgb_residue": 0
+    },
+    {
+      "grade": 3,
+      "frame": 4,
+      "timestamp": 0.66,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinChargeHoverVFX/selected/revision-02-grade-distinct/frames/G3/frame-4.png",
+      "sha256": "7e9ccb05a8cee294ea8485172e5a58bc62120cef00497ff02e0504edc687c9e4",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_bbox": [
+        11,
+        59,
+        246,
+        197
+      ],
+      "occupancy_width_pct": 91.8,
+      "occupancy_height_pct": 53.91,
+      "border_alpha_max": 0,
+      "alpha0_rgb_residue": 0
+    },
+    {
+      "grade": 3,
+      "frame": 5,
+      "timestamp": 0.75,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinChargeHoverVFX/selected/revision-02-grade-distinct/frames/G3/frame-5.png",
+      "sha256": "9485f7ed6feb2ccdeee42c7e3839b56f689a37511a25d957d3a479dd2c4f9034",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_bbox": [
+        11,
+        79,
+        246,
+        177
+      ],
+      "occupancy_width_pct": 91.8,
+      "occupancy_height_pct": 38.28,
+      "border_alpha_max": 0,
+      "alpha0_rgb_residue": 0
+    }
+  ],
+  "evidence": {
+    "dark": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinChargeHoverVFX/selected/revision-02-grade-distinct/evidence/contact-3x6-dark.png",
+    "light": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinChargeHoverVFX/selected/revision-02-grade-distinct/evidence/contact-3x6-light.png",
+    "grade_80_32": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinChargeHoverVFX/selected/revision-02-grade-distinct/evidence/grade-comparison-80-32-light-dark.png",
+    "gifs": [
+      "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinChargeHoverVFX/selected/revision-02-grade-distinct/evidence/G1-charge-hover-loop.gif",
+      "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinChargeHoverVFX/selected/revision-02-grade-distinct/evidence/G2-charge-hover-loop.gif",
+      "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinChargeHoverVFX/selected/revision-02-grade-distinct/evidence/G3-charge-hover-loop.gif"
+    ]
+  },
+  "provenance": {
+    "method": "independent grade-specific coherent 3x2 ImageGen boards; deterministic alpha-bbox contain to grade occupancy; no cross-grade pixel mixing; alpha0 RGB zeroed"
+  },
+  "rollback_target": "absence of revision-02 artifact package; revision-01 and canonical assets untouched",
+  "boundaries": {
+    "unity": false,
+    "canonical": false,
+    "install": false
+  }
+}

@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: skill.character.abandoned_shrine_wraith.2.basic_attack.cold_whisper
   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
   equipmentId: skill.character.abandoned_shrine_wraith.2.basic_attack.cold_whisper
+  aimMode: 0
+  aimInputSource: 0
   icon: {fileID: 21300000, guid: 3ad45a40ce56549dcb957c3faca7730b, type: 3}
   baseProfileSo: {fileID: 11400000, guid: eb3eb2a149ba44647a12385abaecbf43, type: 2}
   castSo: {fileID: 11400000, guid: a188c65d391604e43a434f3a0c6fd296, type: 2}
@@ -24,6 +26,10 @@ MonoBehaviour:
   baseVisualSo: {fileID: 11400000, guid: 870c3101c41054da48562d67552b6087, type: 2}
   comboProfile:
     enabled: 0
+    inputDriven: 0
     duration: 0
     totalLungeCap: 0
+    useCanonicalBodyChoreography: 0
+    segmentedBodyActionClip: {fileID: 0}
+    segmentedBodyFrameCount: 18
     steps: []

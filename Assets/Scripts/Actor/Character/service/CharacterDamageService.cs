@@ -175,6 +175,44 @@ namespace Character
             CharacterManager attackerManager,
             bool allowReflect)
         {
+            return TakeDamage(
+                targetManager,
+                damage,
+                isCritical,
+                attackerManager,
+                allowReflect,
+                false);
+        }
+
+        public float TakeLethalDamage(
+            CharacterManager targetManager,
+            CharacterManager attackerManager)
+        {
+            if (targetManager?.RuntimeData == null
+                || targetManager.RuntimeData.isDead)
+                return 0f;
+
+            float lethalAmount = Mathf.Max(
+                1f,
+                targetManager.GetStatValue(StatType.Hp)
+                + targetManager.GetStatValue(StatType.Shield));
+            return TakeDamage(
+                targetManager,
+                lethalAmount,
+                false,
+                attackerManager,
+                false,
+                true);
+        }
+
+        private float TakeDamage(
+            CharacterManager targetManager,
+            float damage,
+            bool isCritical,
+            CharacterManager attackerManager,
+            bool allowReflect,
+            bool bypassDefense)
+        {
             if (Battle.Morpg.BattleMorpgLiveRoute.IsTransitionLocked(targetManager)) return 0f;
             if (targetManager == null
                 || targetManager.RuntimeData == null)
@@ -192,8 +230,9 @@ namespace Character
                 return 0f;
             }
 
-            float defensePercent =
-                targetManager.GetStatValue(StatType.Defense);
+            float defensePercent = bypassDefense
+                ? 0f
+                : targetManager.GetStatValue(StatType.Defense);
 
             if (defensePercent > 0f)
             {

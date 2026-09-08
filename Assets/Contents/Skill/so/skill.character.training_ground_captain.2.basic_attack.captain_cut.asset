@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: skill.character.training_ground_captain.2.basic_attack.captain_cut
   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
   equipmentId: skill.character.training_ground_captain.2.basic_attack.captain_cut
+  aimMode: 0
+  aimInputSource: 0
   icon: {fileID: 21300000, guid: d41587ba9f69147b6818a0bc4a4b849b, type: 3}
   baseProfileSo: {fileID: 11400000, guid: f8caccdda27824e67a279cf060e3987a, type: 2}
   castSo: {fileID: 11400000, guid: e05df7f44934c4358b43cc6072d4bc05, type: 2}
@@ -24,6 +26,10 @@ MonoBehaviour:
   baseVisualSo: {fileID: 11400000, guid: 5300eccfed3ef4f9eaf52927d90c734e, type: 2}
   comboProfile:
     enabled: 0
+    inputDriven: 0
     duration: 0
     totalLungeCap: 0
+    useCanonicalBodyChoreography: 0
+    segmentedBodyActionClip: {fileID: 0}
+    segmentedBodyFrameCount: 18
     steps: []

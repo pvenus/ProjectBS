@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: skill.character.yujin.2.passive_1.passive_1
   m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
   equipmentId: skill.character.yujin.2.passive_1.passive_1
+  aimMode: 0
+  aimInputSource: 0
   icon: {fileID: 21300000, guid: 38a104412f9be428d9b9db97c1d391ce, type: 3}
   baseProfileSo: {fileID: 11400000, guid: dd2e8d59b89514cfa96579009264457c, type: 2}
   castSo: {fileID: 0}
@@ -24,6 +26,10 @@ MonoBehaviour:
   baseVisualSo: {fileID: 11400000, guid: 1bdea7ac55cc34335b7e65055ce4567f, type: 2}
   comboProfile:
     enabled: 0
+    inputDriven: 0
     duration: 0
     totalLungeCap: 0
+    useCanonicalBodyChoreography: 0
+    segmentedBodyActionClip: {fileID: 0}
+    segmentedBodyFrameCount: 18
     steps: []

@@ -60,6 +60,7 @@
   },
   "combo": {
     "enabled": true,
+    "inputDriven": true,
     "useCanonicalBodyChoreography": false,
     "segmentedBodyActionClip": "character.seojin.1.basic_attack.combo.continuous18.body",
     "segmentedBodyFrameCount": 18,
@@ -72,15 +73,16 @@
         "bodyActionClip": "character.seojin.1.basic_attack.combo.continuous18.body",
         "bodySegmentStartFrame": 0,
         "bodySegmentEndFrame": 5,
-        "bodyPresentationCalibration": "skill.character.seojin.basic_attack.combo.body.hit0.calibration",
         "vfxClip": "skill.character.seojin.1.basic_attack.basic_attack.visual.loop",
         "visualClip": "skill.character.seojin.1.basic_attack.basic_attack.visual.loop",
         "startTime": 0.0,
         "hitTime": 0.16,
         "activeEnd": 0.21,
         "recoveryEnd": 0.28,
+        "postActionHoldTime": 0.2,
         "damageWeight": 0.25,
-        "lungeDistance": 0.12
+        "lungeDistance": 0.12,
+        "nextComboActivationTime": 1.0
       },
       {
         "comboIndex": 1,
@@ -88,7 +90,6 @@
         "bodyActionClip": "character.seojin.1.basic_attack.combo.continuous18.body",
         "bodySegmentStartFrame": 6,
         "bodySegmentEndFrame": 11,
-        "bodyPresentationCalibration": "skill.character.seojin.basic_attack.combo.body.hit1.calibration",
         "vfxPresentationCalibration": "skill.character.seojin.1.basic_attack.combo.vfx.hit1.calibration",
         "vfxClip": "skill.character.seojin.1.basic_attack.basic_attack.combo.1.visual.loop",
         "visualClip": "skill.character.seojin.1.basic_attack.basic_attack.visual.loop",
@@ -96,8 +97,10 @@
         "hitTime": 0.64,
         "activeEnd": 0.66,
         "recoveryEnd": 0.68,
+        "postActionHoldTime": 0.2,
         "damageWeight": 0.3,
-        "lungeDistance": 0.12
+        "lungeDistance": 0.12,
+        "nextComboActivationTime": 1.0
       },
       {
         "comboIndex": 2,
@@ -105,7 +108,6 @@
         "bodyActionClip": "character.seojin.1.basic_attack.combo.continuous18.body",
         "bodySegmentStartFrame": 12,
         "bodySegmentEndFrame": 17,
-        "bodyPresentationCalibration": "skill.character.seojin.basic_attack.combo.body.hit2.calibration",
         "vfxClip": "skill.character.seojin.1.basic_attack.basic_attack.combo.2.visual.loop",
         "vfxProfile": "skillAnimationVfx.seojinG1BasicHit3Neon.v1",
         "minimumVisualLifetime": 0.15,
@@ -114,8 +116,10 @@
         "hitTime": 0.94,
         "activeEnd": 0.99,
         "recoveryEnd": 1.06,
+        "postActionHoldTime": 0.2,
         "damageWeight": 0.45,
-        "lungeDistance": 0.12
+        "lungeDistance": 0.12,
+        "nextComboActivationTime": 0.0
       }
     ]
   },
@@ -279,7 +283,7 @@
             "config": {
               "statType": "RootDuration",
               "modifierType": "Flat",
-              "value": 0.2
+              "value": 0.5
             }
           },
           "lifetimeType": "Instant",

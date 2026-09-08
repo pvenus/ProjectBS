@@ -76,8 +76,9 @@ namespace Character.Control
         internal int PendingSlot=>0;
         private AimSnapshot basicAim;
         private bool hasBasicAim;
+        private bool basicPressPending;
         private ControlVector lastMovement;
-        internal void Reset(){initialized=false;Reason=ControlReason.Manual;Suspended=true;AttackHeld=false;hasBasicAim=false;lastMovement=default;}
+        internal void Reset(){initialized=false;Reason=ControlReason.Manual;Suspended=true;AttackHeld=false;hasBasicAim=false;basicPressPending=false;lastMovement=default;}
         internal static ControlVector KeyboardMoveDirection(ControlVector axes,ControlVector last,ControlVector facing)
             =>axes.Valid&&axes.Nonzero?axes.Normalized:last.Valid&&last.Nonzero?last.Normalized:facing.Valid&&facing.Nonzero?facing.Normalized:new ControlVector(1,0);
         internal void Tick(ManualInputFrame input,ControlReason reason,bool suspended,ControlVector facing,IManualGameplay game)
@@ -87,20 +88,36 @@ namespace Character.Control
             Reason=reason;Suspended=suspended;initialized=true;
             if(changed)
             {
-                AttackHeld=false;hasBasicAim=false;lastMovement=default;
+                AttackHeld=false;hasBasicAim=false;basicPressPending=false;lastMovement=default;
                 game.Clear(suspended||reason!=ControlReason.Manual||prior!=ControlReason.Manual);game.Move(default);
                 return; // handback frame consumes no input; next frame re-samples physical state.
             }
-            if(reason!=ControlReason.Manual||suspended){AttackHeld=false;hasBasicAim=false;game.Move(default);return;}
+            if(reason!=ControlReason.Manual||suspended){AttackHeld=false;hasBasicAim=false;basicPressPending=false;game.Move(default);return;}
             var snapshot=input.Aim.AtOrigin(input.CasterPosition);
             var axes=input.Axes;if(axes.Valid&&axes.Nonzero)lastMovement=axes.Normalized;
             snapshot=snapshot.WithKeyboardDirection(KeyboardMoveDirection(axes,lastMovement,facing));
             bool wasHeld=AttackHeld;
             AttackHeld=input.AttackHeld||input.AttackDown;
-            if(!AttackHeld)hasBasicAim=false;
-            else if(input.AttackDown||!wasHeld){basicAim=game.Capture(0,snapshot);hasBasicAim=true;}
+            bool newBasicPress=input.AttackDown||(input.AttackHeld&&!wasHeld);
+            if(newBasicPress)
+            {
+                basicAim=game.Capture(0,snapshot);
+                hasBasicAim=true;
+                basicPressPending=true;
+            }
             game.Move(game.Busy?default:axes);
-            if(game.Busy)return;
+            if(game.Busy)
+            {
+                // A held button supplies exactly one coalesced continuation intent
+                // for the current recovery; it never enqueues once per frame.
+                if(AttackHeld&&!basicPressPending)
+                {
+                    basicAim=game.Capture(0,snapshot);
+                    hasBasicAim=true;
+                    basicPressPending=true;
+                }
+                return;
+            }
             // Shortcut priority is deterministic: Shift/Charge wins over Space/Dash.
             // Resolve through stable pool keys rather than coupling input to array indexes.
             int requested=input.ChargeDown?SeojinControlPolicy.ShortcutSlot(SeojinControlPolicy.ChargeShortcutSlotKey):
@@ -112,13 +129,34 @@ namespace Character.Control
                 var aim=game.Capture(requested,snapshot);
                 if(game.Fire(requested,aim,snapshot.KeyboardDirection,()=>false))
                 {
-                    AttackHeld=false;hasBasicAim=false;game.Move(default);return;
+                    // Preserve the sampled physical held state so a successful skill
+                    // cannot manufacture a new Basic rising edge on the next frame.
+                    hasBasicAim=false;basicPressPending=false;game.Move(default);return;
                 }
             }
             if(game.Busy)return;
+            // A held button that outlives comboIndex2's recovery does not retain a
+            // request through cooldown. It creates a fresh step-0 intent only when
+            // the ordinary readiness gate opens again.
+            if(!basicPressPending&&AttackHeld&&game.Ready(0))
+            {
+                basicAim=game.Capture(0,snapshot);
+                hasBasicAim=true;
+                basicPressPending=true;
+            }
+            if(!basicPressPending)return;
+            if(!game.Ready(0))
+            {
+                // Buffer only across the active recovery. A press rejected by cooldown
+                // must not fire later without a fresh release/press edge.
+                basicPressPending=false;hasBasicAim=false;return;
+            }
             var cycleAim=hasBasicAim?basicAim:game.Capture(0,snapshot);
-            if(AttackHeld&&game.Ready(0))
-            {game.Move(default);game.Fire(0,cycleAim,default,()=>AttackHeld&&Reason==ControlReason.Manual&&!Suspended);hasBasicAim=false;}
+            game.Move(default);
+            if(game.Fire(0,cycleAim,default,()=>false))
+            {basicPressPending=false;hasBasicAim=false;}
+            else
+            {basicPressPending=false;hasBasicAim=false;}
         }
     }
 }
