@@ -21,6 +21,7 @@ public class BaseVisualSO : ScriptableObject
     [SerializeField] private AnimationClipEntry[] animationClips;
     [SerializeField] private SkillAnimationVfxProfileSO animationVfxProfile;
     [SerializeField] private SkillAnimationVfxPaletteBinding animationVfxPalette;
+    [SerializeField] private LayeredProjectilePresentationProfileSO layeredPresentationProfile;
 
     public string VisualId => visualId;
     public ProjectileVisualType ProjectileVisualType => projectileVisualType;
@@ -29,6 +30,15 @@ public class BaseVisualSO : ScriptableObject
     public AnimationClipEntry[] AnimationClips => animationClips;
     public SkillAnimationVfxProfileSO AnimationVfxProfile => animationVfxProfile;
     public SkillAnimationVfxPaletteBinding AnimationVfxPalette => animationVfxPalette;
+    public LayeredProjectilePresentationProfileSO LayeredPresentationProfile => layeredPresentationProfile;
+
+#if UNITY_EDITOR
+    public void ApplyLayeredPresentationProfileEditor(
+        LayeredProjectilePresentationProfileSO profile)
+    {
+        layeredPresentationProfile = profile;
+    }
+#endif
 
 #if UNITY_EDITOR
     public void ApplyEditorData(

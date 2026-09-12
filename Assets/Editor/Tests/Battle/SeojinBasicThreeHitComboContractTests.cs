@@ -20,28 +20,27 @@ public sealed class SeojinBasicThreeHitComboContractTests
     };
 
     [Test]
-    public void GradeOneFinisherHasExactlyOneHalfSecondRootAndEarlierStepsHaveNone()
+    public void GradeOneAppliesPointFiveRootsThenOneSecondGatherFinisherRoot()
     {
         string json = File.ReadAllText(Paths[0]);
-        const string effectId =
-            "skill.character.seojin.1.basic_attack.basic_attack.combo.2.effect.debuff.2";
+        Assert.That(Count(json, "\"statType\": \"RootDuration\""), Is.EqualTo(3));
+        Assert.That(Count(json, "\"value\": 0.5"), Is.EqualTo(2));
+        Assert.That(Count(json, "\"value\": 1.0"), Is.EqualTo(1));
+        Assert.That(json, Does.Not.Contain("\"effectType\": \"Knockback\""));
+        Assert.That(json, Does.Contain("\"gatherDistance\": 0.3"));
+        Assert.That(json, Does.Contain("\"gatherDuration\": 0.12"));
+        Assert.That(json, Does.Contain("\"gatherStopRadius\": 0.35"));
+        Assert.That(json, Does.Contain("\"gatherBossHardCap\": 0.15"));
 
-        Assert.That(Count(json, "\"statType\": \"RootDuration\""), Is.EqualTo(1),
-            "G1 Basic may root only from comboIndex2");
-        Assert.That(Count(json, $"\"effectId\": \"{effectId}\""), Is.EqualTo(1));
-        Assert.That(json, Does.Contain(
-            "\"statType\": \"RootDuration\",\n              \"modifierType\": \"Flat\",\n              \"value\": 0.5"));
-
-        string effect = File.ReadAllText(
-            $"Assets/Contents/Skill/so/{effectId}.asset");
-        Assert.That(effect, Does.Contain($"effectId: {effectId}"));
-        Assert.That(effect, Does.Contain("targetStat: 1347"));
-        Assert.That(effect, Does.Contain("value: 0.5"));
-
-        string entry = File.ReadAllText(
-            $"Assets/Contents/Skill/so/{effectId}.entry.asset");
-        Assert.That(entry, Does.Contain("maxApplyCount: 1"));
-        Assert.That(entry, Does.Contain("lifetimeType: 0"));
+        for (int step = 0; step < 3; step++)
+        {
+            string effectId = $"skill.character.seojin.1.basic_attack.basic_attack.combo.{step}.effect.debuff.1";
+            string effect = File.ReadAllText($"Assets/Contents/Skill/so/{effectId}.asset");
+            Assert.That(effect, Does.Contain("type: {class: StatModifierEffectConfig"));
+            Assert.That(effect, Does.Contain("targetStat: 1347"));
+            Assert.That(effect, Does.Contain(step < 2 ? "value: 0.5" : "value: 1"));
+            Assert.That(effect, Does.Contain(step < 2 ? "rootHardCap: 0.5" : "rootHardCap: 1"));
+        }
 
         for (int grade = 1; grade < Paths.Length; grade++)
         {
@@ -70,7 +69,14 @@ public sealed class SeojinBasicThreeHitComboContractTests
             "canonical attack recovery must not overwrite the final sampled sprite with the begin snapshot");
         Assert.That(animation, Does.Contain("__ComboBodyPresentationProxy"));
         Assert.That(animation, Does.Contain("new Vector2(.145f, -.02f)"));
-        Assert.That(animation, Does.Contain("new Vector2(1.20f, .84f)"));
+        Assert.That(animation, Does.Contain("new Vector2(1.04f, 1.04f)"));
+        Assert.That(animation, Does.Contain("new Vector2(1.07f, 1.07f)"));
+        Assert.That(animation, Does.Contain("new Vector2(1.08f, 1.08f)"));
+        Assert.That(animation, Does.Contain("new Vector2(1.05f, 1.05f)"));
+        Assert.That(animation, Does.Contain("new Vector2(1.10f, 1.10f)"));
+        Assert.That(animation, Does.Not.Contain("new Vector2(1.20f, .84f)"));
+        Assert.That(animation, Does.Not.Contain("new Vector2(1.18f, .86f)"));
+        Assert.That(animation, Does.Contain("Vector2.Lerp(recoveryScale, Vector2.one, t)"));
         Assert.That(animation, Does.Contain("Mathf.Lerp(recoveryRotation, 0f, t)"));
         Assert.That(animation, Does.Contain("proxy.localRotation = Quaternion.Euler"));
         Assert.That(animation, Does.Contain("transform.localRotation = Quaternion.identity"));
@@ -250,6 +256,10 @@ public sealed class SeojinBasicThreeHitComboContractTests
         public float damageWeight;
         public float lungeDistance;
         public float nextComboActivationTime;
+        public float gatherDistance;
+        public float gatherDuration;
+        public float gatherStopRadius;
+        public float gatherBossHardCap;
     }
 
     [Test]
@@ -261,11 +271,9 @@ public sealed class SeojinBasicThreeHitComboContractTests
         Assert.That(combo.steps[1].nextComboActivationTime, Is.EqualTo(1f));
         Assert.That(combo.steps[2].nextComboActivationTime, Is.Zero);
 
-        for (int i = 0; i < combo.steps.Length; i++)
-        {
-            Assert.That(combo.steps[i].postActionHoldTime, Is.EqualTo(.2f).Within(.0001f),
-                $"G1 comboIndex{i} must hold its final body frame for exactly 0.2 seconds");
-        }
+        Assert.That(combo.steps[0].postActionHoldTime, Is.EqualTo(.24f).Within(.0001f));
+        Assert.That(combo.steps[1].postActionHoldTime, Is.Zero);
+        Assert.That(combo.steps[2].postActionHoldTime, Is.Zero);
 
         for (int grade = 1; grade < Paths.Length; grade++)
         {
@@ -278,11 +286,11 @@ public sealed class SeojinBasicThreeHitComboContractTests
         }
 
         Assert.That(combo.steps[0].hitTime - combo.steps[0].startTime, Is.EqualTo(.16f).Within(.0001f));
-        Assert.That(combo.steps[0].recoveryEnd - combo.steps[0].startTime, Is.EqualTo(.28f).Within(.0001f));
+        Assert.That(combo.steps[0].recoveryEnd - combo.steps[0].hitTime, Is.EqualTo(.05f).Within(.0001f));
         Assert.That(combo.steps[1].hitTime - combo.steps[1].startTime, Is.EqualTo(.16f).Within(.0001f));
-        Assert.That(combo.steps[1].recoveryEnd - combo.steps[1].startTime, Is.EqualTo(.20f).Within(.0001f));
-        Assert.That(combo.steps[2].hitTime - combo.steps[2].startTime, Is.EqualTo(.16f).Within(.0001f));
-        Assert.That(combo.steps[2].recoveryEnd - combo.steps[2].startTime, Is.EqualTo(.28f).Within(.0001f));
+        Assert.That(combo.steps[1].recoveryEnd - combo.steps[1].hitTime, Is.EqualTo(.10f).Within(.0001f));
+        Assert.That(combo.steps[2].hitTime - combo.steps[2].startTime, Is.EqualTo(.12f).Within(.0001f));
+        Assert.That(combo.steps[2].recoveryEnd - combo.steps[2].hitTime, Is.EqualTo(.20f).Within(.0001f));
 
         string service = File.ReadAllText(
             "Assets/Scripts/Actor/Character/service/skill/ActiveSkillService.cs");
@@ -292,6 +300,21 @@ public sealed class SeojinBasicThreeHitComboContractTests
         Assert.That(service, Does.Contain("stepIndex == 2"));
         Assert.That(service, Does.Contain("RestartContinuousComboSegment"));
         Assert.That(service, Does.Contain("step.PostActionHoldTime"));
+        Assert.That(service, Does.Contain("bool manualDirectionLunge"));
+        Assert.That(service, Does.Contain("manualAim?.Mode == SkillAimMode.Direction"));
+        Assert.That(service, Does.Contain("if (manualDirectionLunge || targetedLunge)"));
+        Assert.That(service, Does.Contain(
+            "ApplyCollisionSafeLunge(caster, target, direction, step.LungeDistance)"),
+            "input-driven Basic must retain its current per-input aim direction and collision-safe lunge path");
+        Assert.That(service, Does.Contain("int count = body.Cast(direction.normalized, filter, hits, distance)"));
+        Assert.That(service, Does.Contain("intendedTarget != null"));
+        Assert.That(service, Does.Contain("intendedRoot != null"));
+        Assert.That(service, Does.Not.Contain("collider.transform.root == intendedTarget.root"),
+            "target-null manual Direction lunges must not dereference the optional target");
+        Assert.That(service, Does.Contain(
+            "body.MovePosition(body.position + direction.normalized * allowed)"));
+        Assert.That(service, Does.Contain("movement?.StopAllMotion(stopKnockback: false)"),
+            "the locomotion owner must be stopped before committing the physics-safe lunge");
         int holdWait = service.IndexOf(
             "yield return new WaitForSeconds(step.PostActionHoldTime)",
             StringComparison.Ordinal);
@@ -306,10 +329,12 @@ public sealed class SeojinBasicThreeHitComboContractTests
             "Assets/Scripts/Actor/Character/Control/ManualControlCore.cs");
         Assert.That(input, Does.Contain("bool newBasicPress=input.AttackDown||(input.AttackHeld&&!wasHeld)"));
         Assert.That(input, Does.Contain("basicPressPending=true"));
-        Assert.That(input, Does.Contain("if(AttackHeld&&!basicPressPending)"),
-            "held input must coalesce exactly one continuation during recovery");
+        Assert.That(input, Does.Not.Contain("if(AttackHeld&&!basicPressPending)"),
+            "the admitting physical hold must not be converted into a pending continuation while busy");
+        Assert.That(input, Does.Contain("if(game.Busy)"));
+        Assert.That(input, Does.Contain("an uninterrupted hold is sampled only when"));
         Assert.That(input, Does.Contain("if(!basicPressPending&&AttackHeld&&game.Ready(0))"),
-            "held input must restart from step 0 only after cooldown readiness returns");
+            "held input may advance only after recovery/hold ends or restart after cooldown readiness");
 
         string animation = File.ReadAllText("Assets/Scripts/Actor/Party/AnimationMono.cs");
         Assert.That(animation, Does.Contain("PlayContinuousComboSegmentRoutine"));
@@ -318,9 +343,14 @@ public sealed class SeojinBasicThreeHitComboContractTests
         Assert.That(animation, Does.Contain("while (holdElapsed < postActionHoldTime)"));
         Assert.That(animation, Does.Contain("clip.SampleAnimation(gameObject, clip.length * end)"),
             "F5 must be re-sampled throughout the hold instead of exposing locomotion/idle");
+
+        string materialized = File.ReadAllText(
+            "Assets/Contents/Skill/so/skill.character.seojin.1.basic_attack.basic_attack.asset");
+        Assert.That(materialized, Does.Contain("totalLungeCap: 0.72"));
+        Assert.That(Count(materialized, "lungeDistance: 0.24"), Is.EqualTo(3));
     }
 
-    [TestCase(0, 1.06f, .36f, .16f, .64f, .94f, .12f)]
+    [TestCase(0, 1.03f, .72f, .16f, .61f, .83f, .24f)]
     [TestCase(1, .78f, .42f, .14f, .38f, .65f, .14f)]
     [TestCase(2, .70f, .48f, .12f, .34f, .58f, .16f)]
     public void ExactTimingAndFailClosedVisualRolloutAreSerialized(

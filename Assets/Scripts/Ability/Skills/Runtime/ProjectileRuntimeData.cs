@@ -16,10 +16,13 @@ public class ProjectileRuntimeData
     public GameObject owner;
     public GameObject target;
     public EquipmentSkillSO sourceEquipment;
+    public int resolvedLevel = 1;
+    public ResolvedMouse3SkillProfile resolvedMouse3Profile;
 
     [Header("Spawn")]
     public Vector2 spawnPosition;
     public Vector2 direction;
+    public Vector2 controlPoint;
     public bool orientManualPresentation;
 
     [Header("Runtime Profiles")]
@@ -66,6 +69,10 @@ public class ProjectileRuntimeData
     public bool useCriticalOverride;
     public bool criticalOverride;
     public bool suppressVisual;
+    public float comboGatherDistance;
+    public float comboGatherDuration;
+    public float comboGatherStopRadius;
+    public float comboGatherBossHardCap;
 
     /// <summary>
     /// owner 기준 forward가 없는 2D 환경에서 direction이 비어 있으면 fallback 판단용.

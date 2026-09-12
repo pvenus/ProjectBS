@@ -53,6 +53,39 @@ public class EquipmentSkillResolver
             visualContext = BuildVisualContext(equipmentSo),
             upgradeRuntimeData = upgradeRuntimeData,
             comboProfile = equipmentSo.ComboProfile
+            ,resolvedMouse3Profile = ResolveMouse3Profile(equipmentSo, resolvedStatModifiers)
+        };
+    }
+
+    private ResolvedMouse3SkillProfile ResolveMouse3Profile(
+        EquipmentSkillSO equipmentSo, List<SkillStatModifierData> modifiers)
+    {
+        Mouse3SkillProfile source = equipmentSo?.Mouse3Profile;
+        if (source == null || !source.Enabled) return null;
+        return new ResolvedMouse3SkillProfile
+        {
+            crowdControlKind = source.CrowdControlKind,
+            distance = statResolver.ResolveStat(equipmentSo, SkillStatModifierType.Mouse3Distance, modifiers),
+            duration = statResolver.ResolveStat(equipmentSo, SkillStatModifierType.Mouse3CrowdControlDuration, modifiers),
+            stopRadius = source.StopRadius,
+            collisionSafe = source.CollisionSafe,
+            normalRatio = statResolver.ResolveStat(equipmentSo, SkillStatModifierType.Mouse3NormalRatio, modifiers),
+            eliteRatio = statResolver.ResolveStat(equipmentSo, SkillStatModifierType.Mouse3EliteRatio, modifiers),
+            bossRatio = statResolver.ResolveStat(equipmentSo, SkillStatModifierType.Mouse3BossRatio, modifiers),
+            bossHardCap = statResolver.ResolveStat(equipmentSo, SkillStatModifierType.Mouse3BossHardCap, modifiers),
+            fanAngle = source.FanAngle > 0f
+                ? statResolver.ResolveStat(equipmentSo, SkillStatModifierType.Mouse3FanAngle, modifiers)
+                : 0f,
+            burstCount = statResolver.ResolveBurstCount(equipmentSo, modifiers),
+            burstInterval = statResolver.ResolveBurstInterval(equipmentSo, modifiers),
+            nextBasicForwardRatio = statResolver.ResolveStat(equipmentSo, SkillStatModifierType.Mouse3NextBasicForwardRatio, modifiers),
+            nextBasicRangeRatio = statResolver.ResolveStat(equipmentSo, SkillStatModifierType.Mouse3NextBasicRangeRatio, modifiers),
+            nextBasicInputGrace = statResolver.ResolveStat(equipmentSo, SkillStatModifierType.Mouse3NextBasicInputGrace, modifiers),
+            gatherDistance = statResolver.ResolveStat(equipmentSo, SkillStatModifierType.Mouse3GatherDistance, modifiers),
+            gatherDuration = statResolver.ResolveStat(equipmentSo, SkillStatModifierType.Mouse3GatherDuration, modifiers),
+            stunNormalDuration = statResolver.ResolveStat(equipmentSo, SkillStatModifierType.Mouse3StunNormalDuration, modifiers),
+            stunEliteDuration = statResolver.ResolveStat(equipmentSo, SkillStatModifierType.Mouse3StunEliteDuration, modifiers),
+            stunBossDuration = statResolver.ResolveStat(equipmentSo, SkillStatModifierType.Mouse3StunBossDuration, modifiers)
         };
     }
 
@@ -73,7 +106,9 @@ public class EquipmentSkillResolver
         int comboIndex = -1,
         SkillHitSO hitOverride = null,
         bool suppressVisual = false,
-        float minimumVisualLifetime = 0f,SkillAimMode? manualAimMode=null)
+        float minimumVisualLifetime = 0f,SkillAimMode? manualAimMode=null,
+        float comboGatherDistance=0f,float comboGatherDuration=0f,
+        float comboGatherStopRadius=0f,float comboGatherBossHardCap=0f)
     {
         if (runtime == null)
         {
@@ -128,6 +163,7 @@ public class EquipmentSkillResolver
             resolvedStatModifiers);
 
         baseProjectileData.orientManualPresentation=manualAimMode==SkillAimMode.Direction;
+        baseProjectileData.controlPoint = resolvedTargetPosition;
         baseProjectileData.projectileSpawnInterval =
             statResolver.ResolveStat(
                 equipmentSo,
@@ -200,6 +236,10 @@ public class EquipmentSkillResolver
             projectileData.criticalOverride = criticalOverride.GetValueOrDefault();
             projectileData.suppressVisual = suppressVisual;
             projectileData.minimumVisualLifetime = Mathf.Max(0f, minimumVisualLifetime);
+            projectileData.comboGatherDistance = Mathf.Max(0f, comboGatherDistance);
+            projectileData.comboGatherDuration = Mathf.Max(0f, comboGatherDuration);
+            projectileData.comboGatherStopRadius = Mathf.Max(0f, comboGatherStopRadius);
+            projectileData.comboGatherBossHardCap = Mathf.Max(0f, comboGatherBossHardCap);
             ResolveProjectileVisualRuntime(runtime, projectileData);
             projectileDatas[i] = projectileData;
         }
@@ -221,6 +261,8 @@ public class EquipmentSkillResolver
         {
             owner = owner,
             sourceEquipment = equipmentSo,
+            resolvedLevel = Mathf.Clamp(runtime.resolvedLevel, 1, 5),
+            resolvedMouse3Profile = runtime.resolvedMouse3Profile,
             target = target,
             spawnPosition = resolvedSpawnPosition,
             direction = direction,
@@ -249,9 +291,12 @@ public class EquipmentSkillResolver
         {
             owner = source.owner,
             sourceEquipment = source.sourceEquipment,
+            resolvedLevel = source.resolvedLevel,
+            resolvedMouse3Profile = source.resolvedMouse3Profile,
             target = source.target,
             spawnPosition = source.spawnPosition,
             direction = source.direction,
+            controlPoint = source.controlPoint,
             orientManualPresentation=source.orientManualPresentation,
             lifetime = source.lifetime,
             projectileCount = source.projectileCount,
@@ -278,7 +323,11 @@ public class EquipmentSkillResolver
             comboToken = source.comboToken,
             comboIndex = source.comboIndex,
             useCriticalOverride = source.useCriticalOverride,
-            criticalOverride = source.criticalOverride
+            criticalOverride = source.criticalOverride,
+            comboGatherDistance = source.comboGatherDistance,
+            comboGatherDuration = source.comboGatherDuration,
+            comboGatherStopRadius = source.comboGatherStopRadius,
+            comboGatherBossHardCap = source.comboGatherBossHardCap
         };
     }
 

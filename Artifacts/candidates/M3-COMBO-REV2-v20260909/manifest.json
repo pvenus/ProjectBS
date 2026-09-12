@@ -1,0 +1,15 @@
+{
+  "task": "M3-COMBO-REV2",
+  "generator": "built-in ImageGen",
+  "status": "30/30 RGBA generated; border audit warnings retained without pixel edits",
+  "units": {
+    "active_6_body": {"frames": 12, "path": "active_6/body", "semantics": "two linked screen-right command-chain cuts"},
+    "active_6_vfx": {"frames": 12, "path": "active_6/vfx", "semantics": "two linked rightward neon/ink contact sequences, body-free"},
+    "active_7_vfx": {"frames": 6, "path": "active_7/vfx", "semantics": "55-degree fan pressure converging on mouse-direction interior aim point, body-free"}
+  },
+  "raw_dimensions": {"body": "1620x971", "vfx": "1254x1254"},
+  "mode": "RGBA native alpha",
+  "review": {"contact_sizes": [200,80,32], "gif_sizes": [200,80,32], "path": "review"},
+  "audits": {"physical": "physical-audit.txt", "hashes": "SHA256SUMS.txt"},
+  "warnings": "Nonzero edge alpha detected in some raw outputs; see physical-audit.txt. No cleanup/crop/resave applied to source frames."
+}

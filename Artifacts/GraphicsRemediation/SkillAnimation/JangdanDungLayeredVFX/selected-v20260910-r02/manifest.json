@@ -1,0 +1,15 @@
+{
+  "generator": "built-in ImageGen",
+  "use_case": "stylized-concept",
+  "selection": "r02 minimalist refinement; r01 retained as rejected provenance",
+  "common_prompt": "ONE standalone minimalist game VFX frame; native transparent RGBA; alpha-zero safe border; sparse thin marks under 35% canvas; cyan-blue with navy dry ink; no character/body/text/UI/Hangul/Hanja/western symbol/checker/matte.",
+  "layers": {
+    "groundField": {"count":4,"timing":[0,0.125,0.25,0.375],"stop":0.5,"prompt":"three/four disconnected perimeter pressure segments, huge gaps, empty center 22-26%, opacity impression 6/8/12/7%, no ring"},
+    "pullFlow": {"count":6,"timing_range":[0.25,1.0],"prompt":"one straight-ish tapered outer-target-to-center streak; faint build, extend, reach,; no curl/spiral; opacity impression 12-22%"},
+    "setupPulse": {"count":3,"timing":[0.8,0.95,1.1],"prompt":"one compact pulse state undecorated state: compress, localized brighten, contract; opacity impression 28-38%; no radial burst/whiteout"},
+    "finishResidue": {"count":4,"timing":[1.1,1.225,1.35,1.5],"prompt":"one thin muted-rust edge with faint cyan dry-brush tail; decay 10% to 4%; no ring or broad glow"}
+  },
+  "physical_audit":"physical-audit.txt",
+  "sha256":"SHA256SUMS.txt",
+  "notes":"All 17 are native RGBA. Border alpha is zero except pullFlow frame_05 max1 antialias ghost. Raw built-in dimensions preserved; no resize/extraction/install."
+}

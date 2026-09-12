@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63226e07ba84a4a69967ef3b8995b8d7, type: 3}
+  m_Name: skill.character.seojin.1.active_6.thunder_command
+  m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
+  equipmentId: skill.character.seojin.1.active_6.thunder_command
+  aimMode: 1
+  aimInputSource: 1
+  icon: {fileID: 21300000, guid: e6f00000000000000000000000000000, type: 3}
+  baseProfileSo: {fileID: 11400000, guid: 7a39884ff95f547bfb5f128a994cd68f, type: 2}
+  castSo: {fileID: 11400000, guid: 199cb98b17c194045ac0e5305272f154, type: 2}
+  hitSos:
+  - {fileID: 11400000, guid: 5bb1546345a5a445883c0f53d74321f5, type: 2}
+  moveSo: {fileID: 11400000, guid: 1ddb3cafec38d44d8b219b1263fa82aa, type: 2}
+  spawnSkillSo: {fileID: 0}
+  upgradeTableSo: {fileID: 11400000, guid: 2e072409cf480484a874fe712c47f7a0, type: 2}
+  baseVisualSo: {fileID: 11400000, guid: b4ac198239bd14b64a4b308f333f632d, type: 2}
+  comboProfile:
+    enabled: 0
+    inputDriven: 0
+    duration: 0
+    totalLungeCap: 0
+    useCanonicalBodyChoreography: 0
+    segmentedBodyActionClip: {fileID: 0}
+    segmentedBodyFrameCount: 18
+    steps: []
+  mouse3Profile:
+    inputAction: WheelUp
+    stableSlotKey: active_6
+    edgeOnly: 1
+    crowdControlKind: Linker
+    distance: 0
+    duration: 0
+    stopRadius: 0
+    collisionSafe: 0
+    normalDurationOrRatio: 1
+    eliteDurationOrRatio: 0
+    bossDurationOrRatio: 0
+    bossHardCap: 0
+    fanAngle: 0
+    burstCount: 1
+    burstInterval: 0.22
+    nextBasicForwardRatio: 0
+    nextBasicRangeRatio: 0
+    nextBasicInputGrace: 0
+    gatherDistance: 0
+    gatherDuration: 0
+    followupBodyClip: {fileID: 7400000, guid: 9843b786addd54ea5b615f0db2bae02d, type: 2}
+    followupVfxClip: {fileID: 7400000, guid: 18e7ec3e59f5448a2af87dba5197377b, type: 2}

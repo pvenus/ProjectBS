@@ -111,7 +111,18 @@ public class NpcTargeting : MonoBehaviour
                 includeTowersAsTargets = includeTowersAsTargets,
                 siegePrioritizeTowers = siegePrioritizeTowers,                
                 includeBattlePropsAsTargets = true
+                ,useApproachTargetLoadPenalty = UsesSmartScatterTargetLoad()
+                ,time = Time.time
             });
+    }
+
+    private bool UsesSmartScatterTargetLoad()
+    {
+        Character.CharacterManager manager = GetComponent<Character.CharacterManager>() ??
+            GetComponentInParent<Character.CharacterManager>();
+        string id = manager?.RuntimeData?.characterSO?.CharacterId;
+        return string.Equals(id, "character.black_cloth_raider.1", System.StringComparison.Ordinal) ||
+               string.Equals(id, "character.chain_dragger_raider.1", System.StringComparison.Ordinal);
     }
 
     public bool HasForcedTarget()

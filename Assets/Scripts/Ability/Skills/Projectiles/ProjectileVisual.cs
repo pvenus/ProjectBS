@@ -47,6 +47,9 @@ public class ProjectileVisual : MonoBehaviour
     private ProjectileEntity owner;
     private ProjectileRuntimeData runtimeData;
     private SkillAnimationVfxFeatureObject animationVfx;
+    private LayeredProjectilePresentationController layeredPresentation;
+    private bool layeredPresentationActive;
+    private bool sourceRendererEnabledBeforeLayers;
     private Material baselineSharedMaterial;
     private bool baselineMaterialCaptured;
     private Transform rendererScaleTransform;
@@ -78,10 +81,13 @@ public class ProjectileVisual : MonoBehaviour
 
     public float GetRemainingCurrentClipPlaybackTime()
     {
+        float layeredRemaining = layeredPresentation != null
+            ? layeredPresentation.RemainingTime
+            : 0f;
         if (!isClipPlaying || currentClip == null || currentClip.length <= 0f ||
             currentClipPlaybackSpeed <= 0f || !clipPlayable.IsValid())
         {
-            return 0f;
+            return layeredRemaining;
         }
 
         double clipTime = clipPlayable.GetTime();
@@ -102,7 +108,7 @@ public class ProjectileVisual : MonoBehaviour
             remainingClipTime = System.Math.Max(0d, currentClip.length - clipTime);
         }
 
-        return (float)(remainingClipTime / currentClipPlaybackSpeed);
+        return Mathf.Max((float)(remainingClipTime / currentClipPlaybackSpeed), layeredRemaining);
     }
 
     private void Reset()
@@ -416,6 +422,7 @@ public class ProjectileVisual : MonoBehaviour
     {
         spriteRenderer.sortingOrder = resolvedOrder;
         animationVfx?.SetSortingOrder(resolvedOrder);
+        layeredPresentation?.SetBaseSortingOrder(resolvedOrder);
 
         for (int i = 0; i < rainRenderers.Count; i++)
         {
@@ -428,6 +435,7 @@ public class ProjectileVisual : MonoBehaviour
 
     private void OnDestroy()
     {
+        layeredPresentation?.StopImmediate();
         directionWrapper.Restore();
         StopRainRoutine();
         RestoreBaselineMaterial();
@@ -452,6 +460,7 @@ public class ProjectileVisual : MonoBehaviour
         owner = ownerEntity;
         runtimeData = data;
         EnsureVisualComponents();
+        StopLayeredPresentation();
         initialized = true;
 
         RestoreRendererScale();
@@ -469,6 +478,19 @@ public class ProjectileVisual : MonoBehaviour
 
         if (spriteRenderer != null) spriteRenderer.enabled = true;
 
+        BaseVisualSO baseVisual = data.sourceEquipment?.BaseVisualSo;
+        layeredPresentation ??= GetComponent<LayeredProjectilePresentationController>()
+            ?? gameObject.AddComponent<LayeredProjectilePresentationController>();
+        layeredPresentationActive = layeredPresentation.Begin(
+            baseVisual != null ? baseVisual.LayeredPresentationProfile : null,
+            spriteRenderer,
+            data);
+        if (layeredPresentationActive && spriteRenderer != null)
+        {
+            sourceRendererEnabledBeforeLayers = spriteRenderer.enabled;
+            spriteRenderer.enabled = false;
+        }
+
         if(data.orientManualPresentation&&!data.suppressVisual&&animator!=null)
         {
             // Animator is below this wrapper: its root curves cannot touch gameplay rotation.
@@ -481,6 +503,7 @@ public class ProjectileVisual : MonoBehaviour
     }
     private void OnDisable()
     {
+        StopLayeredPresentation();
         directionWrapper.Restore();RestoreRendererScale();EndPresentationProxy();
     }
 
@@ -490,6 +513,7 @@ public class ProjectileVisual : MonoBehaviour
         {
             return;
         }
+        if (layeredPresentationActive) return;
 
         if (IsRainVisualType())
         {
@@ -516,6 +540,7 @@ public class ProjectileVisual : MonoBehaviour
         {
             return;
         }
+        if (layeredPresentationActive) return;
 
         if (animationVfx != null && animationVfx.RestartsOnHit)
         {
@@ -546,9 +571,13 @@ public class ProjectileVisual : MonoBehaviour
         }
 
         animationVfx?.StopImmediate();
+        bool wasLayered = layeredPresentationActive;
+        StopLayeredPresentation();
         RestoreBaselineMaterial();
         RestoreRendererScale();
         EndPresentationProxy();
+
+        if (wasLayered) return;
 
         if (IsVisualSuppressed())
         {
@@ -566,6 +595,14 @@ public class ProjectileVisual : MonoBehaviour
 
     private bool IsVisualSuppressed() =>
         runtimeData != null && runtimeData.suppressVisual;
+
+    private void StopLayeredPresentation()
+    {
+        layeredPresentation?.StopImmediate();
+        if (layeredPresentationActive && spriteRenderer != null)
+            spriteRenderer.enabled = sourceRendererEnabledBeforeLayers;
+        layeredPresentationActive = false;
+    }
 
     public void PlayClip(AnimationClip clip, bool deactivateWhenFinished = false)
     {

@@ -21,6 +21,8 @@ namespace Npc.Service
             public bool includeBattlePropsAsTargets;
             public bool siegePrioritizeTowers;
             public LayerMask basicAttackTargetLayerMask;
+            public bool useApproachTargetLoadPenalty;
+            public float time;
         }
 
         public Transform FindTarget(Context context)
@@ -293,13 +295,19 @@ namespace Npc.Service
             float score =
                 (candidate.position - selfPos).sqrMagnitude;
 
+            if (context.useApproachTargetLoadPenalty)
+                score += EnemyApproachReservationService.GetTargetLoad(candidate, context.time) * .18f;
+
             if (context.archetype == NpcTargeting.TargetingArchetype.Siege
                 && context.siegePrioritizeTowers)
             {
                 score *= isTower ? 0.35f : 1.65f;
             }
 
-            if (score < bestScore)
+            if (score < bestScore ||
+                (Mathf.Approximately(score, bestScore) && best != null &&
+                 EnemyApproachReservationService.StableActorKey(candidate) <
+                 EnemyApproachReservationService.StableActorKey(best)))
             {
                 best = candidate;
                 bestScore = score;

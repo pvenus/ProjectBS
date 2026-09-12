@@ -35,6 +35,10 @@ namespace ResourceTools.Skill
             public string upgrade;
             public string baseVisual;
             public string combo;
+            public string inputBinding;
+            public string crowdControl;
+            public string shape;
+            public string activeInputMode;
         }
 
         [Serializable]
@@ -72,6 +76,39 @@ namespace ResourceTools.Skill
             public float damageWeight;
             public float lungeDistance;
             public float nextComboActivationTime;
+            public float gatherDistance;
+            public float gatherDuration;
+            public float gatherStopRadius;
+            public float gatherBossHardCap;
+        }
+
+        [Serializable] private sealed class InputBindingJson { public string action; public string stableSlotKey; public bool edgeOnly; }
+        [Serializable] private sealed class CrowdControlJson
+        {
+            public string kind; public float distance; public float duration; public float stopRadius;
+            public bool collisionSafe; public float normalRatio = 1f; public float eliteRatio;
+            public float bossRatio; public float bossHardCap; public float ratio;
+            public float eliteDuration; public float bossDuration;
+            public int burstCount = 1;
+            public float burstInterval;
+            public float nextBasicForwardRatio;
+            public float nextBasicRangeRatio;
+            public float nextBasicInputGrace;
+            public float gatherDistance;
+            public float gatherDuration;
+            public float stunNormalDuration;
+            public float stunEliteDuration;
+            public float stunBossDuration;
+            public string followupBodyClipPath;
+            public string followupVfxClipPath;
+        }
+        [Serializable] private sealed class ShapeJson { public string kind; public float angle; public float range; }
+        [Serializable] private sealed class ActiveInputModeJson
+        {
+            public bool enabled; public string inputAction; public float readyDuration;
+            public float actionDuration; public float contactTime; public int maxInputs=1;
+            public float minInterval; public int bufferCapacity; public string cooldownCommit;
+            public string aimSnapshot; public string actionHitId;
         }
 
         [Serializable]
@@ -238,6 +275,19 @@ namespace ResourceTools.Skill
 
             BaseProfileJson baseProfile = ParseBaseProfile(data.baseProfile);
             CastJson cast = ParseCast(data.cast);
+            string generatedMouse3BodyClip =
+                SkillBaseVisualAssetBuilder.CreateOrUpdateMouse3BodyActionClip(data.equipmentId);
+            if (!string.IsNullOrWhiteSpace(generatedMouse3BodyClip))
+            {
+                if (!string.IsNullOrWhiteSpace(cast?.bodyActionClipPath) &&
+                    !string.Equals(cast.bodyActionClipPath, generatedMouse3BodyClip, StringComparison.Ordinal))
+                {
+                    Debug.LogError($"[EquipmentSkillJsonGenerator] Mouse3 body clip path mismatch: {cast.bodyActionClipPath} != {generatedMouse3BodyClip}");
+                    return null;
+                }
+
+                cast.bodyActionClipPath = generatedMouse3BodyClip;
+            }
             MoveJson move = ParseObject<MoveJson>(data.move);
             HitJson[] hits = ParseHitArray(data.hits);
             SpawnSkillJson spawnSkill = ParseObject<SpawnSkillJson>(data.spawnSkill);
@@ -339,6 +389,8 @@ namespace ResourceTools.Skill
                 isNewAsset = true;
             }
 
+            CrowdControlJson crowdControl = ParseObject<CrowdControlJson>(data.crowdControl);
+            ApplyGeneratedJangdanFollowupPaths(data.equipmentId, crowdControl);
             ApplySkillFields(
                 skillSo,
                 data,
@@ -349,7 +401,11 @@ namespace ResourceTools.Skill
                 spawnSkillSo,
                 upgradeTableSo,
                 baseVisualSo,
-                ParseObject<ComboJson>(data.combo));
+                ParseObject<ComboJson>(data.combo),
+                ParseObject<InputBindingJson>(data.inputBinding),
+                crowdControl,
+                ParseObject<ShapeJson>(data.shape),
+                ParseObject<ActiveInputModeJson>(data.activeInputMode));
 
             if (isNewAsset)
             {
@@ -366,6 +422,26 @@ namespace ResourceTools.Skill
             AssetDatabase.SaveAssets();
 
             return skillSo;
+        }
+
+        private static void ApplyGeneratedJangdanFollowupPaths(
+            string equipmentId,
+            CrowdControlJson control)
+        {
+            if (control == null || !string.Equals(
+                    equipmentId,
+                    "skill.character.seojin.1.active_5.jangdan_dung",
+                    StringComparison.Ordinal))
+            {
+                return;
+            }
+
+            control.followupBodyClipPath =
+                "Assets/AnimationClips/Character/character.seojin.1/" +
+                "character.seojin.1.body_action.jangdan.active5_dung_kung.followup.anim";
+            control.followupVfxClipPath =
+                "Assets/AnimationClips/Skill/" +
+                "skill.character.seojin.1.active_5.jangdan_dung.visual.followup.anim";
         }
 
 
@@ -456,7 +532,11 @@ namespace ResourceTools.Skill
             SpawnSkillSO spawnSkillSo,
             EquipmentUpgradeTableSO upgradeTableSo,
             BaseVisualSO baseVisualSo,
-            ComboJson combo)
+            ComboJson combo,
+            InputBindingJson inputBinding,
+            CrowdControlJson crowdControl,
+            ShapeJson shape,
+            ActiveInputModeJson activeInputMode)
         {
             SerializedObject serializedObject = new SerializedObject(skillSo);
 
@@ -473,10 +553,74 @@ namespace ResourceTools.Skill
             SetObjectReference(serializedObject, "upgradeTableSo", upgradeTableSo);
             SetObjectReference(serializedObject, "baseVisualSo", baseVisualSo);
             ApplyComboProfile(serializedObject, combo, hitSos);
+            ApplyMouse3Profile(serializedObject, inputBinding, crowdControl, shape);
+            ApplyActiveInputMode(serializedObject,activeInputMode,hitSos);
 
             serializedObject.ApplyModifiedPropertiesWithoutUndo();
             skillSo.ConfigureAimMode(data.aimMode);
             skillSo.ConfigureAimInputSource(data.aimInputSource);
+        }
+
+        private static void ApplyActiveInputMode(SerializedObject serializedObject,ActiveInputModeJson source,SkillHitSO[] hitSos)
+        {
+            SerializedProperty profile=serializedObject.FindProperty("activeInputMode");
+            if(profile==null)return;
+            profile.FindPropertyRelative("enabled").boolValue=source!=null&&source.enabled;
+            profile.FindPropertyRelative("inputAction").stringValue=source?.inputAction??string.Empty;
+            profile.FindPropertyRelative("readyDuration").floatValue=Mathf.Max(0f,source?.readyDuration??0f);
+            profile.FindPropertyRelative("actionDuration").floatValue=Mathf.Max(0f,source?.actionDuration??0f);
+            profile.FindPropertyRelative("contactTime").floatValue=Mathf.Max(0f,source?.contactTime??0f);
+            profile.FindPropertyRelative("maxInputs").intValue=Mathf.Max(1,source?.maxInputs??1);
+            profile.FindPropertyRelative("minInterval").floatValue=Mathf.Max(0f,source?.minInterval??0f);
+            profile.FindPropertyRelative("bufferCapacity").intValue=Mathf.Max(0,source?.bufferCapacity??0);
+            profile.FindPropertyRelative("cooldownCommit").stringValue=source?.cooldownCommit??string.Empty;
+            profile.FindPropertyRelative("aimSnapshot").stringValue=source?.aimSnapshot??string.Empty;
+            profile.FindPropertyRelative("actionHit").objectReferenceValue=FindHit(hitSos,source?.actionHitId);
+        }
+
+        private static void ApplyMouse3Profile(SerializedObject serializedObject, InputBindingJson input,
+            CrowdControlJson control, ShapeJson shape)
+        {
+            SerializedProperty profile = serializedObject.FindProperty("mouse3Profile");
+            if (profile == null) return;
+            profile.FindPropertyRelative("inputAction").stringValue = input?.action ?? string.Empty;
+            profile.FindPropertyRelative("stableSlotKey").stringValue = input?.stableSlotKey ?? string.Empty;
+            profile.FindPropertyRelative("edgeOnly").boolValue = input != null && input.edgeOnly;
+            profile.FindPropertyRelative("crowdControlKind").stringValue = control?.kind ?? string.Empty;
+            float controlDistance = control != null && control.distance > 0f
+                ? control.distance
+                : control?.ratio ?? 0f;
+            profile.FindPropertyRelative("distance").floatValue = Mathf.Max(0f, controlDistance);
+            profile.FindPropertyRelative("duration").floatValue = Mathf.Max(0f, control?.duration ?? 0f);
+            profile.FindPropertyRelative("stopRadius").floatValue = Mathf.Max(0f, control?.stopRadius ?? 0f);
+            profile.FindPropertyRelative("collisionSafe").boolValue = control != null && control.collisionSafe;
+            bool stun = string.Equals(control?.kind, "Stun", StringComparison.OrdinalIgnoreCase);
+            profile.FindPropertyRelative("normalDurationOrRatio").floatValue = Mathf.Max(0f, stun ? control.duration : control?.normalRatio ?? 0f);
+            profile.FindPropertyRelative("eliteDurationOrRatio").floatValue = Mathf.Max(0f, stun ? control.eliteDuration : control?.eliteRatio ?? 0f);
+            profile.FindPropertyRelative("bossDurationOrRatio").floatValue = Mathf.Max(0f, stun ? control.bossDuration : control?.bossRatio ?? 0f);
+            profile.FindPropertyRelative("bossHardCap").floatValue = Mathf.Max(0f, control?.bossHardCap ?? 0f);
+            profile.FindPropertyRelative("fanAngle").floatValue = Mathf.Max(0f, shape?.angle ?? 0f);
+            profile.FindPropertyRelative("burstCount").intValue = Mathf.Max(1, control?.burstCount ?? 1);
+            profile.FindPropertyRelative("burstInterval").floatValue = Mathf.Max(0f, control?.burstInterval ?? 0f);
+            profile.FindPropertyRelative("nextBasicForwardRatio").floatValue = Mathf.Max(0f, control?.nextBasicForwardRatio ?? 0f);
+            profile.FindPropertyRelative("nextBasicRangeRatio").floatValue = Mathf.Max(0f, control?.nextBasicRangeRatio ?? 0f);
+            profile.FindPropertyRelative("nextBasicInputGrace").floatValue = Mathf.Max(0f, control?.nextBasicInputGrace ?? 0f);
+            profile.FindPropertyRelative("gatherDistance").floatValue = Mathf.Max(0f, control?.gatherDistance ?? 0f);
+            profile.FindPropertyRelative("gatherDuration").floatValue = Mathf.Max(0f, control?.gatherDuration ?? 0f);
+            profile.FindPropertyRelative("stunNormalDuration").floatValue = Mathf.Max(0f, control?.stunNormalDuration ?? 0f);
+            profile.FindPropertyRelative("stunEliteDuration").floatValue = Mathf.Max(0f, control?.stunEliteDuration ?? 0f);
+            profile.FindPropertyRelative("stunBossDuration").floatValue = Mathf.Max(0f, control?.stunBossDuration ?? 0f);
+            profile.FindPropertyRelative("followupBodyClip").objectReferenceValue =
+                LoadOptionalAsset<AnimationClip>(control?.followupBodyClipPath);
+            profile.FindPropertyRelative("followupVfxClip").objectReferenceValue =
+                LoadOptionalAsset<AnimationClip>(control?.followupVfxClipPath);
+        }
+
+        private static T LoadOptionalAsset<T>(string path) where T : UnityEngine.Object
+        {
+            return string.IsNullOrWhiteSpace(path)
+                ? null
+                : AssetDatabase.LoadAssetAtPath<T>(path);
         }
 
         private static void ApplyComboProfile(
@@ -540,6 +684,14 @@ namespace ResourceTools.Skill
                 step.FindPropertyRelative("lungeDistance").floatValue = source.lungeDistance;
                 step.FindPropertyRelative("nextComboActivationTime").floatValue =
                     Mathf.Max(0f, source.nextComboActivationTime);
+                step.FindPropertyRelative("gatherDistance").floatValue =
+                    Mathf.Max(0f, source.gatherDistance);
+                step.FindPropertyRelative("gatherDuration").floatValue =
+                    Mathf.Max(0f, source.gatherDuration);
+                step.FindPropertyRelative("gatherStopRadius").floatValue =
+                    Mathf.Max(0f, source.gatherStopRadius);
+                step.FindPropertyRelative("gatherBossHardCap").floatValue =
+                    Mathf.Max(0f, source.gatherBossHardCap);
             }
         }
 
@@ -860,6 +1012,10 @@ namespace ResourceTools.Skill
                 upgrade = ExtractJsonValue(json, "upgradeTable"),
                 baseVisual = baseVisual,
                 combo = ExtractJsonValue(json, "combo")
+                ,inputBinding = ExtractJsonValue(json, "inputBinding")
+                ,crowdControl = ExtractJsonValue(json, "crowdControl")
+                ,shape = ExtractJsonValue(json, "shape")
+                ,activeInputMode = ExtractJsonValue(json, "activeInputMode")
             };
 
             return data;

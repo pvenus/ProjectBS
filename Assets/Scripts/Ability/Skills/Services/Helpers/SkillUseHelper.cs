@@ -27,6 +27,10 @@ namespace Skill.Service.Helper
         public float DamageWeight { get; set; } = 1f;
         public bool SuppressVisual { get; set; }
         public float MinimumVisualLifetime { get; set; }
+        public float ComboGatherDistance { get; set; }
+        public float ComboGatherDuration { get; set; }
+        public float ComboGatherStopRadius { get; set; }
+        public float ComboGatherBossHardCap { get; set; }
 
         public GameObject CasterObject =>
             Caster != null ? Caster.gameObject : null;
@@ -116,7 +120,9 @@ namespace Skill.Service.Helper
                 context.ComboIndex,
                 context.HitOverride,
                 context.SuppressVisual,
-                context.MinimumVisualLifetime,context.ManualAim);
+                context.MinimumVisualLifetime,context.ManualAim,
+                context.ComboGatherDistance,context.ComboGatherDuration,
+                context.ComboGatherStopRadius,context.ComboGatherBossHardCap);
         }
 
         private static bool UseSpawnSkillAndSelfEffects(
@@ -359,7 +365,9 @@ namespace Skill.Service.Helper
             int comboIndex = -1,
             SkillHitSO hitOverride = null,
             bool suppressVisual = false,
-            float minimumVisualLifetime = 0f,SkillAimMode? manualAimMode=null)
+            float minimumVisualLifetime = 0f,SkillAimMode? manualAimMode=null,
+            float comboGatherDistance=0f,float comboGatherDuration=0f,
+            float comboGatherStopRadius=0f,float comboGatherBossHardCap=0f)
         {
             if (runtime == null || caster == null)
             {
@@ -384,7 +392,8 @@ namespace Skill.Service.Helper
                     comboIndex,
                     hitOverride,
                     suppressVisual,
-                    minimumVisualLifetime,manualAimMode);
+                    minimumVisualLifetime,manualAimMode,comboGatherDistance,
+                    comboGatherDuration,comboGatherStopRadius,comboGatherBossHardCap);
 
             if (projectileDatas == null || projectileDatas.Length == 0)
             {
@@ -521,7 +530,9 @@ namespace Skill.Service.Helper
             int comboIndex = -1,
             SkillHitSO hitOverride = null,
             bool suppressVisual = false,
-            float minimumVisualLifetime = 0f,ManualSkillAim? manualAim=null)
+            float minimumVisualLifetime = 0f,ManualSkillAim? manualAim=null,
+            float comboGatherDistance=0f,float comboGatherDuration=0f,
+            float comboGatherStopRadius=0f,float comboGatherBossHardCap=0f)
         {
             if (runtime == null || caster == null)
             {
@@ -587,7 +598,8 @@ namespace Skill.Service.Helper
                 comboIndex,
                 hitOverride,
                 suppressVisual,
-                minimumVisualLifetime,manualAim?.Mode);
+                minimumVisualLifetime,manualAim?.Mode,comboGatherDistance,
+                comboGatherDuration,comboGatherStopRadius,comboGatherBossHardCap);
         }
 
         public static Vector2 ResolveTargetPoint(

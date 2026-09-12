@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63226e07ba84a4a69967ef3b8995b8d7, type: 3}
+  m_Name: skill.character.seojin.1.active_5.jangdan_dung
+  m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
+  equipmentId: skill.character.seojin.1.active_5.jangdan_dung
+  aimMode: 1
+  aimInputSource: 1
+  icon: {fileID: 1796819183953605224, guid: 4749caf11b9014156819e90821d3dfbc, type: 3}
+  baseProfileSo: {fileID: 11400000, guid: 7903e97b73bd44ee689e98453cee63f1, type: 2}
+  castSo: {fileID: 11400000, guid: b90aec2129da144fdbf6dde6cb18610f, type: 2}
+  hitSos:
+  - {fileID: 11400000, guid: 66d3f4265a9f942d9aa3ea1d19df2ff8, type: 2}
+  - {fileID: 11400000, guid: 1ae48cc044c584f7a81ca3b8f83f8b7d, type: 2}
+  moveSo: {fileID: 11400000, guid: e76f03153af9d4e99a4c4cfd387369ea, type: 2}
+  spawnSkillSo: {fileID: 0}
+  upgradeTableSo: {fileID: 11400000, guid: 79fd6d59d95314b63b0b4e62b3c33d6c, type: 2}
+  baseVisualSo: {fileID: 11400000, guid: 6a3efe36299644f4eb4d7d9620e36860, type: 2}
+  comboProfile:
+    enabled: 0
+    inputDriven: 0
+    duration: 0
+    totalLungeCap: 0
+    useCanonicalBodyChoreography: 0
+    segmentedBodyActionClip: {fileID: 0}
+    segmentedBodyFrameCount: 18
+    steps: []
+  mouse3Profile:
+    inputAction: Secondary
+    stableSlotKey: active_5
+    edgeOnly: 1
+    crowdControlKind: GatherDisplacement
+    distance: 2
+    duration: 0.25
+    stopRadius: 0.45
+    collisionSafe: 1
+    normalDurationOrRatio: 1
+    eliteDurationOrRatio: 0
+    bossDurationOrRatio: 0
+    bossHardCap: 0
+    fanAngle: 0
+    burstCount: 1
+    burstInterval: 0
+    nextBasicForwardRatio: 0
+    nextBasicRangeRatio: 0
+    nextBasicInputGrace: 0
+    gatherDistance: 0
+    gatherDuration: 0
+    stunNormalDuration: 0
+    stunEliteDuration: 0
+    stunBossDuration: 0
+    followupBodyClip: {fileID: 7400000, guid: 60279d56a524843178889c9d3484147f, type: 2}
+    followupVfxClip: {fileID: 7400000, guid: 93d4d50c34a7740ab96873e92584d4ba, type: 2}

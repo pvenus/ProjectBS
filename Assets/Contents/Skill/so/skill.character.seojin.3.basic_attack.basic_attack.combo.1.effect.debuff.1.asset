@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: skill.character.seojin.3.basic_attack.basic_attack.combo.1.effect.debuff.1
   m_EditorClassIdentifier: Assembly-CSharp::Effect.EffectSO
   effectId: skill.character.seojin.3.basic_attack.basic_attack.combo.1.effect.debuff.1
-  authoredDisplayName: "전열베기 2타 넉백"
+  authoredDisplayName: "\uC804\uC5F4\uBCA0\uAE30 2\uD0C0 \uB109\uBC31"
   icon: {fileID: 0}
   config:
-    rid: 666566976232489139
+    rid: 666567034589414134
   references:
     version: 2
     RefIds:
-    - rid: 666566976232489139
+    - rid: 666567034589414134
       type: {class: KnockbackEffectConfig, ns: Effect, asm: Assembly-CSharp}
       data:
         force: 3.5

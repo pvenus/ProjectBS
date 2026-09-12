@@ -70,12 +70,26 @@ namespace Character.Skill
         private static int nextComboToken;
         private readonly Dictionary<int,int> comboGenerations=new();
         private readonly Dictionary<int,object> comboFacingOwners=new();
+        private sealed class ActiveInputState
+        {
+            public CharacterSkillManager manager;
+            public EquipmentSkillRuntimeData runtime;
+            public Transform caster;
+            public float expiresAt;
+            public float lastAcceptedAt = float.NegativeInfinity;
+            public int accepted;
+            public bool running;
+            public readonly Queue<ManualSkillAim> buffered = new();
+        }
+        private readonly Dictionary<int,ActiveInputState> activeInputStates = new();
         private sealed class TimedComboProgress
         {
             public int nextStepIndex;
             public float continuationExpiresAt;
             public string comboToken;
             public bool sharedCritical;
+            public Mouse3BasicBridgeState.Bonus bridgeBonus;
+            public bool hasBridgeBonus;
         }
         private readonly Dictionary<int,TimedComboProgress> timedComboProgressByCaster=new();
         public bool HasCombo(Transform caster)=>caster!=null&&activeComboCasters.Contains(caster.GetInstanceID());
@@ -266,7 +280,9 @@ namespace Character.Skill
             failedSkillRetryEndTimes.Clear();
         }
 
-        public void CancelCombo(Transform caster)
+        private readonly HashSet<int> preserveCommittedComboProgress = new();
+
+        public void CancelCombo(Transform caster, bool preserveTimedProgress = false)
         {
             if (caster != null)
             {
@@ -274,7 +290,10 @@ namespace Character.Skill
                 {ResolveAnimation(caster)?.ReleaseFacingLock(facingOwner);comboFacingOwners.Remove(caster.GetInstanceID());}
                 activeComboCasters.Remove(caster.GetInstanceID());
                 comboGenerations.Remove(caster.GetInstanceID());
-                timedComboProgressByCaster.Remove(caster.GetInstanceID());
+                if (preserveTimedProgress && timedComboProgressByCaster.ContainsKey(caster.GetInstanceID()))
+                    preserveCommittedComboProgress.Add(caster.GetInstanceID());
+                else
+                    timedComboProgressByCaster.Remove(caster.GetInstanceID());
             }
         }
 
@@ -341,6 +360,18 @@ namespace Character.Skill
             string skillId = CharacterSkillHelper.GetSkillId(runtime);
             return !IsTemporarilyBlockedAfterFailure(skillId) &&
                    IsCooldownReady(skillManager.SkillRuntimeData, skillId);
+        }
+
+        internal bool IsJangdanRuntime(EquipmentSkillRuntimeData runtime)
+            => SeojinJangdanRuntime.IsJangdan(CharacterSkillHelper.GetSkillId(runtime));
+
+        internal bool IsManualRuntimeReady(CharacterSkillManager manager,
+            EquipmentSkillRuntimeData runtime, Transform caster)
+        {
+            string id = CharacterSkillHelper.GetSkillId(runtime);
+            int level = SeojinJangdanRuntime.Level(runtime);
+            return SeojinJangdanRuntime.IsCooldownLockedFollowup(caster, id) ||
+                   IsRuntimeReady(manager, runtime);
         }
         /// <summary>
         /// Fires a specific runtime skill through SkillExecutorMono.
@@ -433,12 +464,273 @@ namespace Character.Skill
             if(!aim.IsValid||runtime?.sourceEquipment?.AimInputSource==AimInputSource.Invalid||runtime?.sourceEquipment?.AimMode!=aim.Mode||!CanFireRuntime(runtime,caster,manager,true))return false;
             if(aim.Mode==SkillAimMode.Target&&!IsManualTargetValid(runtime,caster,aim.Target))return false;
             if(aim.Mode==SkillAimMode.GroundPoint&&Vector2.Distance(caster.position,aim.Point)>runtime.resolvedRange+.0001f)return false;
+            ActiveInputModeProfile activeInput=runtime.sourceEquipment.ActiveInputMode;
+            if(activeInput!=null&&activeInput.Enabled)
+            {
+                if(!IsRuntimeReady(manager,runtime)||!UseSkill(manager,runtime))return false;
+                int key=caster.GetInstanceID();
+                var state=new ActiveInputState{manager=manager,runtime=runtime,caster=caster,
+                    expiresAt=Time.time+activeInput.ReadyDuration};
+                activeInputStates[key]=state;
+                manager.StartBackgroundSkillRoutine(ExpireActiveInput(key,state,activeInput.ReadyDuration));
+                ClearExecutionFailure(runtime);
+                return true;
+            }
+            if(IsJangdanRuntime(runtime))return StartJangdanRoutine(manager,runtime,caster,aim);
+            string manualSkillId = CharacterSkillHelper.GetSkillId(runtime);
+            if (!string.IsNullOrEmpty(manualSkillId) &&
+                manualSkillId != "skill.character.seojin.1.basic_attack.basic_attack")
+                SeojinJangdanRuntime.Clear(caster);
             bool mobility=runtime.sourceEquipment.BaseProfileSo.SkillComponentType==SkillComponentType.Mobility;
             if(!mobility&&!IsRuntimeReady(manager,runtime))return false;
             if(!mobility&&!(runtime.comboProfile!=null&&runtime.comboProfile.Enabled))UseSkill(manager,runtime);
             bool started=StartSkillUseRoutine(manager,runtime,caster,aim.Target,aim.Mode==SkillAimMode.GroundPoint,aim.Point,aim);
             if(started)ClearExecutionFailure(runtime);
             return started;
+        }
+
+        internal bool TryConsumeActiveInputAction(CharacterSkillManager manager,Transform caster,ManualSkillAim aim)
+        {
+            if(manager==null||caster==null||!aim.IsValid||!activeInputStates.TryGetValue(caster.GetInstanceID(),out var state))return false;
+            ActiveInputModeProfile profile=state.runtime?.sourceEquipment?.ActiveInputMode;
+            if(profile==null||!profile.Enabled||Time.time>state.expiresAt||state.accepted>=profile.MaxInputs||!CanContinueCombo(caster))
+            {CancelActiveInput(caster);return false;}
+            if(Time.time-state.lastAcceptedAt+.0001f<profile.MinInterval)return false;
+            if(state.running&&state.buffered.Count>=profile.BufferCapacity)return false;
+            state.accepted++;state.lastAcceptedAt=Time.time;
+            if(state.running)state.buffered.Enqueue(aim);
+            else manager.StartOwnedSkillRoutine(RunActiveInputAction(state,aim));
+            return true;
+        }
+
+        internal void CancelActiveInput(Transform caster)
+        {if(caster!=null)activeInputStates.Remove(caster.GetInstanceID());}
+
+        private IEnumerator ExpireActiveInput(int key,ActiveInputState state,float duration)
+        {
+            yield return new WaitForSeconds(Mathf.Max(0f,duration));
+            if(activeInputStates.TryGetValue(key,out var current)&&ReferenceEquals(current,state)&&!state.running)
+                activeInputStates.Remove(key);
+        }
+
+        private IEnumerator RunActiveInputAction(ActiveInputState state,ManualSkillAim aim)
+        {
+            ActiveInputModeProfile profile=state.runtime.sourceEquipment.ActiveInputMode;
+            state.running=true;
+            state.manager.BeginManualActionWindow(-3,true,profile.ActionDuration);
+            float contact=profile.ContactTime;
+            if(contact>0f)yield return new WaitForSeconds(contact);
+            if(state.caster!=null&&activeInputStates.TryGetValue(state.caster.GetInstanceID(),out var current)&&ReferenceEquals(current,state)&&CanContinueCombo(state.caster))
+            {
+                Vector2 direction=aim.Direction.normalized;
+                SkillUseHelper.FireProjectiles(state.runtime,state.caster.gameObject,null,state.caster.position,
+                    direction,(Vector2)state.caster.position+direction,false,hitOverride:profile.ActionHit,
+                    manualAimMode:SkillAimMode.Direction);
+            }
+            float tail=Mathf.Max(0f,profile.ActionDuration-contact);
+            if(tail>0f)yield return new WaitForSeconds(tail);
+            state.running=false;
+            state.manager.EndManualActionWindow();
+            if(state.caster==null||!activeInputStates.TryGetValue(state.caster.GetInstanceID(),out var again)||!ReferenceEquals(again,state))yield break;
+            if(state.buffered.Count>0&&Time.time<=state.expiresAt)
+                state.manager.StartOwnedSkillRoutine(RunActiveInputAction(state,state.buffered.Dequeue()));
+            else if(Time.time>state.expiresAt)activeInputStates.Remove(state.caster.GetInstanceID());
+        }
+
+        private bool StartJangdanRoutine(CharacterSkillManager manager,
+            EquipmentSkillRuntimeData runtime, Transform caster, ManualSkillAim aim)
+        {
+            string id = CharacterSkillHelper.GetSkillId(runtime);
+            JangdanStage stage = SeojinJangdanRuntime.GetStage(caster);
+            bool dungFollowup = id == SeojinJangdanRuntime.DungId && stage == JangdanStage.DungArmed;
+            bool pairedDeok = id == SeojinJangdanRuntime.DeokId && stage == JangdanStage.GiArmed;
+            bool stagedSequence = id == SeojinJangdanRuntime.SequenceId;
+            if (!dungFollowup && !pairedDeok && !IsRuntimeReady(manager, runtime)) return false;
+
+            if (!dungFollowup && !pairedDeok && !stagedSequence &&
+                !UseSkill(manager, runtime)) return false;
+            if (id != SeojinJangdanRuntime.DungId && id != SeojinJangdanRuntime.GiId &&
+                id != SeojinJangdanRuntime.DeokId && id != SeojinJangdanRuntime.SequenceId)
+                return false;
+            if (!stagedSequence) SeojinJangdanRuntime.CancelSequenceProgress(caster);
+
+            float actionWindow = id == SeojinJangdanRuntime.SequenceId
+                ? SeojinJangdanRuntime.SequenceSetDuration
+                : id == SeojinJangdanRuntime.DungId ? .30f
+                : id == SeojinJangdanRuntime.GiId ? .25f
+                : .375f;
+            manager.BeginManualActionWindow(
+                id == SeojinJangdanRuntime.SequenceId ? -2 : -1,
+                true, actionWindow);
+            manager.StartOwnedSkillRoutine(FireJangdanRoutine(manager, runtime, caster, aim,
+                dungFollowup, pairedDeok));
+            return true;
+        }
+
+        private IEnumerator FireJangdanRoutine(CharacterSkillManager manager,
+            EquipmentSkillRuntimeData runtime, Transform caster, ManualSkillAim aim,
+            bool dungFollowup, bool pairedDeok)
+        {
+            string id = CharacterSkillHelper.GetSkillId(runtime);
+            int level = SeojinJangdanRuntime.Level(runtime);
+            Mouse3SkillProfile mouse3 = runtime.sourceEquipment?.Mouse3Profile;
+            AnimationClip bodyClip = dungFollowup
+                ? mouse3?.FollowupBodyClip
+                : runtime.sourceEquipment?.CastSo?.BodyActionClip;
+            float bodyDuration = id == SeojinJangdanRuntime.SequenceId
+                ? SeojinJangdanRuntime.SequenceSetDuration
+                : id == SeojinJangdanRuntime.GiId ? .25f
+                : id == SeojinJangdanRuntime.DeokId ? .375f
+                : .30f;
+            if (bodyClip != null)
+            {
+                ResolveAnimation(caster)?.PlaySkillBodyAction(bodyClip, bodyDuration, true);
+            }
+            bool usePoint = aim.Mode == SkillAimMode.GroundPoint;
+            Vector2 point = usePoint ? aim.Point : (Vector2)caster.position + aim.Direction;
+            Transform target = aim.Mode == SkillAimMode.Target ? aim.Target : null;
+            ManualSkillAim projectileAim = aim;
+            if (id == SeojinJangdanRuntime.DungId)
+            {
+                projectileAim = ResolveJangdanDungGroundAim(runtime, caster, aim.Direction);
+                usePoint = true;
+                point = projectileAim.Point;
+                target = null;
+            }
+            if (id == SeojinJangdanRuntime.SequenceId)
+            {
+                if (!SeojinJangdanRuntime.TryGetSequenceStep(
+                        caster,
+                        manager.ManualExecutionId,
+                        SeojinJangdanRuntime.QRetention(level),
+                        out int stepIndex,
+                        out string comboToken,
+                        out bool assist))
+                    yield break;
+                if (assist) point = (Vector2)caster.position + (point - (Vector2)caster.position) * 1.15f;
+                bool stepFired = true;
+                for (int subHitIndex = 0; subHitIndex < 5; subHitIndex++)
+                {
+                    yield return new WaitForSeconds(.05f);
+                    if (!CanContinueCombo(caster))
+                    {
+                        SeojinJangdanRuntime.Clear(caster);
+                        yield break;
+                    }
+
+                    bool isFinalSequenceHit = stepIndex == 3 && subHitIndex == 4;
+                    stepFired &= UseSkillOnce(
+                        manager,
+                        runtime,
+                        caster,
+                        target,
+                        usePoint,
+                        point,
+                        selectedHitIndex:stepIndex,
+                        comboToken:$"{comboToken}-sub{subHitIndex}",
+                        comboIndex:isFinalSequenceHit ? 3 : Mathf.Min(stepIndex, 2),
+                        suppressVisual:subHitIndex > 0,
+                        manualAim:aim);
+                    if (!stepFired) yield break;
+                }
+
+                // The fifth contact is authoritative at .25. Keep gameplay and
+                // presentation ownership for exactly .10 more seconds; queued
+                // Q/attack input is admitted only in this recovery interval.
+                manager.MarkManualActionContact(
+                    float.PositiveInfinity,
+                    SeojinJangdanRuntime.SequenceRecovery);
+
+                if (stepIndex >= 3)
+                {
+                    if (!UseSkill(manager, runtime)) yield break;
+                    SeojinJangdanRuntime.CommitSequenceStep(caster, stepIndex);
+                    manager.NotifySkillUseSucceeded(runtime);
+                }
+                else
+                {
+                    SeojinJangdanRuntime.CommitSequenceStep(caster, stepIndex);
+                }
+                yield return new WaitForSeconds(SeojinJangdanRuntime.SequenceRecovery);
+                yield break;
+            }
+
+            float contact = id == SeojinJangdanRuntime.GiId ? .125f : .25f;
+            yield return new WaitForSeconds(contact);
+            if (!CanContinueCombo(caster)) { SeojinJangdanRuntime.Clear(caster); yield break; }
+            int hitIndex = dungFollowup || pairedDeok ? 1 : 0;
+            bool fired = UseSkillOnce(manager, runtime, caster, target, usePoint, point,
+                selectedHitIndex:hitIndex,
+                comboToken:$"jangdan-{manager.ManualExecutionId}-{hitIndex}", comboIndex:hitIndex,
+                visualClipOverride:dungFollowup ? mouse3?.FollowupVfxClip : null,
+                minimumVisualLifetime:!dungFollowup && id == SeojinJangdanRuntime.DungId
+                    ? SeojinJangdanRuntime.DungHoldMax
+                    : 0f,
+                manualAim:projectileAim);
+            if (!fired) { SeojinJangdanRuntime.Clear(caster); yield break; }
+            manager.NotifySkillUseSucceeded(runtime);
+            if (id == SeojinJangdanRuntime.DungId)
+            {
+                if (dungFollowup) SeojinJangdanRuntime.CompletePair(caster);
+                else SeojinJangdanRuntime.Arm(caster, JangdanStage.DungArmed,
+                    SeojinJangdanRuntime.DungHoldMax,
+                    manager.ManualExecutionId, target, point);
+                if (!dungFollowup)
+                {
+                    manager.StartBackgroundSkillRoutine(HoldJangdanDungRoutine(caster));
+                    yield return new WaitForSeconds(.05f);
+                }
+            }
+            else if (id == SeojinJangdanRuntime.GiId)
+                SeojinJangdanRuntime.Arm(caster, JangdanStage.GiArmed,
+                    SeojinJangdanRuntime.DeokWindow(level) + SeojinJangdanRuntime.GiRetentionBonus(level),
+                    manager.ManualExecutionId, target, point);
+            else if (id == SeojinJangdanRuntime.DeokId)
+            {
+                if (pairedDeok) SeojinJangdanRuntime.CompletePair(caster);
+                else SeojinJangdanRuntime.Clear(caster);
+            }
+        }
+
+        private static ManualSkillAim ResolveJangdanDungGroundAim(
+            EquipmentSkillRuntimeData runtime,
+            Transform caster,
+            Vector2 inputDirection)
+        {
+            Vector2 direction = inputDirection.sqrMagnitude > .0001f
+                ? inputDirection.normalized
+                : Vector2.right;
+            Vector2 origin = caster != null ? (Vector2)caster.position : Vector2.zero;
+            float distance = Mathf.Max(0f, runtime != null ? runtime.resolvedRange : 0f);
+            Vector2 desiredPoint = origin + direction * distance;
+
+            // Snapshot once. Bounds/environment sweeping clamps static world geometry;
+            // character bodies do not become blockers for this ground zone.
+            Vector2 boundedPoint = Battle.BattleMapBoundsContext.ClampActorCenter(desiredPoint);
+            Rigidbody2D casterBody = caster != null
+                ? caster.GetComponent<Rigidbody2D>() ?? caster.GetComponentInParent<Rigidbody2D>()
+                : null;
+            Vector2 fixedPoint = Battle.BattleMapBoundsContext.SweepActorStep(
+                origin,
+                boundedPoint,
+                casterBody);
+            return new ManualSkillAim(
+                SkillAimMode.GroundPoint,
+                direction,
+                fixedPoint);
+        }
+
+        private IEnumerator HoldJangdanDungRoutine(Transform caster)
+        {
+            try
+            {
+                while (CanContinueCombo(caster) && SeojinJangdanRuntime.IsDungHoldActive(caster))
+                {
+                    SeojinJangdanRuntime.RefreshDungHold(caster);
+                    yield return new WaitForSeconds(SeojinJangdanRuntime.DungHoldRefresh);
+                }
+            }
+            finally { SeojinJangdanRuntime.CompleteDungHold(caster); }
         }
         /// <summary>
         /// Marks a skill as actually used.
@@ -583,6 +875,12 @@ namespace Character.Skill
                 skillManager.StartOwnedSkillRoutine(routine);
                 return true;
             }
+
+            SkillCastSO windowCast = runtime.sourceEquipment?.CastSo;
+            float windowDuration = windowCast?.BodyActionPlayback != null
+                ? windowCast.BodyActionPlayback.Duration(windowCast.BodyActionClip)
+                : .20f;
+            skillManager.BeginManualActionWindow(-1, true, windowDuration);
 
             bool isSelfOrNoTargetSkill = manualAim.HasValue?manualAim.Value.Mode==SkillAimMode.Self:IsSelfOrNoTargetSkill(runtime);
             Vector2 resolvedTargetPoint = ResolveTargetPoint(
@@ -752,6 +1050,13 @@ namespace Character.Skill
 
             for (int burstIndex = 0; burstIndex < burstCount; burstIndex++)
             {
+                if (!CanContinueCombo(caster)) yield break;
+                Mouse3SkillProfile mouse3 = runtime.sourceEquipment?.Mouse3Profile;
+                if (burstIndex > 0 && mouse3?.FollowupBodyClip != null)
+                {
+                    ResolveAnimation(caster)?.PlaySkillBodyAction(
+                        mouse3.FollowupBodyClip, .18f, true);
+                }
                 if(manualAim?.Mode==SkillAimMode.Target&&!IsManualTargetValid(runtime,caster,manualAim.Value.Target)){MainCharacterSkillFocusFeature.CancelPending(caster);yield break;}
                 if (!successNotified)
                 {
@@ -763,7 +1068,10 @@ namespace Character.Skill
                     caster,
                     target,
                     usePoint,
-                    targetPoint,manualAim:manualAim);
+                    targetPoint,
+                    visualClipOverride: burstIndex > 0 ? mouse3?.FollowupVfxClip : null,
+                    comboIndex: burstIndex,
+                    manualAim:manualAim);
 
                 if (burstFired && !successNotified)
                 {
@@ -794,6 +1102,8 @@ namespace Character.Skill
             int casterId = caster.GetInstanceID();
             string comboToken = $"seojin-basic-combo-{++nextComboToken}";
             bool sharedCritical = RollComboCritical(caster);
+            Mouse3BasicBridgeState.Bonus bridgeBonus = default;
+            bool hasBridgeBonus = Mouse3BasicBridgeState.TryConsume(caster, out bridgeBonus);
             float elapsed = 0f;
             bool anyStepFired = false;
             Transform target = initialTarget;
@@ -864,7 +1174,9 @@ namespace Character.Skill
                 float targetRange = runtime.sourceEquipment.CastSo != null
                     ? runtime.sourceEquipment.CastSo.Range
                     : 0f;
-                float continuationRange = targetRange + (i > 0 ? 0.25f : 0f);
+                float continuationRange = targetRange *
+                    (i == 0 && hasBridgeBonus ? 1f + bridgeBonus.RangeRatio : 1f) +
+                    (i > 0 ? 0.25f : 0f);
                 target = NormalizeComboTarget(target);
                 if (!freeAim&&(!IsValidComboTarget(caster, target, step.Hit) ||
                     !IsComboTargetInRange(caster, target, continuationRange)))
@@ -872,7 +1184,9 @@ namespace Character.Skill
                     if(manualAim?.Mode==SkillAimMode.Target)break;
                     target = ResolveComboRetarget(caster, continuationRange, step.Hit);
                     float retargetElapsed = 0f;
-                    while (retargetElapsed < 0.12f &&
+                    float retargetWindow = 0.12f +
+                        (i == 0 && hasBridgeBonus ? bridgeBonus.InputGrace : 0f);
+                    while (retargetElapsed < retargetWindow &&
                            (!IsValidComboTarget(caster, target, step.Hit) ||
                             !IsComboTargetInRange(caster, target, continuationRange)))
                     {
@@ -935,7 +1249,9 @@ namespace Character.Skill
                 if (target != null &&
                     Vector2.Distance(caster.position, target.position) > 0.05f)
                 {
-                    ApplyCollisionSafeLunge(caster, target, direction, step.LungeDistance);
+                    float lungeDistance = step.LungeDistance *
+                        (i == 0 && hasBridgeBonus ? 1f + bridgeBonus.ForwardRatio : 1f);
+                    ApplyCollisionSafeLunge(caster, target, direction, lungeDistance);
                 }
 
                 float waitToHit = Mathf.Max(0f, step.HitTime - elapsed);
@@ -1066,6 +1382,8 @@ namespace Character.Skill
                     comboToken = $"seojin-basic-input-combo-{++nextComboToken}",
                     sharedCritical = RollComboCritical(caster)
                 };
+                progress.hasBridgeBonus = Mouse3BasicBridgeState.TryConsume(
+                    caster, out progress.bridgeBonus);
                 timedComboProgressByCaster[casterId] = progress;
             }
 
@@ -1075,6 +1393,8 @@ namespace Character.Skill
             object facingOwner = new object();
             try
             {
+                skillManager.BeginManualActionWindow(stepIndex + 1, false,
+                    Mathf.Max(0f, step.RecoveryEnd - step.StartTime));
                 if (!CanContinueGeneration(caster, generation) ||
                     (manualAim.HasValue && !skillManager.ManualComboAuthorized))
                     yield break;
@@ -1096,7 +1416,10 @@ namespace Character.Skill
                 float targetRange = runtime.sourceEquipment.CastSo != null
                     ? runtime.sourceEquipment.CastSo.Range
                     : 0f;
-                float continuationRange = targetRange + (stepIndex > 0 ? 0.25f : 0f);
+                float continuationRange = targetRange *
+                    (stepIndex == 0 && progress.hasBridgeBonus
+                        ? 1f + progress.bridgeBonus.RangeRatio : 1f) +
+                    (stepIndex > 0 ? 0.25f : 0f);
                 if (!freeAim && (!IsValidComboTarget(caster, target, step.Hit) ||
                     !IsComboTargetInRange(caster, target, continuationRange)))
                 {
@@ -1135,8 +1458,19 @@ namespace Character.Skill
                     animation?.RestartAttack();
                 }
 
-                if (target != null && Vector2.Distance(caster.position, target.position) > 0.05f)
-                    ApplyCollisionSafeLunge(caster, target, direction, step.LungeDistance);
+                bool manualDirectionLunge =
+                    manualAim?.Mode == SkillAimMode.Direction &&
+                    direction.sqrMagnitude > 0.0001f;
+                bool targetedLunge =
+                    target != null &&
+                    Vector2.Distance(caster.position, target.position) > 0.05f;
+                if (manualDirectionLunge || targetedLunge)
+                {
+                    float lungeDistance = step.LungeDistance *
+                        (stepIndex == 0 && progress.hasBridgeBonus
+                            ? 1f + progress.bridgeBonus.ForwardRatio : 1f);
+                    ApplyCollisionSafeLunge(caster, target, direction, lungeDistance);
+                }
 
                 if (localHitTime > 0f)
                     yield return new WaitForSeconds(localHitTime);
@@ -1150,9 +1484,25 @@ namespace Character.Skill
                     0, step.VfxClip, step.VfxProfileOverride,
                     step.VfxPresentationCalibration, progress.comboToken,
                     progress.sharedCritical, step.DamageWeight, step.ComboIndex,
-                    step.Hit, step.ComboIndex < 2, step.MinimumVisualLifetime, manualAim);
+                    step.Hit, step.ComboIndex < 2, step.MinimumVisualLifetime, manualAim,
+                    step.GatherDistance, step.GatherDuration, step.GatherStopRadius,
+                    step.GatherBossHardCap);
                 if (!fired)
                     yield break;
+
+                // Hit 1/2 recovery is link-locked. Hit 3 alone opens an immediate
+                // offensive bridge after the authoritative contact has spawned.
+                skillManager.MarkManualActionContact(
+                    stepIndex < 2 ? float.PositiveInfinity : 0f,
+                    Mathf.Max(0f, localRecoveryEnd - localHitTime));
+
+                if (stepIndex < 2)
+                {
+                    progress.nextStepIndex = stepIndex + 1;
+                    progress.continuationExpiresAt = Time.time + step.NextComboActivationTime +
+                        (stepIndex == 0 && progress.hasBridgeBonus
+                            ? progress.bridgeBonus.InputGrace : 0f);
+                }
 
                 float recoveryDelay = localRecoveryEnd - localHitTime;
                 if (recoveryDelay > 0f)
@@ -1169,7 +1519,9 @@ namespace Character.Skill
                 if (stepIndex < 2 && step.NextComboActivationTime > 0f)
                 {
                     progress.nextStepIndex = stepIndex + 1;
-                    progress.continuationExpiresAt = Time.time + step.NextComboActivationTime;
+                    progress.continuationExpiresAt = Time.time + step.NextComboActivationTime +
+                        (stepIndex == 0 && progress.hasBridgeBonus
+                            ? progress.bridgeBonus.InputGrace : 0f);
                 }
                 else
                 {
@@ -1178,11 +1530,13 @@ namespace Character.Skill
             }
             finally
             {
+                skillManager.EndManualActionWindow();
                 ResolveAnimation(caster)?.ReleaseFacingLock(facingOwner);
                 if (comboFacingOwners.TryGetValue(casterId, out object owner) &&
                     ReferenceEquals(owner, facingOwner))
                     comboFacingOwners.Remove(casterId);
-                if (!completed)
+                bool preserveCommitted = preserveCommittedComboProgress.Remove(casterId);
+                if (!completed && !preserveCommitted)
                     timedComboProgressByCaster.Remove(casterId);
                 if (comboGenerations.TryGetValue(casterId, out int current) && current == generation)
                 {
@@ -1209,7 +1563,9 @@ namespace Character.Skill
             int comboIndex = -1,
             SkillHitSO hitOverride = null,
             bool suppressVisual = false,
-            float minimumVisualLifetime = 0f,ManualSkillAim? manualAim=null)
+            float minimumVisualLifetime = 0f,ManualSkillAim? manualAim=null,
+            float comboGatherDistance=0f,float comboGatherDuration=0f,
+            float comboGatherStopRadius=0f,float comboGatherBossHardCap=0f)
         {
             return SkillUseHelper.UseSkill(
                 new SkillUseContext
@@ -1231,7 +1587,11 @@ namespace Character.Skill
                     ComboIndex = comboIndex,
                     HitOverride = hitOverride,
                     SuppressVisual = suppressVisual,
-                    MinimumVisualLifetime = minimumVisualLifetime
+                    MinimumVisualLifetime = minimumVisualLifetime,
+                    ComboGatherDistance = Mathf.Max(0f, comboGatherDistance),
+                    ComboGatherDuration = Mathf.Max(0f, comboGatherDuration),
+                    ComboGatherStopRadius = Mathf.Max(0f, comboGatherStopRadius),
+                    ComboGatherBossHardCap = Mathf.Max(0f, comboGatherBossHardCap)
                 });
         }
 
@@ -1387,6 +1747,9 @@ namespace Character.Skill
             RaycastHit2D[] hits = new RaycastHit2D[8];
             int count = body.Cast(direction.normalized, filter, hits, distance);
             float allowed = distance;
+            Transform intendedRoot = intendedTarget != null
+                ? intendedTarget.root
+                : null;
             for (int i = 0; i < count; i++)
             {
                 Collider2D collider = hits[i].collider;
@@ -1395,7 +1758,8 @@ namespace Character.Skill
                     continue;
                 }
 
-                float clearance = collider.transform.root == intendedTarget.root
+                float clearance = intendedRoot != null &&
+                    collider.transform.root == intendedRoot
                     ? 0.02f
                     : 0.01f;
                 allowed = Mathf.Min(allowed, Mathf.Max(0f, hits[i].distance - clearance));

@@ -1,0 +1,36 @@
+{
+  "task": "M3-ART-V1 BODY RECOVERY",
+  "identity_reference": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Character/portrait/character.seojin.1.portrait.png",
+  "generator": "built-in ImageGen",
+  "target_composition": "568x340 landscape (raw generator output preserved; no resize)",
+  "result": "PASS 18/18 native-alpha physical outputs",
+  "constraints": {"board": false, "strip": false, "loop": false, "existing_icons_vfx_touched": false},
+  "alpha_recovery": "Initial RGB outputs received exactly one background-only ImageGen edit; native RGBA originals were preserved directly.",
+  "frames": {
+    "command_chain": [
+      ["frame_01.png","1619x971","9c2ad3e4c1b2a51d2e725ab4b1fa31dcc71a4e2ce3832ebbf3fdb2be4da5cf39"],
+      ["frame_02.png","1621x970","04376391c10779477fc143e5176865ea4813373e80ac31fa44099c963e12e5c5"],
+      ["frame_03.png","1620x971","18cb0ceb503aad2a84a59fc883e559f434dcd16b0150da2e9571a041c9b236e8"],
+      ["frame_04.png","1619x971","aa4a2969aea6c1df2e77643d7d725c0fdc6529cae6c0b7a9fbff56de5f94e3b4"],
+      ["frame_05.png","1620x971","f667789176d02826a33149470169b874194fa02c0a4eb0c81dfdbc253d909654"],
+      ["frame_06.png","1619x971","a393bfb1c99a4501443e747e00eb5fbededf04a6f84c24a291d1840f1fc3228a"]
+    ],
+    "thunder_command": [
+      ["frame_01.png","1620x971","9ce24d63d9b4e5d6bdfc25f6406958625b504fdafe88182905f20998a8317aff"],
+      ["frame_02.png","1620x971","7b9285d8568d7b872663542f1709886098eeec1143c5070867f84658b0935b9b"],
+      ["frame_03.png","1620x971","99c43cd0dff0e9f7115eac9c5c6a04386666a11acf86560cd5f4217f5c66d389"],
+      ["frame_04.png","1621x970","a579a0e85fc94b8e623c8a7e645ed58667d2c60efa0abdcaf033327c26a1f5d5"],
+      ["frame_05.png","1622x970","2bb98b74e18f9d80bd98aa75f29d4df7da34d829351172af66ecad8662acc6c5"],
+      ["frame_06.png","1620x971","475af84f0ce540b554c7c98ece590721ab172fcbcddeab34a8512daa95f1d794"]
+    ],
+    "blockade_cut": [
+      ["frame_01.png","1619x971","bb4b96f9f2ec7fa27e462a6cfa80f2b43595614d0258052e3215913f8e1639f3"],
+      ["frame_02.png","1621x970","4ffb04119c37acde3febe1316122d05e7a0867d59ec1e80e69227872d6888de7"],
+      ["frame_03.png","1619x971","5e762367c312c4806a97d1e611056418d18413e8a9ca3b9d668c87e924239325"],
+      ["frame_04.png","1620x971","97c1fb89a3c7c18559e91f23816e1f83a0ff4e9bb475a6b76f1308b626709496"],
+      ["frame_05.png","1620x971","3bb324b2e5b4d8e2573d0d186b6b4965d912c1f287427823ad30e7c67b94df3c"],
+      ["frame_06.png","1622x970","3124fc4e8be712d508f37e9b9ebb66875cddcfb692122565618277a001d713bd"]
+    ]
+  },
+  "mode": "RGBA / hasAlpha=yes for every frame"
+}

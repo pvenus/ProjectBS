@@ -40,6 +40,7 @@ namespace ResourceTools.Effect
             // Keep both inputs so nested hit effects remain backward compatible.
             public string valueType;
             public float value;
+            public float rootHardCap = 0.2f;
         }
 
         [Serializable]
@@ -720,7 +721,8 @@ namespace ResourceTools.Effect
             config.ApplyEditorData(
                 ParseEnum(data.statType, StatType.None),
                 ParseEnum(data.modifierType, StatModifierType.Flat),
-                data.value);
+                data.value,
+                data.rootHardCap > 0f ? data.rootHardCap : 0.2f);
 
             return config;
         }

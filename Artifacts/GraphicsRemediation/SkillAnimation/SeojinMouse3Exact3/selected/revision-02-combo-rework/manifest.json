@@ -1,0 +1,897 @@
+{
+  "task": "M3-COMBO-REV2",
+  "status": "DELTA_ART_CANDIDATE",
+  "authorityMeaning": {
+    "active_5": "retain revision-01 all",
+    "active_6": "replace body/VFX; icon retained",
+    "active_7": "replace VFX only; body/icon retained"
+  },
+  "runtimeTiming": {
+    "active_6": {
+      "contact1": 0.16,
+      "contact2L4": 0.38,
+      "bodyTotalSingle": 0.42,
+      "bodyTotalDouble": 0.56
+    },
+    "active_7": {
+      "fanDegrees": 60,
+      "gatherTarget": "aim point inside fan"
+    }
+  },
+  "sourceManifest": "/Users/pvenus/ProjectBS/Artifacts/candidates/M3-COMBO-REV2-v20260909/manifest.json",
+  "sourceManifestSha256": "d4a920be85bc599b0e7f2cadf312510cc986d42a480b088b10b4007c5f36d8a5",
+  "previousManifest": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-01/manifest.json",
+  "previousManifestSha256": "9fce6d4002c9a327ffc945e4f670e4b66ebee04d85db7399b6d39a853ff204a5",
+  "assets": [
+    {
+      "skill": "active_6",
+      "kind": "body",
+      "frame": 0,
+      "source": "/Users/pvenus/ProjectBS/Artifacts/candidates/M3-COMBO-REV2-v20260909/active_6/body/frame_01.png",
+      "sourceSha256": "beadab8b47c22b6797ca8c29b34432e76b9102b5a8dcbab4f8b0c9842a0ff18b",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/active_6/body/frame-00.png",
+      "sha256": "25b2730422009550f443eef6c02b7c969465389433c5f239d9f6ed0683228732",
+      "size": [
+        568,
+        340
+      ],
+      "mode": "RGBA",
+      "alphaBbox": [
+        145,
+        12,
+        451,
+        328
+      ]
+    },
+    {
+      "skill": "active_6",
+      "kind": "body",
+      "frame": 1,
+      "source": "/Users/pvenus/ProjectBS/Artifacts/candidates/M3-COMBO-REV2-v20260909/active_6/body/frame_02.png",
+      "sourceSha256": "35c1791db2319555d75a8a9465cbe1e432050e18ce347b2ec479dd0efbd5ae99",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/active_6/body/frame-01.png",
+      "sha256": "9bb61a4ceb4f3b840c4a4cb389ecf483b56d9e0e9901df1f4b398abce4fd8cf0",
+      "size": [
+        568,
+        340
+      ],
+      "mode": "RGBA",
+      "alphaBbox": [
+        50,
+        12,
+        517,
+        328
+      ]
+    },
+    {
+      "skill": "active_6",
+      "kind": "body",
+      "frame": 2,
+      "source": "/Users/pvenus/ProjectBS/Artifacts/candidates/M3-COMBO-REV2-v20260909/active_6/body/frame_03.png",
+      "sourceSha256": "6abd040436801a2988e4f60296fb49fcb80809a1cb608600b8dfacda2cf435ca",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/active_6/body/frame-02.png",
+      "sha256": "6517769fc150f60059fc8ddc6f242ccd51d60a633900bb1423a41aac77a3b584",
+      "size": [
+        568,
+        340
+      ],
+      "mode": "RGBA",
+      "alphaBbox": [
+        104,
+        12,
+        351,
+        328
+      ]
+    },
+    {
+      "skill": "active_6",
+      "kind": "body",
+      "frame": 3,
+      "source": "/Users/pvenus/ProjectBS/Artifacts/candidates/M3-COMBO-REV2-v20260909/active_6/body/frame_04.png",
+      "sourceSha256": "984334cb31cf0e2f0ef74ae4bd5e6746edfd7b825d86b45d870a1ba7e62ef58f",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/active_6/body/frame-03.png",
+      "sha256": "75db70bda56093bf8e495a9a3d62b177b0a78cd5324be3e2447d5fcd57b98340",
+      "size": [
+        568,
+        340
+      ],
+      "mode": "RGBA",
+      "alphaBbox": [
+        80,
+        12,
+        529,
+        328
+      ]
+    },
+    {
+      "skill": "active_6",
+      "kind": "body",
+      "frame": 4,
+      "source": "/Users/pvenus/ProjectBS/Artifacts/candidates/M3-COMBO-REV2-v20260909/active_6/body/frame_05.png",
+      "sourceSha256": "8872912b91e82eb31281fb1661886c3854a2fe08bbed0c46b97be4cb6d7cbb09",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/active_6/body/frame-04.png",
+      "sha256": "05dcc49df68abfa55fa54d1cb6694d3a736b5324d5d8253766346acbf2635c62",
+      "size": [
+        568,
+        340
+      ],
+      "mode": "RGBA",
+      "alphaBbox": [
+        129,
+        12,
+        539,
+        328
+      ]
+    },
+    {
+      "skill": "active_6",
+      "kind": "body",
+      "frame": 5,
+      "source": "/Users/pvenus/ProjectBS/Artifacts/candidates/M3-COMBO-REV2-v20260909/active_6/body/frame_06.png",
+      "sourceSha256": "dccc7ab01b2f029e77f77bcb2a3f08d28c8f3766bd1c05aaffe173cc89f81cc7",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/active_6/body/frame-05.png",
+      "sha256": "0a3705cad601f727c2470766f154189b0778a49c0927176797dc9b54457040dc",
+      "size": [
+        568,
+        340
+      ],
+      "mode": "RGBA",
+      "alphaBbox": [
+        160,
+        12,
+        408,
+        328
+      ]
+    },
+    {
+      "skill": "active_6",
+      "kind": "body",
+      "frame": 6,
+      "source": "/Users/pvenus/ProjectBS/Artifacts/candidates/M3-COMBO-REV2-v20260909/active_6/body/frame_07.png",
+      "sourceSha256": "cd88d269cb29521b896d3d64f930700cc78698aeebd5ce0c3853ec101326c90d",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/active_6/body/frame-06.png",
+      "sha256": "edef7a11410243186a6861ed4cdf3b43810447a0c6f25b96e124c31e65d23635",
+      "size": [
+        568,
+        340
+      ],
+      "mode": "RGBA",
+      "alphaBbox": [
+        88,
+        12,
+        540,
+        328
+      ]
+    },
+    {
+      "skill": "active_6",
+      "kind": "body",
+      "frame": 7,
+      "source": "/Users/pvenus/ProjectBS/Artifacts/candidates/M3-COMBO-REV2-v20260909/active_6/body/frame_08.png",
+      "sourceSha256": "25b6120e03d99659697a96f4367a3244640cfd2dce7627fd590095ad404619cc",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/active_6/body/frame-07.png",
+      "sha256": "3decc7103128ff7a703333b13da937c28193e98030b035163ebdf5163223d759",
+      "size": [
+        568,
+        340
+      ],
+      "mode": "RGBA",
+      "alphaBbox": [
+        187,
+        12,
+        457,
+        328
+      ]
+    },
+    {
+      "skill": "active_6",
+      "kind": "body",
+      "frame": 8,
+      "source": "/Users/pvenus/ProjectBS/Artifacts/candidates/M3-COMBO-REV2-v20260909/active_6/body/frame_09.png",
+      "sourceSha256": "049a7196f0f1afb59c68a23a10dd6349fff6528508437f1c79cad9ffab2f88e3",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/active_6/body/frame-08.png",
+      "sha256": "cf2b9ba9b2f988c3436be7dd548e8e332ac8ac80adc72fbf66873ea0b3a20da1",
+      "size": [
+        568,
+        340
+      ],
+      "mode": "RGBA",
+      "alphaBbox": [
+        106,
+        12,
+        543,
+        328
+      ]
+    },
+    {
+      "skill": "active_6",
+      "kind": "body",
+      "frame": 9,
+      "source": "/Users/pvenus/ProjectBS/Artifacts/candidates/M3-COMBO-REV2-v20260909/active_6/body/frame_10.png",
+      "sourceSha256": "b507e0a7960677f77ebce60372541637cfe517c1d7069c22ea6f820f36332aa8",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/active_6/body/frame-09.png",
+      "sha256": "57c13bac8ab1d15660448d741da82aca0b0f285b876344e4edda2a3125a06028",
+      "size": [
+        568,
+        340
+      ],
+      "mode": "RGBA",
+      "alphaBbox": [
+        29,
+        12,
+        551,
+        328
+      ]
+    },
+    {
+      "skill": "active_6",
+      "kind": "body",
+      "frame": 10,
+      "source": "/Users/pvenus/ProjectBS/Artifacts/candidates/M3-COMBO-REV2-v20260909/active_6/body/frame_11.png",
+      "sourceSha256": "895a6f3eb0b14010771abf39b9ca6c87eb30021048fdc3f1a9bff72184b61d66",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/active_6/body/frame-10.png",
+      "sha256": "74c6593e923d7b47a502b03a9b6698fc8466425c34bea3fa3ee15db22ad2ae4f",
+      "size": [
+        568,
+        340
+      ],
+      "mode": "RGBA",
+      "alphaBbox": [
+        116,
+        12,
+        495,
+        328
+      ]
+    },
+    {
+      "skill": "active_6",
+      "kind": "body",
+      "frame": 11,
+      "source": "/Users/pvenus/ProjectBS/Artifacts/candidates/M3-COMBO-REV2-v20260909/active_6/body/frame_12.png",
+      "sourceSha256": "6274da6bbe10e5ca2da336357d67ed9a3e07f2ac9fb87f0de226e86581a73970",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/active_6/body/frame-11.png",
+      "sha256": "5ea63688d3dc887ae43fec70e0a33a0a5b1c9452a3d8ae36e1237803de0ed691",
+      "size": [
+        568,
+        340
+      ],
+      "mode": "RGBA",
+      "alphaBbox": [
+        127,
+        12,
+        451,
+        328
+      ]
+    },
+    {
+      "skill": "active_6",
+      "kind": "bodyGif",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/evidence/active_6-body.gif",
+      "sha256": "fe6561c1cb22e70a53c9a4f17982f5a2ff6fbad82f7428afcc6433d496d384ea",
+      "physicalFrames": 12,
+      "delayMs": 50
+    },
+    {
+      "skill": "active_6",
+      "kind": "contact",
+      "subject": "body",
+      "scale": 200,
+      "background": "dark",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/evidence/active_6-body-contact-200-dark.png",
+      "sha256": "cb3221b09c2f4e4e9df11f32858f9265a4beda0906a373c0adbc6fe312bf603c"
+    },
+    {
+      "skill": "active_6",
+      "kind": "contact",
+      "subject": "body",
+      "scale": 200,
+      "background": "light",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/evidence/active_6-body-contact-200-light.png",
+      "sha256": "48e279e3b79c31b45eef26ac64e7fbaea17135056bbe10e10e7be1d2a9f49a44"
+    },
+    {
+      "skill": "active_6",
+      "kind": "contact",
+      "subject": "body",
+      "scale": 200,
+      "background": "gray",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/evidence/active_6-body-contact-200-gray.png",
+      "sha256": "f1f8eeaaf9f4318875b9a400812e226b49cb6bb8259c3c738f680d0fa230a163"
+    },
+    {
+      "skill": "active_6",
+      "kind": "contact",
+      "subject": "body",
+      "scale": 80,
+      "background": "dark",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/evidence/active_6-body-contact-80-dark.png",
+      "sha256": "6a32a63b407cdff61deed95822e9499d6fcfa61ac57de497326b9cb733d39ec9"
+    },
+    {
+      "skill": "active_6",
+      "kind": "contact",
+      "subject": "body",
+      "scale": 80,
+      "background": "light",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/evidence/active_6-body-contact-80-light.png",
+      "sha256": "0166902c3ad1f760c8e1937b439f9e95daf725590d939dfba99d732825ad565e"
+    },
+    {
+      "skill": "active_6",
+      "kind": "contact",
+      "subject": "body",
+      "scale": 80,
+      "background": "gray",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/evidence/active_6-body-contact-80-gray.png",
+      "sha256": "d04c1dd25f41235970c33a1193979fb6ce9c0e071f79057227926bf9b5ca4855"
+    },
+    {
+      "skill": "active_6",
+      "kind": "contact",
+      "subject": "body",
+      "scale": 32,
+      "background": "dark",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/evidence/active_6-body-contact-32-dark.png",
+      "sha256": "1494580ef1040110233ae5b6cca52acfc0e486efb15cd5e6ab4dfdad1f71dc4d"
+    },
+    {
+      "skill": "active_6",
+      "kind": "contact",
+      "subject": "body",
+      "scale": 32,
+      "background": "light",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/evidence/active_6-body-contact-32-light.png",
+      "sha256": "3d65f664c2058b9ff337712931f704ffb0bb425aebe7c21d77c1b5f5f8a78423"
+    },
+    {
+      "skill": "active_6",
+      "kind": "contact",
+      "subject": "body",
+      "scale": 32,
+      "background": "gray",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/evidence/active_6-body-contact-32-gray.png",
+      "sha256": "eee4fbd146e73c190ec47a5347b7b08fc9621965041e35f90c71617618a6bbfa"
+    },
+    {
+      "skill": "active_6",
+      "kind": "vfx",
+      "frame": 0,
+      "source": "/Users/pvenus/ProjectBS/Artifacts/candidates/M3-COMBO-REV2-v20260909/active_6/vfx/frame_01.png",
+      "sourceSha256": "63297f83341e0f23bf337b3ba3eb448bcabb8140fecae6472075fe774a5f8da8",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/active_6/vfx/frame-00.png",
+      "sha256": "7431d96dd232355a3f566293f507cb1eae09c419bff1e1e342c30a7122ce4c28",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBbox": [
+        91,
+        127,
+        215,
+        185
+      ]
+    },
+    {
+      "skill": "active_6",
+      "kind": "vfx",
+      "frame": 1,
+      "source": "/Users/pvenus/ProjectBS/Artifacts/candidates/M3-COMBO-REV2-v20260909/active_6/vfx/frame_02.png",
+      "sourceSha256": "0e647f54798d70cf36ed4faf3a341af2862075e733eba39bb14cc8de088f51d5",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/active_6/vfx/frame-01.png",
+      "sha256": "29cf6a53d8f99c5bf3b7fb024bdbb1ade4cc988b3fc54c3e091647569ba7e201",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBbox": [
+        12,
+        87,
+        244,
+        169
+      ]
+    },
+    {
+      "skill": "active_6",
+      "kind": "vfx",
+      "frame": 2,
+      "source": "/Users/pvenus/ProjectBS/Artifacts/candidates/M3-COMBO-REV2-v20260909/active_6/vfx/frame_03.png",
+      "sourceSha256": "db1bd9f1becfee4eebd75e9df5d264ce3e73d541d84335c6823e08fc41adf2f2",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/active_6/vfx/frame-02.png",
+      "sha256": "eeb33b876c0889c27083646849b988f02133a60aa6662e43baf3317f93fffbab",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBbox": [
+        12,
+        88,
+        244,
+        166
+      ]
+    },
+    {
+      "skill": "active_6",
+      "kind": "vfx",
+      "frame": 3,
+      "source": "/Users/pvenus/ProjectBS/Artifacts/candidates/M3-COMBO-REV2-v20260909/active_6/vfx/frame_04.png",
+      "sourceSha256": "d4808c1cd21c6651e4319e28701d09b67650340eba94e860f78ad5e702c6f2c4",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/active_6/vfx/frame-03.png",
+      "sha256": "cec773ac4924ce229e826f0cb06baa8b4263dcfba87ccba7a7b893322a309acb",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBbox": [
+        13,
+        68,
+        244,
+        188
+      ]
+    },
+    {
+      "skill": "active_6",
+      "kind": "vfx",
+      "frame": 4,
+      "source": "/Users/pvenus/ProjectBS/Artifacts/candidates/M3-COMBO-REV2-v20260909/active_6/vfx/frame_05.png",
+      "sourceSha256": "fc395e0a626666e7d8c09d1b465ca6d2a4237773a863483673515325a293f0f6",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/active_6/vfx/frame-04.png",
+      "sha256": "3e27ba678d95222fc8786eee0dfe32f89902990fbc59578ae1e6ba9595da766b",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBbox": [
+        13,
+        78,
+        243,
+        189
+      ]
+    },
+    {
+      "skill": "active_6",
+      "kind": "vfx",
+      "frame": 5,
+      "source": "/Users/pvenus/ProjectBS/Artifacts/candidates/M3-COMBO-REV2-v20260909/active_6/vfx/frame_06.png",
+      "sourceSha256": "5035d83204a002b1d3330714b24de9d996217a678791c2b2473267b8d139103d",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/active_6/vfx/frame-05.png",
+      "sha256": "8fd4387a07e8756c77e7e5d6baa953278565f7644ea3073eb42c8fba59dedc23",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBbox": [
+        12,
+        74,
+        244,
+        178
+      ]
+    },
+    {
+      "skill": "active_6",
+      "kind": "vfx",
+      "frame": 6,
+      "source": "/Users/pvenus/ProjectBS/Artifacts/candidates/M3-COMBO-REV2-v20260909/active_6/vfx/frame_07.png",
+      "sourceSha256": "73453bae797752baafacbd8b7e0f8d8ded4380efd9bc035c656bd051661b69bf",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/active_6/vfx/frame-06.png",
+      "sha256": "048e6bb2d06e8c1a0899888d90cbd1768178c133c5ffe82d4c66bcd33f29aa6f",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBbox": [
+        12,
+        86,
+        244,
+        235
+      ]
+    },
+    {
+      "skill": "active_6",
+      "kind": "vfx",
+      "frame": 7,
+      "source": "/Users/pvenus/ProjectBS/Artifacts/candidates/M3-COMBO-REV2-v20260909/active_6/vfx/frame_08.png",
+      "sourceSha256": "4eea1e89f2039e0398595ac937ab1c7da0c9e5754f5b201a69f44d6fdc7c3b25",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/active_6/vfx/frame-07.png",
+      "sha256": "5fc00f3c32fe438b293a25d29ad9939ee9bc021683761280d84d398cbe05a01c",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBbox": [
+        12,
+        86,
+        244,
+        191
+      ]
+    },
+    {
+      "skill": "active_6",
+      "kind": "vfx",
+      "frame": 8,
+      "source": "/Users/pvenus/ProjectBS/Artifacts/candidates/M3-COMBO-REV2-v20260909/active_6/vfx/frame_09.png",
+      "sourceSha256": "acb09950e23d4a47cc89b1a0fc9534b1e5fb4f72c2afbee3507a3aa83c223e49",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/active_6/vfx/frame-08.png",
+      "sha256": "04829c1425dab5ab6a48428a882e84e420224ad7241a99ffcc910787d8521d06",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBbox": [
+        12,
+        82,
+        244,
+        192
+      ]
+    },
+    {
+      "skill": "active_6",
+      "kind": "vfx",
+      "frame": 9,
+      "source": "/Users/pvenus/ProjectBS/Artifacts/candidates/M3-COMBO-REV2-v20260909/active_6/vfx/frame_10.png",
+      "sourceSha256": "c34abd7b0fe92d83518ce17b5ebd41480d6249116f517b1d4a2c5b34edc75ec3",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/active_6/vfx/frame-09.png",
+      "sha256": "5ec743bb4582c95f531a6674d688e53d61ed9c88b60c128f14212f639c8ec799",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBbox": [
+        12,
+        63,
+        244,
+        200
+      ]
+    },
+    {
+      "skill": "active_6",
+      "kind": "vfx",
+      "frame": 10,
+      "source": "/Users/pvenus/ProjectBS/Artifacts/candidates/M3-COMBO-REV2-v20260909/active_6/vfx/frame_11.png",
+      "sourceSha256": "81f97d759e99dd75a40debc3739eaeddc37b6b6a9381d3dd1ead4a81f05ea3e2",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/active_6/vfx/frame-10.png",
+      "sha256": "0780fbf3b048f2c2fae36ae5b1f5648bd3f0b681a0b8669b217d9a203ed77d0c",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBbox": [
+        12,
+        74,
+        244,
+        197
+      ]
+    },
+    {
+      "skill": "active_6",
+      "kind": "vfx",
+      "frame": 11,
+      "source": "/Users/pvenus/ProjectBS/Artifacts/candidates/M3-COMBO-REV2-v20260909/active_6/vfx/frame_12.png",
+      "sourceSha256": "eac9c7304b9cb3a8b60924487a3581559681d276f237a3686adefb6befd1c112",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/active_6/vfx/frame-11.png",
+      "sha256": "a65a6d43a5d9a6b0def5669e36cd2fb2721fb207506173e3f35500c750225dbc",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBbox": [
+        21,
+        68,
+        244,
+        187
+      ]
+    },
+    {
+      "skill": "active_6",
+      "kind": "vfxGif",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/evidence/active_6-vfx.gif",
+      "sha256": "e900150df2a26216742f90e1bbf282d473e969a069e63e91115d05ede357adb7",
+      "physicalFrames": 12,
+      "delayMs": 50
+    },
+    {
+      "skill": "active_6",
+      "kind": "contact",
+      "subject": "vfx",
+      "scale": 200,
+      "background": "dark",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/evidence/active_6-vfx-contact-200-dark.png",
+      "sha256": "31bc2b39ad00b1984c2d65f0ea9194f3e9bcd5dfdce61d56cc2a019f36569966"
+    },
+    {
+      "skill": "active_6",
+      "kind": "contact",
+      "subject": "vfx",
+      "scale": 200,
+      "background": "light",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/evidence/active_6-vfx-contact-200-light.png",
+      "sha256": "72fd5ee7ccb5cbe1976e2c12c9e1205cf04f10c85f9e5efa64234b81a7cd6fd9"
+    },
+    {
+      "skill": "active_6",
+      "kind": "contact",
+      "subject": "vfx",
+      "scale": 200,
+      "background": "gray",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/evidence/active_6-vfx-contact-200-gray.png",
+      "sha256": "e845e625c2853752f6dca27b76d1efd5168004934b31ffa4b5e06e20fa7c75c7"
+    },
+    {
+      "skill": "active_6",
+      "kind": "contact",
+      "subject": "vfx",
+      "scale": 80,
+      "background": "dark",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/evidence/active_6-vfx-contact-80-dark.png",
+      "sha256": "5c896fced56767a16ff0d45c0dd7fedaa6d6ba3dde46a1710afb6b891e646dc3"
+    },
+    {
+      "skill": "active_6",
+      "kind": "contact",
+      "subject": "vfx",
+      "scale": 80,
+      "background": "light",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/evidence/active_6-vfx-contact-80-light.png",
+      "sha256": "cb129a0f5f1bd0e53ce3e6660b19f1ae7a6420bfc7f379692bf9db01986f169c"
+    },
+    {
+      "skill": "active_6",
+      "kind": "contact",
+      "subject": "vfx",
+      "scale": 80,
+      "background": "gray",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/evidence/active_6-vfx-contact-80-gray.png",
+      "sha256": "bc3aa65cb23953b4e7a12be471f9b4d6226287023015d920bd619fd4417ab72e"
+    },
+    {
+      "skill": "active_6",
+      "kind": "contact",
+      "subject": "vfx",
+      "scale": 32,
+      "background": "dark",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/evidence/active_6-vfx-contact-32-dark.png",
+      "sha256": "05dd176794cc8283fb0191cc79b552641961698c5fbff36919a0460a23220fcf"
+    },
+    {
+      "skill": "active_6",
+      "kind": "contact",
+      "subject": "vfx",
+      "scale": 32,
+      "background": "light",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/evidence/active_6-vfx-contact-32-light.png",
+      "sha256": "cd77f7af16d09208aa154f17393b29ea180d0889d9a232ff99c0f993b80399f6"
+    },
+    {
+      "skill": "active_6",
+      "kind": "contact",
+      "subject": "vfx",
+      "scale": 32,
+      "background": "gray",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/evidence/active_6-vfx-contact-32-gray.png",
+      "sha256": "5e4647e40babf585ed05dac8b24e0710d47855a470accaac41a45968d1ee6e07"
+    },
+    {
+      "skill": "active_7",
+      "kind": "vfx",
+      "frame": 0,
+      "source": "/Users/pvenus/ProjectBS/Artifacts/candidates/M3-COMBO-REV2-v20260909/active_7/vfx/frame_01.png",
+      "sourceSha256": "1897b1d23b14c335732b1560d68481777542a0c6e2f7261c549155f5cd45201e",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/active_7/vfx/frame-00.png",
+      "sha256": "77fc2470d15c18843df42fc82e6267f2eebaa4b7edd31678bfe7efd290c3e857",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBbox": [
+        12,
+        17,
+        239,
+        236
+      ]
+    },
+    {
+      "skill": "active_7",
+      "kind": "vfx",
+      "frame": 1,
+      "source": "/Users/pvenus/ProjectBS/Artifacts/candidates/M3-COMBO-REV2-v20260909/active_7/vfx/frame_02.png",
+      "sourceSha256": "ecfa2db899ef2d1eed5ab9d2bb7ac217fc8b475c79fb748b7b743d5a2a457aea",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/active_7/vfx/frame-01.png",
+      "sha256": "8620d0299ae4ea9ca79c947a9e3a11623dd32aaaf115f061ae94d269a0984688",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBbox": [
+        31,
+        20,
+        241,
+        238
+      ]
+    },
+    {
+      "skill": "active_7",
+      "kind": "vfx",
+      "frame": 2,
+      "source": "/Users/pvenus/ProjectBS/Artifacts/candidates/M3-COMBO-REV2-v20260909/active_7/vfx/frame_03.png",
+      "sourceSha256": "1f5381f586b957a3e6449114462a679aee1d16ec310540c6b70b551e7298cfed",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/active_7/vfx/frame-02.png",
+      "sha256": "7ed651b4e8af1e6b2e17f0300f76e5e088a1e5c07dfa9a24d25fd51f3408d353",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBbox": [
+        18,
+        15,
+        239,
+        238
+      ]
+    },
+    {
+      "skill": "active_7",
+      "kind": "vfx",
+      "frame": 3,
+      "source": "/Users/pvenus/ProjectBS/Artifacts/candidates/M3-COMBO-REV2-v20260909/active_7/vfx/frame_04.png",
+      "sourceSha256": "cfdd4705095e36a5dcc41f511c64525cd06e8ed0070198c2c8aa50d12b29c3d4",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/active_7/vfx/frame-03.png",
+      "sha256": "493da32d440ab386ded7c5604625aba0d7a9eac462b4fe9eba9baa90192fd039",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBbox": [
+        17,
+        14,
+        240,
+        234
+      ]
+    },
+    {
+      "skill": "active_7",
+      "kind": "vfx",
+      "frame": 4,
+      "source": "/Users/pvenus/ProjectBS/Artifacts/candidates/M3-COMBO-REV2-v20260909/active_7/vfx/frame_05.png",
+      "sourceSha256": "c9399c2baef3d5a8ba4d182b6fd2b3692d34968acaddcfe5ef7a1f08df3b819d",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/active_7/vfx/frame-04.png",
+      "sha256": "a07f4080a8b9bda56f2fef2674a772b1fcf2206b1cd188a93b8d9b94e39bf286",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBbox": [
+        26,
+        14,
+        240,
+        235
+      ]
+    },
+    {
+      "skill": "active_7",
+      "kind": "vfx",
+      "frame": 5,
+      "source": "/Users/pvenus/ProjectBS/Artifacts/candidates/M3-COMBO-REV2-v20260909/active_7/vfx/frame_06.png",
+      "sourceSha256": "ae3d70c318560566bbbbbcb70c6b7ac8f4da4187f7cebadb778ca4c35064a596",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/active_7/vfx/frame-05.png",
+      "sha256": "ba391d373071b9f894258537902e9939f4739720b5664123a5734887ea81de99",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBbox": [
+        17,
+        12,
+        242,
+        242
+      ]
+    },
+    {
+      "skill": "active_7",
+      "kind": "vfxGif",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/evidence/active_7-vfx.gif",
+      "sha256": "535d2f510d9b47556eeac711df2d944969ff3d36e68d1c84f1fa717492047f82",
+      "physicalFrames": 6,
+      "delayMs": 80
+    },
+    {
+      "skill": "active_7",
+      "kind": "contact",
+      "subject": "vfx",
+      "scale": 200,
+      "background": "dark",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/evidence/active_7-vfx-contact-200-dark.png",
+      "sha256": "4b9d6436b2cf8348c07fb440029545ba0a78a0f991ca6732e7b02b2840817178"
+    },
+    {
+      "skill": "active_7",
+      "kind": "contact",
+      "subject": "vfx",
+      "scale": 200,
+      "background": "light",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/evidence/active_7-vfx-contact-200-light.png",
+      "sha256": "860dbffdd04a21b8ec2492dbe9a56405955f73bb0b428782e92b5e4bb450fd90"
+    },
+    {
+      "skill": "active_7",
+      "kind": "contact",
+      "subject": "vfx",
+      "scale": 200,
+      "background": "gray",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/evidence/active_7-vfx-contact-200-gray.png",
+      "sha256": "41a6c36aa9ef91c2047a357ac348bac080d0921c483619c1c2f0f40b58d3eb10"
+    },
+    {
+      "skill": "active_7",
+      "kind": "contact",
+      "subject": "vfx",
+      "scale": 80,
+      "background": "dark",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/evidence/active_7-vfx-contact-80-dark.png",
+      "sha256": "90fed8165745e28f052c157c108ae543c92043e5158928756de3b21629a1055d"
+    },
+    {
+      "skill": "active_7",
+      "kind": "contact",
+      "subject": "vfx",
+      "scale": 80,
+      "background": "light",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/evidence/active_7-vfx-contact-80-light.png",
+      "sha256": "9ece6f73c3b194fe2900e530a9ce93b95ed6b3c9026036212198d18477ac784b"
+    },
+    {
+      "skill": "active_7",
+      "kind": "contact",
+      "subject": "vfx",
+      "scale": 80,
+      "background": "gray",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/evidence/active_7-vfx-contact-80-gray.png",
+      "sha256": "52ee01ef306fac1ec839c4f15cbf7c6aa1a7f900e2773321476901300db1f739"
+    },
+    {
+      "skill": "active_7",
+      "kind": "contact",
+      "subject": "vfx",
+      "scale": 32,
+      "background": "dark",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/evidence/active_7-vfx-contact-32-dark.png",
+      "sha256": "d0c5f4e516978b2c2bbbba0d9e3a6df3171bda8fdfff289bb93dbb512446263d"
+    },
+    {
+      "skill": "active_7",
+      "kind": "contact",
+      "subject": "vfx",
+      "scale": 32,
+      "background": "light",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/evidence/active_7-vfx-contact-32-light.png",
+      "sha256": "147ae22edc5ae1bfdc78c6c2448f621d4a52b75111695232fcd0cb1b31dc27de"
+    },
+    {
+      "skill": "active_7",
+      "kind": "contact",
+      "subject": "vfx",
+      "scale": 32,
+      "background": "gray",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/evidence/active_7-vfx-contact-32-gray.png",
+      "sha256": "e12b8f32f465db627bba676d707f7f7de9ed40d2a93b8bbf930927328524bd5c"
+    }
+  ],
+  "install": false,
+  "unity": false,
+  "rollback": "remove revision-02-combo-rework; revision-01 unchanged"
+}

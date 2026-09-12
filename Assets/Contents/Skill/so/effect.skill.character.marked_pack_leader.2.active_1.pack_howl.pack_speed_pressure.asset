@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: effect.skill.character.marked_pack_leader.2.active_1.pack_howl.pack_speed_pressure
   m_EditorClassIdentifier: Assembly-CSharp::Effect.EffectSO
   effectId: effect.skill.character.marked_pack_leader.2.active_1.pack_howl.pack_speed_pressure
-  authoredDisplayName: ""
+  authoredDisplayName: 
   icon: {fileID: 0}
   config:
-    rid: 666566976232489073
+    rid: 666567034589414065
   references:
     version: 2
     RefIds:
-    - rid: 666566976232489073
+    - rid: 666567034589414065
       type: {class: StatModifierEffectConfig, ns: Effect, asm: Assembly-CSharp}
       data:
         targetStat: 1237

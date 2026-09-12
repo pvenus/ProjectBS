@@ -1,0 +1,17 @@
+TASK JANGDAN-SKILLSET-V1 COMPLETE76 ART PACKAGE
+
+Disposition: SELECTED_SOURCE_AND_STATIC_QA_PASS / UNITY_INSTALL0
+Manifest: /Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/manifest.json
+Manifest SHA-256: bef9a55d9f8de7e63ae8f7b72748c6097511d191e6fbe50361bccb793bf569ea
+QA receipt: /Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/qa-final-receipt-v001.json
+QA SHA-256: e3cf875b9a2c44bca7a3ac116290ed6e87920ae6663760c842cdc292e7f8862c
+
+Counts: icons4 + body36 + character-free VFX36 = runtime PNG76.
+Canvas: icons512x512, body568x340, VFX256x256, all RGBA.
+Evidence: body GIF4, VFX GIF4, contacts72 at 200/80/32 light/dark/gray.
+Timing SSOT: BPM120, beat.5, subdivision.125.
+Selection: active5 Dung gather then Kung impact; active6 Gi fast beat; active7 Deok heavier directional pressure; active8 exact4 pulses with strongest final.
+Physical QA: borders/corners alpha0, alpha0RGB0, clipping0, standalone one-pose/one-state exact72.
+Existing M3 revision-01/revision-02 assets unchanged.
+Unity/canonical/install/project binding0.
+Rollback: remove this revision-01 artifact directory only.

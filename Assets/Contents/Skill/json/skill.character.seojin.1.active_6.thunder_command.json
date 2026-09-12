@@ -1,0 +1,167 @@
+{
+  "schemaVersion": "mouse3_skill_v2",
+  "equipmentId": "skill.character.seojin.1.active_6.thunder_command",
+  "slotName": "active_6",
+  "skillName": "벽력 군령",
+  "desc": "마우스 방향으로 빠르게 베어 기본 공격 사이를 잇습니다.",
+  "iconName": "skill.character.seojin.1.active_6.thunder_command.icon",
+  "aimMode": "Direction",
+  "aimInputSource": "MouseDirection",
+  "inputBinding": {
+    "action": "WheelUp",
+    "stableSlotKey": "active_6",
+    "edgeOnly": true
+  },
+  "baseProfile": {
+    "baseProfileId": "skill.character.seojin.1.active_6.thunder_command.profile",
+    "skillType": "Active",
+    "skillComponentType": "Projectile",
+    "projectileCount": 1,
+    "projectileScale": 1,
+    "rendererScale": 1,
+    "projectileLifetime": 0.2,
+    "projectileColliderRadius": 0.85,
+    "brainMeta": {
+      "category": "Attack",
+      "targetType": "Enemy",
+      "tacticalNeed": "OffensivePressure",
+      "basePriority": 0.8
+    }
+  },
+  "cast": {
+    "castId": "skill.character.seojin.1.active_6.thunder_command.cast",
+    "targetingType": "Position",
+    "castTime": 0,
+    "cooldown": 3,
+    "range": 4.2,
+    "burst": {
+      "count": 1,
+      "interval": 0
+    },
+    "bodyActionClipPath": "Assets/AnimationClips/Character/character.seojin.1/character.seojin.1.body_action.thunder_command.anim",
+    "bodyActionPlayback": {
+      "contactTime": 0.16,
+      "duration": 0.42
+    }
+  },
+  "move": {
+    "moveId": "skill.character.seojin.1.active_6.thunder_command.move",
+    "moveType": "Hover",
+    "applyDirectionRotation": true
+  },
+  "hits": [
+    {
+      "hitId": "skill.character.seojin.1.active_6.thunder_command.hit",
+      "maxHitCount": 6,
+      "ignoreSameRoot": true,
+      "useRepeatInterval": false,
+      "hitDuration": 0.2,
+      "deactivateAfterFirstHit": false,
+      "targetLayerMask": "Enemy",
+      "damage": {
+        "damageType": "Normal",
+        "baseDamage": 70,
+        "attackPercentDamage": 0.9,
+        "canCritical": false
+      },
+      "buffEffects": [],
+      "debuffEffects": []
+    }
+  ],
+  "shape": {
+    "kind": "Line",
+    "angle": 0,
+    "range": 4.2
+  },
+  "crowdControl": {
+    "kind": "Linker",
+    "burstCount": 1,
+    "burstInterval": 0.22,
+    "followupBodyClipPath": "Assets/AnimationClips/Character/character.seojin.1/character.seojin.1.body_action.thunder_command.followup.anim",
+    "followupVfxClipPath": "Assets/AnimationClips/Skill/skill.character.seojin.1.active_6.thunder_command.visual.followup.anim",
+    "nextBasicForwardRatio": 0,
+    "nextBasicRangeRatio": 0,
+    "nextBasicInputGrace": 0
+  },
+  "baseVisual": {
+    "visualId": "skill.character.seojin.1.active_6.thunder_command.visual",
+    "projectileVisualType": "Default",
+    "sortingRelation": "AboveOwner"
+  },
+  "upgradeTable": {
+    "skillId": "skill.character.seojin.1.active_6.thunder_command",
+    "upgradeTableId": "upgrade.skill.character.seojin.1.active_6.thunder_command",
+    "entries": [
+      {
+        "level": 1,
+        "statModifiers": [],
+        "effectModifiers": []
+      },
+      {
+        "level": 2,
+        "statModifiers": [
+          {
+            "modifierType": "BaseDamage",
+            "operationType": "Flat",
+            "value": 12
+          },
+          {
+            "modifierType": "AttackPercentDamage",
+            "operationType": "Flat",
+            "value": 0.1
+          }
+        ],
+        "effectModifiers": []
+      },
+      {
+        "level": 3,
+        "statModifiers": [
+          {
+            "modifierType": "Range",
+            "operationType": "Flat",
+            "value": 0.5
+          },
+          {
+            "modifierType": "ProjectileColliderRadius",
+            "operationType": "Flat",
+            "value": 0.2
+          }
+        ],
+        "effectModifiers": []
+      },
+      {
+        "level": 4,
+        "statModifiers": [
+          {
+            "modifierType": "Mouse3BurstCount",
+            "operationType": "Flat",
+            "value": 1
+          }
+        ],
+        "effectModifiers": []
+      },
+      {
+        "level": 5,
+        "statModifiers": [
+          {
+            "modifierType": "Mouse3NextBasicForwardRatio",
+            "operationType": "Flat",
+            "value": 0.2
+          },
+          {
+            "modifierType": "Mouse3NextBasicRangeRatio",
+            "operationType": "Flat",
+            "value": 0.15
+          },
+          {
+            "modifierType": "Mouse3NextBasicInputGrace",
+            "operationType": "Flat",
+            "value": 0.2
+          }
+        ],
+        "effectModifiers": []
+      }
+    ],
+    "displayName": "벽력 군령 강화"
+  }
+}

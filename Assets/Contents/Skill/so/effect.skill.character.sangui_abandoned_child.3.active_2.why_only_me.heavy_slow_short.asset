@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: effect.skill.character.sangui_abandoned_child.3.active_2.why_only_me.heavy_slow_short
   m_EditorClassIdentifier: Assembly-CSharp::Effect.EffectSO
   effectId: effect.skill.character.sangui_abandoned_child.3.active_2.why_only_me.heavy_slow_short
-  authoredDisplayName: ""
+  authoredDisplayName: 
   icon: {fileID: 0}
   config:
-    rid: 666566976232489090
+    rid: 666567034589414082
   references:
     version: 2
     RefIds:
-    - rid: 666566976232489090
+    - rid: 666567034589414082
       type: {class: StatModifierEffectConfig, ns: Effect, asm: Assembly-CSharp}
       data:
         targetStat: 1237

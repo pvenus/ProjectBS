@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: skill.character.seojin.2.active_1.charge.effect.self.1
   m_EditorClassIdentifier: Assembly-CSharp::Effect.EffectSO
   effectId: skill.character.seojin.2.active_1.charge.effect.self.1
-  authoredDisplayName: "돌격 피해 감소"
+  authoredDisplayName: "\uB3CC\uACA9 \uD53C\uD574 \uAC10\uC18C"
   icon: {fileID: 0}
   config:
-    rid: 666566976232489107
+    rid: 666567034589414102
   references:
     version: 2
     RefIds:
-    - rid: 666566976232489107
+    - rid: 666567034589414102
       type: {class: StatModifierEffectConfig, ns: Effect, asm: Assembly-CSharp}
       data:
         targetStat: 1300

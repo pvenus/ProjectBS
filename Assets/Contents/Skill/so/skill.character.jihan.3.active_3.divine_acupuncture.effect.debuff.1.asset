@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: skill.character.jihan.3.active_3.divine_acupuncture.effect.debuff.1
   m_EditorClassIdentifier: Assembly-CSharp::Effect.EffectSO
   effectId: skill.character.jihan.3.active_3.divine_acupuncture.effect.debuff.1
-  authoredDisplayName: "신의 침술 받는 피해 증가"
+  authoredDisplayName: "\uC2E0\uC758 \uCE68\uC220 \uBC1B\uB294 \uD53C\uD574 \uC99D\uAC00"
   icon: {fileID: 0}
   config:
-    rid: 666566976232489069
+    rid: 666567034589414061
   references:
     version: 2
     RefIds:
-    - rid: 666566976232489069
+    - rid: 666567034589414061
       type: {class: StatModifierEffectConfig, ns: Effect, asm: Assembly-CSharp}
       data:
         targetStat: 1300

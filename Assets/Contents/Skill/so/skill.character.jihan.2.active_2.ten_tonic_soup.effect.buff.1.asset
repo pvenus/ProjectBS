@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: skill.character.jihan.2.active_2.ten_tonic_soup.effect.buff.1
   m_EditorClassIdentifier: Assembly-CSharp::Effect.EffectSO
   effectId: skill.character.jihan.2.active_2.ten_tonic_soup.effect.buff.1
-  authoredDisplayName: "십전대보탕 공격속도 증가"
+  authoredDisplayName: "\uC2ED\uC804\uB300\uBCF4\uD0D5 \uACF5\uACA9\uC18D\uB3C4 \uC99D\uAC00"
   icon: {fileID: 0}
   config:
-    rid: 666566976232489054
+    rid: 666567034589414046
   references:
     version: 2
     RefIds:
-    - rid: 666566976232489054
+    - rid: 666567034589414046
       type: {class: StatModifierEffectConfig, ns: Effect, asm: Assembly-CSharp}
       data:
         targetStat: 1230

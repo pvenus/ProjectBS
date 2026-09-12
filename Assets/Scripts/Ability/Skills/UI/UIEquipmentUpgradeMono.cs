@@ -613,6 +613,23 @@ public class UIEquipmentUpgradeMono : MonoBehaviour
         AddModifierTypeIfChanged(skillSo, SkillStatModifierType.SplitHitCount, currentModifiers, nextModifiers, result);
         AddModifierTypeIfChanged(skillSo, SkillStatModifierType.ProjectileCount, currentModifiers, nextModifiers, result);
         AddModifierTypeIfChanged(skillSo, SkillStatModifierType.ProjectileScale, currentModifiers, nextModifiers, result);
+        AddModifierTypeIfChanged(skillSo, SkillStatModifierType.ProjectileColliderRadius, currentModifiers, nextModifiers, result);
+        AddModifierTypeIfChanged(skillSo, SkillStatModifierType.Mouse3Distance, currentModifiers, nextModifiers, result);
+        AddModifierTypeIfChanged(skillSo, SkillStatModifierType.Mouse3NormalRatio, currentModifiers, nextModifiers, result);
+        AddModifierTypeIfChanged(skillSo, SkillStatModifierType.Mouse3EliteRatio, currentModifiers, nextModifiers, result);
+        AddModifierTypeIfChanged(skillSo, SkillStatModifierType.Mouse3BossRatio, currentModifiers, nextModifiers, result);
+        AddModifierTypeIfChanged(skillSo, SkillStatModifierType.Mouse3BossHardCap, currentModifiers, nextModifiers, result);
+        AddModifierTypeIfChanged(skillSo, SkillStatModifierType.Mouse3FanAngle, currentModifiers, nextModifiers, result);
+        AddModifierTypeIfChanged(skillSo, SkillStatModifierType.Mouse3CrowdControlDuration, currentModifiers, nextModifiers, result);
+        AddModifierTypeIfChanged(skillSo, SkillStatModifierType.Mouse3BurstCount, currentModifiers, nextModifiers, result);
+        AddModifierTypeIfChanged(skillSo, SkillStatModifierType.Mouse3NextBasicForwardRatio, currentModifiers, nextModifiers, result);
+        AddModifierTypeIfChanged(skillSo, SkillStatModifierType.Mouse3NextBasicRangeRatio, currentModifiers, nextModifiers, result);
+        AddModifierTypeIfChanged(skillSo, SkillStatModifierType.Mouse3NextBasicInputGrace, currentModifiers, nextModifiers, result);
+        AddModifierTypeIfChanged(skillSo, SkillStatModifierType.Mouse3GatherDistance, currentModifiers, nextModifiers, result);
+        AddModifierTypeIfChanged(skillSo, SkillStatModifierType.Mouse3GatherDuration, currentModifiers, nextModifiers, result);
+        AddModifierTypeIfChanged(skillSo, SkillStatModifierType.Mouse3StunNormalDuration, currentModifiers, nextModifiers, result);
+        AddModifierTypeIfChanged(skillSo, SkillStatModifierType.Mouse3StunEliteDuration, currentModifiers, nextModifiers, result);
+        AddModifierTypeIfChanged(skillSo, SkillStatModifierType.Mouse3StunBossDuration, currentModifiers, nextModifiers, result);
         return result;
     }
 
@@ -652,14 +669,30 @@ public class UIEquipmentUpgradeMono : MonoBehaviour
         switch (modifierType)
         {
             case SkillStatModifierType.AttackPercentDamage:
+            case SkillStatModifierType.Mouse3NormalRatio:
+            case SkillStatModifierType.Mouse3EliteRatio:
+            case SkillStatModifierType.Mouse3BossRatio:
                 return $"{Mathf.RoundToInt(value * 100f)}%";
             case SkillStatModifierType.Cooldown:
+            case SkillStatModifierType.Mouse3CrowdControlDuration:
+                return $"{value:0.##}초";
+            case SkillStatModifierType.Mouse3FanAngle:
+                return $"{value:0.##}°";
+            case SkillStatModifierType.Mouse3NextBasicForwardRatio:
+            case SkillStatModifierType.Mouse3NextBasicRangeRatio:
+                return $"{Mathf.RoundToInt(value * 100f)}%";
+            case SkillStatModifierType.Mouse3NextBasicInputGrace:
+            case SkillStatModifierType.Mouse3GatherDuration:
+            case SkillStatModifierType.Mouse3StunNormalDuration:
+            case SkillStatModifierType.Mouse3StunEliteDuration:
+            case SkillStatModifierType.Mouse3StunBossDuration:
                 return $"{value:0.##}초";
             case SkillStatModifierType.Range:
             case SkillStatModifierType.ProjectileScale:
                 return value.ToString("0.##");
             case SkillStatModifierType.SplitHitCount:
             case SkillStatModifierType.ProjectileCount:
+            case SkillStatModifierType.Mouse3BurstCount:
                 return Mathf.RoundToInt(value).ToString();
             default:
                 return value.ToString("0.##");

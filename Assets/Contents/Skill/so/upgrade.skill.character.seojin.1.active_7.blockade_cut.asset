@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22366fecc41a348abb0ff8cb94e16463, type: 3}
+  m_Name: upgrade.skill.character.seojin.1.active_7.blockade_cut
+  m_EditorClassIdentifier: Assembly-CSharp::EquipmentUpgradeTableSO
+  upgradeTableId: upgrade.skill.character.seojin.1.active_7.blockade_cut
+  entries:
+  - level: 1
+    statModifiers: []
+    effectModifiers: []
+  - level: 2
+    statModifiers:
+    - modifierType: 1
+      operationType: 0
+      value: 0.1
+    effectModifiers: []
+  - level: 3
+    statModifiers:
+    - modifierType: 3
+      operationType: 0
+      value: 0.4
+    - modifierType: 18
+      operationType: 0
+      value: 5
+    effectModifiers: []
+  - level: 4
+    statModifiers:
+    - modifierType: 2
+      operationType: 0
+      value: -0.7
+    effectModifiers: []
+  - level: 5
+    statModifiers:
+    - modifierType: 13
+      operationType: 0
+      value: 0.05
+    - modifierType: 19
+      operationType: 0
+      value: 0.2
+    - modifierType: 24
+      operationType: 0
+      value: 0.2
+    - modifierType: 26
+      operationType: 0
+      value: 0.15
+    - modifierType: 27
+      operationType: 0
+      value: 0.1
+    - modifierType: 28
+      operationType: 0
+      value: 0.05
+    effectModifiers: []

@@ -50,6 +50,7 @@ MonoBehaviour:
       hitTime: 0.14
       activeEnd: 0.19
       recoveryEnd: 0.25
+      postActionHoldTime: 0
       damageWeight: 0.25
       lungeDistance: 0.14
       nextComboActivationTime: 0
@@ -67,6 +68,7 @@ MonoBehaviour:
       hitTime: 0.38
       activeEnd: 0.43
       recoveryEnd: 0.5
+      postActionHoldTime: 0
       damageWeight: 0.3
       lungeDistance: 0.14
       nextComboActivationTime: 0
@@ -84,6 +86,30 @@ MonoBehaviour:
       hitTime: 0.65
       activeEnd: 0.71
       recoveryEnd: 0.78
+      postActionHoldTime: 0
       damageWeight: 0.45
       lungeDistance: 0.14
       nextComboActivationTime: 0
+  mouse3Profile:
+    inputAction: 
+    stableSlotKey: 
+    edgeOnly: 0
+    crowdControlKind: 
+    distance: 0
+    duration: 0
+    stopRadius: 0
+    collisionSafe: 0
+    normalDurationOrRatio: 0
+    eliteDurationOrRatio: 0
+    bossDurationOrRatio: 0
+    bossHardCap: 0
+    fanAngle: 0
+    burstCount: 1
+    burstInterval: 0
+    nextBasicForwardRatio: 0
+    nextBasicRangeRatio: 0
+    nextBasicInputGrace: 0
+    gatherDistance: 0
+    gatherDuration: 0
+    followupBodyClip: {fileID: 0}
+    followupVfxClip: {fileID: 0}

@@ -64,8 +64,8 @@
     "useCanonicalBodyChoreography": false,
     "segmentedBodyActionClip": "character.seojin.1.basic_attack.combo.continuous18.body",
     "segmentedBodyFrameCount": 18,
-    "duration": 1.06,
-    "totalLungeCap": 0.36,
+    "duration": 1.03,
+    "totalLungeCap": 0.72,
     "steps": [
       {
         "comboIndex": 0,
@@ -78,10 +78,10 @@
         "startTime": 0.0,
         "hitTime": 0.16,
         "activeEnd": 0.21,
-        "recoveryEnd": 0.28,
-        "postActionHoldTime": 0.2,
+        "recoveryEnd": 0.21,
+        "postActionHoldTime": 0.24,
         "damageWeight": 0.25,
-        "lungeDistance": 0.12,
+        "lungeDistance": 0.24,
         "nextComboActivationTime": 1.0
       },
       {
@@ -93,13 +93,13 @@
         "vfxPresentationCalibration": "skill.character.seojin.1.basic_attack.combo.vfx.hit1.calibration",
         "vfxClip": "skill.character.seojin.1.basic_attack.basic_attack.combo.1.visual.loop",
         "visualClip": "skill.character.seojin.1.basic_attack.basic_attack.visual.loop",
-        "startTime": 0.48,
-        "hitTime": 0.64,
-        "activeEnd": 0.66,
-        "recoveryEnd": 0.68,
-        "postActionHoldTime": 0.2,
+        "startTime": 0.45,
+        "hitTime": 0.61,
+        "activeEnd": 0.63,
+        "recoveryEnd": 0.71,
+        "postActionHoldTime": 0.0,
         "damageWeight": 0.3,
-        "lungeDistance": 0.12,
+        "lungeDistance": 0.24,
         "nextComboActivationTime": 1.0
       },
       {
@@ -112,14 +112,18 @@
         "vfxProfile": "skillAnimationVfx.seojinG1BasicHit3Neon.v1",
         "minimumVisualLifetime": 0.15,
         "visualClip": "skill.character.seojin.1.basic_attack.basic_attack.visual.loop",
-        "startTime": 0.78,
-        "hitTime": 0.94,
-        "activeEnd": 0.99,
-        "recoveryEnd": 1.06,
-        "postActionHoldTime": 0.2,
+        "startTime": 0.71,
+        "hitTime": 0.83,
+        "activeEnd": 0.88,
+        "recoveryEnd": 1.03,
+        "postActionHoldTime": 0.0,
         "damageWeight": 0.45,
-        "lungeDistance": 0.12,
-        "nextComboActivationTime": 0.0
+        "lungeDistance": 0.24,
+        "nextComboActivationTime": 0.0,
+        "gatherDistance": 0.3,
+        "gatherDuration": 0.12,
+        "gatherStopRadius": 0.35,
+        "gatherBossHardCap": 0.15
       }
     ]
   },
@@ -177,12 +181,14 @@
         {
           "effect": {
             "effectId": "skill.character.seojin.1.basic_attack.basic_attack.combo.0.effect.debuff.1",
-            "effectType": "Knockback",
-            "effectName": "전열베기 1타 넉백",
-            "force": 1.5,
-            "directionType": "PushAwayFromSource",
-            "normalizeDirection": true,
-            "fallbackToProjectileDirection": true
+            "effectType": "StatModifier",
+            "effectName": "전열베기 1타 이동 속박",
+            "config": {
+              "statType": "RootDuration",
+              "modifierType": "Flat",
+              "value": 0.5,
+              "rootHardCap": 0.5
+            }
           },
           "lifetimeType": "Instant",
           "categoryType": "Debuff",
@@ -220,12 +226,14 @@
         {
           "effect": {
             "effectId": "skill.character.seojin.1.basic_attack.basic_attack.combo.1.effect.debuff.1",
-            "effectType": "Knockback",
-            "effectName": "전열베기 2타 넉백",
-            "force": 2.5,
-            "directionType": "PushAwayFromSource",
-            "normalizeDirection": true,
-            "fallbackToProjectileDirection": true
+            "effectType": "StatModifier",
+            "effectName": "전열베기 2타 이동 속박",
+            "config": {
+              "statType": "RootDuration",
+              "modifierType": "Flat",
+              "value": 0.5,
+              "rootHardCap": 0.5
+            }
           },
           "lifetimeType": "Instant",
           "categoryType": "Debuff",
@@ -263,27 +271,13 @@
         {
           "effect": {
             "effectId": "skill.character.seojin.1.basic_attack.basic_attack.combo.2.effect.debuff.1",
-            "effectType": "Knockback",
-            "effectName": "전열베기 마무리 넉백",
-            "force": 4,
-            "directionType": "PushAwayFromSource",
-            "normalizeDirection": true,
-            "fallbackToProjectileDirection": true
-          },
-          "lifetimeType": "Instant",
-          "categoryType": "Debuff",
-          "duration": 0,
-          "maxApplyCount": 1
-        },
-        {
-          "effect": {
-            "effectId": "skill.character.seojin.1.basic_attack.basic_attack.combo.2.effect.debuff.2",
             "effectType": "StatModifier",
             "effectName": "전열베기 마무리 이동 속박",
             "config": {
               "statType": "RootDuration",
               "modifierType": "Flat",
-              "value": 0.5
+              "value": 1.0,
+              "rootHardCap": 1.0
             }
           },
           "lifetimeType": "Instant",

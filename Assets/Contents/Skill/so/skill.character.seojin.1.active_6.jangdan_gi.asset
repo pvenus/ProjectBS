@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63226e07ba84a4a69967ef3b8995b8d7, type: 3}
+  m_Name: skill.character.seojin.1.active_6.jangdan_gi
+  m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
+  equipmentId: skill.character.seojin.1.active_6.jangdan_gi
+  aimMode: 1
+  aimInputSource: 1
+  icon: {fileID: -970870116578528642, guid: 724f40be85f084e8cb77d80a472b62e0, type: 3}
+  baseProfileSo: {fileID: 11400000, guid: 5a0ad529ad06d4e63a20a56e535d2075, type: 2}
+  castSo: {fileID: 11400000, guid: 5b8be4293770b4e6382f3ea6a7fd4954, type: 2}
+  hitSos:
+  - {fileID: 11400000, guid: 68701185a8ace44aca43b041f37b9dd3, type: 2}
+  moveSo: {fileID: 11400000, guid: 0ea88077a167840a5b60fa0a7f2e443a, type: 2}
+  spawnSkillSo: {fileID: 0}
+  upgradeTableSo: {fileID: 11400000, guid: 5047d4bfa411e46bf840a0d3e590e41a, type: 2}
+  baseVisualSo: {fileID: 11400000, guid: a5bb38de25a1c4944930c1ca1dcb0765, type: 2}
+  comboProfile:
+    enabled: 0
+    inputDriven: 0
+    duration: 0
+    totalLungeCap: 0
+    useCanonicalBodyChoreography: 0
+    segmentedBodyActionClip: {fileID: 0}
+    segmentedBodyFrameCount: 18
+    steps: []
+  mouse3Profile:
+    inputAction: WheelUp
+    stableSlotKey: active_6
+    edgeOnly: 1
+    crowdControlKind: 
+    distance: 0
+    duration: 0
+    stopRadius: 0
+    collisionSafe: 0
+    normalDurationOrRatio: 0
+    eliteDurationOrRatio: 0
+    bossDurationOrRatio: 0
+    bossHardCap: 0
+    fanAngle: 0
+    burstCount: 1
+    burstInterval: 0
+    nextBasicForwardRatio: 0
+    nextBasicRangeRatio: 0
+    nextBasicInputGrace: 0
+    gatherDistance: 0
+    gatherDuration: 0
+    stunNormalDuration: 0
+    stunEliteDuration: 0
+    stunBossDuration: 0
+    followupBodyClip: {fileID: 0}
+    followupVfxClip: {fileID: 0}

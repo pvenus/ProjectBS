@@ -49,6 +49,7 @@ public class NpcMovementProfile : MonoBehaviour
 
     [Header("Attack Gap Tactical Reposition")]
     [SerializeField] private bool enableAttackGapReposition = true;
+    [SerializeField] private bool enableSmartApproachScatter;
     [SerializeField] private bool scriptedMovementOptOut = false;
 
     [Header("Debug")]
@@ -207,6 +208,23 @@ public class NpcMovementProfile : MonoBehaviour
     public bool AllowsAttackGapReposition()
     {
         return enableAttackGapReposition && !scriptedMovementOptOut && !IsFlying();
+    }
+
+    public bool AllowsSmartApproachScatter()
+    {
+        return enableSmartApproachScatter && !scriptedMovementOptOut && !IsFlying();
+    }
+
+    public bool AllowsSmartApproachScatterPilot(string characterId)
+    {
+        bool exactPilot = string.Equals(characterId, "character.black_cloth_raider.1", System.StringComparison.Ordinal) ||
+                          string.Equals(characterId, "character.chain_dragger_raider.1", System.StringComparison.Ordinal);
+        return exactPilot && !scriptedMovementOptOut && !IsFlying();
+    }
+
+    public void ConfigureSmartApproachScatter(bool enabled)
+    {
+        enableSmartApproachScatter = enabled;
     }
 
     private NpcTargeting.TargetingArchetype ConvertToTargetingArchetype(MovementArchetype value)

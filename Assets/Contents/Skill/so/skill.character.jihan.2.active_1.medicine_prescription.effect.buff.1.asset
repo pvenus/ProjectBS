@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: skill.character.jihan.2.active_1.medicine_prescription.effect.buff.1
   m_EditorClassIdentifier: Assembly-CSharp::Effect.EffectSO
   effectId: skill.character.jihan.2.active_1.medicine_prescription.effect.buff.1
-  authoredDisplayName: "탕약 처방"
+  authoredDisplayName: "\uD0D5\uC57D \uCC98\uBC29"
   icon: {fileID: 0}
   config:
-    rid: 666566976232489052
+    rid: 666567034589414044
   references:
     version: 2
     RefIds:
-    - rid: 666566976232489052
+    - rid: 666567034589414044
       type: {class: HealEffectConfig, ns: Effect, asm: Assembly-CSharp}
       data:
         useMaxHpPercent: 0

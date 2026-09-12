@@ -1,0 +1,181 @@
+{
+  "schemaVersion": "mouse3_skill_v2",
+  "equipmentId": "skill.character.seojin.1.active_7.blockade_cut",
+  "slotName": "active_7",
+  "skillName": "봉쇄참",
+  "desc": "마우스 방향 부채꼴을 베어 적을 전방 집결점으로 강하게 당기고 기절시킨 뒤 이동속도를 낮춥니다.",
+  "iconName": "skill.character.seojin.1.active_7.blockade_cut.icon",
+  "aimMode": "Direction",
+  "aimInputSource": "MouseDirection",
+  "inputBinding": {
+    "action": "WheelDown",
+    "stableSlotKey": "active_7",
+    "edgeOnly": true
+  },
+  "baseProfile": {
+    "baseProfileId": "skill.character.seojin.1.active_7.blockade_cut.profile",
+    "skillType": "Active",
+    "skillComponentType": "Projectile",
+    "projectileCount": 1,
+    "projectileScale": 1,
+    "rendererScale": 0.6,
+    "projectileLifetime": 0.28,
+    "projectileColliderRadius": 4.2,
+    "brainMeta": {
+      "category": "Attack",
+      "targetType": "Enemy",
+      "tacticalNeed": "AreaControl",
+      "basePriority": 0.85
+    }
+  },
+  "cast": {
+    "castId": "skill.character.seojin.1.active_7.blockade_cut.cast",
+    "targetingType": "Position",
+    "castTime": 0.18,
+    "cooldown": 7,
+    "range": 4.2,
+    "burst": {
+      "count": 1,
+      "interval": 0
+    },
+    "bodyActionClipPath": "Assets/AnimationClips/Character/character.seojin.1/character.seojin.1.body_action.blockade_cut.anim",
+    "bodyActionPlayback": {
+      "contactTime": 0.18,
+      "duration": 0.46
+    }
+  },
+  "move": {
+    "moveId": "skill.character.seojin.1.active_7.blockade_cut.move",
+    "moveType": "Hover",
+    "applyDirectionRotation": true
+  },
+  "hits": [
+    {
+      "hitId": "skill.character.seojin.1.active_7.blockade_cut.hit",
+      "maxHitCount": 12,
+      "ignoreSameRoot": true,
+      "useRepeatInterval": false,
+      "hitDuration": 0.28,
+      "deactivateAfterFirstHit": false,
+      "targetLayerMask": "Enemy",
+      "damage": {
+        "damageType": "Normal",
+        "baseDamage": 0,
+        "attackPercentDamage": 0.45,
+        "canCritical": false
+      },
+      "buffEffects": [],
+      "debuffEffects": []
+    }
+  ],
+  "shape": {
+    "kind": "Fan",
+    "angle": 60,
+    "range": 4.2
+  },
+  "crowdControl": {
+    "kind": "FanPullToCasterSlowStun",
+    "distance": 0.25,
+    "duration": 1.4,
+    "stopRadius": 0.45,
+    "collisionSafe": true,
+    "gatherDistance": 2.4,
+    "gatherDuration": 0.22,
+    "stunNormalDuration": 1.0,
+    "stunEliteDuration": 0.6,
+    "stunBossDuration": 0.25,
+    "bossRatio": 0.3,
+    "bossHardCap": 0.3
+  },
+  "baseVisual": {
+    "visualId": "skill.character.seojin.1.active_7.blockade_cut.visual",
+    "projectileVisualType": "Default",
+    "sortingRelation": "AboveOwner"
+  },
+  "upgradeTable": {
+    "skillId": "skill.character.seojin.1.active_7.blockade_cut",
+    "upgradeTableId": "upgrade.skill.character.seojin.1.active_7.blockade_cut",
+    "entries": [
+      {
+        "level": 1,
+        "statModifiers": [],
+        "effectModifiers": []
+      },
+      {
+        "level": 2,
+        "statModifiers": [
+          {
+            "modifierType": "AttackPercentDamage",
+            "operationType": "Flat",
+            "value": 0.1
+          }
+        ],
+        "effectModifiers": []
+      },
+      {
+        "level": 3,
+        "statModifiers": [
+          {
+            "modifierType": "Range",
+            "operationType": "Flat",
+            "value": 0.4
+          },
+          {
+            "modifierType": "Mouse3FanAngle",
+            "operationType": "Flat",
+            "value": 5
+          }
+        ],
+        "effectModifiers": []
+      },
+      {
+        "level": 4,
+        "statModifiers": [
+          {
+            "modifierType": "Cooldown",
+            "operationType": "Flat",
+            "value": -0.7
+          }
+        ],
+        "effectModifiers": []
+      },
+      {
+        "level": 5,
+        "statModifiers": [
+          {
+            "modifierType": "Mouse3Distance",
+            "operationType": "Flat",
+            "value": 0.05
+          },
+          {
+            "modifierType": "Mouse3CrowdControlDuration",
+            "operationType": "Flat",
+            "value": 0.2
+          },
+          {
+            "modifierType": "Mouse3GatherDistance",
+            "operationType": "Flat",
+            "value": 0.2
+          },
+          {
+            "modifierType": "Mouse3StunNormalDuration",
+            "operationType": "Flat",
+            "value": 0.15
+          },
+          {
+            "modifierType": "Mouse3StunEliteDuration",
+            "operationType": "Flat",
+            "value": 0.1
+          },
+          {
+            "modifierType": "Mouse3StunBossDuration",
+            "operationType": "Flat",
+            "value": 0.05
+          }
+        ],
+        "effectModifiers": []
+      }
+    ],
+    "displayName": "봉쇄참 강화"
+  }
+}

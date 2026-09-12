@@ -1,0 +1,14 @@
+{
+  "task": "JANGDAN-SKILLSET-V1 STANDALONE RECOVERY",
+  "authority_receipt": {"path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/qa-source-audit-receipt-v001.json", "sha256": "92a3502905d02976957e6d94b66c228a7419defb491183496dba68796e995d38"},
+  "generator": "built-in ImageGen",
+  "result": "28/28 native RGBA and visually single-state",
+  "mapping": {
+    "active6_gi": {"body": [6], "vfx": [1]},
+    "active7_deok": {"body": [5,6], "vfx": [2,3]},
+    "active8_deoreoreoreo": {"body": [1,4,5,6,7,8,9,10,11,12], "vfx": [1,2,3,4,5,6,7,8,9,10,11,12]}
+  },
+  "rules": {"prior_pixel_donor": false, "standalone_only": true, "local_background_extraction": false, "multi_state_retries": 0},
+  "qa": {"all_has_alpha": true, "single_subject_visual_check": "PASS28", "physical_audit": "physical-audit.txt", "warning": "active8 body frame_04 has borderAlphaMax14; all other edge values are below 10."},
+  "checksums": "SHA256SUMS.txt"
+}

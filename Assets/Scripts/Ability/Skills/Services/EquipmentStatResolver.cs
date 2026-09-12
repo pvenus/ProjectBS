@@ -100,6 +100,22 @@ public class EquipmentStatResolver
                 return equipmentSo.BaseProfileSo != null
                     ? Mathf.Max(0f, equipmentSo.BaseProfileSo.ProjectileSpawnInterval)
                     : 0f;
+            case SkillStatModifierType.Mouse3Distance: return equipmentSo.Mouse3Profile?.Distance ?? 0f;
+            case SkillStatModifierType.Mouse3NormalRatio: return equipmentSo.Mouse3Profile?.NormalDurationOrRatio ?? 0f;
+            case SkillStatModifierType.Mouse3EliteRatio: return equipmentSo.Mouse3Profile?.EliteDurationOrRatio ?? 0f;
+            case SkillStatModifierType.Mouse3BossRatio: return equipmentSo.Mouse3Profile?.BossDurationOrRatio ?? 0f;
+            case SkillStatModifierType.Mouse3BossHardCap: return equipmentSo.Mouse3Profile?.BossHardCap ?? 0f;
+            case SkillStatModifierType.Mouse3FanAngle: return equipmentSo.Mouse3Profile?.FanAngle ?? 0f;
+            case SkillStatModifierType.Mouse3CrowdControlDuration: return equipmentSo.Mouse3Profile?.Duration ?? 0f;
+            case SkillStatModifierType.Mouse3BurstCount: return equipmentSo.Mouse3Profile?.BurstCount ?? 1;
+            case SkillStatModifierType.Mouse3NextBasicForwardRatio: return equipmentSo.Mouse3Profile?.NextBasicForwardRatio ?? 0f;
+            case SkillStatModifierType.Mouse3NextBasicRangeRatio: return equipmentSo.Mouse3Profile?.NextBasicRangeRatio ?? 0f;
+            case SkillStatModifierType.Mouse3NextBasicInputGrace: return equipmentSo.Mouse3Profile?.NextBasicInputGrace ?? 0f;
+            case SkillStatModifierType.Mouse3GatherDistance: return equipmentSo.Mouse3Profile?.GatherDistance ?? 0f;
+            case SkillStatModifierType.Mouse3GatherDuration: return equipmentSo.Mouse3Profile?.GatherDuration ?? 0f;
+            case SkillStatModifierType.Mouse3StunNormalDuration: return equipmentSo.Mouse3Profile?.StunNormalDuration ?? 0f;
+            case SkillStatModifierType.Mouse3StunEliteDuration: return equipmentSo.Mouse3Profile?.StunEliteDuration ?? 0f;
+            case SkillStatModifierType.Mouse3StunBossDuration: return equipmentSo.Mouse3Profile?.StunBossDuration ?? 0f;
 
             default:
                 return 0f;
@@ -168,10 +184,34 @@ public class EquipmentStatResolver
             case SkillStatModifierType.ProjectileSpawnInterval:
             case SkillStatModifierType.ProjectileSpawnRadius:
             case SkillStatModifierType.ProjectileColliderRadius:
-            case SkillStatModifierType.Cooldown:
             case SkillStatModifierType.Range:
             case SkillStatModifierType.BaseDamage:
             case SkillStatModifierType.AttackPercentDamage:
+                return Mathf.Max(0f, value);
+
+            case SkillStatModifierType.Cooldown:
+                return Mathf.Max(.5f, value);
+
+            case SkillStatModifierType.Mouse3Distance:
+            case SkillStatModifierType.Mouse3CrowdControlDuration:
+            case SkillStatModifierType.Mouse3BossHardCap:
+                return Mathf.Max(0f, value);
+            case SkillStatModifierType.Mouse3NormalRatio:
+            case SkillStatModifierType.Mouse3EliteRatio:
+            case SkillStatModifierType.Mouse3BossRatio:
+                return Mathf.Clamp01(value);
+            case SkillStatModifierType.Mouse3FanAngle:
+                return Mathf.Clamp(value, 1f, 180f);
+            case SkillStatModifierType.Mouse3BurstCount:
+                return Mathf.Max(1f, Mathf.Round(value));
+            case SkillStatModifierType.Mouse3NextBasicForwardRatio:
+            case SkillStatModifierType.Mouse3NextBasicRangeRatio:
+            case SkillStatModifierType.Mouse3NextBasicInputGrace:
+            case SkillStatModifierType.Mouse3GatherDistance:
+            case SkillStatModifierType.Mouse3GatherDuration:
+            case SkillStatModifierType.Mouse3StunNormalDuration:
+            case SkillStatModifierType.Mouse3StunEliteDuration:
+            case SkillStatModifierType.Mouse3StunBossDuration:
                 return Mathf.Max(0f, value);
 
             default:
@@ -228,19 +268,25 @@ public class EquipmentStatResolver
         EquipmentSkillSO equipmentSo,
         IEnumerable<SkillStatModifierData> modifiers)
     {
-        int baseValue = equipmentSo != null && equipmentSo.CastSo != null
-            ? Mathf.Max(1, equipmentSo.CastSo.BurstCount)
+        int baseValue = equipmentSo != null && equipmentSo.Mouse3Profile != null &&
+            equipmentSo.Mouse3Profile.Enabled
+            ? equipmentSo.Mouse3Profile.BurstCount
+            : equipmentSo != null && equipmentSo.CastSo != null
+                ? Mathf.Max(1, equipmentSo.CastSo.BurstCount)
             : 1;
-
-        return Mathf.Max(1, baseValue);
+        return Mathf.Max(1, Mathf.RoundToInt(ApplyStatModifiers(
+            baseValue, SkillStatModifierType.Mouse3BurstCount, modifiers)));
     }
 
     public float ResolveBurstInterval(
         EquipmentSkillSO equipmentSo,
         IEnumerable<SkillStatModifierData> modifiers)
     {
-        float baseValue = equipmentSo != null && equipmentSo.CastSo != null
-            ? equipmentSo.CastSo.BurstInterval
+        float baseValue = equipmentSo != null && equipmentSo.Mouse3Profile != null &&
+            equipmentSo.Mouse3Profile.Enabled && equipmentSo.Mouse3Profile.BurstInterval > 0f
+            ? equipmentSo.Mouse3Profile.BurstInterval
+            : equipmentSo != null && equipmentSo.CastSo != null
+                ? equipmentSo.CastSo.BurstInterval
             : 0f;
 
         return Mathf.Max(0f, baseValue);

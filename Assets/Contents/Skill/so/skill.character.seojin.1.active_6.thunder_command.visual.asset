@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98a0b0313df6b442e8860a7b2f20711c, type: 3}
+  m_Name: skill.character.seojin.1.active_6.thunder_command.visual
+  m_EditorClassIdentifier: Assembly-CSharp::BaseVisualSO
+  visualId: skill.character.seojin.1.active_6.thunder_command.visual
+  projectileVisualType: 0
+  sortingRelation: 1
+  animationClips:
+  - clipType: 3
+    clip: {fileID: 7400000, guid: d026db07102594401847f9a57ef197e8, type: 2}
+  animationVfxProfile: {fileID: 0}
+  animationVfxPalette:
+    paletteCode: 
+    signatureColor: {r: 1, g: 1, b: 1, a: 1}
+    auxiliaryColor: {r: 0, g: 0, b: 0, a: 1}
+    neutralPeakColor: {r: 1, g: 1, b: 1, a: 1}
+    signatureHoldCoverage: 0.8
+    auxiliaryHoldCoverage: 0.18
+    auxiliaryPeakCoverage: 0.28
+    neutralPeakCoverage: 0.04
+    neutralPeakDuration: 0.05

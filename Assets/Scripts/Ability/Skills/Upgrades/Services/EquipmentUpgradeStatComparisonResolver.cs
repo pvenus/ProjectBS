@@ -99,8 +99,23 @@ public class EquipmentUpgradeStatComparisonResolver
         switch (modifierType)
         {
             case SkillStatModifierType.AttackPercentDamage:
+            case SkillStatModifierType.Mouse3NormalRatio:
+            case SkillStatModifierType.Mouse3EliteRatio:
+            case SkillStatModifierType.Mouse3BossRatio:
                 return $"{Mathf.RoundToInt(value * 100f)}%";
             case SkillStatModifierType.Cooldown:
+            case SkillStatModifierType.Mouse3CrowdControlDuration:
+                return $"{value:0.##}초";
+            case SkillStatModifierType.Mouse3FanAngle:
+                return $"{value:0.##}°";
+            case SkillStatModifierType.Mouse3NextBasicForwardRatio:
+            case SkillStatModifierType.Mouse3NextBasicRangeRatio:
+                return $"{Mathf.RoundToInt(value * 100f)}%";
+            case SkillStatModifierType.Mouse3NextBasicInputGrace:
+            case SkillStatModifierType.Mouse3GatherDuration:
+            case SkillStatModifierType.Mouse3StunNormalDuration:
+            case SkillStatModifierType.Mouse3StunEliteDuration:
+            case SkillStatModifierType.Mouse3StunBossDuration:
                 return $"{value:0.##}초";
             case SkillStatModifierType.Range:
             case SkillStatModifierType.ProjectileScale:
@@ -108,6 +123,7 @@ public class EquipmentUpgradeStatComparisonResolver
             case SkillStatModifierType.SplitHitCount:
             case SkillStatModifierType.MaxHitCount:
             case SkillStatModifierType.ProjectileCount:
+            case SkillStatModifierType.Mouse3BurstCount:
                 return Mathf.RoundToInt(value).ToString();
             default:
                 return value.ToString("0.##");

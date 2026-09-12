@@ -40,7 +40,9 @@ namespace Effect
                 float requested = UnityEngine.Mathf.Clamp(
                     valueOverride ?? config.Value,
                     0f,
-                    0.20f);
+                    config.RootHardCap);
+                requested = Skill.Mouse3CrowdControlPolicy.ResolveDuration(
+                    targetCharacterManager, requested);
                 targetCharacterManager.StartCoroutine(ApplyRootAfterDisplacement(requested));
                 appliedValue = 0f;
                 return;

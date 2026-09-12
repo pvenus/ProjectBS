@@ -37,7 +37,14 @@ namespace Character.Helper.Skill
                 return 0f;
             }
 
-            return skillRuntime.sourceEquipment.CastSo.Cooldown;
+            float authored = skillRuntime.sourceEquipment.CastSo.Cooldown;
+            if (skillRuntime.resolvedLevel < 4) return authored;
+            string id = GetSkillId(skillRuntime);
+            if (id == Character.Skill.SeojinJangdanRuntime.DungId) return 5.5f;
+            if (id == Character.Skill.SeojinJangdanRuntime.GiId ||
+                id == Character.Skill.SeojinJangdanRuntime.DeokId) return 3.5f;
+            if (id == Character.Skill.SeojinJangdanRuntime.SequenceId) return 7.25f;
+            return authored;
         }
     }
 }

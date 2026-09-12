@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: effect.skill.character.chain_dragger_raider.1.basic_attack.chain_swing.minor_slow
   m_EditorClassIdentifier: Assembly-CSharp::Effect.EffectSO
   effectId: effect.skill.character.chain_dragger_raider.1.basic_attack.chain_swing.minor_slow
-  authoredDisplayName: ""
+  authoredDisplayName: 
   icon: {fileID: 0}
   config:
-    rid: 666566976232489039
+    rid: 666567034589414031
   references:
     version: 2
     RefIds:
-    - rid: 666566976232489039
+    - rid: 666567034589414031
       type: {class: StatModifierEffectConfig, ns: Effect, asm: Assembly-CSharp}
       data:
         targetStat: 1237

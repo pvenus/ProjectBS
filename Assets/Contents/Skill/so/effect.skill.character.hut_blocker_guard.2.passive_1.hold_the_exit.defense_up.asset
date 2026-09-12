@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: effect.skill.character.hut_blocker_guard.2.passive_1.hold_the_exit.defense_up
   m_EditorClassIdentifier: Assembly-CSharp::Effect.EffectSO
   effectId: effect.skill.character.hut_blocker_guard.2.passive_1.hold_the_exit.defense_up
-  authoredDisplayName: ""
+  authoredDisplayName: 
   icon: {fileID: 0}
   config:
-    rid: 666566976232489045
+    rid: 666567034589414037
   references:
     version: 2
     RefIds:
-    - rid: 666566976232489045
+    - rid: 666567034589414037
       type: {class: StatModifierEffectConfig, ns: Effect, asm: Assembly-CSharp}
       data:
         targetStat: 1300

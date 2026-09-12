@@ -1,0 +1,1972 @@
+{
+  "task": "M3-ART-V1 read-only QA",
+  "manifest": {
+    "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-01/static-vfx-icons-manifest.json",
+    "sha256": "413e7a60c99462cdda3d7ebf8e43956c5368fad605bba52374919f5c83b12c29",
+    "expected": true
+  },
+  "skills": {
+    "command_chain": {
+      "icon": {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-01/icons/command_chain.png",
+        "sha256": "017e5062a03606399cdb4c8ae5ee0adbb83b2dc8f3de541d0d782f9b70c8be92",
+        "open": true,
+        "mode": "RGBA",
+        "canvas": [
+          512,
+          512
+        ],
+        "alphaBBox": [
+          24,
+          32,
+          486,
+          488
+        ],
+        "margins": {
+          "left": 24,
+          "top": 32,
+          "right": 26,
+          "bottom": 24
+        },
+        "borderContact": {
+          "left": false,
+          "top": false,
+          "right": false,
+          "bottom": false
+        },
+        "cornersAlpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "alpha0RgbResiduePixels": 0,
+        "clipping": "PASS"
+      },
+      "iconPass": true,
+      "vfxInventory": {
+        "actual": [
+          "frame-00.png",
+          "frame-01.png",
+          "frame-02.png",
+          "frame-03.png",
+          "frame-04.png",
+          "frame-05.png"
+        ],
+        "expected": [
+          "frame-00.png",
+          "frame-01.png",
+          "frame-02.png",
+          "frame-03.png",
+          "frame-04.png",
+          "frame-05.png"
+        ],
+        "exact6Order": true
+      },
+      "frames": [
+        {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-01/vfx/command_chain/frame-00.png",
+          "sha256": "0569eeec86ddb3b6e697b7c6637a4ea31392460818a0f28e9ce8b321ed0b7131",
+          "open": true,
+          "mode": "RGBA",
+          "canvas": [
+            256,
+            256
+          ],
+          "alphaBBox": [
+            18,
+            11,
+            242,
+            229
+          ],
+          "margins": {
+            "left": 18,
+            "top": 11,
+            "right": 14,
+            "bottom": 27
+          },
+          "borderContact": {
+            "left": false,
+            "top": false,
+            "right": false,
+            "bottom": false
+          },
+          "cornersAlpha": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "alpha0RgbResiduePixels": 0,
+          "clipping": "PASS"
+        },
+        {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-01/vfx/command_chain/frame-01.png",
+          "sha256": "97e8b44fc8213e0174b3dfcf813e965488d1531284f4469668f328809a136c2b",
+          "open": true,
+          "mode": "RGBA",
+          "canvas": [
+            256,
+            256
+          ],
+          "alphaBBox": [
+            14,
+            24,
+            244,
+            242
+          ],
+          "margins": {
+            "left": 14,
+            "top": 24,
+            "right": 12,
+            "bottom": 14
+          },
+          "borderContact": {
+            "left": false,
+            "top": false,
+            "right": false,
+            "bottom": false
+          },
+          "cornersAlpha": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "alpha0RgbResiduePixels": 0,
+          "clipping": "PASS"
+        },
+        {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-01/vfx/command_chain/frame-02.png",
+          "sha256": "fbdadebb6ce62e2d37a437823e586fdc481123bce89a1743922d3a90a0c79a87",
+          "open": true,
+          "mode": "RGBA",
+          "canvas": [
+            256,
+            256
+          ],
+          "alphaBBox": [
+            14,
+            20,
+            234,
+            245
+          ],
+          "margins": {
+            "left": 14,
+            "top": 20,
+            "right": 22,
+            "bottom": 11
+          },
+          "borderContact": {
+            "left": false,
+            "top": false,
+            "right": false,
+            "bottom": false
+          },
+          "cornersAlpha": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "alpha0RgbResiduePixels": 0,
+          "clipping": "PASS"
+        },
+        {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-01/vfx/command_chain/frame-03.png",
+          "sha256": "50e82ea4219f7c50c74369d5b0b670c21fb0b0a532d4e496f4115cbf1d7fcdf8",
+          "open": true,
+          "mode": "RGBA",
+          "canvas": [
+            256,
+            256
+          ],
+          "alphaBBox": [
+            10,
+            10,
+            244,
+            239
+          ],
+          "margins": {
+            "left": 10,
+            "top": 10,
+            "right": 12,
+            "bottom": 17
+          },
+          "borderContact": {
+            "left": false,
+            "top": false,
+            "right": false,
+            "bottom": false
+          },
+          "cornersAlpha": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "alpha0RgbResiduePixels": 0,
+          "clipping": "PASS"
+        },
+        {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-01/vfx/command_chain/frame-04.png",
+          "sha256": "d78c2762fea566037efd4776f3f9fdddf4cc68c7d00883003d0dc341ee678219",
+          "open": true,
+          "mode": "RGBA",
+          "canvas": [
+            256,
+            256
+          ],
+          "alphaBBox": [
+            10,
+            17,
+            246,
+            239
+          ],
+          "margins": {
+            "left": 10,
+            "top": 17,
+            "right": 10,
+            "bottom": 17
+          },
+          "borderContact": {
+            "left": false,
+            "top": false,
+            "right": false,
+            "bottom": false
+          },
+          "cornersAlpha": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "alpha0RgbResiduePixels": 0,
+          "clipping": "PASS"
+        },
+        {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-01/vfx/command_chain/frame-05.png",
+          "sha256": "7916cae12309749bd92ed0a850bf8a28b2fae2186caebd0afb1d805412a32705",
+          "open": true,
+          "mode": "RGBA",
+          "canvas": [
+            256,
+            256
+          ],
+          "alphaBBox": [
+            13,
+            10,
+            242,
+            238
+          ],
+          "margins": {
+            "left": 13,
+            "top": 10,
+            "right": 14,
+            "bottom": 18
+          },
+          "borderContact": {
+            "left": false,
+            "top": false,
+            "right": false,
+            "bottom": false
+          },
+          "cornersAlpha": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "alpha0RgbResiduePixels": 0,
+          "clipping": "PASS"
+        }
+      ],
+      "vfxUnique6": true,
+      "vfxPass": true,
+      "contacts": [
+        {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-01/evidence/command_chain-vfx-200-light.png",
+          "sha256": "7a079f76f847bf7119b02ea746923eefcb5538b4d7f87d6855d1b6384db597e0",
+          "open": true,
+          "mode": "RGBA",
+          "canvas": [
+            1200,
+            200
+          ],
+          "alphaBBox": [
+            0,
+            0,
+            1200,
+            200
+          ],
+          "margins": {
+            "left": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0
+          },
+          "borderContact": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          },
+          "cornersAlpha": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "alpha0RgbResiduePixels": 0,
+          "clipping": "FAIL",
+          "expectedScale": 200,
+          "background": "light"
+        },
+        {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-01/evidence/command_chain-vfx-200-dark.png",
+          "sha256": "869b80c4ca0c30bc9ea56be08df1495d37840553b64e34b70ce400bbad974ebe",
+          "open": true,
+          "mode": "RGBA",
+          "canvas": [
+            1200,
+            200
+          ],
+          "alphaBBox": [
+            0,
+            0,
+            1200,
+            200
+          ],
+          "margins": {
+            "left": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0
+          },
+          "borderContact": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          },
+          "cornersAlpha": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "alpha0RgbResiduePixels": 0,
+          "clipping": "FAIL",
+          "expectedScale": 200,
+          "background": "dark"
+        },
+        {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-01/evidence/command_chain-vfx-200-gray.png",
+          "sha256": "89b3076925eca3cc177913987aeacfc84734b1fbb4f7fc998fac5be680d54750",
+          "open": true,
+          "mode": "RGBA",
+          "canvas": [
+            1200,
+            200
+          ],
+          "alphaBBox": [
+            0,
+            0,
+            1200,
+            200
+          ],
+          "margins": {
+            "left": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0
+          },
+          "borderContact": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          },
+          "cornersAlpha": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "alpha0RgbResiduePixels": 0,
+          "clipping": "FAIL",
+          "expectedScale": 200,
+          "background": "gray"
+        },
+        {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-01/evidence/command_chain-vfx-80-light.png",
+          "sha256": "a117b3920eed92c4896e435cfbaa4f7b6b4bba9d20fa0ce2f755f3f0c64e78d3",
+          "open": true,
+          "mode": "RGBA",
+          "canvas": [
+            480,
+            80
+          ],
+          "alphaBBox": [
+            0,
+            0,
+            480,
+            80
+          ],
+          "margins": {
+            "left": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0
+          },
+          "borderContact": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          },
+          "cornersAlpha": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "alpha0RgbResiduePixels": 0,
+          "clipping": "FAIL",
+          "expectedScale": 80,
+          "background": "light"
+        },
+        {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-01/evidence/command_chain-vfx-80-dark.png",
+          "sha256": "6b019cf164095f4a7039dce0298c1f3fe8f169862db022c7764ed2bc08cb37aa",
+          "open": true,
+          "mode": "RGBA",
+          "canvas": [
+            480,
+            80
+          ],
+          "alphaBBox": [
+            0,
+            0,
+            480,
+            80
+          ],
+          "margins": {
+            "left": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0
+          },
+          "borderContact": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          },
+          "cornersAlpha": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "alpha0RgbResiduePixels": 0,
+          "clipping": "FAIL",
+          "expectedScale": 80,
+          "background": "dark"
+        },
+        {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-01/evidence/command_chain-vfx-80-gray.png",
+          "sha256": "f6b38eb4d61613a1b4e9f7c275c227f8a6edddade90683c49b2fc6a1a6c953e6",
+          "open": true,
+          "mode": "RGBA",
+          "canvas": [
+            480,
+            80
+          ],
+          "alphaBBox": [
+            0,
+            0,
+            480,
+            80
+          ],
+          "margins": {
+            "left": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0
+          },
+          "borderContact": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          },
+          "cornersAlpha": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "alpha0RgbResiduePixels": 0,
+          "clipping": "FAIL",
+          "expectedScale": 80,
+          "background": "gray"
+        },
+        {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-01/evidence/command_chain-vfx-32-light.png",
+          "sha256": "de26d9c162036d29c4fe563d0cdb829d444673799af9f466c4e5a3f17408e8e0",
+          "open": true,
+          "mode": "RGBA",
+          "canvas": [
+            192,
+            32
+          ],
+          "alphaBBox": [
+            0,
+            0,
+            192,
+            32
+          ],
+          "margins": {
+            "left": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0
+          },
+          "borderContact": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          },
+          "cornersAlpha": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "alpha0RgbResiduePixels": 0,
+          "clipping": "FAIL",
+          "expectedScale": 32,
+          "background": "light"
+        },
+        {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-01/evidence/command_chain-vfx-32-dark.png",
+          "sha256": "dce4bb87f027998a82867cd09baab297d004a173b37e7fdf9a9d2d9055960215",
+          "open": true,
+          "mode": "RGBA",
+          "canvas": [
+            192,
+            32
+          ],
+          "alphaBBox": [
+            0,
+            0,
+            192,
+            32
+          ],
+          "margins": {
+            "left": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0
+          },
+          "borderContact": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          },
+          "cornersAlpha": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "alpha0RgbResiduePixels": 0,
+          "clipping": "FAIL",
+          "expectedScale": 32,
+          "background": "dark"
+        },
+        {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-01/evidence/command_chain-vfx-32-gray.png",
+          "sha256": "504f799a41eceda16efc631cb4e60561a2e410ad65f2ad17c18ecc3149e0a4ac",
+          "open": true,
+          "mode": "RGBA",
+          "canvas": [
+            192,
+            32
+          ],
+          "alphaBBox": [
+            0,
+            0,
+            192,
+            32
+          ],
+          "margins": {
+            "left": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0
+          },
+          "borderContact": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          },
+          "cornersAlpha": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "alpha0RgbResiduePixels": 0,
+          "clipping": "FAIL",
+          "expectedScale": 32,
+          "background": "gray"
+        }
+      ],
+      "contactsPass": true,
+      "gif": {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-01/evidence/command_chain-vfx.gif",
+        "sha256": "c68d2784e5ba4b6e2dc71bd4d92b8dddb04da96d7415bba3f009a520005ef029",
+        "open": true,
+        "canvas": [
+          256,
+          256
+        ],
+        "mode": "RGBA",
+        "frames": 6,
+        "durationsMs": [
+          70,
+          70,
+          40,
+          120,
+          60,
+          60
+        ]
+      },
+      "gifPass": true
+    },
+    "thunder_command": {
+      "icon": {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-01/icons/thunder_command.png",
+        "sha256": "a239a4ae77080d4c9cf913b9ffe716eafe61812c74c57c69e311286b498863c1",
+        "open": true,
+        "mode": "RGBA",
+        "canvas": [
+          512,
+          512
+        ],
+        "alphaBBox": [
+          40,
+          24,
+          455,
+          484
+        ],
+        "margins": {
+          "left": 40,
+          "top": 24,
+          "right": 57,
+          "bottom": 28
+        },
+        "borderContact": {
+          "left": false,
+          "top": false,
+          "right": false,
+          "bottom": false
+        },
+        "cornersAlpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "alpha0RgbResiduePixels": 0,
+        "clipping": "PASS"
+      },
+      "iconPass": true,
+      "vfxInventory": {
+        "actual": [
+          "frame-00.png",
+          "frame-01.png",
+          "frame-02.png",
+          "frame-03.png",
+          "frame-04.png",
+          "frame-05.png"
+        ],
+        "expected": [
+          "frame-00.png",
+          "frame-01.png",
+          "frame-02.png",
+          "frame-03.png",
+          "frame-04.png",
+          "frame-05.png"
+        ],
+        "exact6Order": true
+      },
+      "frames": [
+        {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-01/vfx/thunder_command/frame-00.png",
+          "sha256": "ecf28356469e14f400dfbf6003a1c10650df3550e0d14946e8a64d83d14082d8",
+          "open": true,
+          "mode": "RGBA",
+          "canvas": [
+            256,
+            256
+          ],
+          "alphaBBox": [
+            22,
+            17,
+            244,
+            239
+          ],
+          "margins": {
+            "left": 22,
+            "top": 17,
+            "right": 12,
+            "bottom": 17
+          },
+          "borderContact": {
+            "left": false,
+            "top": false,
+            "right": false,
+            "bottom": false
+          },
+          "cornersAlpha": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "alpha0RgbResiduePixels": 0,
+          "clipping": "PASS"
+        },
+        {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-01/vfx/thunder_command/frame-01.png",
+          "sha256": "f4224931425eb7fbc99fb540ab6cfdb4b04e98d9a6863035fa794ca8e87ca8ac",
+          "open": true,
+          "mode": "RGBA",
+          "canvas": [
+            256,
+            256
+          ],
+          "alphaBBox": [
+            10,
+            13,
+            246,
+            244
+          ],
+          "margins": {
+            "left": 10,
+            "top": 13,
+            "right": 10,
+            "bottom": 12
+          },
+          "borderContact": {
+            "left": false,
+            "top": false,
+            "right": false,
+            "bottom": false
+          },
+          "cornersAlpha": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "alpha0RgbResiduePixels": 0,
+          "clipping": "PASS"
+        },
+        {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-01/vfx/thunder_command/frame-02.png",
+          "sha256": "2bb93027206de2cb7aa2b36d74cd8398a39fdc8b5e534f63668039250995ad56",
+          "open": true,
+          "mode": "RGBA",
+          "canvas": [
+            256,
+            256
+          ],
+          "alphaBBox": [
+            10,
+            15,
+            244,
+            244
+          ],
+          "margins": {
+            "left": 10,
+            "top": 15,
+            "right": 12,
+            "bottom": 12
+          },
+          "borderContact": {
+            "left": false,
+            "top": false,
+            "right": false,
+            "bottom": false
+          },
+          "cornersAlpha": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "alpha0RgbResiduePixels": 0,
+          "clipping": "PASS"
+        },
+        {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-01/vfx/thunder_command/frame-03.png",
+          "sha256": "ec78fdcb2efabd0d6e8ce32c63a4f3500942d61c6c793564fd9d363f7386debb",
+          "open": true,
+          "mode": "RGBA",
+          "canvas": [
+            256,
+            256
+          ],
+          "alphaBBox": [
+            22,
+            10,
+            246,
+            240
+          ],
+          "margins": {
+            "left": 22,
+            "top": 10,
+            "right": 10,
+            "bottom": 16
+          },
+          "borderContact": {
+            "left": false,
+            "top": false,
+            "right": false,
+            "bottom": false
+          },
+          "cornersAlpha": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "alpha0RgbResiduePixels": 0,
+          "clipping": "PASS"
+        },
+        {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-01/vfx/thunder_command/frame-04.png",
+          "sha256": "cd4ea6c64497a676bd9a1b407a590b21d10bf3aecedf16c8b67c35ed683a171d",
+          "open": true,
+          "mode": "RGBA",
+          "canvas": [
+            256,
+            256
+          ],
+          "alphaBBox": [
+            10,
+            10,
+            246,
+            238
+          ],
+          "margins": {
+            "left": 10,
+            "top": 10,
+            "right": 10,
+            "bottom": 18
+          },
+          "borderContact": {
+            "left": false,
+            "top": false,
+            "right": false,
+            "bottom": false
+          },
+          "cornersAlpha": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "alpha0RgbResiduePixels": 0,
+          "clipping": "PASS"
+        },
+        {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-01/vfx/thunder_command/frame-05.png",
+          "sha256": "34867120f8f1cd44f9b413df54d3bbd8ad2bad675884702fd470bc90ae325bb9",
+          "open": true,
+          "mode": "RGBA",
+          "canvas": [
+            256,
+            256
+          ],
+          "alphaBBox": [
+            10,
+            10,
+            239,
+            236
+          ],
+          "margins": {
+            "left": 10,
+            "top": 10,
+            "right": 17,
+            "bottom": 20
+          },
+          "borderContact": {
+            "left": false,
+            "top": false,
+            "right": false,
+            "bottom": false
+          },
+          "cornersAlpha": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "alpha0RgbResiduePixels": 0,
+          "clipping": "PASS"
+        }
+      ],
+      "vfxUnique6": true,
+      "vfxPass": true,
+      "contacts": [
+        {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-01/evidence/thunder_command-vfx-200-light.png",
+          "sha256": "054c39d19042312f66f33538bef29d3941b648f82f5269711bd86a8c6fb9e17b",
+          "open": true,
+          "mode": "RGBA",
+          "canvas": [
+            1200,
+            200
+          ],
+          "alphaBBox": [
+            0,
+            0,
+            1200,
+            200
+          ],
+          "margins": {
+            "left": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0
+          },
+          "borderContact": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          },
+          "cornersAlpha": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "alpha0RgbResiduePixels": 0,
+          "clipping": "FAIL",
+          "expectedScale": 200,
+          "background": "light"
+        },
+        {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-01/evidence/thunder_command-vfx-200-dark.png",
+          "sha256": "a142ec95031ac060f01670a119242464d67995c4f37d907ef784a25b3559a337",
+          "open": true,
+          "mode": "RGBA",
+          "canvas": [
+            1200,
+            200
+          ],
+          "alphaBBox": [
+            0,
+            0,
+            1200,
+            200
+          ],
+          "margins": {
+            "left": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0
+          },
+          "borderContact": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          },
+          "cornersAlpha": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "alpha0RgbResiduePixels": 0,
+          "clipping": "FAIL",
+          "expectedScale": 200,
+          "background": "dark"
+        },
+        {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-01/evidence/thunder_command-vfx-200-gray.png",
+          "sha256": "2e0ccabf645c00c8c777bac339f3a835e8267483509b119ccec0f0d73729c84d",
+          "open": true,
+          "mode": "RGBA",
+          "canvas": [
+            1200,
+            200
+          ],
+          "alphaBBox": [
+            0,
+            0,
+            1200,
+            200
+          ],
+          "margins": {
+            "left": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0
+          },
+          "borderContact": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          },
+          "cornersAlpha": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "alpha0RgbResiduePixels": 0,
+          "clipping": "FAIL",
+          "expectedScale": 200,
+          "background": "gray"
+        },
+        {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-01/evidence/thunder_command-vfx-80-light.png",
+          "sha256": "185b8dbfc2627b322c9fe031a6e97987c0c2f3ad0afc1f77cea8de941dc0a3dd",
+          "open": true,
+          "mode": "RGBA",
+          "canvas": [
+            480,
+            80
+          ],
+          "alphaBBox": [
+            0,
+            0,
+            480,
+            80
+          ],
+          "margins": {
+            "left": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0
+          },
+          "borderContact": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          },
+          "cornersAlpha": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "alpha0RgbResiduePixels": 0,
+          "clipping": "FAIL",
+          "expectedScale": 80,
+          "background": "light"
+        },
+        {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-01/evidence/thunder_command-vfx-80-dark.png",
+          "sha256": "bb9a23705cfe13595e97e499f65a35e3598d8de26858c09ca92d135b446f935f",
+          "open": true,
+          "mode": "RGBA",
+          "canvas": [
+            480,
+            80
+          ],
+          "alphaBBox": [
+            0,
+            0,
+            480,
+            80
+          ],
+          "margins": {
+            "left": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0
+          },
+          "borderContact": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          },
+          "cornersAlpha": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "alpha0RgbResiduePixels": 0,
+          "clipping": "FAIL",
+          "expectedScale": 80,
+          "background": "dark"
+        },
+        {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-01/evidence/thunder_command-vfx-80-gray.png",
+          "sha256": "b0278516b00ef921579220014e79569b02092be14e65cc4b08a0cc947fd0aa0d",
+          "open": true,
+          "mode": "RGBA",
+          "canvas": [
+            480,
+            80
+          ],
+          "alphaBBox": [
+            0,
+            0,
+            480,
+            80
+          ],
+          "margins": {
+            "left": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0
+          },
+          "borderContact": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          },
+          "cornersAlpha": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "alpha0RgbResiduePixels": 0,
+          "clipping": "FAIL",
+          "expectedScale": 80,
+          "background": "gray"
+        },
+        {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-01/evidence/thunder_command-vfx-32-light.png",
+          "sha256": "43ce10ac45c4ecc4b48782be99d2ef07f398f6421d06c3d5d63453080e137fbe",
+          "open": true,
+          "mode": "RGBA",
+          "canvas": [
+            192,
+            32
+          ],
+          "alphaBBox": [
+            0,
+            0,
+            192,
+            32
+          ],
+          "margins": {
+            "left": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0
+          },
+          "borderContact": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          },
+          "cornersAlpha": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "alpha0RgbResiduePixels": 0,
+          "clipping": "FAIL",
+          "expectedScale": 32,
+          "background": "light"
+        },
+        {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-01/evidence/thunder_command-vfx-32-dark.png",
+          "sha256": "62216c9aaaed7317de75adf7a04c44ebfb87273c6cce62b1a95017b9f5ccd872",
+          "open": true,
+          "mode": "RGBA",
+          "canvas": [
+            192,
+            32
+          ],
+          "alphaBBox": [
+            0,
+            0,
+            192,
+            32
+          ],
+          "margins": {
+            "left": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0
+          },
+          "borderContact": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          },
+          "cornersAlpha": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "alpha0RgbResiduePixels": 0,
+          "clipping": "FAIL",
+          "expectedScale": 32,
+          "background": "dark"
+        },
+        {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-01/evidence/thunder_command-vfx-32-gray.png",
+          "sha256": "8670158427439f1981d0ddc6ab39b48a6234ca1d9e28c44f953ca9934e316552",
+          "open": true,
+          "mode": "RGBA",
+          "canvas": [
+            192,
+            32
+          ],
+          "alphaBBox": [
+            0,
+            0,
+            192,
+            32
+          ],
+          "margins": {
+            "left": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0
+          },
+          "borderContact": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          },
+          "cornersAlpha": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "alpha0RgbResiduePixels": 0,
+          "clipping": "FAIL",
+          "expectedScale": 32,
+          "background": "gray"
+        }
+      ],
+      "contactsPass": true,
+      "gif": {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-01/evidence/thunder_command-vfx.gif",
+        "sha256": "5212588809a6e70c60eed622903c96c1b1606714fbdf7a0c87dbc0682fc66991",
+        "open": true,
+        "canvas": [
+          256,
+          256
+        ],
+        "mode": "RGBA",
+        "frames": 6,
+        "durationsMs": [
+          80,
+          80,
+          80,
+          120,
+          70,
+          70
+        ]
+      },
+      "gifPass": true
+    },
+    "blockade_cut": {
+      "icon": {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-01/icons/blockade_cut.png",
+        "sha256": "9a036a8423f87db1202957b969e096aec803416372624ba81bf30fdbf1395449",
+        "open": true,
+        "mode": "RGBA",
+        "canvas": [
+          512,
+          512
+        ],
+        "alphaBBox": [
+          24,
+          37,
+          488,
+          467
+        ],
+        "margins": {
+          "left": 24,
+          "top": 37,
+          "right": 24,
+          "bottom": 45
+        },
+        "borderContact": {
+          "left": false,
+          "top": false,
+          "right": false,
+          "bottom": false
+        },
+        "cornersAlpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "alpha0RgbResiduePixels": 0,
+        "clipping": "PASS"
+      },
+      "iconPass": true,
+      "vfxInventory": {
+        "actual": [
+          "frame-00.png",
+          "frame-01.png",
+          "frame-02.png",
+          "frame-03.png",
+          "frame-04.png",
+          "frame-05.png"
+        ],
+        "expected": [
+          "frame-00.png",
+          "frame-01.png",
+          "frame-02.png",
+          "frame-03.png",
+          "frame-04.png",
+          "frame-05.png"
+        ],
+        "exact6Order": true
+      },
+      "frames": [
+        {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-01/vfx/blockade_cut/frame-00.png",
+          "sha256": "3d924647dc72293c57e09147d369bc97fd11c43d19b96db4379d0d0446db7955",
+          "open": true,
+          "mode": "RGBA",
+          "canvas": [
+            256,
+            256
+          ],
+          "alphaBBox": [
+            31,
+            87,
+            236,
+            188
+          ],
+          "margins": {
+            "left": 31,
+            "top": 87,
+            "right": 20,
+            "bottom": 68
+          },
+          "borderContact": {
+            "left": false,
+            "top": false,
+            "right": false,
+            "bottom": false
+          },
+          "cornersAlpha": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "alpha0RgbResiduePixels": 0,
+          "clipping": "PASS"
+        },
+        {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-01/vfx/blockade_cut/frame-01.png",
+          "sha256": "2b04152939d674d6a2935cebe17d5bae784be6be602df50e245b931ca9e6b11a",
+          "open": true,
+          "mode": "RGBA",
+          "canvas": [
+            256,
+            256
+          ],
+          "alphaBBox": [
+            51,
+            70,
+            187,
+            185
+          ],
+          "margins": {
+            "left": 51,
+            "top": 70,
+            "right": 69,
+            "bottom": 71
+          },
+          "borderContact": {
+            "left": false,
+            "top": false,
+            "right": false,
+            "bottom": false
+          },
+          "cornersAlpha": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "alpha0RgbResiduePixels": 0,
+          "clipping": "PASS"
+        },
+        {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-01/vfx/blockade_cut/frame-02.png",
+          "sha256": "afe793c9261f7f0e71fb4ae2cc8e9a8ca31cfc4ed68467e46cb61196aeb6c8c1",
+          "open": true,
+          "mode": "RGBA",
+          "canvas": [
+            256,
+            256
+          ],
+          "alphaBBox": [
+            15,
+            73,
+            190,
+            174
+          ],
+          "margins": {
+            "left": 15,
+            "top": 73,
+            "right": 66,
+            "bottom": 82
+          },
+          "borderContact": {
+            "left": false,
+            "top": false,
+            "right": false,
+            "bottom": false
+          },
+          "cornersAlpha": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "alpha0RgbResiduePixels": 0,
+          "clipping": "PASS"
+        },
+        {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-01/vfx/blockade_cut/frame-03.png",
+          "sha256": "7f4bf0f4866af89c92a8f8e2c8382323a4d8b5f9bfcc94d6ad3e9366a8ab636a",
+          "open": true,
+          "mode": "RGBA",
+          "canvas": [
+            256,
+            256
+          ],
+          "alphaBBox": [
+            26,
+            67,
+            241,
+            189
+          ],
+          "margins": {
+            "left": 26,
+            "top": 67,
+            "right": 15,
+            "bottom": 67
+          },
+          "borderContact": {
+            "left": false,
+            "top": false,
+            "right": false,
+            "bottom": false
+          },
+          "cornersAlpha": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "alpha0RgbResiduePixels": 0,
+          "clipping": "PASS"
+        },
+        {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-01/vfx/blockade_cut/frame-04.png",
+          "sha256": "bb3c1464c3c4828b3dabfba6950862014406b58bf4015ec17d54edcc48cdf92d",
+          "open": true,
+          "mode": "RGBA",
+          "canvas": [
+            256,
+            256
+          ],
+          "alphaBBox": [
+            28,
+            67,
+            219,
+            188
+          ],
+          "margins": {
+            "left": 28,
+            "top": 67,
+            "right": 37,
+            "bottom": 68
+          },
+          "borderContact": {
+            "left": false,
+            "top": false,
+            "right": false,
+            "bottom": false
+          },
+          "cornersAlpha": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "alpha0RgbResiduePixels": 0,
+          "clipping": "PASS"
+        },
+        {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-01/vfx/blockade_cut/frame-05.png",
+          "sha256": "7564494bbd5a8d157d1fa4e446adfc09209d655881ed4bee018aa8f3b6d060a7",
+          "open": true,
+          "mode": "RGBA",
+          "canvas": [
+            256,
+            256
+          ],
+          "alphaBBox": [
+            29,
+            68,
+            182,
+            179
+          ],
+          "margins": {
+            "left": 29,
+            "top": 68,
+            "right": 74,
+            "bottom": 77
+          },
+          "borderContact": {
+            "left": false,
+            "top": false,
+            "right": false,
+            "bottom": false
+          },
+          "cornersAlpha": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "alpha0RgbResiduePixels": 0,
+          "clipping": "PASS"
+        }
+      ],
+      "vfxUnique6": true,
+      "vfxPass": true,
+      "contacts": [
+        {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-01/evidence/blockade_cut-vfx-200-light.png",
+          "sha256": "1df3b3964dbf488ba996110d57a657455251c933046bb247feabe135c56fd878",
+          "open": true,
+          "mode": "RGBA",
+          "canvas": [
+            1200,
+            200
+          ],
+          "alphaBBox": [
+            0,
+            0,
+            1200,
+            200
+          ],
+          "margins": {
+            "left": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0
+          },
+          "borderContact": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          },
+          "cornersAlpha": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "alpha0RgbResiduePixels": 0,
+          "clipping": "FAIL",
+          "expectedScale": 200,
+          "background": "light"
+        },
+        {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-01/evidence/blockade_cut-vfx-200-dark.png",
+          "sha256": "851936f51a8b2456df7e3494e36f955a7767dd46f0ef64cba09e7859aa5b7d0e",
+          "open": true,
+          "mode": "RGBA",
+          "canvas": [
+            1200,
+            200
+          ],
+          "alphaBBox": [
+            0,
+            0,
+            1200,
+            200
+          ],
+          "margins": {
+            "left": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0
+          },
+          "borderContact": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          },
+          "cornersAlpha": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "alpha0RgbResiduePixels": 0,
+          "clipping": "FAIL",
+          "expectedScale": 200,
+          "background": "dark"
+        },
+        {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-01/evidence/blockade_cut-vfx-200-gray.png",
+          "sha256": "cedffbbd184ceb19fcee199bb037c55074b0850f7f633ea894f06aca800fb133",
+          "open": true,
+          "mode": "RGBA",
+          "canvas": [
+            1200,
+            200
+          ],
+          "alphaBBox": [
+            0,
+            0,
+            1200,
+            200
+          ],
+          "margins": {
+            "left": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0
+          },
+          "borderContact": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          },
+          "cornersAlpha": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "alpha0RgbResiduePixels": 0,
+          "clipping": "FAIL",
+          "expectedScale": 200,
+          "background": "gray"
+        },
+        {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-01/evidence/blockade_cut-vfx-80-light.png",
+          "sha256": "52160a42d08a94542d2a87e53cc863369c20a8f25fd1a598f0a00933ffb3e733",
+          "open": true,
+          "mode": "RGBA",
+          "canvas": [
+            480,
+            80
+          ],
+          "alphaBBox": [
+            0,
+            0,
+            480,
+            80
+          ],
+          "margins": {
+            "left": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0
+          },
+          "borderContact": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          },
+          "cornersAlpha": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "alpha0RgbResiduePixels": 0,
+          "clipping": "FAIL",
+          "expectedScale": 80,
+          "background": "light"
+        },
+        {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-01/evidence/blockade_cut-vfx-80-dark.png",
+          "sha256": "dcc9e14ff9d5e4b8b7697b43b8a2d3b99ea49622224ba190cd74ba46ee025109",
+          "open": true,
+          "mode": "RGBA",
+          "canvas": [
+            480,
+            80
+          ],
+          "alphaBBox": [
+            0,
+            0,
+            480,
+            80
+          ],
+          "margins": {
+            "left": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0
+          },
+          "borderContact": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          },
+          "cornersAlpha": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "alpha0RgbResiduePixels": 0,
+          "clipping": "FAIL",
+          "expectedScale": 80,
+          "background": "dark"
+        },
+        {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-01/evidence/blockade_cut-vfx-80-gray.png",
+          "sha256": "4137befc9038ea725b6972601330ea569fa57256cb776b335dd96818d865e3af",
+          "open": true,
+          "mode": "RGBA",
+          "canvas": [
+            480,
+            80
+          ],
+          "alphaBBox": [
+            0,
+            0,
+            480,
+            80
+          ],
+          "margins": {
+            "left": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0
+          },
+          "borderContact": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          },
+          "cornersAlpha": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "alpha0RgbResiduePixels": 0,
+          "clipping": "FAIL",
+          "expectedScale": 80,
+          "background": "gray"
+        },
+        {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-01/evidence/blockade_cut-vfx-32-light.png",
+          "sha256": "735773dfc803206805661bddbfc13db9a9535d77c5b487876ae2e7e424b9b2f9",
+          "open": true,
+          "mode": "RGBA",
+          "canvas": [
+            192,
+            32
+          ],
+          "alphaBBox": [
+            0,
+            0,
+            192,
+            32
+          ],
+          "margins": {
+            "left": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0
+          },
+          "borderContact": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          },
+          "cornersAlpha": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "alpha0RgbResiduePixels": 0,
+          "clipping": "FAIL",
+          "expectedScale": 32,
+          "background": "light"
+        },
+        {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-01/evidence/blockade_cut-vfx-32-dark.png",
+          "sha256": "8745e62e77004f1dba512fbe54c722da8699425c5ef1125a8a8f7a63e05c3653",
+          "open": true,
+          "mode": "RGBA",
+          "canvas": [
+            192,
+            32
+          ],
+          "alphaBBox": [
+            0,
+            0,
+            192,
+            32
+          ],
+          "margins": {
+            "left": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0
+          },
+          "borderContact": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          },
+          "cornersAlpha": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "alpha0RgbResiduePixels": 0,
+          "clipping": "FAIL",
+          "expectedScale": 32,
+          "background": "dark"
+        },
+        {
+          "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-01/evidence/blockade_cut-vfx-32-gray.png",
+          "sha256": "a4eefe50437c75d46796767370372a94a964fc86f301692e9c6475149cee56ab",
+          "open": true,
+          "mode": "RGBA",
+          "canvas": [
+            192,
+            32
+          ],
+          "alphaBBox": [
+            0,
+            0,
+            192,
+            32
+          ],
+          "margins": {
+            "left": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0
+          },
+          "borderContact": {
+            "left": true,
+            "top": true,
+            "right": true,
+            "bottom": true
+          },
+          "cornersAlpha": [
+            255,
+            255,
+            255,
+            255
+          ],
+          "alpha0RgbResiduePixels": 0,
+          "clipping": "FAIL",
+          "expectedScale": 32,
+          "background": "gray"
+        }
+      ],
+      "contactsPass": true,
+      "gif": {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-01/evidence/blockade_cut-vfx.gif",
+        "sha256": "4496cab64efde392ac68026ea7edb486c098fa2920cc15e7e0eefabaf267c094",
+        "open": true,
+        "canvas": [
+          256,
+          256
+        ],
+        "mode": "RGBA",
+        "frames": 6,
+        "durationsMs": [
+          50,
+          50,
+          40,
+          140,
+          90,
+          90
+        ]
+      },
+      "gifPass": true
+    }
+  },
+  "semantics": {
+    "command_chain": {
+      "required": "inward pull8",
+      "observed": "eight cardinal/intercardinal arrows converge inward to center",
+      "pass": true
+    },
+    "thunder_command": {
+      "required": "vertical strike + ground ring",
+      "observed": "vertical lightning builds into ground impact then residual ground ring",
+      "pass": true
+    },
+    "blockade_cut": {
+      "required": "55-degree fan, no dash",
+      "observed": "stationary ~55-degree wedge/fan expands and fades; no translational dash trail",
+      "pass": true
+    }
+  },
+  "crossCellContaminationObserved": false,
+  "body": "PENDING_OUT_OF_SCOPE",
+  "pixelMutation": false,
+  "visualDirectionRuntimeVerdict": false,
+  "summary": {
+    "icons": 3,
+    "iconsPass": 3,
+    "vfxFrames": 18,
+    "vfxPassSkills": 3,
+    "globalVfxUnique18": true,
+    "contacts": 27,
+    "contactsPass": true,
+    "gifsPass": true,
+    "semanticsPass": true,
+    "strictPass": true
+  }
+}

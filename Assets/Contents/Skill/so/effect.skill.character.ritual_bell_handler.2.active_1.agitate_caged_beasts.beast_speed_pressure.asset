@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: effect.skill.character.ritual_bell_handler.2.active_1.agitate_caged_beasts.beast_speed_pressure
   m_EditorClassIdentifier: Assembly-CSharp::Effect.EffectSO
   effectId: effect.skill.character.ritual_bell_handler.2.active_1.agitate_caged_beasts.beast_speed_pressure
-  authoredDisplayName: ""
+  authoredDisplayName: 
   icon: {fileID: 0}
   config:
-    rid: 666566976232489085
+    rid: 666567034589414077
   references:
     version: 2
     RefIds:
-    - rid: 666566976232489085
+    - rid: 666567034589414077
       type: {class: StatModifierEffectConfig, ns: Effect, asm: Assembly-CSharp}
       data:
         targetStat: 1237

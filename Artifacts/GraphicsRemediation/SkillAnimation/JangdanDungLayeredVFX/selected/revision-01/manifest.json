@@ -1,0 +1,421 @@
+{
+  "schemaVersion": "jangdan_dung_layered_vfx_selected_v1",
+  "status": "SELECTED_SOURCE_STATIC_QA_PENDING_INSTALL0",
+  "generator": "built-in ImageGen",
+  "sourceSelectionRoot": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected-v20260910-r02",
+  "outputRoot": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected/revision-01",
+  "layers": {
+    "groundField": {
+      "size": 512,
+      "times": [
+        0.0,
+        0.125,
+        0.25,
+        0.375
+      ],
+      "stop": 0.5,
+      "loop": true
+    },
+    "pullFlow": {
+      "size": 256,
+      "times": [
+        0.25,
+        0.4,
+        0.55,
+        0.7,
+        0.85,
+        1.0
+      ],
+      "stop": 1.0,
+      "loop": false
+    },
+    "setupPulse": {
+      "size": 256,
+      "times": [
+        0.8,
+        0.95,
+        1.1
+      ],
+      "stop": 1.1,
+      "loop": false
+    },
+    "finishResidue": {
+      "size": 256,
+      "times": [
+        1.1,
+        1.225,
+        1.35,
+        1.5
+      ],
+      "stop": 1.5,
+      "loop": false
+    }
+  },
+  "entries": [
+    {
+      "layer": "groundField",
+      "frame": 0,
+      "time": 0.0,
+      "path": "groundField/frame-00.png",
+      "sha256": "653278368ce7b652718a106ee2c6217b09fd3010170a50d2f3e43da706955f46",
+      "sourcePath": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected-v20260910-r02/groundField/frame_01.png",
+      "sourceSha256": "84f0ef73d3390bda9a149d31633372e22df9cd80fd25cfaaa4aa6da41e5e2679",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "scaledSize": [
+        504,
+        504
+      ],
+      "offset": [
+        4,
+        4
+      ]
+    },
+    {
+      "layer": "groundField",
+      "frame": 1,
+      "time": 0.125,
+      "path": "groundField/frame-01.png",
+      "sha256": "d6082a64df9e2abfab9d258ced0bb94ecdb5a47c57989f1bf62ad930fbf96db1",
+      "sourcePath": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected-v20260910-r02/groundField/frame_02.png",
+      "sourceSha256": "c2ae5799f386c34fef7a41f4d4f3c549e3347b58b7e6aa3ae75e49c9f4781ab8",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "scaledSize": [
+        504,
+        504
+      ],
+      "offset": [
+        4,
+        4
+      ]
+    },
+    {
+      "layer": "groundField",
+      "frame": 2,
+      "time": 0.25,
+      "path": "groundField/frame-02.png",
+      "sha256": "a3954e3c3f8247496c327231cd6206e1578057449669680f1648a45c91a8e2f4",
+      "sourcePath": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected-v20260910-r02/groundField/frame_03.png",
+      "sourceSha256": "b84f1326ecf1cdf8e1e416297f161094a9242076a3e4590e50b8e95a3c990dd3",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "scaledSize": [
+        504,
+        504
+      ],
+      "offset": [
+        4,
+        4
+      ]
+    },
+    {
+      "layer": "groundField",
+      "frame": 3,
+      "time": 0.375,
+      "path": "groundField/frame-03.png",
+      "sha256": "d98bc575b7a1d52e30b47144df57689b404ff97968902838a080518f1506e7db",
+      "sourcePath": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected-v20260910-r02/groundField/frame_04.png",
+      "sourceSha256": "8913eb183fc2732928e96a8b0b51284fe8b6e245c4dca9906b5e13505ccd2be0",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "scaledSize": [
+        504,
+        504
+      ],
+      "offset": [
+        4,
+        4
+      ]
+    },
+    {
+      "layer": "pullFlow",
+      "frame": 0,
+      "time": 0.25,
+      "path": "pullFlow/frame-00.png",
+      "sha256": "443ab8d1deb7433ff623ee7f0b2606adec7ec1bc67ba8422b79454998b5d68c3",
+      "sourcePath": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected-v20260910-r02/pullFlow/frame_01.png",
+      "sourceSha256": "9cc16a8bd021bdef158753d6f2cecf71b166efc2a6cd4b781756fd7a283f5a36",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "scaledSize": [
+        248,
+        248
+      ],
+      "offset": [
+        4,
+        4
+      ]
+    },
+    {
+      "layer": "pullFlow",
+      "frame": 1,
+      "time": 0.4,
+      "path": "pullFlow/frame-01.png",
+      "sha256": "e8b95c5cb83c21e24f6f83210e44a3f80ff7c2fd3a1ae8a72765c9d99c47e32a",
+      "sourcePath": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected-v20260910-r02/pullFlow/frame_02.png",
+      "sourceSha256": "9e4676e008f5f69baf84158f8ab794b823b026225155ea6f5464a29c1bf3b79e",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "scaledSize": [
+        248,
+        248
+      ],
+      "offset": [
+        4,
+        4
+      ]
+    },
+    {
+      "layer": "pullFlow",
+      "frame": 2,
+      "time": 0.55,
+      "path": "pullFlow/frame-02.png",
+      "sha256": "2b1fafb59f51f33b6541c2dfd3e5f3a6906c445f0ec71fbefc13e20c07ac7579",
+      "sourcePath": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected-v20260910-r02/pullFlow/frame_03.png",
+      "sourceSha256": "88eece2db858b8f9564c3331d9d7f71c12b26492a412a82b8357b9990c332fb8",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "scaledSize": [
+        248,
+        248
+      ],
+      "offset": [
+        4,
+        4
+      ]
+    },
+    {
+      "layer": "pullFlow",
+      "frame": 3,
+      "time": 0.7,
+      "path": "pullFlow/frame-03.png",
+      "sha256": "e9e04e18bf2d1c854133ed91d6d213b2b3c22d9c910e646b9073569e206247a1",
+      "sourcePath": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected-v20260910-r02/pullFlow/frame_04.png",
+      "sourceSha256": "30571957b4d59a5d472743a62c72fc732788623c62d09742a0c0d46fd406e220",
+      "sourceSize": [
+        1536,
+        1024
+      ],
+      "scaledSize": [
+        248,
+        165
+      ],
+      "offset": [
+        4,
+        45
+      ]
+    },
+    {
+      "layer": "pullFlow",
+      "frame": 4,
+      "time": 0.85,
+      "path": "pullFlow/frame-04.png",
+      "sha256": "7b2cc6d2ab8080f3c13ea3a918ba194242d9ace6f9a4c3eec658bf321441bca8",
+      "sourcePath": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected-v20260910-r02/pullFlow/frame_05.png",
+      "sourceSha256": "d83d403df2007c1141671b1a7c47260b3eb619176f50e7a4635710b1e97008fc",
+      "sourceSize": [
+        1536,
+        1024
+      ],
+      "scaledSize": [
+        248,
+        165
+      ],
+      "offset": [
+        4,
+        45
+      ]
+    },
+    {
+      "layer": "pullFlow",
+      "frame": 5,
+      "time": 1.0,
+      "path": "pullFlow/frame-05.png",
+      "sha256": "ff3750259e71d3b623c9780c5d3f96671c946f938c5c9770a19a64ac45d3b8a7",
+      "sourcePath": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected-v20260910-r02/pullFlow/frame_06.png",
+      "sourceSha256": "a14475719cbf290b23466d192e5121e2ed27ac20cf18d476e53b9d60dd211a44",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "scaledSize": [
+        248,
+        248
+      ],
+      "offset": [
+        4,
+        4
+      ]
+    },
+    {
+      "layer": "setupPulse",
+      "frame": 0,
+      "time": 0.8,
+      "path": "setupPulse/frame-00.png",
+      "sha256": "50d84ec4f2cd16de172e95d60ab67e252eee2c4c32320b885310006f2fe5e868",
+      "sourcePath": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected-v20260910-r02/setupPulse/frame_01.png",
+      "sourceSha256": "11a4324ac4623484e33fb7a67e7ca468af6e08d53086d056c28566ddd9b313ac",
+      "sourceSize": [
+        1536,
+        1024
+      ],
+      "scaledSize": [
+        248,
+        165
+      ],
+      "offset": [
+        4,
+        45
+      ]
+    },
+    {
+      "layer": "setupPulse",
+      "frame": 1,
+      "time": 0.95,
+      "path": "setupPulse/frame-01.png",
+      "sha256": "95796ba527d1b7a0310da5364ca653fac45e01629372124fd28bd75404d41f57",
+      "sourcePath": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected-v20260910-r02/setupPulse/frame_02.png",
+      "sourceSha256": "f7fbc065913887cfc0bc47fd04e053b827d5ec6a572adf9ab1f57785b2621035",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "scaledSize": [
+        248,
+        248
+      ],
+      "offset": [
+        4,
+        4
+      ]
+    },
+    {
+      "layer": "setupPulse",
+      "frame": 2,
+      "time": 1.1,
+      "path": "setupPulse/frame-02.png",
+      "sha256": "666d33ba9901efcc17fa7f22eed91d276ee0f3cfd164fe78d46750dac1df269f",
+      "sourcePath": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected-v20260910-r02/setupPulse/frame_03.png",
+      "sourceSha256": "a87cbeb4caf82b0db616a253f730568572b106cb92edbddf17797f71137b6d30",
+      "sourceSize": [
+        1536,
+        1024
+      ],
+      "scaledSize": [
+        248,
+        165
+      ],
+      "offset": [
+        4,
+        45
+      ]
+    },
+    {
+      "layer": "finishResidue",
+      "frame": 0,
+      "time": 1.1,
+      "path": "finishResidue/frame-00.png",
+      "sha256": "17829ba849a4e5df07b644c582c7f897caf849d502b9e8073c89cbdc46bf5d5f",
+      "sourcePath": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected-v20260910-r02/finishResidue/frame_01.png",
+      "sourceSha256": "e1c7e3caa025be66d120def538958dbc74ca8cb44d30a7c7f2c8f2e871c798a0",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "scaledSize": [
+        248,
+        248
+      ],
+      "offset": [
+        4,
+        4
+      ]
+    },
+    {
+      "layer": "finishResidue",
+      "frame": 1,
+      "time": 1.225,
+      "path": "finishResidue/frame-01.png",
+      "sha256": "04dfb49adec9e2dd80620306a397cc5a1a0c153ff2b6061322367b63c6a17b53",
+      "sourcePath": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected-v20260910-r02/finishResidue/frame_02.png",
+      "sourceSha256": "eaad05d0161dd7514e488b227311a0369acff2196831c84e7b29f582bdb86e24",
+      "sourceSize": [
+        1364,
+        1153
+      ],
+      "scaledSize": [
+        248,
+        210
+      ],
+      "offset": [
+        4,
+        23
+      ]
+    },
+    {
+      "layer": "finishResidue",
+      "frame": 2,
+      "time": 1.35,
+      "path": "finishResidue/frame-02.png",
+      "sha256": "bcd24f274a5ce23779c6ccd523afa402daaa5ef6e4b1fb2c0a2e7daabee358e3",
+      "sourcePath": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected-v20260910-r02/finishResidue/frame_03.png",
+      "sourceSha256": "9997edd0d8d43047488588a8e070874484920a1f218c5a519cdc7cbb808c85cf",
+      "sourceSize": [
+        1536,
+        1024
+      ],
+      "scaledSize": [
+        248,
+        165
+      ],
+      "offset": [
+        4,
+        45
+      ]
+    },
+    {
+      "layer": "finishResidue",
+      "frame": 3,
+      "time": 1.5,
+      "path": "finishResidue/frame-03.png",
+      "sha256": "de98921cf2bfe1d0784f0fbddf581cacde9b06d73a42d7f5b30a294b10ad10e2",
+      "sourcePath": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected-v20260910-r02/finishResidue/frame_04.png",
+      "sourceSha256": "ab56f89df85173113c3a0c7dc6e0ee0796e8c18ab95109a4b353f197fa0fa325",
+      "sourceSize": [
+        1536,
+        1024
+      ],
+      "scaledSize": [
+        248,
+        165
+      ],
+      "offset": [
+        4,
+        45
+      ]
+    }
+  ],
+  "runtimePresentation": {
+    "groundFieldCycles": 3,
+    "groundFieldCycleSeconds": 0.5,
+    "totalSeconds": 1.5,
+    "blend": "source-over"
+  },
+  "installBoundary": "No Unity/project canonical install; downstream atomic integration only.",
+  "rollback": "Remove this versioned artifact directory only; existing assets untouched."
+}

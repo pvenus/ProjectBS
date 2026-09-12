@@ -49,7 +49,8 @@ namespace Character.Control
     }
     internal struct ManualInputFrame
     {
-        internal bool Up,Down,Left,Right,AttackHeld,AttackDown,DashDown,ChargeDown;
+        internal bool Up,Down,Left,Right,AttackHeld,AttackDown,DashDown,ChargeDown,SecondaryDown,ActiveSkillActionDown;
+        internal float WheelDelta,UnscaledTime;
         internal int SlotDown;
         internal AimSnapshot Aim;
         internal ControlVector CasterPosition;
@@ -61,7 +62,12 @@ namespace Character.Control
         bool Busy {get;}
         bool Available(int slot);
         bool Ready(int slot);
+        bool CanReserve(int slot)=>Ready(slot);
+        bool CanCancelForReservedSkill=>false;
+        int ExecutionId=>0;
+        void CancelForReservedSkill(int slot)=>Clear(true);
         bool Fire(int slot,AimSnapshot aim,ControlVector dash,Func<bool> chain);
+        bool TryActiveSkillAction(AimSnapshot aim)=>false;
         void Move(ControlVector direction);
         void Clear(bool interrupt);
     }
@@ -72,13 +78,20 @@ namespace Character.Control
         internal bool AttackHeld {get;private set;}
         internal bool AllowsAuto=>Reason==ControlReason.ExplicitAuto&&!Suspended;
         private bool initialized;
-        // Active-skill keydowns are immediate attempts; no deferred priority slot exists.
-        internal int PendingSlot=>0;
+        private int pendingSlot;
+        private AimSnapshot pendingAim;
+        private float pendingExpiresAt;
+        private int pendingExecutionId;
+        internal int PendingSlot=>pendingSlot;
+        internal event Action<int> PendingSkillChanged;
         private AimSnapshot basicAim;
         private bool hasBasicAim;
         private bool basicPressPending;
+        private bool wheelArmed=true;
+        private float wheelDebounceUntil;
         private ControlVector lastMovement;
-        internal void Reset(){initialized=false;Reason=ControlReason.Manual;Suspended=true;AttackHeld=false;hasBasicAim=false;basicPressPending=false;lastMovement=default;}
+        internal void Reset(){initialized=false;Reason=ControlReason.Manual;Suspended=true;AttackHeld=false;hasBasicAim=false;basicPressPending=false;wheelArmed=true;wheelDebounceUntil=0;lastMovement=default;ClearPending();}
+        private void ClearPending(){bool changed=pendingSlot!=0;pendingSlot=0;pendingAim=default;pendingExpiresAt=0f;pendingExecutionId=0;if(changed)PendingSkillChanged?.Invoke(0);}
         internal static ControlVector KeyboardMoveDirection(ControlVector axes,ControlVector last,ControlVector facing)
             =>axes.Valid&&axes.Nonzero?axes.Normalized:last.Valid&&last.Nonzero?last.Normalized:facing.Valid&&facing.Nonzero?facing.Normalized:new ControlVector(1,0);
         internal void Tick(ManualInputFrame input,ControlReason reason,bool suspended,ControlVector facing,IManualGameplay game)
@@ -88,14 +101,19 @@ namespace Character.Control
             Reason=reason;Suspended=suspended;initialized=true;
             if(changed)
             {
-                AttackHeld=false;hasBasicAim=false;basicPressPending=false;lastMovement=default;
+                AttackHeld=false;hasBasicAim=false;basicPressPending=false;lastMovement=default;ClearPending();
                 game.Clear(suspended||reason!=ControlReason.Manual||prior!=ControlReason.Manual);game.Move(default);
                 return; // handback frame consumes no input; next frame re-samples physical state.
             }
-            if(reason!=ControlReason.Manual||suspended){AttackHeld=false;hasBasicAim=false;basicPressPending=false;game.Move(default);return;}
+            if(reason!=ControlReason.Manual||suspended){AttackHeld=false;hasBasicAim=false;basicPressPending=false;ClearPending();game.Move(default);return;}
             var snapshot=input.Aim.AtOrigin(input.CasterPosition);
             var axes=input.Axes;if(axes.Valid&&axes.Nonzero)lastMovement=axes.Normalized;
             snapshot=snapshot.WithKeyboardDirection(KeyboardMoveDirection(axes,lastMovement,facing));
+            if(input.ActiveSkillActionDown)
+            {
+                game.TryActiveSkillAction(snapshot);
+                return;
+            }
             bool wasHeld=AttackHeld;
             AttackHeld=input.AttackHeld||input.AttackDown;
             bool newBasicPress=input.AttackDown||(input.AttackHeld&&!wasHeld);
@@ -106,22 +124,62 @@ namespace Character.Control
                 basicPressPending=true;
             }
             game.Move(game.Busy?default:axes);
-            if(game.Busy)
-            {
-                // A held button supplies exactly one coalesced continuation intent
-                // for the current recovery; it never enqueues once per frame.
-                if(AttackHeld&&!basicPressPending)
-                {
-                    basicAim=game.Capture(0,snapshot);
-                    hasBasicAim=true;
-                    basicPressPending=true;
-                }
-                return;
-            }
             // Shortcut priority is deterministic: Shift/Charge wins over Space/Dash.
             // Resolve through stable pool keys rather than coupling input to array indexes.
+            int wheelSign=input.WheelDelta>=.10f?1:input.WheelDelta<=-.10f?-1:0;
+            if(Math.Abs(input.WheelDelta)<=.02f)wheelArmed=true;
+            bool wheelEdge=wheelSign!=0&&wheelArmed&&input.UnscaledTime>=wheelDebounceUntil;
+            if(wheelEdge){wheelArmed=false;wheelDebounceUntil=input.UnscaledTime+.12f;}
             int requested=input.ChargeDown?SeojinControlPolicy.ShortcutSlot(SeojinControlPolicy.ChargeShortcutSlotKey):
-                input.DashDown?SeojinControlPolicy.ShortcutSlot(SeojinControlPolicy.DashShortcutSlotKey):input.SlotDown;
+                input.DashDown?SeojinControlPolicy.ShortcutSlot(SeojinControlPolicy.DashShortcutSlotKey):
+                input.SecondaryDown?SeojinControlPolicy.ShortcutSlot(SeojinControlPolicy.SecondarySlotKey):
+                wheelEdge&&wheelSign>0?SeojinControlPolicy.ShortcutSlot(SeojinControlPolicy.WheelUpSlotKey):
+                wheelEdge&&wheelSign<0?SeojinControlPolicy.ShortcutSlot(SeojinControlPolicy.WheelDownSlotKey):
+                input.SlotDown;
+            if(input.DashDown)ClearPending();
+            if(requested>0&&game.Available(requested)&&game.CanReserve(requested))
+            {
+                var requestedAim=game.Capture(requested,snapshot);
+                if(game.Busy)
+                {
+                    bool pendingChanged=pendingSlot!=requested;
+                    pendingSlot=requested;pendingAim=requestedAim;pendingExecutionId=game.ExecutionId;
+                    pendingExpiresAt=input.UnscaledTime+.35f;
+                    if(pendingChanged)PendingSkillChanged?.Invoke(requested);
+                    basicPressPending=false;hasBasicAim=false;
+                    if(game.CanCancelForReservedSkill)
+                    {
+                        game.CancelForReservedSkill(requested);
+                        bool fired=game.Ready(requested)&&
+                            game.Fire(requested,requestedAim,snapshot.KeyboardDirection,()=>false);
+                        ClearPending();
+                        if(fired){game.Move(default);return;}
+                    }
+                    return;
+                }
+                ClearPending();
+            }
+            // Basic is an edge-triggered offensive request too. It may use the
+            // finisher bridge only when the ordinary readiness gate accepts it;
+            // a held button never manufactures this edge.
+            if(game.Busy&&basicPressPending&&game.CanCancelForReservedSkill)
+            {
+                var reservedBasicAim=hasBasicAim?basicAim:game.Capture(0,snapshot);
+                game.CancelForReservedSkill(0);
+                bool fired=game.Ready(0)&&
+                    game.Fire(0,reservedBasicAim,snapshot.KeyboardDirection,()=>false);
+                basicPressPending=false;hasBasicAim=false;
+                if(fired){game.Move(default);return;}
+            }
+            if(game.Busy)return;
+            if(pendingSlot>0)
+            {
+                int reserved=pendingSlot;var reservedAim=pendingAim;float expires=pendingExpiresAt;int reservedExecutionId=pendingExecutionId;
+                ClearPending();
+                if(input.UnscaledTime<=expires&&(reservedExecutionId==0||reservedExecutionId==game.ExecutionId)&&game.Available(reserved)&&game.Ready(reserved)&&
+                    game.Fire(reserved,reservedAim,snapshot.KeyboardDirection,()=>false))
+                {basicPressPending=false;hasBasicAim=false;game.Move(default);return;}
+            }
             // Reject unavailable/busy/cooldown/resource failures without touching Basic.
             // Fire=false is also non-preempting: held Basic may run in this same tick.
             if(requested>0&&game.Available(requested)&&game.Ready(requested))

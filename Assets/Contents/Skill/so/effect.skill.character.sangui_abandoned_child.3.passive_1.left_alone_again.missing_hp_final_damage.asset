@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: effect.skill.character.sangui_abandoned_child.3.passive_1.left_alone_again.missing_hp_final_damage
   m_EditorClassIdentifier: Assembly-CSharp::Effect.EffectSO
   effectId: effect.skill.character.sangui_abandoned_child.3.passive_1.left_alone_again.missing_hp_final_damage
-  authoredDisplayName: ""
+  authoredDisplayName: 
   icon: {fileID: 0}
   config:
-    rid: 666566976232489092
+    rid: 666567034589414084
   references:
     version: 2
     RefIds:
-    - rid: 666566976232489092
+    - rid: 666567034589414084
       type: {class: StatModifierEffectConfig, ns: Effect, asm: Assembly-CSharp}
       data:
         targetStat: 1295

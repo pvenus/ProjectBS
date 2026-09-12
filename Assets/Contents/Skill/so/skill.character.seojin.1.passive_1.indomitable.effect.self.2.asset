@@ -13,14 +13,15 @@ MonoBehaviour:
   m_Name: skill.character.seojin.1.passive_1.indomitable.effect.self.2
   m_EditorClassIdentifier: Assembly-CSharp::Effect.EffectSO
   effectId: skill.character.seojin.1.passive_1.indomitable.effect.self.2
-  authoredDisplayName: "주변 적 10명 이상 시 피해 감소(%)"
+  authoredDisplayName: "\uC8FC\uBCC0 \uC801 10\uBA85 \uC774\uC0C1 \uC2DC \uD53C\uD574
+    \uAC10\uC18C(%)"
   icon: {fileID: 0}
   config:
-    rid: 666566976232489106
+    rid: 666567034589414208
   references:
     version: 2
     RefIds:
-    - rid: 666566976232489106
+    - rid: 666567034589414208
       type: {class: StatModifierEffectConfig, ns: Effect, asm: Assembly-CSharp}
       data:
         targetStat: 1390

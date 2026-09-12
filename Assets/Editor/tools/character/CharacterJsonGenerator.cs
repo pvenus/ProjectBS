@@ -24,6 +24,7 @@ namespace ResourceTools.Character
             public string job;
             public float scale = 0.2f;
             public string animationProfileJsonPath;
+            public List<string> skillIds = new();
             public List<StatEntryJson> baseStats = new();
         }
 
@@ -144,12 +145,19 @@ namespace ResourceTools.Character
                 animationContentReady || characterSo.AnimationClips == null || characterSo.AnimationClips.Count == 0
                     ? BuildAnimationClips(data.characterId)
                     : characterSo.AnimationClips.ToList();
+            List<CharacterSkillEntry> generatedSkills = BuildSkills(data.characterId, data.skillIds);
+            if (generatedSkills == null)
+            {
+                generatedSkills = characterSo.Skills != null
+                    ? characterSo.Skills.ToList()
+                    : new List<CharacterSkillEntry>();
+            }
             characterSo.ApplyEditorData(
                 data.characterId,
                 characterType,
                 job,
                 generatedAnimationClips,
-                BuildSkills(data.characterId),
+                generatedSkills,
                 ConvertBaseStats(data.baseStats),
                 data.scale > 0f ? data.scale : 0.2f);
 
@@ -472,7 +480,7 @@ namespace ResourceTools.Character
             return null;
         }
 
-        private static List<CharacterSkillEntry> BuildSkills(string characterId)
+        private static List<CharacterSkillEntry> BuildSkills(string characterId, List<string> explicitSkillIds = null)
         {
             List<CharacterSkillEntry> result = new();
 
@@ -482,6 +490,35 @@ namespace ResourceTools.Character
             }
 
             string skillPrefix = $"skill.{characterId}.";
+            if (explicitSkillIds != null && explicitSkillIds.Count > 0)
+            {
+                List<CharacterSkillEntry> explicitResult = new();
+                HashSet<string> slots = new(StringComparer.Ordinal);
+                for (int i = 0; i < explicitSkillIds.Count; i++)
+                {
+                    string skillId = explicitSkillIds[i];
+                    string jsonPath = $"Assets/Contents/Skill/json/{skillId}.json";
+                    if (!File.Exists(jsonPath))
+                    {
+                        Debug.LogError($"[CharacterJsonGenerator] Atomic explicit loadout fallback: missing json {jsonPath}");
+                        return null;
+                    }
+                    EquipmentSkillSO persisted = Skill.EquipmentSkillJsonGenerator.GenerateFromJsonPath(jsonPath);
+                    if (persisted == null)
+                    {
+                        Debug.LogError($"[CharacterJsonGenerator] Atomic explicit loadout fallback: materialization failed {skillId}");
+                        return null;
+                    }
+                    int before = explicitResult.Count;
+                    AddSkillEntry(explicitResult, persisted, skillPrefix);
+                    if (explicitResult.Count != before + 1 || !slots.Add(explicitResult[explicitResult.Count - 1].slotKey))
+                    {
+                        Debug.LogError($"[CharacterJsonGenerator] Atomic explicit loadout fallback: duplicate/invalid slot for {skillId}");
+                        return null;
+                    }
+                }
+                return explicitResult;
+            }
             List<EquipmentSkillSO> generatedSkills = GenerateSkillsFromJson(characterId);
 
             foreach (EquipmentSkillSO skillSo in generatedSkills)
@@ -500,7 +537,6 @@ namespace ResourceTools.Character
             List<EquipmentSkillSO> result = new();
 
             string[] guids = AssetDatabase.FindAssets($"skill.{characterId} t:TextAsset");
-
             foreach (string guid in guids)
             {
                 string path = AssetDatabase.GUIDToAssetPath(guid);

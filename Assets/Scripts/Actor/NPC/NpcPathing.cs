@@ -72,15 +72,21 @@ public class NpcPathing : MonoBehaviour
         new NpcMovementAnimationService();
     private readonly EnemyCombatRepositionState _combatRepositionState =
         new EnemyCombatRepositionState();
+    private readonly EnemyApproachReservationService _approachReservation =
+        new EnemyApproachReservationService();
     private readonly NpcPostAttackTacticalRepositionState _postAttackTacticalState =
         new NpcPostAttackTacticalRepositionState();
-    private readonly Collider2D[] _crowdScan = new Collider2D[EnemyCombatRepositionState.MaxCrowdScan];
+    private readonly Collider2D[] _crowdScan = new Collider2D[24];
+    private readonly CharacterManager[] _crowdRoots = new CharacterManager[24];
     private Vector2 _lastCombatPosition;
     private bool _hadCombatMove;
     private bool _postAttackPending;
     private string _postAttackEquipmentId;
     private int _postAttackSequence;
     private bool _skillUseSubscribed;
+    private Vector2 _lastScatterPosition;
+    private float _scatterObservationAt;
+    private bool _hasScatterObservation;
 
     private void Awake()
     {
@@ -304,6 +310,7 @@ public class NpcPathing : MonoBehaviour
         _postAttackPending = false;
         _postAttackEquipmentId = null;
         _postAttackTacticalState.Exit();
+        _approachReservation.Release();
         ExitCombatReposition();
         StopMovement();
     }
@@ -449,26 +456,40 @@ public class NpcPathing : MonoBehaviour
             EnemyCombatRepositionState.CrowdRadius,
             _crowdScan);
         Vector2 sum = Vector2.zero;
-        var seen = new System.Collections.Generic.HashSet<CharacterManager>();
+        int seenCount = 0;
 
-        for (int i = 0; i < count && i < EnemyCombatRepositionState.MaxCrowdScan; i++)
+        for (int i = 0; i < count && i < _crowdScan.Length; i++)
         {
             Collider2D collider = _crowdScan[i];
             CharacterManager other = collider != null ? collider.GetComponentInParent<CharacterManager>() : null;
-            if (other == null || other == characterManager || !other.IsTargetable || !seen.Add(other))
+            if (other == null || other == characterManager || !other.IsTargetable)
                 continue;
+            bool duplicate = false;
+            for (int j = 0; j < seenCount; j++) if (_crowdRoots[j] == other) { duplicate = true; break; }
+            if (duplicate) continue;
+            _crowdRoots[seenCount++] = other;
             if (other.gameObject.layer != gameObject.layer)
                 continue;
 
             Vector2 away = selfPosition - (Vector2)other.transform.position;
             float distance = away.magnitude;
-            if (distance <= 0.0001f || distance >= EnemyCombatRepositionState.CrowdRadius)
+            if (distance >= .72f)
                 continue;
-            sum += away.normalized * (1f - distance / EnemyCombatRepositionState.CrowdRadius);
+            if (distance <= 0.0001f)
+            {
+                int a = characterManager != null ? characterManager.gameObject.GetInstanceID() : gameObject.GetInstanceID();
+                int b = other.gameObject.GetInstanceID();
+                uint pair = unchecked((uint)(Mathf.Min(a,b) * 397) ^ (uint)Mathf.Max(a,b));
+                float angle = (pair % 360u) * Mathf.Deg2Rad;
+                away = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * (a < b ? 1f : -1f);
+                distance = .001f;
+            }
+            sum += away.normalized * (1f - distance / .72f) * .65f;
         }
 
         System.Array.Clear(_crowdScan, 0, _crowdScan.Length);
-        return Vector2.ClampMagnitude(sum, EnemyCombatRepositionState.MaxCrowdContribution);
+        System.Array.Clear(_crowdRoots, 0, _crowdRoots.Length);
+        return Vector2.ClampMagnitude(sum, .42f);
     }
     private bool UsesDirectRangeChase()
     {
@@ -668,7 +689,24 @@ public class NpcPathing : MonoBehaviour
             return;
 
         Vector2 pos = _rb.position;
-        Vector2 toTarget = (Vector2)target.position - pos;
+        Vector2 destination = target.position;
+        if (AllowsSmartApproachScatterPilot())
+        {
+            Transform targetRoot = target.GetComponentInParent<CharacterManager>()?.transform ?? target;
+            int stableId = EnemyApproachReservationService.StableActorKey(
+                characterManager != null ? characterManager.transform : transform);
+            var reservation = _approachReservation.Resolve(targetRoot, pos,
+                Mathf.Max(.48f, GetStopDistanceForCurrentArchetype()), stableId, Time.fixedTime);
+            if (reservation.Valid) destination = reservation.Point;
+            destination += BuildCrowdAvoidance(pos);
+            ObserveSmartScatterProgress(pos, destination);
+        }
+        else
+        {
+            _approachReservation.Release();
+            _hasScatterObservation = false;
+        }
+        Vector2 toTarget = destination - pos;
         float dist = toTarget.magnitude;
 
         if (dist <= 0.03f)
@@ -677,7 +715,38 @@ public class NpcPathing : MonoBehaviour
             return;
         }
 
-        MoveTowardPoint(target.position);
+        MoveTowardPoint(destination);
+    }
+
+    private void ObserveSmartScatterProgress(Vector2 position, Vector2 destination)
+    {
+        float now = Time.fixedTime;
+        if (!_hasScatterObservation)
+        {
+            _lastScatterPosition = position;
+            _scatterObservationAt = now;
+            _hasScatterObservation = true;
+            return;
+        }
+        if (now - _scatterObservationAt < .30f) return;
+        bool wantsMovement = (destination - position).sqrMagnitude > .06f * .06f;
+        bool moved = (position - _lastScatterPosition).sqrMagnitude > .04f * .04f;
+        if (wantsMovement && !moved) _approachReservation.ReportBlocked(now);
+        else if (moved) _approachReservation.ReportProgress();
+        _lastScatterPosition = position;
+        _scatterObservationAt = now;
+    }
+
+    private bool AllowsSmartApproachScatterPilot()
+    {
+        string characterId = characterManager != null && characterManager.RuntimeData != null &&
+            characterManager.RuntimeData.characterSO != null
+                ? characterManager.RuntimeData.characterSO.CharacterId
+                : null;
+        if (movementProfile != null)
+            return movementProfile.AllowsSmartApproachScatterPilot(characterId);
+        return string.Equals(characterId, "character.black_cloth_raider.1", System.StringComparison.Ordinal) ||
+               string.Equals(characterId, "character.chain_dragger_raider.1", System.StringComparison.Ordinal);
     }
     private void MoveWithRangeControl(Transform target)
     {

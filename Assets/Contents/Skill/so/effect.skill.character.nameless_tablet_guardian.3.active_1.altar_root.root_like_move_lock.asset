@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: effect.skill.character.nameless_tablet_guardian.3.active_1.altar_root.root_like_move_lock
   m_EditorClassIdentifier: Assembly-CSharp::Effect.EffectSO
   effectId: effect.skill.character.nameless_tablet_guardian.3.active_1.altar_root.root_like_move_lock
-  authoredDisplayName: ""
+  authoredDisplayName: 
   icon: {fileID: 0}
   config:
-    rid: 666566976232489079
+    rid: 666567034589414071
   references:
     version: 2
     RefIds:
-    - rid: 666566976232489079
+    - rid: 666567034589414071
       type: {class: StatModifierEffectConfig, ns: Effect, asm: Assembly-CSharp}
       data:
         targetStat: 1237

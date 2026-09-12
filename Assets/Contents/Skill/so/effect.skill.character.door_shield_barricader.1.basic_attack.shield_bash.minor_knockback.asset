@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: effect.skill.character.door_shield_barricader.1.basic_attack.shield_bash.minor_knockback
   m_EditorClassIdentifier: Assembly-CSharp::Effect.EffectSO
   effectId: effect.skill.character.door_shield_barricader.1.basic_attack.shield_bash.minor_knockback
-  authoredDisplayName: ""
+  authoredDisplayName: 
   icon: {fileID: 0}
   config:
-    rid: 666566976232489043
+    rid: 666567034589414035
   references:
     version: 2
     RefIds:
-    - rid: 666566976232489043
+    - rid: 666567034589414035
       type: {class: KnockbackEffectConfig, ns: Effect, asm: Assembly-CSharp}
       data:
         force: 2

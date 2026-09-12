@@ -1255,24 +1255,24 @@ namespace Character
                 case 0:
                     preparationPosition = new Vector2(-.02f, 0f);
                     contactPosition = new Vector2(.055f, -.008f);
-                    preparationScale = new Vector2(1.02f, .99f);
-                    contactScale = new Vector2(1.10f, .93f);
+                    preparationScale = new Vector2(1.04f, 1.04f);
+                    contactScale = new Vector2(1.07f, 1.07f);
                     preparationRotation = -4f;
                     contactRotation = 7f;
                     break;
                 case 1:
                     preparationPosition = new Vector2(-.045f, .01f);
                     contactPosition = new Vector2(.085f, -.005f);
-                    preparationScale = new Vector2(.98f, 1.02f);
-                    contactScale = new Vector2(1.14f, .91f);
+                    preparationScale = new Vector2(1.04f, 1.04f);
+                    contactScale = new Vector2(1.08f, 1.08f);
                     preparationRotation = 6f;
                     contactRotation = -11f;
                     break;
                 default:
                     preparationPosition = new Vector2(-.055f, -.025f);
                     contactPosition = new Vector2(.12f, -.025f);
-                    preparationScale = new Vector2(1.03f, .96f);
-                    contactScale = new Vector2(1.18f, .86f);
+                    preparationScale = new Vector2(1.05f, 1.05f);
+                    contactScale = new Vector2(1.10f, 1.10f);
                     preparationRotation = -7f;
                     contactRotation = 13f;
                     break;
@@ -1292,14 +1292,14 @@ namespace Character
             {
                 float t = Mathf.InverseLerp(.8f, .9f, normalized);
                 position = Vector2.Lerp(contactPosition, new Vector2(.145f, -.02f), t);
-                scale = Vector2.Lerp(contactScale, new Vector2(1.20f, .84f), t);
+                scale = Vector2.Lerp(contactScale, new Vector2(1.10f, 1.10f), t);
                 rotation = Mathf.Lerp(contactRotation, 16f, t);
             }
             else
             {
                 float recoveryStart = comboIndex == 2 ? .9f : .8f;
                 Vector2 recoveryPosition = comboIndex == 2 ? new Vector2(.145f, -.02f) : contactPosition;
-                Vector2 recoveryScale = comboIndex == 2 ? new Vector2(1.20f, .84f) : contactScale;
+                Vector2 recoveryScale = comboIndex == 2 ? new Vector2(1.10f, 1.10f) : contactScale;
                 float recoveryRotation = comboIndex == 2 ? 16f : contactRotation;
                 float t = Mathf.SmoothStep(0f, 1f, Mathf.InverseLerp(recoveryStart, 1f, normalized));
                 position = Vector2.Lerp(recoveryPosition, Vector2.zero, t);

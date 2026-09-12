@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "jangdan_skillset_v1",
+  "rhythmId": "jangdan.seojin.g1.v1",
+  "bpm": 120,
+  "subdivision": 0.125,
+  "dungHold": {
+    "casterActionUnlockSeconds": 0.3,
+    "contactSeconds": 0.25,
+    "recoverySeconds": 0.05,
+    "maxSeconds": 1.5,
+    "refreshSeconds": 0.125,
+    "stunNormalMax": 1.5,
+    "stunBossMax": 0.375,
+    "releaseInputs": ["Cancel", "Death", "Disable", "SceneTeardown"],
+    "wheelFollowupMayOverlapVisual": true,
+    "damageRepeats": 0
+  },
+  "levels": [
+    {"level":1,"dung":{"bd":20,"apd":0.25,"radius":3,"pull":2,"cooldown":6,"kungWindow":0.75,"kungBd":45,"kungApd":0.60,"kungStunNormal":0.50,"kungStunBoss":0.15},"gi":{"bd":18,"apd":0.30,"rangeScale":1,"widthScale":1,"pairCooldown":4,"deokWindow":0.625,"retentionBonus":0},"deok":{"bd":28,"apd":0.40,"pairedBd":45,"pairedApd":0.65,"rangeScale":1,"widthScale":1,"pairCooldown":4,"stunNormal":0.30,"stunBoss":0.10,"pairedStunNormal":1,"pairedStunBoss":0.25},"q":{"earlyBd":10,"earlyApd":0.20,"finalBd":35,"finalApd":0.55,"radiusScale":1,"cooldown":8,"finalStunNormal":0.60,"finalStunBoss":0.15,"assistRetention":1}},
+    {"level":2,"dung":{"bd":25,"apd":0.30,"radius":3,"pull":2,"cooldown":6,"kungWindow":0.75,"kungBd":52,"kungApd":0.70,"kungStunNormal":0.50,"kungStunBoss":0.15},"gi":{"bd":22,"apd":0.38,"rangeScale":1,"widthScale":1,"pairCooldown":4,"deokWindow":0.625,"retentionBonus":0},"deok":{"bd":34,"apd":0.48,"pairedBd":52,"pairedApd":0.75,"rangeScale":1,"widthScale":1,"pairCooldown":4,"stunNormal":0.30,"stunBoss":0.10,"pairedStunNormal":1,"pairedStunBoss":0.25},"q":{"earlyBd":10,"earlyApd":0.23,"finalBd":40,"finalApd":0.62,"radiusScale":1,"cooldown":8,"finalStunNormal":0.60,"finalStunBoss":0.15,"assistRetention":1}},
+    {"level":3,"dung":{"bd":25,"apd":0.30,"radius":3.3,"pull":2.3,"cooldown":6,"kungWindow":0.75,"kungBd":52,"kungApd":0.70,"kungStunNormal":0.50,"kungStunBoss":0.15},"gi":{"bd":22,"apd":0.38,"rangeScale":1.15,"widthScale":1.15,"pairCooldown":4,"deokWindow":0.625,"retentionBonus":0},"deok":{"bd":34,"apd":0.48,"pairedBd":52,"pairedApd":0.75,"rangeScale":1.15,"widthScale":1.15,"pairCooldown":4,"stunNormal":0.30,"stunBoss":0.10,"pairedStunNormal":1,"pairedStunBoss":0.25},"q":{"earlyBd":10,"earlyApd":0.23,"finalBd":40,"finalApd":0.62,"radiusScale":1.15,"cooldown":8,"finalStunNormal":0.60,"finalStunBoss":0.15,"assistRetention":1}},
+    {"level":4,"dung":{"bd":25,"apd":0.30,"radius":3.3,"pull":2.3,"cooldown":5.5,"kungWindow":0.875,"kungBd":52,"kungApd":0.70,"kungStunNormal":0.50,"kungStunBoss":0.15},"gi":{"bd":22,"apd":0.38,"rangeScale":1.15,"widthScale":1.15,"pairCooldown":3.5,"deokWindow":0.75,"retentionBonus":0},"deok":{"bd":34,"apd":0.48,"pairedBd":52,"pairedApd":0.75,"rangeScale":1.15,"widthScale":1.15,"pairCooldown":3.5,"stunNormal":0.30,"stunBoss":0.10,"pairedStunNormal":1,"pairedStunBoss":0.25},"q":{"earlyBd":10,"earlyApd":0.23,"finalBd":40,"finalApd":0.62,"radiusScale":1.15,"cooldown":7.25,"finalStunNormal":0.60,"finalStunBoss":0.15,"assistRetention":1}},
+    {"level":5,"dung":{"bd":25,"apd":0.30,"radius":3.3,"pull":2.3,"cooldown":5.5,"kungWindow":0.875,"kungBd":52,"kungApd":0.70,"kungStunNormal":0.65,"kungStunBoss":0.20},"gi":{"bd":22,"apd":0.38,"rangeScale":1.15,"widthScale":1.15,"pairCooldown":3.5,"deokWindow":0.75,"retentionBonus":0.125},"deok":{"bd":34,"apd":0.48,"pairedBd":52,"pairedApd":0.75,"rangeScale":1.15,"widthScale":1.15,"pairCooldown":3.5,"stunNormal":0.30,"stunBoss":0.10,"pairedStunNormal":1.20,"pairedStunBoss":0.30},"q":{"earlyBd":10,"earlyApd":0.23,"finalBd":40,"finalApd":0.62,"radiusScale":1.15,"cooldown":7.25,"finalStunNormal":0.75,"finalStunBoss":0.20,"assistRetention":1.125}}
+  ]
+}

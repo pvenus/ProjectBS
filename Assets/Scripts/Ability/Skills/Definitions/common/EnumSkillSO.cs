@@ -277,6 +277,22 @@ namespace Skill
         ProjectileSpawnInterval = 9,
         ProjectileSpawnRadius = 10,
         ProjectileColliderRadius = 11,
-        MaxHitCount = 12
+        MaxHitCount = 12,
+        Mouse3Distance = 13,
+        Mouse3NormalRatio = 14,
+        Mouse3EliteRatio = 15,
+        Mouse3BossRatio = 16,
+        Mouse3BossHardCap = 17,
+        Mouse3FanAngle = 18,
+        Mouse3CrowdControlDuration = 19,
+        Mouse3BurstCount = 20,
+        Mouse3NextBasicForwardRatio = 21,
+        Mouse3NextBasicRangeRatio = 22,
+        Mouse3NextBasicInputGrace = 23,
+        Mouse3GatherDistance = 24,
+        Mouse3GatherDuration = 25,
+        Mouse3StunNormalDuration = 26,
+        Mouse3StunEliteDuration = 27,
+        Mouse3StunBossDuration = 28
     }
 }

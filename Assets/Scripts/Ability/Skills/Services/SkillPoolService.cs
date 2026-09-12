@@ -146,7 +146,11 @@ namespace Skill
             return poolRuntimeData.HasSkillByKey(SkillPoolSlotKeys.Active1)
                 || poolRuntimeData.HasSkillByKey(SkillPoolSlotKeys.Active2)
                 || poolRuntimeData.HasSkillByKey(SkillPoolSlotKeys.Active3)
-                || poolRuntimeData.HasSkillByKey(SkillPoolSlotKeys.Active4);
+                || poolRuntimeData.HasSkillByKey(SkillPoolSlotKeys.Active4)
+                || poolRuntimeData.HasSkillByKey(SkillPoolSlotKeys.Active5)
+                || poolRuntimeData.HasSkillByKey(SkillPoolSlotKeys.Active6)
+                || poolRuntimeData.HasSkillByKey(SkillPoolSlotKeys.Active7)
+                || poolRuntimeData.HasSkillByKey(SkillPoolSlotKeys.Active8);
         }
 
         public bool HasPassiveSkill(SkillPoolRuntimeData poolRuntimeData)
@@ -191,7 +195,11 @@ namespace Skill
                 SkillPoolSlotKeys.Active1,
                 SkillPoolSlotKeys.Active2,
                 SkillPoolSlotKeys.Active3,
-                SkillPoolSlotKeys.Active4);
+                SkillPoolSlotKeys.Active4,
+                SkillPoolSlotKeys.Active5,
+                SkillPoolSlotKeys.Active6,
+                SkillPoolSlotKeys.Active7,
+                SkillPoolSlotKeys.Active8);
         }
 
         public List<SkillPoolSlotData> GetPassiveEntries(
@@ -210,12 +218,16 @@ namespace Skill
             SkillPoolRuntimeData poolRuntimeData,
             Character.CharacterRuntimeData characterRuntimeData)
         {
-            List<EquipmentSkillRuntimeData> result = new List<EquipmentSkillRuntimeData>(4);
+            List<EquipmentSkillRuntimeData> result = new List<EquipmentSkillRuntimeData>(7);
 
             AddRuntimeIfExists(result, GetRuntimeByKey(poolRuntimeData, SkillPoolSlotKeys.Active1, characterRuntimeData));
             AddRuntimeIfExists(result, GetRuntimeByKey(poolRuntimeData, SkillPoolSlotKeys.Active2, characterRuntimeData));
             AddRuntimeIfExists(result, GetRuntimeByKey(poolRuntimeData, SkillPoolSlotKeys.Active3, characterRuntimeData));
             AddRuntimeIfExists(result, GetRuntimeByKey(poolRuntimeData, SkillPoolSlotKeys.Active4, characterRuntimeData));
+            AddRuntimeIfExists(result, GetRuntimeByKey(poolRuntimeData, SkillPoolSlotKeys.Active5, characterRuntimeData));
+            AddRuntimeIfExists(result, GetRuntimeByKey(poolRuntimeData, SkillPoolSlotKeys.Active6, characterRuntimeData));
+            AddRuntimeIfExists(result, GetRuntimeByKey(poolRuntimeData, SkillPoolSlotKeys.Active7, characterRuntimeData));
+            AddRuntimeIfExists(result, GetRuntimeByKey(poolRuntimeData, SkillPoolSlotKeys.Active8, characterRuntimeData));
 
             return result;
         }
@@ -245,6 +257,10 @@ namespace Skill
                 SkillPoolSlotKeys.Active2,
                 SkillPoolSlotKeys.Active3,
                 SkillPoolSlotKeys.Active4,
+                SkillPoolSlotKeys.Active5,
+                SkillPoolSlotKeys.Active6,
+                SkillPoolSlotKeys.Active7,
+                SkillPoolSlotKeys.Active8,
                 SkillPoolSlotKeys.Passive1);
         }
 
@@ -252,13 +268,17 @@ namespace Skill
             SkillPoolRuntimeData poolRuntimeData,
             Character.CharacterRuntimeData characterRuntimeData)
         {
-            List<EquipmentSkillRuntimeData> result = new List<EquipmentSkillRuntimeData>(6);
+            List<EquipmentSkillRuntimeData> result = new List<EquipmentSkillRuntimeData>(9);
 
             AddRuntimeIfExists(result, GetRuntimeByKey(poolRuntimeData, SkillPoolSlotKeys.BasicAttack, characterRuntimeData));
             AddRuntimeIfExists(result, GetRuntimeByKey(poolRuntimeData, SkillPoolSlotKeys.Active1, characterRuntimeData));
             AddRuntimeIfExists(result, GetRuntimeByKey(poolRuntimeData, SkillPoolSlotKeys.Active2, characterRuntimeData));
             AddRuntimeIfExists(result, GetRuntimeByKey(poolRuntimeData, SkillPoolSlotKeys.Active3, characterRuntimeData));
             AddRuntimeIfExists(result, GetRuntimeByKey(poolRuntimeData, SkillPoolSlotKeys.Active4, characterRuntimeData));
+            AddRuntimeIfExists(result, GetRuntimeByKey(poolRuntimeData, SkillPoolSlotKeys.Active5, characterRuntimeData));
+            AddRuntimeIfExists(result, GetRuntimeByKey(poolRuntimeData, SkillPoolSlotKeys.Active6, characterRuntimeData));
+            AddRuntimeIfExists(result, GetRuntimeByKey(poolRuntimeData, SkillPoolSlotKeys.Active7, characterRuntimeData));
+            AddRuntimeIfExists(result, GetRuntimeByKey(poolRuntimeData, SkillPoolSlotKeys.Active8, characterRuntimeData));
             AddRuntimeIfExists(result, GetRuntimeByKey(poolRuntimeData, SkillPoolSlotKeys.Passive1, characterRuntimeData));
 
             return result;
@@ -289,6 +309,10 @@ namespace Skill
             AddSlotIfRuntimeExists(result, GetSlotByKey(poolRuntimeData, SkillPoolSlotKeys.Active2), characterRuntimeData);
             AddSlotIfRuntimeExists(result, GetSlotByKey(poolRuntimeData, SkillPoolSlotKeys.Active3), characterRuntimeData);
             AddSlotIfRuntimeExists(result, GetSlotByKey(poolRuntimeData, SkillPoolSlotKeys.Active4), characterRuntimeData);
+            AddSlotIfRuntimeExists(result, GetSlotByKey(poolRuntimeData, SkillPoolSlotKeys.Active5), characterRuntimeData);
+            AddSlotIfRuntimeExists(result, GetSlotByKey(poolRuntimeData, SkillPoolSlotKeys.Active6), characterRuntimeData);
+            AddSlotIfRuntimeExists(result, GetSlotByKey(poolRuntimeData, SkillPoolSlotKeys.Active7), characterRuntimeData);
+            AddSlotIfRuntimeExists(result, GetSlotByKey(poolRuntimeData, SkillPoolSlotKeys.Active8), characterRuntimeData);
             AddSlotIfRuntimeExists(result, GetSlotByKey(poolRuntimeData, SkillPoolSlotKeys.Passive1), characterRuntimeData);
 
             return result;
@@ -427,6 +451,14 @@ namespace Skill
                     return SkillPoolSlotKeys.Active4;
                 case 5:
                     return SkillPoolSlotKeys.Passive1;
+                case 6:
+                    return SkillPoolSlotKeys.Active5;
+                case 7:
+                    return SkillPoolSlotKeys.Active6;
+                case 8:
+                    return SkillPoolSlotKeys.Active7;
+                case 9:
+                    return SkillPoolSlotKeys.Active8;
                 default:
                     return null;
             }

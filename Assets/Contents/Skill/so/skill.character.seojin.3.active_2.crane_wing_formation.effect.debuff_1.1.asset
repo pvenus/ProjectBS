@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: skill.character.seojin.3.active_2.crane_wing_formation.effect.debuff_1.1
   m_EditorClassIdentifier: Assembly-CSharp::Effect.EffectSO
   effectId: skill.character.seojin.3.active_2.crane_wing_formation.effect.debuff_1.1
-  authoredDisplayName: "학익진 이동속도 감소"
+  authoredDisplayName: "\uD559\uC775\uC9C4 \uC774\uB3D9\uC18D\uB3C4 \uAC10\uC18C"
   icon: {fileID: 0}
   config:
-    rid: 666566976232489128
+    rid: 666567034589414123
   references:
     version: 2
     RefIds:
-    - rid: 666566976232489128
+    - rid: 666567034589414123
       type: {class: StatModifierEffectConfig, ns: Effect, asm: Assembly-CSharp}
       data:
         targetStat: 1235

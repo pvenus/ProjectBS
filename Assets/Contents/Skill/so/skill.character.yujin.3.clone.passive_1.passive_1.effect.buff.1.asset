@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: skill.character.yujin.3.clone.passive_1.passive_1.effect.buff.1
   m_EditorClassIdentifier: Assembly-CSharp::Effect.EffectSO
   effectId: skill.character.yujin.3.clone.passive_1.passive_1.effect.buff.1
-  authoredDisplayName: "Critical Arrow Wave"
+  authoredDisplayName: Critical Arrow Wave
   icon: {fileID: 0}
   config:
-    rid: 666566976232489164
+    rid: 666567034589414163
   references:
     version: 2
     RefIds:
-    - rid: 666566976232489164
+    - rid: 666567034589414163
       type: {class: ChanceOnHitSkillEffectConfig, ns: Effect, asm: Assembly-CSharp}
       data:
         chance: 100

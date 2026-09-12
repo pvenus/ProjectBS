@@ -76,6 +76,8 @@ namespace Character
 
         private void OnDisable()
         {
+            backgroundRoutineEpoch++;
+            SeojinJangdanRuntime.Clear(transform);
             CancelCasting();
             skillService.CancelCombo(transform);
             castMoveService.StopMove();
@@ -264,13 +266,57 @@ namespace Character
         }
 
         private bool manualExecution;
+        internal readonly struct ActionWindowSnapshot
+        {
+            internal readonly int ExecutionId; internal readonly int ActionKind;
+            internal readonly bool ContactOccurred,CancelOpen,CommitLocked;
+            internal readonly int ComboIndex;
+            internal readonly bool GameplayAttackCommitted;
+            internal readonly float RecoveryRemaining;
+            internal ActionWindowSnapshot(int id,int kind,bool contact,bool cancel,bool locked,float remaining)
+            {ExecutionId=id;ActionKind=kind;ContactOccurred=contact;CancelOpen=cancel;CommitLocked=locked;ComboIndex=kind>0?kind-1:-1;GameplayAttackCommitted=contact;RecoveryRemaining=remaining;}
+        }
+        private int actionWindowId,actionWindowKind; private float actionCancelAt,actionRecoveryEnd; private bool actionContact,actionCommitLocked;
+        internal ActionWindowSnapshot ManualActionWindow=>new(actionWindowId,actionWindowKind,actionContact,
+            actionContact&&!actionCommitLocked&&Time.time>=actionCancelAt&&Time.time<=actionRecoveryEnd,
+            actionCommitLocked,Mathf.Max(0f,actionRecoveryEnd-Time.time));
+        internal bool ManualCancelWindowOpen=>ManualActionWindow.CancelOpen;
+        internal int ManualActionExecutionId=>actionWindowId;
+        internal void BeginManualActionWindow(int kind,bool committed,float recoveryEnd)
+        {actionWindowId++;actionWindowKind=kind;actionContact=false;actionCommitLocked=committed;actionCancelAt=float.PositiveInfinity;actionRecoveryEnd=Time.time+Mathf.Max(0f,recoveryEnd);}
+        internal void MarkManualActionContact(float delay,float recoveryRemaining)
+        {actionContact=true;actionCancelAt=Time.time+Mathf.Max(0f,delay);actionRecoveryEnd=Time.time+Mathf.Max(0f,recoveryRemaining);}
+        internal void EndManualActionWindow(){actionWindowKind=0;actionContact=false;actionCommitLocked=false;actionCancelAt=0;actionRecoveryEnd=0;}
+        internal bool CanReserveIgnoringBusy(EquipmentSkillRuntimeData runtime)
+        {
+            if(runtime==null||GetComponent<CharacterManager>()?.CanUseSkill!=true||!skillService.IsRuntimeReady(this,runtime))return false;
+            ActionWindowSnapshot window=ManualActionWindow;
+            if(window.ActionKind==-2&&!window.ContactOccurred)return false;
+            return window.ActionKind>=0||window.RecoveryRemaining<=.20f;
+        }
         private int manualEpoch,manualTicket;
+        private int backgroundRoutineEpoch;
         private readonly HashSet<int> manualRoutines=new();
         internal Coroutine StartOwnedSkillRoutine(System.Collections.IEnumerator routine)
         {
             if(GetComponent<Control.SeojinManualControl>()==null)return StartCoroutine(routine);
             int ticket=++manualTicket;manualRoutines.Add(ticket);
             return StartCoroutine(GuardManualRoutine(routine,manualEpoch,ticket,true));
+        }
+        internal Coroutine StartBackgroundSkillRoutine(System.Collections.IEnumerator routine)
+        {
+            return routine == null ? null : StartCoroutine(
+                GuardBackgroundRoutine(routine, backgroundRoutineEpoch));
+        }
+        private System.Collections.IEnumerator GuardBackgroundRoutine(
+            System.Collections.IEnumerator routine, int epoch)
+        {
+            try
+            {
+                while (epoch == backgroundRoutineEpoch && routine.MoveNext())
+                    yield return routine.Current;
+            }
+            finally { (routine as IDisposable)?.Dispose(); }
         }
         private System.Collections.IEnumerator GuardManualRoutine(System.Collections.IEnumerator routine,int epoch,int ticket,bool root)
         {
@@ -282,10 +328,11 @@ namespace Character
                     else yield return routine.Current;
                 }
             }
-            finally{(routine as IDisposable)?.Dispose();if(root)manualRoutines.Remove(ticket);}
+            finally{(routine as IDisposable)?.Dispose();if(root){manualRoutines.Remove(ticket);EndManualActionWindow();}}
         }
         private Vector2? manualDirection;
         internal bool ManualExecutionAuthorized=>manualExecution;
+        internal int ManualExecutionId=>manualEpoch;
         internal bool ManualComboAuthorized=>GetComponent<Control.SeojinManualControl>()?.ManualAuthorized==true;
         internal Func<bool> ManualComboChain {get;private set;}
         internal Func<ManualSkillAim> ManualComboStepAim {get;private set;}
@@ -293,7 +340,7 @@ namespace Character
             (GetComponentInChildren<AnimationMono>()?.IsPlayingAttack()??false);
         internal bool ManualReady(EquipmentSkillRuntimeData runtime)=>!ManualBusy&&
             GetComponent<CharacterManager>()!=null&&GetComponent<CharacterManager>().IsTargetable&&
-            GetComponent<CharacterManager>().CanUseSkill&&skillService.IsRuntimeReady(this,runtime);
+            GetComponent<CharacterManager>().CanUseSkill&&skillService.IsManualRuntimeReady(this,runtime,transform);
         private ManualSkillAim? manualAim;
         internal Transform ResolveManualTarget(EquipmentSkillRuntimeData runtime,Vector2 direction)=>skillService.ResolveManualTarget(runtime,transform,direction);
         internal bool FireManualAim(EquipmentSkillRuntimeData runtime,ManualSkillAim aim,Func<bool> chain,Func<ManualSkillAim> stepAim=null)
@@ -306,7 +353,7 @@ namespace Character
             bool started=false;
             try
             {
-                float time=ResolveCastTime(runtime.sourceEquipment.CastSo);
+                float time=skillService.IsJangdanRuntime(runtime)?0f:ResolveCastTime(runtime.sourceEquipment.CastSo);
                 if(time>0)started=BeginCasting(runtime,transform,aim.Target,time,aim.Mode==SkillAimMode.GroundPoint?aim.Point:(Vector2?)null,aim.Mode!=SkillAimMode.Target);
                 else started=FireSkillImmediate(runtime,transform,aim.Target,true);
                 if(!started)skillService.MarkExecutionFailed(runtime);
@@ -318,13 +365,19 @@ namespace Character
             =>FireManualAim(runtime,new ManualSkillAim(SkillAimMode.GroundPoint,Vector2.zero,point),chain);
         internal bool FireManualDash(EquipmentSkillRuntimeData runtime,Vector2 direction)
             =>FireManualAim(runtime,new ManualSkillAim(SkillAimMode.Direction,direction.normalized,Vector2.zero),null);
-        public void CancelManualExecution()
+        internal bool TryActiveSkillAction(ManualSkillAim aim)
+            =>skillService.TryConsumeActiveInputAction(this,transform,aim);
+        internal void CancelActiveInputMode()=>skillService.CancelActiveInput(transform);
+        public void CancelManualExecution(bool preserveBasicComboProgress=false)
         {
+            if(!preserveBasicComboProgress)SeojinJangdanRuntime.Clear(transform);
+            if(!preserveBasicComboProgress)skillService.CancelActiveInput(transform);
+            if(!preserveBasicComboProgress)backgroundRoutineEpoch++;
             manualEpoch++;manualRoutines.Clear();
             GetComponentInChildren<AnimationMono>()?.CancelDirectedSkillPresentation();
             bool combo=skillService.HasCombo(transform);
             if(combo)GetComponentInChildren<AnimationMono>()?.StopComboAction();
-            ManualComboChain=null;ManualComboStepAim=null;CancelCasting();skillService.CancelCombo(transform);castMoveService.StopMove();manualExecution=false;manualAim=null;manualDirection=null;
+            ManualComboChain=null;ManualComboStepAim=null;CancelCasting();skillService.CancelCombo(transform,preserveBasicComboProgress);castMoveService.StopMove();manualExecution=false;manualAim=null;manualDirection=null;EndManualActionWindow();
         }
         public bool FireSkill(
             EquipmentSkillRuntimeData runtime,
@@ -971,6 +1024,10 @@ namespace Character
             AddRuntimeBySlotKey(result, SkillPoolSlotKeys.Active2);
             AddRuntimeBySlotKey(result, SkillPoolSlotKeys.Active3);
             AddRuntimeBySlotKey(result, SkillPoolSlotKeys.Active4);
+            AddRuntimeBySlotKey(result, SkillPoolSlotKeys.Active5);
+            AddRuntimeBySlotKey(result, SkillPoolSlotKeys.Active6);
+            AddRuntimeBySlotKey(result, SkillPoolSlotKeys.Active7);
+            AddRuntimeBySlotKey(result, SkillPoolSlotKeys.Active8);
 
             return result.ToArray();
         }

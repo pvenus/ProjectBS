@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: skill.character.jihan.1.passive_1.blood_qi_circulation.effect.buff.1
   m_EditorClassIdentifier: Assembly-CSharp::Effect.EffectSO
   effectId: skill.character.jihan.1.passive_1.blood_qi_circulation.effect.buff.1
-  authoredDisplayName: "기혈 순환 쿨타임 순환"
+  authoredDisplayName: "\uAE30\uD608 \uC21C\uD658 \uCFE8\uD0C0\uC784 \uC21C\uD658"
   icon: {fileID: 0}
   config:
-    rid: 666566976232489050
+    rid: 666567034589414042
   references:
     version: 2
     RefIds:
-    - rid: 666566976232489050
+    - rid: 666567034589414042
       type: {class: ChanceOnHealCooldownReduceEffectConfig, ns: Effect, asm: Assembly-CSharp}
       data:
         chance: 1

@@ -1,0 +1,30 @@
+{
+  "task": "M3-ART-V1",
+  "authority": {
+    "path": "/private/tmp/projectbs-byeori-recovery-mouse3-smart-ai-contract.md",
+    "sha256": "15cb5535c40f4a584172932d15d7935ffd0012dbfd913e3408d7db4e88dab9dc"
+  },
+  "identityReference": {
+    "path": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Character/portrait/character.seojin.1.portrait.png",
+    "sha256": "ba2f769ba7d45909d618f7fd672a9bdad61015b9553d3c0d360bc49a13bb97cf"
+  },
+  "generation": "built-in ImageGen; one independent call per asset; raw bytes copied without resave",
+  "finalCount": 9,
+  "assets": [
+    {"skill":"command_chain","kind":"icon","path":"icons/command_chain.png","rawGeneratorPath":"/Users/pvenus/.codex/generated_images/01a06b73-ccfa-7202-8a8a-88e833e7c8e5/exec-dec4338b-6cc6-4d76-b1e9-7dced37b1dbd.png","sha256":"5c97af6cb8e662968f50142c7905d40e9c5ea310ae765383582b77ac408c9965","size":"1254x1254","mode":"RGBA"},
+    {"skill":"thunder_command","kind":"icon","path":"icons/thunder_command.png","rawGeneratorPath":"/Users/pvenus/.codex/generated_images/01a06b73-ccfa-7202-8a8a-88e833e7c8e5/exec-57e6c551-8029-4590-8058-5c2fde8a69f2.png","sha256":"e63c9c982dfa12fb5d8b220c4a52099eac6a4338dfd226b4cb94156efea4ae5b","size":"1254x1254","mode":"RGBA"},
+    {"skill":"blockade_cut","kind":"icon","path":"icons/blockade_cut.png","rawGeneratorPath":"/Users/pvenus/.codex/generated_images/01a06b73-ccfa-7202-8a8a-88e833e7c8e5/exec-6f14663f-4171-4ffa-82b2-93cb10d44209.png","sha256":"8ed932f92410dd1a1944c64415d53bc66702ce2efa97c2a2710bc765b82f3ec9","size":"1254x1254","mode":"RGBA"},
+    {"skill":"command_chain","kind":"bodyBoard","path":"body/command_chain-board.png","rawGeneratorPath":"/Users/pvenus/.codex/generated_images/01a06b73-ccfa-7202-8a8a-88e833e7c8e5/exec-6762a9ee-05a3-4ade-b34c-e320c5a8f042.png","sha256":"332bd7a088cbb3438443d4cbef83a58b7a3061eb9cb2514d50fd4428f1df0307","size":"1620x971","mode":"RGB","warning":"checker baked; native alpha absent"},
+    {"skill":"thunder_command","kind":"bodyBoard","path":"body/thunder_command-board.png","rawGeneratorPath":"/Users/pvenus/.codex/generated_images/01a06b73-ccfa-7202-8a8a-88e833e7c8e5/exec-ae4e3e4a-d266-48eb-af17-09bffa5aca08.png","sha256":"10a7f2a59bc3341fa90a055a22d81c70f273b482417b60965d7e6b73e63a9266","size":"1622x969","mode":"RGB","warning":"checker baked; native alpha absent"},
+    {"skill":"blockade_cut","kind":"bodyBoard","path":"body/blockade_cut-board.png","rawGeneratorPath":"/Users/pvenus/.codex/generated_images/01a06b73-ccfa-7202-8a8a-88e833e7c8e5/exec-e570545f-978a-43ec-af3f-650a584e01c2.png","sha256":"7a1d3225316ce1853039feb47da52548fffdc2fe3bba8dd597b27b9af9c2d819","size":"1620x971","mode":"RGB","warning":"checker baked; native alpha absent"},
+    {"skill":"command_chain","kind":"vfxBoard","path":"vfx/command_chain-board.png","rawGeneratorPath":"/Users/pvenus/.codex/generated_images/01a06b73-ccfa-7202-8a8a-88e833e7c8e5/exec-d84c1c54-e0da-4878-b0b9-0bbfffbcf3cd.png","sha256":"a7b7dfb27da1208631a12957707ab772812e11ad030770b74481e0be022b5339","size":"1536x1024","mode":"RGBA"},
+    {"skill":"thunder_command","kind":"vfxBoard","path":"vfx/thunder_command-board.png","rawGeneratorPath":"/Users/pvenus/.codex/generated_images/01a06b73-ccfa-7202-8a8a-88e833e7c8e5/exec-04d9cd16-10c7-4f26-835c-37d37a6553ad.png","sha256":"87ab221b3bb8d19cc3e6074e8ad9102f49f0f33eceafaac58611822d4269394a","size":"1536x1024","mode":"RGBA"},
+    {"skill":"blockade_cut","kind":"vfxBoard","path":"vfx/blockade_cut-board.png","rawGeneratorPath":"/Users/pvenus/.codex/generated_images/01a06b73-ccfa-7202-8a8a-88e833e7c8e5/exec-7b80d1cf-4e58-49c0-9503-92e3de3d2d0b.png","sha256":"b37185629ef9c63dd02d6916719cc085717ffaca7cce98a9e70a0d456d21f7c5","size":"2172x724","mode":"RGBA"}
+  ],
+  "staleSuperseded": {
+    "countedInFinal": false,
+    "reason": "old retreat/scatter WheelDown intent superseded by active_7 55-degree fan control/slow",
+    "directory": "stale-superseded"
+  },
+  "operations": {"split":false,"package":false,"install":false,"unity":false}
+}

@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63226e07ba84a4a69967ef3b8995b8d7, type: 3}
+  m_Name: skill.character.seojin.1.active_8.deoreoreoreo
+  m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
+  equipmentId: skill.character.seojin.1.active_8.deoreoreoreo
+  aimMode: 1
+  aimInputSource: 1
+  icon: {fileID: -3727587810400336076, guid: 768c23edc32f348e680c8631cd0f1652, type: 3}
+  baseProfileSo: {fileID: 11400000, guid: cdfe7617b4346425d957fa93d9fbfd7e, type: 2}
+  castSo: {fileID: 11400000, guid: a360ed80d4d49417cacaea3158118f9b, type: 2}
+  hitSos:
+  - {fileID: 11400000, guid: faefa3bb95ddb4812bbd66226ea2bf58, type: 2}
+  - {fileID: 11400000, guid: 5db7039566e3b4a48b113a349a4ca490, type: 2}
+  - {fileID: 11400000, guid: b6dca955798324336bb747d3fe61a06e, type: 2}
+  - {fileID: 11400000, guid: 04e27bf35c2b74bcebc07a7b7e783cf7, type: 2}
+  moveSo: {fileID: 11400000, guid: 4d0e2781956834268ad5b448d3726cec, type: 2}
+  spawnSkillSo: {fileID: 0}
+  upgradeTableSo: {fileID: 11400000, guid: cadff6cf6ee6747bf8bbce21f1a0237e, type: 2}
+  baseVisualSo: {fileID: 11400000, guid: 9af677396d8f04099a62506a39530c90, type: 2}
+  comboProfile:
+    enabled: 0
+    inputDriven: 0
+    duration: 0
+    totalLungeCap: 0
+    useCanonicalBodyChoreography: 0
+    segmentedBodyActionClip: {fileID: 0}
+    segmentedBodyFrameCount: 18
+    steps: []
+  mouse3Profile:
+    inputAction: Q
+    stableSlotKey: active_8
+    edgeOnly: 1
+    crowdControlKind: 
+    distance: 0
+    duration: 0
+    stopRadius: 0
+    collisionSafe: 0
+    normalDurationOrRatio: 0
+    eliteDurationOrRatio: 0
+    bossDurationOrRatio: 0
+    bossHardCap: 0
+    fanAngle: 0
+    burstCount: 1
+    burstInterval: 0
+    nextBasicForwardRatio: 0
+    nextBasicRangeRatio: 0
+    nextBasicInputGrace: 0
+    gatherDistance: 0
+    gatherDuration: 0
+    stunNormalDuration: 0
+    stunEliteDuration: 0
+    stunBossDuration: 0
+    followupBodyClip: {fileID: 0}
+    followupVfxClip: {fileID: 0}

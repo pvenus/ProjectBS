@@ -1,0 +1,760 @@
+{
+  "task": "Dung layered VFX exact17 final QA",
+  "scope": "validation/package metadata only; pixels and visual direction unchanged; runtime/release judgment excluded",
+  "status": "PASS",
+  "manifest": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected/revision-01/manifest.json",
+  "manifestSha256": "ea372841048a077df7d42e49cc3a1801ca117c29b4f2c5dc268b42e6f16ccafc",
+  "counts": {
+    "totalFrames": 17,
+    "groundField": 4,
+    "pullFlow": 6,
+    "setupPulse": 3,
+    "finishResidue": 4,
+    "uniqueFrameSha": 17,
+    "contacts": 12,
+    "gifs": 4
+  },
+  "timing": {
+    "groundField": {
+      "size": 512,
+      "times": [
+        0.0,
+        0.125,
+        0.25,
+        0.375
+      ],
+      "stop": 0.5,
+      "loop": true
+    },
+    "pullFlow": {
+      "size": 256,
+      "times": [
+        0.25,
+        0.4,
+        0.55,
+        0.7,
+        0.85,
+        1.0
+      ],
+      "stop": 1.0,
+      "loop": false
+    },
+    "setupPulse": {
+      "size": 256,
+      "times": [
+        0.8,
+        0.95,
+        1.1
+      ],
+      "stop": 1.1,
+      "loop": false
+    },
+    "finishResidue": {
+      "size": 256,
+      "times": [
+        1.1,
+        1.225,
+        1.35,
+        1.5
+      ],
+      "stop": 1.5,
+      "loop": false
+    }
+  },
+  "frameMetrics": [
+    {
+      "layer": "groundField",
+      "frame": 0,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected/revision-01/groundField/frame-00.png",
+      "sha256": "653278368ce7b652718a106ee2c6217b09fd3010170a50d2f3e43da706955f46",
+      "mode": "RGBA",
+      "size": [
+        512,
+        512
+      ],
+      "alphaBbox": [
+        46,
+        42,
+        475,
+        474
+      ],
+      "margins": [
+        46,
+        42,
+        37,
+        38
+      ],
+      "borderAlphaPixels": 0,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha0RgbResiduePixels": 0
+    },
+    {
+      "layer": "groundField",
+      "frame": 1,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected/revision-01/groundField/frame-01.png",
+      "sha256": "d6082a64df9e2abfab9d258ced0bb94ecdb5a47c57989f1bf62ad930fbf96db1",
+      "mode": "RGBA",
+      "size": [
+        512,
+        512
+      ],
+      "alphaBbox": [
+        62,
+        37,
+        487,
+        486
+      ],
+      "margins": [
+        62,
+        37,
+        25,
+        26
+      ],
+      "borderAlphaPixels": 0,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha0RgbResiduePixels": 0
+    },
+    {
+      "layer": "groundField",
+      "frame": 2,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected/revision-01/groundField/frame-02.png",
+      "sha256": "a3954e3c3f8247496c327231cd6206e1578057449669680f1648a45c91a8e2f4",
+      "mode": "RGBA",
+      "size": [
+        512,
+        512
+      ],
+      "alphaBbox": [
+        49,
+        63,
+        487,
+        482
+      ],
+      "margins": [
+        49,
+        63,
+        25,
+        30
+      ],
+      "borderAlphaPixels": 0,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha0RgbResiduePixels": 0
+    },
+    {
+      "layer": "groundField",
+      "frame": 3,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected/revision-01/groundField/frame-03.png",
+      "sha256": "d98bc575b7a1d52e30b47144df57689b404ff97968902838a080518f1506e7db",
+      "mode": "RGBA",
+      "size": [
+        512,
+        512
+      ],
+      "alphaBbox": [
+        43,
+        70,
+        486,
+        479
+      ],
+      "margins": [
+        43,
+        70,
+        26,
+        33
+      ],
+      "borderAlphaPixels": 0,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha0RgbResiduePixels": 0
+    },
+    {
+      "layer": "pullFlow",
+      "frame": 0,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected/revision-01/pullFlow/frame-00.png",
+      "sha256": "443ab8d1deb7433ff623ee7f0b2606adec7ec1bc67ba8422b79454998b5d68c3",
+      "mode": "RGBA",
+      "size": [
+        256,
+        256
+      ],
+      "alphaBbox": [
+        26,
+        33,
+        196,
+        183
+      ],
+      "margins": [
+        26,
+        33,
+        60,
+        73
+      ],
+      "borderAlphaPixels": 0,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha0RgbResiduePixels": 0
+    },
+    {
+      "layer": "pullFlow",
+      "frame": 1,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected/revision-01/pullFlow/frame-01.png",
+      "sha256": "e8b95c5cb83c21e24f6f83210e44a3f80ff7c2fd3a1ae8a72765c9d99c47e32a",
+      "mode": "RGBA",
+      "size": [
+        256,
+        256
+      ],
+      "alphaBbox": [
+        130,
+        51,
+        245,
+        143
+      ],
+      "margins": [
+        130,
+        51,
+        11,
+        113
+      ],
+      "borderAlphaPixels": 0,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha0RgbResiduePixels": 0
+    },
+    {
+      "layer": "pullFlow",
+      "frame": 2,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected/revision-01/pullFlow/frame-02.png",
+      "sha256": "2b1fafb59f51f33b6541c2dfd3e5f3a6906c445f0ec71fbefc13e20c07ac7579",
+      "mode": "RGBA",
+      "size": [
+        256,
+        256
+      ],
+      "alphaBbox": [
+        43,
+        42,
+        166,
+        159
+      ],
+      "margins": [
+        43,
+        42,
+        90,
+        97
+      ],
+      "borderAlphaPixels": 0,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha0RgbResiduePixels": 0
+    },
+    {
+      "layer": "pullFlow",
+      "frame": 3,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected/revision-01/pullFlow/frame-03.png",
+      "sha256": "e9e04e18bf2d1c854133ed91d6d213b2b3c22d9c910e646b9073569e206247a1",
+      "mode": "RGBA",
+      "size": [
+        256,
+        256
+      ],
+      "alphaBbox": [
+        9,
+        61,
+        138,
+        143
+      ],
+      "margins": [
+        9,
+        61,
+        118,
+        113
+      ],
+      "borderAlphaPixels": 0,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha0RgbResiduePixels": 0
+    },
+    {
+      "layer": "pullFlow",
+      "frame": 4,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected/revision-01/pullFlow/frame-04.png",
+      "sha256": "7b2cc6d2ab8080f3c13ea3a918ba194242d9ace6f9a4c3eec658bf321441bca8",
+      "mode": "RGBA",
+      "size": [
+        256,
+        256
+      ],
+      "alphaBbox": [
+        64,
+        45,
+        252,
+        170
+      ],
+      "margins": [
+        64,
+        45,
+        4,
+        86
+      ],
+      "borderAlphaPixels": 0,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha0RgbResiduePixels": 0
+    },
+    {
+      "layer": "pullFlow",
+      "frame": 5,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected/revision-01/pullFlow/frame-05.png",
+      "sha256": "ff3750259e71d3b623c9780c5d3f96671c946f938c5c9770a19a64ac45d3b8a7",
+      "mode": "RGBA",
+      "size": [
+        256,
+        256
+      ],
+      "alphaBbox": [
+        30,
+        67,
+        247,
+        189
+      ],
+      "margins": [
+        30,
+        67,
+        9,
+        67
+      ],
+      "borderAlphaPixels": 0,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha0RgbResiduePixels": 0
+    },
+    {
+      "layer": "setupPulse",
+      "frame": 0,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected/revision-01/setupPulse/frame-00.png",
+      "sha256": "50d84ec4f2cd16de172e95d60ab67e252eee2c4c32320b885310006f2fe5e868",
+      "mode": "RGBA",
+      "size": [
+        256,
+        256
+      ],
+      "alphaBbox": [
+        104,
+        116,
+        153,
+        135
+      ],
+      "margins": [
+        104,
+        116,
+        103,
+        121
+      ],
+      "borderAlphaPixels": 0,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha0RgbResiduePixels": 0
+    },
+    {
+      "layer": "setupPulse",
+      "frame": 1,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected/revision-01/setupPulse/frame-01.png",
+      "sha256": "95796ba527d1b7a0310da5364ca653fac45e01629372124fd28bd75404d41f57",
+      "mode": "RGBA",
+      "size": [
+        256,
+        256
+      ],
+      "alphaBbox": [
+        89,
+        67,
+        170,
+        169
+      ],
+      "margins": [
+        89,
+        67,
+        86,
+        87
+      ],
+      "borderAlphaPixels": 0,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha0RgbResiduePixels": 0
+    },
+    {
+      "layer": "setupPulse",
+      "frame": 2,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected/revision-01/setupPulse/frame-02.png",
+      "sha256": "666d33ba9901efcc17fa7f22eed91d276ee0f3cfd164fe78d46750dac1df269f",
+      "mode": "RGBA",
+      "size": [
+        256,
+        256
+      ],
+      "alphaBbox": [
+        112,
+        107,
+        143,
+        143
+      ],
+      "margins": [
+        112,
+        107,
+        113,
+        113
+      ],
+      "borderAlphaPixels": 0,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha0RgbResiduePixels": 0
+    },
+    {
+      "layer": "finishResidue",
+      "frame": 0,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected/revision-01/finishResidue/frame-00.png",
+      "sha256": "17829ba849a4e5df07b644c582c7f897caf849d502b9e8073c89cbdc46bf5d5f",
+      "mode": "RGBA",
+      "size": [
+        256,
+        256
+      ],
+      "alphaBbox": [
+        25,
+        43,
+        242,
+        207
+      ],
+      "margins": [
+        25,
+        43,
+        14,
+        49
+      ],
+      "borderAlphaPixels": 0,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha0RgbResiduePixels": 0
+    },
+    {
+      "layer": "finishResidue",
+      "frame": 1,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected/revision-01/finishResidue/frame-01.png",
+      "sha256": "04dfb49adec9e2dd80620306a397cc5a1a0c153ff2b6061322367b63c6a17b53",
+      "mode": "RGBA",
+      "size": [
+        256,
+        256
+      ],
+      "alphaBbox": [
+        18,
+        51,
+        247,
+        197
+      ],
+      "margins": [
+        18,
+        51,
+        9,
+        59
+      ],
+      "borderAlphaPixels": 0,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha0RgbResiduePixels": 0
+    },
+    {
+      "layer": "finishResidue",
+      "frame": 2,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected/revision-01/finishResidue/frame-02.png",
+      "sha256": "bcd24f274a5ce23779c6ccd523afa402daaa5ef6e4b1fb2c0a2e7daabee358e3",
+      "mode": "RGBA",
+      "size": [
+        256,
+        256
+      ],
+      "alphaBbox": [
+        49,
+        76,
+        206,
+        174
+      ],
+      "margins": [
+        49,
+        76,
+        50,
+        82
+      ],
+      "borderAlphaPixels": 0,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha0RgbResiduePixels": 0
+    },
+    {
+      "layer": "finishResidue",
+      "frame": 3,
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected/revision-01/finishResidue/frame-03.png",
+      "sha256": "de98921cf2bfe1d0784f0fbddf581cacde9b06d73a42d7f5b30a294b10ad10e2",
+      "mode": "RGBA",
+      "size": [
+        256,
+        256
+      ],
+      "alphaBbox": [
+        82,
+        85,
+        194,
+        182
+      ],
+      "margins": [
+        82,
+        85,
+        62,
+        74
+      ],
+      "borderAlphaPixels": 0,
+      "cornerAlpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "alpha0RgbResiduePixels": 0
+    }
+  ],
+  "evidence": [
+    {
+      "kind": "contact",
+      "layer": "groundField",
+      "background": "dark",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected/revision-01/evidence/groundField-dark.png",
+      "exists": true,
+      "sha256": "c100e5cdcba17bd040e0c63e74c23ef1d32e8e8c9973df09061fa62a5df011e2"
+    },
+    {
+      "kind": "contact",
+      "layer": "groundField",
+      "background": "light",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected/revision-01/evidence/groundField-light.png",
+      "exists": true,
+      "sha256": "edd12b041b8b3bf9f37bdcbf4c0bbc8ff9cf222ae25cfc0284eec8fc2a40eefe"
+    },
+    {
+      "kind": "contact",
+      "layer": "groundField",
+      "background": "gray",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected/revision-01/evidence/groundField-gray.png",
+      "exists": true,
+      "sha256": "5445d8dee070de0a3c35279bbf6709891812ec2d6e1da32833fab2f8a42a9c82"
+    },
+    {
+      "kind": "gif",
+      "layer": "groundField",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected/revision-01/evidence/groundField.gif",
+      "sha256": "347964e843027673d12c6df1b0430e4eac28b46b25863b6af37a9d7650073d88",
+      "physicalFrames": 4,
+      "durationsMs": [
+        120,
+        120,
+        120,
+        120
+      ]
+    },
+    {
+      "kind": "contact",
+      "layer": "pullFlow",
+      "background": "dark",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected/revision-01/evidence/pullFlow-dark.png",
+      "exists": true,
+      "sha256": "c69f4e89fc0fb9ea7446974555776c3753661d576eebfd5a2f75ab5aebcffbee"
+    },
+    {
+      "kind": "contact",
+      "layer": "pullFlow",
+      "background": "light",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected/revision-01/evidence/pullFlow-light.png",
+      "exists": true,
+      "sha256": "9cfb3d41ac20355dfbc29a00605417039503851eb5da8dcaa1e061eeedecee20"
+    },
+    {
+      "kind": "contact",
+      "layer": "pullFlow",
+      "background": "gray",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected/revision-01/evidence/pullFlow-gray.png",
+      "exists": true,
+      "sha256": "b259564441f9d69f93a3692e234b079944ef90ddbab49bd2600b705a8d0f66f3"
+    },
+    {
+      "kind": "gif",
+      "layer": "pullFlow",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected/revision-01/evidence/pullFlow.gif",
+      "sha256": "a0acf49af41d59a0572d6a7e0ef318c1ea1afe5b58fbed33f77f2add424809ae",
+      "physicalFrames": 6,
+      "durationsMs": [
+        120,
+        120,
+        120,
+        120,
+        120,
+        120
+      ]
+    },
+    {
+      "kind": "contact",
+      "layer": "setupPulse",
+      "background": "dark",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected/revision-01/evidence/setupPulse-dark.png",
+      "exists": true,
+      "sha256": "9e06a514021d03831f8b70c72c5bac78de322d2a90f56d681841d19a7d9240a9"
+    },
+    {
+      "kind": "contact",
+      "layer": "setupPulse",
+      "background": "light",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected/revision-01/evidence/setupPulse-light.png",
+      "exists": true,
+      "sha256": "c05d561ec68ddd46fb20b9b5defa30458d6c3e55548fefd68f7c751096fa939d"
+    },
+    {
+      "kind": "contact",
+      "layer": "setupPulse",
+      "background": "gray",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected/revision-01/evidence/setupPulse-gray.png",
+      "exists": true,
+      "sha256": "500cdd18f5e5d6557cfc9d5b6991045c3dbf1b2db16c77eb3c939f210e6baedd"
+    },
+    {
+      "kind": "gif",
+      "layer": "setupPulse",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected/revision-01/evidence/setupPulse.gif",
+      "sha256": "0eac0d6df6ba0b4585220a8c87789b1cde22039e8e91de9654539f0b9bb39164",
+      "physicalFrames": 3,
+      "durationsMs": [
+        120,
+        120,
+        120
+      ]
+    },
+    {
+      "kind": "contact",
+      "layer": "finishResidue",
+      "background": "dark",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected/revision-01/evidence/finishResidue-dark.png",
+      "exists": true,
+      "sha256": "8c1038cd530b7c12c2ceadc9901c083faa068debfb7f78a7d8bedbe8dc8f6617"
+    },
+    {
+      "kind": "contact",
+      "layer": "finishResidue",
+      "background": "light",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected/revision-01/evidence/finishResidue-light.png",
+      "exists": true,
+      "sha256": "507aa8c5a151536329be8276bd73c1dd6a3475f279866c0b72bfc21648a91c17"
+    },
+    {
+      "kind": "contact",
+      "layer": "finishResidue",
+      "background": "gray",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected/revision-01/evidence/finishResidue-gray.png",
+      "exists": true,
+      "sha256": "e85c325f253e99e45199a0f1136287fb72965895fde51e904ccd558785cab719"
+    },
+    {
+      "kind": "gif",
+      "layer": "finishResidue",
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected/revision-01/evidence/finishResidue.gif",
+      "sha256": "0c5e16906f6674b6c733853d0ee266ea580c2db889f71c7478cf29b035cbd23c",
+      "physicalFrames": 4,
+      "durationsMs": [
+        120,
+        120,
+        120,
+        120
+      ]
+    }
+  ],
+  "semanticInspection": {
+    "groundField": "PASS separated ground-plane layer; broken oval/ring contours only; no character body, text, glyph/UI panel",
+    "pullFlow": "PASS inward-directed travel/pull strokes; no character body, text, UI, or closed ring",
+    "setupPulse": "PASS compact setup accents; no character body, text, UI, or closed ring",
+    "finishResidue": "PASS fading curved residues; no character body, text, UI, or closed ring",
+    "contactReadback": "200-ish dark/light/gray contacts inspected; intended groundField ring-like footprint remains readable; no unintended ring in other layers and no UI/body/text in any layer"
+  },
+  "installBoundary": "No Unity/project canonical install; downstream atomic integration only.",
+  "rollback": "Remove this versioned artifact directory only; existing assets untouched.",
+  "preexistingChecksumLedger": {
+    "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected/revision-01/SHA256SUMS.txt",
+    "sha256": "fe55bdaaacff036d5f6ff71b7942ae805a78339c66699b40df628f7efbd9ace5",
+    "entries": 34,
+    "allMatch": true
+  },
+  "errors": []
+}

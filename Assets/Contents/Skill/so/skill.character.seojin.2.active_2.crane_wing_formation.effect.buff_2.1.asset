@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: skill.character.seojin.2.active_2.crane_wing_formation.effect.buff_2.1
   m_EditorClassIdentifier: Assembly-CSharp::Effect.EffectSO
   effectId: skill.character.seojin.2.active_2.crane_wing_formation.effect.buff_2.1
-  authoredDisplayName: "학익진 방어 증가"
+  authoredDisplayName: "\uD559\uC775\uC9C4 \uBC29\uC5B4 \uC99D\uAC00"
   icon: {fileID: 0}
   config:
-    rid: 666566976232489112
+    rid: 666567034589414107
   references:
     version: 2
     RefIds:
-    - rid: 666566976232489112
+    - rid: 666567034589414107
       type: {class: StatModifierEffectConfig, ns: Effect, asm: Assembly-CSharp}
       data:
         targetStat: 1300

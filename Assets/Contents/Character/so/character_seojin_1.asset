@@ -52,12 +52,20 @@ MonoBehaviour:
     clip: {fileID: 7400000, guid: 5c0d041888a0e434b8c257f0b9dda24d, type: 2}
   animationProfile: {fileID: 11400000, guid: 1c7a330f92c0a4eceb2d1a82b50e3ade, type: 2}
   skills:
+  - slotKey: basic_attack
+    skillSo: {fileID: 11400000, guid: f3a0adba2275e4ab19b8430845507e92, type: 2}
   - slotKey: active_1
     skillSo: {fileID: 11400000, guid: 5616bfac4b440418b839371b6e9d9c8c, type: 2}
   - slotKey: active_4
     skillSo: {fileID: 11400000, guid: 2b9ec721b15af485d96b348ad7ac1503, type: 2}
-  - slotKey: basic_attack
-    skillSo: {fileID: 11400000, guid: f3a0adba2275e4ab19b8430845507e92, type: 2}
+  - slotKey: active_5
+    skillSo: {fileID: 11400000, guid: 2a5431ff308964c71a966088453ec380, type: 2}
+  - slotKey: active_6
+    skillSo: {fileID: 11400000, guid: 3fdb4310dc8f94f349ab7c912eac63ae, type: 2}
+  - slotKey: active_7
+    skillSo: {fileID: 11400000, guid: c3a8119d77ce944b2b3fa9a48572b98e, type: 2}
+  - slotKey: active_8
+    skillSo: {fileID: 11400000, guid: d450e8e64cdfe4c79a9e3d5927f8f60c, type: 2}
   - slotKey: passive_1
     skillSo: {fileID: 11400000, guid: 5bfc1f5136c5b476e870192f2729bd1c, type: 2}
   baseStats:

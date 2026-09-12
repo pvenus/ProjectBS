@@ -699,7 +699,10 @@ public class ProjectileFactory
             owner = source.owner,
             target = source.target,
             sourceEquipment = source.sourceEquipment,
+            resolvedLevel = source.resolvedLevel,
+            resolvedMouse3Profile = source.resolvedMouse3Profile,
             spawnPosition = spawnPosition,
+            controlPoint = source.controlPoint,
             orientManualPresentation = source.orientManualPresentation,
             direction = ResolveProjectileDirection(
                 source,

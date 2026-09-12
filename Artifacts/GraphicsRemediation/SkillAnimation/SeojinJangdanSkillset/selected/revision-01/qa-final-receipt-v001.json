@@ -1,0 +1,1568 @@
+{
+  "task": "JANGDAN-SKILLSET-V1-FINAL-QA",
+  "scope": "art/physical QA only; no pixel/runtime decision",
+  "status": "PASS",
+  "manifest": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/manifest.json",
+  "manifestSha256": "12be189da3f5e903caa091033bfa433a1fa42ac7f200bb1bfc0d5d1913585e54",
+  "manifestShaMatch": true,
+  "counts": {
+    "icons": 4,
+    "body": 36,
+    "vfx": 36,
+    "runtimePng": 76,
+    "uniqueRuntimeSha": 76,
+    "gifs": 8,
+    "contacts": 72
+  },
+  "timing": {
+    "bpm": 120,
+    "beat": 0.5,
+    "subdivision": 0.125,
+    "active5_dung_kung": {
+      "contacts": [
+        0.25,
+        0.75
+      ],
+      "total": 1.0
+    },
+    "active6_gi": {
+      "contacts": [
+        0.125
+      ],
+      "total": 0.25
+    },
+    "active7_deok": {
+      "contacts": [
+        0.25
+      ],
+      "total": 0.375
+    },
+    "active8_deoreoreoreo": {
+      "contacts": [
+        0.125,
+        0.25,
+        0.375,
+        0.625
+      ],
+      "total": 0.75
+    }
+  },
+  "semanticInspection": {
+    "active5_dung_kung": "PASS visual: centered gather/pull transitions to dense impact in second half",
+    "active6_gi": "PASS visual: short, fast rightward Gi beat",
+    "active7_deok": "PASS visual: planted broad rightward pressure cut",
+    "active8_deoreoreoreo": "PASS visual: four successive pulse groups; final group strongest by alpha-weight proxy [6116627, 6843501, 6219146, 7440527]"
+  },
+  "singleSubjectInspection": "PASS via 200px contact readback: body frames each one pose; VFX frames each one temporal state; no boards/panels/cell layouts remain",
+  "contactCoverage": {
+    "exact72": true,
+    "readability": "PASS at 200/80/32 on light/dark/gray (physical files and SHA verified; 200px visual readback)"
+  },
+  "gifMetrics": [
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/evidence/active5_dung_kung-body.gif",
+      "physicalFrames": 12,
+      "sha256": "19b8f3deff6bcdc43d240f2f4993b5b3c227a1f4286069970a12344069631058",
+      "durationsMs": [
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50
+      ]
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/evidence/active5_dung_kung-vfx.gif",
+      "physicalFrames": 12,
+      "sha256": "f6e40f7c4fe39d11b2a8f4e30a9fed33b5adaacef53d3782ae2b19db7e598cf4",
+      "durationsMs": [
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50
+      ]
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/evidence/active6_gi-body.gif",
+      "physicalFrames": 6,
+      "sha256": "c4682b1cbd1780f07cfd7c738799b09c16c1a93fa5a1f934f0a332764e4bfd22",
+      "durationsMs": [
+        60,
+        60,
+        60,
+        60,
+        60,
+        60
+      ]
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/evidence/active6_gi-vfx.gif",
+      "physicalFrames": 6,
+      "sha256": "e485d0e517834fb8a7097b5dc3937b4b410e1e41a00eb6333bac177e9df72522",
+      "durationsMs": [
+        60,
+        60,
+        60,
+        60,
+        60,
+        60
+      ]
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/evidence/active7_deok-body.gif",
+      "physicalFrames": 6,
+      "sha256": "e34c4304bdfcaca59a415cabbdc7a8982a108e4630a070e183370f2947865a64",
+      "durationsMs": [
+        70,
+        70,
+        70,
+        70,
+        70,
+        70
+      ]
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/evidence/active7_deok-vfx.gif",
+      "physicalFrames": 6,
+      "sha256": "6e9d9cd18a06d3d8274134193c23439520d4707314da31f26944a9031204bc47",
+      "durationsMs": [
+        70,
+        70,
+        70,
+        70,
+        70,
+        70
+      ]
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/evidence/active8_deoreoreoreo-body.gif",
+      "physicalFrames": 12,
+      "sha256": "2b03b58c7e7707eeffad017384885ca27708995cc26faaf752ac23c9ee932728",
+      "durationsMs": [
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50
+      ]
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/evidence/active8_deoreoreoreo-vfx.gif",
+      "physicalFrames": 12,
+      "sha256": "db3b330195203ec71fcd1a6cda3606006ff56aa8a2306a64bb1353c7ab5450a6",
+      "durationsMs": [
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50
+      ]
+    }
+  ],
+  "runtimeMetrics": {
+    "icon": [
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/icons/active5_dung_kung.png",
+        "sha256": "79f803282af8d0fee252011ced34c4081312cabc660e6cc2c331d0afb5047f52",
+        "bbox": [
+          33,
+          37,
+          488,
+          467
+        ],
+        "margins": [
+          33,
+          37,
+          24,
+          45
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/icons/active6_gi.png",
+        "sha256": "714492d89ab7a004056f62a882e8c8d80702ba7b3e34f875e70c1746574f62f8",
+        "bbox": [
+          30,
+          74,
+          485,
+          471
+        ],
+        "margins": [
+          30,
+          74,
+          27,
+          41
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/icons/active7_deok.png",
+        "sha256": "8ca932262172389ad546a1f02c851fd3257467c20b5593f3d09ee2c47f448af3",
+        "bbox": [
+          25,
+          32,
+          481,
+          461
+        ],
+        "margins": [
+          25,
+          32,
+          31,
+          51
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/icons/active8_deoreoreoreo.png",
+        "sha256": "b3d8707b8462132a433b5911be9828760fc796e9d1d078830d4fa78a2f40080e",
+        "bbox": [
+          24,
+          42,
+          488,
+          470
+        ],
+        "margins": [
+          24,
+          42,
+          24,
+          42
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      }
+    ],
+    "body": [
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/body/active5_dung_kung/frame-00.png",
+        "sha256": "c0fd48965f4174365fe764e6d0328c2b8019be4f6d83d0fb5a707d9ac40935fe",
+        "bbox": [
+          60,
+          12,
+          461,
+          328
+        ],
+        "margins": [
+          60,
+          12,
+          107,
+          12
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/body/active5_dung_kung/frame-01.png",
+        "sha256": "cd3cca7e4cfb90ebee5a91eb081ffb7991de0cde43d458b58bd27bf2bfbfa5c1",
+        "bbox": [
+          159,
+          12,
+          452,
+          328
+        ],
+        "margins": [
+          159,
+          12,
+          116,
+          12
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/body/active5_dung_kung/frame-02.png",
+        "sha256": "8256ad85d0cc3193082c9ebe5b1ada613332f507ee479daad4834fcbb3af604a",
+        "bbox": [
+          64,
+          12,
+          392,
+          328
+        ],
+        "margins": [
+          64,
+          12,
+          176,
+          12
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/body/active5_dung_kung/frame-03.png",
+        "sha256": "9a64fa5fd0abd74930453c015b426ee662bfe3372101fcfa3ad11e4f0e462932",
+        "bbox": [
+          76,
+          12,
+          488,
+          328
+        ],
+        "margins": [
+          76,
+          12,
+          80,
+          12
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/body/active5_dung_kung/frame-04.png",
+        "sha256": "a1ba3a9fb8959136bc687f52477d5171024b9325d644dd72c4b14e1a44d0a0d0",
+        "bbox": [
+          56,
+          16,
+          386,
+          328
+        ],
+        "margins": [
+          56,
+          16,
+          182,
+          12
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/body/active5_dung_kung/frame-05.png",
+        "sha256": "69bc880b716810f974a9ddfa3ccba340e3292527e2625e77646a1531c08f3e78",
+        "bbox": [
+          162,
+          12,
+          351,
+          328
+        ],
+        "margins": [
+          162,
+          12,
+          217,
+          12
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/body/active5_dung_kung/frame-06.png",
+        "sha256": "dfcd396a428aeae063da273b3515c312d00661652cfe15f6f5d391ace647c86f",
+        "bbox": [
+          178,
+          12,
+          489,
+          326
+        ],
+        "margins": [
+          178,
+          12,
+          79,
+          14
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/body/active5_dung_kung/frame-07.png",
+        "sha256": "dc0ebebe29cbb723ab6b29a6fd48edfc928e3d441cc4ea5ccec131f54543ac4e",
+        "bbox": [
+          136,
+          12,
+          334,
+          328
+        ],
+        "margins": [
+          136,
+          12,
+          234,
+          12
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/body/active5_dung_kung/frame-08.png",
+        "sha256": "09b8368b3b4bfc8741ab66e177ba90fbc3962092384fd45522685d0a8e41eb77",
+        "bbox": [
+          131,
+          12,
+          440,
+          328
+        ],
+        "margins": [
+          131,
+          12,
+          128,
+          12
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/body/active5_dung_kung/frame-09.png",
+        "sha256": "f52ed32ec059391c72d712230e030bf93a112ee17872f6e90ba9054c63843f64",
+        "bbox": [
+          182,
+          12,
+          491,
+          328
+        ],
+        "margins": [
+          182,
+          12,
+          77,
+          12
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/body/active5_dung_kung/frame-10.png",
+        "sha256": "83df305b701cabfc907d369687d23871c15b72ecd2ab5bf69acd6edb474ebe9a",
+        "bbox": [
+          177,
+          13,
+          411,
+          328
+        ],
+        "margins": [
+          177,
+          13,
+          157,
+          12
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/body/active5_dung_kung/frame-11.png",
+        "sha256": "901f4647aee66d3d459f3105380bb3409914af2527c51ef9fd1caea8ec6c3528",
+        "bbox": [
+          133,
+          12,
+          294,
+          328
+        ],
+        "margins": [
+          133,
+          12,
+          274,
+          12
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/body/active6_gi/frame-00.png",
+        "sha256": "ecc918d993bd476b4a1bdd637d7841eff9eb736c848eeb8b0688450e97860400",
+        "bbox": [
+          175,
+          12,
+          339,
+          328
+        ],
+        "margins": [
+          175,
+          12,
+          229,
+          12
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/body/active6_gi/frame-01.png",
+        "sha256": "7f96422a44cb4fbad68c9fc9074c734f15923e462f7d87be221b398d43480f70",
+        "bbox": [
+          117,
+          12,
+          295,
+          328
+        ],
+        "margins": [
+          117,
+          12,
+          273,
+          12
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/body/active6_gi/frame-02.png",
+        "sha256": "4850af77489c45374fd3f19954c72b25b0fe7fef110ee3ec47c2c2fabc8d4694",
+        "bbox": [
+          206,
+          12,
+          371,
+          328
+        ],
+        "margins": [
+          206,
+          12,
+          197,
+          12
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/body/active6_gi/frame-03.png",
+        "sha256": "439ab8df52431ef22685653fbc66dafbab7550699bff1474f6498624c37bed86",
+        "bbox": [
+          139,
+          12,
+          347,
+          328
+        ],
+        "margins": [
+          139,
+          12,
+          221,
+          12
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/body/active6_gi/frame-04.png",
+        "sha256": "3865e5f3390789ae42a0571389b2cade7e929c20921b0031051cc4eec6130e0b",
+        "bbox": [
+          90,
+          19,
+          370,
+          322
+        ],
+        "margins": [
+          90,
+          19,
+          198,
+          18
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/body/active6_gi/frame-05.png",
+        "sha256": "f39db233da89d4d37f33cef9cc37dd8e6746443c379f6282a419a5bafd3616b7",
+        "bbox": [
+          51,
+          12,
+          501,
+          328
+        ],
+        "margins": [
+          51,
+          12,
+          67,
+          12
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/body/active7_deok/frame-00.png",
+        "sha256": "e4c16ef6dd7533ca41bd00ec79dba571cba428ded7a572b6d73038d4b8ce0c8e",
+        "bbox": [
+          117,
+          12,
+          276,
+          326
+        ],
+        "margins": [
+          117,
+          12,
+          292,
+          14
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/body/active7_deok/frame-01.png",
+        "sha256": "12563053108221eafaca9eb745f7a712cb83b4ecd9772924050ee96e02e09721",
+        "bbox": [
+          112,
+          12,
+          513,
+          328
+        ],
+        "margins": [
+          112,
+          12,
+          55,
+          12
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/body/active7_deok/frame-02.png",
+        "sha256": "6c0a078c6d9a8527b1891f92bc5a1244850a7d3dd42a45d04f9a5e21dfa72be0",
+        "bbox": [
+          97,
+          12,
+          536,
+          328
+        ],
+        "margins": [
+          97,
+          12,
+          32,
+          12
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/body/active7_deok/frame-03.png",
+        "sha256": "2c4bc7d9b46451d25ddf0f3c9cfd19dc57a54c5be24f9bf72954eb6e4b417adf",
+        "bbox": [
+          118,
+          12,
+          319,
+          328
+        ],
+        "margins": [
+          118,
+          12,
+          249,
+          12
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/body/active7_deok/frame-04.png",
+        "sha256": "474f7f76eac8a35e78753e85357751b1e298cee42b52fa10675ad34aa5dec98f",
+        "bbox": [
+          62,
+          12,
+          465,
+          328
+        ],
+        "margins": [
+          62,
+          12,
+          103,
+          12
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/body/active7_deok/frame-05.png",
+        "sha256": "54be99d40fa9840aee259081fe94d56793f9cd9401e2a6edb1f79ef84d794697",
+        "bbox": [
+          209,
+          12,
+          397,
+          328
+        ],
+        "margins": [
+          209,
+          12,
+          171,
+          12
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/body/active8_deoreoreoreo/frame-00.png",
+        "sha256": "f659cdbc253589a577b18d50ac17bd28d8e152515ffc9ecdceb292982546ac42",
+        "bbox": [
+          94,
+          12,
+          394,
+          328
+        ],
+        "margins": [
+          94,
+          12,
+          174,
+          12
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/body/active8_deoreoreoreo/frame-01.png",
+        "sha256": "46182de98b8934bd63719415a08ee6720c920afd083a0cb4c590f4b21c482943",
+        "bbox": [
+          85,
+          12,
+          403,
+          328
+        ],
+        "margins": [
+          85,
+          12,
+          165,
+          12
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/body/active8_deoreoreoreo/frame-02.png",
+        "sha256": "39ca4efda1441bdafa40d5b612507afbd5e9bd68e771310a4e878759b8c6deaf",
+        "bbox": [
+          85,
+          12,
+          488,
+          328
+        ],
+        "margins": [
+          85,
+          12,
+          80,
+          12
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/body/active8_deoreoreoreo/frame-03.png",
+        "sha256": "13891e4563fe97725025b644c0d6110223dd39c642ddf42f0b54b556b6351c04",
+        "bbox": [
+          83,
+          12,
+          542,
+          328
+        ],
+        "margins": [
+          83,
+          12,
+          26,
+          12
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/body/active8_deoreoreoreo/frame-04.png",
+        "sha256": "8f3dabefb5c0f269460957486dcfb81a9232645a28ea9df5ebceaafc14ca30a4",
+        "bbox": [
+          29,
+          12,
+          529,
+          322
+        ],
+        "margins": [
+          29,
+          12,
+          39,
+          18
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/body/active8_deoreoreoreo/frame-05.png",
+        "sha256": "9b2855a89c6f0fc32876de0e4bb04f8c281223350015659d9ee6546d295cffe4",
+        "bbox": [
+          97,
+          12,
+          495,
+          322
+        ],
+        "margins": [
+          97,
+          12,
+          73,
+          18
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/body/active8_deoreoreoreo/frame-06.png",
+        "sha256": "cd50241fb6c263e24099a2085f3d20365a120f54794279bc26d616c78f4119a1",
+        "bbox": [
+          94,
+          12,
+          500,
+          328
+        ],
+        "margins": [
+          94,
+          12,
+          68,
+          12
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/body/active8_deoreoreoreo/frame-07.png",
+        "sha256": "a1d3422c1bbd02b0808a5403556d236f8f62a0dd52d9e70283898b2bcdf7a62a",
+        "bbox": [
+          35,
+          12,
+          556,
+          323
+        ],
+        "margins": [
+          35,
+          12,
+          12,
+          17
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/body/active8_deoreoreoreo/frame-08.png",
+        "sha256": "9eeec86a3d272e2fdcf096c4bc5d94ee32db607082283e1765e9b8e6b8aa7754",
+        "bbox": [
+          126,
+          12,
+          445,
+          328
+        ],
+        "margins": [
+          126,
+          12,
+          123,
+          12
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/body/active8_deoreoreoreo/frame-09.png",
+        "sha256": "e38fbcfe44fed7685a4cb9fc59f699012d7991d4de6bd1d849d40750cf0483aa",
+        "bbox": [
+          58,
+          17,
+          556,
+          328
+        ],
+        "margins": [
+          58,
+          17,
+          12,
+          12
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/body/active8_deoreoreoreo/frame-10.png",
+        "sha256": "6db159d9c4877f6736cd6f125d33d832b878231812b7e9ef803c1e0678789fc8",
+        "bbox": [
+          72,
+          12,
+          538,
+          328
+        ],
+        "margins": [
+          72,
+          12,
+          30,
+          12
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/body/active8_deoreoreoreo/frame-11.png",
+        "sha256": "45a163a3e388421c14dbe7eae0c8cbf334e26ba943542802bef330cac764af53",
+        "bbox": [
+          127,
+          12,
+          466,
+          328
+        ],
+        "margins": [
+          127,
+          12,
+          102,
+          12
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      }
+    ],
+    "vfx": [
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/vfx/active5_dung_kung/frame-00.png",
+        "sha256": "bdfbf2eafb31d0e02f48addc3cd680ea851efe855378f2b582a355309d2178f6",
+        "bbox": [
+          12,
+          13,
+          244,
+          240
+        ],
+        "margins": [
+          12,
+          13,
+          12,
+          16
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/vfx/active5_dung_kung/frame-01.png",
+        "sha256": "ea179caaa72a568fbb277e5561203e1e78cb73315ca8ca8814739ad4daa12edd",
+        "bbox": [
+          24,
+          26,
+          234,
+          234
+        ],
+        "margins": [
+          24,
+          26,
+          22,
+          22
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/vfx/active5_dung_kung/frame-02.png",
+        "sha256": "3128c1bdb14846075b7421304416e5a485d4eaf647be121e83db3bdb91a93c7c",
+        "bbox": [
+          19,
+          12,
+          243,
+          244
+        ],
+        "margins": [
+          19,
+          12,
+          13,
+          12
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/vfx/active5_dung_kung/frame-03.png",
+        "sha256": "2329ab54382b4ce6a34860f8371637ac474ae95401a1fdb4f43c971a12a8d209",
+        "bbox": [
+          17,
+          13,
+          240,
+          241
+        ],
+        "margins": [
+          17,
+          13,
+          16,
+          15
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/vfx/active5_dung_kung/frame-04.png",
+        "sha256": "24fe8719887f9bf4f27c4465197aefb9559267d7b38ec07f262ab1cf9a697e5a",
+        "bbox": [
+          19,
+          12,
+          242,
+          243
+        ],
+        "margins": [
+          19,
+          12,
+          14,
+          13
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/vfx/active5_dung_kung/frame-05.png",
+        "sha256": "4f415d2962cecdea185241d70bb639da8d6c79a3294357bce730a1b509304018",
+        "bbox": [
+          15,
+          12,
+          241,
+          241
+        ],
+        "margins": [
+          15,
+          12,
+          15,
+          15
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/vfx/active5_dung_kung/frame-06.png",
+        "sha256": "1226dacb05e4589a73eed620cfe421773cd8d477899e7deca5808f67fe61c2f2",
+        "bbox": [
+          31,
+          29,
+          232,
+          233
+        ],
+        "margins": [
+          31,
+          29,
+          24,
+          23
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/vfx/active5_dung_kung/frame-07.png",
+        "sha256": "80388f45d2b1a2a5b34cdffc0b95f2537379cd80239caa2f3077ae8f3f6ed312",
+        "bbox": [
+          33,
+          34,
+          228,
+          234
+        ],
+        "margins": [
+          33,
+          34,
+          28,
+          22
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/vfx/active5_dung_kung/frame-08.png",
+        "sha256": "ac65644e82efe6b16a88045733b149016ba1471f6f0b1f32939b598c881dd6b1",
+        "bbox": [
+          93,
+          76,
+          161,
+          147
+        ],
+        "margins": [
+          93,
+          76,
+          95,
+          109
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/vfx/active5_dung_kung/frame-09.png",
+        "sha256": "d7438c0135861c57278b7e9bec0d7acf7562fe4a1bfda848c4f696670d496059",
+        "bbox": [
+          39,
+          20,
+          236,
+          229
+        ],
+        "margins": [
+          39,
+          20,
+          20,
+          27
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/vfx/active5_dung_kung/frame-10.png",
+        "sha256": "41ebac58b96863133520ffb537d90e145c17ecacf76db48833efe09ac7486d82",
+        "bbox": [
+          66,
+          12,
+          186,
+          243
+        ],
+        "margins": [
+          66,
+          12,
+          70,
+          13
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/vfx/active5_dung_kung/frame-11.png",
+        "sha256": "b5b67f4e06f0a4a22d796e1af2523e2d8e5bb2c1e9616e77c100440e7de8e05b",
+        "bbox": [
+          34,
+          49,
+          224,
+          218
+        ],
+        "margins": [
+          34,
+          49,
+          32,
+          38
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/vfx/active6_gi/frame-00.png",
+        "sha256": "63e21afed241e5f097f1e1b6b10049ec17e86d520ac5945027bbe0e54b3c0297",
+        "bbox": [
+          40,
+          61,
+          238,
+          237
+        ],
+        "margins": [
+          40,
+          61,
+          18,
+          19
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/vfx/active6_gi/frame-01.png",
+        "sha256": "845fc928a5bf8cba5411a024a7abc48f802bc6b3d6a3b05908eaf9ef3dfe52be",
+        "bbox": [
+          15,
+          72,
+          244,
+          173
+        ],
+        "margins": [
+          15,
+          72,
+          12,
+          83
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/vfx/active6_gi/frame-02.png",
+        "sha256": "8f3062da6c4dd65faefb74f61a282a3efd0a3aeebefbff2a8b665a495c5edbf7",
+        "bbox": [
+          16,
+          93,
+          244,
+          180
+        ],
+        "margins": [
+          16,
+          93,
+          12,
+          76
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/vfx/active6_gi/frame-03.png",
+        "sha256": "6e1e896d66d9cbf5e09eb1fb3ed9652a447c095c0beff099650100684f2b697f",
+        "bbox": [
+          12,
+          72,
+          244,
+          211
+        ],
+        "margins": [
+          12,
+          72,
+          12,
+          45
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/vfx/active6_gi/frame-04.png",
+        "sha256": "4663dc6d886745e877a9e4e6d27d1cb043f777f2d6f5d4ad3b84a9b3b2906dc4",
+        "bbox": [
+          22,
+          64,
+          244,
+          210
+        ],
+        "margins": [
+          22,
+          64,
+          12,
+          46
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/vfx/active6_gi/frame-05.png",
+        "sha256": "d6e2ef7a54262715df2f291181a507ab3c0a652083f32eb05c97d7db9ba899b8",
+        "bbox": [
+          16,
+          61,
+          244,
+          194
+        ],
+        "margins": [
+          16,
+          61,
+          12,
+          62
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/vfx/active7_deok/frame-00.png",
+        "sha256": "e35a633e8f7146362babfe6eaf3515eb2d00e0b17cdbf01ea25f80ce1359ee82",
+        "bbox": [
+          13,
+          59,
+          243,
+          203
+        ],
+        "margins": [
+          13,
+          59,
+          13,
+          53
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/vfx/active7_deok/frame-01.png",
+        "sha256": "e9f3329055aabf5ea8bc8b7525519b5b47c7b2a2f2f4c23570ee87b355bceb44",
+        "bbox": [
+          16,
+          56,
+          244,
+          193
+        ],
+        "margins": [
+          16,
+          56,
+          12,
+          63
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/vfx/active7_deok/frame-02.png",
+        "sha256": "bdfd4faccb79a0288c861bdcdbaf30e09fd0e553fe477ecbe9c48d813210576d",
+        "bbox": [
+          19,
+          48,
+          244,
+          189
+        ],
+        "margins": [
+          19,
+          48,
+          12,
+          67
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/vfx/active7_deok/frame-03.png",
+        "sha256": "3a8b12f8b7b3f7382ec63eabc95d1d20aa43c274eea88974c182ddfa5eb9f305",
+        "bbox": [
+          13,
+          68,
+          243,
+          189
+        ],
+        "margins": [
+          13,
+          68,
+          13,
+          67
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/vfx/active7_deok/frame-04.png",
+        "sha256": "6d44fb9327b81f8cd1f990ddf1490a5a698d44ea84b4ff57367ff163472306c1",
+        "bbox": [
+          18,
+          79,
+          241,
+          188
+        ],
+        "margins": [
+          18,
+          79,
+          15,
+          68
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/vfx/active7_deok/frame-05.png",
+        "sha256": "4c53555c5cc7d7e8f3c1ef434a613f2e2deb145f9bf1d88b2c75ee29845359d6",
+        "bbox": [
+          18,
+          53,
+          243,
+          201
+        ],
+        "margins": [
+          18,
+          53,
+          13,
+          55
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/vfx/active8_deoreoreoreo/frame-00.png",
+        "sha256": "3096d4ab09ca8d36a8116f525057d9cde78a306c81df1e32f1fe6a5491c63706",
+        "bbox": [
+          12,
+          54,
+          244,
+          218
+        ],
+        "margins": [
+          12,
+          54,
+          12,
+          38
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/vfx/active8_deoreoreoreo/frame-01.png",
+        "sha256": "6abeecf997c06e82fc47268b0390b97c495202015fbf327f1a7743800a837492",
+        "bbox": [
+          38,
+          23,
+          231,
+          239
+        ],
+        "margins": [
+          38,
+          23,
+          25,
+          17
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/vfx/active8_deoreoreoreo/frame-02.png",
+        "sha256": "bcb3edd3ee679a3d64741670a030977412c1ea3ef544aa82440b476b5dd7f6e0",
+        "bbox": [
+          16,
+          22,
+          244,
+          237
+        ],
+        "margins": [
+          16,
+          22,
+          12,
+          19
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/vfx/active8_deoreoreoreo/frame-03.png",
+        "sha256": "4fa354466e1eff09095d1e06b9b847d046199aa434d7084d17ac05fac8ec347e",
+        "bbox": [
+          30,
+          18,
+          244,
+          231
+        ],
+        "margins": [
+          30,
+          18,
+          12,
+          25
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/vfx/active8_deoreoreoreo/frame-04.png",
+        "sha256": "69976fa337a36cf0bfb21639fb88ee5b84d5d04b0cddc46ea02a55e93ade4ae3",
+        "bbox": [
+          33,
+          18,
+          236,
+          232
+        ],
+        "margins": [
+          33,
+          18,
+          20,
+          24
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/vfx/active8_deoreoreoreo/frame-05.png",
+        "sha256": "ac6d980bf931447560ff756dbc5e1e0b7e1ee9dc37f4663dd391e725ed24da4d",
+        "bbox": [
+          30,
+          17,
+          244,
+          229
+        ],
+        "margins": [
+          30,
+          17,
+          12,
+          27
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/vfx/active8_deoreoreoreo/frame-06.png",
+        "sha256": "cf0c05932904680cdb5f2417412ff79872990e492793c1731e0848b9b33a5937",
+        "bbox": [
+          13,
+          21,
+          242,
+          239
+        ],
+        "margins": [
+          13,
+          21,
+          14,
+          17
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/vfx/active8_deoreoreoreo/frame-07.png",
+        "sha256": "ec0603411cd86912076dbfe77a4b75294a46b61352215014f3a17b5d2947f7b7",
+        "bbox": [
+          16,
+          22,
+          238,
+          239
+        ],
+        "margins": [
+          16,
+          22,
+          18,
+          17
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/vfx/active8_deoreoreoreo/frame-08.png",
+        "sha256": "ac077f7bf2746fbe3589e553af1b7e9c64eebc905856d54a794de7c681285361",
+        "bbox": [
+          12,
+          23,
+          243,
+          244
+        ],
+        "margins": [
+          12,
+          23,
+          13,
+          12
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/vfx/active8_deoreoreoreo/frame-09.png",
+        "sha256": "376242b82e516d7535fc9ae4beaa80cfdaf4458fd6b6f6bc3ddac5b37e4b3b78",
+        "bbox": [
+          20,
+          24,
+          243,
+          232
+        ],
+        "margins": [
+          20,
+          24,
+          13,
+          24
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/vfx/active8_deoreoreoreo/frame-10.png",
+        "sha256": "7aada2735362342f862259879eccf3639acb679bfb9fd9ea6e37ba4ecf89aa66",
+        "bbox": [
+          13,
+          74,
+          244,
+          244
+        ],
+        "margins": [
+          13,
+          74,
+          12,
+          12
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      },
+      {
+        "path": "/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinJangdanSkillset/selected/revision-01/vfx/active8_deoreoreoreo/frame-11.png",
+        "sha256": "2b255359af88254c67d12081265573d2bad8a69436a6ac4892b28aa6543caaea",
+        "bbox": [
+          34,
+          12,
+          225,
+          241
+        ],
+        "margins": [
+          34,
+          12,
+          31,
+          15
+        ],
+        "borderAlphaPixels": 0,
+        "alpha0RgbResiduePixels": 0
+      }
+    ]
+  },
+  "errors": []
+}

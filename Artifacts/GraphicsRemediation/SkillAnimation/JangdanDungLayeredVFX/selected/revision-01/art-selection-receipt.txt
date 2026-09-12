@@ -1,0 +1,49 @@
+Jangdan Dung Layered VFX exact17 — selected source receipt
+status=SELECTED_SOURCE_STATIC_QA_PASS_INSTALL0
+date=2026-09-10
+
+Selected source root:
+/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected/revision-01
+
+Selection:
+- selected-v20260910-r02 minimal layered direction selected.
+- selected-v20260910-r01 rejected/provenance-only: excessive luminosity and closed-ring read.
+- Existing Jangdan/Active5 canonical assets were not modified or overwritten.
+
+Registry:
+- groundField exact4, 512x512 RGBA, times 0/.125/.25/.375, stop .5, loop; runtime repeats three cycles to 1.5s.
+- pullFlow exact6, 256x256 RGBA, times .25/.40/.55/.70/.85/1.00, one-shot.
+- setupPulse exact3, 256x256 RGBA, times .80/.95/1.10, one-shot.
+- finishResidue exact4, 256x256 RGBA, times 1.10/1.225/1.35/1.50, one-shot.
+- total exact17; unique17.
+
+Visual direction:
+- broken cyan perimeter pressure, low-density navy ink interior.
+- one tapered inward pull flow suitable for target-vector rotation/scale.
+- compact setup/completion pulse is the sole strong luminous peak.
+- thin restrained rust edge and cyan dry-brush finish residue.
+- no character/body/text/UI/western magic glyph.
+
+Physical QA:
+- exact dimensions/count/order/timing PASS.
+- all PNG native RGBA; four borders/corners alpha0; alpha0 RGB residue0.
+- clipping0; positive margins; frame uniqueness17/17.
+- dark/light/gray contact sheets12 and GIF4 present.
+
+Manifest:
+/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected/revision-01/manifest.json
+manifest SHA-256 ea372841048a077df7d42e49cc3a1801ca117c29b4f2c5dc268b42e6f16ccafc
+
+QA receipt:
+/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected/revision-01/qa-receipt.json
+QA SHA-256 ca82f4545613507cc278da485e0cec54aaa4e9267f6090b2cdc61487a7494092
+
+Package SHA summary:
+/Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/JangdanDungLayeredVFX/selected/revision-01/final-package-sha-summary.json
+summary SHA-256 239fcba3c03bd585ba09314433045aa787051af54b063406bb54fdea2e3fde23
+
+Boundary:
+- Unity/project canonical install0.
+- Downstream owner may consume only this complete exact17 package.
+- Partial layer/frame promotion0.
+- Rollback is removal of this versioned artifact directory; previous assets remain untouched.

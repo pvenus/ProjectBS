@@ -1,0 +1,2532 @@
+{
+  "task": "JANGDAN-SKILLSET-V1-SOURCE-AUDIT",
+  "scope": "read-only source audit; no package/crop/edit/runtime/release judgment",
+  "status": "FAIL_SOURCE_STANDALONE_CLAIM",
+  "manifest": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/manifest.json",
+  "manifestSha256": "3fb662df0eac316538e3989236acd4e730e4793b46bfe2a624e3b0f29582bdc1",
+  "claimedResult": "72/72 standalone native-alpha source frames",
+  "counts": {
+    "sourcePng": 72,
+    "body": 36,
+    "vfx": 36,
+    "validTotal": 44,
+    "invalidTotal": 28,
+    "validBody": 23,
+    "invalidBody": 13,
+    "validVfx": 21,
+    "invalidVfx": 15,
+    "uniqueSha": 72
+  },
+  "failingRows": [
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active6_gi/body/frame_06.png",
+      "relativePath": "active6_gi/body/frame_06.png",
+      "kind": "body",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "561eebaca188973b6940f7fc352c4459e89242ebccfb8c6dd1e26af924dd98f5",
+      "alphaBbox": [
+        31,
+        21,
+        1240,
+        1222
+      ],
+      "borderAlphaPixels": 0,
+      "borderAlphaMax": 0,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": false,
+      "failure": "contains VFX only; zero body pose"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active6_gi/vfx/frame_01.png",
+      "relativePath": "active6_gi/vfx/frame_01.png",
+      "kind": "vfx",
+      "size": [
+        1620,
+        971
+      ],
+      "mode": "RGBA",
+      "sha256": "cec2854e1ee36a2e4a2e1d11258af60687323255b166a71308c371bafdf945bb",
+      "alphaBbox": [
+        185,
+        13,
+        1542,
+        961
+      ],
+      "borderAlphaPixels": 0,
+      "borderAlphaMax": 0,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": false,
+      "failure": "contains body pose; not a VFX temporal state"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active7_deok/body/frame_05.png",
+      "relativePath": "active7_deok/body/frame_05.png",
+      "kind": "body",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "sha256": "4611a03cf76c65e67b68ade25c1b7b81d3a59a23f52ee7fe01e1afefa240788b",
+      "alphaBbox": [
+        0,
+        0,
+        1522,
+        1024
+      ],
+      "borderAlphaPixels": 17,
+      "borderAlphaMax": 1,
+      "alpha0RgbResiduePixels": 777007,
+      "standaloneValid": false,
+      "failure": "contains VFX only; zero body pose"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active7_deok/body/frame_06.png",
+      "relativePath": "active7_deok/body/frame_06.png",
+      "kind": "body",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "sha256": "8b24f6bdb40159ee1d7d63b8c43515d9e50314e61b898553766332c99559b1e2",
+      "alphaBbox": [
+        0,
+        21,
+        1522,
+        1024
+      ],
+      "borderAlphaPixels": 20,
+      "borderAlphaMax": 1,
+      "alpha0RgbResiduePixels": 891445,
+      "standaloneValid": false,
+      "failure": "contains VFX only; zero body pose"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active7_deok/vfx/frame_02.png",
+      "relativePath": "active7_deok/vfx/frame_02.png",
+      "kind": "vfx",
+      "size": [
+        1619,
+        971
+      ],
+      "mode": "RGBA",
+      "sha256": "73b1b0d5ec19543ade8aa70bf4d89913cc75ddfbf9970b037bd957d7f5f06b45",
+      "alphaBbox": [
+        265,
+        9,
+        1527,
+        971
+      ],
+      "borderAlphaPixels": 27,
+      "borderAlphaMax": 1,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": false,
+      "failure": "contains two body poses/board; not one VFX temporal state"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active7_deok/vfx/frame_03.png",
+      "relativePath": "active7_deok/vfx/frame_03.png",
+      "kind": "vfx",
+      "size": [
+        1620,
+        971
+      ],
+      "mode": "RGBA",
+      "sha256": "9e3e165cc8ce2ad39edc101e3b42ff0f21b3145c6929991c42556645c3246bf8",
+      "alphaBbox": [
+        59,
+        29,
+        1261,
+        957
+      ],
+      "borderAlphaPixels": 0,
+      "borderAlphaMax": 0,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": false,
+      "failure": "contains one body pose; not a VFX temporal state"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active8_deoreoreoreo/body/frame_01.png",
+      "relativePath": "active8_deoreoreoreo/body/frame_01.png",
+      "kind": "body",
+      "size": [
+        1620,
+        971
+      ],
+      "mode": "RGBA",
+      "sha256": "6c709bf1bf83b07e9558b912db7f5713d82553a5d90d3c74b56726ce41d78423",
+      "alphaBbox": [
+        17,
+        21,
+        1620,
+        860
+      ],
+      "borderAlphaPixels": 35,
+      "borderAlphaMax": 4,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": false,
+      "failure": "four body poses embedded in one horizontal board"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active8_deoreoreoreo/body/frame_04.png",
+      "relativePath": "active8_deoreoreoreo/body/frame_04.png",
+      "kind": "body",
+      "size": [
+        1619,
+        971
+      ],
+      "mode": "RGBA",
+      "sha256": "eefd18d922f1f234500c24160aca0d044850139f699fbb2820a3d90719816b78",
+      "alphaBbox": [
+        11,
+        78,
+        1619,
+        914
+      ],
+      "borderAlphaPixels": 62,
+      "borderAlphaMax": 4,
+      "alpha0RgbResiduePixels": 1,
+      "standaloneValid": false,
+      "failure": "four body poses embedded in one horizontal board"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active8_deoreoreoreo/body/frame_05.png",
+      "relativePath": "active8_deoreoreoreo/body/frame_05.png",
+      "kind": "body",
+      "size": [
+        1619,
+        971
+      ],
+      "mode": "RGBA",
+      "sha256": "880d988bccc557e3fe17308a77fd562130be0101c449317ddf4f052a9983184b",
+      "alphaBbox": [
+        0,
+        21,
+        1619,
+        931
+      ],
+      "borderAlphaPixels": 55,
+      "borderAlphaMax": 4,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": false,
+      "failure": "four body poses embedded in one horizontal board"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active8_deoreoreoreo/body/frame_06.png",
+      "relativePath": "active8_deoreoreoreo/body/frame_06.png",
+      "kind": "body",
+      "size": [
+        1620,
+        971
+      ],
+      "mode": "RGBA",
+      "sha256": "f234092bcca4c2df48bc6da53e6b00a74ce2a64ca42233d9d99dc1b6775e96b7",
+      "alphaBbox": [
+        0,
+        21,
+        1620,
+        930
+      ],
+      "borderAlphaPixels": 35,
+      "borderAlphaMax": 3,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": false,
+      "failure": "four body poses embedded in one horizontal board"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active8_deoreoreoreo/body/frame_07.png",
+      "relativePath": "active8_deoreoreoreo/body/frame_07.png",
+      "kind": "body",
+      "size": [
+        1622,
+        970
+      ],
+      "mode": "RGBA",
+      "sha256": "6f284728dd7e5ca6ef8b66ef126f033ad173dfd4c641514ec61c3d20e70813e0",
+      "alphaBbox": [
+        14,
+        21,
+        1622,
+        930
+      ],
+      "borderAlphaPixels": 142,
+      "borderAlphaMax": 251,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": false,
+      "failure": "four body poses embedded in one horizontal board"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active8_deoreoreoreo/body/frame_08.png",
+      "relativePath": "active8_deoreoreoreo/body/frame_08.png",
+      "kind": "body",
+      "size": [
+        1620,
+        971
+      ],
+      "mode": "RGBA",
+      "sha256": "0df65ba2f2818510efe6bf4bbb8b4bb26842faf0ac96e48d254b2f69d1e06960",
+      "alphaBbox": [
+        33,
+        21,
+        1611,
+        930
+      ],
+      "borderAlphaPixels": 0,
+      "borderAlphaMax": 0,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": false,
+      "failure": "four body poses embedded in one horizontal board"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active8_deoreoreoreo/body/frame_09.png",
+      "relativePath": "active8_deoreoreoreo/body/frame_09.png",
+      "kind": "body",
+      "size": [
+        1620,
+        971
+      ],
+      "mode": "RGBA",
+      "sha256": "b91394dfd22eab36678638d69ce1d7109ad50959cf5053fe6f83de2b3dd66a2f",
+      "alphaBbox": [
+        11,
+        35,
+        1620,
+        931
+      ],
+      "borderAlphaPixels": 28,
+      "borderAlphaMax": 255,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": false,
+      "failure": "four body poses embedded in one horizontal board"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active8_deoreoreoreo/body/frame_10.png",
+      "relativePath": "active8_deoreoreoreo/body/frame_10.png",
+      "kind": "body",
+      "size": [
+        1619,
+        971
+      ],
+      "mode": "RGBA",
+      "sha256": "2df9ac2492f922a5daef619b668155ab09e4e6d773eb829fd451af05357c2be6",
+      "alphaBbox": [
+        23,
+        21,
+        1607,
+        945
+      ],
+      "borderAlphaPixels": 0,
+      "borderAlphaMax": 0,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": false,
+      "failure": "four body poses embedded in one horizontal board"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active8_deoreoreoreo/body/frame_11.png",
+      "relativePath": "active8_deoreoreoreo/body/frame_11.png",
+      "kind": "body",
+      "size": [
+        1620,
+        971
+      ],
+      "mode": "RGBA",
+      "sha256": "00bb8bb3c8c018e66f130ac68a0a49fc68c7e74703857a755d7ff4b5fae22ab2",
+      "alphaBbox": [
+        33,
+        33,
+        1619,
+        931
+      ],
+      "borderAlphaPixels": 0,
+      "borderAlphaMax": 0,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": false,
+      "failure": "four body poses embedded in one horizontal board"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active8_deoreoreoreo/body/frame_12.png",
+      "relativePath": "active8_deoreoreoreo/body/frame_12.png",
+      "kind": "body",
+      "size": [
+        1620,
+        971
+      ],
+      "mode": "RGBA",
+      "sha256": "1a4323a230fe0fd47a4a375249b743f0fb12ca72db0470f30ebfe88c62413c8d",
+      "alphaBbox": [
+        11,
+        19,
+        1604,
+        929
+      ],
+      "borderAlphaPixels": 0,
+      "borderAlphaMax": 0,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": false,
+      "failure": "four body poses embedded in one horizontal board"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active8_deoreoreoreo/vfx/frame_01.png",
+      "relativePath": "active8_deoreoreoreo/vfx/frame_01.png",
+      "kind": "vfx",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "8042d48ccd2073291dd9c50d2af2670e92ec0e7ecafa6fba3a30f66293c6387b",
+      "alphaBbox": [
+        31,
+        21,
+        1248,
+        1198
+      ],
+      "borderAlphaPixels": 0,
+      "borderAlphaMax": 0,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": false,
+      "failure": "four temporal VFX phases embedded in one horizontal sequence/board"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active8_deoreoreoreo/vfx/frame_02.png",
+      "relativePath": "active8_deoreoreoreo/vfx/frame_02.png",
+      "kind": "vfx",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "9635502867fc284b481dda979d511f51ad8c9c90416479e66f8c91ba91df6e29",
+      "alphaBbox": [
+        0,
+        21,
+        1253,
+        1198
+      ],
+      "borderAlphaPixels": 1,
+      "borderAlphaMax": 1,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": false,
+      "failure": "four temporal VFX phases embedded in one horizontal sequence/board"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active8_deoreoreoreo/vfx/frame_03.png",
+      "relativePath": "active8_deoreoreoreo/vfx/frame_03.png",
+      "kind": "vfx",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "1d43eebe65eeda36c6409a383b3e93b565d0552dcb9b369963a6bc6df6cf1d0c",
+      "alphaBbox": [
+        25,
+        21,
+        1253,
+        1198
+      ],
+      "borderAlphaPixels": 0,
+      "borderAlphaMax": 0,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": false,
+      "failure": "four temporal VFX phases embedded in one horizontal sequence/board"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active8_deoreoreoreo/vfx/frame_04.png",
+      "relativePath": "active8_deoreoreoreo/vfx/frame_04.png",
+      "kind": "vfx",
+      "size": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "sha256": "c734efaefeb931c4fdd670041a7e9ae08025d171566a792deed3a34838d2c1cc",
+      "alphaBbox": [
+        9,
+        23,
+        2152,
+        708
+      ],
+      "borderAlphaPixels": 0,
+      "borderAlphaMax": 0,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": false,
+      "failure": "four temporal VFX phases embedded in one horizontal sequence/board"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active8_deoreoreoreo/vfx/frame_05.png",
+      "relativePath": "active8_deoreoreoreo/vfx/frame_05.png",
+      "kind": "vfx",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "a67944360f0752215dffb611dc63b5c1c949f805b07837f51290e36d348c00c4",
+      "alphaBbox": [
+        41,
+        53,
+        1229,
+        1198
+      ],
+      "borderAlphaPixels": 0,
+      "borderAlphaMax": 0,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": false,
+      "failure": "four temporal VFX phases embedded in one horizontal sequence/board"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active8_deoreoreoreo/vfx/frame_06.png",
+      "relativePath": "active8_deoreoreoreo/vfx/frame_06.png",
+      "kind": "vfx",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "9afc253666d3aee331d00cf9fcc93c6b3fa2aa752da8054ee960e22b32a81bd2",
+      "alphaBbox": [
+        41,
+        39,
+        1248,
+        1198
+      ],
+      "borderAlphaPixels": 0,
+      "borderAlphaMax": 0,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": false,
+      "failure": "four temporal VFX phases embedded in one horizontal sequence/board"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active8_deoreoreoreo/vfx/frame_07.png",
+      "relativePath": "active8_deoreoreoreo/vfx/frame_07.png",
+      "kind": "vfx",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "sha256": "36d33fee2c99182e9839d91fa1b7fd984b837447b6c8035d0c2bfb517af4f938",
+      "alphaBbox": [
+        0,
+        21,
+        1524,
+        1024
+      ],
+      "borderAlphaPixels": 11,
+      "borderAlphaMax": 1,
+      "alpha0RgbResiduePixels": 809057,
+      "standaloneValid": false,
+      "failure": "four temporal VFX phases embedded in one horizontal sequence/board"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active8_deoreoreoreo/vfx/frame_08.png",
+      "relativePath": "active8_deoreoreoreo/vfx/frame_08.png",
+      "kind": "vfx",
+      "size": [
+        1774,
+        887
+      ],
+      "mode": "RGBA",
+      "sha256": "a54d126d9f0fca22971f6c562c5c9c933d96293044d1a6abe1651eaedf0d1cda",
+      "alphaBbox": [
+        65,
+        21,
+        1774,
+        887
+      ],
+      "borderAlphaPixels": 22,
+      "borderAlphaMax": 1,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": false,
+      "failure": "four temporal VFX phases embedded in one horizontal sequence/board"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active8_deoreoreoreo/vfx/frame_09.png",
+      "relativePath": "active8_deoreoreoreo/vfx/frame_09.png",
+      "kind": "vfx",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "9cd95473527158b1975a7ef1d1e886211456cafc2bd8d582ae561889c60073db",
+      "alphaBbox": [
+        15,
+        52,
+        1253,
+        1198
+      ],
+      "borderAlphaPixels": 0,
+      "borderAlphaMax": 0,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": false,
+      "failure": "four temporal VFX phases embedded in one horizontal sequence/board"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active8_deoreoreoreo/vfx/frame_10.png",
+      "relativePath": "active8_deoreoreoreo/vfx/frame_10.png",
+      "kind": "vfx",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "ffdb9953169804b651f6d1f693e5d1030f6ac802f186545442c1dcf7107bedef",
+      "alphaBbox": [
+        25,
+        21,
+        1245,
+        1198
+      ],
+      "borderAlphaPixels": 0,
+      "borderAlphaMax": 0,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": false,
+      "failure": "four temporal VFX phases embedded in one horizontal sequence/board"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active8_deoreoreoreo/vfx/frame_11.png",
+      "relativePath": "active8_deoreoreoreo/vfx/frame_11.png",
+      "kind": "vfx",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "ff967e58dfd1258b38db28859e54b2054df8a3c6cd9cd09835419575cb112b9e",
+      "alphaBbox": [
+        0,
+        53,
+        1237,
+        1198
+      ],
+      "borderAlphaPixels": 2,
+      "borderAlphaMax": 1,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": false,
+      "failure": "four temporal VFX phases embedded in one horizontal sequence/board"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active8_deoreoreoreo/vfx/frame_12.png",
+      "relativePath": "active8_deoreoreoreo/vfx/frame_12.png",
+      "kind": "vfx",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "b7fb2c3ac8a51be40ecc58bc79b937ade2ceeffcd76829042c0125fd5c56f03f",
+      "alphaBbox": [
+        25,
+        53,
+        1226,
+        1198
+      ],
+      "borderAlphaPixels": 0,
+      "borderAlphaMax": 0,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": false,
+      "failure": "four temporal VFX phases embedded in one horizontal sequence/board"
+    }
+  ],
+  "borderContactRows": [
+    {
+      "relativePath": "active5_dung_kung/body/frame_01.png",
+      "pixels": 52,
+      "max": 3
+    },
+    {
+      "relativePath": "active5_dung_kung/body/frame_03.png",
+      "pixels": 32,
+      "max": 1
+    },
+    {
+      "relativePath": "active5_dung_kung/body/frame_06.png",
+      "pixels": 26,
+      "max": 1
+    },
+    {
+      "relativePath": "active5_dung_kung/body/frame_07.png",
+      "pixels": 8,
+      "max": 1
+    },
+    {
+      "relativePath": "active5_dung_kung/body/frame_09.png",
+      "pixels": 159,
+      "max": 3
+    },
+    {
+      "relativePath": "active5_dung_kung/vfx/frame_01.png",
+      "pixels": 226,
+      "max": 2
+    },
+    {
+      "relativePath": "active5_dung_kung/vfx/frame_02.png",
+      "pixels": 19,
+      "max": 1
+    },
+    {
+      "relativePath": "active5_dung_kung/vfx/frame_03.png",
+      "pixels": 253,
+      "max": 2
+    },
+    {
+      "relativePath": "active5_dung_kung/vfx/frame_04.png",
+      "pixels": 155,
+      "max": 1
+    },
+    {
+      "relativePath": "active5_dung_kung/vfx/frame_05.png",
+      "pixels": 32,
+      "max": 1
+    },
+    {
+      "relativePath": "active5_dung_kung/vfx/frame_06.png",
+      "pixels": 97,
+      "max": 1
+    },
+    {
+      "relativePath": "active5_dung_kung/vfx/frame_07.png",
+      "pixels": 10,
+      "max": 1
+    },
+    {
+      "relativePath": "active5_dung_kung/vfx/frame_08.png",
+      "pixels": 18,
+      "max": 1
+    },
+    {
+      "relativePath": "active5_dung_kung/vfx/frame_10.png",
+      "pixels": 10,
+      "max": 1
+    },
+    {
+      "relativePath": "active6_gi/body/frame_01.png",
+      "pixels": 93,
+      "max": 8
+    },
+    {
+      "relativePath": "active6_gi/body/frame_02.png",
+      "pixels": 61,
+      "max": 2
+    },
+    {
+      "relativePath": "active6_gi/body/frame_03.png",
+      "pixels": 58,
+      "max": 2
+    },
+    {
+      "relativePath": "active6_gi/body/frame_04.png",
+      "pixels": 6,
+      "max": 1
+    },
+    {
+      "relativePath": "active6_gi/vfx/frame_02.png",
+      "pixels": 5,
+      "max": 1
+    },
+    {
+      "relativePath": "active6_gi/vfx/frame_04.png",
+      "pixels": 68,
+      "max": 2
+    },
+    {
+      "relativePath": "active6_gi/vfx/frame_05.png",
+      "pixels": 89,
+      "max": 4
+    },
+    {
+      "relativePath": "active7_deok/body/frame_01.png",
+      "pixels": 5,
+      "max": 1
+    },
+    {
+      "relativePath": "active7_deok/body/frame_04.png",
+      "pixels": 73,
+      "max": 2
+    },
+    {
+      "relativePath": "active7_deok/body/frame_05.png",
+      "pixels": 17,
+      "max": 1
+    },
+    {
+      "relativePath": "active7_deok/body/frame_06.png",
+      "pixels": 20,
+      "max": 1
+    },
+    {
+      "relativePath": "active7_deok/vfx/frame_01.png",
+      "pixels": 29,
+      "max": 1
+    },
+    {
+      "relativePath": "active7_deok/vfx/frame_02.png",
+      "pixels": 27,
+      "max": 1
+    },
+    {
+      "relativePath": "active7_deok/vfx/frame_06.png",
+      "pixels": 37,
+      "max": 1
+    },
+    {
+      "relativePath": "active8_deoreoreoreo/body/frame_01.png",
+      "pixels": 35,
+      "max": 4
+    },
+    {
+      "relativePath": "active8_deoreoreoreo/body/frame_03.png",
+      "pixels": 1,
+      "max": 1
+    },
+    {
+      "relativePath": "active8_deoreoreoreo/body/frame_04.png",
+      "pixels": 62,
+      "max": 4
+    },
+    {
+      "relativePath": "active8_deoreoreoreo/body/frame_05.png",
+      "pixels": 55,
+      "max": 4
+    },
+    {
+      "relativePath": "active8_deoreoreoreo/body/frame_06.png",
+      "pixels": 35,
+      "max": 3
+    },
+    {
+      "relativePath": "active8_deoreoreoreo/body/frame_07.png",
+      "pixels": 142,
+      "max": 251
+    },
+    {
+      "relativePath": "active8_deoreoreoreo/body/frame_09.png",
+      "pixels": 28,
+      "max": 255
+    },
+    {
+      "relativePath": "active8_deoreoreoreo/vfx/frame_02.png",
+      "pixels": 1,
+      "max": 1
+    },
+    {
+      "relativePath": "active8_deoreoreoreo/vfx/frame_07.png",
+      "pixels": 11,
+      "max": 1
+    },
+    {
+      "relativePath": "active8_deoreoreoreo/vfx/frame_08.png",
+      "pixels": 22,
+      "max": 1
+    },
+    {
+      "relativePath": "active8_deoreoreoreo/vfx/frame_11.png",
+      "pixels": 2,
+      "max": 1
+    }
+  ],
+  "alpha0RgbResidueRows": [
+    {
+      "relativePath": "active7_deok/body/frame_05.png",
+      "pixels": 777007
+    },
+    {
+      "relativePath": "active7_deok/body/frame_06.png",
+      "pixels": 891445
+    },
+    {
+      "relativePath": "active7_deok/vfx/frame_01.png",
+      "pixels": 752416
+    },
+    {
+      "relativePath": "active7_deok/vfx/frame_04.png",
+      "pixels": 806831
+    },
+    {
+      "relativePath": "active7_deok/vfx/frame_05.png",
+      "pixels": 862667
+    },
+    {
+      "relativePath": "active7_deok/vfx/frame_06.png",
+      "pixels": 830261
+    },
+    {
+      "relativePath": "active8_deoreoreoreo/body/frame_04.png",
+      "pixels": 1
+    },
+    {
+      "relativePath": "active8_deoreoreoreo/vfx/frame_07.png",
+      "pixels": 809057
+    }
+  ],
+  "modeCounts": {
+    "RGBA": 72
+  },
+  "icons": [
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/icons/active5-jangdan-dung-kung.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "e094054063a43bac0608d8dc42ada16c481bf695171ff92d6e9db671e54dcf41",
+      "alphaBbox": [
+        0,
+        21,
+        1244,
+        1254
+      ],
+      "borderAlphaPixels": 8,
+      "alpha0RgbResiduePixels": 0,
+      "semanticRead": "two-part vortex plus radial impact; readable as paired gather/impact"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/icons/active6-gi.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "7efe7d57adfba5c010526ba77f9c111877371ee68856753d1c2c7c8497e59395",
+      "alphaBbox": [
+        43,
+        21,
+        1236,
+        1226
+      ],
+      "borderAlphaPixels": 0,
+      "alpha0RgbResiduePixels": 0,
+      "semanticRead": "single fast horizontal arrow/beat"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/icons/active7-deok.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "b0cf7fd552a495ab58c50fa61f99d9c3f5db7a204d2a4ec2cff1c0af8e52a9c8",
+      "alphaBbox": [
+        0,
+        19,
+        1228,
+        1254
+      ],
+      "borderAlphaPixels": 43,
+      "alpha0RgbResiduePixels": 0,
+      "semanticRead": "broad heavy rightward arrow/pressure cut"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/icons/active8-deoreoreoreo.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "c8f1f4f894a371834c3deaaa656da759ff155269dad0105225661f238ef4499d",
+      "alphaBbox": [
+        0,
+        49,
+        1244,
+        1198
+      ],
+      "borderAlphaPixels": 37,
+      "alpha0RgbResiduePixels": 0,
+      "semanticRead": "four escalating linked impact orbs/phases"
+    }
+  ],
+  "allRows": [
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active5_dung_kung/body/frame_01.png",
+      "relativePath": "active5_dung_kung/body/frame_01.png",
+      "kind": "body",
+      "size": [
+        1620,
+        971
+      ],
+      "mode": "RGBA",
+      "sha256": "9069fb443df4790baefcdbec90cf5abcb7929080cd990cc22152aa9798b683cb",
+      "alphaBbox": [
+        209,
+        1,
+        1582,
+        971
+      ],
+      "borderAlphaPixels": 52,
+      "borderAlphaMax": 3,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": true,
+      "failure": null
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active5_dung_kung/body/frame_02.png",
+      "relativePath": "active5_dung_kung/body/frame_02.png",
+      "kind": "body",
+      "size": [
+        1620,
+        971
+      ],
+      "mode": "RGBA",
+      "sha256": "25ee8120dce7a85b6de509c9a6286980d01679adba06a2ca31231bc2ca37a3bc",
+      "alphaBbox": [
+        306,
+        15,
+        1582,
+        957
+      ],
+      "borderAlphaPixels": 0,
+      "borderAlphaMax": 0,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": true,
+      "failure": null
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active5_dung_kung/body/frame_03.png",
+      "relativePath": "active5_dung_kung/body/frame_03.png",
+      "kind": "body",
+      "size": [
+        1620,
+        971
+      ],
+      "mode": "RGBA",
+      "sha256": "99ac32d99d87072b376330aa064df85e12d248844a55cf398acc9946d7010438",
+      "alphaBbox": [
+        209,
+        11,
+        1542,
+        971
+      ],
+      "borderAlphaPixels": 32,
+      "borderAlphaMax": 1,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": true,
+      "failure": null
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active5_dung_kung/body/frame_04.png",
+      "relativePath": "active5_dung_kung/body/frame_04.png",
+      "kind": "body",
+      "size": [
+        1620,
+        971
+      ],
+      "mode": "RGBA",
+      "sha256": "f9a7a2a30b6cd7c969f24a37cc5f0a365bb8ca067415f50dd8f6b7df42cd758b",
+      "alphaBbox": [
+        209,
+        14,
+        1454,
+        961
+      ],
+      "borderAlphaPixels": 0,
+      "borderAlphaMax": 0,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": true,
+      "failure": null
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active5_dung_kung/body/frame_05.png",
+      "relativePath": "active5_dung_kung/body/frame_05.png",
+      "kind": "body",
+      "size": [
+        1620,
+        971
+      ],
+      "mode": "RGBA",
+      "sha256": "476bbc2959f4a35768c5b852db1900d9938017d739882e3e007f46a04f78dfd3",
+      "alphaBbox": [
+        209,
+        23,
+        1532,
+        940
+      ],
+      "borderAlphaPixels": 0,
+      "borderAlphaMax": 0,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": true,
+      "failure": null
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active5_dung_kung/body/frame_06.png",
+      "relativePath": "active5_dung_kung/body/frame_06.png",
+      "kind": "body",
+      "size": [
+        1620,
+        971
+      ],
+      "mode": "RGBA",
+      "sha256": "f544bf7ca1c9f54d31a113c9b7e63fd06429cd6a24e69ba8fbfdbe5143f74646",
+      "alphaBbox": [
+        306,
+        0,
+        1582,
+        957
+      ],
+      "borderAlphaPixels": 26,
+      "borderAlphaMax": 1,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": true,
+      "failure": null
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active5_dung_kung/body/frame_07.png",
+      "relativePath": "active5_dung_kung/body/frame_07.png",
+      "kind": "body",
+      "size": [
+        1620,
+        971
+      ],
+      "mode": "RGBA",
+      "sha256": "205f134f0dce6b82cfd19d10677f30948c3587abe3fee4965f08711ad5983ed2",
+      "alphaBbox": [
+        57,
+        15,
+        1582,
+        971
+      ],
+      "borderAlphaPixels": 8,
+      "borderAlphaMax": 1,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": true,
+      "failure": null
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active5_dung_kung/body/frame_08.png",
+      "relativePath": "active5_dung_kung/body/frame_08.png",
+      "kind": "body",
+      "size": [
+        1620,
+        971
+      ],
+      "mode": "RGBA",
+      "sha256": "761ce6376b8b7f0b597bc81a6051dd0b7bc897e78410e88fdc251ad0dc111ffc",
+      "alphaBbox": [
+        544,
+        1,
+        1444,
+        962
+      ],
+      "borderAlphaPixels": 0,
+      "borderAlphaMax": 0,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": true,
+      "failure": null
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active5_dung_kung/body/frame_09.png",
+      "relativePath": "active5_dung_kung/body/frame_09.png",
+      "kind": "body",
+      "size": [
+        1621,
+        970
+      ],
+      "mode": "RGBA",
+      "sha256": "c887c769c27c656ff5fa857f2d2e4997cd5bb27ea2c940097cc24876248f3b2b",
+      "alphaBbox": [
+        57,
+        0,
+        1543,
+        970
+      ],
+      "borderAlphaPixels": 159,
+      "borderAlphaMax": 3,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": true,
+      "failure": null
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active5_dung_kung/body/frame_10.png",
+      "relativePath": "active5_dung_kung/body/frame_10.png",
+      "kind": "body",
+      "size": [
+        1619,
+        971
+      ],
+      "mode": "RGBA",
+      "sha256": "3cd1078880a3b98fa5982c2c08e91e03f5a6edcd73874e1eaad970f80c987016",
+      "alphaBbox": [
+        107,
+        9,
+        1345,
+        955
+      ],
+      "borderAlphaPixels": 0,
+      "borderAlphaMax": 0,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": true,
+      "failure": null
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active5_dung_kung/body/frame_11.png",
+      "relativePath": "active5_dung_kung/body/frame_11.png",
+      "kind": "body",
+      "size": [
+        1621,
+        970
+      ],
+      "mode": "RGBA",
+      "sha256": "b2ec64c5cd8f99a9d64e20b37c22c9ec1d198516116d6683e676200f0d312ae8",
+      "alphaBbox": [
+        306,
+        32,
+        1260,
+        943
+      ],
+      "borderAlphaPixels": 0,
+      "borderAlphaMax": 0,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": true,
+      "failure": null
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active5_dung_kung/body/frame_12.png",
+      "relativePath": "active5_dung_kung/body/frame_12.png",
+      "kind": "body",
+      "size": [
+        1620,
+        971
+      ],
+      "mode": "RGBA",
+      "sha256": "623b06044ee83514c0d09c5fdb027bf860d65dfa23c4659ebb187db8899d9099",
+      "alphaBbox": [
+        505,
+        15,
+        1582,
+        956
+      ],
+      "borderAlphaPixels": 0,
+      "borderAlphaMax": 0,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": true,
+      "failure": null
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active5_dung_kung/vfx/frame_01.png",
+      "relativePath": "active5_dung_kung/vfx/frame_01.png",
+      "kind": "vfx",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "4c10945bf19e2990041bdf55f67a50f52bcc60f56a013a41e4cc68edddd351b7",
+      "alphaBbox": [
+        0,
+        17,
+        1254,
+        1254
+      ],
+      "borderAlphaPixels": 226,
+      "borderAlphaMax": 2,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": true,
+      "failure": null
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active5_dung_kung/vfx/frame_02.png",
+      "relativePath": "active5_dung_kung/vfx/frame_02.png",
+      "kind": "vfx",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "b054fcd7eeaeaebed5ff88a924a78df3a4b57d6662c926a1aa023d6cd5813bb6",
+      "alphaBbox": [
+        25,
+        19,
+        1240,
+        1254
+      ],
+      "borderAlphaPixels": 19,
+      "borderAlphaMax": 1,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": true,
+      "failure": null
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active5_dung_kung/vfx/frame_03.png",
+      "relativePath": "active5_dung_kung/vfx/frame_03.png",
+      "kind": "vfx",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "78c48ed7219e7cbeba68d5814fe98057880c5bf9a5bc943f61e37fd3c55cb4f8",
+      "alphaBbox": [
+        0,
+        0,
+        1244,
+        1254
+      ],
+      "borderAlphaPixels": 253,
+      "borderAlphaMax": 2,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": true,
+      "failure": null
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active5_dung_kung/vfx/frame_04.png",
+      "relativePath": "active5_dung_kung/vfx/frame_04.png",
+      "kind": "vfx",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "2c4f8a0cc8a965657c90251bb3c9ead1608d735c36fee926c8d8f6da968e6f52",
+      "alphaBbox": [
+        0,
+        15,
+        1240,
+        1254
+      ],
+      "borderAlphaPixels": 155,
+      "borderAlphaMax": 1,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": true,
+      "failure": null
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active5_dung_kung/vfx/frame_05.png",
+      "relativePath": "active5_dung_kung/vfx/frame_05.png",
+      "kind": "vfx",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "00636b45e6337112685daf637ea97f14627375b818bb15842b6ca735adc41304",
+      "alphaBbox": [
+        0,
+        7,
+        1230,
+        1254
+      ],
+      "borderAlphaPixels": 32,
+      "borderAlphaMax": 1,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": true,
+      "failure": null
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active5_dung_kung/vfx/frame_06.png",
+      "relativePath": "active5_dung_kung/vfx/frame_06.png",
+      "kind": "vfx",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "890d23b59f0073fa13ed93fe0d4a07cccb65c5eed3d4e91401d2080ac72b9a54",
+      "alphaBbox": [
+        0,
+        9,
+        1248,
+        1254
+      ],
+      "borderAlphaPixels": 97,
+      "borderAlphaMax": 1,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": true,
+      "failure": null
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active5_dung_kung/vfx/frame_07.png",
+      "relativePath": "active5_dung_kung/vfx/frame_07.png",
+      "kind": "vfx",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "66125234d1a85403ac9eb25cc4020fa5ec0633abe5ae60ed3ab1ba6303ef9d3d",
+      "alphaBbox": [
+        0,
+        17,
+        1236,
+        1254
+      ],
+      "borderAlphaPixels": 10,
+      "borderAlphaMax": 1,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": true,
+      "failure": null
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active5_dung_kung/vfx/frame_08.png",
+      "relativePath": "active5_dung_kung/vfx/frame_08.png",
+      "kind": "vfx",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "50e66a99bc31bad6bc38a35495e1b0f1c82abc3a0bb1cdfeef021e1ae7dec3fb",
+      "alphaBbox": [
+        0,
+        19,
+        1234,
+        1254
+      ],
+      "borderAlphaPixels": 18,
+      "borderAlphaMax": 1,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": true,
+      "failure": null
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active5_dung_kung/vfx/frame_09.png",
+      "relativePath": "active5_dung_kung/vfx/frame_09.png",
+      "kind": "vfx",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "4390d27868d87ce450ab781d4698b82f2e38ab74993219444c7af2e03efd2057",
+      "alphaBbox": [
+        97,
+        232,
+        1192,
+        1182
+      ],
+      "borderAlphaPixels": 0,
+      "borderAlphaMax": 0,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": true,
+      "failure": null
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active5_dung_kung/vfx/frame_10.png",
+      "relativePath": "active5_dung_kung/vfx/frame_10.png",
+      "kind": "vfx",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "b2d86eef895bfa466ce227330e6983a02c13c0ec8fedc6957b8efb059bcffb0d",
+      "alphaBbox": [
+        0,
+        21,
+        1234,
+        1254
+      ],
+      "borderAlphaPixels": 10,
+      "borderAlphaMax": 1,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": true,
+      "failure": null
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active5_dung_kung/vfx/frame_11.png",
+      "relativePath": "active5_dung_kung/vfx/frame_11.png",
+      "kind": "vfx",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "e8a97939b6b4b380e9c1a70ba5d61ea8c5b1e8801123b3ff6976ab6191ac01cf",
+      "alphaBbox": [
+        39,
+        21,
+        1230,
+        1236
+      ],
+      "borderAlphaPixels": 0,
+      "borderAlphaMax": 0,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": true,
+      "failure": null
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active5_dung_kung/vfx/frame_12.png",
+      "relativePath": "active5_dung_kung/vfx/frame_12.png",
+      "kind": "vfx",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "8b9d9439144bff71936d968c188c9ca962982761d153be874de83b5b53fd1f76",
+      "alphaBbox": [
+        57,
+        21,
+        1222,
+        1198
+      ],
+      "borderAlphaPixels": 0,
+      "borderAlphaMax": 0,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": true,
+      "failure": null
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active6_gi/body/frame_01.png",
+      "relativePath": "active6_gi/body/frame_01.png",
+      "kind": "body",
+      "size": [
+        1620,
+        971
+      ],
+      "mode": "RGBA",
+      "sha256": "f7c57d19437a99600092681eb2cf2188860ca4b83b7b9dbdd64abde1b263842b",
+      "alphaBbox": [
+        338,
+        0,
+        1446,
+        971
+      ],
+      "borderAlphaPixels": 93,
+      "borderAlphaMax": 8,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": true,
+      "failure": null
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active6_gi/body/frame_02.png",
+      "relativePath": "active6_gi/body/frame_02.png",
+      "kind": "body",
+      "size": [
+        1620,
+        971
+      ],
+      "mode": "RGBA",
+      "sha256": "bf657e920a79a2fd0aa2065879be2bbb52b250fc7ffa1ef4c86a965ea7c55113",
+      "alphaBbox": [
+        506,
+        0,
+        1582,
+        971
+      ],
+      "borderAlphaPixels": 61,
+      "borderAlphaMax": 2,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": true,
+      "failure": null
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active6_gi/body/frame_03.png",
+      "relativePath": "active6_gi/body/frame_03.png",
+      "kind": "body",
+      "size": [
+        1620,
+        971
+      ],
+      "mode": "RGBA",
+      "sha256": "dd2cfa98fe4bf4f70efbe55d929889d98ea3117b2084ec34d727e60fa4d0db64",
+      "alphaBbox": [
+        266,
+        0,
+        1325,
+        971
+      ],
+      "borderAlphaPixels": 58,
+      "borderAlphaMax": 2,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": true,
+      "failure": null
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active6_gi/body/frame_04.png",
+      "relativePath": "active6_gi/body/frame_04.png",
+      "kind": "body",
+      "size": [
+        1620,
+        971
+      ],
+      "mode": "RGBA",
+      "sha256": "bc84f46edeed6b3e3e73134cd91ff512fabb1adab3c7db5dd28c63dbaae2d469",
+      "alphaBbox": [
+        536,
+        7,
+        1446,
+        971
+      ],
+      "borderAlphaPixels": 6,
+      "borderAlphaMax": 1,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": true,
+      "failure": null
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active6_gi/body/frame_05.png",
+      "relativePath": "active6_gi/body/frame_05.png",
+      "kind": "body",
+      "size": [
+        1620,
+        971
+      ],
+      "mode": "RGBA",
+      "sha256": "b154f484eaa0b4b555edcff3594fb0a2dd990526741e3d9980b350b7f67dd30c",
+      "alphaBbox": [
+        467,
+        37,
+        1582,
+        947
+      ],
+      "borderAlphaPixels": 0,
+      "borderAlphaMax": 0,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": true,
+      "failure": null
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active6_gi/body/frame_06.png",
+      "relativePath": "active6_gi/body/frame_06.png",
+      "kind": "body",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "561eebaca188973b6940f7fc352c4459e89242ebccfb8c6dd1e26af924dd98f5",
+      "alphaBbox": [
+        31,
+        21,
+        1240,
+        1222
+      ],
+      "borderAlphaPixels": 0,
+      "borderAlphaMax": 0,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": false,
+      "failure": "contains VFX only; zero body pose"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active6_gi/vfx/frame_01.png",
+      "relativePath": "active6_gi/vfx/frame_01.png",
+      "kind": "vfx",
+      "size": [
+        1620,
+        971
+      ],
+      "mode": "RGBA",
+      "sha256": "cec2854e1ee36a2e4a2e1d11258af60687323255b166a71308c371bafdf945bb",
+      "alphaBbox": [
+        185,
+        13,
+        1542,
+        961
+      ],
+      "borderAlphaPixels": 0,
+      "borderAlphaMax": 0,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": false,
+      "failure": "contains body pose; not a VFX temporal state"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active6_gi/vfx/frame_02.png",
+      "relativePath": "active6_gi/vfx/frame_02.png",
+      "kind": "vfx",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "99470fca0fae48c68a6e365c41f56b2f6528bca5f6e3769e64c2fd17c933847c",
+      "alphaBbox": [
+        0,
+        21,
+        1242,
+        1228
+      ],
+      "borderAlphaPixels": 5,
+      "borderAlphaMax": 1,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": true,
+      "failure": null
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active6_gi/vfx/frame_03.png",
+      "relativePath": "active6_gi/vfx/frame_03.png",
+      "kind": "vfx",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "9ded460566dafbf6681902a50462e177c5f1bd6443e49d4faf63962f0abc06e2",
+      "alphaBbox": [
+        47,
+        53,
+        1220,
+        1198
+      ],
+      "borderAlphaPixels": 0,
+      "borderAlphaMax": 0,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": true,
+      "failure": null
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active6_gi/vfx/frame_04.png",
+      "relativePath": "active6_gi/vfx/frame_04.png",
+      "kind": "vfx",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "2b44874adcf7c18d42d044095904e03186020fa2b5f2280764364695f7725f0f",
+      "alphaBbox": [
+        0,
+        53,
+        1254,
+        1198
+      ],
+      "borderAlphaPixels": 68,
+      "borderAlphaMax": 2,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": true,
+      "failure": null
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active6_gi/vfx/frame_05.png",
+      "relativePath": "active6_gi/vfx/frame_05.png",
+      "kind": "vfx",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "9642faf774416365ca8c69361d23a5c466996bd0783d4501f133a5c8adfd46c3",
+      "alphaBbox": [
+        0,
+        19,
+        1254,
+        1222
+      ],
+      "borderAlphaPixels": 89,
+      "borderAlphaMax": 4,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": true,
+      "failure": null
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active6_gi/vfx/frame_06.png",
+      "relativePath": "active6_gi/vfx/frame_06.png",
+      "kind": "vfx",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "c1fcf9ada5041885e8f5b5259227976f72297c616b6cb966ba48399f35ef496b",
+      "alphaBbox": [
+        27,
+        40,
+        1230,
+        1198
+      ],
+      "borderAlphaPixels": 0,
+      "borderAlphaMax": 0,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": true,
+      "failure": null
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active7_deok/body/frame_01.png",
+      "relativePath": "active7_deok/body/frame_01.png",
+      "kind": "body",
+      "size": [
+        1620,
+        971
+      ],
+      "mode": "RGBA",
+      "sha256": "5893332243c4b2b90d43f8fe9a9fcebcaa012eb4bbf6cb96901a26bb18210f0c",
+      "alphaBbox": [
+        574,
+        14,
+        1582,
+        971
+      ],
+      "borderAlphaPixels": 5,
+      "borderAlphaMax": 1,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": true,
+      "failure": null
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active7_deok/body/frame_02.png",
+      "relativePath": "active7_deok/body/frame_02.png",
+      "kind": "body",
+      "size": [
+        1619,
+        971
+      ],
+      "mode": "RGBA",
+      "sha256": "607a9ad76a30e300ec9992dd78a8d39a82ccc855fbe82f30d23c0784f4a50c70",
+      "alphaBbox": [
+        73,
+        23,
+        1581,
+        955
+      ],
+      "borderAlphaPixels": 0,
+      "borderAlphaMax": 0,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": true,
+      "failure": null
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active7_deok/body/frame_03.png",
+      "relativePath": "active7_deok/body/frame_03.png",
+      "kind": "body",
+      "size": [
+        1620,
+        971
+      ],
+      "mode": "RGBA",
+      "sha256": "42c7d5ac769cf70e4e2286d2848254f2f307108d7db1b5d4ce570967e85f81e3",
+      "alphaBbox": [
+        59,
+        14,
+        1563,
+        957
+      ],
+      "borderAlphaPixels": 0,
+      "borderAlphaMax": 0,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": true,
+      "failure": null
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active7_deok/body/frame_04.png",
+      "relativePath": "active7_deok/body/frame_04.png",
+      "kind": "body",
+      "size": [
+        1619,
+        971
+      ],
+      "mode": "RGBA",
+      "sha256": "7d15892cee2540fd59c9ee8550b9c5bd38361ea26465f3fbd14a579351a26704",
+      "alphaBbox": [
+        525,
+        14,
+        1527,
+        971
+      ],
+      "borderAlphaPixels": 73,
+      "borderAlphaMax": 2,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": true,
+      "failure": null
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active7_deok/body/frame_05.png",
+      "relativePath": "active7_deok/body/frame_05.png",
+      "kind": "body",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "sha256": "4611a03cf76c65e67b68ade25c1b7b81d3a59a23f52ee7fe01e1afefa240788b",
+      "alphaBbox": [
+        0,
+        0,
+        1522,
+        1024
+      ],
+      "borderAlphaPixels": 17,
+      "borderAlphaMax": 1,
+      "alpha0RgbResiduePixels": 777007,
+      "standaloneValid": false,
+      "failure": "contains VFX only; zero body pose"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active7_deok/body/frame_06.png",
+      "relativePath": "active7_deok/body/frame_06.png",
+      "kind": "body",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "sha256": "8b24f6bdb40159ee1d7d63b8c43515d9e50314e61b898553766332c99559b1e2",
+      "alphaBbox": [
+        0,
+        21,
+        1522,
+        1024
+      ],
+      "borderAlphaPixels": 20,
+      "borderAlphaMax": 1,
+      "alpha0RgbResiduePixels": 891445,
+      "standaloneValid": false,
+      "failure": "contains VFX only; zero body pose"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active7_deok/vfx/frame_01.png",
+      "relativePath": "active7_deok/vfx/frame_01.png",
+      "kind": "vfx",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "sha256": "4f1c3e31a65db7efd501b6f79adb2fa65e5fc46fea5e8e4a4f5e3f68dff2e28c",
+      "alphaBbox": [
+        19,
+        8,
+        1532,
+        1024
+      ],
+      "borderAlphaPixels": 29,
+      "borderAlphaMax": 1,
+      "alpha0RgbResiduePixels": 752416,
+      "standaloneValid": true,
+      "failure": null
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active7_deok/vfx/frame_02.png",
+      "relativePath": "active7_deok/vfx/frame_02.png",
+      "kind": "vfx",
+      "size": [
+        1619,
+        971
+      ],
+      "mode": "RGBA",
+      "sha256": "73b1b0d5ec19543ade8aa70bf4d89913cc75ddfbf9970b037bd957d7f5f06b45",
+      "alphaBbox": [
+        265,
+        9,
+        1527,
+        971
+      ],
+      "borderAlphaPixels": 27,
+      "borderAlphaMax": 1,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": false,
+      "failure": "contains two body poses/board; not one VFX temporal state"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active7_deok/vfx/frame_03.png",
+      "relativePath": "active7_deok/vfx/frame_03.png",
+      "kind": "vfx",
+      "size": [
+        1620,
+        971
+      ],
+      "mode": "RGBA",
+      "sha256": "9e3e165cc8ce2ad39edc101e3b42ff0f21b3145c6929991c42556645c3246bf8",
+      "alphaBbox": [
+        59,
+        29,
+        1261,
+        957
+      ],
+      "borderAlphaPixels": 0,
+      "borderAlphaMax": 0,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": false,
+      "failure": "contains one body pose; not a VFX temporal state"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active7_deok/vfx/frame_04.png",
+      "relativePath": "active7_deok/vfx/frame_04.png",
+      "kind": "vfx",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "sha256": "2759b834810d3068149eb237602c1123f269e9a8e3bf56bf3d6b133642f6b739",
+      "alphaBbox": [
+        57,
+        21,
+        1533,
+        998
+      ],
+      "borderAlphaPixels": 0,
+      "borderAlphaMax": 0,
+      "alpha0RgbResiduePixels": 806831,
+      "standaloneValid": true,
+      "failure": null
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active7_deok/vfx/frame_05.png",
+      "relativePath": "active7_deok/vfx/frame_05.png",
+      "kind": "vfx",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "sha256": "139f88df1b0d3a63c84d7f661e9f37f51b913a6d23de62e6c1ee05a9ccf94323",
+      "alphaBbox": [
+        25,
+        21,
+        1516,
+        998
+      ],
+      "borderAlphaPixels": 0,
+      "borderAlphaMax": 0,
+      "alpha0RgbResiduePixels": 862667,
+      "standaloneValid": true,
+      "failure": null
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active7_deok/vfx/frame_06.png",
+      "relativePath": "active7_deok/vfx/frame_06.png",
+      "kind": "vfx",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "sha256": "788cc4042180ddfec40900f3af818db5c7ce5cfb3844f8901bc022d23b422bad",
+      "alphaBbox": [
+        0,
+        17,
+        1522,
+        1024
+      ],
+      "borderAlphaPixels": 37,
+      "borderAlphaMax": 1,
+      "alpha0RgbResiduePixels": 830261,
+      "standaloneValid": true,
+      "failure": null
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active8_deoreoreoreo/body/frame_01.png",
+      "relativePath": "active8_deoreoreoreo/body/frame_01.png",
+      "kind": "body",
+      "size": [
+        1620,
+        971
+      ],
+      "mode": "RGBA",
+      "sha256": "6c709bf1bf83b07e9558b912db7f5713d82553a5d90d3c74b56726ce41d78423",
+      "alphaBbox": [
+        17,
+        21,
+        1620,
+        860
+      ],
+      "borderAlphaPixels": 35,
+      "borderAlphaMax": 4,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": false,
+      "failure": "four body poses embedded in one horizontal board"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active8_deoreoreoreo/body/frame_02.png",
+      "relativePath": "active8_deoreoreoreo/body/frame_02.png",
+      "kind": "body",
+      "size": [
+        1619,
+        971
+      ],
+      "mode": "RGBA",
+      "sha256": "d7abe61cf975a7bd5a0571c03b2d9f77889fac7cf9bd811481d114300eacb65c",
+      "alphaBbox": [
+        362,
+        11,
+        1581,
+        955
+      ],
+      "borderAlphaPixels": 0,
+      "borderAlphaMax": 0,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": true,
+      "failure": null
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active8_deoreoreoreo/body/frame_03.png",
+      "relativePath": "active8_deoreoreoreo/body/frame_03.png",
+      "kind": "body",
+      "size": [
+        1620,
+        971
+      ],
+      "mode": "RGBA",
+      "sha256": "aa0a07a48b1f56d5c85e5eb98dba7f1ac934c0f98b472b9190d9e41897b7917c",
+      "alphaBbox": [
+        0,
+        9,
+        1582,
+        955
+      ],
+      "borderAlphaPixels": 1,
+      "borderAlphaMax": 1,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": true,
+      "failure": null
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active8_deoreoreoreo/body/frame_04.png",
+      "relativePath": "active8_deoreoreoreo/body/frame_04.png",
+      "kind": "body",
+      "size": [
+        1619,
+        971
+      ],
+      "mode": "RGBA",
+      "sha256": "eefd18d922f1f234500c24160aca0d044850139f699fbb2820a3d90719816b78",
+      "alphaBbox": [
+        11,
+        78,
+        1619,
+        914
+      ],
+      "borderAlphaPixels": 62,
+      "borderAlphaMax": 4,
+      "alpha0RgbResiduePixels": 1,
+      "standaloneValid": false,
+      "failure": "four body poses embedded in one horizontal board"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active8_deoreoreoreo/body/frame_05.png",
+      "relativePath": "active8_deoreoreoreo/body/frame_05.png",
+      "kind": "body",
+      "size": [
+        1619,
+        971
+      ],
+      "mode": "RGBA",
+      "sha256": "880d988bccc557e3fe17308a77fd562130be0101c449317ddf4f052a9983184b",
+      "alphaBbox": [
+        0,
+        21,
+        1619,
+        931
+      ],
+      "borderAlphaPixels": 55,
+      "borderAlphaMax": 4,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": false,
+      "failure": "four body poses embedded in one horizontal board"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active8_deoreoreoreo/body/frame_06.png",
+      "relativePath": "active8_deoreoreoreo/body/frame_06.png",
+      "kind": "body",
+      "size": [
+        1620,
+        971
+      ],
+      "mode": "RGBA",
+      "sha256": "f234092bcca4c2df48bc6da53e6b00a74ce2a64ca42233d9d99dc1b6775e96b7",
+      "alphaBbox": [
+        0,
+        21,
+        1620,
+        930
+      ],
+      "borderAlphaPixels": 35,
+      "borderAlphaMax": 3,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": false,
+      "failure": "four body poses embedded in one horizontal board"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active8_deoreoreoreo/body/frame_07.png",
+      "relativePath": "active8_deoreoreoreo/body/frame_07.png",
+      "kind": "body",
+      "size": [
+        1622,
+        970
+      ],
+      "mode": "RGBA",
+      "sha256": "6f284728dd7e5ca6ef8b66ef126f033ad173dfd4c641514ec61c3d20e70813e0",
+      "alphaBbox": [
+        14,
+        21,
+        1622,
+        930
+      ],
+      "borderAlphaPixels": 142,
+      "borderAlphaMax": 251,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": false,
+      "failure": "four body poses embedded in one horizontal board"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active8_deoreoreoreo/body/frame_08.png",
+      "relativePath": "active8_deoreoreoreo/body/frame_08.png",
+      "kind": "body",
+      "size": [
+        1620,
+        971
+      ],
+      "mode": "RGBA",
+      "sha256": "0df65ba2f2818510efe6bf4bbb8b4bb26842faf0ac96e48d254b2f69d1e06960",
+      "alphaBbox": [
+        33,
+        21,
+        1611,
+        930
+      ],
+      "borderAlphaPixels": 0,
+      "borderAlphaMax": 0,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": false,
+      "failure": "four body poses embedded in one horizontal board"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active8_deoreoreoreo/body/frame_09.png",
+      "relativePath": "active8_deoreoreoreo/body/frame_09.png",
+      "kind": "body",
+      "size": [
+        1620,
+        971
+      ],
+      "mode": "RGBA",
+      "sha256": "b91394dfd22eab36678638d69ce1d7109ad50959cf5053fe6f83de2b3dd66a2f",
+      "alphaBbox": [
+        11,
+        35,
+        1620,
+        931
+      ],
+      "borderAlphaPixels": 28,
+      "borderAlphaMax": 255,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": false,
+      "failure": "four body poses embedded in one horizontal board"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active8_deoreoreoreo/body/frame_10.png",
+      "relativePath": "active8_deoreoreoreo/body/frame_10.png",
+      "kind": "body",
+      "size": [
+        1619,
+        971
+      ],
+      "mode": "RGBA",
+      "sha256": "2df9ac2492f922a5daef619b668155ab09e4e6d773eb829fd451af05357c2be6",
+      "alphaBbox": [
+        23,
+        21,
+        1607,
+        945
+      ],
+      "borderAlphaPixels": 0,
+      "borderAlphaMax": 0,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": false,
+      "failure": "four body poses embedded in one horizontal board"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active8_deoreoreoreo/body/frame_11.png",
+      "relativePath": "active8_deoreoreoreo/body/frame_11.png",
+      "kind": "body",
+      "size": [
+        1620,
+        971
+      ],
+      "mode": "RGBA",
+      "sha256": "00bb8bb3c8c018e66f130ac68a0a49fc68c7e74703857a755d7ff4b5fae22ab2",
+      "alphaBbox": [
+        33,
+        33,
+        1619,
+        931
+      ],
+      "borderAlphaPixels": 0,
+      "borderAlphaMax": 0,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": false,
+      "failure": "four body poses embedded in one horizontal board"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active8_deoreoreoreo/body/frame_12.png",
+      "relativePath": "active8_deoreoreoreo/body/frame_12.png",
+      "kind": "body",
+      "size": [
+        1620,
+        971
+      ],
+      "mode": "RGBA",
+      "sha256": "1a4323a230fe0fd47a4a375249b743f0fb12ca72db0470f30ebfe88c62413c8d",
+      "alphaBbox": [
+        11,
+        19,
+        1604,
+        929
+      ],
+      "borderAlphaPixels": 0,
+      "borderAlphaMax": 0,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": false,
+      "failure": "four body poses embedded in one horizontal board"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active8_deoreoreoreo/vfx/frame_01.png",
+      "relativePath": "active8_deoreoreoreo/vfx/frame_01.png",
+      "kind": "vfx",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "8042d48ccd2073291dd9c50d2af2670e92ec0e7ecafa6fba3a30f66293c6387b",
+      "alphaBbox": [
+        31,
+        21,
+        1248,
+        1198
+      ],
+      "borderAlphaPixels": 0,
+      "borderAlphaMax": 0,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": false,
+      "failure": "four temporal VFX phases embedded in one horizontal sequence/board"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active8_deoreoreoreo/vfx/frame_02.png",
+      "relativePath": "active8_deoreoreoreo/vfx/frame_02.png",
+      "kind": "vfx",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "9635502867fc284b481dda979d511f51ad8c9c90416479e66f8c91ba91df6e29",
+      "alphaBbox": [
+        0,
+        21,
+        1253,
+        1198
+      ],
+      "borderAlphaPixels": 1,
+      "borderAlphaMax": 1,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": false,
+      "failure": "four temporal VFX phases embedded in one horizontal sequence/board"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active8_deoreoreoreo/vfx/frame_03.png",
+      "relativePath": "active8_deoreoreoreo/vfx/frame_03.png",
+      "kind": "vfx",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "1d43eebe65eeda36c6409a383b3e93b565d0552dcb9b369963a6bc6df6cf1d0c",
+      "alphaBbox": [
+        25,
+        21,
+        1253,
+        1198
+      ],
+      "borderAlphaPixels": 0,
+      "borderAlphaMax": 0,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": false,
+      "failure": "four temporal VFX phases embedded in one horizontal sequence/board"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active8_deoreoreoreo/vfx/frame_04.png",
+      "relativePath": "active8_deoreoreoreo/vfx/frame_04.png",
+      "kind": "vfx",
+      "size": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "sha256": "c734efaefeb931c4fdd670041a7e9ae08025d171566a792deed3a34838d2c1cc",
+      "alphaBbox": [
+        9,
+        23,
+        2152,
+        708
+      ],
+      "borderAlphaPixels": 0,
+      "borderAlphaMax": 0,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": false,
+      "failure": "four temporal VFX phases embedded in one horizontal sequence/board"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active8_deoreoreoreo/vfx/frame_05.png",
+      "relativePath": "active8_deoreoreoreo/vfx/frame_05.png",
+      "kind": "vfx",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "a67944360f0752215dffb611dc63b5c1c949f805b07837f51290e36d348c00c4",
+      "alphaBbox": [
+        41,
+        53,
+        1229,
+        1198
+      ],
+      "borderAlphaPixels": 0,
+      "borderAlphaMax": 0,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": false,
+      "failure": "four temporal VFX phases embedded in one horizontal sequence/board"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active8_deoreoreoreo/vfx/frame_06.png",
+      "relativePath": "active8_deoreoreoreo/vfx/frame_06.png",
+      "kind": "vfx",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "9afc253666d3aee331d00cf9fcc93c6b3fa2aa752da8054ee960e22b32a81bd2",
+      "alphaBbox": [
+        41,
+        39,
+        1248,
+        1198
+      ],
+      "borderAlphaPixels": 0,
+      "borderAlphaMax": 0,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": false,
+      "failure": "four temporal VFX phases embedded in one horizontal sequence/board"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active8_deoreoreoreo/vfx/frame_07.png",
+      "relativePath": "active8_deoreoreoreo/vfx/frame_07.png",
+      "kind": "vfx",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "sha256": "36d33fee2c99182e9839d91fa1b7fd984b837447b6c8035d0c2bfb517af4f938",
+      "alphaBbox": [
+        0,
+        21,
+        1524,
+        1024
+      ],
+      "borderAlphaPixels": 11,
+      "borderAlphaMax": 1,
+      "alpha0RgbResiduePixels": 809057,
+      "standaloneValid": false,
+      "failure": "four temporal VFX phases embedded in one horizontal sequence/board"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active8_deoreoreoreo/vfx/frame_08.png",
+      "relativePath": "active8_deoreoreoreo/vfx/frame_08.png",
+      "kind": "vfx",
+      "size": [
+        1774,
+        887
+      ],
+      "mode": "RGBA",
+      "sha256": "a54d126d9f0fca22971f6c562c5c9c933d96293044d1a6abe1651eaedf0d1cda",
+      "alphaBbox": [
+        65,
+        21,
+        1774,
+        887
+      ],
+      "borderAlphaPixels": 22,
+      "borderAlphaMax": 1,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": false,
+      "failure": "four temporal VFX phases embedded in one horizontal sequence/board"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active8_deoreoreoreo/vfx/frame_09.png",
+      "relativePath": "active8_deoreoreoreo/vfx/frame_09.png",
+      "kind": "vfx",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "9cd95473527158b1975a7ef1d1e886211456cafc2bd8d582ae561889c60073db",
+      "alphaBbox": [
+        15,
+        52,
+        1253,
+        1198
+      ],
+      "borderAlphaPixels": 0,
+      "borderAlphaMax": 0,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": false,
+      "failure": "four temporal VFX phases embedded in one horizontal sequence/board"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active8_deoreoreoreo/vfx/frame_10.png",
+      "relativePath": "active8_deoreoreoreo/vfx/frame_10.png",
+      "kind": "vfx",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "ffdb9953169804b651f6d1f693e5d1030f6ac802f186545442c1dcf7107bedef",
+      "alphaBbox": [
+        25,
+        21,
+        1245,
+        1198
+      ],
+      "borderAlphaPixels": 0,
+      "borderAlphaMax": 0,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": false,
+      "failure": "four temporal VFX phases embedded in one horizontal sequence/board"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active8_deoreoreoreo/vfx/frame_11.png",
+      "relativePath": "active8_deoreoreoreo/vfx/frame_11.png",
+      "kind": "vfx",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "ff967e58dfd1258b38db28859e54b2054df8a3c6cd9cd09835419575cb112b9e",
+      "alphaBbox": [
+        0,
+        53,
+        1237,
+        1198
+      ],
+      "borderAlphaPixels": 2,
+      "borderAlphaMax": 1,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": false,
+      "failure": "four temporal VFX phases embedded in one horizontal sequence/board"
+    },
+    {
+      "path": "/Users/pvenus/ProjectBS/Artifacts/candidates/JANGDAN-SKILLSET-V1-v20260909/active8_deoreoreoreo/vfx/frame_12.png",
+      "relativePath": "active8_deoreoreoreo/vfx/frame_12.png",
+      "kind": "vfx",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "b7fb2c3ac8a51be40ecc58bc79b937ade2ceeffcd76829042c0125fd5c56f03f",
+      "alphaBbox": [
+        25,
+        53,
+        1226,
+        1198
+      ],
+      "borderAlphaPixels": 0,
+      "borderAlphaMax": 0,
+      "alpha0RgbResiduePixels": 0,
+      "standaloneValid": false,
+      "failure": "four temporal VFX phases embedded in one horizontal sequence/board"
+    }
+  ]
+}

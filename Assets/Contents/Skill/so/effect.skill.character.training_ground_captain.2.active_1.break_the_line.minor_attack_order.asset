@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: effect.skill.character.training_ground_captain.2.active_1.break_the_line.minor_attack_order
   m_EditorClassIdentifier: Assembly-CSharp::Effect.EffectSO
   effectId: effect.skill.character.training_ground_captain.2.active_1.break_the_line.minor_attack_order
-  authoredDisplayName: ""
+  authoredDisplayName: 
   icon: {fileID: 0}
   config:
-    rid: 666566976232489146
+    rid: 666567034589414141
   references:
     version: 2
     RefIds:
-    - rid: 666566976232489146
+    - rid: 666567034589414141
       type: {class: StatModifierEffectConfig, ns: Effect, asm: Assembly-CSharp}
       data:
         targetStat: 1210

@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: effect.skill.character.sangui_abandoned_child.3.active_1.cold_mountain_call.move_speed_down_50
   m_EditorClassIdentifier: Assembly-CSharp::Effect.EffectSO
   effectId: effect.skill.character.sangui_abandoned_child.3.active_1.cold_mountain_call.move_speed_down_50
-  authoredDisplayName: ""
+  authoredDisplayName: 
   icon: {fileID: 0}
   config:
-    rid: 666566976232489088
+    rid: 666567034589414080
   references:
     version: 2
     RefIds:
-    - rid: 666566976232489088
+    - rid: 666567034589414080
       type: {class: StatModifierEffectConfig, ns: Effect, asm: Assembly-CSharp}
       data:
         targetStat: 1237

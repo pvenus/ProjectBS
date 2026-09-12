@@ -97,6 +97,27 @@ namespace Character.Control
             return r.sourceEquipment.BaseProfileSo.SkillComponentType==SkillComponentType.Mobility || (r.sourceEquipment.HitSos!=null&&Array.Exists(r.sourceEquipment.HitSos,h=>h!=null));
         }
         public bool Ready(int slot)=>Available(slot)&&skills!=null&&skills.ManualReady(Runtime(slot));
+        public bool TryActiveSkillAction(AimSnapshot aim)
+        {
+            if(skills==null)return false;
+            var resolved=new ManualSkillAim(SkillAimMode.Direction,
+                new Vector2(aim.KeyboardDirection.X,aim.KeyboardDirection.Y),Vector2.zero);
+            return skills.TryActiveSkillAction(resolved);
+        }
+        public bool CanReserve(int slot)
+        {
+            var runtime=Runtime(slot);
+            return runtime?.sourceEquipment?.AimMode!=SkillAimMode.Target&&Available(slot)&&
+                skills!=null&&skills.CanReserveIgnoringBusy(runtime);
+        }
+        public bool CanCancelForReservedSkill=>skills!=null&&skills.ManualCancelWindowOpen;
+        public int ExecutionId=>skills?.ManualActionExecutionId??0;
+        public void CancelForReservedSkill(int slot)
+        {
+            Move(default);
+            actor?.GetComponent<MovementMono>()?.StopAllMotion(false);
+            skills?.CancelManualExecution(slot==6);
+        }
         public AimSnapshot Capture(int slot,AimSnapshot aim)
         {
             var runtime=Runtime(slot);var mode=runtime?.sourceEquipment?.AimMode??SkillAimMode.Invalid;
@@ -112,6 +133,9 @@ namespace Character.Control
         public bool Fire(int slot,AimSnapshot aim,ControlVector dash,Func<bool> chain)
         {
             var runtime=Runtime(slot);if(runtime==null||runtime.sourceEquipment.AimMode!=aim.Mode||runtime.sourceEquipment.AimInputSource!=aim.InputSource)return false;
+            // Any normal command supersedes an armed mode. Active1 is allowed to
+            // replace/re-arm its own state atomically in ActiveSkillService.
+            if(slot!=1)skills?.CancelActiveInputMode();
             var resolved=new ManualSkillAim(aim.Mode,new Vector2(aim.Direction.X,aim.Direction.Y),new Vector2(aim.Point.X,aim.Point.Y),aim.LockedTarget as Transform);
             bool combo=slot==0&&aim.Mode==SkillAimMode.Direction&&runtime.comboProfile!=null&&runtime.comboProfile.Enabled;
             // Initial validation also uses current input, never an obsolete press snapshot.

@@ -1,0 +1,18 @@
+{
+  "task": "JANGDAN-SKILLSET-V1",
+  "generator": "built-in ImageGen",
+  "identity_reference": "/Users/pvenus/ProjectBS/Assets/ImagesGenerated/Character/portrait/character.seojin.1.portrait.png",
+  "result": "72/72 standalone native-alpha source frames",
+  "style": "VFX neon75 ink25; character-free",
+  "units": {
+    "active5_dung_kung": {"body": 12, "vfx": 12, "semantics": "Dung centered gather/pull then Kung dense forward-down impact"},
+    "active6_gi": {"body": 6, "vfx": 6, "semantics": "short fast mouse-right one-axis beat"},
+    "active7_deok": {"body": 6, "vfx": 6, "semantics": "planted broad rightward pressure cut with restrained stun echo"},
+    "active8_deoreoreoreo": {"body": 12, "vfx": 12, "semantics": "continuous four-beat sequence at .125/.25/.375/.625, fourth strongest"}
+  },
+  "timing": {"bpm": 120, "subdivision": 0.125},
+  "processing": {"boards": false, "local_background_extraction": false, "rgb_recovery_edits": 0, "resize": false, "icons": false},
+  "checksums": "SHA256SUMS.txt",
+  "physical_audit": "physical-audit.txt",
+  "warnings": "Two active8 body sources have opaque border contact: frame_07 max251 and frame_09 max255. Fresh small-scale replacements and their one permitted background-only edits remained RGB, so they were rejected; original RGBA sources remain staged and the action is physically WARN/incomplete for strict border-zero promotion."
+}

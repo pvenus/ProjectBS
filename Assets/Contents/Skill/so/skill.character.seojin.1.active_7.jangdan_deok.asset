@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63226e07ba84a4a69967ef3b8995b8d7, type: 3}
+  m_Name: skill.character.seojin.1.active_7.jangdan_deok
+  m_EditorClassIdentifier: Assembly-CSharp::Skill.EquipmentSkillSO
+  equipmentId: skill.character.seojin.1.active_7.jangdan_deok
+  aimMode: 1
+  aimInputSource: 1
+  icon: {fileID: -8678315816248329295, guid: c5217c09aada14c7cbfcb6a79531091b, type: 3}
+  baseProfileSo: {fileID: 11400000, guid: 4a8f8f75f1df749ac922ad144948cb0d, type: 2}
+  castSo: {fileID: 11400000, guid: afe49df4d224445d8b6fe8b5ec7792f5, type: 2}
+  hitSos:
+  - {fileID: 11400000, guid: 04ce60dab536943bba6844e2e66657fa, type: 2}
+  - {fileID: 11400000, guid: e8d13fd4fec4a411cb9a5b2dca75990b, type: 2}
+  moveSo: {fileID: 11400000, guid: 39c2ef618142e4e90a6f80f72074e166, type: 2}
+  spawnSkillSo: {fileID: 0}
+  upgradeTableSo: {fileID: 11400000, guid: 51016d9376a2a4de4a5519381efd50f1, type: 2}
+  baseVisualSo: {fileID: 11400000, guid: e958a98ed161141ab8c649b2a06dad33, type: 2}
+  comboProfile:
+    enabled: 0
+    inputDriven: 0
+    duration: 0
+    totalLungeCap: 0
+    useCanonicalBodyChoreography: 0
+    segmentedBodyActionClip: {fileID: 0}
+    segmentedBodyFrameCount: 18
+    steps: []
+  mouse3Profile:
+    inputAction: WheelDown
+    stableSlotKey: active_7
+    edgeOnly: 1
+    crowdControlKind: 
+    distance: 0
+    duration: 0
+    stopRadius: 0
+    collisionSafe: 0
+    normalDurationOrRatio: 0
+    eliteDurationOrRatio: 0
+    bossDurationOrRatio: 0
+    bossHardCap: 0
+    fanAngle: 0
+    burstCount: 1
+    burstInterval: 0
+    nextBasicForwardRatio: 0
+    nextBasicRangeRatio: 0
+    nextBasicInputGrace: 0
+    gatherDistance: 0
+    gatherDuration: 0
+    stunNormalDuration: 0
+    stunEliteDuration: 0
+    stunBossDuration: 0
+    followupBodyClip: {fileID: 0}
+    followupVfxClip: {fileID: 0}

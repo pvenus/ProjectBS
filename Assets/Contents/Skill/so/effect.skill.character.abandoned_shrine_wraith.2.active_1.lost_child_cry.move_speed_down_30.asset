@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: effect.skill.character.abandoned_shrine_wraith.2.active_1.lost_child_cry.move_speed_down_30
   m_EditorClassIdentifier: Assembly-CSharp::Effect.EffectSO
   effectId: effect.skill.character.abandoned_shrine_wraith.2.active_1.lost_child_cry.move_speed_down_30
-  authoredDisplayName: ""
+  authoredDisplayName: 
   icon: {fileID: 0}
   config:
-    rid: 666566976232489030
+    rid: 666567034589414022
   references:
     version: 2
     RefIds:
-    - rid: 666566976232489030
+    - rid: 666567034589414022
       type: {class: StatModifierEffectConfig, ns: Effect, asm: Assembly-CSharp}
       data:
         targetStat: 1237

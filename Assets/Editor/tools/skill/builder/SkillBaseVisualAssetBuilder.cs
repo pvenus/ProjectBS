@@ -21,6 +21,8 @@ namespace ResourceTools.Skill
         // Optional, explicit source-of-truth binding. Missing keeps the legacy
         // profile already serialized on BaseVisualSO.
         public string animationVfxProfile;
+
+        public string layeredPresentationProfile;
     }
 
     /// <summary>
@@ -31,6 +33,8 @@ namespace ResourceTools.Skill
     {
         private const string SkillAnimationFrameRoot = "Assets/ImagesGenerated/Skill/animation";
         private const string SkillAnimationClipFolder = "Assets/AnimationClips/Skill";
+        private const string CharacterAnimationFrameRoot = "Assets/ImagesGenerated/Character/animation/character.seojin.1";
+        private const string CharacterAnimationClipFolder = "Assets/AnimationClips/Character/character.seojin.1";
         private const float SkillAnimationFrameRate = 12f;
         private const float SkillAnimationPixelsPerUnit = 100f;
         private static readonly float[] SixFrameEmphasisDurations =
@@ -51,6 +55,15 @@ namespace ResourceTools.Skill
             0.08f,
             0.06f
         };
+        private static readonly float[] CommandChainDurations = { .07f, .07f, .04f, .12f, .06f, .06f };
+        private static readonly float[] ThunderCommandDurations = { .04f, .04f, .04f, .04f, .08f, .18f };
+        private static readonly float[] ThunderFollowupDurations = { .03f, .03f, .02f, .02f, .04f, .04f };
+        private static readonly float[] BlockadeCutDurations = { .05f, .05f, .04f, .14f, .09f, .09f };
+        private static readonly float[] JangdanDungDurations = { .05f, .05f, .05f, .10f, .10f, .15f };
+        private static readonly float[] JangdanGiDurations = { .025f, .025f, .025f, .05f, .05f, .075f };
+        private static readonly float[] JangdanDeokDurations = { .04f, .04f, .045f, .075f, .075f, .10f };
+        private static readonly float[] JangdanSequenceDurations =
+            { .04f, .04f, .045f, .05f, .05f, .075f, .05f, .05f, .05f, .075f, .10f, .125f };
         private static readonly float[] FourFrameLoopDurations =
         {
             0.12f,
@@ -105,6 +118,102 @@ namespace ResourceTools.Skill
             return visualSo;
         }
 
+        public static string CreateOrUpdateMouse3BodyActionClip(string skillId)
+        {
+            string action;
+            IReadOnlyList<float> durations;
+            if (skillId.EndsWith(".active_5.command_chain", StringComparison.Ordinal))
+            {
+                action = "command_chain";
+                durations = CommandChainDurations;
+            }
+            else if (skillId.EndsWith(".active_6.thunder_command", StringComparison.Ordinal))
+            {
+                action = "thunder_command";
+                durations = ThunderCommandDurations;
+            }
+            else if (skillId.EndsWith(".active_7.blockade_cut", StringComparison.Ordinal))
+            {
+                action = "blockade_cut";
+                durations = BlockadeCutDurations;
+            }
+            else if (skillId.EndsWith(".active_5.jangdan_dung", StringComparison.Ordinal))
+            {
+                action = "jangdan/active5_dung_kung";
+                durations = JangdanDungDurations;
+            }
+            else if (skillId.EndsWith(".active_6.jangdan_gi", StringComparison.Ordinal))
+            {
+                action = "jangdan/active6_gi";
+                durations = JangdanGiDurations;
+            }
+            else if (skillId.EndsWith(".active_7.jangdan_deok", StringComparison.Ordinal))
+            {
+                action = "jangdan/active7_deok";
+                durations = JangdanDeokDurations;
+            }
+            else if (skillId.EndsWith(".active_8.deoreoreoreo", StringComparison.Ordinal))
+            {
+                action = "jangdan/active8_deoreoreoreo";
+                durations = JangdanSequenceDurations;
+            }
+            else
+            {
+                return null;
+            }
+
+            string frameFolder = $"{CharacterAnimationFrameRoot}/{action}";
+            string[] framePaths = AssetDatabase.FindAssets("t:Texture2D", new[] { frameFolder })
+                .Select(AssetDatabase.GUIDToAssetPath)
+                .Where(path => string.Equals(Path.GetDirectoryName(path)?.Replace("\\", "/"), frameFolder, StringComparison.Ordinal))
+                .Where(path => TryExtractFrameNumber(Path.GetFileNameWithoutExtension(path), out _))
+                .OrderBy(GetFrameNumber)
+                .ToArray();
+            int expectedCount = action == "thunder_command" || action == "jangdan/active5_dung_kung" ||
+                action == "jangdan/active8_deoreoreoreo" ? 12 : 6;
+            if (framePaths.Length != expectedCount || !ValidateFrameSequence(framePaths, frameFolder))
+            {
+                Debug.LogError($"[SkillBaseVisualAssetBuilder] Mouse3 body exact{expectedCount} is incomplete: {frameFolder} ({framePaths.Length}/{expectedCount})");
+                return null;
+            }
+
+            ConfigureFrameImporters(framePaths);
+            Sprite[] sprites = framePaths.Select(AssetDatabase.LoadAssetAtPath<Sprite>).ToArray();
+            if (sprites.Any(sprite => sprite == null) || !ValidateFrameDimensions(sprites, frameFolder))
+            {
+                Debug.LogError($"[SkillBaseVisualAssetBuilder] Mouse3 body sprites failed import validation: {frameFolder}");
+                return null;
+            }
+
+            string clipToken = action.Replace("jangdan/", "jangdan.");
+            string clipPath = $"{CharacterAnimationClipFolder}/character.seojin.1.body_action.{clipToken}.anim";
+            bool splitFollowup = action == "thunder_command" || action == "jangdan/active5_dung_kung";
+            Sprite[] primarySprites = splitFollowup ? sprites.Take(6).ToArray() : sprites;
+            AnimationClip clip = AnimationClipAssetHelper.CreateOrUpdateSpriteAnimationClipWithDurations(
+                clipPath, primarySprites, durations, SkillAnimationFrameRate, false);
+            if (clip == null)
+            {
+                return null;
+            }
+
+            AnimationClipSettings settings = AnimationUtility.GetAnimationClipSettings(clip);
+            settings.startTime = 0f;
+            settings.stopTime = durations.Sum();
+            settings.loopTime = false;
+            AnimationUtility.SetAnimationClipSettings(clip, settings);
+            EditorUtility.SetDirty(clip);
+            if (splitFollowup)
+            {
+                string followupPath = $"{CharacterAnimationClipFolder}/character.seojin.1.body_action.{clipToken}.followup.anim";
+                AnimationClip followup = AnimationClipAssetHelper.CreateOrUpdateSpriteAnimationClipWithDurations(
+                    followupPath, sprites.Skip(6).Take(6).ToArray(),
+                    action == "thunder_command" ? ThunderFollowupDurations : JangdanDungDurations,
+                    SkillAnimationFrameRate, false);
+                if (followup == null) return null;
+            }
+            return clipPath;
+        }
+
         private static string ResolveAssetName(BaseVisualJson json)
         {
             if (!string.IsNullOrWhiteSpace(json.visualId))
@@ -152,6 +261,11 @@ namespace ResourceTools.Skill
                 visualSo.ApplyAnimationVfxProfileEditor(
                     ResolveAnimationVfxProfile(json.animationVfxProfile));
             }
+            if (!string.IsNullOrWhiteSpace(json.layeredPresentationProfile))
+            {
+                visualSo.ApplyLayeredPresentationProfileEditor(
+                    ResolveLayeredPresentationProfile(json.layeredPresentationProfile));
+            }
             if (intentionalNone)
             {
                 // None is an authored policy, not a missing-asset condition. Clear
@@ -177,6 +291,30 @@ namespace ResourceTools.Skill
             }
             if (resolved == null)
                 throw new InvalidOperationException($"Missing animation VFX profile '{profileId}'.");
+            return resolved;
+        }
+
+        private static LayeredProjectilePresentationProfileSO ResolveLayeredPresentationProfile(
+            string profileId)
+        {
+            string[] guids = AssetDatabase.FindAssets("t:LayeredProjectilePresentationProfileSO");
+            Array.Sort(guids, StringComparer.Ordinal);
+            LayeredProjectilePresentationProfileSO resolved = null;
+            for (int i = 0; i < guids.Length; i++)
+            {
+                LayeredProjectilePresentationProfileSO candidate =
+                    AssetDatabase.LoadAssetAtPath<LayeredProjectilePresentationProfileSO>(
+                        AssetDatabase.GUIDToAssetPath(guids[i]));
+                if (candidate == null || !string.Equals(candidate.ProfileId, profileId,
+                        StringComparison.Ordinal)) continue;
+                if (resolved != null && resolved != candidate)
+                    throw new InvalidOperationException(
+                        $"Duplicate layered presentation profile '{profileId}'.");
+                resolved = candidate;
+            }
+            if (resolved == null)
+                throw new InvalidOperationException(
+                    $"Missing layered presentation profile '{profileId}'.");
             return resolved;
         }
 
@@ -314,19 +452,54 @@ namespace ResourceTools.Skill
                 return null;
             }
 
+            bool splitJangdanDung = skillId.EndsWith(".active_5.jangdan_dung", StringComparison.Ordinal)
+                && sprites.Length == 12;
+            if ((skillId.EndsWith(".active_6.thunder_command", StringComparison.Ordinal) && sprites.Length == 12)
+                || splitJangdanDung)
+            {
+                string followupPath = Path.Combine(SkillAnimationClipFolder,
+                    $"{visualId}.followup.anim").Replace("\\", "/");
+                AnimationClip followup = AnimationClipAssetHelper.CreateOrUpdateSpriteAnimationClipWithDurations(
+                    followupPath, sprites.Skip(6).Take(6).ToArray(),
+                    splitJangdanDung ? JangdanDungDurations : ThunderFollowupDurations,
+                    SkillAnimationFrameRate, false);
+                if (followup == null) return null;
+                sprites = sprites.Take(6).ToArray();
+            }
+
             string clipName = $"{visualId}.loop";
             string clipPath = Path.Combine(SkillAnimationClipFolder, clipName + ".anim")
                 .Replace("\\", "/");
 
             bool isSwiftStep = skillId.EndsWith(".active_4.swift_step", StringComparison.Ordinal);
-            IReadOnlyList<float> frameDurations = isSwiftStep
+            bool isJangdanDung = skillId.EndsWith(".active_5.jangdan_dung", StringComparison.Ordinal);
+            bool isJangdanGi = skillId.EndsWith(".active_6.jangdan_gi", StringComparison.Ordinal);
+            bool isJangdanDeok = skillId.EndsWith(".active_7.jangdan_deok", StringComparison.Ordinal);
+            bool isJangdanSequence = skillId.EndsWith(".active_8.deoreoreoreo", StringComparison.Ordinal);
+            IReadOnlyList<float> mouse3Durations = skillId.EndsWith(".active_5.command_chain", StringComparison.Ordinal)
+                ? CommandChainDurations
+                : skillId.EndsWith(".active_6.thunder_command", StringComparison.Ordinal)
+                    ? ThunderCommandDurations
+                    : skillId.EndsWith(".active_7.blockade_cut", StringComparison.Ordinal)
+                        ? BlockadeCutDurations
+                        : null;
+            IReadOnlyList<float> frameDurations = isJangdanDung
+                ? JangdanDungDurations
+                : isJangdanGi ? JangdanGiDurations
+                : isJangdanDeok ? JangdanDeokDurations
+                : isJangdanSequence ? JangdanSequenceDurations
+                : isSwiftStep
                 ? SwiftStepDurations
+                : mouse3Durations != null
+                    ? mouse3Durations
                 : sprites.Length == FourFrameLoopDurations.Length
                 ? FourFrameLoopDurations
                 : sprites.Length == SixFrameEmphasisDurations.Length
                     ? SixFrameEmphasisDurations
                     : null;
-            bool loopTime = !isSwiftStep;
+            bool loopTime = isJangdanDung ||
+                (!isSwiftStep && !isJangdanGi && !isJangdanDeok &&
+                 !isJangdanSequence && mouse3Durations == null);
 
             AnimationClip clip = frameDurations != null
                 ? AnimationClipAssetHelper.CreateOrUpdateSpriteAnimationClipWithDurations(
@@ -343,12 +516,13 @@ namespace ResourceTools.Skill
 
             if (clip != null)
             {
-                if (isSwiftStep)
+                if (isSwiftStep || isJangdanDung || isJangdanGi ||
+                    isJangdanDeok || isJangdanSequence)
                 {
                     AnimationClipSettings settings = AnimationUtility.GetAnimationClipSettings(clip);
                     settings.startTime = 0f;
-                    settings.stopTime = 0.42f;
-                    settings.loopTime = false;
+                    settings.stopTime = isSwiftStep ? 0.42f : frameDurations.Sum();
+                    settings.loopTime = isJangdanDung;
                     AnimationUtility.SetAnimationClipSettings(clip, settings);
                     EditorUtility.SetDirty(clip);
                 }

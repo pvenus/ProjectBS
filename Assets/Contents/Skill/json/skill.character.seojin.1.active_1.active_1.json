@@ -126,8 +126,42 @@
         "splitHitCount": 1,
         "splitHitInterval": 0
       }
+    },
+    {
+      "hitId": "skill.character.seojin.1.active_1.active_1.ready_action.hit",
+      "maxHitCount": 1,
+      "ignoreSameRoot": true,
+      "repeatInterval": 0,
+      "hitStartTime": 0.1,
+      "deactivateAfterFirstHit": true,
+      "targetLayerMask": "Enemy",
+      "damage": {
+        "skillId": "skill.character.seojin.1.active_1.active_1.ready_action.damage",
+        "damageType": "Normal",
+        "baseDamage": 10,
+        "firstHitBaseDamage": 0,
+        "attackPercentDamage": 0.2,
+        "canCritical": true,
+        "ignoreDefense": false
+      },
+      "buffEffects": [],
+      "debuffEffects": [],
+      "split": { "useSplitMultiHitDamage": false, "splitHitCount": 1, "splitHitInterval": 0 }
     }
   ],
+  "activeInputMode": {
+    "enabled": true,
+    "inputAction": "Q",
+    "readyDuration": 2.0,
+    "actionDuration": 0.2,
+    "contactTime": 0.1,
+    "maxInputs": 4,
+    "minInterval": 0.2,
+    "bufferCapacity": 2,
+    "cooldownCommit": "Activation",
+    "aimSnapshot": "PerInput",
+    "actionHitId": "skill.character.seojin.1.active_1.active_1.ready_action.hit"
+  },
   "baseVisual": {
     "visualId": "skill.character.seojin.1.active_1.active_1.visual",
     "archetype": "Melee",

@@ -1,4 +1,5 @@
 using Skill;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -9,6 +10,7 @@ using UnityEngine;
 /// </summary>
 public class ProjectileEntity : MonoBehaviour
 {
+    private static readonly HashSet<ProjectileEntity> Live = new();
     [Header("Components")]
     [SerializeField] private ProjectileMovement movement;
     [SerializeField] private ProjectileHitHandler hitHandler;
@@ -89,6 +91,15 @@ public class ProjectileEntity : MonoBehaviour
         }
 
         runtimeData = data;
+        LayeredProjectilePresentationProfileSO layeredProfile =
+            data.sourceEquipment?.BaseVisualSo?.LayeredPresentationProfile;
+        if (layeredProfile != null && layeredProfile.HasRequiredGroundField())
+        {
+            data.minimumVisualLifetime = Mathf.Max(
+                data.minimumVisualLifetime,
+                layeredProfile.ResolveMaximumLayerEnd());
+        }
+        Live.Add(this);
         initialized = true;
         waitingForVisualCompletion = false;
         initializedAtTime = Time.time;
@@ -142,12 +153,39 @@ public class ProjectileEntity : MonoBehaviour
         }
 
         initialized = false;
+        Live.Remove(this);
         runtimeData = null;
         if (visual != null)
         {
             visual.OnDespawn();
         }
         Destroy(gameObject);
+    }
+
+    public static void DespawnVisualsFor(GameObject owner, string equipmentId)
+    {
+        if (owner == null || string.IsNullOrEmpty(equipmentId)) return;
+        ProjectileEntity[] snapshot = new ProjectileEntity[Live.Count];
+        Live.CopyTo(snapshot);
+        for (int i = 0; i < snapshot.Length; i++)
+        {
+            ProjectileEntity entity = snapshot[i];
+            ProjectileRuntimeData data = entity != null ? entity.runtimeData : null;
+            if (data != null && data.owner == owner &&
+                data.sourceEquipment != null &&
+                string.Equals(data.sourceEquipment.EquipmentId, equipmentId,
+                    System.StringComparison.Ordinal))
+            {
+                // Presentation hold cancellation is not a gameplay projectile-end receipt.
+                entity.initialized = false;
+                entity.Despawn();
+            }
+        }
+    }
+
+    private void OnDestroy()
+    {
+        Live.Remove(this);
     }
 
     /// <summary>

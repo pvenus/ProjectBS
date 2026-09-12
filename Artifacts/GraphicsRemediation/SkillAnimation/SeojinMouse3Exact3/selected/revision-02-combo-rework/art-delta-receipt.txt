@@ -1,0 +1,22 @@
+TASK M3-COMBO-REV2 ART DELTA COMPLETE
+
+Disposition: ART_SOURCE_AND_STATIC_QA_PASS / UNITY_INSTALL0
+Manifest: /Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/manifest.json
+Manifest SHA-256: 7f9b29faba9e546b5313ad75334fc69b77a694e2a7300533dd823e7698e655c0
+QA receipt: /Users/pvenus/ProjectBS/Artifacts/GraphicsRemediation/SkillAnimation/SeojinMouse3Exact3/selected/revision-02-combo-rework/qa-receipt-v002.json
+QA SHA-256: 42040602148df39735d33a9be1282add5530ccd563d405f76fbd6400b4bd5709
+
+Retain from revision-01:
+- active_5 icon/body6/VFX6
+- active_6 icon
+- active_7 body6/icon
+
+Replace candidates:
+- active_6 body12 568x340 RGBA: fast mouse-direction hit plus linked L4 second hit
+- active_6 VFX12 256x256 RGBA: two same-direction contacts; self-centered thunder removed
+- active_7 VFX6 256x256 RGBA: 60-degree fan converges to internal aim point
+
+Physical QA exact30, borders/corners alpha0, alpha0 RGB residue0, clipping0.
+Contacts: exact27 at 200/80/32 light/dark/gray. GIF: body12/VFX12/VFX6.
+Semantic mismatch0. Image/code/gameplay/Unity/canonical/install writes0.
+Rollback: remove revision-02-combo-rework; revision-01 remains unchanged.

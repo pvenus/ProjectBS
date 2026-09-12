@@ -5,6 +5,7 @@ using Skill;
 using UnityEngine;
 using Battle.Presentation.SkillFocus;
 using Character;
+using Character.Skill;
 using Effect;
 using Effect.Helper;
 using Battle.Prop;
@@ -425,6 +426,27 @@ public class ProjectileHitHandler : MonoBehaviour
             return false;
         }
 
+        Mouse3SkillProfile mouse3 = runtimeData.sourceEquipment?.Mouse3Profile;
+        float fanAngle = runtimeData.resolvedMouse3Profile?.fanAngle ?? mouse3?.FanAngle ?? 0f;
+        if (fanAngle > 0f)
+        {
+            string crowdControlKind = runtimeData.resolvedMouse3Profile?.crowdControlKind ??
+                mouse3?.CrowdControlKind;
+            bool casterSnapshotPull = string.Equals(crowdControlKind, "FanPullToCasterSlow",
+                System.StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(crowdControlKind, "FanPullToCasterSlowStun",
+                    System.StringComparison.OrdinalIgnoreCase);
+            Vector2 origin = casterSnapshotPull
+                ? runtimeData.spawnPosition
+                : runtimeData.owner != null
+                    ? runtimeData.owner.transform.position
+                    : transform.position;
+            Vector2 toTarget = (Vector2)other.bounds.center - origin;
+            if (toTarget.sqrMagnitude > .0001f &&
+                Vector2.Angle(runtimeData.NormalizedDirection, toTarget) > fanAngle * .5f)
+                return false;
+        }
+
         if (!ignoreHitHistory &&
             (hitTargets.Contains(other) || hitTargetRoots.Contains(ResolveTargetRootId(other))))
         {
@@ -567,6 +589,10 @@ public class ProjectileHitHandler : MonoBehaviour
         }
 
         ApplyAdditionalEffects(targetCharacter);
+        ApplyComboGather(targetCharacter);
+        if (!ApplyJangdanCrowdControl(targetCharacter))
+            ApplyMouse3CrowdControl(targetCharacter);
+        ArmNextBasicBridgeAfterThunderSecondHit();
         MainCharacterSkillFocusFeature.NotifyProjectileImpact(runtimeData);
 
         if (consumeAfterHit)
@@ -581,6 +607,169 @@ public class ProjectileHitHandler : MonoBehaviour
             return;
         }
     }
+
+    private void ApplyComboGather(CharacterManager targetCharacter)
+    {
+        if (targetCharacter == null || runtimeData == null ||
+            runtimeData.comboGatherDistance <= 0f)
+            return;
+
+        float distance = Mouse3CrowdControlPolicy.ResolveDistance(
+            targetCharacter, runtimeData.comboGatherDistance);
+        bool boss = targetCharacter.RuntimeData?.characterSO != null &&
+            targetCharacter.RuntimeData.characterSO.CharacterType == CharacterType.Boss;
+        if (boss && runtimeData.comboGatherBossHardCap > 0f)
+            distance = Mathf.Min(distance, runtimeData.comboGatherBossHardCap);
+        if (distance <= 0f)
+            return;
+
+        Mouse3GatherDisplacementMono gather =
+            targetCharacter.GetComponent<Mouse3GatherDisplacementMono>() ??
+            targetCharacter.gameObject.AddComponent<Mouse3GatherDisplacementMono>();
+        gather.Begin(runtimeData.spawnPosition, distance,
+            Mathf.Max(Time.fixedDeltaTime, runtimeData.comboGatherDuration),
+            runtimeData.comboGatherStopRadius);
+    }
+
+    private void ApplyMouse3CrowdControl(CharacterManager targetCharacter)
+    {
+        Mouse3SkillProfile profile = runtimeData?.sourceEquipment?.Mouse3Profile;
+        if (profile == null || !profile.Enabled || targetCharacter == null)
+            return;
+        ResolvedMouse3SkillProfile resolved = runtimeData.resolvedMouse3Profile;
+        string kind = resolved?.crowdControlKind ?? profile.CrowdControlKind;
+        float distanceValue = resolved?.distance ?? profile.Distance;
+        float durationValue = resolved?.duration ?? profile.Duration;
+        float normalRatio = resolved?.normalRatio ?? profile.NormalDurationOrRatio;
+        float bossRatio = resolved?.bossRatio ?? profile.BossDurationOrRatio;
+        float bossCap = resolved?.bossHardCap ?? profile.BossHardCap;
+
+        if (string.Equals(kind, "GatherDisplacement", System.StringComparison.OrdinalIgnoreCase))
+        {
+            bool boss = targetCharacter.RuntimeData?.characterSO != null &&
+                targetCharacter.RuntimeData.characterSO.CharacterType == CharacterType.Boss;
+            float ratio = boss ? bossRatio : normalRatio;
+            float distance = Mouse3CrowdControlPolicy.ResolveDistance(
+                targetCharacter, distanceValue * Mathf.Max(0f, ratio));
+            if (boss && bossCap > 0f) distance = Mathf.Min(distance, bossCap);
+            Mouse3GatherDisplacementMono gather = targetCharacter.GetComponent<Mouse3GatherDisplacementMono>() ??
+                targetCharacter.gameObject.AddComponent<Mouse3GatherDisplacementMono>();
+            gather.Begin(transform.position, distance, durationValue, profile.StopRadius);
+        }
+        else if (string.Equals(kind, "Stun", System.StringComparison.OrdinalIgnoreCase))
+        {
+            bool boss = targetCharacter.RuntimeData?.characterSO != null &&
+                targetCharacter.RuntimeData.characterSO.CharacterType == CharacterType.Boss;
+            float duration = boss ? bossRatio : normalRatio;
+            duration = Mouse3CrowdControlPolicy.ResolveDuration(targetCharacter, duration);
+            if (duration <= 0f) return;
+            targetCharacter.SetStat(Stat.StatType.StunDuration,
+                Mathf.Max(targetCharacter.GetStatValue(Stat.StatType.StunDuration), duration));
+        }
+        else if (string.Equals(kind, "MoveSpeedSlow", System.StringComparison.OrdinalIgnoreCase))
+        {
+            Mouse3TimedMoveSpeedSlowMono slow = targetCharacter.GetComponent<Mouse3TimedMoveSpeedSlowMono>() ??
+                targetCharacter.gameObject.AddComponent<Mouse3TimedMoveSpeedSlowMono>();
+            slow.Apply(Mathf.Clamp01(distanceValue > 0f ? distanceValue : .2f), durationValue);
+        }
+        else if (string.Equals(kind, "FanGatherSlow", System.StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(kind, "FanPullToCasterSlow", System.StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(kind, "FanPullToCasterSlowStun", System.StringComparison.OrdinalIgnoreCase))
+        {
+            bool boss = targetCharacter.RuntimeData?.characterSO != null &&
+                targetCharacter.RuntimeData.characterSO.CharacterType == CharacterType.Boss;
+            float slowRatio = Mathf.Clamp01(distanceValue * (boss ? bossRatio : 1f));
+            Mouse3TimedMoveSpeedSlowMono slow = targetCharacter.GetComponent<Mouse3TimedMoveSpeedSlowMono>() ??
+                targetCharacter.gameObject.AddComponent<Mouse3TimedMoveSpeedSlowMono>();
+            slow.Apply(slowRatio, durationValue);
+
+            float gatherDistance = resolved?.gatherDistance ?? profile.GatherDistance;
+            if (boss && bossCap > 0f) gatherDistance = Mathf.Min(gatherDistance, bossCap);
+            gatherDistance = Mouse3CrowdControlPolicy.ResolveDistance(targetCharacter, gatherDistance);
+            if (gatherDistance > 0f)
+            {
+                Mouse3GatherDisplacementMono gather = targetCharacter.GetComponent<Mouse3GatherDisplacementMono>() ??
+                    targetCharacter.gameObject.AddComponent<Mouse3GatherDisplacementMono>();
+                bool strongPull = string.Equals(kind, "FanPullToCasterSlowStun",
+                    System.StringComparison.OrdinalIgnoreCase);
+                bool casterPull = strongPull || string.Equals(kind, "FanPullToCasterSlow",
+                    System.StringComparison.OrdinalIgnoreCase);
+                Vector2 gatherDestination = strongPull
+                    ? runtimeData.spawnPosition + runtimeData.NormalizedDirection * .90f
+                    : casterPull ? runtimeData.spawnPosition : runtimeData.controlPoint;
+                gather.Begin(gatherDestination, gatherDistance,
+                    Mathf.Max(.01f, resolved?.gatherDuration ?? profile.GatherDuration), profile.StopRadius);
+            }
+
+            if (string.Equals(kind, "FanPullToCasterSlowStun",
+                System.StringComparison.OrdinalIgnoreCase))
+            {
+                float stunBase = boss
+                    ? resolved?.stunBossDuration ?? profile.StunBossDuration
+                    : resolved?.stunNormalDuration ?? profile.StunNormalDuration;
+                float stunDuration = Mouse3CrowdControlPolicy.ResolveDuration(targetCharacter, stunBase);
+                if (stunDuration > 0f)
+                    targetCharacter.SetStat(Stat.StatType.StunDuration,
+                        Mathf.Max(targetCharacter.GetStatValue(Stat.StatType.StunDuration), stunDuration));
+            }
+        }
+    }
+
+    private bool ApplyJangdanCrowdControl(CharacterManager targetCharacter)
+    {
+        string id = runtimeData?.sourceEquipment?.EquipmentId;
+        if (targetCharacter == null || string.IsNullOrEmpty(id) ||
+            !id.StartsWith("skill.character.seojin.1.active_", System.StringComparison.Ordinal) ||
+            id.IndexOf("jangdan_", System.StringComparison.Ordinal) < 0 &&
+            !string.Equals(id, "skill.character.seojin.1.active_8.deoreoreoreo", System.StringComparison.Ordinal))
+            return false;
+
+        bool boss = targetCharacter.RuntimeData?.characterSO != null &&
+            targetCharacter.RuntimeData.characterSO.CharacterType == CharacterType.Boss;
+        int index = runtimeData.comboIndex;
+        int level = Mathf.Clamp(runtimeData.resolvedLevel, 1, 5);
+        if (string.Equals(id, "skill.character.seojin.1.active_5.jangdan_dung", System.StringComparison.Ordinal))
+        {
+            if (index <= 0)
+            {
+                float distance = Mouse3CrowdControlPolicy.ResolveDistance(targetCharacter,
+                    SeojinJangdanRuntime.DungPull(level));
+                Mouse3GatherDisplacementMono gather = targetCharacter.GetComponent<Mouse3GatherDisplacementMono>() ??
+                    targetCharacter.gameObject.AddComponent<Mouse3GatherDisplacementMono>();
+                gather.Begin(runtimeData.spawnPosition + runtimeData.NormalizedDirection * .9f,
+                    distance, .25f, .45f);
+                SeojinJangdanRuntime.RegisterDungHoldTarget(
+                    runtimeData.owner != null ? runtimeData.owner.transform : null,
+                    targetCharacter);
+            }
+            else ApplyJangdanStun(targetCharacter, SeojinJangdanRuntime.KungStun(level, boss));
+        }
+        else if (string.Equals(id, "skill.character.seojin.1.active_7.jangdan_deok", System.StringComparison.Ordinal))
+            ApplyJangdanStun(targetCharacter, SeojinJangdanRuntime.DeokStun(level, index > 0, boss));
+        else if (string.Equals(id, "skill.character.seojin.1.active_8.deoreoreoreo", System.StringComparison.Ordinal))
+            ApplyJangdanStun(targetCharacter, index >= 3
+                ? SeojinJangdanRuntime.QFinalStun(level, boss) : .125f);
+        return true;
+    }
+
+    private static void ApplyJangdanStun(CharacterManager target, float authoredDuration)
+    {
+        float duration = Mouse3CrowdControlPolicy.ResolveDuration(target, authoredDuration);
+        if (duration > 0f)
+            target.SetStat(Stat.StatType.StunDuration,
+                Mathf.Max(target.GetStatValue(Stat.StatType.StunDuration), duration));
+    }
+
+    private void ArmNextBasicBridgeAfterThunderSecondHit()
+    {
+        if (runtimeData?.sourceEquipment == null || runtimeData.comboIndex != 1 ||
+            !string.Equals(runtimeData.sourceEquipment.EquipmentId,
+                "skill.character.seojin.1.active_6.thunder_command",
+                System.StringComparison.Ordinal)) return;
+        Mouse3BasicBridgeState.Arm(runtimeData.owner, runtimeData.resolvedMouse3Profile);
+    }
+
+
 
     private static int ResolveTargetRootId(Collider2D collider)
     {

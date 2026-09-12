@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: skill.character.seojin.2.passive_1.indomitable.effect.buff.2
   m_EditorClassIdentifier: Assembly-CSharp::Effect.EffectSO
   effectId: skill.character.seojin.2.passive_1.indomitable.effect.buff.2
-  authoredDisplayName: "불퇴전 피해 감소"
+  authoredDisplayName: "\uBD88\uD1F4\uC804 \uD53C\uD574 \uAC10\uC18C"
   icon: {fileID: 0}
   config:
-    rid: 666566976232489123
+    rid: 666567034589414118
   references:
     version: 2
     RefIds:
-    - rid: 666566976232489123
+    - rid: 666567034589414118
       type: {class: StatModifierEffectConfig, ns: Effect, asm: Assembly-CSharp}
       data:
         targetStat: 1390

@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73eaf458846449899a1dc70c7ae4f110, type: 3}
+  m_Name: skill.character.seojin.1.active_5.jangdan_dung.layered.v1
+  m_EditorClassIdentifier: Assembly-CSharp::LayeredProjectilePresentationProfileSO
+  schemaVersion: projectile_layers_v1
+  profileId: skill.character.seojin.1.active_5.jangdan_dung.layered.v1
+  layers:
+  - layerId: ground-field
+    role: 0
+    required: 1
+    clip: {fileID: 7400000, guid: 8678e02ab57c9446fa7c6ff480285b31, type: 2}
+    profile: {fileID: 0}
+    startTime: 0
+    lifetime: 1.5
+    loop: 1
+    sortingRelation: -1
+    sortingOffset: 0
+    worldFixed: 1
+    followCaster: 0
+    followTarget: 0
+  - layerId: pull-flow
+    role: 1
+    required: 0
+    clip: {fileID: 7400000, guid: 1a33a8b0a48734cbe870cb5e3c0168f7, type: 2}
+    profile: {fileID: 0}
+    startTime: 0.25
+    lifetime: 0.75
+    loop: 0
+    sortingRelation: 1
+    sortingOffset: 1
+    worldFixed: 1
+    followCaster: 0
+    followTarget: 0
+  - layerId: setup-pulse
+    role: 2
+    required: 0
+    clip: {fileID: 7400000, guid: befea6c955cae47caa1c1f46f9a1aa2c, type: 2}
+    profile: {fileID: 0}
+    startTime: 0.8
+    lifetime: 0.3
+    loop: 0
+    sortingRelation: 1
+    sortingOffset: 2
+    worldFixed: 1
+    followCaster: 0
+    followTarget: 0
+  - layerId: finish-residue
+    role: 3
+    required: 0
+    clip: {fileID: 7400000, guid: 953f163e33cba4c6b9d2e1a73c3a90e4, type: 2}
+    profile: {fileID: 0}
+    startTime: 1.1
+    lifetime: 0.4
+    loop: 0
+    sortingRelation: 1
+    sortingOffset: 3
+    worldFixed: 1
+    followCaster: 0
+    followTarget: 0
+  contactTime: 0.25
+  sweetOpen: 0.8
+  sweetClose: 1.1
+  sustainEnd: 1.5

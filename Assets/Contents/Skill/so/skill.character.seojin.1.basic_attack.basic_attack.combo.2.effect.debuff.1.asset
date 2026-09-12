@@ -13,18 +13,17 @@ MonoBehaviour:
   m_Name: skill.character.seojin.1.basic_attack.basic_attack.combo.2.effect.debuff.1
   m_EditorClassIdentifier: Assembly-CSharp::Effect.EffectSO
   effectId: skill.character.seojin.1.basic_attack.basic_attack.combo.2.effect.debuff.1
-  authoredDisplayName: "전열베기 마무리 넉백"
+  authoredDisplayName: "\uC804\uC5F4\uBCA0\uAE30 \uB9C8\uBB34\uB9AC \uC774\uB3D9 \uC18D\uBC15"
   icon: {fileID: 0}
   config:
-    rid: 666566976232489103
+    rid: 666567034589414194
   references:
     version: 2
     RefIds:
-    - rid: 666566976232489103
-      type: {class: KnockbackEffectConfig, ns: Effect, asm: Assembly-CSharp}
+    - rid: 666567034589414194
+      type: {class: StatModifierEffectConfig, ns: Effect, asm: Assembly-CSharp}
       data:
-        force: 4
-        directionType: 0
-        customDirection: {x: 0, y: 1}
-        normalizeDirection: 1
-        fallbackToProjectileDirection: 1
+        targetStat: 1347
+        modifierType: 0
+        value: 1
+        rootHardCap: 1
